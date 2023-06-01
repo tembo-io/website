@@ -42,14 +42,14 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/CoreDB-io/coredb',
+            'https://github.com/CoreDB-io/docs',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/CoreDB-io/coredb/tree/main/',
+            'https://github.com/CoreDB-io/docs',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
