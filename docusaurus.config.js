@@ -11,15 +11,15 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://www.coredb.io',
+  url: 'https://docs.coredb.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'CoreDB', // Usually your GitHub org/user name.
-  projectName: 'CoreDB', // Usually your repo name.
+  organizationName: 'CoreDB_io', // Usually your GitHub org/user name.
+  projectName: 'docs', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -45,13 +45,7 @@ const config = {
           editUrl:
             'https://github.com/CoreDB-io/docs/blob/main/',
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/CoreDB-io/docs/blob/main/',
-        },
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -65,19 +59,12 @@ const config = {
       // Replace with your project's social card
       image: 'img/social-card.jpg',
       navbar: {
-        title: 'CoreDB',
+        title: 'CoreDB Docs',
         logo: {
           alt: 'CoreDB Logo',
           src: 'img/logo.svg',
         },
         items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/CoreDB-io/coredb',
             label: 'GitHub',
@@ -92,8 +79,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Getting Started',
+                to: '/',
               },
             ],
           },
@@ -118,17 +105,21 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: 'CoreDB Cloud',
+                to: 'https://cloud.coredb.io',
+              },              
+              {
+                label: 'Website',
+                to: 'https://www.coredb.io',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/CoreDB-io/coredb',
+                label: 'Blog',
+                to: 'https://www.coredb.io/blog',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} CoreDB, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} CoreDB, Inc.`,
       },
       prism: {
         theme: lightCodeTheme,
