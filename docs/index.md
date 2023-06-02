@@ -20,7 +20,7 @@ Today, CoreDB is differentiated by:
 We will prompt you to delete unused instances, especially if they are large.
 - Once we have established pricing (later 2023), we'll reach out to give a permanent grandfathered pricing discount to those who run production workloads in our alpha.
 
-## Creating an account
+## Creating an Account
 
 - Join the waitlist, then wait a bit. We will reach out to you soon.
 - DM [rywalker](https://twitter.com/rywalker) on Twitter if you *really* want in badly.

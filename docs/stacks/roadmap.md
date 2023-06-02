@@ -11,7 +11,7 @@ sidebar_position: 3
 - Write-Heavy — for a write-heavy workload
 - Data Warehouse — for analytical data use case
 
-# Example Stacks
+## Example Stacks
 
 - Message queue system (Redis)
 - Data warehouse (Snowflake)
