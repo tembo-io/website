@@ -27,13 +27,6 @@ sidebar_position: 3
     - For example, `org-your-org-name-inst-your-instance-name.data-1.use1.coredb.io`
     - If you get a 404, then you have network connectivity to CoreDB
 
-## Checking if you can reach the CoreDB Platform
-
-- can you get 404 from your domain name?
-    - just type their domain into browser or use curl
-    - For example, `org-your-org-name-inst-your-instance-name.data-1.use1.coredb.io`
-    - If you get a 404, then you have network connectivity to CoreDB
-
 ## Connecting from Python on ARM64 environment
 
 - https://github.com/psycopg/psycopg2/issues/1550
