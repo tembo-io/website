@@ -6,20 +6,20 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'CoreDB',
+  title: 'Tembo',
   tagline: 'The developer platform for building any data service',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://docs.coredb.io',
+  url: 'http://new.tembo.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'CoreDB_io', // Usually your GitHub org/user name.
-  projectName: 'docs', // Usually your repo name.
+  organizationName: 'tembo_io', // Usually your GitHub org/user name.
+  projectName: 'website', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -38,14 +38,20 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          routeBasePath: '/',
+          routeBasePath: '/docs',
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/CoreDB-io/docs/blob/main/',
+            'https://github.com/tembo_io/website/blob/main/',
         },
-        blog: false,
+        blog: {
+          showReadingTime: true,
+          // Please change this to your repo.
+          // Remove this to remove the "edit this page" links.
+          editUrl:
+            'https://github.com/tembo_io/website/blob/main/',
+        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -59,12 +65,22 @@ const config = {
       // Replace with your project's social card
       image: 'img/social-card.jpg',
       navbar: {
-        title: 'CoreDB Docs',
+        title: 'Tembo',
         logo: {
-          alt: 'CoreDB Logo',
+          alt: 'Tembo Logo',
           src: 'img/logo.svg',
         },
         items: [
+          {
+            href: '/docs',
+            label: 'Docs',
+            position: 'right',
+          },
+          {
+            href: '/blog',
+            label: 'Blog',
+            position: 'right',
+          },
           {
             href: 'https://github.com/CoreDB-io/coredb',
             label: 'GitHub',
@@ -80,7 +96,7 @@ const config = {
             items: [
               {
                 label: 'Getting Started',
-                to: '/',
+                to: '/docs',
               },
             ],
           },
@@ -89,7 +105,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/CoreDB-io/coredb',
+                href: 'https://github.com/tembo-io/tembo',
               },
               {
                 label: 'Discord',
@@ -97,7 +113,7 @@ const config = {
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/coredb_io',
+                href: 'https://twitter.com/tembo_io',
               },
             ],
           },
@@ -105,21 +121,21 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'CoreDB Cloud',
-                to: 'https://cloud.coredb.io',
+                label: 'Tembo Cloud',
+                href: 'https://cloud.tembo.io',
               },              
               {
                 label: 'Website',
-                to: 'https://www.coredb.io',
+                to: '/',
               },
               {
                 label: 'Blog',
-                to: 'https://www.coredb.io/blog',
+                to: '/blog',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} CoreDB, Inc.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Tembo. All Rights Reserved`,
       },
       prism: {
         theme: lightCodeTheme,
