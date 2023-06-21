@@ -315,7 +315,7 @@ export function OrbitCanvas() {
         };
     
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        (ctx as any).reset();
+        ctx.restore();
         ctx.translate(centerX, centerY);
     
         orbitConfigs.forEach(function (orbitConfig) {
