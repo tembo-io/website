@@ -7,7 +7,7 @@ import styles from './index.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import LayoutBackdrop from '../components/LayoutBackdrop';
 import Footer from '../components/Footer'
-import PlanetAnimation from '../components/PlanetAnimation';
+import SolarSystem from '../components/SolarSystem';
 
 export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
@@ -36,7 +36,7 @@ export default function Home(): JSX.Element {
             Collapse the database sprawl of the modern <br /> data stack with a unified developer platform.
           </p>
           <a className={clsx(styles.cta, styles.heroCTA, "absolute")} href="./waitlist.html"></a>
-          <PlanetAnimation />
+          <SolarSystem />
         </section>
         <section className={clsx(styles.section, styles.content, "relative")}>
           <img className={clsx(styles.screenshot, styles.screenshot1, "z-20 absolute")} src={useBaseUrl("img/tembo-screenshot-1.png")} />

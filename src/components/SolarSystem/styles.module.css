@@ -1,6 +1,8 @@
-.planetAnimation { 
+.solarSystem { 
   position: relative;
   height: calc(482px + 260px);
+  margin-left: -3em;
+  margin-right: -3em;
 }
 
 .planet {
@@ -13,9 +15,4 @@
   top: calc(905px - 580px);
   border-radius: 100%;
   background: linear-gradient(360deg, #FFF8F6 -13.61%, #FFF8F6 50.26%, #272727 50.55%, #272727 100%);
-}
-
-#orbit-canvas {
-  height: 100%;
-  width: 100%;
 }

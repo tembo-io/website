@@ -1,14 +1,11 @@
+import React, { useEffect } from 'react';
 import { useLayoutEffect, useRef } from "react";
 
-export function usePlanetAnimation() {  
-  const canvasRef = useRef<HTMLCanvasElement>()
-  useLayoutEffect(() => {
-    if (!canvasRef.current) return;
-    console.log("animation loaded", canvasRef.current);
+export function OrbitCanvas() {  
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
     // assumed dims 860 x 742
-    
-    var orbitConfigs = [
+    const orbitConfigs = [
       {
         rotationAngle: 30,
         offsetX: 180,
@@ -248,6 +245,8 @@ export function usePlanetAnimation() {
     ];
     
     const setupAnimation = function () {
+      if (!canvasRef.current) return;
+      const animationFrames: number[] = [];
       const canvas = canvasRef.current
       const ctx = canvas.getContext("2d");
     
@@ -330,14 +329,22 @@ export function usePlanetAnimation() {
           });
         });
     
-        window.requestAnimationFrame(animate);
+        animationFrames.push(window.requestAnimationFrame(animate));
       };
     
-      window.requestAnimationFrame(animate);
+      animationFrames.push(window.requestAnimationFrame(animate));
+
+      return () => {
+        animationFrames.forEach((frame) => {
+          window.cancelAnimationFrame(frame);
+        })
+      }
     };
 
+  useEffect(() =>{
+    console.log("animation loaded", canvasRef.current);
     setupAnimation();
-  }, [canvasRef.current])
+  }, [canvasRef.current, setupAnimation])
 
-  return canvasRef;
+  return <canvas className="h-full w-full" ref={canvasRef}></canvas>
 }
