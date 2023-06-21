@@ -1,7 +1,7 @@
 .waitlistForm {
   @apply pt-20 pb-44;
   @apply flex flex-col;
-  @apply xl:w-3/12 lg:w-5/12 w-full;
+  @apply xl:w-4/12 lg:w-5/12 w-full;
 }
 
 .waitlistLabel {

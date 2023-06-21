@@ -75,7 +75,7 @@
 .heroCTA {
   @apply z-30;
   position: absolute;
-  animation: cta 0.25s linear forwards;
+  animation: cta 0.5s linear forwards;
   animation-play-state: paused;
   /* Animation tracks the users scroll state using a property set on body */
   animation-delay: calc(var(--scroll) * -1s);
@@ -99,10 +99,11 @@
     top: 30px;
     left: auto;
   }
-  99% {
+  /* Make this the absolute last keyframe to reduce jerkiness */
+  99.999% {
     left: auto;
     top: 700px;
-    right: 45%;
+    right: 40%;
   }
   /* add additional keyframe to horziontally center while preserving smooth animation */
   100% {
