@@ -84,7 +84,7 @@
 
   @media (max-width: 650px) {
     animation: none;
-    right: -10px;
+    right: 0px;
     width: 189px;
     height: 189px;
   }
