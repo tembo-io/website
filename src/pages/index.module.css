@@ -8,7 +8,8 @@
 }
 
 .content {
-  @apply dark:bg-black dark:text-white bg-white relative;
+  @apply dark:bg-black dark:text-white relative;
+  background-color: #FFF8F6;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
@@ -34,11 +35,15 @@
 }
 
 .screenshot {
-  height: 730px;
+  width: 95vw;
+  max-height: 800px;
 }
 
 .screenshot1 {
   top: -260px;
+  box-shadow: 0px 24px 44px 0px rgba(247, 142, 146, 0.25);
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
 }
 
 .cta {
@@ -46,14 +51,6 @@
   width: 276px;
   height: 276px;
   background-size: cover;
-}
-
-.joinCTA {
-  background-image: url('@site/static/img/join-cta.png');
-  background-size: contain;
-  width: 210px;
-  height: 77px;
-  background-repeat: no-repeat;
 }
 
 .heroCTA {
@@ -66,20 +63,24 @@
   animation-iteration-count: 1;
   animation-fill-mode: both; 
 
-  @media (max-width: 650px) {
+}
+
+@media (max-width: 650px) {
+  .heroCTA {
     animation: none;
     right: 0px;
     width: 189px;
     height: 189px;
   }
-  
-  @media (min-width: 650px) and (max-width: 900px) {
+}
+
+@media (min-width: 650px) and (max-width: 900px) {
+  .heroCTA {
     animation: none;
     top: 30px;
     right: 10px;
   }
 }
-
 
 @keyframes cta {
   0% {

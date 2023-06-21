@@ -16,6 +16,13 @@
   }
 }
 
+.joinCTA {
+  background-image: url('@site/static/img/join-cta.png');
+  background-size: contain;
+  width: 210px;
+  height: 77px;
+  background-repeat: no-repeat;
+}
 
 .cta {
   @apply mx-auto absolute left-0 right-0;
