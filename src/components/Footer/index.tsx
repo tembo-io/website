@@ -19,7 +19,7 @@ export default function Footer({ className, hideCTA }: FooterProps): JSX.Element
       {hideCTA ? null : <Link href="/waitlist" className={clsx(styles.cta, "bg-transparent border-none")} />}
       <div className="flex flex-col flex-1 justify-center">
         <p className={styles.footerCallout}>
-          We Believe Everything Is <br /> Possible With <span className="font-bold">POSTGRES</span>
+          We Believe Everything Is Possible With <span className="font-bold">POSTGRES</span>
         </p>
         <Link className={clsx(styles.joinCTA, "mx-auto mt-28")} href="https://tembo.breezy.hr/" />
       </div>

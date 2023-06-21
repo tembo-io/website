@@ -62,7 +62,11 @@
 
 .footerCallout {
   @apply text-center mx-auto pt-6 text-white sm:text-3xl text-2xl font-display;
-  @media screen(sm) {
+  width: 70%;
+}
+
+@media screen(sm) {
+  .footerCallout {
     font-size: 39px;
     width: 450px;
   }
