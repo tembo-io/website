@@ -1,0 +1,33 @@
+.backdrop {
+  background-image: url('@site/static/img/background.jpg'), linear-gradient(201.13deg, #FFCBC6 13.86%, #FD8D93 40.93%, #CE71A9 95.22%);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  :global(.navbar) {
+    @apply flex justify-between items-center mt-16 mb-16;
+    margin-top: 56px;
+    position: relative;
+    box-shadow: none;
+
+    /* TODO: componentize default padding */
+    @apply lg:px-44 sm:px-20 px-12; 
+    @media screen(lg) {
+      padding: 0 168px;
+    }
+  }
+
+  :global(.navbar__link) {
+    @apply text-lg;
+    @apply font-bold;
+    @apply font-body;
+    @apply text-black;
+
+    &:not(last-child)::after {
+      content: '/';
+      @apply text-lg;
+      @apply font-display;
+      @apply px-10;
+      color: rgba(0, 0, 0, 0.3);
+    }
+  }
+}

@@ -11,14 +11,8 @@
   }
 }
 
-.hero {
-  background-image: url('@site/static/img/background.jpg'), linear-gradient(201.13deg, #FFCBC6 13.86%, #FD8D93 40.93%, #CE71A9 95.22%);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .headline {
- @apply xl:text-9xl sm:text-8xl text-7xl font-display font-bold; 
+  @apply xl:text-9xl sm:text-8xl text-7xl font-display font-bold; 
 }
 
 .content {
@@ -33,24 +27,11 @@
   top: -30px;
 }
 
-.header {
-  @apply flex justify-between items-center pt-16 pb-16;
-  padding-top: 56px;
-}
-
-.headerLogo {
-  @apply text-3xl;
-  @apply font-body;
-  @apply font-bold;
-  @apply flex;
-  @apply items-center;
-  @apply flex-row;
-}
-
 .link {
   @apply text-lg;
   @apply font-bold;
   @apply font-body;
+  @apply text-black;
 }
 
 .headerDivider {

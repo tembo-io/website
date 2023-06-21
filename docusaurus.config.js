@@ -80,6 +80,7 @@ const config = {
       image: 'img/social-card.jpg',
       navbar: {
         title: 'Tembo',
+        
         logo: {
           alt: 'Tembo Logo',
           src: 'img/logo.svg',
