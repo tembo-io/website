@@ -270,6 +270,8 @@ export function OrbitCanvas() {
         }
     
         const drawOrbit = function (config) {
+          // prevent error if one last frame runs before cleaning up callbacks
+          if (!canvasRef.current) return;
           ctx.save();
           ctx.translate(
             config.offsetX * WIDTH_FACTOR,
@@ -340,10 +342,11 @@ export function OrbitCanvas() {
         })
       }
     };
-
-  useEffect(() =>{
-    console.log("animation loaded", canvasRef.current);
-    setupAnimation();
+    
+    useEffect(() =>{
+      console.log("animation loaded", canvasRef.current);
+      const cleanup = setupAnimation();
+      return cleanup;
   }, [canvasRef.current, setupAnimation])
 
   return <canvas className="h-full w-full" ref={canvasRef}></canvas>
