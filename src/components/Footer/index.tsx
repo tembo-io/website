@@ -14,7 +14,7 @@ interface FooterProps {
 export default function Footer({ className, hideCTA }: FooterProps): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <footer className={clsx(styles.footer, className)}>
+    <footer className={clsx(styles.footerWrapper, className)}>
       {hideCTA ? null : <button className={clsx(styles.cta, "bg-transparent border-none")} />}
       <div className="flex flex-col flex-1 justify-center">
         <p className={styles.footerCallout}>

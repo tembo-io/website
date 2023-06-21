@@ -8,7 +8,7 @@ import clsx from 'clsx';
 export default function LayoutBackdrop({ children }: { children: React.ReactNode }): JSX.Element {
   return (
     <LayoutProvider>
-      <main className={clsx(styles.backdrop, "dark:bg-black")}>
+      <main className={clsx(styles.backdrop, "backdrop-nav", "dark:bg-black")}>
         <Navbar />
         {children}
       </main>

@@ -1,4 +1,4 @@
-.footer {
+.footerWrapper {
   @apply bg-black flex flex-col;
   bottom: -750px;
   width: 100%;
