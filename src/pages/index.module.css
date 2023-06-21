@@ -33,22 +33,6 @@
   color: rgba(0, 0, 0, 0.3);
 }
 
-.footerCallout {
-  @apply text-center mx-auto pt-6 text-white sm:text-3xl text-2xl font-display;
-  @media screen(sm) {
-    font-size: 39px;
-    width: 450px;
-  }
-}
-
-.footerLinks {
-  @apply absolute bottom-10 text-white flex w-full justify-between content-margin pt-10 flex-wrap;
-
-  .link {
-    @apply px-6;
-  }
-}
-
 .screenshot {
   height: 730px;
 }
@@ -106,12 +90,12 @@
   /* Make this the absolute last keyframe to reduce jerkiness */
   99.999% {
     left: auto;
-    top: 700px;
+    top: 675px;
     right: 40%;
   }
   /* add additional keyframe to horziontally center while preserving smooth animation */
   100% {
-    top: 700px;
+    top: 675px;
     right: 0;
     left: 0;
     margin: auto;
