@@ -25,6 +25,13 @@ $ yarn build
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
+
+### Deployment
+
+- `main` is auto-deployed to http://new.tembo.io
+- Open PRs (draft or regular) have preview environments deployed, comment including link will be posted in the PR
+
+
 ### Recommended Workflow
 
 * Check out new branch
@@ -35,7 +42,3 @@ This command generates static content into the `build` directory and can be serv
   * Review preview environment
   * Squash and merge without review needed
 
-
-### Deployment
-
-`main` is auto-deployed to http://new.tembo.io
