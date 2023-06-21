@@ -11,10 +11,14 @@
   background-position-y: 100px;
   background-repeat: no-repeat;
 
-  @media (max-width: 900px) {
+}
+
+@media (max-width: 900px) {
+  .footerWrapper {
     background-image: url('@site/static/img/footer-left-mobile.png'), url('@site/static/img/footer-right-mobile.png');
   }
 }
+
 
 .joinCTA {
   background-image: url('@site/static/img/join-cta.png');

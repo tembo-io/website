@@ -35,8 +35,19 @@
 }
 
 .screenshot {
-  width: 95vw;
-  max-height: 800px;
+  width: 80vw;
+  height: auto;
+  max-width: 1440px;
+}
+
+@media (max-width: 675px) {
+  .screenshot {
+    width: 98vw;
+  }
+
+  .screenshot1 {
+    top: -150px;
+  }
 }
 
 .screenshot1 {
