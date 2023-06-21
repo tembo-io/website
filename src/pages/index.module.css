@@ -82,12 +82,16 @@
   animation-iteration-count: 1;
   animation-fill-mode: both; 
 
-  @media (max-width: 400px) {
+  @media (max-width: 650px) {
+    animation: none;
     right: -10px;
+    width: 189px;
+    height: 189px;
   }
   
-  @media (max-width: 900px) {
+  @media (min-width: 650px) and (max-width: 900px) {
     animation: none;
+    top: 30px;
     right: 10px;
   }
 }
