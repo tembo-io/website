@@ -55,16 +55,12 @@
 }
 
 .backdrop-nav .navbar__title {
-  @apply text-3xl;
-  @apply font-body;
-  @apply font-bold;
+  @apply text-3xl lowercase font-display font-bold;
+
 }
 
 .backdrop-nav .navbar__link {
-  @apply text-lg;
-  @apply font-bold;
-  @apply font-body;
-  @apply text-black;
+  @apply text-lg font-bold font-display text-black;
 }
 
 .backdrop-nav .navbar__link:not(last-child)::after  {
