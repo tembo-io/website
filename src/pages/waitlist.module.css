@@ -1,0 +1,22 @@
+.waitlistForm {
+  @apply pt-20 pb-44;
+  @apply flex flex-col;
+  @apply xl:w-3/12 lg:w-5/12 w-full;
+}
+
+.waitlistLabel {
+  @apply text-black;
+  @apply font-body;
+  @apply text-xl;
+}
+
+.waitlistInput {
+  @apply font-body;
+  @apply text-xl;
+  @apply border-b-2;
+  @apply border-black;
+  @apply mb-14;
+  border: none;
+  border-bottom: 2px solid black;
+  background: none;
+}

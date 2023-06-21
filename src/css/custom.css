@@ -35,3 +35,15 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
+
+@layer utilities {
+  /* Default margin for page content on different breakpoint */
+  .content-margin {
+    @apply lg:px-44 sm:px-20 px-12; 
+  
+    @media screen(lg) {
+      padding: 0 168px;
+    }
+  }
+}
+

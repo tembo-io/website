@@ -4,16 +4,10 @@
   background-size: cover;
 
   :global(.navbar) {
-    @apply flex justify-between items-center mt-16 mb-16;
+    @apply flex justify-between content-margin items-center mt-16 mb-16;
     margin-top: 56px;
     position: relative;
     box-shadow: none;
-
-    /* TODO: componentize default padding */
-    @apply lg:px-44 sm:px-20 px-12; 
-    @media screen(lg) {
-      padding: 0 168px;
-    }
   }
 
   :global(.navbar__link) {

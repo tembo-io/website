@@ -3,14 +3,6 @@
  * and scoped locally.
  */
 
- .section {
-  @apply lg:px-44 sm:px-20 px-12; 
-
-  @media screen(lg) {
-    padding: 0 168px;
-  }
-}
-
 .headline {
   @apply xl:text-9xl sm:text-8xl text-7xl font-display font-bold; 
 }
@@ -41,31 +33,6 @@
   color: rgba(0, 0, 0, 0.3);
 }
 
-.footer {
-  @apply bg-black;
-  @apply flex;
-  @apply flex-col;
-  bottom: -750px;
-  width: 100%;
-  height: 875px;
-  border-radius: 124px 124px 0px 0px;
-  background-image: url('@site/static/img/footer-left.png'), url('@site/static/img/footer-right.png');
-  background-position-x: left, right;
-  background-size: contain;
-  /* reduce distance from top */
-  background-position-y: 100px;
-  background-repeat: no-repeat;
-
-  @media (max-width: 900px) {
-    background-image: url('@site/static/img/footer-left-mobile.png'), url('@site/static/img/footer-right-mobile.png');
-  }
-
-  .cta {
-    @apply mx-auto absolute left-0 right-0;
-    top: -104px;
-  }
-}
-
 .footerCallout {
   @apply text-center mx-auto pt-6 text-white sm:text-3xl text-2xl font-display;
   @media screen(sm) {
@@ -75,7 +42,7 @@
 }
 
 .footerLinks {
-  @apply absolute bottom-10 text-white flex w-full justify-between section pt-10 flex-wrap;
+  @apply absolute bottom-10 text-white flex w-full justify-between content-margin pt-10 flex-wrap;
 
   .link {
     @apply px-6;

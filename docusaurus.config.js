@@ -97,6 +97,11 @@ const config = {
             position: 'right',
           },
           {
+            href: '/waitlist',
+            label: 'Waitlist',
+            position: 'right',
+          },
+          {
             href: 'https://github.com/CoreDB-io/coredb',
             label: 'GitHub',
             position: 'right',
