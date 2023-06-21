@@ -3,21 +3,169 @@
  * and scoped locally.
  */
 
- .heroBanner {
-    padding: 4rem 0;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+ .section {
+  @apply lg:px-44 sm:px-20 px-12; 
+
+  @media screen(lg) {
+    padding: 0 168px;
+  }
+}
+
+.hero {
+  background-image: url('@site/static/img/background.jpg'), linear-gradient(201.13deg, #FFCBC6 13.86%, #FD8D93 40.93%, #CE71A9 95.22%);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.headline {
+ @apply xl:text-9xl sm:text-8xl text-7xl font-display font-bold; 
+}
+
+.content {
+  @apply dark:bg-black dark:text-white bg-white relative;
+  border-radius: 40px 40px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 730px;
+  padding-bottom: 730px;
+  gap: 124px;
+  top: -30px;
+}
+
+.header {
+  @apply flex justify-between items-center pt-16 pb-16;
+  padding-top: 56px;
+}
+
+.headerLogo {
+  @apply text-3xl;
+  @apply font-body;
+  @apply font-bold;
+  @apply flex;
+  @apply items-center;
+  @apply flex-row;
+}
+
+.link {
+  @apply text-lg;
+  @apply font-bold;
+  @apply font-body;
+}
+
+.headerDivider {
+  @apply text-lg;
+  @apply font-display;
+  @apply px-10;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.footer {
+  @apply bg-black;
+  @apply flex;
+  @apply flex-col;
+  bottom: -750px;
+  width: 100%;
+  height: 875px;
+  border-radius: 124px 124px 0px 0px;
+  background-image: url('@site/static/img/footer-left.png'), url('@site/static/img/footer-right.png');
+  background-position-x: left, right;
+  background-size: contain;
+  /* reduce distance from top */
+  background-position-y: 100px;
+  background-repeat: no-repeat;
+
+  @media (max-width: 900px) {
+    background-image: url('@site/static/img/footer-left-mobile.png'), url('@site/static/img/footer-right-mobile.png');
+  }
+
+  .cta {
+    @apply mx-auto absolute left-0 right-0;
+    top: -104px;
+  }
+}
+
+.footerCallout {
+  @apply text-center mx-auto pt-6 text-white sm:text-3xl text-2xl font-display;
+  @media screen(sm) {
+    font-size: 39px;
+    width: 450px;
+  }
+}
+
+.footerLinks {
+  @apply absolute bottom-10 text-white flex w-full justify-between section pt-10 flex-wrap;
+
+  .link {
+    @apply px-6;
+  }
+}
+
+.screenshot {
+  height: 730px;
+}
+
+.screenshot1 {
+  top: -260px;
+}
+
+.solarSystem { 
+  position: relative;
+  height: calc(482px + 260px);
+}
+
+.cta {
+  background-image: url('@site/static/img/cta.png');
+  width: 240px;
+  height: 240px;
+  background-size: cover;
+}
+
+.joinCTA {
+  background-image: url('@site/static/img/join-cta.png');
+  background-size: contain;
+  width: 210px;
+  height: 77px;
+  background-repeat: no-repeat;
+}
+
+.heroCTA {
+  @apply z-30;
+  left: auto;
+  animation: cta 0.25s linear forwards;
+  animation-play-state: paused;
+  /* Animation tracks the users scroll state using a property set on body */
+  animation-delay: calc(var(--scroll) * -1s);
+  animation-iteration-count: 1;
+  animation-fill-mode: both; 
+
+  @media (max-width: 400px) {
+    right: -10px;
   }
   
-  @media screen and (max-width: 996px) {
-    .heroBanner {
-      padding: 2rem;
-    }
+  @media (max-width: 900px) {
+    animation: none;
+    right: 10px;
   }
-  
-  .buttons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+
+@keyframes cta {
+  0% {
+    @apply right-44;
+    top: 195px;
+    left: auto;
   }
+  99% {
+    left: auto;
+    top: 800px;
+    right: 45%;
+  }
+  /* add additional keyframe to horziontally center while preserving smooth animation */
+  100% {
+    top: 800px;
+    right: 0;
+    left: 0;
+    margin: auto;
+  }
+}
