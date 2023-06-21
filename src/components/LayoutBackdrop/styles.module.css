@@ -10,6 +10,12 @@
     box-shadow: none;
   }
 
+  :global(.navbar__title) {
+    @apply text-3xl;
+    @apply font-body;
+    @apply font-bold;
+  }
+
   :global(.navbar__link) {
     @apply text-lg;
     @apply font-bold;

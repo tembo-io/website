@@ -59,8 +59,8 @@
 
 .cta {
   background-image: url('@site/static/img/cta.png');
-  width: 240px;
-  height: 240px;
+  width: 276px;
+  height: 276px;
   background-size: cover;
 }
 
@@ -75,8 +75,6 @@
 .heroCTA {
   @apply z-30;
   position: absolute;
-  top: 100px;
-  left: auto;
   animation: cta 0.25s linear forwards;
   animation-play-state: paused;
   /* Animation tracks the users scroll state using a property set on body */
@@ -97,8 +95,8 @@
 
 @keyframes cta {
   0% {
-    @apply right-44;
-    top: 100px;
+    right: 108px;
+    top: 30px;
     left: auto;
   }
   99% {
