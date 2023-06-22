@@ -10,6 +10,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
+  --content-background-color: #FFF8F6;
   --ifm-color-primary: #d00ed4;
   --ifm-color-primary-dark: #a01ec5;
   --ifm-color-primary-darker: #701589;
@@ -72,7 +73,7 @@
 }
 
 .backdrop-nav .navbar-sidebar {
-  background-color: #fff;
+  background-color: var(--content-background-color);
 }
 
 .backdrop-nav .navbar__toggle {

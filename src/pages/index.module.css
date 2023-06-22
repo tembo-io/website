@@ -9,7 +9,7 @@
 
 .content {
   @apply dark:bg-black dark:text-white relative;
-  background-color: #FFF8F6;
+  background-color: var(--content-background-color);
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
