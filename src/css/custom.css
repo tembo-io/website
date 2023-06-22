@@ -39,7 +39,7 @@
 @layer utilities {
   /* Default margin for page content on different breakpoint */
   .content-margin {
-    @apply lg:px-44 sm:px-20 px-12; 
+    @apply lg:px-44 sm:px-20 px-4; 
   
     @media screen(lg) {
       padding: 0 168px;

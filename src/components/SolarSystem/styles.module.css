@@ -7,6 +7,11 @@
   @media (max-width: 900px) {
     margin-top: 44px;
   }
+
+  @media (max-width: 500px) {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
 }
 
 .planet {
