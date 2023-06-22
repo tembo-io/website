@@ -25,8 +25,8 @@ export default function Home(): JSX.Element {
 
   return (
     <LayoutBackdrop>
-      <div className="relative">
-        <section className="content-margin">
+      <section className="content-margin">
+        <div className="relative">
           <p className="text-xl mb-2 font-body font-semibold">Goodbye Database Sprawl</p>
           <h1 className={styles.headline}>
             Hello<br />
@@ -37,17 +37,17 @@ export default function Home(): JSX.Element {
           </p>
           <a className={clsx(styles.cta, styles.heroCTA, "absolute")} href="./waitlist.html"></a>
           <SolarSystem />
-        </section>
-        <section className={clsx(styles.content)}>
-          <img className={clsx(styles.screenshot, styles.screenshot1, "z-20")} src={useBaseUrl("img/tembo-screenshot-1.png")} />
-          <div className={clsx(styles.goalText)}>
-            <p className="text-base mb-4 font-display font-bold uppercase">Our Goal</p>
-            <h2 className="md:text-5xl sm:text-3xl text-xl font-display font-normal">Build a database for every need.<div className="font-bold">Tembo makes it easy.</div></h2>
-          </div>
-          <img className={clsx(styles.screenshot, styles.screenshot2)} src={useBaseUrl("img/tembo-screenshot-2.png")}/>
-        </section>
-        <Footer className={clsx(styles.indexFooter, 'relative')} />
-      </div>
+        </div>
+      </section>
+      <section className={clsx(styles.content)}>
+        <img className={clsx(styles.screenshot, styles.screenshot1, "z-20")} src={useBaseUrl("img/tembo-screenshot-1.png")} />
+        <div className={clsx(styles.goalText)}>
+          <p className="text-base mb-4 font-display font-bold uppercase">Our Goal</p>
+          <h2 className="md:text-5xl sm:text-3xl text-xl font-display font-normal">Build a database for every need.<div className="font-bold">Tembo makes it easy.</div></h2>
+        </div>
+        <img className={clsx(styles.screenshot, styles.screenshot2)} src={useBaseUrl("img/tembo-screenshot-2.png")}/>
+      </section>
+      <Footer className={clsx(styles.indexFooter, 'relative')} />
     </LayoutBackdrop>
   );
 }

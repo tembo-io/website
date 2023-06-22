@@ -83,7 +83,7 @@
   margin-top: -124px;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 780px) {
   .heroCTA {
     animation: none;
     right: 0px;
@@ -92,31 +92,25 @@
   }
 }
 
-@media (min-width: 650px) and (max-width: 900px) {
+@media (min-width: 780px) and (max-width: 900px) {
   .heroCTA {
     animation: none;
-    top: 30px;
-    right: 10px;
+    top: 0px;
+    right: 0px;
+    width: 189px;
+    height: 189px;
   }
 }
 
 @keyframes cta {
   0% {
-    right: 108px;
+    right: 0px;
     top: 30px;
     left: auto;
   }
-  /* Make this the absolute last keyframe to reduce jerkiness */
-  99.999% {
-    left: auto;
-    top: 675px;
-    right: 40%;
-  }
-  /* add additional keyframe to horziontally center while preserving smooth animation */
   100% {
-    top: 675px;
-    right: 0;
-    left: 0;
-    margin: auto;
+    left: auto;
+    top: calc(100% - 397px);
+    right: calc(50% - 138px);
   }
 }
