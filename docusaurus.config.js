@@ -134,6 +134,9 @@ const config = {
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Tembo. All Rights Reserved`,
       },
+      colorMode: {
+        disableSwitch: true,
+      },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,

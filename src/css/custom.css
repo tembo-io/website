@@ -62,7 +62,8 @@
   @apply text-lg font-bold font-display text-black;
 }
 
-.backdrop-nav .navbar__link:not(last-child)::after  {
+/* Need to use special logic because of the hidden light/dark switch */
+.backdrop-nav .navbar__link:nth-last-child(n+3)::after  {
   @apply text-lg;
   @apply font-display;
   @apply px-10;
