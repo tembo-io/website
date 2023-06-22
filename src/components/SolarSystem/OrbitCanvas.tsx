@@ -247,26 +247,30 @@ export function OrbitCanvas() {
     const setupAnimation = function () {
       if (!canvasRef.current) return;
       const animationFrames: number[] = [];
-      const canvas = canvasRef.current
+      const canvas = canvasRef.current;
+      const container = canvas.parentElement;
       const ctx = canvas.getContext("2d");
     
       const animate = function () {
-        const width = canvas.clientWidth;
-        const height = canvas.clientHeight;
-        canvas.width = width;
-        canvas.height = height;
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        canvas.width = width * 2;
+        canvas.height = height * 2;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
     
         const centerX = width / 2;
         const centerY = height - 400;
     
         const MARGINS = 90;
         const MAX_WIDTH = 750;
+        const widthLessMargins  =width - MARGINS
         let WIDTH_FACTOR = 1;
         let HEIGHT_FACTOR = 1;
     
-        if (width - MARGINS < MAX_WIDTH) {
-          WIDTH_FACTOR = (width - MARGINS) / MAX_WIDTH;
-          HEIGHT_FACTOR = (width - MARGINS) / MAX_WIDTH;
+        if (widthLessMargins < MAX_WIDTH) {
+          WIDTH_FACTOR = (widthLessMargins) / MAX_WIDTH;
+          HEIGHT_FACTOR = (widthLessMargins) / MAX_WIDTH;
         }
     
         const drawOrbit = function (config) {
@@ -290,6 +294,7 @@ export function OrbitCanvas() {
             2 * Math.PI
           );
           ctx.strokeStyle = config.color;
+          ctx.lineWidth = 1.75;
           ctx.stroke();
     
           ctx.restore();
@@ -318,6 +323,7 @@ export function OrbitCanvas() {
     
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.restore();
+        canvas.getContext('2d').scale(2,2)
         ctx.translate(centerX, centerY);
     
         orbitConfigs.forEach(function (orbitConfig) {
