@@ -70,3 +70,15 @@
   content: '/';
   color: rgba(0, 0, 0, 0.3);
 }
+
+.backdrop-nav .navbar-sidebar {
+  background-color: #fff;
+}
+
+.backdrop-nav .navbar__toggle {
+  content: url("@site/static/img/menu.svg");
+  justify-content: flex-end;
+  float: right;
+  position: absolute;
+  right: 20px;
+}
