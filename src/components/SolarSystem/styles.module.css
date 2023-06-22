@@ -3,12 +3,16 @@
   height: calc(482px + 260px);
   margin-left: -3em;
   margin-right: -3em;
+}
 
-  @media (max-width: 900px) {
+@media (max-width: 900px) {
+  .solarSystem { 
     margin-top: 44px;
   }
+}
 
-  @media (max-width: 500px) {
+@media (max-width: 500px) {
+  .solarSystem {
     margin-left: 0.5em;
     margin-right: 0.5em;
   }
