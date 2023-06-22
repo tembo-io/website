@@ -10,7 +10,7 @@ export function OrbitCanvas() {
         rotationAngle: 30,
         offsetX: 180,
         offsetY: 172,
-        diameterX: 190,
+        diameterX: 160,
         diameterY: 270,
         color: "rgba(0, 0, 0, 0.25)",
         circles: [
@@ -56,7 +56,7 @@ export function OrbitCanvas() {
         rotationAngle: -15,
         offsetX: -30,
         offsetY: 110,
-        diameterX: 210,
+        diameterX: 180,
         diameterY: 290,
         color: "rgba(0, 0, 0, 0.25)",
         circles: [
@@ -78,7 +78,7 @@ export function OrbitCanvas() {
         rotationAngle: -70,
         offsetX: -100,
         offsetY: 140,
-        diameterX: 210,
+        diameterX: 170,
         diameterY: 290,
         color: "rgba(0, 0, 0, 0.25)",
         circles: [
@@ -112,8 +112,8 @@ export function OrbitCanvas() {
         rotationAngle: -10,
         offsetX: 20,
         offsetY: 100,
-        diameterX: 235,
-        diameterY: 400,
+        diameterX: 180,
+        diameterY: 410,
         color: "#000000",
         circles: [
           {
@@ -146,7 +146,7 @@ export function OrbitCanvas() {
         rotationAngle: -30,
         offsetX: -70,
         offsetY: 160,
-        diameterX: 215,
+        diameterX: 170,
         diameterY: 375,
         color: "#000000",
         circles: [
@@ -190,7 +190,7 @@ export function OrbitCanvas() {
         rotationAngle: 20,
         offsetX: 90,
         offsetY: 120,
-        diameterX: 210,
+        diameterX: 170,
         diameterY: 380,
         color: "#000000",
         circles: [
@@ -224,7 +224,7 @@ export function OrbitCanvas() {
         rotationAngle: 18,
         offsetX: 130,
         offsetY: 120,
-        diameterX: 200,
+        diameterX: 170,
         diameterY: 250,
         color: "#000000",
         circles: [
@@ -262,15 +262,21 @@ export function OrbitCanvas() {
         const centerX = width / 2;
         const centerY = height - 400;
     
-        const MARGINS = 90;
-        const MAX_WIDTH = 750;
-        const widthLessMargins  =width - MARGINS
+        const MARGINS = 120;
+        const DESIGNED_WIDTH = 750;
+        let widthLessMargins = width - MARGINS
         let WIDTH_FACTOR = 1;
         let HEIGHT_FACTOR = 1;
+
+        if (widthLessMargins > 1250) {
+          widthLessMargins = 1250
+        }
     
-        if (widthLessMargins < MAX_WIDTH) {
-          WIDTH_FACTOR = (widthLessMargins) / MAX_WIDTH;
-          HEIGHT_FACTOR = (widthLessMargins) / MAX_WIDTH;
+        WIDTH_FACTOR = widthLessMargins / DESIGNED_WIDTH;
+        HEIGHT_FACTOR = widthLessMargins / DESIGNED_WIDTH;
+
+        if (HEIGHT_FACTOR > 1.3) {
+          HEIGHT_FACTOR = 1.3
         }
     
         const drawOrbit = function (config) {
@@ -294,7 +300,7 @@ export function OrbitCanvas() {
             2 * Math.PI
           );
           ctx.strokeStyle = config.color;
-          ctx.lineWidth = 1.75;
+          ctx.lineWidth = 1.5;
           ctx.stroke();
     
           ctx.restore();
