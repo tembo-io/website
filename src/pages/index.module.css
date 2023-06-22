@@ -40,6 +40,13 @@
   max-width: 1440px;
 }
 
+.screenshot1 {
+  top: -260px;
+  box-shadow: 0px 24px 44px 0px rgba(247, 142, 146, 0.25);
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
 @media (max-width: 675px) {
   .screenshot {
     width: 98vw;
@@ -50,12 +57,7 @@
   }
 }
 
-.screenshot1 {
-  top: -260px;
-  box-shadow: 0px 24px 44px 0px rgba(247, 142, 146, 0.25);
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
-}
+
 
 .cta {
   background-image: url('@site/static/img/cta.png');
