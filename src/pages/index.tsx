@@ -26,7 +26,7 @@ export default function Home(): JSX.Element {
   return (
     <LayoutBackdrop>
       <div className="relative">
-        <section className="content-margin">
+        <section className="content-margin overflow-x-hidden">
           <p className="text-xl mb-2 font-body font-semibold">Goodbye Database Sprawl</p>
           <h1 className={styles.headline}>
             Hello<br />

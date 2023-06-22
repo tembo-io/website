@@ -11,13 +11,6 @@
   }
 }
 
-@media (max-width: 500px) {
-  .solarSystem {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-  }
-}
-
 .planet {
   position: absolute;
   width: 316px;
