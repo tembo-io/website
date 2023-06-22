@@ -1,6 +1,5 @@
 .footerWrapper {
   @apply bg-black flex flex-col;
-  bottom: -724px;
   width: 100%;
   height: 875px;
   border-radius: 124px 124px 0px 0px;
@@ -9,7 +8,6 @@
   /* reduce distance from top */
   background-position-y: 100%;
   background-repeat: no-repeat;
-
 }
 
 @media (min-width: 0px) {
