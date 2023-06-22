@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import clsx from 'clsx';
 // import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { SimpleFooter } from '@docusaurus/theme-common';
 
 import styles from './styles.module.css';
 import useBaseUrl from '@docusaurus/useBaseUrl';
@@ -14,6 +15,7 @@ interface FooterProps {
 
 export default function Footer({ className, hideCTA }: FooterProps): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
+  const footerLinks =  (siteConfig.themeConfig.footer as SimpleFooter).links ?? []
   return (
     <footer className={clsx(styles.footerWrapper, className)}>
       {hideCTA ? null : <Link href="/waitlist" className={clsx(styles.cta, "bg-transparent border-none")} />}
@@ -24,15 +26,13 @@ export default function Footer({ className, hideCTA }: FooterProps): JSX.Element
         <Link className={clsx(styles.joinCTA, "mx-auto mt-28")} href="https://tembo.breezy.hr/" />
       </div>
       <div className={styles.footerLinks}>
-        <Link href="https://tembo.breezy.hr/" className={clsx(styles.link, "dark:text-black text-white")}>Careers</Link>
-        <img src={useBaseUrl("img/footer-separator.svg")} />
-        <Link href="https://pgtrunk.io/" className={clsx(styles.link, "dark:text-black text-white")}>Trunk</Link>
-        <img src={useBaseUrl("img/footer-separator.svg")} />
-        <Link href="/docs" className={clsx(styles.link, "dark:text-black text-white")}>Docs</Link>
-        <img src={useBaseUrl("img/footer-separator.svg")} />
-        <a className={clsx(styles.link, "dark:text-black text-white")}>Twitter</a>
-        <img src={useBaseUrl("img/footer-separator.svg")} />
-        <a className={clsx(styles.link, "dark:text-black text-white")}>LinkedIn</a>
+        {footerLinks.map((link, i) => (
+          <Fragment key={i}>
+            <Link href={link.href} className={clsx(styles.link, "dark:text-black text-white")}>{link.label}</Link>
+            {i < footerLinks.length - 1 && <img src={useBaseUrl("img/footer-separator.svg")} />}
+          </Fragment>
+        ))}
+        
       </div>
     </footer>
   );

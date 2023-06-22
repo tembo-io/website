@@ -112,47 +112,24 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Getting Started',
-                to: '/docs',
-              },
-            ],
+            label: 'Careers',
+            href: 'https://tembo.breezy.hr/',
           },
           {
-            title: 'Community',
-            items: [
-              {
-                label: 'GitHub',
-                href: 'https://github.com/tembo-io/tembo',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discord.gg/KCmumjWE8H',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/tembo_io',
-              },
-            ],
+            label: 'Trunk',
+            href: 'https://pgtrunk.io/',
           },
           {
-            title: 'More',
-            items: [
-              {
-                label: 'Tembo Cloud',
-                href: 'https://cloud.tembo.io',
-              },              
-              {
-                label: 'Website',
-                to: '/',
-              },
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-            ],
+            label: 'Docs',
+            href: '/docs',
+          },
+          {
+            label: 'Twitter',
+            href: 'https://twitter.com/tembo_io',
+          },
+          {
+            label: 'LinkedIn',
+            href: 'https://www.linkedin.com/company/tembo-inc/',
           },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Tembo. All Rights Reserved`,
@@ -162,6 +139,31 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+
+    customFields: {
+      homeFooter: [
+        {
+          label: 'Careers',
+          href: 'https://tembo.breezy.hr/',
+        },
+        {
+          label: 'Trunk',
+          href: 'https://pgtrunk.io/',
+        },
+        {
+          label: 'Docs',
+          href: '/docs',
+        },
+        {
+          label: 'Twitter',
+          href: 'https://twitter.com/tembo_io',
+        },
+        {
+          label: 'LinkedIn',
+          href: 'https://www.linkedin.com/company/tembo-inc/',
+        },
+      ]
+    }
 };
 
 module.exports = config;
