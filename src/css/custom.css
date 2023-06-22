@@ -19,7 +19,7 @@
   --ifm-color-primary-lighter: #e786e9;
   --ifm-color-primary-lightest: #f5cef6;
   --ifm-code-font-size: 95%;
-  --ifm-navbar-background-color: none;
+  --ifm-navbar-background-color: white;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
@@ -54,6 +54,10 @@
   box-shadow: none;
 }
 
+.backdrop-nav .navbar__brand:hover {
+  color: black;
+}
+
 .backdrop-nav .navbar__title {
   @apply text-3xl lowercase font-display font-bold;
 
@@ -82,4 +86,8 @@
   float: right;
   position: absolute;
   right: 20px;
+}
+
+.plugin-pages.plugin-id-default .navbar {
+  background: none !important;
 }
