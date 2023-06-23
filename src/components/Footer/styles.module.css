@@ -7,8 +7,10 @@
 
 .footerWrapper::before {
   content: "";
+  border-radius: 124px 124px 0px 0px;
   background: url('@site/static/img/elephant-left.png') bottom -1px left -440px/564px 746px no-repeat,
-    url('@site/static/img/elephant-right.png') bottom -1px right -440px/564px 746px no-repeat;
+    url('@site/static/img/elephant-right.png') bottom -1px right -440px/564px 746px no-repeat,
+    url('@site/static/img/footer-texture.png');
   position: absolute;
   top: 0px;
   right: 0px;
@@ -21,7 +23,8 @@
   .footerWrapper::before {
     content: "";
     background: url('@site/static/img/elephant-left.png') bottom -1px left -220px/564px 746px no-repeat,
-      url('@site/static/img/elephant-right.png') bottom -1px right -220px/564px 746px no-repeat;
+      url('@site/static/img/elephant-right.png') bottom -1px right -220px/564px 746px no-repeat,
+      url('@site/static/img/footer-texture.png');
   }
 }
 
@@ -29,7 +32,8 @@
   .footerWrapper::before {
     content: "";
     background: url('@site/static/img/elephant-left.png') bottom -1px left -120px/564px 746px no-repeat,
-      url('@site/static/img/elephant-right.png') bottom -1px right -120px/564px 746px no-repeat;
+      url('@site/static/img/elephant-right.png') bottom -1px right -120px/564px 746px no-repeat,
+      url('@site/static/img/footer-texture.png');
   }
 }
 
@@ -37,7 +41,8 @@
   .footerWrapper::before {
     content: "";
     background: url('@site/static/img/elephant-left.png') bottom -1px left -1px/564px 746px no-repeat,
-      url('@site/static/img/elephant-right.png') bottom -1px right -1px/564px 746px no-repeat;
+      url('@site/static/img/elephant-right.png') bottom -1px right -1px/564px 746px no-repeat,
+      url('@site/static/img/footer-texture.png');
   }
 }
 
