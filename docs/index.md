@@ -4,14 +4,14 @@ sidebar_position: 1
 
 # Getting Started
 
-## What is CoreDB?
+## What is Tembo?
 
-At CoreDB, we're creating a radically simpler way to build, deploy, and scale services and applications on top of Postgres. Unlike traditional managed Postgres offerings, CoreDB abstracts the complexity of deployment, configuration, management, and optimization, allowing developers to easily build and deploy highly specialized data services without needing to rely on multiple different database platforms, and teams of backend engineers, devops, database administrators, and data engineers.
+At Tembo, we're creating a radically simpler way to build, deploy, and scale services and applications on top of Postgres. Unlike traditional managed Postgres offerings, Tembo abstracts the complexity of deployment, configuration, management, and optimization, allowing developers to easily build and deploy highly specialized data services without needing to rely on multiple different database platforms, and teams of backend engineers, devops, database administrators, and data engineers.
 
-Today, CoreDB is differentiated by: 
+Today, Tembo is differentiated by: 
 
 - Live extension management — powered by [Trunk](https://www.pgtrunk.io), you can easily install a growing list of Postgres extensions into your running Postgres instance.
-- Start with a Stack — A **CoreDB** **Stack** is a productized starting point that includes a Postgres instance, a bundle of Postgres extensions, configuration, and possibly a sidecar. Right now we have two Stacks available, **Standard** Postgres and a **Message Queue** optimized stack.
+- Start with a Stack — A **Tembo** **Stack** is a productized starting point that includes a Postgres instance, a bundle of Postgres extensions, configuration, and possibly a sidecar. Right now we have two Stacks available, **Standard** Postgres and a **Message Queue** optimized stack.
 
 ## Alpha Considerations
 
@@ -24,7 +24,7 @@ We will prompt you to delete unused instances, especially if they are large.
 
 - Join the waitlist, then wait a bit. We will reach out to you soon.
 - DM [rywalker](https://twitter.com/rywalker) on Twitter if you *really* want in badly.
-- Once invited, sign in at [cloud.CoreDB.io](http://cloud.CoreDB.io/).
+- Once invited, sign in at [cloud.tembo.io](http://cloud.tembo.io/).
 
 ## Creating a Database
 

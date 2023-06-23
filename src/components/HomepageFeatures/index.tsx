@@ -14,7 +14,7 @@ const FeatureList: FeatureItem[] = [
   //   Svg: require('@site/static/img/powered-by-postgres.svg').default,
   //   description: (
   //     <>
-  //       Extend or customize your Postgres server. CoreDB can run your
+  //       Extend or customize your Postgres server. Tembo can run your
   //       Postgres extensions, or you can pick from a list of solutions.
   //     </>
   //   ),

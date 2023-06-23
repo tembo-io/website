@@ -82,7 +82,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/CoreDB-io/coredb',
+            href: 'https://github.com/tembo-io/tembo',
             label: 'GitHub',
             position: 'right',
           },
