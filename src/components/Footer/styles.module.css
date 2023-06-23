@@ -74,14 +74,14 @@
 @media screen(sm) {
   .footerCallout {
     font-size: 39px;
-  line-height: 50px;
+    line-height: 50px;
   }
 }
 
 .footerLinks {
   @apply absolute bottom-10 text-white flex w-full justify-between content-margin pt-10 flex-wrap;
+}
 
-  .link {
-    @apply px-6;
-  }
+.footerLinks .link {
+  @apply px-6;
 }

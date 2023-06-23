@@ -6,7 +6,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600;700&display=swap');
 
 /* You can override the default Infima variables here. */
 :root {
@@ -35,7 +35,6 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
-
 @layer utilities {
   /* Default margin for page content on different breakpoint */
   .content-margin {
@@ -59,12 +58,12 @@
 }
 
 .backdrop-nav .navbar__title {
-  @apply text-3xl lowercase font-display font-bold;
+  @apply text-3xl lowercase font-headline font-bold;
 
 }
 
 .backdrop-nav .navbar__link {
-  @apply text-lg font-bold font-display text-black;
+  @apply text-lg font-bold font-headline text-black;
 }
 
 /* Need to use special logic because of the hidden light/dark switch */

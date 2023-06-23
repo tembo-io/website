@@ -8,6 +8,7 @@ module.exports = {
   darkMode: ['class', '[data-theme="dark"]'], // hooks into docusaurus' dark mode settigns
   theme: {
     fontFamily: {
+      "headline": ["'Source Code Pro', monospace"],
       "display": ["'Bai Jamjuree', san-serif"],
       "body": ["Inter"] 
     },
