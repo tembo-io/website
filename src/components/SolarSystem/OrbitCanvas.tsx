@@ -300,7 +300,7 @@ export function OrbitCanvas() {
             2 * Math.PI
           );
           ctx.strokeStyle = config.color;
-          ctx.lineWidth = 1.5;
+          ctx.lineWidth = 1.65;
           ctx.stroke();
     
           ctx.restore();
