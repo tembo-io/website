@@ -29,9 +29,9 @@ We are building what we hope will be a world-class managed Postgres service:
 * Stacks - packaging of extensions, tools and configurations, to make it easy to get started using Postgres for specific new use cases
 * An intelligent advisor that helps you to better use the features that you’re already using in Postgres
 
-![create cluster](./create_cluster_720.jpg)
+![create cluster](./create_cluster.jpg)
 
-![org home](./org_home_720.jpg)
+![org home](./org_home.jpg)
 
 The Tembo team is incredibly excited to share our platform with you as we enter our closed beta period, and support your journey towards data-driven success. 
 
