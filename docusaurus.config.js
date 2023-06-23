@@ -101,11 +101,13 @@ const config = {
           {
             href: '/docs',
             label: 'Docs',
+            target: '_blank',
             position: 'right',
           },
           {
             href: '/blog',
             label: 'Blog',
+            target: '_blank',
             position: 'right',
           },
           {
@@ -116,6 +118,7 @@ const config = {
           {
             href: 'https://github.com/CoreDB-io/coredb',
             label: 'GitHub',
+            target: '_blank',
             position: 'right',
           },
         ],

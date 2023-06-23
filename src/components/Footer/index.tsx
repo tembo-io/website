@@ -23,12 +23,12 @@ export default function Footer({ className, hideCTA }: FooterProps): JSX.Element
         <p className={clsx(styles.footerCallout, "relative")}>
           We Believe Everything Is Possible With <span className="font-bold">POSTGRES</span>
         </p>
-        <Link className={clsx(styles.joinCTA, "relative mx-auto mt-20")} href="https://tembo.breezy.hr/" />
+        <Link className={clsx(styles.joinCTA, "relative mx-auto mt-20")} target='_blank' href="https://tembo.breezy.hr/" />
       </div>
       <div className={clsx(styles.footerLinks, "relative")}>
         {footerLinks.map((link, i) => (
           <Fragment key={i}>
-            <Link href={link.href} className={clsx(styles.link, "dark:text-black text-white")}>{link.label}</Link>
+            <Link href={link.href} target="_blank" className={clsx(styles.link, "dark:text-black text-white")}>{link.label}</Link>
             {i < footerLinks.length - 1 && <img src={useBaseUrl("img/footer-separator.svg")} />}
           </Fragment>
         ))}
