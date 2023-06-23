@@ -17,7 +17,7 @@ export default function Footer({ className, hideCTA }: FooterProps): JSX.Element
   const {siteConfig} = useDocusaurusContext();
   const footerLinks =  (siteConfig.themeConfig.footer as SimpleFooter).links ?? []
   return (
-    <footer className={clsx(styles.footerWrapper, className)}>
+    <footer className={clsx(styles.footerWrapper, className, "relative")}>
       {hideCTA ? null : <Link href="/waitlist" className={clsx(styles.cta, "bg-transparent border-none")} />}
       <div className="flex flex-col flex-1 justify-center">
         <p className={clsx(styles.footerCallout, "relative")}>
