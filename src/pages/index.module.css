@@ -4,7 +4,7 @@
  */
 
 .headline {
-  @apply xl:text-9xl sm:text-8xl text-7xl font-display font-bold; 
+  @apply xl:text-9xl sm:text-8xl text-7xl font-headline font-bold; 
 }
 
 .content {
