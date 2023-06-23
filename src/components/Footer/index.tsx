@@ -23,7 +23,7 @@ export default function Footer({ className, hideCTA }: FooterProps): JSX.Element
         <p className={clsx(styles.footerCallout, "relative")}>
           We Believe Everything Is Possible With <span className="font-bold">POSTGRES</span>
         </p>
-        <Link className={clsx(styles.joinCTA, "relative mx-auto mt-28")} href="https://tembo.breezy.hr/" />
+        <Link className={clsx(styles.joinCTA, "relative mx-auto mt-20")} href="https://tembo.breezy.hr/" />
       </div>
       <div className={clsx(styles.footerLinks, "relative")}>
         {footerLinks.map((link, i) => (

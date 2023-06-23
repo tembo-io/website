@@ -59,14 +59,17 @@
 }
 
 .footerCallout {
-  @apply text-center mx-auto pt-6 text-white sm:text-3xl text-2xl font-display;
+  @apply text-center mx-auto pt-6 text-white font-display;
   width: 70%;
+  max-width: 500px;
+  font-size: 32px;
+  line-height: 40px;
 }
 
 @media screen(sm) {
   .footerCallout {
     font-size: 39px;
-    width: 450px;
+  line-height: 50px;
   }
 }
 
