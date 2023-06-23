@@ -44,6 +44,18 @@ const config = {
         },
       };
     },
+
+    () => ({
+      name: "inject-tag",
+      injectHtmlTags() {
+        return {
+          headTags: [
+            { tagName: "script", innerHTML: "prefinery=window.prefinery||function(){(window.prefinery.q=window.prefinery.q||[]).push(arguments)};"},
+            { tagName: "script", attributes: {src: "https://widget.prefinery.com/widget/v2/yisnnyak.js", defer: true}}
+          ]
+        };
+      },
+    }),
   ],
 
   presets: [
