@@ -86,9 +86,9 @@
 @media (max-width: 780px) {
   .heroCTA {
     animation: none;
-    right: 0px;
-    width: 189px;
-    height: 189px;
+    left: auto;
+    top: calc(100% - 397px);
+    right: calc(50% - 138px);
   }
 }
 

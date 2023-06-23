@@ -7,6 +7,12 @@
   margin-top: -150px;
 }
 
+@media (max-width: 780px) {
+  .solarSystem { 
+    margin-top: -260px;
+  }
+}
+
 .planet {
   position: absolute;
   width: 316px;
