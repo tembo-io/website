@@ -21,6 +21,7 @@ export default function Waitlist(): JSX.Element {
       custom_var1: currentProvider,
       custom_var2: company,
     }, (user) => {
+      window.scrollTo(0, 0)
       setFormCompleted(true)
     })
   }
