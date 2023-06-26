@@ -49,8 +49,7 @@ export default function Home(): JSX.Element {
         <img className={clsx(styles.screenshot, styles.screenshot1, "z-20 hidden md:block")} src={useBaseUrl("img/home-cmp.png")} />
         
         <div className={clsx(styles.goalText)}>
-          <p className="text-base mb-4 font-display font-bold uppercase">Our Goal</p>
-          <h2 className="md:text-5xl sm:text-3xl text-xl font-display font-normal">Build a database for every need.<div className="font-bold">Tembo makes it easy.</div></h2>
+          <h2 className="md:text-5xl sm:text-3xl text-xl font-display font-normal">The Postgres developer platform<div className="font-bold">Deploy any data service on Postgres with Stacks</div></h2>
         </div>
         <img className={clsx(styles.screenshot, "md:hidden")} src={useBaseUrl("img/cluster-mobile-cmp.png")}/>
         <img className={clsx(styles.screenshot, "hidden md:block")} src={useBaseUrl("img/cluster-cmp.png")}/>

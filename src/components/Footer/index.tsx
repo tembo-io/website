@@ -21,7 +21,8 @@ export default function Footer({ className, hideCTA }: FooterProps): JSX.Element
       {hideCTA ? null : <Link href="/waitlist" className={clsx(styles.cta, "bg-transparent border-none")} />}
       <div className="flex flex-col flex-1 justify-center">
         <p className={clsx(styles.footerCallout, "relative")}>
-          We Believe Everything Is Possible With <span className="font-bold">POSTGRES</span>
+          The Modern Data Stack is built on {' '}
+          <span className="font-bold">Postgres</span>
         </p>
         <Link className={clsx(styles.joinCTA, "relative mx-auto mt-20")} target='_blank' href="https://tembo.breezy.hr/" />
       </div>
