@@ -56,8 +56,13 @@
 }
 
 @media (max-width: 639px) {
-  .goalText{
+  .content {
+    border-radius: 0px;
+  }
+
+  .goalText h2 {
     max-width: 400px;
+    font-size: 1.5rem !important;
   }
 
   .screenshot {
