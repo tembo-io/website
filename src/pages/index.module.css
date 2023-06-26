@@ -4,7 +4,13 @@
  */
 
 .headline {
-  @apply xl:text-9xl sm:text-8xl text-7xl font-headline font-bold; 
+  @apply xl:text-9xl sm:text-8xl text-7xl font-headline font-bold;  
+}
+
+@media (max-width: 639px) {
+  .headline {
+    font-size: 18vw;
+  }
 }
 
 .content {
@@ -113,4 +119,8 @@
     top: calc(100% - 397px);
     right: calc(50% - 138px);
   }
+}
+
+.solarWrapper {
+  min-width: 425px;
 }
