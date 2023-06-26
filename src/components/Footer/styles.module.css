@@ -2,7 +2,7 @@
   @apply bg-black flex flex-col;
   width: 100%;
   height: 875px;
-  border-radius: 124px 124px 0px 0px;
+  border-radius: 70px 70px 0px 0px;
 }
 
 .footerWrapper::before {
@@ -20,6 +20,10 @@
 }
 
 @media (min-width: 775px) {
+  .footerWrapper {
+    border-radius: 124px 124px 0px 0px;
+  }
+
   .footerWrapper::before {
     content: "";
     background: url('@site/static/img/elephant-left.png') bottom -1px left -220px/564px 746px no-repeat,
@@ -75,6 +79,18 @@
   .footerCallout {
     font-size: 39px;
     line-height: 50px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footerLinks {
+    max-width: 400px;
+    align-self: center;
+    justify-content: center !important;
+  }
+
+  .footerLinks .link, .footerLinks img {
+    @apply mb-3;
   }
 }
 
