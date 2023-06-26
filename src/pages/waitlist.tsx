@@ -29,7 +29,7 @@ export default function Waitlist(): JSX.Element {
     <LayoutBackdrop>
       <div className="relative flex flex-col flex-1 min-h-screen">
         <section className="content-margin flex-1">
-          <h1 className="pt-24 text-7xl font-display font-bold">
+          <h1 className="pt-24 text-7xl font-headline font-bold">
             Request Access
           </h1>
           <p className="mt-6 text-2xl lg:w-1/2 font-body">
