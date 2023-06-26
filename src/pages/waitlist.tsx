@@ -29,13 +29,24 @@ export default function Waitlist(): JSX.Element {
     <LayoutBackdrop>
       <div className="relative flex flex-col flex-1 min-h-screen">
         <section className="content-margin flex-1">
-          <h1 className="pt-24 text-7xl font-headline font-bold">
-            Request Access
-          </h1>
-          <p className="mt-6 text-2xl lg:w-1/2 font-body">
-            Join our private beta waitlist and our team will reach out to you as soon as possible.
-          </p>
-          {formCompleted && <p className="text-xl mt-20 mb-80">Details submitted.</p>}
+
+          {formCompleted ?
+            <>
+              <p className="text-xl mt-20">We'll be in touch soon!</p>
+              <h1 className={clsx(styles.successMessage, "text-6xl font-headline font-bold mb-80")}>
+                Get ready to love your database.
+              </h1>
+            </> :
+            <>
+              <h1 className="pt-24 text-7xl font-headline font-bold">
+                Request Access
+              </h1>
+              <p className="mt-6 text-2xl lg:w-1/2 font-body">
+                Join our private beta waitlist and our team will reach out to you as soon as possible.
+              </p>
+            </>
+          }
+
           <div className={clsx(formCompleted ? "hidden" : "")}>
             <form className={clsx(styles.waitlistForm)} onSubmit={submitForm}>
               <label className={styles.waitlistLabel} htmlFor="email">Email Address</label>
@@ -57,7 +68,7 @@ export default function Waitlist(): JSX.Element {
                   <option value="Not using Postgres">Not using Postgres</option>
                 </select>
               </div>
-              <button className="bg-transparent border-none" type="submit">
+              <button className={clsx(styles.waitlistButton, "bg-transparent border-none p-0 text-left")} type="submit">
                 <img src={useBaseUrl("img/request-cta.svg")} />
               </button>
             </form>

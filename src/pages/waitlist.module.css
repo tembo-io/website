@@ -20,3 +20,24 @@
   border-bottom: 2px solid black;
   background: none;
 }
+
+.waitlistInput:focus {
+  outline: none;
+}
+
+.waitlistInput select:focus {
+  outline: none;
+}
+
+.waitlistButton:focus {
+  outline: none;
+}
+
+.waitlistButton {
+  width: 274px;
+  cursor: pointer;
+}
+
+.successMessage {
+  max-width: 500px;
+}
