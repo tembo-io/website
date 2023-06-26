@@ -117,6 +117,7 @@ const config = {
             label: 'GitHub',
             target: '_blank',
             position: 'right',
+            className: "header-github-link",
           },
         ],
       },

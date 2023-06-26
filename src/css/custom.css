@@ -103,3 +103,20 @@
 .plugin-pages.plugin-id-default a {
   text-decoration: none !important;
 }
+
+.header-github-link svg {
+  display: none;
+}
+
+.header-github-link:after {
+  background: url("@site/static/img/octocat.png") no-repeat;
+  background-size: 18px;
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 18px;
+  width: 18px;
+  margin-left: 10px;
+  top: 1px;
+  position: relative;
+}
