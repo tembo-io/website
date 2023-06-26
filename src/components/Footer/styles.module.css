@@ -92,6 +92,10 @@
   .footerLinks .link, .footerLinks img {
     @apply mb-3;
   }
+  
+  .footerWrapper {
+    box-shadow: 0px -50px 110px 100px rgba(114, 83, 102, 0.53);
+  }
 }
 
 .footerLinks {
