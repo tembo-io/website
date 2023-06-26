@@ -85,3 +85,7 @@
 .footerLinks .link {
   @apply px-6;
 }
+
+.footerLinks .link:hover {
+  @apply text-white;
+}

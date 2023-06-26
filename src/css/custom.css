@@ -11,16 +11,18 @@
 /* You can override the default Infima variables here. */
 :root {
   --content-background-color: #FFF8F6;
-  --ifm-color-primary: #d00ed4;
-  --ifm-color-primary-dark: #a01ec5;
-  --ifm-color-primary-darker: #701589;
-  --ifm-color-primary-darkest: #601276;
-  --ifm-color-primary-light: #de56e0;
-  --ifm-color-primary-lighter: #e786e9;
-  --ifm-color-primary-lightest: #f5cef6;
+  --ifm-color-primary: #000;
+  --ifm-color-primary-dark: #000;
+  --ifm-color-primary-darker: #000;
+  --ifm-color-primary-darkest: #000;
+  --ifm-color-primary-light: #000;
+  --ifm-color-primary-lighter: #000;
+  --ifm-color-primary-lightest: #000;
   --ifm-code-font-size: 95%;
   --ifm-navbar-background-color: white;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-link-decoration: underline;
+  --ifm-link-color: #000;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -39,7 +41,7 @@
   /* Default margin for page content on different breakpoint */
   .content-margin {
     @apply lg:px-44 sm:px-20 px-4; 
-  
+
     @media screen(lg) {
       padding: 0 168px;
     }
@@ -96,4 +98,8 @@
 
 .plugin-pages.plugin-id-default .navbar {
   background: none !important;
+}
+
+.plugin-pages.plugin-id-default a {
+  text-decoration: none !important;
 }
