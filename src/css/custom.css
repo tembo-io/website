@@ -64,15 +64,22 @@
 
 .backdrop-nav .navbar__link {
   @apply text-lg font-bold font-headline text-black;
+  padding: 0;
 }
 
 /* Need to use special logic because of the hidden light/dark switch */
 .backdrop-nav .navbar__link:nth-last-child(n+3)::after  {
   @apply text-lg;
   @apply font-display;
-  @apply px-10;
+  @apply px-12;
   content: '/';
   color: rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1150px) and (min-width: 990px) {
+  .backdrop-nav .navbar__link:nth-last-child(n+3)::after  {
+    @apply px-9;
+  }
 }
 
 .backdrop-nav .navbar-sidebar {

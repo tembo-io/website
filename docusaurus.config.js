@@ -88,14 +88,11 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
       image: 'img/social-card.jpg',
       navbar: {
-        title: 'Tembo',
-        
         logo: {
           alt: 'Tembo Logo',
-          src: 'img/logo.svg',
+          src: 'img/title-logo.svg',
         },
         items: [
           {
