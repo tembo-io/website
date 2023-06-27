@@ -1,0 +1,16 @@
+.backdrop {
+  background-image: url('@site/static/img/background.jpg'), linear-gradient(201.13deg, #FFCBC6 13.86%, #FD8D93 40.93%, #CE71A9 95.22%);
+  background-repeat: repeat-x;
+  background-size: 1600px;
+  background-position: top center;
+}
+
+.waitlistBackdrop {
+  background-image: url('@site/static/img/background-ra.png'), linear-gradient(201.13deg, #FFCBC6 13.86%, #FD8D93 40.93%, #CE71A9 95.22%) !important;
+}
+
+@media (min-width: 1600px) {
+  .backdrop {
+    background-size: 100%;
+  }
+}
