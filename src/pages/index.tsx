@@ -49,7 +49,8 @@ export default function Home(): JSX.Element {
         <img className={clsx(styles.screenshot, styles.screenshot1, "z-20 hidden md:block")} src={useBaseUrl("img/home-cmp.png")} />
         
         <div className={clsx(styles.goalText)}>
-          <h2 className="md:text-5xl sm:text-3xl text-xl font-display font-normal">The Postgres developer platform<div className="font-bold">Deploy any data service on Postgres with Stacks</div></h2>
+          <p className="text-base mb-4 font-display font-bold uppercase">The Postgres Developer Platform</p>
+          <h2 className="md:text-5xl sm:text-3xl text-xl font-display font-normal">Deploy any data service on Postgres <span className="font-bold">with Stacks</span></h2>
         </div>
         <img className={clsx(styles.screenshot, "md:hidden")} src={useBaseUrl("img/cluster-mobile-cmp.png")}/>
         <img className={clsx(styles.screenshot, "hidden md:block")} src={useBaseUrl("img/cluster-cmp.png")}/>

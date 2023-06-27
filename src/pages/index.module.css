@@ -55,14 +55,19 @@
   @apply text-center;
 }
 
+.goalText h2 {
+  max-width: 600px;
+  line-height: 1.2;
+}
+
 @media (max-width: 639px) {
   .content {
     border-radius: 0px;
   }
 
   .goalText h2 {
-    max-width: 400px;
     font-size: 1.5rem !important;
+    max-width: 400px;
   }
 
   .screenshot {
@@ -81,6 +86,10 @@
   width: 276px;
   height: 276px;
   background-size: cover;
+}
+
+.cta:hover {
+  background-image: url('@site/static/img/cta-hover.png');
 }
 
 .heroCTA {
