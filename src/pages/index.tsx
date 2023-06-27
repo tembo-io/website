@@ -45,15 +45,15 @@ export default function Home(): JSX.Element {
         </div>
       </section>
       <section className={clsx(styles.content)}>
-        <img className={clsx(styles.screenshot, styles.screenshot1, "z-20 md:hidden")} src={useBaseUrl("img/home-mobile-cmp.png")} />
-        <img className={clsx(styles.screenshot, styles.screenshot1, "z-20 hidden md:block")} src={useBaseUrl("img/home-cmp.png")} />
+        <img className={clsx(styles.screenshot, styles.screenshot1, "z-20 md:hidden")} src={useBaseUrl("img/home-mobile-cmp-2.png")} />
+        <img className={clsx(styles.screenshot, styles.screenshot1, "z-20 hidden md:block")} src={useBaseUrl("img/home-cmp-2.png")} />
         
         <div className={clsx(styles.goalText)}>
           <p className="text-base mb-4 font-display font-bold uppercase">The Postgres Developer Platform</p>
           <h2 className="md:text-5xl sm:text-3xl text-xl font-display font-normal">Deploy any data service on Postgres <span className="font-bold">with Stacks</span></h2>
         </div>
-        <img className={clsx(styles.screenshot, "md:hidden")} src={useBaseUrl("img/cluster-mobile-cmp.png")}/>
-        <img className={clsx(styles.screenshot, "hidden md:block")} src={useBaseUrl("img/cluster-cmp.png")}/>
+        <img className={clsx(styles.screenshot, "md:hidden")} src={useBaseUrl("img/cluster-mobile-cmp-2.png")}/>
+        <img className={clsx(styles.screenshot, "hidden md:block")} src={useBaseUrl("img/cluster-cmp-2.png")}/>
       </section>
       <Footer className={clsx(styles.indexFooter, 'relative')} />
     </LayoutBackdrop>
