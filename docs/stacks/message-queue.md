@@ -10,4 +10,4 @@ A lightweight distributed message queue. Like AWS SQS and RSMQ but on Postgr
 
 ## Credits
 
-* The [pgmq](https://github.com/CoreDB-io/coredb/tree/main/pgmq) extension
+* The [pgmq](https://github.com/tembo-io/tembo/tree/main/pgmq) extension
