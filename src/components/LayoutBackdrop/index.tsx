@@ -5,10 +5,11 @@ import styles from './styles.module.css'
 import clsx from 'clsx';
 
 // Customized version of Layout component with gradient background
-export default function LayoutBackdrop({ children }: { children: React.ReactNode }): JSX.Element {
+export default function LayoutBackdrop({ children, waitlist = false }: { children: React.ReactNode, waitlist: boolean }): JSX.Element {
+  console.log(waitlist, styles.waitlistBackdrop)
   return (
     <LayoutProvider>
-      <main className={clsx(styles.backdrop, "backdrop-nav", "dark:bg-black")}>
+      <main className={clsx(styles.backdrop, "backdrop-nav", "dark:bg-black", waitlist ? styles.waitlistBackdrop : null)}>
         <Navbar />
         {children}
       </main>

@@ -27,7 +27,7 @@ export default function Waitlist(): JSX.Element {
   }
 
   return (
-    <LayoutBackdrop>
+    <LayoutBackdrop waitlist>
       <div className="relative flex flex-col flex-1 min-h-screen">
         <section className="content-margin flex-1">
 
