@@ -106,6 +106,32 @@
   }
 }
 
+@media (max-width: 996px) {
+  .navbar-sidebar {
+    background-color: #000 !important;
+  }
+
+  .menu__link {
+    display: block;
+    padding: 32px;
+    text-align: center;
+    color: #FFF;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+    font-family: "Source Code Pro", monospace;
+    font-size: 18px;
+  }
+  .menu__link:after {
+    content: "/";
+    font-family: "Source Code Pro", monospace;
+    color: rgba(255, 255, 255, 0.20);
+  }
+
+  .navbar-sidebar__item.menu {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
 .plugin-pages.plugin-id-default a {
   text-decoration: none !important;
 }
@@ -114,15 +140,17 @@
   display: none;
 }
 
-.header-github-link:after {
-  background: url("@site/static/img/octocat.png") no-repeat;
-  background-size: 18px;
-  content: "";
-  display: inline-block;
-  width: 24px;
-  height: 18px;
-  width: 18px;
-  margin-left: 10px;
-  top: 1px;
-  position: relative;
+@media (min-width: 997px) {
+  .header-github-link:after {
+    background: url("@site/static/img/octocat.png") no-repeat;
+    background-size: 18px;
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 18px;
+    width: 18px;
+    margin-left: 10px;
+    top: 1px;
+    position: relative;
+  }
 }
