@@ -28,7 +28,7 @@ This command generates static content into the `build` directory and can be serv
 
 ### Deployment
 
-- `main` is auto-deployed to http://new.tembo.io
+- `main` is auto-deployed to https://tembo.io
 - Open PRs (draft or regular) have preview environments deployed, comment including link will be posted in the PR
 
 
