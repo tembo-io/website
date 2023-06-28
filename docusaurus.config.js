@@ -18,7 +18,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'tembo_io', // Usually your GitHub org/user name.
+  organizationName: 'tembo-io', // Usually your GitHub org/user name.
   projectName: 'website', // Usually your repo name.
 
   onBrokenLinks: 'throw',
@@ -69,14 +69,14 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/tembo_io/website/blob/main/',
+            'https://github.com/tembo-io/website/blob/main/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/tembo_io/website/blob/main/',
+            'https://github.com/tembo-io/website/blob/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
