@@ -132,6 +132,10 @@
   }
 }
 
+.navbar-sidebar .navbar__logo img {
+  content:url("@site/static/img/title-logo-white.svg")
+}
+
 .plugin-pages.plugin-id-default a {
   text-decoration: none !important;
 }
