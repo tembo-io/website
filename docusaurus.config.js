@@ -33,6 +33,7 @@ const config = {
   },
 
   plugins: [
+    'docusaurus-plugin-hubspot',
     async function myPlugin(context, options) {
       return {
         name: "docusaurus-tailwindcss",
@@ -154,6 +155,11 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
+      hubspot: {
+        accountId: 23590420,
+        async: true,
+        defer: true
+      }
     }),
 
     customFields: {
