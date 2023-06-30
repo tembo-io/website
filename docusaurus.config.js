@@ -156,9 +156,7 @@ const config = {
         darkTheme: darkCodeTheme,
       },
       hubspot: {
-        accountId: 23590420,
-        async: true,
-        defer: true
+        accountId: 23590420
       }
     }),
 
