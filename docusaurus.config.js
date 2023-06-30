@@ -33,7 +33,7 @@ const config = {
   },
 
   plugins: [
-    'docusaurus-plugin-hubspot',
+    '@stackql/docusaurus-plugin-hubspot',
     async function myPlugin(context, options) {
       return {
         name: "docusaurus-tailwindcss",
