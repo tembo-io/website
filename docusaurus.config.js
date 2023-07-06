@@ -34,6 +34,7 @@ const config = {
 
   plugins: [
     '@stackql/docusaurus-plugin-hubspot',
+    'docusaurus-plugin-segment',
     async function myPlugin(context, options) {
       return {
         name: "docusaurus-tailwindcss",
@@ -157,7 +158,10 @@ const config = {
       },
       hubspot: {
         accountId: 23590420
-      }
+      },
+      segment: {
+        apiKey: 'YT4AfD2TuYaN7DiGR20tAnstYP1ujjyE',
+      },
     }),
 
     customFields: {
