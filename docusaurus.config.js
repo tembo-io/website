@@ -35,6 +35,12 @@ const config = {
   plugins: [
     '@stackql/docusaurus-plugin-hubspot',
     'docusaurus-plugin-segment',
+    [
+      'docusaurus-plugin-plausible',
+      {
+        domain: 'tembo.io',
+      },
+    ],
     async function myPlugin(context, options) {
       return {
         name: "docusaurus-tailwindcss",
