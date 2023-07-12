@@ -84,13 +84,8 @@ We are building a dev-first, fully-extensible, fully-managed, secure, and scalab
 
 ## What is a Tembo Stack?
 
-Stacks are pre-built, use case-specific configurations and pre-built packages of Postgres, enabling you to quickly deploy specialized data services that can replace external, non-Postgres data services.
+Stacks are pre-built, use case-specific configurations of Postgres, enabling you to quickly deploy specialized data services that can replace external, non-Postgres data services. They include:
 
-Stack Spec includes:
-
-- Name
-- Description
-- Version
 - Docker Base Image (Postgres Container)
 - Pre-Installed Extensions
 - Stack-Specific additional metrics, alerts + recommendations
