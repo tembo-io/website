@@ -72,7 +72,7 @@ We are building a dev-first, fully-extensible, fully-managed, secure, and scalab
 | Name | Components | “North Star” Competition |
 | --- | --- | --- |
 | Tembo OLTP | Feature-Rich, Optimized Postgres | Other managed Postgres providers |
-| Tembo Vector | Optimized Postgres + pgVector | Pinecone |
+| Tembo Vector | Optimized Postgres + pgVector/pg_embedding | Pinecone, ChromaDB |
 | Tembo OLAP | Optimized Postgres + columnar | Snowflake |
 | Tembo Documents | Optimized Postgres + FerretDB | MongoDB, AWS DocumentDB |
 | Tembo ML | Optimized Postgres + PostgresML | MindsDB |
