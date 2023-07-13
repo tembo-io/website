@@ -7,11 +7,11 @@ sidebar_position: 3
 ## Connection hanging
 
 - There is a known [issue](https://github.com/traefik/traefik/issues/9929#issuecomment-1608993684) when connecting with the default sslmode 'prefer' where if the database is restarting while you start a connection, it will hang even after the database is back up.
-- Please use the sslmode 'prefer' to avoid this issue, and Tembo team will work on getting this issue resolved for sslmode 'prefer'.
+- Please use the sslmode 'require' to avoid this issue, and Tembo team will work on getting this issue resolved for sslmode 'prefer'.
 - Regardless of sslmode, Tembo will only accept encrypted connections.
 
 ```
-postgresql://postgres:***@***.data-1.use1.tembo.io:5432?sslmode=required
+psql 'postgresql://postgres:***@***.data-1.use1.tembo.io:5432?sslmode=require'
 ```
 
 ## Tembo requires PostgreSQL clients of version 14+
@@ -22,10 +22,9 @@ postgresql://postgres:***@***.data-1.use1.tembo.io:5432?sslmode=required
     - This command will attempt to connect to your instance using a known, working version of psql. Replace the connection string with your connection string, found in the Tembo UI
 
     ```
-     docker run -it  \
-        --rm \
+     docker run -it --rm \
         --entrypoint=psql postgres:15 \
-        --'postgresql://postgres:***@***.data-1.use1.tembo.io:5432'
+        'postgresql://postgres:***@***.data-1.use1.tembo.io:5432?sslmode=require'
     ```
 
 - If the above fails, you may have problems reaching your instance
