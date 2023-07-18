@@ -10,7 +10,7 @@ At Tembo, we're creating a radically simpler way to build, deploy, and scale ser
 
 Today, Tembo is differentiated by: 
 
-- Live extension management — powered by [Trunk](https://www.pgtrunk.io), you can easily install a growing list of Postgres extensions into your running Postgres instance.
+- Live extension management — powered by [Trunk](https://www.pgt.dev), you can easily install a growing list of Postgres extensions into your running Postgres instance.
 - Start with a Stack — A **Tembo** **Stack** is a productized starting point that includes a Postgres instance, a bundle of Postgres extensions, configuration, and possibly a sidecar. Right now we have two Stacks available, **Standard** Postgres and a **Message Queue** optimized stack.
 
 ## Alpha Considerations
@@ -42,7 +42,7 @@ We will prompt you to delete unused instances, especially if they are large.
 
 ## Enabling Extensions
 
-- Supported extensions — we support all [Trunk](https://www.pgtrunk.io)-installable extensions
+- Supported extensions — we support all [Trunk](https://www.pgt.dev)-installable extensions
 - Browse extensions — click the extensions tab while viewing an instance (the little box icon)
 - Install extension — click the "Add new extension”, find the extension, click “Install”
 - Enable extensions — click the extensions tab while viewing an instance (the little box icon), and enable any extensions you have installed.
@@ -66,7 +66,7 @@ We will prompt you to delete unused instances, especially if they are large.
 
 - Monitoring / Metrics Dashboard
 - More Extensions 
-(note: you can help add them to [Trunk](https://www.pgtrunk.io), the open Postgres Extension registry)
+(note: you can help add them to [Trunk](https://www.pgt.dev), the open Postgres Extension registry)
 - More Stacks — with automatic sensible configurations
 - Self-service backup restores
 - Add-ons — optional functionality that you can enable for an instance.

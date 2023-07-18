@@ -138,7 +138,7 @@ const config = {
           },
           {
             label: 'Trunk',
-            href: 'https://pgtrunk.io/',
+            href: 'https://pgt.dev/',
           },
           {
             label: 'Docs',
@@ -178,7 +178,7 @@ const config = {
         },
         {
           label: 'Trunk',
-          href: 'https://pgtrunk.io/',
+          href: 'https://pgt.dev/',
         },
         {
           label: 'Docs',
