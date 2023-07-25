@@ -12,7 +12,7 @@ On an idle instance, you may notice your storage utilization increasing:
 
 ![storage increasing](./images/storage-growing.png)
 
-This is from queries being performed on your instance to collect performance metrics. The storage used by metrics queries will be freed on a schedule, so you may see a saw pattern in your storage utilization graph:
+This is from queries being performed on your instance to collect performance metrics. The storage used by metrics queries will be freed on a schedule, so you may see a sawtooth pattern in your storage utilization graph:
 
 ![storage pattern](./images/wal-cleared.png)
 
