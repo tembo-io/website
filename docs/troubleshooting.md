@@ -44,6 +44,14 @@ psql 'postgresql://postgres:***@***.data-1.use1.tembo.io:5432?sslmode=require'
     ```
 
 - If the above fails, you may have problems reaching your instance
+- Here is an example of installing an updated PostgreSQL client on a Debian-based linux system
+
+    ```
+    sudo apt-get update && sudo apt-get install -y lsb-release
+    sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+    wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo tee /etc/apt/trusted.gpg.d/pgdg.asc &>/dev/null
+    sudo apt-get update && sudo apt-get install -y postgresql-client
+    ```
 
 ### Checking if you can reach the Tembo Platform
 
