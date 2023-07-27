@@ -4,20 +4,6 @@ sidebar_position: 3
 
 # Troubleshooting
 
-## Storage
-
-### Why is my storage utilization increasing?
-
-On an idle instance, you may notice your storage utilization increasing:
-
-![storage increasing](./images/storage-growing.png)
-
-This is from queries being performed on your instance to collect performance metrics. The storage used by metrics queries will be freed on a schedule, so you may see a sawtooth pattern in your storage utilization graph:
-
-![storage pattern](./images/wal-cleared.png)
-
-Depending on which Stack you have selected, the amount of temporary storage utilization will vary.
-
 ## Network
 
 ### Connection hanging
