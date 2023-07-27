@@ -21,7 +21,7 @@ Enterprises typically store data across various databases, grouped into transact
 
 Postgres, the world's favorite database with millions of deployments, features a liberal OSS license and a large community. It efficiently manages SQL and JSON queries across diverse workloads due to its growing, decade-old ecosystem of add-ons and extensions.
 
-Now the #2 database, Postgres is popular for its open-source, standards-compliant, extensible nature, and ACID compliance, making it a reliable, cost-effective system. It handles low latency, high throughput analytical cases, offering HTAP-lite capabilities through window functions and foreign data wrappers.
+Postgres is popular for its open-source, standards-compliant, extensible nature, and ACID compliance, making it a reliable, cost-effective system. It handles low latency, high throughput analytical cases, offering HTAP-lite capabilities through window functions and foreign data wrappers.
 
 Its extensibility resulted in numerous add-ons and plugins for GIS data, image processing, and more, with some extensions evolving into companies like CitusDB and Timescale. The extension ecosystem plays a crucial role in Postgres's growth and self-managed usage.
 
@@ -33,21 +33,13 @@ Source: [Stack Overflow Developer Survey 2023](https://survey.stackoverflow.co/2
 
 Companies are hesitant to adopt new databases due to costs and complexity. The need to adapt to new architectures, configurations, and optimizations makes the transition value often negligible. Hence, costly Oracle instances remain in use for critical applications.
 
-Postgres, favored by DBAs and Data Engineers, is widely adopted for transactional systems. However, deploying and managing it is complicated.
+Postgres, favored by DBAs and Data Engineers, is widely adopted for transactional systems. However, deploying and managing it is complicated beyond it's basic use case.
 
-To create a self-managed Postgres cluster, DBAs have to consider infrastructure, environment, security, data management, backups, and workload-specific tuning. Further, maintaining and scaling Postgres involves meeting high availability requirements, managing data storage, updating schemas, optimizing query performance, and managing failover protection and caching.
-
-## Market Gap
-
-Numerous solutions aim to ease deployment and management of self-managed Postgres.
-
-1. Some, like EnterpriseDB and CrunchyData, designed as Oracle replacements, target enterprises migrating from Oracle to Postgres for better cost-effectiveness, adaptability, and performance in complex environments. However, their focus on building Oracle-like capabilities resulted in proprietary versions of Postgres, limiting access to its rich ecosystem.
-2. The next wave, including Amazon Aurora and Google Alloy, modified native Postgres for enhanced performance and resilience. These turnkey, managed offerings handle infrastructure setup, patching, backup, failover, and high availability. They provide power and scale but can be expensive, complicated to migrate to, and have limited plugin compatibility due to their divergence from actual Postgres.
-3. Another approach, exemplified by Supabase and Heroku, intends to replace 'backend as a service' (BaaS) platforms like Firebase with more scalable, performance-oriented solutions. BaaS platforms simplify backend services, but their scalability struggles have forced developers to traditional databases like Postgres. Supabase and similar platforms build on the features of Firebase, designed for enterprise-scale, security, and rapid deployment. However, their focus on building atop databases rather than the databases themselves often omits full Postgres capabilities required by many deployments.
+To create a self-managed Postgres cluster, DBAs have to consider infrastructure, environment, security, data management, backups, and workload-specific tuning. Further, maintaining and scaling Postgres involves meeting high availability requirements, managing data storage, updating schemas, optimizing query performance, and managing failover protection and caching. Lastly, extensions exist to support additional functionality in Postgres but they are hard to discover, evaluate, certify and deploy.
 
 ## Our Vision
 
-Many developers aren't served by current commercial Postgres solutions due to migration costs, reliance on open-source ecosystem, mismatched needs, complexity, and a lack of developer-first focus.
+Many developers aren't served by current commercial Postgres solutions due to migration costs, restrictions on the open-source ecosystem, complexity, and a lack of developer-first and use-case first focus.
 
 Tembo aims to enhance developers' Postgres experience by allowing full functionality, including custom extensions, and promoting developer-first workflows. It simplifies deploying Postgres with a virtualized runtime experience, enabling one-click migrations and access to the Postgres ecosystem.
 
@@ -61,7 +53,7 @@ We are productizing Postgres and the extended Postgres OSS ecosystem of add-ons 
 
 ### Tembo Cloud
 
-We are building a dev-first, fully-extensible, fully-managed, secure, and scalable Postgres service. Available on all clouds and bare metal providers. Tembo Cloud provides the largest library of easily-installed extensions and “flavored Postgres” **Tembo Stacks**, allowing our customers to expand their use cases of Postgres.
+We are building a dev-first, fully-extensible, fully-managed, secure, and scalable Postgres service. Available on all clouds and bare metal providers, Tembo Cloud provides the largest library of easily-installed extensions and “flavored Postgres” **Tembo Stacks**, allowing our customers to expand their use cases of Postgres.
 
 ![Org home](org_home.jpg)
 
@@ -73,11 +65,11 @@ We are building a dev-first, fully-extensible, fully-managed, secure, and scalab
 | --- | --- | --- |
 | Tembo OLTP | Feature-Rich, Optimized Postgres | Other managed Postgres providers |
 | Tembo Vector | Optimized Postgres + pgVector/pg_embedding | Pinecone, ChromaDB |
-| Tembo OLAP | Optimized Postgres + columnar | Snowflake |
+| Tembo Data Warehouse | Optimized Postgres + columnar | Snowflake |
 | Tembo Documents | Optimized Postgres + FerretDB | MongoDB, AWS DocumentDB |
 | Tembo ML | Optimized Postgres + PostgresML | MindsDB |
-| Tembo Messaging | Optimized Postgres + pgmq | Redis |
-| Tembo Search | Optimized Postgres + ZomboDB + ElasticSearch | Elastic |
+| Tembo Messaging | Optimized Postgres + pgmq | Redis, SQS |
+| Tembo Search | Optimized Postgres + ZomboDB + Text Search Extensions | Elastic |
 | Tembo Timeseries | Optimized Postgres + Timescale | InfluxDB |
 
 ![Create cluster](create_cluster.jpg)
@@ -94,35 +86,18 @@ Stacks are pre-built, use case-specific configurations of Postgres, enabling you
 - Sidecars (Kubernetes Services - i.e. nearby workloads)
 - Infrastructure and hardware configuration options - things like the HA setup, pgbouncer/pgcat (server-side connection pooling), etc.
 
-## GTM
+## Users
 
-The developer-led GTM strategy prioritizes the Postgres community. 
+Initial users for our platform are application developers using or intending to use self-managed Postgres deployments, specifically those interested in maintaining the native open-source version. Tembo replaces self-managed Postgres clusters in the cloud or on-prem.
 
-Initial ICP targets application developers using or intending to use self-managed Postgres deployments, specifically those interested in maintaining the native open-source version. Tembo replaces self-managed Postgres clusters in the cloud or on-prem.
+Our inital set of users are interested in one of two key propositions:
 
-Our market entry focuses on two key propositions:
-
-1. Developer-first workflows, facilitating complete data model lifecycle control.
+1. Developer-first workflows for use-cases, facilitating complete data model lifecycle control.
 2. Prioritizing the expansive Postgres extension ecosystem for add-on integration and usage.
 
-Fast database deployment and automatic migration enable high developer satisfaction and swift value realization. The product’s alignment with Postgres open-source principles appeals to the Postgres community.
+Fast database deployment and automatic migration enable high developer satisfaction and swift value realization. We plan to be aligned with the Postgres open-source principles of the Postgres community.
 
-The revenue model is based on a fully-managed cloud service, providing enterprise-level hybrid multi-cloud solutions.
-
-## Advantages
-
-- Large market continues to grow rapidly with a significant gap in a developer-first database.
-- Impressive team with world-class open source & Postgres cred.
-- Replaces self-managed & home grown solutions with a 10x better experience.
-- Expect the offering to have a very fast TTV and high level of developer love.
-- A large and passionate open-source community could lead to strong growth.
-
-## Risks
-
-- Lots of Postgres alternatives/competition. Need to break through the noise of the competition.
-- Banking on (1) a radically simpler Postgres DX and (2) extending out the extensions framework and capabilities will become a catalyst for initial usage and growth.
-- Need to recruit top Postgres committers to the company in order to obtain legitimacy within the Postgres community.
-- Databases are the most complex layer of the stack; takes more time than traditional developer/data services.
+The channel of distribution is a fully-managed cloud service, providing enterprise-level hybrid multi-cloud solutions.
 
 ## Bottom Line
 
