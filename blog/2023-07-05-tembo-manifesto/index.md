@@ -68,7 +68,7 @@ We are building a dev-first, fully-extensible, fully-managed, secure, and scalab
 | Tembo Data Warehouse | Optimized Postgres + columnar | Snowflake |
 | Tembo Documents | Optimized Postgres + FerretDB | MongoDB, AWS DocumentDB |
 | Tembo ML | Optimized Postgres + PostgresML | MindsDB |
-| Tembo Messaging | Optimized Postgres + pgmq | Redis, SQS |
+| Tembo Messaging | Optimized Postgres + pgmq | Redis, SQS, RabbitMQ |
 | Tembo Search | Optimized Postgres + ZomboDB + Text Search Extensions | Elastic |
 | Tembo Timeseries | Optimized Postgres + Timescale | InfluxDB |
 
@@ -92,13 +92,13 @@ Initial users for our platform are application developers using or intending to 
 
 Our inital set of users are interested in one of two key propositions:
 
-1. Developer-first workflows for use-cases, facilitating complete data model lifecycle control.
+1. Developer-first workflows tailored to specific use-cases, facilitating complete data model lifecycle control.
 2. Prioritizing the expansive Postgres extension ecosystem for add-on integration and usage.
 
-Fast database deployment and automatic migration enable high developer satisfaction and swift value realization. We plan to be aligned with the Postgres open-source principles of the Postgres community.
+Fast database deployment and automatic migration enable high developer satisfaction due to a smooth deployment experience. This leads to swift value realization. We plan to be aligned with the Postgres open-source principles of the Postgres community.
 
-The channel of distribution is a fully-managed cloud service, providing enterprise-level hybrid multi-cloud solutions.
+The channel of distribution is a fully-managed cloud service, providing enterprise-level hybrid multi-cloud solutions based on Postgres and it's open source ecosystem.
 
 ## Bottom Line
 
-Postgres is the most universally loved databases for developers, teams, and enterprises of all sizes. Tembo can become the new de facto standard for deploying and managing databases for developers and companies of all sizes, changing the paradigm of how developers interact and build databases, and unlocking the power of Postgres to all developers.
+Postgres is the most universally loved database for developers, teams, and enterprises of all sizes. Tembo can become the new de facto standard for deploying and managing databases for developers and companies of all sizes, changing the paradigm of how developers interact and build databases, and unlocking the power of Postgres to all developers.
