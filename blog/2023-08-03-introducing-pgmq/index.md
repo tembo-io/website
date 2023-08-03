@@ -1,3 +1,10 @@
+---
+slug: introducing-pgmq
+title: "Introducing PGMQ: Simple Message Queues built on Postgres"
+authors: [adam]
+tags: [postgres, announcement]
+---
+
 # Introducing PGMQ: Simple Message Queues built on Postgres
 
 We’ve released a packaged extension for message queues on Postgres. People have been implementing queues on Postgres in many different ways and we’re excited about combining lessons learned from those projects into a simple, feature-rich extension named PGMQ. Some of the exciting features of the project include:
