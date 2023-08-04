@@ -19,7 +19,7 @@ Some exciting features of the project include:
 
 ## The need for message queues
 
-Message queues are a very common architectural feature to manage operational pipelines, particularly within the context of asynchronous tasks and distributed systems. There are several messaging queue solutions available in the market (Kafka, RSMQ, RabbitMQ, SQS); however, when adopting one of these technologies, you increase your cognitive load, required skills and production support overhead.
+Message queues are a very common architectural feature to manage operational pipelines, particularly within the context of asynchronous tasks and distributed systems. There are products in the market that support message queues (Kafka, RSMQ, RabbitMQ, SQS); however, when adopting one of these technologies, you increase your cognitive load, required skills and production support overhead.
 
 ## Building your queues on Postgres
 
@@ -31,13 +31,9 @@ To keep our architecture simple and reduce technology sprawl, we built a Postgre
 
 ## Queues Implemented with best practices
 
-PGMQ was implemented on Postgres and follows industry best practices. One of the most important practices is the use of Postgres’s `SKIP LOCKED`, which is similar to `NOWAIT` in other databases. `SKIP LOCKED` helps ensure that messages are not duplicated on read. PGMQ also supports partitioning, which is particularly beneficial for large queues and can be used to tackle bloat.
+PGMQ was implemented on Postgres and follows industry best practices. One of the most important practices is the use of Postgres’s [SKIP LOCKED](https://www.2ndquadrant.com/en/blog/what-is-select-skip-locked-for-in-postgresql-9-5/), which is similar to `NOWAIT` in other databases. `SKIP LOCKED` helps ensure that consumers don't hang and `FOR UPDATE` ensures messages are not duplicated on read. PGMQ also supports partitioning, which is particularly beneficial for large queues and can be used to efficiently archive / expire old messages.
 
-PGMQ also provides exactly once delivery semantics within a visibility timeout. Similar to Amazon’s SQS and RSMQ, PGMQ consumers set the period of time during which Postgres will prevent all consumers from receiving and processing a message. 
-
-This is done by the consumer on read, and once the visibility timeout expires the message becomes available for consumption once again. That way, if a consumer crashes, there is no data loss, however messages are read by only a single consumer during the specified visibility timeout. 
-
-This effectively means at-least-once delivery semantics once the first visibility timeout has expired.
+PGMQ also provides exactly once delivery semantics within a visibility timeout. Similar to Amazon’s SQS and RSMQ, PGMQ consumers set the period of time during which Postgres will prevent all consumers from receiving and processing a message. This is done by the consumer on read, and once the visibility timeout expires the message becomes available for consumption once again. That way, if a consumer crashes, there is no data loss. This effectively means at-least-once delivery semantics once the first visibility timeout has expired.
 
 ![vt](vt.png "VisibilityTimeout")
 
@@ -51,7 +47,7 @@ You can create a new queue by simply calling
 SELECT pgmq_create('my_queue');
 ```
 
-Then, send a couple messages to the queue. The message id is returned from the send() function.
+Then, pgmq_send() a couple messages to the queue. The message id is returned from the send() function.
 
 ```sql
 SELECT * from pgmq_send('my_queue', '{"foo": "bar1"}');
