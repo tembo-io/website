@@ -4,15 +4,11 @@ sidebar_position: 3
 
 # Roadmap
 
-## Coming soon
+Tembo is working hard to build a useful set of "Tembo Stacks" for a number of Postgres use cases.
 
-- Balanced — for a mixed workload
-- Read-Heavy — for a read-heavy workload
-- Write-Heavy — for a write-heavy workload
+Initial Stacks may include:
+
 - Data Warehouse — for analytical data use case
-
-## Example Stacks
-
 - Message queue system (Redis)
 - Data warehouse (Snowflake)
 - ML training and serving (Pinecone)

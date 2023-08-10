@@ -1,0 +1,9 @@
+{
+  "position": 3,
+  "label": "Postgres Basics",
+  "collapsible": true,
+  "link": {
+    "type": "generated-index",
+    "description": "Stacks are pre-built, use case-specific configurations and pre-built packages of Postgres, enabling you to quickly deploy specialized data services that can replace external, non-Postgres data services."
+  }
+}
