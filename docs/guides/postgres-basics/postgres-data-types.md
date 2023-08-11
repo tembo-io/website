@@ -8,25 +8,6 @@ tags:
 
 Postgres is a powerful, open-source relational database system. One of its strengths lies in its robust support for various data types. This guide will provide you with an understanding of the commonly used Postgres data types, their characteristics, and their use cases.
 
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Numeric Types](#numeric-types)
-  - [Integer Types](#integer-types)
-  - [Floating-Point Types](#floating-point-types)
-  - [Arbitrary Precision Types](#arbitrary-precision-types)
-- [Character Types](#character-types)
-- [Binary Data Types](#binary-data-types)
-- [Date/Time Types](#datetime-types)
-- [Boolean Type](#boolean-type)
-- [Enumerated Types](#enumerated-types)
-- [UUID Type](#uuid-type)
-- [Array Types](#array-types)
-- [JSON Types](#json-types)
-- [Hstore](#hstore)
-- [Range Types](#range-types)
-- [Conclusion](#conclusion)
-
 ## Introduction
 
 In database systems, a data type refers to the classification of data based on its nature or characteristic, dictating what kind of data can be stored in a given column of a table. Postgres provides a variety of data types to cater to different needs.
