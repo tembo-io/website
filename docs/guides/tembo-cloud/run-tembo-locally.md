@@ -10,7 +10,7 @@ This guide is for running a PostgreSQL container locally that supports installin
 
 ## Starting PostgreSQL and connect
 
-- Checkout a directory from [this linked github repository](https://github.com/tembo-io/tembo/tree/main/examples/run-tembo-locally) using git, or duplicate the files into a local directory
+- Checkout a directory from <u>[this linked github repository](https://github.com/tembo-io/tembo/tree/main/examples/run-tembo-locally)</u> using git, or duplicate the files into a local directory
 - You can start a PostgreSQL container locally like this
 ```
 docker-compose up --build -d
