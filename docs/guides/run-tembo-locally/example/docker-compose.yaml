@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  tembo-pg-cnpg:
+    container_name: local-cnpg
+    build: .
+    ports:
+      - "5432:5432"

@@ -4,6 +4,7 @@ This guide is for running a PostgreSQL container locally that supports installin
 
 ## Starting PostgreSQL and connect
 
+- Checkout [this directory](./example) using git
 - You can start a PostgreSQL container locally like this
 ```
 docker-compose up --build -d
