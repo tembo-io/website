@@ -1,9 +1,0 @@
-{
-  "position": 3,
-  "label": "Run Tembo locally",
-  "collapsible": true,
-  "link": {
-    "type": "generated-index",
-    "description": "How to run Tembo PostgreSQL locally, with the ability to install extensions"
-  }
-}
