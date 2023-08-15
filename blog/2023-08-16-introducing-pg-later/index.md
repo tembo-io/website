@@ -44,7 +44,7 @@ To get started, check out our project’s [README](https://github.com/tembo-io/p
 First, you need to initialize the extension. This handles the management of PGMQ objects like a job queue and some metadata tables.
 
 ```sql
-SELECT pglater.init();
+select pglater.init();
 ```
 
 You're now set to dispatch your queries. Submit the query using pglater.exec, and be sure to take note of the **job_id** that is returned. In this case, it’s the first job so the **job_id** **is 1**.
