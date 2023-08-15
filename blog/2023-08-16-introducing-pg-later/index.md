@@ -33,7 +33,7 @@ A common example is manually executing VACUUM on a table. Typically one might ex
 
 **pg_later** is built on top of [PGMQ](https://tembo.io/blog/introducing-pgmq), another one of Tembo's open source extensions. Once a user submits a query, **pg_later** seamlessly enqueues the request in a Postgres-managed message queue. This mechanism then processes the query asynchronously, ensuring no unnecessary wait times or hold-ups.
 
-The **pg_later** background worker picks up the query from the queue and executes it. The results are persisted by being written to a table as [JSONB](https://www.postgresql.org/docs/9.5/functions-json.html) and can be easily retrieved using the **pg_later** API. You can simply reference the unique job id given upon query submission, and retrieve the result set, or query the table directly. By default, the results are retained forever, however we are building retention policies as a feature into **pg_later**.
+The **pg_later** [background worker](https://www.postgresql.org/docs/current/bgworker.html) picks up the query from the queue and executes it. The results are persisted by being written to a table as [JSONB](https://www.postgresql.org/docs/9.5/functions-json.html) and can be easily retrieved using the **pg_later** API. You can simply reference the unique job id given upon query submission, and retrieve the result set, or query the table directly. By default, the results are retained forever, however we are building retention policies as a feature into **pg_later**.
 
 ![diagram](diagram.png "diagram")
 
