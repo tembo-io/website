@@ -9,9 +9,7 @@ We’re working on asynchronous query execution in Postgres and have packaged th
 
 Visit [pg_later](https://github.com/tembo-io/pg_later)’s Github repository and give it a star!
 
-<p align = "center">
-  <img src="elephant.png" alt="elephant" width="60%"/>
-</p>
+![elephant-tasker](elephant.png "elephant-tasker")
 
 ## Why async queries?
 
