@@ -45,9 +45,52 @@ To get started, check out our project’s [README](https://github.com/tembo-io/p
 
 First, you need to initialize the extension. This handles the management of PGMQ objects like a job queue and some metadata tables.
 
+```sql
+SELECT pglater.init();
+```
+
 You're now set to dispatch your queries. Submit the query using pglater.exec, and be sure to take note of the **job_id** that is returned. In this case, it’s the first job so the **job_id** **is 1**.
 
+```sql
+select pglater.exec(
+  'select * from pg_available_extensions limit 2'
+) as job_id;
+```
+
+```text
+ job_id 
+--------
+     1
+(1 row)
+```
+
 And whenever you're ready, your results are a query away:
+
+```sql
+select pglater.fetch_results(1);
+```
+
+```text
+{
+  "query": "select * from pg_available_extensions limit 2",
+  "job_id": 1,
+  "result": [
+    {
+      "name": "pg_later",
+      "comment": "pg_later:  Run queries now and get results later",
+      "default_version": "0.0.6",
+      "installed_version": "0.0.6"
+    },
+    {
+      "name": "pgmq",
+      "comment": "Distributed message queues",
+      "default_version": "0.10.1",
+      "installed_version": "0.10.1"
+    }
+  ],
+  "status": "success"
+}
+```
 
 ## Up next
 
