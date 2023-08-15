@@ -1,6 +1,6 @@
 ---
 slug: introducing-pg-later
-title: "Introducing pg_later: Asynchronous Queries for PostgreSQL, Inspired by Snowflake"
+title: "Introducing pg_later: Asynchronous Queries for Postgres, Inspired by Snowflake"
 authors: [adam]
 tags: [postgres, announcement, async]
 ---
@@ -25,7 +25,7 @@ Some examples where async querying can be useful are:
 
 ## Extending Postgres with async features
 
-At Tembo, we’ve built a similar feature for Postgres and published it as an extension called **pg_later**. With **pg_later**, you can dispatch a query to your PostgreSQL database and, rather than waiting for the results, your program can return and retrieve the results at your convenience.
+At Tembo, we’ve built a similar feature for Postgres and published it as an extension called **pg_later**. With **pg_later**, you can dispatch a query to your Postgres database and, rather than waiting for the results, your program can return and retrieve the results at your convenience.
 
 A common example is manually executing VACUUM on a table. Typically one might execute VACUUM in one session, and then use another session to check the status of the VACUUM job via `pg_stat_progress_vacuum`. pg_later gives you the power to do that in a single session. You can use it to queue up any long-running analytical or administrative task on your Postgres database.
 
@@ -33,7 +33,7 @@ A common example is manually executing VACUUM on a table. Typically one might ex
 
 **pg_later** is built on top of [PGMQ](https://tembo.io/blog/introducing-pgmq), another one of Tembo's open source extensions. Once a user submits a query, **pg_later** seamlessly enqueues the request in a Postgres-managed message queue. This mechanism then processes the query asynchronously, ensuring no unnecessary wait times or hold-ups.
 
-The **pg_later** background worker picks up the query from the queue and executes it. The results are persisted by being written to a table as [JSONB](https://www.postgresql.org/docs/9.5/functions-json.html) and can be easily retrieved using the pg_later API. You can simply reference the unique job id given upon query submission, and retrieve the result set, or query the table directly. By default, the results are retained forever, however we are building retention policies as a feature into pg_later.
+The **pg_later** background worker picks up the query from the queue and executes it. The results are persisted by being written to a table as [JSONB](https://www.postgresql.org/docs/9.5/functions-json.html) and can be easily retrieved using the **pg_later** API. You can simply reference the unique job id given upon query submission, and retrieve the result set, or query the table directly. By default, the results are retained forever, however we are building retention policies as a feature into **pg_later**.
 
 ![diagram](diagram.png "diagram")
 
