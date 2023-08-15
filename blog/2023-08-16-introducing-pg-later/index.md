@@ -2,7 +2,7 @@
 slug: introducing-pg-later
 title: "Introducing pg_later: Asynchronous Queries for PostgreSQL, Inspired by Snowflake"
 authors: [adam]
-tags: [postgres, announcement]
+tags: [postgres, announcement, async]
 ---
 
 We’re working on asynchronous query execution in Postgres and have packaged the work up in an extension we’re calling [pg_later](https://github.com/tembo-io/pg_later). If you’ve used [Snowflake’s asynchronous queries](https://docs.snowflake.com/developer-guide/python-connector/python-connector-example#examples-of-asynchronous-queries), then you might already be familiar with this type of feature. Submit your queries to Postgres now, and come back later and get the query’s results.
