@@ -66,7 +66,7 @@ SELECT vectorize.table(
 );
 ```
 
-By default, this job will run to generate and update embeddings every minute based on the `last_updated_at` column. This update process is triggered by a `pg_cron`, which is setup for your automatically by `pg_vectorize`.
+By default, this job will run to generate and update embeddings every minute based on the `last_updated_at` column. This update process is triggered by a `pg_cron`, which is setup for your automatically by `pg_vectorize`. If there are updates to the `products` table, the next job run will subsequently update the embeddings accordingly.
 
 By default, this will add two columns to your table; `<job_name>_embeddings` and `<job_name>_updated_at`.
 
@@ -84,8 +84,8 @@ AND table_name   = 'products';
  product_name
  description
  last_updated_at
- product_search_embeddings
- product_search_updated_at
+ product_search_embeddings  <--- embeddings
+ product_search_updated_at  <--- embeddings last updated at
 ```
 
 ### Manually trigger embedding generation
@@ -119,6 +119,8 @@ SELECT * FROM vectorize.search(
  {"value": "Bluetooth Speaker", "column": "product_name", "similarity_score": 0.8255034841826178}
 ```
 
+Great! Our query returned the top 3 most similar products to our query, along with the score for each product.
+
 ### Stopping the job
 
 `pg_vectorize` will continuously update the embeddings for your table. If you want to stop the job, you can do so by running:
@@ -135,4 +137,12 @@ You can reenable the job by running:
 UPDATE cron.job
 SET active = true
 WHERE job_name = 'product_search';
+```
+
+### Tuning performance with indexes
+
+When you have tens of thousands of rows, your query performance will improve by adding an index. See the [pgvector documentation](https://github.com/pgvector/pgvector#indexing) to tune the index for your use case.s
+
+```sql
+CREATE INDEX ON products USING ivfflat (product_search_embeddings vector_cosine_ops) WITH (lists = 100);
 ```
