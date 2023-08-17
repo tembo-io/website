@@ -2,7 +2,7 @@
 slug: introducing-pgmq
 title: "Introducing PGMQ: Simple Message Queues built on Postgres"
 authors: [adam]
-tags: [postgres, announcement]
+tags: [postgres, announcement, queues]
 ---
 
 We’ve released [PGMQ](https://github.com/tembo-io/pgmq), a packaged extension for message queues on Postgres. 
