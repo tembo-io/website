@@ -22,4 +22,4 @@ In Tembo Cloud, we support Point In Time Recovery (PITR) to a new Tembo Cluster 
 
 ## WAL archiving
 
-Tembo sets `archive_timeout` to 5min, ensuring that WAL files are closed and archived to S3 at least every five minutes, providing a deterministic time-based value for your Recovery Point Objective (RPO)
+Tembo sets `archive_timeout` to 5min, ensuring that WAL files are closed and archived to S3 at least every five minutes, providing a deterministic time-based value for your Recovery Point Objective (RPO).
