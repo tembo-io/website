@@ -26,8 +26,7 @@ Tembo is using [Clerk](https://clerk.com/) for authentication and user managemen
 ## Invite your service user to your organization
 
 - Log into Tembo Cloud with your personal email
-- In the Manage Organization option of Tembo Cloud, invite your service user to your organization(s)
-![Invite user](./images/invite-user.png)
+- Invite your service user to your organization(s) using [this link](https://accounts.tembo.io/organization)
 - In the service user's email, accept the invitation
 - Log in as the service user, confirming you have access to the Tembo Organization
 
