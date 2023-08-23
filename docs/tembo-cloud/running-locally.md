@@ -1,10 +1,10 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 tags:
   - local
 ---
 
-# Running Tembo locally
+# Running locally
 
 This guide is for running a Postgres container locally that supports installing extensions with Trunk. This guide uses Docker Compose to start the same image used in Tembo Cloud on your local machine, and provides guidance on how to manually install and enable extensions. We are also working on a Tembo CLI that will replace this workflow.
 

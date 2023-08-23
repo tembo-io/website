@@ -1,11 +1,21 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 tags:
   - api
   - authentication
 ---
 
-# API Authentication
+# API
+
+To explore the Tembo Cloud API, visit our [interactive API documentation](https://api.coredb.io/swagger-ui/#/). 
+
+The API is under continuous development and subject to change.
+
+:::note
+CoreDB is our old company name, and the API URL will be updated soon.
+:::
+
+## Authentication
 
 This document covers how to authenticate to the Tembo Cloud API. Before an API token feature is available, we provide a means to create a service user, then get an authentication token using that service user's email and password. The API is available for direct use at an experimental stability level, and the structure of the API will change.
 
@@ -15,13 +25,21 @@ Tembo is using [Clerk](https://clerk.com/) for authentication and user managemen
 
 ## Create a service user
 
-- During Private Beta, Tembo Cloud is invitation-only, so your service user will need to be invited. First, your service user email address will need to be allowed to join Tembo Cloud. Either Tembo Support will already have granted your company email domain access to Tembo Cloud, or you can contact support and ask to add your service user's email or company domain to our list of allowed email addresses.
-- To avoid accidentally signing in with your personal Tembo Cloud user when creating a new user, make sure you are not signed into Tembo Cloud, and if applicable, also not signed into your Google account in your browser. Using an incognito window or another browser for this step is recommended.
-- Sign up with your service user here https://accounts.tembo.io/sign-up
-- Make sure to use the email / password option, do not use Google, GitHub, or any other third party authentication option.
-![Example sign up](./images/sign-up.png)
-- Log into the email account of your service user and confirm.
-- There is no need to create a new Tembo Organization with your service user.
+During Private Beta, Tembo Cloud is invitation-only, so your service user will need to be invited. First, your service user email address will need to be allowed to join Tembo Cloud. Either Tembo Support will already have granted your company email domain access to Tembo Cloud, or you can contact support and ask to add your service user's email or company domain to our list of allowed email addresses.
+
+To avoid accidentally signing in with your personal Tembo Cloud user when creating a new user, make sure you are not signed into Tembo Cloud, and if applicable, also not signed into your Google account in your browser. Using an incognito window or another browser for this step is recommended.
+
+Sign up with your service user here https://accounts.tembo.io/sign-up with the email / password option
+
+:::caution
+Do not use Google, GitHub, or any other third party authentication option.
+:::
+
+Then log into the email account of your service user, and confirm.
+
+:::info
+There is no need to create a new Tembo Organization with your service user.
+:::
 
 ## Invite your service user to your organization
 
@@ -34,7 +52,7 @@ Tembo is using [Clerk](https://clerk.com/) for authentication and user managemen
 
 - We will use the service user's email / password combination to log in to Tembo Cloud, receiving a JWT. Then, we will use the JWT in an API request to Tembo Cloud.
 
-```
+```shell
 #!/bin/bash
 
 # Replace with your service user email
@@ -66,6 +84,3 @@ curl "https://api.coredb.io/api/entities/all" \
 ```
 
 - The above script is an example using curl and jq to query the Tembo API after logging in with Clerk.
-- To explore the Tembo Cloud API, visit the interactive API documentation https://api.coredb.io/swagger-ui/#/
-- Refereces to "CoreDB" are references to our old company name, and those will be replaced.
-- This API is under development and subject to change, available for direct access at an experimental stability level.
