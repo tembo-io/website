@@ -15,3 +15,11 @@ sidebar_position: 1
 ## Fast Track
 
 ⚡️ Join our wait list, then email support@tembo.io with details on your use case to jump to the front of the line.
+
+## Staying informed
+
+- [GitHub](http://github.com/tembo-io)
+- [X](https://x.com/tembo_io)
+- [Blog](/blog)
+- [Slack](https://join.slack.com/t/trunk-crew/shared_invite/zt-1yiafma92-hFHq2xAN0ukjg_2AsOVvfg)
+- Email us at support@tembo.io
