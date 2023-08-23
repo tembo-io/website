@@ -22,4 +22,7 @@ sidebar_position: 1
 - [X](https://x.com/tembo_io)
 - [Blog](/blog)
 - [Slack](https://join.slack.com/t/trunk-crew/shared_invite/zt-1yiafma92-hFHq2xAN0ukjg_2AsOVvfg)
+
+## Questions? Need support?
+
 - Email us at support@tembo.io
