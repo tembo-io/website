@@ -200,7 +200,7 @@ from tembo_pgmq_python import Message, PGMQueue
 
 if __name__ == '__main__':
     host = "localhost"
-    port = 28815
+    port = 5432
     username = "postgres"
     password = "postgres"
     database = "postgres"
