@@ -19,7 +19,7 @@ FROM table_name
 ```
 
 ## Filtering Data
-You can use the **'WHERE'** clause to filter data based on specific conditions.
+You can use the **'WHERE'** clause to filter data absed on specific conditions.
 ```sql
 SELECT first_name, last_name
 FROM employees
@@ -56,7 +56,7 @@ JOIN orders ON customers.customer_id = orders.customer_id;
 ```
 
 ## Grouping Data
-The **'GROUP BY'** clause groups rows that have the same values.
+The **'GROUP BY'** caluse groups rows that have the same values.
 ```sql
 SELECT customers.customer_id, customers.first_name, orders.order_date
 FROM customers
