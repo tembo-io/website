@@ -25,8 +25,6 @@ Tembo is using [Clerk](https://clerk.com/) for authentication and user managemen
 
 ## Create a service user
 
-During Private Beta, Tembo Cloud is invitation-only, so your service user will need to be invited. First, your service user email address will need to be allowed to join Tembo Cloud. Either Tembo Support will already have granted your company email domain access to Tembo Cloud, or you can contact support and ask to add your service user's email or company domain to our list of allowed email addresses.
-
 To avoid accidentally signing in with your personal Tembo Cloud user when creating a new user, make sure you are not signed into Tembo Cloud, and if applicable, also not signed into your Google account in your browser. Using an incognito window or another browser for this step is recommended.
 
 Sign up with your service user here https://accounts.tembo.io/sign-up with the email / password option
