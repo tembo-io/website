@@ -26,7 +26,7 @@ echo "Please enter your service user email:"
 read EMAIL
 echo ""
 
-echo "Please enter your password:"
+echo "Please enter your password (no visual feedback):"
 read -s PASSWORD
 echo ""
 
