@@ -83,7 +83,7 @@ RESPONSE_BODY=$(curl "https://clerk.tembo.io/v1/client/sign_ins/${LOG_IN_TOKEN}/
   -b ./cookies \
   --no-progress-meter \
   --data-urlencode "strategy=password" \
-  --data-urlencode "password=- ${PASSWORD}" \
+  --data-urlencode "password=${PASSWORD}" \
   --compressed)
 
 if [ "$DEBUG" = "1" ]; then
