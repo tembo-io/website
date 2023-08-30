@@ -46,7 +46,7 @@ There is no need to create a new Tembo Organization with your service user.
 
 - We will use the service user's email / password combination to log in to Tembo Cloud. Then, we will issue a long-lived API token that can be used for non-interactive authentication with Tembo Cloud.
 - You will need to have `curl` and `jq` installed for the following step.
-- Run the following command to interactively create a long-lived API token
+- Run the following command to interactively create a long-lived API token that expires in a configurable number of days.
 
 ```shell
 bash <(curl -Ls https://raw.githubusercontent.com/tembo-io/website/main/docs/tembo-cloud/scripts/issue-token.sh)
