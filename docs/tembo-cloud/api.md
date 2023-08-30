@@ -52,7 +52,7 @@ There is no need to create a new Tembo Organization with your service user.
 bash <(curl -Ls https://raw.githubusercontent.com/tembo-io/website/main/docs/tembo-cloud/scripts/issue-token.sh)
 ```
 
-- Then, you can use this token in API requests to tembo cloud, for example:
+- Then, you can use this token in API requests to Tembo Cloud, for example:
 
 ```shell
 export TOKEN='******'
