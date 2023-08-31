@@ -210,27 +210,21 @@ ALTER SYSTEM SET autovacuum_naptime = '1min';
 SELECT pg_reload_conf();
 ```
 
-Let’s run a benchmark to get a baseline:
+Let’s run a benchmark to get a baseline. We will reuse this benchmark through the process.
 
 ```sh
-pgbench 'postgresql://postgres:pw@host:5432' 
--c 100 
--j 1 
--P 1 
--T 300 
--r 
--f churn.sql
+pgbench 'postgresql://postgres:pw@host:5432' -c 100 -j 1 -P 1 -T 300 -r -f churn.sql
 ```
 
 ![default](default.png "default")
 
-Average latency is about 3.4 ms. We are benchmarking an expensive set of queries, and you’ve probably noticed the sawtooth pattern in the plot, and a relatively high standard deviation. This is a symptom of bloat accumulating on our table. Query latency grows until the vacuum process clears dead tuples, and then grows once again. Ideally we can reduce average latency and provide some stability to the latency value as well.
+Average latency is about 3.4 ms. We are benchmarking an expensive set of queries, and you’ve probably noticed the sawtooth pattern in the plot and a high standard deviation relative to the latency. This is a symptom of bloat accumulating on our table. Query latency grows until the vacuum process clears dead tuples, and then grows once again. This also has an inverse impact on transactions per second (TPS). Ideally we can reduce and provide some stability to latency.
 
 ## Balancing Vacuum Delay for Optimal System Performance
 
 Vacuuming is indispensable. However, it is not free and if left unchecked, it can burden your system. The balance lies in `autovacuum_vacuum_cost_delay` and `autovacuum_vacuum_cost_limit`. `autovacuum_vacuum_cost_delay` is the amount of time that the autovacuum process will halt processing when the `autovacuum_vacuum_cost_limit` is reached. Imagine this series of events - a table reaches 10% bloat, meaning 10% of the tuples are dead. When the 10% threshold is reached, the autovacuum worker begins to work and starts accruing cost. When that cost reaches `autovacuum_vacuum_cost_limit`, it will pause for the duration specified by `autovacuum_vacuum_cost_delay`, and then continue working until it is complete.
 
-Modifying these can craft the perfect balance between seamless vacuuming and system efficiency. Let’s increase the cost limit to the max, and reduce the delay by  half. This will let the autovacuum process run longer and pause for a shorter period of time when it does reach the cost limit, to ideally reduce bloat faster and reduce query latency. 
+Modifying these can craft the perfect balance between seamless vacuuming and system efficiency. Let’s increase the cost limit to the max, and reduce the delay by  half. This will let the autovacuum process run longer and pause for a shorter period of time when it does reach the cost limit, to ideally reduce bloat faster and reduce query latency.
 
 ```sql
 ALTER SYSTEM SET autovacuum_vacuum_cost_delay = '10ms';
@@ -240,7 +234,7 @@ SELECT pg_reload_conf();
 
 ![delay_cost_limit](delay_limit.png "delay-cost-limit")
 
-We have a slight reduction in average latency, but we can still see that it obviously grows over time, and clears roughly every 60 seconds.
+We have a slight reduction in average latency, but we can still see that the obviously grows in latency over time and decrease in TPS. It clears roughly every 60 seconds.
 
 ## Fine-Tuning Auto Vacuum Scale Factors
 
@@ -253,27 +247,13 @@ SELECT pg_reload_conf();
 
 ![scale-factor](scale_factor.png "scale-factor")
 
-scaling factor: 1
-query mode: simple
-number of clients: 15
-number of threads: 1
-duration: 300 s
-number of transactions actually processed: 1374255
-latency average = 3.250 ms
-latency stddev = 0.950 ms
-initial connection time = 421.651 ms
-tps = 4587.258737 (without initial connection time)
-statement latencies in milliseconds:
-         3.250  DO $$
-
-
-Reducing the scale factor had limited effect on our result, unfortunately.
+Reducing the scale factor had minimal impact on our result, so allowing the autovacuum to trigger sooner did not help. We can see that the period of the sawtooth pattern is still about 60 seconds, which means there we are probably limited by `autovacuum_naptime`, which we'll talk about next.
 
 ## A Quick Siesta for Your System
 
-The autovacuum_naptime parameter in PostgreSQL dictates the duration between auto-vacuum runs. By default, PostgreSQL has set intervals for these operations. Depending on just how high-churn your workloads are, it might be necessary to decrease this value, whereas a longer interval could be suited for environments that are not churning at such a high rate. For a table that has incredibly high churn, like a queue, it is likely that the table routinely sits near 100% bloat.
+The autovacuum_naptime parameter in Postgres specifies the minimum delay between autovacuum runs on any given database. The default (which we set earlier) is `1min`. Generally, depending on just how high-churn your workloads are, it might be necessary to decrease this value, whereas a longer interval could be suited for environments that are not churning at such a high rate. But our table has a crazy amount of churn.
 
-We want to reduce the height of the latency peaks. One way to do this is to make the vacuum more aggressive and tell it to run sooner. We tried to influence that by setting the autovacuum_vacuum_scale_factor, but we can also lower the autovacuum_naptime value, which will also allow it to run sooner. Let’s cut it in half.
+We want to reduce the height of the latency peaks. One way to do this is to make the vacuum more aggressive and tell it to run sooner. We tried to influence that by setting the `autovacuum_vacuum_scale_factor`, but we can also lower the `autovacuum_naptime` value, which will also allow it to run sooner. Let’s cut it in half.
 
 ```sql
 ALTER SYSTEM SET autovacuum_naptime = '30s';
@@ -282,7 +262,7 @@ SELECT pg_reload_conf();
 
 ![naptime](naptime.png "naptime")
 
-Allowing the autovacuumer to run more frequently significantly reduced our average latency. However, we’re still seeing a noticeable sawtooth pattern and high standard deviation of latency. Let’s completely disable the cost limitations to the vacuum process, let it have as much compute as it needs.
+Allowing the autovacuumer to run more frequently reduced our average latency and increase TPS. However, we’re still seeing a noticeable sawtooth pattern and high standard deviation of latency. Let’s completely disable the cost limitations to the vacuum process, let it have as much compute as it needs.
 
 ```sql
 ALTER SYSTEM SET autovacuum_vacuum_cost_delay = '0';
@@ -290,20 +270,6 @@ SELECT pg_reload_conf();
 ```
 
 ![disable-cost](disable_cost.png "disable-cost")
-
-
-scaling factor: 1
-query mode: simple
-number of clients: 15
-number of threads: 1
-duration: 300 s
-number of transactions actually processed: 1439567
-latency average = 3.106 ms
-latency stddev = 0.950 ms
-initial connection time = 475.391 ms
-tps = 4806.122368 (without initial connection time)
-statement latencies in milliseconds:
-         3.106  DO $$
 
 Finally, reduce naptime to 10s
 
@@ -314,7 +280,7 @@ SELECT pg_reload_conf();
 
 ![naptime-final](naptime_final.png "naptime-final")
 
-Overall, we’ve iterated on autovacuum settings and reduced the average latency from 3.4ms to 2.8ms and stddev from 1ms to 0.8ms, which helped increase transactions per second from 4.3k to about 5.3k.
+Overall, we’ve iterated on autovacuum settings and reduced the average latency from 3.4ms to 2.8ms and stddev from 0.8ms to 0.7ms, which helped increase TPS from 4.3k to about 5.3k.
 
 Configuring the autovacuum settings can be a lot of fun and the appreciated values are wildly dependent on the workload. We covered the absurdly high churn use case on a single-table today, which is very similar to what we see when running applications using PGMQ. Vacuum is complicated and can be [tuned differently](https://www.enterprisedb.com/blog/postgresql-vacuum-and-analyze-best-practice-tips) when considering multiple tables with different workloads. Other OLTP use cases will call for different settings, and OLAP workloads may be less influenced by the vacuum settings altogether. Follow us, and sign up for the Tembo Cloud waitlist because we will surely be writing about these other topics soon.
 
