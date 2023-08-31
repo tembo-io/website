@@ -8,14 +8,20 @@ tags:
 
 This guide is for running a Postgres container locally that supports installing extensions with Trunk. This guide uses Docker Compose to start the same image used in Tembo Cloud on your local machine, and provides guidance on how to manually install and enable extensions. We are also working on a Tembo CLI that will replace this workflow.
 
-## Start Postgres and connect
+## Start Postgres using Docker
 
-- Checkout a directory from <u>[this linked github repository](https://github.com/tembo-io/tembo/tree/main/examples/run-tembo-locally)</u> using git, or duplicate the files into a local directory
 - You can start a Postgres container locally like this
 ```
-docker-compose up --build -d
+docker run -it --name local-tembo -p 5432:5432 --rm quay.io/tembo/tembo-local
 ```
-- The above command will fail if you already have something running on port 5432
+- The above image includes common system dependencies for extensions listed in [Trunk](https://pgt.dev). Some extensions have very large dependencies, and these are not included, for example in the case of PostgresML.
+- If you want to self-manage the system dependencies, there is a version of the image without them installed
+```
+docker run -it --name local-tembo -p 5432:5432 --rm quay.io/tembo/tembo-local-slim
+```
+
+## Connect to the Postgres container
+
 - Now, you can connect to your database with this command:
 ```
 psql postgres://postgres:postgres@localhost:5432
@@ -23,6 +29,7 @@ psql postgres://postgres:postgres@localhost:5432
 
 ## Install extensions with Trunk
 
+- Browse [Trunk](https://pgt.dev) to find interesting extensions
 - Get a shell connection into your Postgres container
 ```
 docker exec -it local-tembo /bin/bash
