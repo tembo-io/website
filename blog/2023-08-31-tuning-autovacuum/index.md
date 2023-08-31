@@ -57,13 +57,12 @@ SELECT
     n_dead_tup,
     n_live_tup
 FROM pg_stat_user_tables
-WHERE 
-    n_dead_tup > 0 --needed to avoid division by zero
-    and relname = 'bencher';
+WHERE relname = 'bencher';
 
  schemaname | relname | n_dead_tup | n_live_tup 
 ------------+---------+------------+------------
-(0 rows)
+ public     | bencher |          0 |   10000000
+
 ```
 
 Let’s see how long it takes to get a rowcount with no bloat.
@@ -79,7 +78,6 @@ record_id | updated_at
 
 Time: 191.006 ms
 ```
-
 
 Great, 191ms. Slow, yes but we have no indices because we’re demonstrating bloat. Now lets create a bunch of dead tuples. This can take a minute or so.
 
@@ -115,9 +113,7 @@ SELECT
     n_dead_tup,
     n_live_tup
 FROM pg_stat_user_tables
-WHERE
-  n_dead_tup > 0 --needed to avoid division by zero
-and relname = 'bencher';
+WHERE relname = 'bencher';
 
 
 schemaname | relname | n_dead_tup | n_live_tup
@@ -143,9 +139,9 @@ FROM pg_stat_user_tables
 WHERE
     n_dead_tup > 0 --needed to avoid division by zero
 and relname = 'bencher';
-schemaname | relname | n_dead_tup | n_live_tup
+ schemaname | relname | n_dead_tup | n_live_tup 
 ------------+---------+------------+------------
-(0 rows)
+ public     | bencher |          0 |    10000000
 ```
 
 Finally, let’s retrieve the record. Performance restored!
@@ -284,7 +280,7 @@ ALTER SYSTEM SET autovacuum_naptime = '30s';
 SELECT pg_reload_conf();
 ```
 
-## TODO: fourth CHART image
+![naptime](naptime.png "naptime")
 
 Allowing the autovacuumer to run more frequently significantly reduced our average latency. However, we’re still seeing a noticeable sawtooth pattern and high standard deviation of latency. Let’s completely disable the cost limitations to the vacuum process, let it have as much compute as it needs.
 
