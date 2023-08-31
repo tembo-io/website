@@ -14,7 +14,7 @@ This guide is for running a Postgres container locally that supports installing 
 ```
 docker run -it --name local-tembo -p 5432:5432 --rm quay.io/tembo/tembo-local
 ```
-- The above image includes common system dependencies for extensions listed in [Trunk](https://pgt.dev). Some extensions have very large dependencies, and these are not included, for example in the case of PostgresML.
+- The above image includes common system dependencies for extensions listed in [Trunk](https://pgt.dev). Some extensions have very large dependencies, and these are not included.
 
 ## Connect to the Postgres container
 
