@@ -12,7 +12,7 @@ This guide is for running a Postgres container locally that supports installing 
 
 - You can start a Postgres container locally like this
 ```
-docker run -it --name local-tembo -p 5432:5432 --rm quay.io/tembo/tembo-local
+docker run -d -it --name local-tembo -p 5432:5432 --rm quay.io/tembo/tembo-local
 ```
 - The above image includes common system dependencies for extensions listed in [Trunk](https://pgt.dev). Some extensions have very large dependencies, and these are not included.
 
