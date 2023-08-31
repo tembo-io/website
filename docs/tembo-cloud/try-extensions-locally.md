@@ -4,7 +4,7 @@ tags:
   - local
 ---
 
-# Running locally
+# Try extensions locally
 
 This guide is for running a Postgres container locally that supports installing extensions with Trunk.
 
