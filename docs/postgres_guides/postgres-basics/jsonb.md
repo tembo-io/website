@@ -12,7 +12,7 @@ tags:
 - **Query Capabilities**: With JSONB, you can query specific fields, use array functions, and even join on JSONB fields.
 - **Performance**: JSONB data is stored in a binary format, making it faster to query compared to the textual JSON type. It also supports indexing, which can further speed up queries.
 
-## Creating a Table
+## Creating a table
 ```sql
 CREATE TABLE users (
     id serial PRIMARY KEY,
@@ -28,7 +28,7 @@ INSERT INTO users(data) VALUES
 
 ## Querying
 
-- **Query a field**:
+- Query a field:
 ```sql
 SELECT data->>'name' as name FROM users WHERE data->>'name' = 'John';
 ```
@@ -37,7 +37,7 @@ SELECT data->>'name' as name FROM users WHERE data->>'name' = 'John';
 The `->` operator returns data as the jsonb type. The operator `->>` returns the data as text.
 :::
 
-- **Query a nested field**:
+- Query a nested field:
 ```sql
 SELECT data->'contacts'->>'email' as email FROM users WHERE data->'contacts'->>'phone' = '1234567890';
 ```
@@ -141,7 +141,7 @@ DROP INDEX IF EXISTS idxginp;
 PL/pgSQL stands for "Procedural Language / PostgreSQL", and it's the PostgreSQL database's default procedural language.
 :::
 
-```
+```sql
 -- Generate the data
 
 DO $$
@@ -164,7 +164,7 @@ SELECT * FROM users LIMIT 10;
 
 - Let's add another user to search for
 
-```
+```sql
 INSERT INTO users(data) VALUES
 ('{"name": "Steven", "age": 31, "contacts": {"email": "steven@example.com", "phone": "8675309"}}');
 ```
@@ -284,7 +284,7 @@ CREATE INDEX idx_users_phone_btree ON users ((data->'contacts'->>'phone'));
 
 - We have to slightly modify our query so that it's not using the containment operator:
 
-```
+```sql
 SELECT id, data->>'name' as name, data->'contacts'->>'email' as email
 FROM users
 WHERE data->'contacts'->>'phone' = '8675309';
