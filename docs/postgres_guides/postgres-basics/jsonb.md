@@ -240,3 +240,82 @@ postgres=# EXPLAIN ANALYZE SELECT id, data->>'name' as name, data->'contacts'->>
 ```
 
 - We can see this query only took 3ms, compared to more than 800ms in the previous example.
+
+- Let's check how big our table is, and how much of that is the index
+
+```sql
+SELECT
+  tablename,
+  pg_size_pretty(pg_total_relation_size(tablename)) AS total,
+  pg_size_pretty(pg_relation_size(tablename)) AS table,
+  pg_size_pretty(pg_indexes_size(tablename)) AS index
+FROM (SELECT ('"' || table_schema || '"."' || table_name || '"') AS tablename
+      FROM information_schema.tables WHERE table_name = 'users') AS subquery;
+```
+
+Sample output:
+```
+postgres=# SELECT
+  tablename,
+  pg_size_pretty(pg_total_relation_size(tablename)) AS total,
+  pg_size_pretty(pg_relation_size(tablename)) AS table,
+  pg_size_pretty(pg_indexes_size(tablename)) AS index
+FROM (SELECT ('"' || table_schema || '"."' || table_name || '"') AS tablename
+      FROM information_schema.tables WHERE table_name = 'users') AS subquery;
+
+    tablename     | total  | table  | index
+------------------+--------+--------+--------
+ "public"."users" | 375 MB | 136 MB | 239 MB
+(1 row)
+```
+
+- Notably, the index is larger than the table itself!
+- We can make this much smaller by only indexing the phone number.
+
+```sql
+DROP INDEX idxgin;
+```
+
+- Create a new, limited index. Using an expression index like this will only index the phone number. In our case, we are using the default, binary tree index because we are only searching for a single text value, so the index does not need to use GIN indexes. Consider the use of GIN indexes if you want to do a JSONB query, for example if users have multiple phone number each, and you want to check all users for any phone number.
+
+```sql
+CREATE INDEX idx_users_phone_btree ON users ((data->'contacts'->>'phone'));
+```
+
+- We have to slightly modify our query so that it's not using the containment operator:
+
+```
+SELECT id, data->>'name' as name, data->'contacts'->>'email' as email
+FROM users
+WHERE data->'contacts'->>'phone' = '8675309';
+```
+
+```
+postgres=# explain analyze SELECT id, data->>'name' as name, data->'contacts'->>'email' as email
+FROM users
+WHERE data->'contacts'->>'phone' = '8675309';
+                                                          QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------------
+ Index Scan using idx_users_phone_btree on users  (cost=0.42..8.45 rows=1 width=68) (actual time=0.885..0.935 rows=1 loops=1)
+   Index Cond: (((data -> 'contacts'::text) ->> 'phone'::text) = '8675309'::text)
+ Planning Time: 6.859 ms
+ Execution Time: 1.976 ms
+(4 rows)
+```
+
+- And, we can see the index is smaller.
+```
+
+postgres=# SELECT
+  tablename,
+  pg_size_pretty(pg_total_relation_size(tablename)) AS total,
+  pg_size_pretty(pg_relation_size(tablename)) AS table,
+  pg_size_pretty(pg_indexes_size(tablename)) AS index
+FROM (SELECT ('"' || table_schema || '"."' || table_name || '"') AS tablename
+      FROM information_schema.tables WHERE table_name = 'users') AS subquery;
+
+    tablename     | total  | table  | index
+------------------+--------+--------+-------
+ "public"."users" | 198 MB | 136 MB | 62 MB
+(1 row)
+```
