@@ -22,7 +22,7 @@ Table bloat is a condition that if not managed, will likely hamper performance o
 
 Postgres’s default autovacuum settings are pretty good. If you’re like me, it could have been years into your postgres journey before having a negative experience with bloat. However, when the time came I found it challenging to understand and tune these configuration settings. That’s why we will study them safely in a dev environment.
 
-# Unraveling the Mystery of Bloat & Vacuum's Role
+## Unraveling the Mystery of Bloat & Vacuum's Role
 
 PostgreSQL's mechanism for handling bloat is unique due to its adherence to MVCC. Contrary to immediate space reclamation after data is deleted or becomes obsolete, Postgres tags these rows as "dead", or “dead tuples”. However, even though they are dead they still occupy disk space and will degrade the performance of your queries. Many queries will continue to scan through these tuples, despite their “dead” status. The auto-vacuum steps in here, ensuring that these rows are removed and both the table and its associated indexes are streamlined for performance. You can’t scan the dead tuples if they no longer exist!
 
@@ -160,7 +160,7 @@ record_id | updated_at
 Time: 194.101 ms
 ```
 
-# Setting up a benchmarking environment
+## Setting up a benchmarking environment
 
 The rest of the examples will be run on Postgres in [Tembo Cloud](https://tembo.io/waitlist). We’ll use 8 vcore and 16Gb of memory and execute all the `psql` and `pgbench` commands from an EC2 instance within the same region as Postgres.
 
@@ -177,7 +177,7 @@ BEGIN
     INSERT INTO bencher(updated_at)
 SELECT now();
 
-
+-- read and update a row
 WITH cte AS
 (
     SELECT record_id
@@ -226,25 +226,11 @@ pgbench 'postgresql://postgres:pw@host:5432'
 -f churn.sql
 ```
 
-## TODO: First CHART image
-
-scaling factor: 1
-query mode: simple
-number of clients: 15
-number of threads: 1
-duration: 300 s
-number of transactions actually processed: 1310121
-latency average = 3.408 ms
-latency stddev = 1.043 ms
-initial connection time = 691.253 ms
-tps = 4377.108929 (without initial connection time)
-statement latencies in milliseconds:
-         3.408  DO $$
-
+![default](default.png "default")
 
 Average latency is about 3.4 ms. We are benchmarking an expensive set of queries, and you’ve probably noticed the sawtooth pattern in the plot, and a relatively high standard deviation. This is a symptom of bloat accumulating on our table. Query latency grows until the vacuum process clears dead tuples, and then grows once again. Ideally we can reduce average latency and provide some stability to the latency value as well.
 
-# Balancing Vacuum Delay for Optimal System Performance
+## Balancing Vacuum Delay for Optimal System Performance
 
 Vacuuming is indispensable. However, it is not free and if left unchecked, it can burden your system. The balance lies in `autovacuum_vacuum_cost_delay` and `autovacuum_vacuum_cost_limit`. `autovacuum_vacuum_cost_delay` is the amount of time that the autovacuum process will halt processing when the `autovacuum_vacuum_cost_limit` is reached. Imagine this series of events - a table reaches 10% bloat, meaning 10% of the tuples are dead. When the 10% threshold is reached, the autovacuum worker begins to work and starts accruing cost. When that cost reaches `autovacuum_vacuum_cost_limit`, it will pause for the duration specified by `autovacuum_vacuum_cost_delay`, and then continue working until it is complete.
 
@@ -255,23 +241,12 @@ ALTER SYSTEM SET autovacuum_vacuum_cost_delay = '10ms';
 ALTER SYSTEM SET autovacuum_vacuum_cost_limit = 10000;
 SELECT pg_reload_conf();
 ```
-## TODO: second CHART image
 
-scaling factor: 1
-query mode: simple
-number of clients: 15
-number of threads: 1
-duration: 300 s
-number of transactions actually processed: 1378717
-latency average = 3.237 ms
-latency stddev = 0.847 ms
-initial connection time = 445.010 ms
-tps = 4602.512592 (without initial connection time)
-statement latencies in milliseconds:
+![delay_cost_limit](delay_limit.png "delay-cost-limit")
 
 We have a slight reduction in average latency, but we can still see that it obviously grows over time, and clears roughly every 60 seconds.
 
-# Fine-Tuning Auto Vacuum Scale Factors
+## Fine-Tuning Auto Vacuum Scale Factors
 
 In the previous example, we manually vacuumed our table. But postgres gives us an automated way to configure the vacuum process. One of the most critical parameters is the `autovacuum_vacuum_scale_factor`; it denotes the portion of the table size that, when surpassed by "dead" rows, prompts a vacuum action. For tables that see frequent data changes, it might be beneficial to lessen this value.
 
@@ -280,7 +255,8 @@ ALTER SYSTEM SET autovacuum_vacuum_scale_factor = 0.1;
 SELECT pg_reload_conf();
 ```
 
-## TODO: third CHART image
+![scale-factor](scale_factor.png "scale-factor")
+
 scaling factor: 1
 query mode: simple
 number of clients: 15
@@ -297,7 +273,7 @@ statement latencies in milliseconds:
 
 Reducing the scale factor had limited effect on our result, unfortunately.
 
-# A Quick Siesta for Your System
+## A Quick Siesta for Your System
 
 The autovacuum_naptime parameter in PostgreSQL dictates the duration between auto-vacuum runs. By default, PostgreSQL has set intervals for these operations. Depending on just how high-churn your workloads are, it might be necessary to decrease this value, whereas a longer interval could be suited for environments that are not churning at such a high rate. For a table that has incredibly high churn, like a queue, it is likely that the table routinely sits near 100% bloat.
 
@@ -317,7 +293,8 @@ ALTER SYSTEM SET autovacuum_vacuum_cost_delay = '0';
 SELECT pg_reload_conf();
 ```
 
-## TODO: fifth CHART image
+![disable-cost](disable_cost.png "disable-cost")
+
 
 scaling factor: 1
 query mode: simple
@@ -339,27 +316,12 @@ ALTER SYSTEM SET autovacuum_naptime = '10s';
 SELECT pg_reload_conf();
 ```
 
-## TODO: sixth CHART image
-
-scaling factor: 1
-query mode: simple
-number of clients: 15
-number of threads: 1
-duration: 300 s
-number of transactions actually processed: 1577398
-latency average = 2.825 ms
-latency stddev = 0.812 ms
-initial connection time = 566.061 ms
-tps = 5267.879897 (without initial connection time)
-statement latencies in milliseconds:
-         2.825  DO $$
-
+![naptime-final](naptime_final.png "naptime-final")
 
 Overall, we’ve iterated on autovacuum settings and reduced the average latency from 3.4ms to 2.8ms and stddev from 1ms to 0.8ms, which helped increase transactions per second from 4.3k to about 5.3k.
 
-
 Configuring the autovacuum settings can be a lot of fun and the appreciated values are wildly dependent on the workload. We covered the absurdly high churn use case on a single-table today, which is very similar to what we see when running applications using PGMQ. Vacuum is complicated and can be [tuned differently](https://www.enterprisedb.com/blog/postgresql-vacuum-and-analyze-best-practice-tips) when considering multiple tables with different workloads. Other OLTP use cases will call for different settings, and OLAP workloads may be less influenced by the vacuum settings altogether. Follow us, and sign up for the Tembo Cloud waitlist because we will surely be writing about these other topics soon.
 
-# More on this topic
+## More on this topic
 
 Watch the video on [Optimizing autovacuum: PostgreSQL’s vacuum cleaner by Samay Sharma](https://www.youtube.com/watch?v=D832gi8Qrv4).
