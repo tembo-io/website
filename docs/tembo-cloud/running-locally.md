@@ -16,13 +16,6 @@ docker run -it --name local-tembo -p 5432:5432 --rm quay.io/tembo/tembo-local
 ```
 - The above image includes common system dependencies for extensions listed in [Trunk](https://pgt.dev). Some extensions have very large dependencies, and these are not included.
 
-## Connect to the Postgres container
-
-- Now, you can connect to your database with this command:
-```
-psql postgres://postgres:postgres@localhost:5432
-```
-
 ## Install extensions with Trunk
 
 - Browse [Trunk](https://pgt.dev) to find interesting extensions
@@ -35,6 +28,14 @@ docker exec -it local-tembo /bin/bash
 ```
 trunk install pgmq
 ```
+
+## Connect to the Postgres container
+
+- Now, you can connect to your database with the following command:
+```
+psql postgres://postgres:postgres@localhost:5432
+```
+- This works either from either inside or outside the container
 
 ## Enabling extensions
 
