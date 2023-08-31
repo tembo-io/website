@@ -29,14 +29,6 @@ docker exec -it local-tembo /bin/bash
 trunk install pgmq
 ```
 
-## Connect to the Postgres container
-
-- Now, you can connect to your database with the following command:
-```
-psql postgres://postgres:postgres@localhost:5432
-```
-- This works either from either inside or outside the container
-
 ## Enabling extensions
 
 - Connect to Postgres. This works from inside or outside the Postgres container.
