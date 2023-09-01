@@ -1,6 +1,6 @@
 ---
 slug: optimizing-postgres-auto-vacuum
-title: "Optimizing Postgres's Auto-Vacuum for Blazingly-High-Churn Tables"
+title: "Optimizing Postgres's Autovacuum for High-Churn Tables"
 authors: [adam]
 tags: [postgres]
 ---
