@@ -32,10 +32,9 @@ Create a table we can easily manipulate, and let’s disable autovacuum so we ca
 
 ```sql
 CREATE TABLE bencher (
-  record_id bigserial primary key,
+  record_id bigserial,
   updated_at timestamp with time zone
 );
-create index bench_updated_at ON bencher (updated_at);
 ALTER TABLE bencher SET (autovacuum_enabled = false);
 SELECT pg_reload_conf();
 ```
@@ -95,10 +94,10 @@ END $$;
 Now, lets see how long it takes to fetch the same record:
 
 ```sql
-select * from bencher where record_id = 500000;
+select * from bencher where record_id = 5000000;
 record_id | updated_at
 -----------+-------------------------------
-500000 | 2023-08-30 14:42:58.964919+00
+5000000 | 2023-08-30 14:42:58.964919+00
 (1 row)
 
 Time: 283.728 ms
