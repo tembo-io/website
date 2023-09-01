@@ -7,7 +7,7 @@ tags: [postgres, pgmq, rust]
 
 # Dissecting pgmq
 
-In my [previous submission](https://tembo.io/blog/pgmq-with-python) to this space, I described my experience with [pgmq](https://github.com/tembo-io/pgmq) while using the Python library. In this post, I'll share what I have found after inspecting the code.
+In my [previous submission](https://tembo.io/blog/pgmq-with-python) to this space, I described my experience with [pgmq](https://github.com/tembo-io/pgmq) while using the Python library. In this post, I'll share what I found after inspecting the code.
 
 So, first, I'll describe the general structure of the project, which uses [pgrx](https://github.com/pgcentralfoundation/pgrx). Then, I'll explain what happens when we install the pgmq extension. Finally, I'll describe how some of its functions work.
 
@@ -162,7 +162,7 @@ use pgmq_core::{
 };
 ```
 
-So, at this point we know we can find the source code in two places: `src/` and `core/`. 
+So, at this point we know that we can find the source code in two places: `src/` and `core/`. 
 
 If we continue exploring `lib.rs`, we can see that it declares some sql that gets executed when the extension is enabled:
 
@@ -198,7 +198,7 @@ Let us see what `pgmq_create()` does...
 
 ### pgmq\_create()
 
-If we chase the call sequence, we can discover that the interesting function is `init_queue(queue_name)`:
+If we chase the call sequence, we can discover that the interesting function is `init_queue(name: &str)`:
 
 ```rust
 pub fn init_queue(name: &str) -> Result<Vec<String>, PgmqError> {
@@ -281,7 +281,7 @@ RETURNING msg_id;
 ### pgmq\_read()
 
 
-So, let's see. If I were the one programming `pgmq_read()`, I would perhaps do something like "get the first {limit} rows from the queue table whose {vt} has already expired, and for those rows, also update the visibility timeout to `now() + {vt}`." Naively, maybe something like:
+So, let's see. If I were the one programming `pgmq_read()`, I would perhaps do something like "get the first `{limit}` rows from the queue table whose `{vt}` has already expired, and for those rows, also update the visibility timeout to `now() + {vt}`." Naively, maybe something like:
 
 ```sql
 update pgmq_my_queue
@@ -314,11 +314,56 @@ WHERE msg_id in (select msg_id from cte)
 RETURNING *;
 ```
 
-Firstly, in pgmq's version, there is a CTE (Common Table Expression) to obtain the first `{limit}` message IDs whose `vt` has expired. Notice the `order by` clause that ensures the FIFO ordering. Also, notice the `FOR UPDATE SKIP LOCKED` clause claiming the rows no one else has claimed. This part is essential because it ensures correctness in the case of concurrent  `pgmq_read()` operations. 
+Firstly, in pgmq's version, there is a CTE (Common Table Expression) to obtain the first `{limit}` message IDs whose `vt` has expired. (It would be interesting to discuss why pgmq developers used a CTE, but we can explore that in another post.)
 
-The next step is to update the corresponding rows with a new `vt` value by adding the supplied `{vt}` to the current timestamp. Additionally, the `read_ct` value is incremented by 1. I couldn't figure out the use of this column, though. It is *maybe* intended to be used by the application to count how many times the messages were read.
+There are two crucial things to notice in the CTE. One is the `order by` clause that ensures the FIFO ordering. The other one is the `FOR UPDATE SKIP LOCKED` clause, claiming the rows no one else has claimed. This part is essential because it ensures correctness in the case of concurrent  `pgmq_read()` operations. 
 
-It would be interesting to talk about why pgmq developers chose to use a CTE, but that's a topic for a different post.
+The next step in the DML is to update the corresponding rows with a new vt value by adding the supplied `{vt}` to the current timestamp. Additionally, the `read_ct` value is incremented by 1. What is the use of this counter? In general, we can suspect that there is a problem processing a given message if it has a high `read_ct` value because users usually archive the message after successfully processing it. So, ideally, a message is only read once. 
+
+
+
+### pgmq\_archive()
+
+The next stage in the lifecycle of a message is archiving it. For that, pgmq uses the following insert statement:
+
+```sql
+WITH archived AS (
+    DELETE FROM {PGMQ_SCHEMA}.{TABLE_PREFIX}_{name}
+    WHERE msg_id = {msg_id}
+    RETURNING msg_id, vt, read_ct, enqueued_at, message
+)
+INSERT INTO {PGMQ_SCHEMA}.{TABLE_PREFIX}_{name}_archive (msg_id, vt, read_ct, enqueued_at, message)
+SELECT msg_id, vt, read_ct, enqueued_at, message
+FROM archived;
+```
+
+Essentially, it deletes the message with the provided `msg_id` from the queue table, and then the message is placed in the corresponding archive table.
+
+One interesting thing to notice is that `pgmq_archive()` can be used to archive a batch of messages too:
+
+```
+pgmq=# select pgmq_archive('my_queue', ARRAY[3, 4, 5]);
+ pgmq_archive
+--------------
+ t
+(1 row)
+
+```
+
+
+That is achieved in pgrx by declaring two functions using the [same name in the `pg_extern`](https://github.com/pgcentralfoundation/pgrx/blob/047b1d1fc9e9c4007c871e226fa81e294f8bf5e6/pgrx-macros/src/lib.rs#L462) derive macro as follows:
+
+```rust
+[pg_extern]
+fn pgmq_archive(queue_name: &str, msg_id: i64) -> Result<Option<bool>, PgmqExtError> {
+//...
+}
+
+[pg_extern(name = "pgmq_archive")]
+fn pgmq_archive_batch(queue_name: &str, msg_ids: Vec<i64>) -> Result<Option<bool>, PgmqExtError> {
+//...
+}
+```
 
 
 ### pgmq\_drop\_queue()
@@ -331,11 +376,11 @@ Finally, let's talk about `pgmq_drop_queue()`. It essentially executes multiple 
 4. Drop the table `pgmq_<queue_name>_archive`.
 5. Delete the corresponding row from the `pgmq_meta` table.
 
-Nothing surprising in this one. 
+Nothing surprising in this one, and with it, we conclude our tour.
 
 
 ## Conclusion
 
-In this post, we explored how the pgrx tool is used to generate the pgmq extension. We explored how the metadata objects are created and how they are used in the basic send and read operations. At least from an explorer perspective, the internals of the extension are currently easy to read and understand.
+In this post, we explored how the pgrx tool is used to generate the pgmq extension. We explored how the metadata objects are created and how they are used in the basic send, read and archive operations. At least from an explorer perspective, the internals of the extension are currently easy to read and understand.
 
 I invite everyone to explore how the other pgmq functions work. You can explore the code at https://github.com/tembo-io/pgmq. And you can learn more about pgrx at: https://github.com/pgcentralfoundation/pgrx.
