@@ -6,9 +6,9 @@ sidebar_position: 1
 
 ## Configuration
 
-Our default configuration of Postgres. 
+Our default configuration of Postgres.
 
-The following configurations automatically scale based on the size of cpu, memory, and storage for the instance: 
+The following configurations automatically scale based on the size of cpu, memory, and storage for the cluster:
 
 - `shared_buffers`
 - `max_connections`
