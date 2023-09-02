@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Enterprise Machine Learning Stack
 
-Machine learning significantly enhances the features and capabilities of applications. The Enterprise Machine Learning Stack is a Postgres cluster with the latest machine learning and large language model toolchains pre-installed and enabled. 
+Machine learning significantly enhances the features and capabilities of applications. The Enterprise Machine Learning Stack is a Postgres cluster with the latest machine learning and large language model toolchains pre-installed and enabled.
 
 ## Extensions
 
@@ -23,7 +23,7 @@ We will build a simple vector search application using `pg_vectorize`, which is 
 
 First, you will need to acquire an API key from [OpenAI](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key).
 
-Then, connect to your Tembo instance:
+Then, connect to your Tembo cluster:
 
 ```sql
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
@@ -32,7 +32,7 @@ psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 Create a table using the example dataset.
 
 ```sql
-CREATE TABLE products AS 
+CREATE TABLE products AS
 SELECT * FROM vectorize.example_products;
 ```
 
@@ -43,12 +43,11 @@ SELECT * FROM products limit 2;
 ```
 
 ```text
- product_id | product_name |                      description                       |        last_updated_at        
+ product_id | product_name |                      description                       |        last_updated_at
 ------------+--------------+--------------------------------------------------------+-------------------------------
           1 | Pencil       | Utensil used for writing and often works best on paper | 2023-07-26 17:20:43.639351-05
           2 | Laptop Stand | Elevated platform for laptops, enhancing ergonomics    | 2023-07-26 17:20:43.639351-05
 ```
-
 
 ### Create a vectorize job
 
@@ -71,14 +70,14 @@ By default, this job will run to generate and update embeddings every minute bas
 By default, this will add two columns to your table; `<job_name>_embeddings` and `<job_name>_updated_at`.
 
 ```sql
-SELECT column_name 
-FROM information_schema.columns 
-WHERE table_schema = 'public' 
+SELECT column_name
+FROM information_schema.columns
+WHERE table_schema = 'public'
 AND table_name   = 'products';
 ```
 
 ```text
-        column_name        
+        column_name
 ---------------------------
  product_id
  product_name
@@ -112,7 +111,7 @@ SELECT * FROM vectorize.search(
 ```
 
 ```text
-                                          search_results                                          
+                                          search_results
 --------------------------------------------------------------------------------------------------
  {"value": "Phone Charger", "column": "product_name", "similarity_score": 0.8530797672121025}
  {"value": "Tablet Holder", "column": "product_name", "similarity_score": 0.8284493388477342}
