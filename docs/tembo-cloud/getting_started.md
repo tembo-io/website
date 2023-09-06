@@ -22,8 +22,6 @@ Today, Tembo is differentiated by:
 
 ## Creating an Account
 
-- ✅ Join the waitlist. We will reach out to you soon.
-- ⚡️ Email support@tembo.io with details on your use case to jump to the front of the line.
 - 👏 Sign in at [cloud.tembo.io](http://cloud.tembo.io/).
 
 ## Creating a Database

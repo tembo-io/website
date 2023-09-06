@@ -157,7 +157,7 @@ Time: 194.101 ms
 
 ## Setting up a benchmarking environment
 
-The rest of the examples will be run on Postgres in [Tembo Cloud](https://tembo.io/waitlist). We’ll use 8 vcore and 16Gb of memory and execute all the `psql` and `pgbench` commands from an EC2 instance within the same region as Postgres.
+The rest of the examples will be run on Postgres in [Tembo Cloud](https://cloud.tembo.io). We’ll use 8 vcore and 16Gb of memory and execute all the `psql` and `pgbench` commands from an EC2 instance within the same region as Postgres.
 
 Let’s set up a script that will create an absurdly large amount of churn on our table and be able to execute it with `pgbench`. For every iteration, let’s insert a row to our “bencher” table. Then, let’s read and update a single record. Finally, let’s delete the same record. This will create a situation similar to many queue implementations ([like PGMQ](https://github.com/tembo-io/pgmq)), where there are at least 2 transactions for every 1 insert. Additionally, the total record count on the table will typically be low - for every record we insert, we also delete one.
 
@@ -281,7 +281,7 @@ SELECT pg_reload_conf();
 
 Overall, we’ve iterated on autovacuum settings and reduced the average latency from 3.4ms to 2.8ms and stddev from 0.8ms to 0.7ms, which helped increase TPS from 4.3k to about 5.3k.
 
-Configuring the autovacuum settings can be a lot of fun and the appreciated values are wildly dependent on the workload. We covered the absurdly high churn use case on a single-table today, which is very similar to what we see when running applications using PGMQ. Vacuum is complicated and can be [tuned differently](https://www.enterprisedb.com/blog/postgresql-vacuum-and-analyze-best-practice-tips) when considering multiple tables with different workloads. Other OLTP use cases will call for different settings, and OLAP workloads may be less influenced by the vacuum settings altogether. Follow us, and sign up for the Tembo Cloud waitlist because we will surely be writing about these other topics soon.
+Configuring the autovacuum settings can be a lot of fun and the appreciated values are wildly dependent on the workload. We covered the absurdly high churn use case on a single-table today, which is very similar to what we see when running applications using PGMQ. Vacuum is complicated and can be [tuned differently](https://www.enterprisedb.com/blog/postgresql-vacuum-and-analyze-best-practice-tips) when considering multiple tables with different workloads. Other OLTP use cases will call for different settings, and OLAP workloads may be less influenced by the vacuum settings . Follow us, and sign up for [Tembo Cloud](https://cloud.tembo.io) because we will surely be writing about these other topics soon.
 
 ## More on this topic
 

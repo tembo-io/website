@@ -38,7 +38,7 @@ export default function Home(): JSX.Element {
           <p className="mt-2 font-body hidden md:block">
             Collapse the database sprawl of the modern <br /> data stack with a unified developer platform.
           </p>
-          <a className={clsx(styles.cta, styles.heroCTA, "absolute")} href="./waitlist.html"></a>
+          <a className={clsx(styles.cta, styles.heroCTA, "absolute")} href="https://cloud.tembo.io"></a>
           <div className="solarWrapper">
             <SolarSystem />
           </div>
