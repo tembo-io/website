@@ -4,9 +4,9 @@ sidebar_position: 1
 
 # Tembo Standard
 
-## Configuration
+A default configuration of Postgres.
 
-Our default configuration of Postgres.
+## Configuration
 
 The following configurations automatically scale based on the size of cpu, memory, and storage for the cluster:
 

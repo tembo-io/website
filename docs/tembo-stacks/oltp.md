@@ -4,9 +4,9 @@ sidebar_position: 2
 
 # Tembo OLTP
 
-## Configuration
-
 Designed for low-latency, high-concurrency transactional applications. Includes optimized configs, extensions for simpler debugging and monitoring and balanced hardware profiles.
+
+## Configuration
 
 The following configurations automatically scale based on the size of cpu, memory, and storage for the cluster:
 
