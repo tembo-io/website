@@ -12,9 +12,9 @@ sidebar_position: 1
 
 🧐 Tembo is the **Postgres developer platform** for building every data service. Our mission is to collapse the database sprawl of the modern data stack with a unified developer platform. With Tembo, developers can quickly create and deploy specialized data services using Stacks, pre-built Postgres configurations, and deployments without complex builds or additional data teams.
 
-## Fast Track
+## Tembo Cloud
 
-⚡️ Join our wait list, then email support@tembo.io with details on your use case to jump to the front of the line.
+⚡️ We invite you to try out our managed Postgres service, [Tembo Cloud](https://cloud.tembo.io).
 
 ## Staying informed
 
