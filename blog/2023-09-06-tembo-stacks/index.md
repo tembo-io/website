@@ -63,7 +63,7 @@ This and many other such stack specifications are [open source](https://github.c
 [Tembo Cloud](https://cloud.tembo.io/) is a dev-first, fully-extensible, fully-managed, secure, and scalable Postgres service. It has the ability to take this stack spec and deploy a Postgres instance which is built using this stack spec. With Tembo Cloud, you can get all the benefits of a managed service like: backups, high availability, scaling of storage and compute, metrics and alerts with an easy to use UI and CLI. And you get access to an ever growing list of [extensions](https://pgt.dev/) which you can add to your stack or bring your own extensions to deploy on Tembo Cloud.
 
 
-![image](https://github.com/tembo-io/website/assets/14306210/952d6166-04d7-4a14-813d-eab2084793c6)
+![image](image.png)
 
 
 # Evolving Postgres to be the data platform for everything
