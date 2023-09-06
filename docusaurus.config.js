@@ -116,12 +116,12 @@ const config = {
             position: 'right',
           },
           {
-            href: '/waitlist',
-            label: 'Waitlist',
+            href: 'https://cloud.tembo.io',
+            label: 'Tembo Cloud',
             position: 'right',
           },
           {
-            href: 'https://github.com/tembo-io/tembo',
+            href: 'https://github.com/tembo-io/tembo-stacks',
             label: 'GitHub',
             target: '_blank',
             position: 'right',
