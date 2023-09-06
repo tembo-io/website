@@ -55,12 +55,12 @@ It has the following components:
 * Message queue specific metrics like queue length, oldest message age, newest message age
 * (Coming soon) pg_bouncer
 
-This and many other such stack specifications are [open source](https://github.com/tembo-io/tembo-stacks) and can be used to deploy a stack locally on a self-managed instance or fully managed on Tembo Cloud. This is a reflection of one of our core values - to always put developers first. We release our stacks as open source to create the best development experience: locally and on the cloud, to deliver the most value to the users we target.
+This and many other such stack specifications are [open source](https://github.com/tembo-io/tembo-stacks) and can be used to deploy a stack locally on a self-managed instance or fully managed on Tembo Cloud. This is a reflection of one of our core values - to always put developers first. We open source our stacks to create the best development experience: locally and on the cloud, and to invite community feedback and collaboration.
 
 
 ## Deploying a stack on Tembo Cloud
 
-[Tembo Cloud](https://cloud.tembo.io/) is a dev-first, fully-extensible, fully-managed, secure, and scalable Postgres service. It has the ability to take this stack spec and deploy a Postgres instance which is built using this stack spec. With Tembo Cloud, you get all the benefits of a managed service like: backups, high availability, scaling of storage and compute, metrics and alerts, with an easy to use UI and CLI. And you get access to an ever growing list of [extensions](https://pgt.dev/) which you can add to your stack or bring your own extensions to deploy on Tembo Cloud.
+[Tembo Cloud](https://cloud.tembo.io/) is a dev-first, fully-extensible, fully-managed, secure, and scalable Postgres service. It has the ability to take this stack spec and deploy a Postgres instance which is built using this stack spec. With Tembo Cloud, you can get all the benefits of a managed service like: backups, high availability, scaling of storage and compute, metrics and alerts with an easy to use UI and CLI. And you get access to an ever growing list of [extensions](https://pgt.dev/) which you can add to your stack or bring your own extensions to deploy on Tembo Cloud.
 
 [Tembo Cloud Screenshot]
 
@@ -69,4 +69,4 @@ This and many other such stack specifications are [open source](https://github.c
 
 We know we’ve embarked on a challenging journey to turn Postgres into the data platform for Everything. But, we strongly believe that with the power of Postgres and its ecosystem, it’s possible to replace most deployments of esoteric databases with just a flavor of Postgres and save developers a lot of time and effort.
 
-We’ll be building many stacks, benchmarking them against “competitive” solutions, and making sure Postgres grows to tackle these workloads. We’ll have to optimize Postgres, support a wide variety of extensions, write several new extensions to close feature and performance gaps with other databases and also evolve Postgres to make this happen. We have no doubt that we along with the Postgres community can make this happen!
+We’ll be building many stacks, benchmarking them against “competitive” solutions, and making sure Postgres grows to tackle these workloads. We’ll have to optimize Postgres, support a wide variety of extensions, write several new extensions to close feature and performance gaps with other databases and also evolve Postgres. But, we have no doubt that we, along with the Postgres community can make this happen!
