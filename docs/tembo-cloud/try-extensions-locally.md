@@ -78,6 +78,17 @@ COPY custom.conf $PGDATA/extra-configs
 COPY startup.sql $PGDATA/startup-scripts
 ```
 
+- We now have the following files present in our directory:
+
+```
+.
+├── Dockerfile
+├── custom.conf
+└── startup.sql
+
+1 directory, 3 files
+```
+
 - This setup allows you to build an image that will start with your extensions ready to go:
 
 ```
@@ -89,4 +100,10 @@ docker rm --force local-tembo
 
 # Run your custom image
 docker run -d -it --name local-tembo -p 5432:5432 --rm example-local-image
+```
+
+- Connect to postgres in the same way as before:
+
+```
+psql postgres://postgres:postgres@localhost:5432
 ```
