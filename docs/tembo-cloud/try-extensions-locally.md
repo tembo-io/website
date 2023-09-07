@@ -48,19 +48,19 @@ CREATE EXTENSION pgmq CASCADE;
 
 After using the above process to experiment with extensions, you may want to build a custom image that you can start with all your extensions ready to go.
 
-- Optionally, create a Postgres configuration file. Some extensions require configuration, for example shared_preload_libraries, or extension-specific configurations like `cron.host`. In this example, we have named the file `custom.conf`.
+- Optionally, create a Postgres configuration file. Some extensions require configuration, for example `shared_preload_libraries`, or extension-specific configurations like `cron.host`. In this example, we have named the file `custom.conf`.
 
 ```
 shared_preload_libraries = 'pg_partman_bgw'
 ```
 
-- Optionally, create a startup SQL script. This script can be used to enable your extension, or other startup logic for your local development.
+- Optionally, create a startup SQL script. This script can be used to enable your extension, or other startup logic for your local development. In this example, we have named the file `startup.sql`
 
 ```
 CREATE EXTENSION IF NOT EXISTS pg_partman CASCADE;
 ```
 
-- Create a Dockerfile
+- Create a Dockerfile:
 
 ```
 FROM quay.io/tembo/tembo-local:latest
@@ -82,7 +82,10 @@ COPY startup.sql $PGDATA/startup-scripts
 
 ```
 # Build the image
-docker build -t example-local-image
+docker build -t example-local-image .
+
+# If you have another container running with the same name, delete it
+docker rm --force local-tembo
 
 # Run your custom image
 docker run -d -it --name local-tembo -p 5432:5432 --rm example-local-image
