@@ -57,7 +57,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/tembo-io/website/main/docs/tem
 ```shell
 export TOKEN='******'
 
-curl "https://api.coredb.io/api/entities/all" \
+curl "https://api.coredb.io/api/v1/orgs/instances/schema" \
   -H "authorization: Bearer ${TOKEN}"
 ```
 
