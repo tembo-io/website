@@ -61,4 +61,4 @@ curl "https://api.coredb.io/api/v1/orgs/instances/schema" \
   -H "authorization: Bearer ${TOKEN}"
 ```
 
-- You can also try the Tembo Cloud API using this token to log in on the [API documentation](https://api.coredb.io/swagger-ui/) by clicking the "Authorize" button.
+- You can also try the Tembo Cloud API using this token to log in on the [Interactive API documentation](https://api.coredb.io/swagger-ui/) by clicking the "Authorize" button.
