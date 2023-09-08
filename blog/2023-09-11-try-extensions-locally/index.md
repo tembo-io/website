@@ -1,6 +1,6 @@
 ---
 slug: demystifying-postgres-extensions
-title: "Demystifying Postgres extensions"
+title: "Demystifying Postgres Extensions"
 authors: [steven]
 tags: [postgres, extensions]
 ---
