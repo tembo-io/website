@@ -98,7 +98,7 @@ const config = {
       specs: [
         {
           spec: 'https://api.coredb.io/api-docs/openapi.json',
-          route: '/platform-api/',
+          route: '/docs/tembo-cloud/openapi',
         },
       ],
       // Theme Options for modifying how redoc renders them
