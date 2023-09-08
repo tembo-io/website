@@ -57,8 +57,8 @@ curl "https://api.coredb.io/api/v1/orgs/instances/schema" \
   -H "authorization: Bearer ${TOKEN}"
 ```
 
-:::note
-CoreDB is our old company name, and the API URL will be updated soon.
-:::
-
 - You can also try the Tembo Cloud API using this token to log in on the [Interactive API documentation](https://api.coredb.io/swagger-ui/) by clicking the "Authorize" button.
+
+:::note
+CoreDB is the legacy domain name, and the API URL will be updated soon.
+:::
