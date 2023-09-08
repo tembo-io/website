@@ -7,7 +7,7 @@ tags:
 
 # API
 
-To explore the Tembo Cloud API, visit our [API documentation](/platform-api).
+To explore the Tembo Cloud API, visit our [API documentation](/docs/tembo-cloud/openapi).
 
 The API is under continuous development and subject to change.
 
