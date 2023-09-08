@@ -1,4 +1,9 @@
-# Demystifying Postgres extensions
+---
+slug: demystifying-postgres-extensions
+title: "Demystifying Postgres extensions"
+authors: [steven]
+tags: [postgres, extensions]
+---
 
 Postgres is designed to be easily extendable, and there are thousands of awesome extensions developed by the community. Many developers don't know about Postgres extensions, or wouldn't know where to start. Let's walk through some examples of running Postgres, trying different and interesting combinations of extensions, while explaining the common steps involved to get up and running.
 
