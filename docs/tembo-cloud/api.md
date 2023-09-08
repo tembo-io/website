@@ -11,10 +11,6 @@ To explore the Tembo Cloud API, visit our [API documentation](/platform-api).
 
 The API is under continuous development and subject to change.
 
-:::note
-CoreDB is our old company name, and the API URL will be updated soon.
-:::
-
 ## Authentication
 
 This document covers how to issue an API token for Tembo Cloud. The API is available for direct use at an experimental stability level, and the structure of the API will change.
@@ -62,3 +58,7 @@ curl "https://api.coredb.io/api/v1/orgs/instances/schema" \
 ```
 
 - You can also try the Tembo Cloud API using this token to log in on the [API documentation](https://api.coredb.io/swagger-ui/) by clicking the "Authorize" button.
+
+:::note
+CoreDB is our old company name, and the API URL will be updated soon.
+:::
