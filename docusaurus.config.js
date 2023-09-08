@@ -91,6 +91,23 @@ const config = {
         },
       }),
     ],
+  [
+    'redocusaurus',
+    {
+      // Plugin Options for loading OpenAPI files
+      specs: [
+        {
+          spec: 'https://api.coredb.io/api-docs/openapi.json',
+          route: '/platform-api/',
+        },
+      ],
+      // Theme Options for modifying how redoc renders them
+      theme: {
+        // Change with your site colors
+        primaryColor: '#1890ff',
+      },
+    },
+  ],
   ],
 
   themeConfig:

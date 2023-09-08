@@ -7,7 +7,7 @@ tags:
 
 # API
 
-To explore the Tembo Cloud API, visit our [interactive API documentation](https://api.coredb.io/swagger-ui/#/).
+To explore the Tembo Cloud API, visit our [API documentation](/platform-api).
 
 The API is under continuous development and subject to change.
 
@@ -57,8 +57,8 @@ bash <(curl -Ls https://raw.githubusercontent.com/tembo-io/website/main/docs/tem
 ```shell
 export TOKEN='******'
 
-curl "https://api.coredb.io/api/entities/all" \
+curl "https://api.coredb.io/api/v1/orgs/instances/schema" \
   -H "authorization: Bearer ${TOKEN}"
 ```
 
-- You can also try the Tembo Cloud API using this token to log in on the [interactive API documentation](https://api.coredb.io/swagger-ui/#/) by clicking the "Authorize" button.
+- You can also try the Tembo Cloud API using this token to log in on the [API documentation](https://api.coredb.io/swagger-ui/) by clicking the "Authorize" button.
