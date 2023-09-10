@@ -53,12 +53,8 @@ bash <(curl -Ls https://raw.githubusercontent.com/tembo-io/website/main/docs/tem
 ```shell
 export TOKEN='******'
 
-curl "https://api.coredb.io/api/v1/orgs/instances/schema" \
+curl "https://api.tembo.io/api/v1/orgs/instances/schema" \
   -H "authorization: Bearer ${TOKEN}"
 ```
 
-- You can also try the Tembo Cloud API using this token to log in on the [Interactive API documentation](https://api.coredb.io/swagger-ui/) by clicking the "Authorize" button.
-
-:::note
-CoreDB is the legacy domain name, and the API URL will be updated soon.
-:::
+- You can also try the Tembo Cloud API using this token to log in on the [Interactive API documentation](https://api.tembo.io/swagger-ui/) by clicking the "Authorize" button.
