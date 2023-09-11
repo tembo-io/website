@@ -9,7 +9,7 @@ tags:
 
 # Custom domains
 
-This guide is for configuring alternative, custom domain(s) that can be used to connect to your Tembo instance.
+This guide is for configuring custom domains that can be used to connect to your Tembo instance.
 
 ## Design
 
