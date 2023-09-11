@@ -97,7 +97,7 @@ const config = {
       // Plugin Options for loading OpenAPI files
       specs: [
         {
-          spec: 'https://api.coredb.io/api-docs/openapi.json',
+          spec: 'https://api.tembo.io/api-docs/openapi.json',
           route: '/docs/tembo-cloud/openapi',
         },
       ],
