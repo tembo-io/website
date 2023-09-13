@@ -51,7 +51,7 @@ Requires [LOAD](https://www.postgresql.org/docs/current/sql-load.html) true or f
 
 **LOAD**
 
- [LOAD](https://www.postgresql.org/docs/current/sql-load.html) is the command that tells Postgres to **load** a library. For example, if you installed the extension ‘auto explain’, then you will have a library file called ‘auto_explain.so’. It can be loaded into your session like `LOAD 'auto_explain';` meaning make the code accessible to Postgres by loading the compiled code on disk into memory. However this command is not typically used directly.
+ [LOAD](https://www.postgresql.org/docs/current/sql-load.html) is the command that tells Postgres to **load** a library. For example, if you installed the extension ‘auto explain’, then you will have a library file called ‘auto_explain.so’. It can be loaded into your session like `LOAD 'auto_explain';` meaning make the code accessible to Postgres by loading the compiled code on disk into memory. However, this command is not typically used directly.
 
 **CREATE EXTENSION**
 
