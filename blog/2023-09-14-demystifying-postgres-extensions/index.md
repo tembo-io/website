@@ -13,12 +13,12 @@ I’ve been a Postgres user for years, but before working at Tembo, I had never 
 
 ![one-does-not-simply](./images/one-does-not-simply.png)
 
-These are the steps that are typically involved to get up and running with an extension:
+**What's traditionally involved:**
 
 - Find the extension you want
 - Figure out how to build it
 - Sometimes, installation of dependencies (for example with a package manager like apt)
-- Sometimes, installation of other extensions that yours requires (goto ‘figure out how to build it’)
+- Sometimes, installation of other extensions that yours requires (*goto* ‘figure out how to build it’)
 - Install your extension
 - Sometimes, configure in shared_preload_libraries (more on this later)
 - Sometimes, provide extension-specific configurations
