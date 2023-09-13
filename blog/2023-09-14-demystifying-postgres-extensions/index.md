@@ -58,7 +58,7 @@ Extensions that require a `LOAD` can always be configured in `shared_preload_lib
 
 Quick plug! You can just use the always free and open source [Trunk project](https://pgt.dev) to install over 150 different extensions, skipping the build process. Also, you can optionally start from one of Tembo’s container images to handle the system dependencies installation, which covers the most common dependencies of extensions. I wrote [this guide for trying out extensions locally](https://tembo.io/docs/tembo-cloud/try-extensions-locally). If you have any issues just reach out on our [community Slack channel](https://join.slack.com/t/tembocommunity/shared_invite/zt-20v3m8pwz-pPjeFaWSM~Bt3KUqDXff2A) and we can help.
 
-If you don’t want to pull out your laptop and start hacking, just read along! I’ll show an example.
+**If you don’t want to pull out your laptop and start hacking, just read along! I’ll show an example.**
 
 ## Version history and lifecycle policies for your Postgres data
 
