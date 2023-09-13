@@ -5,9 +5,11 @@ authors: [steven]
 tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
 ---
 
-I’ve been a Postgres user for years, but before working at Tembo, I had never used Postgres extensions. Postgres has a ton of users, but I think most of them just don’t know about extensions or find them daunting. I think if it was easier to try out extensions, they would get a lot more use. They can be super useful and easy after being installed and enabled. Something I find particularly compelling is that unrelated extensions can be combined to solve different problems. **I’ll show an example later in this blog of enabling version history and a lifecycle policy for a table by combining two extensions: temporal_tables, and pg_partman.**
+I’ve been a Postgres user for years, but before working at Tembo, I had never used Postgres extensions. Postgres has a ton of users, but I think most of them just don’t know about extensions or find them daunting. I think if it was easier to try out extensions, they would get a lot more use. They can be super useful and easy after being installed and enabled. Something I find particularly compelling is that unrelated extensions can be combined to solve different problems.
 
-## One does not simply turn on an extension
+**I’ll show an example later in this blog of enabling version history and a lifecycle policy for a table by combining two extensions: temporal_tables, and pg_partman.**
+
+## What's involved to get an extension running
 
 ![one-does-not-simply](./images/one-does-not-simply.png)
 
