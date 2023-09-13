@@ -30,7 +30,7 @@ I think most Postgres users just don’t know about extensions or find them daun
 
 It can be tricky to turn on an extension, and that’s because different extensions have different parts. Extensions consist of **SQL** (either normal SQL or SQL including functionality provided by extensions) and / or **libraries**.
 
-A library simply means compiled code, for example written in C or Rust, that should be accessible to Postgres. Also, to connect into Postgres' existing functionality, libraries can use a feature informally called **hooks**. Hooks allow for overwriting default Postgres functionality, or calling back into an extension's code at the appropriate time (for example modifying Postgres start up behavior).
+A library simply means compiled code, for example written in C or [Rust](https://github.com/pgcentralfoundation/pgrx), that should be accessible to Postgres. Also, to connect into Postgres' existing functionality, libraries can use a feature informally called **hooks**. Hooks allow for overwriting default Postgres functionality, or calling back into an extension's code at the appropriate time (for example modifying Postgres start up behavior).
 
 :::note
 On the note of terminology, sometimes extensions are instead referred to as 'modules', but I like to simply refer to everything as an 'extension', but feel free to @ me on X to tell me I am wrong ([@sjmiller609](https://twitter.com/sjmiller609)).
@@ -38,7 +38,7 @@ On the note of terminology, sometimes extensions are instead referred to as 'mod
 
 **I believe that enabling an extension can be simplified by defining two categories:**
 
-Requires `LOAD` true or false and requires `CREATE EXTENSION` true or false:
+Requires [LOAD](https://www.postgresql.org/docs/current/sql-load.html) true or false and requires [CREATE EXTENSION](https://www.postgresql.org/docs/current/sql-createextension.html) true or false:
 
 |                             | Requires `CREATE EXTENSION`                                       | Does not require `CREATE EXTENSION`                           |
 |-----------------------------|-------------------------------------------------------------------|---------------------------------------------------------------|
@@ -51,11 +51,11 @@ Requires `LOAD` true or false and requires `CREATE EXTENSION` true or false:
 
 **LOAD**
 
- `LOAD` is the command that tells Postgres to **load** a library. For example, if you installed the extension ‘auto explain’, then you will have a library file called ‘auto_explain.so’. It can be loaded into your session like `LOAD 'auto_explain';` meaning make the code accessible to Postgres by loading the compiled code on disk into memory. However this command is not typically used directly.
+ [LOAD](https://www.postgresql.org/docs/current/sql-load.html) is the command that tells Postgres to **load** a library. For example, if you installed the extension ‘auto explain’, then you will have a library file called ‘auto_explain.so’. It can be loaded into your session like `LOAD 'auto_explain';` meaning make the code accessible to Postgres by loading the compiled code on disk into memory. However this command is not typically used directly.
 
 **CREATE EXTENSION**
 
-When you run `CREATE EXTENSION`, this basically just runs the extension's SQL script. The script will typically create new SQL objects such as functions, data types, operators and index support methods.
+When you run [CREATE EXTENSION](https://www.postgresql.org/docs/current/sql-createextension.html), this basically just runs the extension's SQL script. The script will typically create new SQL objects such as functions, data types, operators and index support methods.
 
 **Fire it up**
 
