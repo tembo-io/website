@@ -5,7 +5,11 @@ authors: [steven]
 tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
 ---
 
-I’ve been a Postgres user for years, but before working at Tembo, I had never used Postgres extensions. Postgres has a ton of users, but I think most of them just don’t know about extensions or find them daunting. Let me share some of what I’ve learned about extensions and how we are simplifying the complexities involved.
+I’ve been a Postgres user for years, but before working at Tembo, I had never used Postgres extensions. Postgres has a ton of users, but I think most of them just don’t know about extensions or find them daunting. I think if it was easier to try out extensions, they would get a lot more use. They can be super useful and easy after being installed and enabled. Something I find particularly compelling is that unrelated extensions can be combined to solve different problems. **I’ll show an example later in this blog of enabling version history and a lifecycle policy for a table by combining two extensions: temporal_tables, and pg_partman.**
+
+## One does not simply turn on an extension
+
+![one-does-not-simply](./images/one-does-not-simply.png)
 
 These are the steps that are typically involved to get up and running with an extension:
 
@@ -17,10 +21,6 @@ These are the steps that are typically involved to get up and running with an ex
 - Sometimes, configure in shared_preload_libraries (more on this later)
 - Sometimes, provide extension-specific configurations
 - Sometimes, run `CREATE EXTENSION` to enable it
-
-I think if it was easier to try out existing extensions, they would get a lot more use. They can be super useful and easy after being installed and enabled. Something I find particularly compelling is that unrelated extensions can be combined to solve different problems. **I’ll show an example later in this blog of enabling version history for a table by combining two extensions: temporal_tables, and pg_partman.**
-
-## One does not simply turn on an extension
 
 It can be tricky to turn on an extension, and that’s because different extensions have different parts. Extensions consist of SQL (either normal SQL or SQL including functionality provided by extensions) and / or libraries. A 'library' simply means compiled code, for example written in C or Rust, that should be accessible to Postgres. Also, to connect into Postgres' existing functionality, libraries can use a feature informally called 'hooks'. Hooks allow for overwriting default Postgres functionality, or calling back into an extension's code at the appropriate time (for example modifying Postgres start up behavior).
 
