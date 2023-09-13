@@ -33,7 +33,7 @@ Enabling an extension can be thought of like this:
 
 |                             | Requires `CREATE EXTENSION`                                       | Does not require `CREATE EXTENSION`                           |
 |-----------------------------|-------------------------------------------------------------------|---------------------------------------------------------------|
-| **Requires `LOAD`**         | Extensions that use SQL and their libraries have hooks            | Extensions that do not use SQL                                |
+| **Requires `LOAD`**         | Extensions that use SQL and their libraries have hooks            | Extensions that do not use SQL, may or may not have hooks     |
 | **Does not require `LOAD`** | SQL-only extensions, and SQL + libraries without hooks            | Not applicable                                                |
 :::
 
