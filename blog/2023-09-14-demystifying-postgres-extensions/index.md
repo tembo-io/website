@@ -26,7 +26,9 @@ I’ve been a Postgres user for years, but before working at Tembo, I had never 
 
 It can be tricky to turn on an extension, and that’s because different extensions have different parts. Extensions consist of SQL (either normal SQL or SQL including functionality provided by extensions) and / or libraries. A 'library' simply means compiled code, for example written in C or Rust, that should be accessible to Postgres. Also, to connect into Postgres' existing functionality, libraries can use a feature informally called 'hooks'. Hooks allow for overwriting default Postgres functionality, or calling back into an extension's code at the appropriate time (for example modifying Postgres start up behavior).
 
+:::note
 On the note of terminology, sometimes extensions are instead referred to as 'modules', but I like to simply refer to everything as an 'extension', but feel free to @ me on X to tell me I am wrong (@sjmiller609).
+:::
 
 I believe that enabling an extension can be simplified by defining two categories: “requires load” true or false, and “create extension”, true or false.
 
