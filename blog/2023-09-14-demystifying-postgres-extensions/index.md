@@ -22,7 +22,7 @@ I think if it was easier to try out existing extensions, they would get a lot mo
 
 ## One does not simply turn on an extension
 
-It can be tricky to turn on an extension, and that’s because different extensions have different parts. Extensions consist of SQL (either normal SQL or SQL including functionality provided by extensions) and libraries. A 'library' simply means code that should be accessible to Postgres. Also, to connect into Postgres' existing functionality, libraries can use a feature informally called 'hooks'. Hooks allow for overwriting default Postgres functionality, or calling back into an extension's code at the appropriate time (for example modifying Postgres start up behavior).
+It can be tricky to turn on an extension, and that’s because different extensions have different parts. Extensions consist of SQL (either normal SQL or SQL including functionality provided by extensions) and / or libraries. A 'library' simply means compiled code, for example written in C or Rust, that should be accessible to Postgres. Also, to connect into Postgres' existing functionality, libraries can use a feature informally called 'hooks'. Hooks allow for overwriting default Postgres functionality, or calling back into an extension's code at the appropriate time (for example modifying Postgres start up behavior).
 
 On the note of terminology, sometimes extensions are instead referred to as 'modules', but I like to simply refer to everything as an 'extension', but feel free to @ me on X to tell me I am wrong (@sjmiller609).
 
