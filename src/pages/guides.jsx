@@ -2,53 +2,49 @@ import React, { useState, useEffect, useRef } from "react";
 import LayoutBackdrop from "../components/LayoutBackdrop";
 import styles from "./guides.module.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import IconButton from "@mui/material/IconButton";
+import DemoImage from "./Brand.png";
+import Navbar from "@theme/Navbar";
 
 const guides = () => {
   const [guideItems, setGuideItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [uniqueTags, setUniqueTags] = useState([]);
 
   const filteredItems = [
     {
-      img: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-      title: "Lorem Ipsum is simply dummy text",
-      tag: "tag1",
+      img: DemoImage,
+      title: "How to show tables in Postgres",
+      tag: ["postgres", "pgmq", "Desktop"],
       date: "Nov 12, 2023",
     },
     {
-      img: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-      title: "Lorem Ipsum is simply dummy text",
-      tag: "tag2",
+      img: DemoImage,
+      title: "How to get  started with PGMQ",
+      tag: ["pgmq"],
       date: "Aug 8, 2019",
     },
     {
-      img: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-      title: "Lorem Ipsum is simply dummy text",
-      tag: "tag1",
+      img: DemoImage,
+      title: "How to Configure Docker Desktop for Windows",
+      tag: ["Docker"],
       date: "Sept 15, 2020",
     },
     {
-      img: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-      title: "Lorem Ipsum is simply dummy text",
-      tag: "tag3",
+      img: DemoImage,
+      title: "How to connect to PostgreSQL database using psql",
+      tag: ["psql"],
       date: "Dec 25, 2022",
     },
-    {
-      img: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-      title: "Lorem Ipsum is simply dummy text",
-      tag: "tag3",
-      date: "Dec 20, 2022",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-      title: "Lorem Ipsum is simply dummy text",
-      tag: "tag3",
-      date: "Feb 14, 2023",
-    },
   ];
-  const tagsArray = filteredItems.map((item) => item.tag);
-  useEffect(() => setGuideItems(filteredItems), []);
-
+  useEffect(() => {
+    // Extract and spread tag elements into the uniqueTags array
+    const tagArray = filteredItems.flatMap((item) => item.tag);
+    const uniqueTags = Array.from(new Set(tagArray));
+    setUniqueTags(["All guides", ...uniqueTags]);
+    setGuideItems(filteredItems);
+  }, []);
   const specificDivRef = useRef(null);
 
   useEffect(() => {
@@ -68,11 +64,6 @@ const guides = () => {
     };
   }, []);
 
-  const handleTagChange = (e) => {
-    let selectedTag = e.target.value;
-    setGuideItems(filteredItems.filter((item) => item.tag == selectedTag));
-  };
-
   const handleSearch = (e) => {
     let searchTerm = e.target.value;
     setGuideItems(
@@ -87,34 +78,46 @@ const guides = () => {
   };
 
   const handleItemClick = (item) => {
-    setSelectedItem(item);
-    let selectedTag = item;
-    setGuideItems(filteredItems.filter((item) => item.tag == selectedTag));
-    setIsOpen(false);
+    if (item == "All guides") {
+      setSelectedItem("Select tag");
+      setGuideItems(filteredItems);
+      setIsOpen(false);
+    } else {
+      setSelectedItem(item);
+      let selectedTag = item;
+      setGuideItems(
+        filteredItems.filter((item) => item.tag.includes(selectedTag))
+      );
+      setIsOpen(false);
+    }
   };
 
   const GuideCard = ({ img, title, tag, date }) => {
     return (
       <div className={styles.guidecard__container}>
-        <div className={styles.guidecard__image}>
-          <img src={img} alt={title} />
-        </div>
-        <div className={styles.guidecard__content}>
-          <div className={styles.guidecard__content__title}>{title}</div>
-          <div className={styles.guidecard__content__details}>
-            <div className={styles.guidecard__content__tag}>
-              <span className={styles.span__tag__1}># </span>
-              <span className={styles.span__tag__2}>{tag}</span>
-            </div>
-            <div className={styles.guidecard__content__date}>{date}</div>
+        <a href="/guides/how-to-show-tables-in-postgres">
+          <div className={styles.guidecard__image}>
+            <img src={img} alt={title} />
           </div>
-        </div>
+          <div className={styles.guidecard__content}>
+            <div className={styles.guidecard__content__title}>{title}</div>
+            <div className={styles.guidecard__content__details}>
+              {tag.map((item, index) => (
+                <div className={styles.guidecard__content__tag}>
+                  {/* <span className={styles.span__tag__1}># </span> */}
+                  <span className={styles.span__tag__2}>{item}</span>
+                </div>
+              ))}
+              <div className={styles.guidecard__content__date}>{date}</div>
+            </div>
+          </div>
+        </a>
       </div>
     );
   };
   return (
-    <div>
-      {/* <LayoutBackdrop />  */}
+    // <div>
+    <LayoutBackdrop>
       <h1>Guides</h1>
       <div className={styles.horizontal__filters}>
         <div className={styles.dropdown}>
@@ -123,11 +126,14 @@ const guides = () => {
             onClick={toggleDropdown}
             ref={specificDivRef}
           >
-            {selectedItem || "Select tag"} <KeyboardArrowDownIcon />
+            {selectedItem || "Select tag"}
+            <IconButton size="small">
+              <KeyboardArrowDownIcon fontSize="inherit" />
+            </IconButton>
           </button>
           {isOpen && (
             <div className={styles.dropdown__content}>
-              {Array.from(new Set(tagsArray)).map((item, index) => (
+              {uniqueTags.map((item, index) => (
                 <div
                   key={index}
                   className={styles.dropdown__item}
@@ -161,7 +167,8 @@ const guides = () => {
           </div>
         ))}
       </div>
-    </div>
+    </LayoutBackdrop>
+    // </div>
   );
 };
 
