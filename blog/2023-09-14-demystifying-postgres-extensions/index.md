@@ -176,7 +176,6 @@ INSERT INTO employees (name, department, salary)
 VALUES ('Helmholtz Watson', 'College of Emotional Engineering', 18500);
 ```
 
-Checking the tables:
 ```
 postgres=# select * from employees;
        name       |            department            |  salary  |             sys_period
@@ -443,9 +442,9 @@ postgres=# select * from employees_history;
 ```
 Above, we see all versions are still retained.
 
-Then, I tabbed over to Slack since I need to wait 5 minutes...
+Then, I tabbed over to Slack since I need to wait 5 minutes. 2 hours later...
 
-**2 hours later, now we see:**
+**Now we see:**
 
 ```
 postgres=# select * from employees_history;
