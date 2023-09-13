@@ -451,7 +451,6 @@ postgres=# select * from employees_history;
  name | department | salary | sys_period | created_at
 ------+------------+--------+------------+------------
 (0 rows)
-
 ```
 
 That worked!
