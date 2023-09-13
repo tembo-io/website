@@ -9,7 +9,7 @@ Before working for a Postgres company, I had never used extensions.
 
 I think most Postgres users just don’t know about extensions or find them daunting. If it was easier to try out extensions, maybe they would get a lot more use. Something I find particularly compelling is that unrelated extensions can be combined to solve different problems.
 
-**In this blog, I'll explain in simple terms what's in a Postgres extension, then show that using extensions we can enable version history for our Postgres data.**
+**In this blog, I'll explain in simple terms what's in a Postgres extension. Then as an example, I'll show that we can enable version history for Postgres using extensions.**
 
 ## What's involved to get an extension running
 
