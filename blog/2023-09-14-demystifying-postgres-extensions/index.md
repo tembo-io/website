@@ -42,6 +42,8 @@ Enabling an extension can be thought of like this:
 
 ## The files are *inside the computer!*
 
+![files-in-computer](./images/files-in-computer.gif)
+
  `LOAD` is the command that tells Postgres to load a library. For example, if you installed the extension ‘auto explain’, then you will have a library file called ‘auto_explain.so’. It can be loaded into your session like `LOAD 'auto_explain';` meaning make the code accessible to Postgres by loading the compiled code on disk into memory. However this command is not typically used directly.
 
 Extensions with libraries that do not use hooks do not need to be loaded because Postgres will automatically load the related libraries when `CREATE EXTENSION` is run. However, when hooks are used, an extension might require a `LOAD` at the appropriate time, for example on start up, before the extension can be considered ready. In this case the library should be configured in `shared_preload_libraries`, which Postgres uses for loading libraries on start up. Also, if `CREATE EXTENSION` is not required, since there is no SQL to use, then a load is needed, since otherwise the code is not in Postgres’ memory.
