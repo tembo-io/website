@@ -219,7 +219,7 @@ pg_cron--1.4--1.4-1.sql
 pg_cron.control
 ```
 
-Since that's not really applicable on auto_explain, since it's just logging outputs and there is nothing to migrate or handle between versions, it's just cleaner to not have a control file. Upgrading auto_explain only involves replacing the library, then loading it again.
+Since that's not really applicable on auto_explain, because it's just logging outputs and there is nothing to migrate or handle between versions, it's just cleaner to not have a control file. Upgrading auto_explain only involves replacing the library, then loading it again.
 
 :::info
 Upgrade logic is not applicable for extensions that do not require `CREATE EXTENSION`. These cases just involve re-loading a new version of the library.
