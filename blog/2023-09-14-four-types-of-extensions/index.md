@@ -249,6 +249,6 @@ We want to make it possible to automatically install and turn on any Postgres ex
 
 ## Dear experts, tell me how I'm wrong (seriously!)
 
-I'm serious that I want you to tell me where this is incorrect! If you're a Postgres extensions expert, or maybe just know a thing or two about extensions that seems to conflict with something in this blog, please reach out on X [@sjmiller609](https://twitter.com/sjmiller609) and tell me what you think, even if it's just minor correction or subjective information. I hope we can help make a simple and comprehensive explaination of what it takes to get extensions turned on.
+I'm serious that I want you to tell me where this is incorrect! If you're a Postgres extensions expert, or maybe just know a thing or two about extensions that seems to conflict with something in this blog, please reach out on X [@sjmiller609](https://twitter.com/sjmiller609) and let me know. Even if it's just minor correction or subjective information, I'd love to hear from you. I hope we can help make a simple and comprehensive explanation of what it takes to get extensions turned on.
 
 Another way to contribute is to click the "Edit this page" link below, and suggest changes. I will happily accept improvements to this blog.
