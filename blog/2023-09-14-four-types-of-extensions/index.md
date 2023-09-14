@@ -90,7 +90,7 @@ HINT:  Add pg_cron to the shared_preload_libraries configuration variable in pos
 ```
 
 :::info
-Extensions that require a `LOAD` can always be configured in `shared_preload_libraries`, but this configuration requires a restart to take effect. Some extensions can be loaded without a restart using `LOAD` directly, but in this case it's better to use the `session_preload_libraries` configuration, and [reload Postgres configuration](https://pgpedia.info/p/pg_reload_conf.html) with `SELECT pg_reload_conf();`.
+Extensions that require a `LOAD` can always be configured in `shared_preload_libraries`, but this configuration requires a restart to take effect. Some extensions can be loaded without a restart using `LOAD` directly, but in this case it's better to use the `session_preload_libraries` configuration, and [reload the Postgres configuration](https://pgpedia.info/p/pg_reload_conf.html) with `SELECT pg_reload_conf();`.
 :::
 
 ### CREATE EXTENSION
