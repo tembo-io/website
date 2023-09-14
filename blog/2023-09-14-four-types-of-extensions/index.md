@@ -165,7 +165,7 @@ You have to discover this for each extension by reading the documentation for th
 For example, in the case of both `pg_cron` and `pg_partman`, there are a background workers. These are examples of extensions using hooks in the start up process of Postgres. So, in both of these cases the user is expected to configure `shared_preload_libraries` to start the background worker, then run `CREATE EXTENSION` on a cluster where that background worker is already running.
 
 :::info
-The only reason an extension would require both `CREATE EXTENSION` and `LOAD` is if the load has to be performed when Postgres starts, in other words using hooks that require restart. These are configured in `shared_preload_libraries`.
+The only reason an extension would require both `CREATE EXTENSION` and `LOAD` is if the load must be performed when Postgres starts, in other words using hooks that require restart. These are configured in `shared_preload_libraries`.
 :::
 
 **`LOAD` is also sometimes required just because there isn't a control file.**
