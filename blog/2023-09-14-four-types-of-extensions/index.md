@@ -22,11 +22,11 @@ Now, I'm part of a team working to fully automate turning on any extension. I di
 - Sometimes, installation of dependencies (for example with *apt-get* or *yum*)
 - Sometimes, installation of other extensions (*goto* ‘figure out how to build it’)
 - Install your extension
-- Sometimes, configuring `LOAD` (for example, with `shared_preload_libraries` - more on this later)
+- Sometimes, load a library
 - Sometimes, provide extension-specific configurations
-- Sometimes, run `CREATE EXTENSION` to enable it
+- Sometimes, run the `CREATE EXTENSION` command
 
-Building and installing extensions is well covered by other resources. In this blog, I want to focus on steps to get an extension up and running after it's installed, and how **I believe that all extensions fit into four mostly-neat categories.**
+Building and installing extensions is well covered by other resources. In this blog, I want to focus on steps to get an extension up and running after it's installed, and how **I believe that all extensions fit into four mostly-tidy categories.**
 
 ### Terminology
 
@@ -36,8 +36,7 @@ A **library** simply means compiled code, for example written in [C](https://www
 
 **[SQL objects](https://www.postgresql.org/docs/current/extend-extensions.html#:~:text=A%20useful%20extension%20to%20PostgreSQL,package%20to%20simplify%20database%20management.)**, let's just call it SQL, are extensions of SQL, for example new functions and data types. These are often implemented by a library, but can also be implemented in other ways, for example using a procedural language like [PL/pgSQL](https://www.postgresql.org/docs/current/plpgsql.html).
 
-**Hooks:** A Postgres feature informally called *hooks* can be used to connect into Postgres' existing functionality. Hooks allow for overwriting default Postgres functionality, or calling back into an extension's code at the appropriate time. For example, a hook modifying Postgres start up behavior can launch a background worker.
-
+**Hooks:** A Postgres feature informally called *hooks* can be used to connect into Postgres' existing functionality. Hooks allow for overwriting default Postgres functionality, or calling back into an extension's code at the appropriate time. For example, one type of hook can modify Postgres start up behavior to launch a background worker, and a different type of hook can be used to redirect queries to a different table.
 :::note
 On the note of terminology, sometimes extensions are instead referred to as 'modules', but I like to simply refer to everything as an 'extension', but feel free to @ me on X to tell me I am wrong ([@sjmiller609](https://twitter.com/sjmiller609)).
 :::
@@ -48,17 +47,25 @@ On the note of terminology, sometimes extensions are instead referred to as 'mod
 
 A big part of what I have been working on is fully automating enabling any extension. In order to do that, we have to understand exactly how extensions vary. We can break it down into a 2x2 matrix by defining two boolean categories.
 
-**Requires [LOAD](https://www.postgresql.org/docs/current/sql-load.html)** true or false and **requires [CREATE EXTENSION](https://www.postgresql.org/docs/current/sql-createextension.html) true or false**:
+**Requires [LOAD](https://www.postgresql.org/docs/current/sql-load.html)** true or false and **requires [CREATE EXTENSION](https://www.postgresql.org/docs/current/sql-createextension.html)** true or false:
 
-|                             | Requires `CREATE EXTENSION`                                                 | Does not require `CREATE EXTENSION`                           |
-|-----------------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------|
-| **Requires `LOAD`**         | Extensions that use SQL and their libraries have hooks that require restart | Extensions that do not use SQL, may or may not have hooks     |
-| **Does not require `LOAD`** | SQL-only extensions, and SQL + libraries without hooks that require restart | Output plugins                                                |
-
+|                             | Requires `CREATE EXTENSION`                             | Does not require `CREATE EXTENSION`                           |
+|-----------------------------|---------------------------------------------------------|---------------------------------------------------------------|
+| **Requires `LOAD`**         | Extensions that use SQL and their libraries have hooks  | Extensions that do not use SQL, may or may not have hooks     |
+| **Does not require `LOAD`** | SQL-only extensions, and SQL + libraries without hooks  | Output plugins                                                |
 
 ### LOAD
 
- [LOAD](https://www.postgresql.org/docs/current/sql-load.html) is the command that tells Postgres to **load** a library, meaning make the code accessible to Postgres by loading the compiled code on disk into memory.
+ [LOAD](https://www.postgresql.org/docs/current/sql-load.html) is a command that tells Postgres to *load* a library, meaning make the code accessible to Postgres by loading the compiled code on disk into memory. If a library has hooks, **performing a load will activate the hooks.**
+
+**Requires `LOAD`: true** means you have to do one of the following steps to load a library:
+- **[LOAD](https://www.postgresql.org/docs/current/sql-load.html)**: using the `LOAD` command directly loads a library for the current connection only
+- **[session_preload_libraries](https://www.postgresql.org/docs/15/runtime-config-client.html#GUC-LOCAL-PRELOAD-LIBRARIES:~:text=at%20session_preload_libraries%20instead.-,session_preload_libraries,-(string))**: configuration, specifies which libraries to LOAD for new connections
+- **[shared_preload_libraries](https://www.postgresql.org/docs/15/runtime-config-client.html#GUC-LOCAL-PRELOAD-LIBRARIES:~:text=pooling%20is%20used.-,shared_preload_libraries,-(string))**: configuration, specifies which libraries to LOAD at server start, and therefore requires a restart
+
+:::note
+Even though code is loaded in other ways during `CREATE EXTENSION`, that is not **requires `LOAD`: true** under this definition. I mean that the user must do something other than `CREATE EXTENSION` to load in libraries. Also, we are conflating [local_preload_libraries](https://www.postgresql.org/docs/15/runtime-config-client.html#GUC-LOCAL-PRELOAD-LIBRARIES:~:text=load%20that%20module.-,local_preload_libraries,-(string)) with session_preload_libraries to simplify things in this blog post.
+:::
 
 For example, if you installed the extension [auto explain](https://pgt.dev/extensions/auto_explain), then you may have a library file called `auto_explain.so` in your library directory, which can be found with [pg_config --pkglibdir](https://pgpedia.info/d/dynamic_library_path.html). Libraries are not always named exactly the same as the extension.
 
@@ -75,22 +82,24 @@ $ ls $(pg_config --pkglibdir) | grep auto_explain
 auto_explain.so
 ```
 
-Auto explain can be loaded into your session like `LOAD 'auto_explain';`. This command will always match exactly the name of the library file, less the file type, in this example `.so`. With a [couple of configurations](https://www.postgresql.org/docs/current/auto-explain.html#AUTO-EXPLAIN-EXAMPLE), now this extension will automatically log the [EXPLAIN ANALYZE](https://www.postgresql.org/docs/current/sql-explain.html) output for log-running queries.
+Auto explain can be loaded into your session like `LOAD 'auto_explain';`. This command will always match exactly the name of the library file, less the file type, in this example `.so`. With a [couple of configurations](https://www.postgresql.org/docs/current/auto-explain.html#AUTO-EXPLAIN-EXAMPLE), now this extension will automatically log the [EXPLAIN ANALYZE](https://www.postgresql.org/docs/current/sql-explain.html) output for long-running queries.
 
 ```
 postgres=# LOAD 'auto_explain';
 LOAD
 ```
 
-However, the `LOAD` command is not typically used directly, and many extensions require you do not load them in this way. Instead, typically a Postgres configuration like [shared_preload_libraries](https://pgpedia.info/s/shared_preload_libraries.html) is used.
+However, the `LOAD` command is not typically used directly, and many extensions require you do not load them in this way. Instead, typically the Postgres configuration [shared_preload_libraries](https://pgpedia.info/s/shared_preload_libraries.html) is used instead.
 ```
 postgres=# LOAD 'pg_cron';
 ERROR:  pg_cron can only be loaded via shared_preload_libraries
 HINT:  Add pg_cron to the shared_preload_libraries configuration variable in postgresql.conf.
 ```
 
+The best reason to use `LOAD` directly is for debugging. It can be nice to `LOAD` on-demand while troubleshooting.
+
 :::info
-Extensions that require a `LOAD` can always be configured in `shared_preload_libraries`, but this configuration requires a restart to take effect. Some extensions can be loaded without a restart using `LOAD` directly, but in this case it's better to use the `session_preload_libraries` configuration, and [reload the Postgres configuration](https://pgpedia.info/p/pg_reload_conf.html) with `SELECT pg_reload_conf();`.
+Extensions that **require `LOAD`: true** can always be configured in `shared_preload_libraries`, but this configuration requires a restart to take effect. Some extensions can be loaded without a restart using `LOAD` directly, but in this case it's usually better to use the `session_preload_libraries` configuration, and [reload the Postgres configuration](https://pgpedia.info/p/pg_reload_conf.html) with `SELECT pg_reload_conf();`. You should run `LOAD` directly when you are intentionally loading for only the current connection.
 :::
 
 ### CREATE EXTENSION
@@ -137,7 +146,7 @@ postgres=# CREATE EXTENSION pg_jsonschema;
 CREATE EXTENSION
 ```
 
-I mentioned that a start up script creates new SQL, including new functions. For example in the case of [pg_jsonschema](https://pgt.dev/extensions/pg_jsonschema), the start up script `pg_jsonschema--0.1.4.sql` includes the following SQL to create a new function called `jsonb_matches_schema`. Even though we have a library file, we don't need `LOAD` because `CREATE FUNCTION` is another way to load code from a file.
+I mentioned that a start up script creates new SQL, including new functions. For example in the case of [pg_jsonschema](https://pgt.dev/extensions/pg_jsonschema), the start up script `pg_jsonschema--0.1.4.sql` includes the following SQL to create a new function called `jsonb_matches_schema`. Even though we have a library file, we don't need `LOAD` because `CREATE FUNCTION` is another way to load code from a file. This is an example of **requires `LOAD`: false**, **requires `CREATE EXTENSION`: true**.
 
 [CREATE FUNCTION ... AS 'obj_file' documentation](https://www.postgresql.org/docs/current/sql-createfunction.html)
 > obj_file is the name of the shared library file containing the compiled [code]
@@ -156,23 +165,17 @@ AS 'MODULE_PATHNAME', 'jsonb_matches_schema_wrapper';
 You can always know whether or not an extension requires `CREATE EXTENSION` by the presence of a control file in `$(pg_config --sharedir)/extension`
 :::
 
-### How do I know if I need a LOAD?
+### Hooks that require a restart
 
-**You only need to do both `CREATE EXTENSION` and `LOAD` when an extension uses hooks that require restart.**
+An extension is in the category **requires `CREATE EXTENSION`: true** and **requires `LOAD`: true** if the extension has libraries that use hooks which require a restart and it has a control file.
 
-You have to discover this for each extension by reading the documentation for that extension, and sometimes by an error message or hint if you run `CREATE EXTENSION` before you loaded the library.
+You will be able to identify this is the case when the extension's documentation mentions both `CREATE EXTENSION` and `shared_preload_libraries`. Sometimes an error message or hint is provided if you run `CREATE EXTENSION` before loaded the library, or if you try to run `LOAD` directly, but you can't count on that.
 
 For example, in the case of both `pg_cron` and `pg_partman`, there are a background workers. These are examples of extensions using hooks in the start up process of Postgres. So, in both of these cases the user is expected to configure `shared_preload_libraries` to start the background worker, then run `CREATE EXTENSION` on a cluster where that background worker is already running.
 
-:::info
-The only reason an extension would require both `CREATE EXTENSION` and `LOAD` is if the load must be performed when Postgres starts, in other words using hooks that require restart. These are configured in `shared_preload_libraries`.
-:::
+### LOAD is needed when there isn't a control file
 
-**`LOAD` is also sometimes required just because there isn't a control file.**
-
-In some cases it's simpler to omit the control file. This is when there is no need for SQL or version upgrade handling.
-
-In the case of `auto_explain`, it does not use hooks that require a restart. In this case, there is no control file and no extra SQL objects to be created. So `LOAD` is required simply because we have to load it into memory somehow. To demonstrate, it is possible to make a control file for auto_explain to allow for `CREATE EXTENSION` behavior instead of `LOAD`:
+In the case of auto_explain, it uses hooks that do not require a restart. In this case, there is no control file and no extra SQL objects to be created. So `LOAD` is required simply because we have to load it into memory somehow. To demonstrate, it is technically possible to make a control file for auto_explain to allow for `CREATE EXTENSION` behavior instead of `LOAD`:
 
 **auto_explain.control:**
 ```
@@ -187,6 +190,10 @@ superuser = true
 ```
 LOAD 'auto_explain';
 ```
+:::caution
+In practice, do not use `LOAD` in an extension start up script to activate hooks. `LOAD` is only applicable for the current connection.
+
+:::
 
 ```
 postgres=# CREATE EXTENSION auto_explain;
@@ -207,7 +214,11 @@ SET
 ```
 After running the above, now my subsequent queries have their `EXPLAIN ANALYZE` logged.
 
-So, if that could work, **why not just have control files for all extensions?** This sort of comes back to 'modules' versus 'extensions' for some people. Other than terminology, when you have a control file, you also have to write upgrade scripts for every new version. In the case of pg_cron, we can find all these files in **sharedir**. When enabling version 1.5, it will run `pg_cron--1.0.sql`, then each migration script up to 1.5.
+So, if that could work, **why not just have control files for all extensions?**
+
+**Having a control file requires version upgrade handling.**
+
+When you have a control file, you also have to write upgrade scripts for every new version. In the case of pg_cron, we can find all these files in **sharedir**. When enabling version 1.5, it will run `pg_cron--1.0.sql`, then each migration script up to 1.5.
 ```
 pg_cron--1.0--1.1.sql
 pg_cron--1.0.sql
@@ -221,11 +232,28 @@ pg_cron.control
 
 Since that's not really applicable on auto_explain, because it's just logging outputs and there is nothing to migrate or handle between versions, it's just cleaner to not have a control file. Upgrading auto_explain only involves replacing the library, then loading it again.
 
-Another reason LOAD could be applicable is for debugging functionality. It can be nice to `LOAD` on-demand for a single troubleshooting session, which wouldn't be possible if the library is loaded at all times.
-
 :::info
 Upgrade logic is not applicable for extensions that do not require `CREATE EXTENSION`. These cases just involve re-loading a new version of the library.
 :::
+
+
+### You don't load hooks during CREATE EXTENSION
+
+It made sense to me for activating hooks that require a restart they have to be configured in `shared_preload_libraries`. But for extensions that do not require a restart, it's not obvious why the hooks can't just be loaded during the `CREATE EXTENSION` start up script like I just demonstrated is possible with auto_explain.
+
+**Even though it's technically possible to `LOAD` hooks during `CREATE EXTENSION`, it's a bad idea.**
+
+First of all, when using the `LOAD` command directly, it's only applicable to the current connection. So, in the above example with auto explain, the queries are only logged in the connection where I ran `CREATE EXTENSION`. To apply to all connections without a restart, it would need to go into `session_preload_libraries`. It is technically possible to do that inside of `CREATE EXTENSION` by doing `ALTER SYSTEM SET session_preload_libraries` then `SELECT pg_reload_conf()` in your start up script, but it is not a good approach for `CREATE EXTENSION` to automatically perform a configuration update. First of all it would confuse a user to change a config on the fly, and secondly there is currently no concept to automatically merge multi-value, comma-separated configurations like session_preload_libraries.
+
+
+:::info
+The 2x2 matrix makes it easier to understand how to enable an extension.
+
+Just ask yourself "do I need to run `CREATE EXTENSION`?" determined by presence of a control file, and "do I need to do a `LOAD`?" determined by any mention of `LOAD`, `shared_preload_libraries`, or `session_preload_libraries` in the extension's documentation or an error message.
+
+In all cases of needing a `LOAD`, you can get away with setting it in `shared_preload_libraries`. You can optimize to avoid restarts in some cases.
+:::
+
 
 ### Output plugins
 
@@ -256,6 +284,6 @@ To enable the community, that metadata is being published on [Trunk](https://pgt
 
 ## Dear experts, tell me how I'm wrong (seriously!)
 
-I'm serious that I want you to tell me where this is incorrect! If you're a Postgres extensions expert, or maybe just know a thing or two about extensions that seems to conflict with something in this blog, please reach out on X [@sjmiller609](https://twitter.com/sjmiller609) and let me know. Even if it's just minor correction or subjective information, I'd love to hear from you. I hope we can help make a simple and comprehensive explanation of what it takes to get extensions turned on.
+I'm serious that I want you to tell me where this is incorrect! If you're a Postgres extensions expert, or maybe just know a thing or two about extensions that seems to conflict with something in this blog, please reach out on X [@sjmiller609](https://twitter.com/sjmiller609) and let me know. Even if it's just minor correction or subjective information, I'd love to hear from you. I also want to hear if there is an easier mental model than this. I hope this blog can serve as a minimal yet comprehensive explanation of what it takes to get extensions turned on.
 
 Another way to contribute is to **click the "Edit this page" link below**, and suggest changes. I will happily accept improvements to this blog.
