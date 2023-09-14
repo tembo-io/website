@@ -38,7 +38,7 @@ A **library** simply means compiled code, for example written in [C](https://www
 
 **Hooks:** A Postgres feature informally called *hooks* can be used to connect into Postgres' existing functionality. Hooks allow for overwriting default Postgres functionality, or calling back into an extension's code at the appropriate time. For example, one type of hook can modify Postgres start up behavior to launch a background worker, and a different type of hook can be used to redirect queries to a different table.
 :::note
-On the note of terminology, sometimes extensions are instead referred to as 'modules', but I like to simply refer to everything as an 'extension', but feel free to @ me on X to tell me I am wrong ([@sjmiller609](https://twitter.com/sjmiller609)).
+Sometimes extensions are instead referred to as 'modules', but I like to simply refer to everything as an 'extension', but feel free to @ me on X to tell me why that's wrong ([@sjmiller609](https://twitter.com/sjmiller609)).
 :::
 
 ## Enter the matrix
@@ -54,9 +54,11 @@ A big part of what I have been working on is fully automating enabling any exten
 | **Requires `LOAD`**         | Extensions that use SQL and their libraries have hooks  | Extensions that do not use SQL, may or may not have hooks     |
 | **Does not require `LOAD`** | SQL-only extensions, and SQL + libraries without hooks  | Output plugins                                                |
 
+*By categorizing an extension into this 2x2 matrix, we can know how to turn it on.*
+
 ### LOAD
 
- [LOAD](https://www.postgresql.org/docs/current/sql-load.html) is a command that tells Postgres to *load* a library, meaning make the code accessible to Postgres by loading the compiled code on disk into memory. If a library has hooks, **performing a load will activate the hooks.**
+ [LOAD](https://www.postgresql.org/docs/current/sql-load.html) is a command that tells Postgres to *load* a library, meaning make the code accessible to Postgres by loading the compiled code on disk into memory. If a library has hooks, **performing a load will activate the hooks**.
 
 **Requires `LOAD`: true** means you have to do one of the following steps to load a library:
 - **[LOAD](https://www.postgresql.org/docs/current/sql-load.html)**: using the `LOAD` command directly loads a library for the current connection only
@@ -64,7 +66,7 @@ A big part of what I have been working on is fully automating enabling any exten
 - **[shared_preload_libraries](https://www.postgresql.org/docs/15/runtime-config-client.html#GUC-LOCAL-PRELOAD-LIBRARIES:~:text=pooling%20is%20used.-,shared_preload_libraries,-(string))**: configuration, specifies which libraries to LOAD at server start, and therefore requires a restart
 
 :::note
-Even though code is loaded in other ways during `CREATE EXTENSION`, that is not **requires `LOAD`: true** under this definition. I mean that the user must do something other than `CREATE EXTENSION` to load in libraries. Also, we are conflating [local_preload_libraries](https://www.postgresql.org/docs/15/runtime-config-client.html#GUC-LOCAL-PRELOAD-LIBRARIES:~:text=load%20that%20module.-,local_preload_libraries,-(string)) with session_preload_libraries to simplify things in this blog post.
+Even though code is loaded in other ways during `CREATE EXTENSION`, that is not **requires `LOAD`: true** under this definition. I mean that the user must do something other than `CREATE EXTENSION` to load in libraries. Also, we are conflating [local_preload_libraries](https://www.postgresql.org/docs/15/runtime-config-client.html#GUC-LOCAL-PRELOAD-LIBRARIES:~:text=load%20that%20module.-,local_preload_libraries,-(string)) with `session_preload_libraries` to simplify things in this blog post.
 :::
 
 For example, if you installed the extension [auto explain](https://pgt.dev/extensions/auto_explain), then you may have a library file called `auto_explain.so` in your library directory, which can be found with [pg_config --pkglibdir](https://pgpedia.info/d/dynamic_library_path.html). Libraries are not always named exactly the same as the extension.
@@ -99,6 +101,8 @@ HINT:  Add pg_cron to the shared_preload_libraries configuration variable in pos
 The best reason to use `LOAD` directly is for debugging. It can be nice to `LOAD` on-demand while troubleshooting.
 
 :::info
+**What to do when an extension requires load:**
+
 Extensions that **require `LOAD`: true** can always be configured in `shared_preload_libraries`, but this configuration requires a restart to take effect. Some extensions can be loaded without a restart using `LOAD` directly, but in this case it's usually better to use the `session_preload_libraries` configuration, and [reload the Postgres configuration](https://pgpedia.info/p/pg_reload_conf.html) with `SELECT pg_reload_conf();`. You should run `LOAD` directly when you are intentionally loading for only the current connection.
 :::
 
@@ -243,7 +247,7 @@ It made sense to me for activating hooks that require a restart they have to be 
 
 **Even though it's technically possible to `LOAD` hooks during `CREATE EXTENSION`, it's a bad idea.**
 
-First of all, when using the `LOAD` command directly, it's only applicable to the current connection. So, in the above example with auto explain, the queries are only logged in the connection where I ran `CREATE EXTENSION`. To apply to all connections without a restart, it would need to go into `session_preload_libraries`. It is technically possible to do that inside of `CREATE EXTENSION` by doing `ALTER SYSTEM SET session_preload_libraries` then `SELECT pg_reload_conf()` in your start up script, but it is not a good approach for `CREATE EXTENSION` to automatically perform a configuration update. First of all it would confuse a user to change a config on the fly, and secondly there is currently no concept to automatically merge multi-value, comma-separated configurations like session_preload_libraries.
+First of all, when using the `LOAD` command directly, it's only applicable to the current connection. So, in the above example with auto explain, the queries are only logged in the connection where I ran `CREATE EXTENSION`. To apply to all connections without a restart, it would need to go into `session_preload_libraries`. It is technically possible to do that inside of `CREATE EXTENSION` by doing `ALTER SYSTEM SET session_preload_libraries` then `SELECT pg_reload_conf()` in your start up script, but it is not a good approach for `CREATE EXTENSION` to automatically perform a configuration update. First of all it would confuse a user to change a config on the fly, and secondly there is currently no concept to automatically merge multi-value, comma-separated configurations like `session_preload_libraries`.
 
 
 :::info
