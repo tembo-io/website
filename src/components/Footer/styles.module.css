@@ -108,9 +108,9 @@
   }
 }
 
-/* .footerLinks {
+.footerLinks {
   @apply absolute bottom-10 text-white flex w-full justify-between content-margin pt-10 flex-wrap;
-} */
+}
 
 .footerLinks .link {
   @apply px-6;

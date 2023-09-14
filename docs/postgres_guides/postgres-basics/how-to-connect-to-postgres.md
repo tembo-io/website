@@ -42,7 +42,9 @@ hostname:port:database:username:password
 
 Note that psql is a rich, highly configurable tool. Check out the [psql manual page](https://www.postgresql.org/docs/current/app-psql.html) if you want to dive deeper!
 
-> **Curious fact:** Why doesn’t psql accept the password next to the other connection parameters when starting it? Well, this is a _security risk_! If someone can list the processes in your machine, they could see the password in plaintext. To avoid this pitfall, psql does not allow passwords as command line parameters.
+:::note
+Why doesn’t psql accept the password next to the other connection parameters when starting it? Well, this is a _security risk_! If someone can list the processes in your machine, they could see the password in plaintext. To avoid this pitfall, psql does not allow passwords as command line parameters.
+:::
 
 ### How to exit psql
 
