@@ -103,7 +103,7 @@ The best reason to use `LOAD` directly is for debugging. It can be nice to `LOAD
 :::info
 **What to do when an extension requires load:**
 
-Extensions that **require `LOAD`: true** can always be configured in `shared_preload_libraries`, but this configuration requires a restart to take effect. Some extensions can be loaded without a restart using `LOAD` directly, but in this case it's usually better to use the `session_preload_libraries` configuration, and [reload the Postgres configuration](https://pgpedia.info/p/pg_reload_conf.html) with `SELECT pg_reload_conf();`. You should run `LOAD` directly when you are intentionally loading for only the current connection.
+Extensions that **requires `LOAD`: true** can always be configured in `shared_preload_libraries`, but this configuration requires a restart to take effect. Some extensions can be loaded without a restart using `LOAD` directly, but in this case it's usually better to use the `session_preload_libraries` configuration, and [reload the Postgres configuration](https://pgpedia.info/p/pg_reload_conf.html) with `SELECT pg_reload_conf();`. You should run `LOAD` directly when you are intentionally loading for only the current connection.
 :::
 
 ### CREATE EXTENSION
