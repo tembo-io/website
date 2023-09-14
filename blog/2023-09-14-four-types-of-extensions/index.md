@@ -221,6 +221,8 @@ pg_cron.control
 
 Since that's not really applicable on auto_explain, because it's just logging outputs and there is nothing to migrate or handle between versions, it's just cleaner to not have a control file. Upgrading auto_explain only involves replacing the library, then loading it again.
 
+Another reason LOAD could be applicable is for debugging functionality. It can be nice to `LOAD` on-demand for a single troubleshooting session, which wouldn't be possible if the library is loaded at all times.
+
 :::info
 Upgrade logic is not applicable for extensions that do not require `CREATE EXTENSION`. These cases just involve re-loading a new version of the library.
 :::
