@@ -137,7 +137,7 @@ postgres=# CREATE EXTENSION pg_jsonschema;
 CREATE EXTENSION
 ```
 
-I mentioned that a startup script creates new SQL, including new functions. For example in the case of [pg_jsonschema](https://pgt.dev/extensions/pg_jsonschema), the startup script `pg_jsonschema--0.1.4.sql` includes the following SQL to create a new function called `jsonb_matches_schema`. Even though we have a library file, we don't need `LOAD` because `CREATE FUNCTION` is another way to load code from a file.
+I mentioned that a start up script creates new SQL, including new functions. For example in the case of [pg_jsonschema](https://pgt.dev/extensions/pg_jsonschema), the start up script `pg_jsonschema--0.1.4.sql` includes the following SQL to create a new function called `jsonb_matches_schema`. Even though we have a library file, we don't need `LOAD` because `CREATE FUNCTION` is another way to load code from a file.
 
 [CREATE FUNCTION ... AS 'obj_file' documentation](https://www.postgresql.org/docs/current/sql-createfunction.html)
 > obj_file is the name of the shared library file containing the compiled [code]
@@ -162,7 +162,7 @@ You can always know whether or not an extension requires `CREATE EXTENSION` by t
 
 You have to discover this for each extension by reading the documentation for that extension, and sometimes by an error message or hint if you run `CREATE EXTENSION` before you loaded the library.
 
-For example, in the case of both `pg_cron` and `pg_partman`, there are a background workers. These are examples of extensions using hooks in the startup process of Postgres. So, in both of these cases the user is expected to configure `shared_preload_libraries` to start the background worker, then run `CREATE EXTENSION` on a cluster where that background worker is already running.
+For example, in the case of both `pg_cron` and `pg_partman`, there are a background workers. These are examples of extensions using hooks in the start up process of Postgres. So, in both of these cases the user is expected to configure `shared_preload_libraries` to start the background worker, then run `CREATE EXTENSION` on a cluster where that background worker is already running.
 
 :::info
 The only reason an extension would require both `CREATE EXTENSION` and `LOAD` is if the load has to be performed when Postgres starts, in other words using hooks that require restart. These are configured in `shared_preload_libraries`.
