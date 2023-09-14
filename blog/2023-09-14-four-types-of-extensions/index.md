@@ -207,7 +207,7 @@ SET
 ```
 After running the above, now my subsequent queries have their `EXPLAIN ANALYZE` logged.
 
-So, if that could work, **why not just have control files for all extensions**? This sort of comes back to 'modules' versus 'extensions' for some people. Other than terminology, when you have a control file, you also have to write upgrade scripts for every new version. In the case of pg_cron, we can find all these files in **sharedir**. When enabling version 1.5, it will run `pg_cron--1.0.sql`, then each migration script up to 1.5.
+So, if that could work, **why not just have control files for all extensions?** This sort of comes back to 'modules' versus 'extensions' for some people. Other than terminology, when you have a control file, you also have to write upgrade scripts for every new version. In the case of pg_cron, we can find all these files in **sharedir**. When enabling version 1.5, it will run `pg_cron--1.0.sql`, then each migration script up to 1.5.
 ```
 pg_cron--1.0--1.1.sql
 pg_cron--1.0.sql
