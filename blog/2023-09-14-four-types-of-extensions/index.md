@@ -1,6 +1,6 @@
 ---
 slug: four-types-of-extensions
-title: "Four types of extensions"
+title: "Enter the matrix: the four types of Postgres extensions"
 authors: [steven]
 tags: [postgres, extensions, trunk]
 ---
@@ -42,20 +42,19 @@ A **library** simply means compiled code, for example written in [C](https://www
 On the note of terminology, sometimes extensions are instead referred to as 'modules', but I like to simply refer to everything as an 'extension', but feel free to @ me on X to tell me I am wrong ([@sjmiller609](https://twitter.com/sjmiller609)).
 :::
 
-## Four buckets
+## Enter the matrix
 
-A big part of what I have been working on is fully automating enabling any extension. In order to do that, we have to understand exactly how extensions vary. I think that we can break it down into a 2x2 matrix by defining two boolean categories.
+![im-in-matrix](./images/im-in-matrix.gif)
 
-Requires [LOAD](https://www.postgresql.org/docs/current/sql-load.html) true or false and requires [CREATE EXTENSION](https://www.postgresql.org/docs/current/sql-createextension.html) true or false:
+A big part of what I have been working on is fully automating enabling any extension. In order to do that, we have to understand exactly how extensions vary. We can break it down into a 2x2 matrix by defining two boolean categories.
+
+**Requires [LOAD](https://www.postgresql.org/docs/current/sql-load.html)** true or false and **requires [CREATE EXTENSION](https://www.postgresql.org/docs/current/sql-createextension.html) true or false**:
 
 |                             | Requires `CREATE EXTENSION`                                                 | Does not require `CREATE EXTENSION`                           |
 |-----------------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------|
 | **Requires `LOAD`**         | Extensions that use SQL and their libraries have hooks that require restart | Extensions that do not use SQL, may or may not have hooks     |
 | **Does not require `LOAD`** | SQL-only extensions, and SQL + libraries without hooks that require restart | Output plugins                                                |
 
-*Perhaps it's not so bad after all...*
-
-![files-in-computer](./images/files-in-computer.gif)
 
 ### LOAD
 
@@ -243,12 +242,18 @@ Some of the above examples use the free and open source [Trunk project](https://
 
 **I wrote [this guide](https://tembo.io/docs/tembo-cloud/try-extensions-locally) for trying out extensions locally**. If you have any issues just reach out on our [community Slack channel](https://join.slack.com/t/tembocommunity/shared_invite/zt-20v3m8pwz-pPjeFaWSM~Bt3KUqDXff2A) and we can help.
 
+*Perhaps it's not so bad after all...*
+
+![files-in-computer](./images/files-in-computer.gif)
+
 ## Automate everything
 
-We want to make it possible to automatically install and turn on any Postgres extension. For this reason, we are seeking to qualify all known extensions by these two dimensions: `CREATE EXTENSION` true or false, and requires `LOAD` true or false. To enable the community, that metadata is being published on Trunk. On [Tembo Cloud](https://cloud.tembo.io), we leverage that information to automatically enable extensions.
+We want to make it possible to automatically install and turn on any Postgres extension. For this reason, we are seeking to qualify all known extensions by these two dimensions: `CREATE EXTENSION` true or false, and requires `LOAD` true or false.
+
+To enable the community, that metadata is being published on [Trunk](https://pgt.dev). On [Tembo Cloud](https://cloud.tembo.io), we leverage that information to automatically enable extensions.
 
 ## Dear experts, tell me how I'm wrong (seriously!)
 
 I'm serious that I want you to tell me where this is incorrect! If you're a Postgres extensions expert, or maybe just know a thing or two about extensions that seems to conflict with something in this blog, please reach out on X [@sjmiller609](https://twitter.com/sjmiller609) and let me know. Even if it's just minor correction or subjective information, I'd love to hear from you. I hope we can help make a simple and comprehensive explanation of what it takes to get extensions turned on.
 
-Another way to contribute is to click the "Edit this page" link below, and suggest changes. I will happily accept improvements to this blog.
+Another way to contribute is to **click the "Edit this page" link below**, and suggest changes. I will happily accept improvements to this blog.
