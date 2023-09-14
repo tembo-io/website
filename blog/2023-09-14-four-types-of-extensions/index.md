@@ -15,7 +15,7 @@ Now, I'm part of a team working to fully automate turning on any extension. I di
 
 ![one-does-not-simply](./images/one-does-not-simply.png)
 
-**Turning on an extension:**
+**What's traditionally involved:**
 
 - Find the extension you want
 - Figure out how to build it
