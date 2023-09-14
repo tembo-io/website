@@ -248,7 +248,7 @@ Some of the above examples use the free and open source [Trunk project](https://
 
 ## Automate everything
 
-We want to make it possible to automatically install and turn on any Postgres extension. For this reason, we are seeking to qualify all known extensions by these two dimensions: `CREATE EXTENSION` true or false, and requires `LOAD` true or false.
+We want to make it possible to automatically install and turn on any Postgres extension. For this reason, we are seeking to qualify all known extensions by these two dimensions: requires `CREATE EXTENSION` true or false, and requires `LOAD` true or false.
 
 To enable the community, that metadata is being published on [Trunk](https://pgt.dev). On [Tembo Cloud](https://cloud.tembo.io), we leverage that information to automatically enable extensions.
 
