@@ -1,8 +1,8 @@
 ---
-slug: enabling-extensions
+slug: four-types-of-extensions
 title: "Four types of extensions"
 authors: [steven]
-tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
+tags: [postgres, extensions, trunk]
 ---
 
 Before working for a Postgres company, I had never used extensions.
