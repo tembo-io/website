@@ -138,7 +138,7 @@ postgres=# CREATE EXTENSION pg_jsonschema;
 CREATE EXTENSION
 ```
 
-I mentioned that a startup script creates new SQL, including new funcitons. For example in the case of [pg_jsonschema](https://pgt.dev/extensions/pg_jsonschema), the startup script `pg_jsonschema--0.1.4.sql` includes the following SQL to create a new function called `jsonb_matches_schema`. Even though we have a library file, we don't need `LOAD` because `CREATE FUNCTION` is another way to load code from a file.
+I mentioned that a startup script creates new SQL, including new functions. For example in the case of [pg_jsonschema](https://pgt.dev/extensions/pg_jsonschema), the startup script `pg_jsonschema--0.1.4.sql` includes the following SQL to create a new function called `jsonb_matches_schema`. Even though we have a library file, we don't need `LOAD` because `CREATE FUNCTION` is another way to load code from a file.
 
 [CREATE FUNCTION ... AS 'obj_file' documentation](https://www.postgresql.org/docs/current/sql-createfunction.html)
 > obj_file is the name of the shared library file containing the compiled [code]
