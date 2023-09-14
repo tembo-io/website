@@ -239,7 +239,9 @@ SELECT * FROM pg_create_logical_replication_slot('regression_slot', 'test_decodi
 
 ## Installing extensions
 
-Some of the above examples use the free and open source [Trunk project](https://pgt.dev) that Tembo created, which allows us to skip the build process. Also, I am starting from one of Tembo’s container images to handle the system dependencies installation. I wrote [this guide for trying out extensions locally](https://tembo.io/docs/tembo-cloud/try-extensions-locally). If you have any issues just reach out on our [community Slack channel](https://join.slack.com/t/tembocommunity/shared_invite/zt-20v3m8pwz-pPjeFaWSM~Bt3KUqDXff2A) and we can help.
+Some of the above examples use the free and open source [Trunk project](https://pgt.dev) that Tembo created, which allows us to skip the build process. Also, I am starting from one of Tembo’s container images to handle the system dependencies installation.
+
+**I wrote [this guide](https://tembo.io/docs/tembo-cloud/try-extensions-locally) for trying out extensions locally**. If you have any issues just reach out on our [community Slack channel](https://join.slack.com/t/tembocommunity/shared_invite/zt-20v3m8pwz-pPjeFaWSM~Bt3KUqDXff2A) and we can help.
 
 ## Automate everything
 
@@ -248,3 +250,5 @@ We want to make it possible to automatically install and turn on any Postgres ex
 ## Dear experts, tell me how I'm wrong (seriously!)
 
 I'm serious that I want you to tell me where this is incorrect! If you're a Postgres extensions expert, please reach out on X [@sjmiller609](https://twitter.com/sjmiller609) and tell me what you think, even if it's just minor correction or subjective information. I hope we can help make a simple and comprehensive explaination of what it takes to get extensions turned on.
+
+Another way to contribute is to click the "Edit this page" link below, and suggest changes. I will happily accept improvements to this blog.
