@@ -1,75 +1,9 @@
 ---
-slug: demystifying-postgres-extensions
-title: "Demystifying Postgres Extensions"
+slug: table-version-history
+title: "Version history for postgres tables"
 authors: [steven]
 tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
 ---
-
-Before working for a Postgres company, I had never used extensions.
-
-I think most Postgres users just don’t know about extensions or find them daunting. If it was easier to try out extensions, maybe they would get a lot more use. Something I find particularly compelling is that unrelated extensions can be combined to solve different problems.
-
-**In this blog, I'll explain in simple terms what's in a Postgres extension. Then as an example, I'll show that we can enable version history for Postgres using extensions.**
-
-## What's involved to get an extension running
-
-![one-does-not-simply](./images/one-does-not-simply.png)
-
-**What's traditionally involved:**
-
-- Find the extension you want
-- Figure out how to build it
-- Sometimes, installation of dependencies (for example with *apt-get* or *yum*)
-- Sometimes, installation of other extensions (*goto* ‘figure out how to build it’)
-- Install your extension
-- Sometimes, configure in shared_preload_libraries (more on this later)
-- Sometimes, provide extension-specific configurations
-- Sometimes, run `CREATE EXTENSION` to enable it
-
-**Terminology:**
-
-It can be tricky to turn on an extension, and that’s because different extensions have different parts. Extensions consist of **SQL** (either normal SQL or SQL including functionality provided by extensions) and / or **libraries**.
-
-A library simply means compiled code, for example written in C or [Rust](https://github.com/pgcentralfoundation/pgrx), that should be accessible to Postgres. Also, to connect into Postgres' existing functionality, libraries can use a feature informally called **hooks**. Hooks allow for overwriting default Postgres functionality, or calling back into an extension's code at the appropriate time (for example modifying Postgres start up behavior).
-
-:::note
-On the note of terminology, sometimes extensions are instead referred to as 'modules', but I like to simply refer to everything as an 'extension', but feel free to @ me on X to tell me I am wrong ([@sjmiller609](https://twitter.com/sjmiller609)).
-:::
-
-**I believe that enabling an extension can be simplified by defining two categories:**
-
-Requires [LOAD](https://www.postgresql.org/docs/current/sql-load.html) true or false and requires [CREATE EXTENSION](https://www.postgresql.org/docs/current/sql-createextension.html) true or false:
-
-|                             | Requires `CREATE EXTENSION`                                       | Does not require `CREATE EXTENSION`                           |
-|-----------------------------|-------------------------------------------------------------------|---------------------------------------------------------------|
-| **Requires `LOAD`**         | Extensions that use SQL and their libraries have hooks            | Extensions that do not use SQL, may or may not have hooks     |
-| **Does not require `LOAD`** | SQL-only extensions, and SQL + libraries without hooks            | Not applicable                                                |
-
-### The files are *inside the computer!*
-
-![files-in-computer](./images/files-in-computer.gif)
-
-**LOAD**
-
- [LOAD](https://www.postgresql.org/docs/current/sql-load.html) is the command that tells Postgres to **load** a library. For example, if you installed the extension ‘auto explain’, then you will have a library file called ‘auto_explain.so’. It can be loaded into your session like `LOAD 'auto_explain';` meaning make the code accessible to Postgres by loading the compiled code on disk into memory. However, this command is not typically used directly.
-
-**CREATE EXTENSION**
-
-When you run [CREATE EXTENSION](https://www.postgresql.org/docs/current/sql-createextension.html), this basically just runs the extension's SQL script. The script will typically create new SQL objects such as functions, data types, operators and index support methods.
-
-**Fire it up**
-
-Extensions with libraries that do not use hooks do not need to be loaded because Postgres will automatically load the related libraries when `CREATE EXTENSION` is run. However, when hooks are used, an extension might require a `LOAD` at the appropriate time, for example on start up, before the extension can be considered ready. In this case the library should be configured in `shared_preload_libraries`, which Postgres uses for loading libraries on start up. Also, if `CREATE EXTENSION` is not required, since there is no SQL to use, then a load is needed, since otherwise the code is not in Postgres’ memory.
-
-:::info
-Extensions that require a `LOAD` can always be configured in `shared_preload_libraries`, but this configuration requires a restart to take effect. Some extensions can be loaded without a restart using `LOAD` directly, or using the `session_preload_libraries` configuration.
-:::
-
-## Uh, you forgot to mention installing the extension
-
-You can just use the always free and open source [Trunk project](https://pgt.dev) to install over 150 different extensions, skipping the build process. Also, you can optionally start from one of Tembo’s container images to handle the system dependencies installation, which covers the most common dependencies of extensions. I wrote [this guide for trying out extensions locally](https://tembo.io/docs/tembo-cloud/try-extensions-locally). If you have any issues just reach out on our [community Slack channel](https://join.slack.com/t/tembocommunity/shared_invite/zt-20v3m8pwz-pPjeFaWSM~Bt3KUqDXff2A) and we can help.
-
-**If you don’t want to pull out your laptop and start hacking, just read along! I’ll show an example.**
 
 ## Version history and lifecycle policies, *for Postgres!*
 
