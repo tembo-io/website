@@ -1,44 +1,44 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const lightCodeTheme = require('prism-react-renderer/themes/github');
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Tembo",
-  tagline: "The developer platform for building any data service",
-  favicon: "img/favicon.ico",
+  title: 'Tembo',
+  tagline: 'The developer platform for building any data service',
+  favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: "https://tembo.io",
+  url: 'https://tembo.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/",
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "tembo-io", // Usually your GitHub org/user name.
-  projectName: "website", // Usually your repo name.
+  organizationName: 'tembo-io', // Usually your GitHub org/user name.
+  projectName: 'website', // Usually your repo name.
 
-  onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: "en",
-    locales: ["en"],
+    defaultLocale: 'en',
+    locales: ['en'],
   },
 
   plugins: [
-    "@stackql/docusaurus-plugin-hubspot",
-    "docusaurus-plugin-segment",
+    '@stackql/docusaurus-plugin-hubspot',
+    'docusaurus-plugin-segment',
     [
-      "docusaurus-plugin-plausible",
+      'docusaurus-plugin-plausible',
       {
-        domain: "tembo.io",
+        domain: 'tembo.io',
       },
     ],
     async function myPlugin(context, options) {
@@ -58,19 +58,9 @@ const config = {
       injectHtmlTags() {
         return {
           headTags: [
-            {
-              tagName: "script",
-              innerHTML:
-                "prefinery=window.prefinery||function(){(window.prefinery.q=window.prefinery.q||[]).push(arguments)};",
-            },
-            {
-              tagName: "script",
-              attributes: {
-                src: "https://widget.prefinery.com/widget/v2/yisnnyak.js",
-                defer: true,
-              },
-            },
-          ],
+            { tagName: "script", innerHTML: "prefinery=window.prefinery||function(){(window.prefinery.q=window.prefinery.q||[]).push(arguments)};"},
+            { tagName: "script", attributes: {src: "https://widget.prefinery.com/widget/v2/yisnnyak.js", defer: true}}
+          ]
         };
       },
     }),
@@ -78,118 +68,107 @@ const config = {
 
   presets: [
     [
-      "classic",
+      'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          routeBasePath: "/docs",
-          sidebarPath: require.resolve("./sidebars.js"),
+          routeBasePath: '/docs',
+          sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/tembo-io/website/blob/main/",
+          editUrl:
+            'https://github.com/tembo-io/website/blob/main/',
         },
-        // guides: {
-        //   routeBasePath: "/guides",
-        //   sidebarPath: require.resolve("./sidebars.js"),
-        //   // Please change this to your repo.
-        //   // Remove this to remove the "edit this page" links.
-        //   editUrl: "https://github.com/tembo-io/website/blob/main/",
-        // },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/tembo-io/website/blob/main/",
+          editUrl:
+            'https://github.com/tembo-io/website/blob/main/',
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: require.resolve('./src/css/custom.css'),
         },
       }),
     ],
-    [
-      "redocusaurus",
-      {
-        // Plugin Options for loading OpenAPI files
-        specs: [
-          {
-            spec: "https://api.tembo.io/api-docs/openapi.json",
-            route: "/docs/tembo-cloud/openapi",
-          },
-        ],
-        // Theme Options for modifying how redoc renders them
-        theme: {
-          // Change with your site colors
-          primaryColor: "#1890ff",
+  [
+    'redocusaurus',
+    {
+      // Plugin Options for loading OpenAPI files
+      specs: [
+        {
+          spec: 'https://api.tembo.io/api-docs/openapi.json',
+          route: '/docs/tembo-cloud/openapi',
         },
+      ],
+      // Theme Options for modifying how redoc renders them
+      theme: {
+        // Change with your site colors
+        primaryColor: '#1890ff',
       },
-    ],
+    },
+  ],
   ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: "img/social-card.png",
-
+      image: 'img/social-card.png',
+      
       navbar: {
         logo: {
-          alt: "Tembo Logo",
-          src: "img/title-logo.svg",
+          alt: 'Tembo Logo',
+          src: 'img/title-logo.svg',
         },
         items: [
           {
-            href: "/docs",
-            label: "Docs",
-            target: "_blank",
-            position: "right",
+            href: '/docs',
+            label: 'Docs',
+            target: '_blank',
+            position: 'right',
           },
           {
-            href: "/guides",
-            label: "Guides",
-            target: "_blank",
-            position: "right",
+            href: '/blog',
+            label: 'Blog',
+            target: '_blank',
+            position: 'right',
           },
           {
-            href: "/blog",
-            label: "Blog",
-            target: "_blank",
-            position: "right",
+            href: 'https://cloud.tembo.io',
+            label: 'Tembo Cloud',
+            position: 'right',
           },
           {
-            href: "https://cloud.tembo.io",
-            label: "Tembo Cloud",
-            position: "right",
-          },
-          {
-            href: "https://github.com/tembo-io/tembo-stacks",
-            label: "GitHub",
-            target: "_blank",
-            position: "right",
+            href: 'https://github.com/tembo-io/tembo-stacks',
+            label: 'GitHub',
+            target: '_blank',
+            position: 'right',
             className: "header-github-link",
           },
         ],
       },
       footer: {
-        style: "dark",
+        style: 'dark',
         links: [
           {
-            label: "Careers",
-            href: "https://tembo.breezy.hr/",
+            label: 'Careers',
+            href: 'https://tembo.breezy.hr/',
           },
           {
-            label: "Trunk",
-            href: "https://pgt.dev/",
+            label: 'Trunk',
+            href: 'https://pgt.dev/',
           },
           {
-            label: "Docs",
-            href: "/docs",
+            label: 'Docs',
+            href: '/docs',
           },
           {
-            label: "Twitter",
-            href: "https://twitter.com/tembo_io",
+            label: 'Twitter',
+            href: 'https://twitter.com/tembo_io',
           },
           {
-            label: "LinkedIn",
-            href: "https://www.linkedin.com/company/tembo-inc/",
+            label: 'LinkedIn',
+            href: 'https://www.linkedin.com/company/tembo-inc/',
           },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Tembo. All Rights Reserved`,
@@ -202,37 +181,37 @@ const config = {
         darkTheme: darkCodeTheme,
       },
       hubspot: {
-        accountId: 23590420,
+        accountId: 23590420
       },
       segment: {
-        apiKey: "YT4AfD2TuYaN7DiGR20tAnstYP1ujjyE",
+        apiKey: 'YT4AfD2TuYaN7DiGR20tAnstYP1ujjyE',
       },
     }),
 
-  customFields: {
-    homeFooter: [
-      {
-        label: "Careers",
-        href: "https://tembo.breezy.hr/",
-      },
-      {
-        label: "Trunk",
-        href: "https://pgt.dev/",
-      },
-      {
-        label: "Docs",
-        href: "/docs",
-      },
-      {
-        label: "Twitter",
-        href: "https://twitter.com/tembo_io",
-      },
-      {
-        label: "LinkedIn",
-        href: "https://www.linkedin.com/company/tembo-inc/",
-      },
-    ],
-  },
+    customFields: {
+      homeFooter: [
+        {
+          label: 'Careers',
+          href: 'https://tembo.breezy.hr/',
+        },
+        {
+          label: 'Trunk',
+          href: 'https://pgt.dev/',
+        },
+        {
+          label: 'Docs',
+          href: '/docs',
+        },
+        {
+          label: 'Twitter',
+          href: 'https://twitter.com/tembo_io',
+        },
+        {
+          label: 'LinkedIn',
+          href: 'https://www.linkedin.com/company/tembo-inc/',
+        },
+      ]
+    }
 };
 
 module.exports = config;

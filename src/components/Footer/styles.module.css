@@ -9,11 +9,9 @@
 .footerWrapper::before {
   content: "";
   border-radius: 124px 124px 0px 0px;
-  background: url("@site/static/img/elephant-left.png") bottom -1px left -440px/564px
-      746px no-repeat,
-    url("@site/static/img/elephant-right.png") bottom -1px right -440px/564px
-      746px no-repeat,
-    url("@site/static/img/footer-texture.png");
+  background: url('@site/static/img/elephant-left.png') bottom -1px left -440px/564px 746px no-repeat,
+    url('@site/static/img/elephant-right.png') bottom -1px right -440px/564px 746px no-repeat,
+    url('@site/static/img/footer-texture.png');
   position: absolute;
   top: 0px;
   right: 0px;
@@ -29,38 +27,32 @@
 
   .footerWrapper::before {
     content: "";
-    background: url("@site/static/img/elephant-left.png") bottom -1px left -220px/564px
-        746px no-repeat,
-      url("@site/static/img/elephant-right.png") bottom -1px right -220px/564px
-        746px no-repeat,
-      url("@site/static/img/footer-texture.png");
+    background: url('@site/static/img/elephant-left.png') bottom -1px left -220px/564px 746px no-repeat,
+      url('@site/static/img/elephant-right.png') bottom -1px right -220px/564px 746px no-repeat,
+      url('@site/static/img/footer-texture.png');
   }
 }
 
 @media (min-width: 1000px) {
   .footerWrapper::before {
     content: "";
-    background: url("@site/static/img/elephant-left.png") bottom -1px left -120px/564px
-        746px no-repeat,
-      url("@site/static/img/elephant-right.png") bottom -1px right -120px/564px
-        746px no-repeat,
-      url("@site/static/img/footer-texture.png");
+    background: url('@site/static/img/elephant-left.png') bottom -1px left -120px/564px 746px no-repeat,
+      url('@site/static/img/elephant-right.png') bottom -1px right -120px/564px 746px no-repeat,
+      url('@site/static/img/footer-texture.png');
   }
 }
 
 @media (min-width: 1350px) {
   .footerWrapper::before {
     content: "";
-    background: url("@site/static/img/elephant-left.png") bottom -1px left -1px/564px
-        746px no-repeat,
-      url("@site/static/img/elephant-right.png") bottom -1px right -1px/564px
-        746px no-repeat,
-      url("@site/static/img/footer-texture.png");
+    background: url('@site/static/img/elephant-left.png') bottom -1px left -1px/564px 746px no-repeat,
+      url('@site/static/img/elephant-right.png') bottom -1px right -1px/564px 746px no-repeat,
+      url('@site/static/img/footer-texture.png');
   }
 }
 
 .joinCTA {
-  background-image: url("@site/static/img/join-cta.png");
+  background-image: url('@site/static/img/join-cta.png');
   background-size: contain;
   width: 210px;
   height: 77px;
@@ -69,7 +61,7 @@
 
 .cta {
   @apply mx-auto absolute left-0 right-0;
-  background-image: url("@site/static/img/cta.png");
+  background-image: url('@site/static/img/cta.png');
   width: 240px;
   height: 240px;
   background-size: cover;
@@ -77,8 +69,9 @@
 }
 
 .cta:hover {
-  background-image: url("@site/static/img/cta-hover.png");
+  background-image: url('@site/static/img/cta-hover.png');
 }
+
 
 .footerCallout {
   @apply text-center mx-auto pt-6 text-white font-display;
@@ -102,8 +95,7 @@
     justify-content: center !important;
   }
 
-  .footerLinks .link,
-  .footerLinks img {
+  .footerLinks .link, .footerLinks img {
     @apply mb-3;
   }
 }
