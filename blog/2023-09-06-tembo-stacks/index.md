@@ -71,3 +71,4 @@ This and many other such stack specifications are [open source](https://github.c
 We know we’ve embarked on a challenging journey to turn Postgres into the data platform for Everything. But, we strongly believe that with the power of Postgres and its ecosystem, it’s possible to replace most deployments of esoteric databases with just a flavor of Postgres and save developers a lot of time and effort.
 
 We’ll be building many stacks, benchmarking them against “competitive” solutions, and making sure Postgres grows to tackle these workloads. We’ll have to optimize Postgres, support a wide variety of extensions, write several new extensions to close feature and performance gaps with other databases and also evolve Postgres. But, we have no doubt that we, along with the Postgres community can make this happen!
+
