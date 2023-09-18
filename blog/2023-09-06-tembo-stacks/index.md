@@ -42,7 +42,7 @@ A stack is a recipe of how to run an optimized Postgres for a workload, expresse
 * Use-case specific metrics, alerts and recommendations
 * On-instance sidecar - Kubernetes Services to Deploy a containerized application near Postgres to expand capabilities while minimizing network latency
 
-Let’s look at an example of a stack spec for a [Message queue](https://github.com/tembo-io/tembo-stacks/blob/main/stacks/message_queue.yaml) stack - an [SQS](https://aws.amazon.com/sqs/) / [RabbitMQ](https://www.rabbitmq.com/) replacement based on Postgres.
+Let’s look at an example of a stack spec for a [Message queue](https://github.com/tembo-io/tembo-stacks/blob/main/tembo-operator/src/stacks/templates/message_queue.yaml) stack - an [SQS](https://aws.amazon.com/sqs/) / [RabbitMQ](https://www.rabbitmq.com/) replacement based on Postgres.
 
 It has the following components:
 
