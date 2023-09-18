@@ -41,4 +41,3 @@ This command generates static content into the `build` directory and can be serv
 * Ready to go?
   * Review preview environment
   * Squash and merge without review needed
-
