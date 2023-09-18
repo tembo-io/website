@@ -55,7 +55,7 @@ It has the following components:
 * Message queue specific metrics like queue length, oldest message age, newest message age
 * (Coming soon) pg_bouncer
 
-This and many other such stack specifications are [open source](https://github.com/tembo-io/tembo-stacks) and can be used to deploy a stack locally on a self-managed instance or fully managed on Tembo Cloud. This is a reflection of one of our core values - to always put developers first. We open source our stacks to create the best development experience: locally and on the cloud, and to invite community feedback and collaboration.
+This and many other such stack specifications are [open source](https://github.com/tembo-io/tembo-stacks/tree/main/tembo-operator/src/stacks/templates) and can be used to deploy a stack locally on a self-managed instance or fully managed on Tembo Cloud. This is a reflection of one of our core values - to always put developers first. We open source our stacks to create the best development experience: locally and on the cloud, and to invite community feedback and collaboration.
 
 
 ## Deploying a stack on Tembo Cloud
