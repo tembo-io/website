@@ -1,11 +1,9 @@
 ---
-slug: pgmq-internals
-title: "Dissecting pgmq"
+slug: postgres-extension-in-rust-pgmq
+title: "Anatomy of a Postgres extension written in Rust: pgmq"
 authors: [rjzv]
-tags: [postgres, pgmq, rust]
+tags: [postgres, pgmq, rust, pgrx, extensions]
 ---
-
-# Dissecting pgmq
 
 In my [previous submission](https://tembo.io/blog/pgmq-with-python) to this space, I described my experience with [pgmq](https://github.com/tembo-io/pgmq) while using the Python library. In this post, I'll share what I found after inspecting the code.
 
@@ -169,7 +167,7 @@ With this, we can now explore the extension from the inside. And, if needed, rec
 
 We know that when an extension is created with pgrx, it generates a `lib.rs` file. Let us explore it.
 
-One of the first thing we can see, is that the other four files in the `src/` directory are included:
+One of the first thing we can see, is that the other five files in the `src/` directory are included:
 
 ```rust
 pub mod api;
@@ -235,7 +233,7 @@ Let us see what `pgmq.create()` does...
 
 ### pgmq.create()
 
-If we chase the call sequence, we can discover that the interesting function is `init_queue(name: &str)`:
+Most of the functions provided by pgmq are defined in `src/api.rs`. In that file, we can find the function `pgmq_create(queue_name: &str)`, and if we chase the call sequence, we can discover that the interesting function is `init_queue(name: &str)` in `core/src/query.rs`:
 
 ```rust
 pub fn init_queue(name: &str) -> Result<Vec<String>, PgmqError> {
@@ -321,13 +319,19 @@ We can suspect that the `pgmq.q_my_queue` table is used in the send and read ope
 
 ### pgmq.send()
 
-`pgmq.send` is straightforward, it just inserts a new row in the the underlying table:
+We can explore the send operation in a similar way. The relevant SQL is straightforward. It just inserts a new row in the the underlying table:
 
 ```sql
 INSERT INTO {PGMQ_SCHEMA}.{QUEUE_PREFIX}_{name} (vt, message)
 VALUES {values}
 RETURNING msg_id; 
 ```
+
+:::note 
+At this point, we can see the following pattern in the pgmq project: 
+  - the exposed SQL functions are defined in `src/api.rs`, and 
+  - the underlying SQL statements are defined in `core/src/query.rs`
+:::
 
 
 ### pgmq.read()
