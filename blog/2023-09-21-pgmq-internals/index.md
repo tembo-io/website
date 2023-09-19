@@ -195,7 +195,7 @@ use pgmq_core::{
 
 So, at this point we know that we can find the source code in two places: `src/` and `core/`. 
 
-If we continue exploring `lib.rs`, we can see that it declares some sql that gets executed when the extension is enabled:
+If we continue exploring `lib.rs`, we can see that a sql file (`sql_src.sql`) is executed when the extension is enabled:
 
 ```rust
 CREATE TABLE pgmq.meta (
