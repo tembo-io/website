@@ -2,16 +2,6 @@
 
 This document will guide you through the two default users and databases that are part of your PostgreSQL deployment.
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Default Users](#default-users)
-  - [Superuser (`postgres`)](#superuser-postgres)
-  - [Unprivileged User (`app`)](#unprivileged-user-app)
-- [Default Databases](#default-databases)
-- [Choosing the Right User for Connection](#choosing-the-right-user-for-connection)
-- [Security Best Practices](#security-best-practices)
-
 ## Overview
 
 When your PostgreSQL database is deployed, it comes pre-configured with two default users:

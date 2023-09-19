@@ -1,22 +1,6 @@
 # HA/Replication Guide
 
-## Table of Contents
-
-- [Introduction to Replication](#introduction-to-replication)
-  - [What is Replication?](#what-is-replication)
-  - [Why is It Important?](#why-is-it-important)
-- [Types of Replication](#types-of-replication)
-  - [Physical vs. Logical Replication](#physical-vs-logical-replication)
-  - [Physical Replication](#physical-replication)
-- [How It Works](#how-it-works)
-  - [Initialization](#initialization)
-  - [Number of Replicas](#number-of-replicas)
-
----
-
 ## Introduction to Replication
-
-### What is Replication?
 
 Replication in the context of databases, and particularly in Tembo Cloud, is the process of copying and maintaining database objects in multiple instances across a single or multiple physical locations. This not only provides a cushion against data loss but also allows for data availability and balance of the read-load across systems. Utilizing the advanced replication features of PostgreSQL, Tembo ensures that your data is consistently synchronized, available, and resilient to failures.
 
@@ -86,4 +70,6 @@ The primary database instance is responsible for handling all write operations a
 
 It's worth mentioning here that Tembo's HA setup includes automated processes for both failover and switchover scenarios. This ensures that your data remains accessible and that service continues even if the primary instance becomes unavailable for any reason.
 
-> **Note**: At this time Tembo Cloud does not support a read-only connection.
+:::info
+Tembo Cloud does not support read-only connections (yet).
+:::

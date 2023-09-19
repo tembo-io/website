@@ -4,6 +4,8 @@ sidebar_position: 1
 
 # Getting Started
 
+Goodbye Database Sprawl, Hello Postgres
+
 ## What is Tembo?
 
 At Tembo, we're creating a radically simpler way to build, deploy, and scale services and applications on top of Postgres. Unlike traditional managed Postgres offerings, Tembo abstracts the complexity of deployment, configuration, management, and optimization, allowing developers to easily build and deploy highly specialized data services without needing to rely on multiple different database platforms, and teams of backend engineers, devops, database administrators, and data engineers.

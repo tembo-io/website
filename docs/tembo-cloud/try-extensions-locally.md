@@ -6,7 +6,7 @@ tags:
 
 # Try extensions locally
 
-This guide is for running a Postgres container locally that supports installing extensions with Trunk.
+Run a Postgres container locally and install extensions with Trunk.
 
 ## Start Postgres using Docker
 
