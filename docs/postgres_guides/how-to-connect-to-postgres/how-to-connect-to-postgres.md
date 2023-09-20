@@ -29,7 +29,7 @@ psql -U $USER_NAME
 
 After you run this command, Postgres will prompt you for your password, which you can type in.
 
-:::note
+:::important
 If you will be connecting to the same database frequently, it makes sense to have a _~/.pgpass_ file ([learn more](https://www.postgresql.org/docs/current/libpq-pgpass.html)), which is a simple text file that contains lines of the following form:
 
 ```
