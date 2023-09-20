@@ -9,15 +9,16 @@ tags:
 
 # Custom domains
 
-This guide is for configuring custom domains that can be used to connect to your Tembo instance.
+Configure custom domains that are in your Postgres connection URLs.
 
 ## Design
 
 Tembo uses Server Name Indication (SNI) for routing encrypted TLS traffic into the correct instance. To allow for custom branding, Tembo provides an option for users to configure additional domain names that will be respected by SNI routing. The user must configure DNS on their domain to route requests to Tembo.
 
-**Limitations**:
+:::caution
 - No two instances can share any of the same domain names
 - Users must configure DNS to prove ownership and configure routing
+:::
 
 ## Configuring a custom domain
 
