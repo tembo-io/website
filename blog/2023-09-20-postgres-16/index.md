@@ -39,7 +39,23 @@ If you’re interested in the complete list of features, you can read the detail
 
 [Logical replication](https://www.postgresql.org/docs/current/logical-replication.html) is a feature I’ve always been interested in, as it allows you to expand the capabilities of Postgres by moving data between different Postgres databases or from Postgres to other databases. It finds interesting use cases in: replicating selectively from one database to another, replicating across Postgres versions, online migrations and allowing consolidation from multiple databases.
 
-This release, arguably the most exciting logical replication feature, is allowing [logical replication from standby servers](https://pganalyze.com/blog/5mins-postgres-16-logical-decoding). Prior to this feature, you could only create a logical replication slot on the primary which meant adding more replicas would add more load on the primary. With Postgres 16, secondaries also have the ability to create replication slots allowing for more distribution of that load. What’s more is that the replication slots on the secondary are persisted even when the standby is promoted to the primary. This means that subscribers won’t be affected even during a failover! You can read more about this feature in Bertrand’s [blog post](https://pganalyze.com/blog/5mins-postgres-16-logical-decoding).
+This release, arguably the most exciting logical replication feature, is allowing [logical replication from standby servers](https://pganalyze.com/blog/5mins-postgres-16-logical-decoding). Prior to this feature, you could only create a logical replication slot on the primary which meant adding more replicas would add more load on the primary. With Postgres 16, secondaries also have the ability to create replication slots allowing for more distribution of that load. What’s more is that the replication slots on the secondary are persisted even when the standby is promoted to the primary. This means that subscribers won’t be affected even during a failover! You can read more about this feature in Bertrand’s [blog post](https://bdrouvot.github.io/2023/04/19/postgres-16-highlight-logical-decoding-on-standby/).
+
+The gist is that in a Postgres 16 standby, you can now do this:
+
+```
+postgres@standby=# select pg_is_in_recovery();
+ pg_is_in_recovery
+-------------------
+ t
+(1 row)
+
+postgres@standby=# SELECT * FROM pg_create_logical_replication_slot('active_slot', 'test_decoding', false, true);
+  slot_name  |    lsn
+-------------+------------
+ active_slot | 0/C0053A78
+(1 row)
+```
 
 In addition to this, there are a number of other logical replication performance improvements. This includes faster initial table sync using [binary format](https://www.postgresql.org/message-id/flat/TYCPR01MB8373B593010467315C2BA8EBED229%40TYCPR01MB8373.jpnprd01.prod.outlook.com#be8109723de40d3724730713175517ab), use of [btree indexes](https://www.postgresql.org/message-id/flat/CACawEhX6TvX%2Bj8EpcpCKvnMGao8Gcp8W43Sgc87pg9o6-Xbf2Q%40mail.gmail.com#81e7ec5c7732e7492c9e28d0f38df657) during logical replication apply when tables don’t have a primary key (previously the table would be scanned sequentially) and parallel application of large transactions (~25-40% speedups).
 
@@ -49,6 +65,29 @@ In addition to this, there are a number of other logical replication performance
 The other bucket of features which intrigued me are the monitoring enhancements. While Postgres provides a number of statistics tables with monitoring information, I believe more can be done to provide actionable insights to users. As an example, Lukas pointed out several interesting gaps in Postgres monitoring in his [PGCon 2020 talk](https://www.pgcon.org/events/pgcon_2020/sessions/session/132/slides/49/Whats%20Missing%20for%20Postgres%20Monitoring.pdf).
 
 Coming back to this release, [pg_stat_io](https://www.postgresql.org/docs/16/monitoring-stats.html#MONITORING-PG-STAT-IO-VIEW) has to be the most useful piece of information added to the Postgres stats views in Postgres 16. It allows you to understand the I/O done by Postgres at a more granular level, broken down by backend_type and context. This means you can calculate a more accurate cache hit ratio by ignoring the I/O done by VACUUM, differentiate between extends and flushes, and separate out bulk operations while deciding which configurations to tune. Melanie talks about this and much more in her [talk](https://www.youtube.com/watch?v=rCzSNdUOEdg) and this [blog post](https://www.depesz.com/2023/02/27/waiting-for-postgresql-16-add-pg_stat_io-view-providing-more-detailed-io-statistics/) approaches how you would use this as a DBA.
+
+Here is an example of some statistics you can see in `pg_stat_io`:
+
+```
+$ SELECT * FROM pg_stat_io ;
+    backend_type     │   io_object   │ io_context │  reads  │ writes  │ extends │ op_bytes │ evictions │ reuses  │ fsyncs │          stats_reset
+─────────────────────┼───────────────┼────────────┼─────────┼─────────┼─────────┼──────────┼───────────┼─────────┼────────┼───────────────────────────────
+ autovacuum launcher │ relation      │ bulkread   │       0 │       0 │  [NULL] │     8192 │         0 │       0 │ [NULL] │ 2023-02-27 13:25:39.725072+01
+ ...
+ autovacuum worker   │ relation      │ bulkread   │       0 │       0 │  [NULL] │     8192 │         0 │       0 │ [NULL] │ 2023-02-27 13:25:39.725072+01
+ ...
+ client backend      │ temp relation │ normal     │       0 │       0 │       0 │     8192 │         0 │  [NULL] │ [NULL] │ 2023-02-27 13:25:39.725072+01
+ background worker   │ relation      │ bulkread   │  268221 │  268189 │  [NULL] │     8192 │         0 │  268189 │ [NULL] │ 2023-02-27 13:25:39.725072+01
+ ...
+ checkpointer        │ relation      │ normal     │  [NULL] │   32121 │  [NULL] │     8192 │    [NULL] │  [NULL] │   3356 │ 2023-02-27 13:25:39.725072+01
+ standalone backend  │ relation      │ bulkread   │       0 │       0 │  [NULL] │     8192 │         0 │       0 │ [NULL] │ 2023-02-27 13:25:39.725072+01
+ ...
+ startup             │ relation      │ vacuum     │       0 │       0 │       0 │     8192 │         0 │       0 │ [NULL] │ 2023-02-27 13:25:39.725072+01
+ walsender           │ relation      │ bulkread   │       0 │       0 │  [NULL] │     8192 │         0 │       0 │ [NULL] │ 2023-02-27 13:25:39.725072+01
+ ...
+ walsender           │ temp relation │ normal     │       0 │       0 │       0 │     8192 │         0 │  [NULL] │ [NULL] │ 2023-02-27 13:25:39.725072+01
+...
+```
 
 In addition to this, there are other improvements including the addition of `last_seq_scan` and `last_idx_scan` on pg_stat_* tables which allow you to understand index usage better and figure out when plans for a query might have changed.
 
