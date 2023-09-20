@@ -23,7 +23,7 @@ If you are building a new application, yes, I would recommend that you start wit
 
 If you are upgrading an existing system, there are more factors to consider. The general advice is to **upgrade minor versions** always - because they contain security and bug fixes and the risk of not upgrading is higher. 
 
-However, for major versions, you will need to consider the tradeoffs as the major versions usually change the internal format of system tables and data files. That means, you can’t just use previous versions of the data directory — you’ll need to use pg_dump / pg_restore or [pg_upgrade](https://www.postgresql.org/docs/current/pgupgrade.html) to upgrade. In addition, depending on the features you are using and the Postgres release, manual changes to your code or queries may also be required.
+However, for major versions, you will need to consider the tradeoffs as the major versions usually change the internal format of system tables and data files. That means, you can’t just use previous versions of the data directory — you’ll need to use `pg_dump` / `pg_restore` or [pg_upgrade](https://www.postgresql.org/docs/current/pgupgrade.html) to upgrade. In addition, depending on the features you are using and the Postgres release, manual changes to your code or queries may also be required.
 
 Obviously, another important factor if you are using a managed service provider is when they provide support for Postgres 16. At [Tembo Cloud](https://cloud.tembo.io/), we’ve already started working on supporting Postgres 16 and expect it to be available in a few weeks.
 
@@ -41,7 +41,7 @@ If you’re interested in the complete list of features, you can read the detail
 
 This release, arguably the most exciting logical replication feature, is allowing [logical replication from standby servers](https://pganalyze.com/blog/5mins-postgres-16-logical-decoding). Prior to this feature, you could only create a logical replication slot on the primary which meant adding more replicas would add more load on the primary. With Postgres 16, secondaries also have the ability to create replication slots allowing for more distribution of that load. What’s more is that the replication slots on the secondary are persisted even when the standby is promoted to the primary. This means that subscribers won’t be affected even during a failover! You can read more about this feature in Bertrand’s [blog post](https://bdrouvot.github.io/2023/04/19/postgres-16-highlight-logical-decoding-on-standby/).
 
-The gist is that in a Postgres 16 standby, you can now do this:
+The short of it is that now you can do this on a Postgres 16 standby:
 
 ```
 postgres@standby=# select pg_is_in_recovery();
@@ -57,6 +57,12 @@ postgres@standby=# SELECT * FROM pg_create_logical_replication_slot('active_slot
 (1 row)
 ```
 
+On Postgres 15, the same thing would have errored out:
+```
+postgres@standby=# SELECT * FROM pg_create_logical_replication_slot('active_slot', 'test_decoding', false, true);
+ERROR:  logical decoding cannot be used while in recovery
+```
+
 In addition to this, there are a number of other logical replication performance improvements. This includes faster initial table sync using [binary format](https://www.postgresql.org/message-id/flat/TYCPR01MB8373B593010467315C2BA8EBED229%40TYCPR01MB8373.jpnprd01.prod.outlook.com#be8109723de40d3724730713175517ab), use of [btree indexes](https://www.postgresql.org/message-id/flat/CACawEhX6TvX%2Bj8EpcpCKvnMGao8Gcp8W43Sgc87pg9o6-Xbf2Q%40mail.gmail.com#81e7ec5c7732e7492c9e28d0f38df657) during logical replication apply when tables don’t have a primary key (previously the table would be scanned sequentially) and parallel application of large transactions (~25-40% speedups).
 
 
@@ -64,9 +70,9 @@ In addition to this, there are a number of other logical replication performance
 
 The other bucket of features which intrigued me are the monitoring enhancements. While Postgres provides a number of statistics tables with monitoring information, I believe more can be done to provide actionable insights to users. As an example, Lukas pointed out several interesting gaps in Postgres monitoring in his [PGCon 2020 talk](https://www.pgcon.org/events/pgcon_2020/sessions/session/132/slides/49/Whats%20Missing%20for%20Postgres%20Monitoring.pdf).
 
-Coming back to this release, [pg_stat_io](https://www.postgresql.org/docs/16/monitoring-stats.html#MONITORING-PG-STAT-IO-VIEW) has to be the most useful piece of information added to the Postgres stats views in Postgres 16. It allows you to understand the I/O done by Postgres at a more granular level, broken down by backend_type and context. This means you can calculate a more accurate cache hit ratio by ignoring the I/O done by VACUUM, differentiate between extends and flushes, and separate out bulk operations while deciding which configurations to tune. Melanie talks about this and much more in her [talk](https://www.youtube.com/watch?v=rCzSNdUOEdg) and this [blog post](https://www.depesz.com/2023/02/27/waiting-for-postgresql-16-add-pg_stat_io-view-providing-more-detailed-io-statistics/) approaches how you would use this as a DBA.
+Coming back to this release, [`pg_stat_io`](https://www.postgresql.org/docs/16/monitoring-stats.html#MONITORING-PG-STAT-IO-VIEW) has to be the most useful piece of information added to the Postgres stats views in Postgres 16. It allows you to understand the I/O done by Postgres at a more granular level, broken down by `backend_type` and `context`. This means you can calculate a more accurate cache hit ratio by ignoring the I/O done by VACUUM, differentiate between `extends` and `flushes`, and separate out bulk operations while deciding which configurations to tune. Melanie talks about this and much more in her [talk](https://www.youtube.com/watch?v=rCzSNdUOEdg) and this [blog post](https://www.depesz.com/2023/02/27/waiting-for-postgresql-16-add-pg_stat_io-view-providing-more-detailed-io-statistics/) approaches how you would use this as a DBA.
 
-Here is an example of some statistics you can see in `pg_stat_io`:
+Here is an example of the statistics you can see in `pg_stat_io`:
 
 ```
 $ SELECT * FROM pg_stat_io ;
@@ -89,7 +95,7 @@ $ SELECT * FROM pg_stat_io ;
 ...
 ```
 
-In addition to this, there are other improvements including the addition of `last_seq_scan` and `last_idx_scan` on pg_stat_* tables which allow you to understand index usage better and figure out when plans for a query might have changed.
+In addition to this, there are other improvements including the addition of `last_seq_scan` and `last_idx_scan` on `pg_stat_*` tables which allow you to understand index usage better and figure out when plans for a query might have changed.
 
 
 ### Special mentions
@@ -98,9 +104,9 @@ Like I said, each release comes with many improvements - and I could not outline
 
 
 
-* Load balancing with multiple hosts in `libpq`: This feature allows to balance the load across Postgres read replicas directly within libpq (which is the foundational Postgres client library) without having to use another load balancer. You can read [this blog post](https://mydbops.wordpress.com/2023/05/07/postgresql-16-brings-load-balancing-support-in-libpq-psql/) on how this new feature is implemented and can be used.
-* Performance: I won’t repeat what’s in the release notes but there’s a long list of performance improvements in this release. There’s support for more parallelism on `FULL` and `OUTER` JOINs and on more aggregates, greater usage of incremental sorts, window function optimizations and even an upto 300% performance improvement in COPY.
-* VACUUM improvements: Last thing I’d mention is improvements to VACUUM which include freezing performance improvements, ability to increase (or decrease) shared buffer usage by VACUUM, and faster loading of VACUUM configs.
+* Load balancing with multiple hosts in `libpq`: This feature allows to balance the load across Postgres read replicas directly within `libpq` (which is the foundational Postgres client library) without having to use another load balancer. You can read [this blog post](https://mydbops.wordpress.com/2023/05/07/postgresql-16-brings-load-balancing-support-in-libpq-psql/) on how this new feature is implemented and can be used.
+* Performance: I won’t repeat what’s in the release notes but there’s a long list of performance improvements in this release. There’s support for more parallelism on `FULL` and `OUTER` `JOINs` and on more aggregates, greater usage of incremental sorts, window function optimizations and even an upto 300% performance improvement in `COPY`.
+* `VACUUM` improvements: Last thing I’d mention is improvements to `VACUUM` which include freezing performance improvements, ability to increase (or decrease) shared buffer usage by `VACUUM`, and faster loading of `VACUUM` configs.
 
 
 ## Laying the groundwork for an exciting Postgres 17 (and beyond)
