@@ -7,7 +7,7 @@ sidebar_position: 7
 The Tembo Operator allows you to run multiple Tembo Stacks on Kubernetes. This guide shows you how to set up the Tembo Operator on your local machine and provides an example of spinning up and connecting to a local Postgres instance hosted on Kubernetes.
 
 This tutorial requires the following prerequisites:
-- A Kubernetes cluster: [kind](https://github.com/kubernetes-sigs/kind)
+- [KinD](https://github.com/kubernetes-sigs/kind)
 - [Docker](https://www.docker.com/) running locally
 - [rust](https://www.rust-lang.org/) language installed
 - [just](https://github.com/casey/just) command runner installed
