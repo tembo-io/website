@@ -42,7 +42,7 @@ kubectl apply -f yaml/sample-coredb.yaml
 kubectl get secrets/sample-coredb-connection --template={{.data.password}} | base64 -D
 ```
 
-7. Port Forward from your Kubernetes to your local machine
+7. Port Forward the service from your Kubernetes to your local machine
 ```bash
 kubectl port-forward svc/sample-coredb-rw 5432:5432 
 ```
