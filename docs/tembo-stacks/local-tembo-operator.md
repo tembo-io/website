@@ -49,7 +49,7 @@ kubectl port-forward svc/sample-coredb-rw 5432:5432
 
 8. Open another terminal and connect to Postgres
 ```bash
-psql postgres://postgres:<password>@localhost:5432
+psql postgres://postgres:$PGPASSWORD@localhost:5432
 ```
 
 9. Enjoy your Tembo Postgres Stack!
