@@ -9,7 +9,6 @@ The Tembo Operator allows you to run multiple Tembo Stacks on Kubernetes. This g
 This tutorial requires the following prerequisites:
 - [KinD](https://github.com/kubernetes-sigs/kind)
 - [Docker](https://www.docker.com/) running locally
-- [rust](https://www.rust-lang.org/) language installed
 - [just](https://github.com/casey/just) command runner installed
 - [helm](https://helm.sh/) package manager installed
 
