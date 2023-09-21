@@ -14,15 +14,11 @@ Let’s get started
 
 ## Using psql command
 
-**Step 1** - Open the terminal on your device. If you are on Windows, open Command Prompt and for Mac, open terminal
-
-![command-prompt](images/command-prompt.png)
-
-**Step 2** - Connect the terminal to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/postgres-basics/how-to-connect-to-postgres)
+**Step 1** - Connect the terminal to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres/)
 
 ![connected-database](images/connected-database.png)
 
-Step 3 - To display the list of tables present in the database, run `\dt` command
+**Step 2** - To display the list of tables present in the database, run `\dt` command
 
 ```
 \dt
@@ -42,7 +38,7 @@ To get more information about tables, use `\dt+` command
 \dt+
 ```
 
-![dt+-command](images/dt+-command.png)
+![dt+-command](images/dt-command-2.png)
 
 That’s how you can show tables in Postgres
 
