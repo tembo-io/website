@@ -38,7 +38,7 @@ To get more information about tables, use `\dt+` command
 \dt+
 ```
 
-![dt+-command](images/dt-command-2.png)
+![dt-command-2](images/dt-command-2.png)
 
 That’s how you can show tables in Postgres
 
