@@ -13,7 +13,7 @@ This tutorial requires the following prerequisites:
 - [just](https://github.com/casey/just) command runner installed
 - [helm](https://helm.sh/) package manager installed
 
-1. Clone the [Tembo Stacks Repo]()
+1. Clone the [Tembo Stacks Repo](https://github.com/tembo-io/tembo-stacks/tree/main)
 ```bash
 git clone https://github.com/tembo-io/tembo-stacks.git
 ```
