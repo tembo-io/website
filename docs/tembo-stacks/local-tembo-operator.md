@@ -27,7 +27,7 @@ cd tembo-stacks/tembo-operator
 just start-kind
 ```
 
-4. Install our charting
+4. Install the Tembo Operator on the Kubernetes cluster
 ```bash
 just install-chart
 ```
