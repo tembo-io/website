@@ -14,7 +14,7 @@ Let’s get started
 
 ## Using psql command
 
-**Step 1** - Connect the terminal to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/postgres-basics/how-to-connect-to-postgres)
+**Step 1** - Connect the terminal to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres/)
 
 ![connected-database](images/connected-database.png)
 
