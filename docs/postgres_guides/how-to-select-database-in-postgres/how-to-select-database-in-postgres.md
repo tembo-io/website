@@ -10,7 +10,7 @@ Databases are the foundations upon which your data is organized and stored in Po
 
 In this guide, we'll explore 2 different methods to connect to specific Postgres databases using psql. We will also take a look at the step-by-step process to connect to a particular database.
 
-## Method 1
+## Selecting after logging in
 
 **Step 1** - Connect the terminal to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres/)
 
@@ -36,7 +36,7 @@ You are free to choose any of database from the list for the purpose to establis
 
 Make sure to replace the “database_name” with the name of your desired database
 
-## Method 2
+## Selecting when logging in
 
 **Step 1** - Use the given below command to directly connect to your desired database. Then, enter your password and hit enter
 
