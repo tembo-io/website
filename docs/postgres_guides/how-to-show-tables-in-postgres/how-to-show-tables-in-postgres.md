@@ -6,8 +6,6 @@ tags:
 
 # How to show tables in Postgres
 
-Tables are an extremely crucial part of Postgres. All the data stored in Postgres is in the form of a table. However, the main tools to interact with Postgres are not always the most intuitive, and we should study the different methods to navigate our database.
-
 There are different ways to view the list of all tables. In this guide, we will study three different ways to view the tables - Using psql command, using SQL query, and Using PgAdmin tool. We will understand the whole step-by-step process with the help of an example
 
 Let’s get started
