@@ -17,7 +17,7 @@ This tutorial requires the following prerequisites:
 git clone https://github.com/tembo-io/tembo-stacks.git
 ```  
 
-2. Navigate to the tembo-stacks directory
+2. Navigate to the tembo-operator directory
 ```bash
 cd tembo-stacks/tembo-operator
 ```  
