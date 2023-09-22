@@ -3,6 +3,7 @@ slug: postgres-16
 title: "Postgres 16: The exciting and the unnoticed"
 authors: [samay]
 tags: [postgres]
+image: postgres-16.png
 ---
 
 In case you missed it, Postgres 16 came out last week - and this year it arrived earlier than the last few years. There are many features that I’ve been looking forward to for the last few months and I’m excited to see them get into the hands of users. Before we dive into the specific features of this release, let’s discuss what a Postgres major release actually means.
