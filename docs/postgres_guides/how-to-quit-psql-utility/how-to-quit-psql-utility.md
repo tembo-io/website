@@ -6,8 +6,6 @@ tags:
 
 # How to quit PSQL utility
 
-Exiting the PSQL utility gracefully is a fundamental skill for anyone working with PostgreSQL databases. While PSQL serves as a powerful tool for database interaction, knowing how to exit it is equally important.
-
 This guide is designed to demystify the process of quitting the PSQL utility. In a succinct manner, we will explore the various methods to gracefully exit PSQL, ensuring that you can seamlessly transition in and out of this indispensable command-line environment.
 
 ## Using \q command
