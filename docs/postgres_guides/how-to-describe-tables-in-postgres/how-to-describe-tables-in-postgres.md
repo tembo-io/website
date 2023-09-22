@@ -6,8 +6,6 @@ tags:
 
 # How to describe tables in Postgres
 
-Tables in a Postgres database are like the building blocks where all the data is stored. But, when it comes to understanding and exploring these tables, there aren't many user-friendly tools available. So, it's essential to learn some alternative methods to describe what's inside these tables.
-
 In this guide, we'll show you two different ways to describe tables: using the psql command-line tool, using the PgAdmin graphical interface, and through SQL queries. We'll walk you through the entire process step by step, using a practical example to make it easy to follow along.
 
 ## Using psql
@@ -57,8 +55,6 @@ Columns tab will display the details of all columns present in that table.
 There is a SQL query which uses Postgres’ information_schema tables, which contain metadata about tables in Postgres can be executed in the terminal to display a comprehensive list of columns along with their respective data-types present in that tables.
 
 **Step 1** - Open your terminal and connect it to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/postgres-basics/how-to-connect-to-postgres)
-
-![connected-database](images/connected-database.png)
 
 **Step 2** - Now run this SQL query to get the list of all tables present in the database
 
