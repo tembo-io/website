@@ -22,7 +22,7 @@ git clone https://github.com/tembo-io/tembo-stacks.git
 cd tembo-stacks/tembo-operator
 ```  
 
-3. Start the Kubernetes cluster with our recipe
+3. Start the Kubernetes cluster
 ```bash
 just start-kind
 ```  
