@@ -11,9 +11,11 @@ tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
 
 One of my favorite features of Amazon Web Services is S3 version history and lifecycle policies. When objects are updated or deleted, the old object version remains in the bucket, but it’s hidden. Old versions are deleted eventually by the lifecycle policy.
 
-I would like something like that for my Postgres data. **Let’s try with the temporal_tables extension.**
+I would like something like that for my Postgres data. **We can use the temporal_tables extension for version history, and combine it with pg_partman to partiion by time, and automatically expire old versions.**
 
 ### Let’s set it up
+
+[This guide](https://tembo.io/docs/tembo-cloud/try-extensions-locally) covers how to get set up to try out Postgres extensions.
 
 **I made a Dockerfile like this:**
 
@@ -34,10 +36,10 @@ Above, this uses a Tembo base image, then installs temporal_tables with Trunk.
 CREATE EXTENSION IF NOT EXISTS temporal_tables;
 ```
 
-Above, this enables the extension when the database starts. **temporal_tables** requires `CREATE EXTENSION`, but does not require `LOAD`. I learned that by reading the documentation for this extension on the Trunk website.
+Above, this enables the extension when the database starts.
 
 
-**I’m running this command to start a Postgres container:**
+**I’m running this command to start a Postgres container with temporal_tables:**
 
 ```bash
 docker build -t example-local-image .
@@ -168,7 +170,7 @@ Let’s add **pg_partman** to our database, configure our employees_history tabl
 
 ### pg_partman
 
-First, I’ll update my database to install pg_partman. **pg_partman requires both `CREATE EXTENSION` and `LOAD`** because it’s an extension with SQL that uses hooks. pg_partman hooks into Postgres' initialization to start a background worker.
+First, I’ll update my database to install pg_partman. **pg_partman requires both `CREATE EXTENSION` and `LOAD`** because it’s an extension with SQL that uses hooks. pg_partman hooks into Postgres' initialization to start a background worker. I think it can be confusing how different extensions are turned on in different ways, and that's why I wrote [this blog post](https://tembo.io/blog/four-types-of-extensions) to categorize how extensions are turned on.
 
 **Dockerfile:**
 ```Dockerfile
@@ -216,7 +218,7 @@ postgres=# SHOW shared_preload_libraries;
 (1 row)
 ```
 
-Not to pat ourselves on the back too much, but seriously this is the best way to try out Postgres extensions! **That only took me a few seconds to add in, and now I’m ready to start experimenting with pg_partman**. This allows me to focus my time on how this extension works and what I want to do with it, not on setup hassle. There is no other way to get up and running with extensions this fast.
+**That only took me a few seconds to add in, and now I’m ready to start experimenting with pg_partman**. This allows me to focus my time on how this extension works and what I want to do with it, not on setup hassle. There is no other way to get up and running with extensions this fast.
 
 ### Making the version history partitioned
 
@@ -299,7 +301,7 @@ UPDATE part_config
 
 ### Check if it works
 
-To save myself 1 year, I reconfigured the retention to 5 minutes, and partitioning interval to 1 minute. It’s little efficiency hacks like this that will keep your CEO happy with your release velocity.
+To save myself 1 year, I reconfigured the retention to 5 minutes, and partitioning interval to 1 minute.
 
 **Modified excerpt from  1_create_versioned_table.sql:**
 ```sql
@@ -395,7 +397,7 @@ I took a video watching the extensions_history table to capture the moment the f
 In psql, use `\watch` to re-run the last command you ran over and over
 :::
 
-**Watching psql, we see rows are deleted according to their retenion policy:**
+**We see rows are deleted according to their retenion policy:**
 
 ![auto-delete](./images/auto-delete.png)
 
