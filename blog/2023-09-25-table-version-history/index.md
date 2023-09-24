@@ -1,17 +1,15 @@
 ---
 slug: table-version-history
-title: "Version history for Postgres"
+title: "Version History and Lifecycle Policies for Postgres Tables"
 authors: [steven]
 tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
 ---
-
-## Version history and lifecycle policies, *for Postgres!*
 
 ![back-in-time](./images/back-in-time.jpeg)
 
 One of my favorite features of Amazon Web Services is S3 version history and lifecycle policies. When objects are updated or deleted, the old object version remains in the bucket, but it’s hidden. Old versions are deleted eventually by the lifecycle policy.
 
-I would like something like that for my Postgres data. **We can use the temporal_tables extension for version history, and combine it with pg_partman to partiion by time, automatically expiring old versions.**
+I would like something like that for my Postgres table data. **We can use the temporal_tables extension for version history, and combine it with pg_partman to partition by time, automatically expiring old versions.**
 
 ### Let’s set it up
 
@@ -222,7 +220,7 @@ postgres=# SHOW shared_preload_libraries;
 
 ### Making the version history partitioned
 
-I need to combine the `pg_partman` process for creating a paritioned table with a retention policy with the `temporal_tables` process for creating versioned tables. After some tinkering, here is what I came up with:
+I need to combine the `pg_partman` process for creating a partitioned table with a retention policy with the `temporal_tables` process for creating versioned tables. After some tinkering, here is what I came up with:
 
 **Dockerfile looks like this now:**
 ```Dockerfile
@@ -397,7 +395,7 @@ I took a video watching the extensions_history table to capture the moment the f
 In psql, use `\watch` to re-run the last command you ran over and over
 :::
 
-**We see rows are deleted according to their retenion policy:**
+**We see rows are deleted according to their retention policy:**
 
 ![auto-delete](./images/auto-delete.png)
 
@@ -405,6 +403,6 @@ In psql, use `\watch` to re-run the last command you ran over and over
 
 If you got this far, thank you for reading this! I hope that you are inspired to try out extensions on your own and see what they can do. The next time you have some problem to solve with your data, consider that maybe it could just be handled by a Postgres extension.
 
-If you want to try extensions without any local set up, you should try Tembo Cloud at [cloud.tembo.io](https://cloud.tembo.io).
+If you want to try extensions without any local setup, you should try Tembo Cloud at [cloud.tembo.io](https://cloud.tembo.io).
 
 Just use Postgres!
