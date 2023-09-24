@@ -8,9 +8,9 @@ tags:
 
 # Backup and restore
 
-## Backup system
+Tembo performs Postgres backups and Write Ahead Log (WAL) archiving are using [Barman](https://pgbarman.org/), powered by the [Cloud Native Postgres Operator (CNPG)](https://cloudnative-pg.io/). 
 
-Postgres backups and Write Ahead Log (WAL) archiving are performed using [Barman](https://pgbarman.org/), powered by the [Cloud Native Postgres Operator (CNPG)](https://cloudnative-pg.io/). Backups are saved to [Amazon S3](https://aws.amazon.com/s3/).
+Backups are saved to [Amazon S3](https://aws.amazon.com/s3/).
 
 ## Retention policies
 

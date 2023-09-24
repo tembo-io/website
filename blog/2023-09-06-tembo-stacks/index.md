@@ -42,7 +42,7 @@ A stack is a recipe of how to run an optimized Postgres for a workload, expresse
 * Use-case specific metrics, alerts and recommendations
 * On-instance sidecar - Kubernetes Services to Deploy a containerized application near Postgres to expand capabilities while minimizing network latency
 
-Let’s look at an example of a stack spec for a [Message queue](https://github.com/tembo-io/tembo-stacks/blob/main/stacks/message_queue.yaml) stack - an [SQS](https://aws.amazon.com/sqs/) / [RabbitMQ](https://www.rabbitmq.com/) replacement based on Postgres.
+Let’s look at an example of a stack spec for a [Message queue](https://github.com/tembo-io/tembo-stacks/blob/main/tembo-operator/src/stacks/templates/message_queue.yaml) stack - an [SQS](https://aws.amazon.com/sqs/) / [RabbitMQ](https://www.rabbitmq.com/) replacement based on Postgres.
 
 It has the following components:
 
@@ -55,7 +55,7 @@ It has the following components:
 * Message queue specific metrics like queue length, oldest message age, newest message age
 * (Coming soon) pg_bouncer
 
-This and many other such stack specifications are [open source](https://github.com/tembo-io/tembo-stacks) and can be used to deploy a stack locally on a self-managed instance or fully managed on Tembo Cloud. This is a reflection of one of our core values - to always put developers first. We open source our stacks to create the best development experience: locally and on the cloud, and to invite community feedback and collaboration.
+This and many other such stack specifications are [open source](https://github.com/tembo-io/tembo-stacks/tree/main/tembo-operator/src/stacks/templates) and can be used to deploy a stack locally on a self-managed instance or fully managed on Tembo Cloud. This is a reflection of one of our core values - to always put developers first. We open source our stacks to create the best development experience: locally and on the cloud, and to invite community feedback and collaboration.
 
 
 ## Deploying a stack on Tembo Cloud
@@ -71,3 +71,4 @@ This and many other such stack specifications are [open source](https://github.c
 We know we’ve embarked on a challenging journey to turn Postgres into the data platform for Everything. But, we strongly believe that with the power of Postgres and its ecosystem, it’s possible to replace most deployments of esoteric databases with just a flavor of Postgres and save developers a lot of time and effort.
 
 We’ll be building many stacks, benchmarking them against “competitive” solutions, and making sure Postgres grows to tackle these workloads. We’ll have to optimize Postgres, support a wide variety of extensions, write several new extensions to close feature and performance gaps with other databases and also evolve Postgres. But, we have no doubt that we, along with the Postgres community can make this happen!
+

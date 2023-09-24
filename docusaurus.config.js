@@ -91,12 +91,30 @@ const config = {
         },
       }),
     ],
+  [
+    'redocusaurus',
+    {
+      // Plugin Options for loading OpenAPI files
+      specs: [
+        {
+          spec: 'https://api.tembo.io/api-docs/openapi.json',
+          route: '/docs/tembo-cloud/openapi',
+        },
+      ],
+      // Theme Options for modifying how redoc renders them
+      theme: {
+        // Change with your site colors
+        primaryColor: '#1890ff',
+      },
+    },
+  ],
   ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/social-card.jpg',
+      image: 'img/social-card.png',
+      
       navbar: {
         logo: {
           alt: 'Tembo Logo',
