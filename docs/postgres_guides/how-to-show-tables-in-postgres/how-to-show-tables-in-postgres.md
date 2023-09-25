@@ -6,8 +6,6 @@ tags:
 
 # How to show tables in Postgres
 
-Tables are an extremely crucial part of Postgres. All the data stored in Postgres is in the form of a table. However, the main tools to interact with Postgres are not always the most intuitive, and we should study the different methods to navigate our database.
-
 There are different ways to view the list of all tables. In this guide, we will study three different ways to view the tables - Using psql command, using SQL query, and Using PgAdmin tool. We will understand the whole step-by-step process with the help of an example
 
 Let’s get started
@@ -80,7 +78,7 @@ Make sure to replace the name of schema from **public** to any of your desired s
 
 There is a SQL query which uses Postgres’ information_schema views. These views contain metadata about tables in Postgres, and you can query them to enumerate and display a comprehensive list of tables.
 
-**Step 1** - Open your terminal and connect it to your desired Postgres database. Follow our guide to see the whole process, click here
+**Step 1** - Open your terminal and connect it to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres)
 
 ![connected-database](images/connected-database.png)
 
