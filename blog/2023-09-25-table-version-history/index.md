@@ -5,6 +5,8 @@ authors: [steven]
 tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
 ---
 
+*Forgot to include WHERE...*
+
 ![back-in-time](./images/back-in-time.jpeg)
 
 One of my favorite features of Amazon Web Services is S3 version history and lifecycle policies. When objects are updated or deleted, the old object version remains in the bucket, but it’s hidden. Old versions are deleted eventually by the lifecycle policy.
