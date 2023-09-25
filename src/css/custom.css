@@ -1,0 +1,160 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;600;700&display=swap');
+
+/* You can override the default Infima variables here. */
+:root {
+  --content-background-color: #FFF8F6;
+  --ifm-color-primary: #000;
+  --ifm-color-primary-dark: #000;
+  --ifm-color-primary-darker: #000;
+  --ifm-color-primary-darkest: #000;
+  --ifm-color-primary-light: #000;
+  --ifm-color-primary-lighter: #000;
+  --ifm-color-primary-lightest: #000;
+  --ifm-code-font-size: 95%;
+  --ifm-navbar-background-color: white;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-link-color: #000;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #d00ed4;
+  --ifm-color-primary-dark: #a01ec5;
+  --ifm-color-primary-darker: #701589;
+  --ifm-color-primary-darkest: #601276;
+  --ifm-color-primary-light: #de56e0;
+  --ifm-color-primary-lighter: #e786e9;
+  --ifm-color-primary-lightest: #f5cef6;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+@layer utilities {
+  /* Default margin for page content on different breakpoint */
+  .content-margin {
+    @apply lg:px-44 sm:px-20 px-4; 
+
+    @media screen(lg) {
+      padding: 0 168px;
+    }
+  }
+}
+
+.backdrop-nav .navbar {
+  @apply flex justify-between content-margin items-center mt-16 mb-16;
+  margin-top: 56px;
+  position: relative;
+  box-shadow: none;
+}
+
+.backdrop-nav .navbar__brand:hover {
+  color: black;
+}
+
+.backdrop-nav .navbar__title {
+  @apply text-3xl lowercase font-headline font-bold;
+
+}
+
+.backdrop-nav .navbar__link {
+  @apply text-lg font-bold font-headline text-black;
+  padding: 0;
+}
+
+/* Need to use special logic because of the hidden light/dark switch */
+.backdrop-nav .navbar__link:nth-last-child(n+3)::after  {
+  @apply text-lg;
+  @apply font-display;
+  @apply px-12;
+  content: '/';
+  color: rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1150px) and (min-width: 990px) {
+  .backdrop-nav .navbar__link:nth-last-child(n+3)::after  {
+    @apply px-9;
+  }
+}
+
+.backdrop-nav .navbar-sidebar {
+  background-color: var(--content-background-color);
+}
+
+.backdrop-nav .navbar__toggle {
+  content: url("@site/static/img/menu.svg");
+  justify-content: flex-end;
+  float: right;
+  position: absolute;
+  right: 20px;
+}
+
+.plugin-pages.plugin-id-default .navbar {
+  background: none !important;
+}
+
+@media (max-width: 639px) {
+  .plugin-pages.plugin-id-default .navbar {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 996px) {
+  .navbar-sidebar {
+    background-color: #000 !important;
+  }
+
+  .menu__link {
+    display: block;
+    padding: 32px;
+    text-align: center;
+    color: #FFF;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+    font-family: "Source Code Pro", monospace;
+    font-size: 18px;
+  }
+  .menu__link:after {
+    content: "/";
+    font-family: "Source Code Pro", monospace;
+    color: rgba(255, 255, 255, 0.20);
+  }
+
+  .navbar-sidebar__item.menu {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+.plugin-pages.plugin-id-default a {
+  text-decoration: none !important;
+}
+
+.header-github-link svg {
+  display: none;
+}
+
+@media (min-width: 997px) {
+  .header-github-link:after {
+    background: url("@site/static/img/octocat.png") no-repeat;
+    background-size: 18px;
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 18px;
+    width: 18px;
+    margin-left: 10px;
+    top: 1px;
+    position: relative;
+  }
+}
+
+/* underline hyperlinks in article */
+article a {
+  text-decoration: underline;
+}

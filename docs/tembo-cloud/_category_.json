@@ -1,0 +1,9 @@
+{
+  "position": 1,
+  "label": "Tembo Cloud",
+  "collapsible": true,
+  "link": {
+    "type": "generated-index",
+    "description": "Guides for working with Tembo Cloud"
+  }
+}
