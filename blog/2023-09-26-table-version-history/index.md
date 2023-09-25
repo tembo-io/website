@@ -11,7 +11,7 @@ tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
 
 One of my favorite features of Amazon Web Services is S3 version history and lifecycle policies. When objects are updated or deleted, the old object version remains in the bucket, but it’s hidden. Old versions are deleted eventually by the lifecycle policy.
 
-I would like something like that for my Postgres table data. **We can use the temporal_tables extension for version history, and combine it with pg_partman to partition by time, automatically expiring old versions.**
+I would like something like that for my Postgres table data. **We can use the temporal_tables extension for version history, and combine it with pg_partman to partition by time, automatically expiring old versions.** This can be useful when you want to have a queryable history for a table, but it's not the best choice for your disaster recovery.
 
 ### Let’s set it up
 
