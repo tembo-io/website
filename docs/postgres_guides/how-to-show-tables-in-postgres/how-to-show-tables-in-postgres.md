@@ -78,7 +78,7 @@ Make sure to replace the name of schema from **public** to any of your desired s
 
 ## Using SQL query
 
-There is a SQL query which can be executed in the terminal to enumerate and display a comprehensive list of tables.
+There is a SQL query which uses Postgres’ information_schema views. These views contain metadata about tables in Postgres, and you can query them to enumerate and display a comprehensive list of tables.
 
 **Step 1** - Open your terminal and connect it to your desired Postgres database. Follow our guide to see the whole process, click here
 
