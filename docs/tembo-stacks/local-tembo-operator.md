@@ -57,7 +57,7 @@ Get your connection password and save it as an environment variable.
 export PGPASSWORD=$(kubectl get secrets/sample-coredb-connection --template={{.data.password}} | base64 -D)
 ```  
 
-## Step 7: Steup port-forwarding
+## Step 7: Setup port-forwarding
 
 Port Forward from your Kubernetes to your local machine.
 
