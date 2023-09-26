@@ -3,6 +3,7 @@ slug: table-version-history
 title: "Version History and Lifecycle Policies for Postgres Tables"
 authors: [steven]
 tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
+image: ./images/back-in-time.jpeg
 ---
 
 *Forgot to include WHERE...*
