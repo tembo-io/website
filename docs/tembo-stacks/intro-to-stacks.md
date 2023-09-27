@@ -2,7 +2,9 @@
 sidebar_position: 1
 ---
 
-# Why Stacks?
+# Introduction to Stacks
+
+## Why Stacks?
 
 Adopting a new database adds signficant complexity and costs to an engineering organization. Organizations spend a huge amount of time evaluating, benchmarking or migrating databases and setting up complicated pipelines keeping those databases in sync.
 
@@ -10,7 +12,7 @@ Most of these use cases can be served by Postgres, thanks to it's stability, fea
 
 Tembo Stacks solve that problem by providing pre-built, use case optimized Postgres deployments.
 
-# Introduction to Stacks
+## Introduction to Stacks
 
 A tembo stack is a pre-built, use case specific Postgres deployment which enables you to quickly deploy specialized data services that can replace external, non-Postgres data services. They help you avoid the pains associated with adopting, operationalizing, optimizing and managing new databases.
 
@@ -21,7 +23,7 @@ A tembo stack is a pre-built, use case specific Postgres deployment which enable
 |[Tembo Message Queue](message-queue.md)| Amazon SQS, RabbitMQ, Redis |
 |[Tembo Data Warehouse](olap.md)| Snowflake, Bigquery |
 
-# Anatomy of a Stack
+## Anatomy of a Stack
 
 A stack consists includes a number of components which are optimized for a particular use case. A stack includes:
 
