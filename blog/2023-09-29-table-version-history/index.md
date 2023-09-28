@@ -5,19 +5,17 @@ authors: [steven]
 tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
 ---
 
-*Forgot to include WHERE...*
-
 ![back-in-time](./images/back-in-time.jpeg)
 
 One of my favorite features of Amazon Web Services is S3 version history and lifecycle policies. When objects are updated or deleted, the old object version remains in the bucket, but it’s hidden. Old versions are deleted eventually by the lifecycle policy.
 
-I would like something like that for my Postgres table data. **We can use the temporal_tables extension for version history, and combine it with pg_partman to partition by time, automatically expiring old versions.** This can be useful when you want to have a queryable history for a table, but it's not the best choice for your disaster recovery.
+I would like something like that for my Postgres table data. **We can use the temporal_tables extension for version history, and combine it with pg_partman to partition by time, automatically expiring old versions.**
 
 ### Let’s set it up
 
 [This guide](https://tembo.io/docs/tembo-cloud/try-extensions-locally) covers how to get set up to try out Postgres extensions.
 
-**I made a Dockerfile like this:**
+First, let's make a Dockerfile with temporal_tables installed and enabled.
 
 ```Dockerfile
 FROM quay.io/tembo/tembo-local:latest
@@ -27,28 +25,20 @@ RUN trunk install temporal_tables
 COPY startup.sql $PGDATA/startup-scripts
 ```
 
-Above, this uses a Tembo base image, then installs temporal_tables with Trunk.
-
-
-**The content of startup.sql:**
+`startup.sql` enables temporal_tables when Postgres starts.
 
 ```sql
 CREATE EXTENSION IF NOT EXISTS temporal_tables;
 ```
 
-Above, this enables the extension when the database starts.
-
-
-**I’m running this command to start a Postgres container with temporal_tables:**
+Now that we have the Dockerfile set up, we can build and run the Postgres container.
 
 ```bash
 docker build -t example-local-image .
 docker run -it --name local-tembo -p 5432:5432 --rm example-local-image
 ```
 
-Above, this command builds my container then runs it. I have a separate shell open to connect into the container and try things out.
-
-**I connect into my container like this:**
+In a separate shell, I connect into the Postgres container.
 
 ```bash
 psql postgres://postgres:postgres@localhost:5432
@@ -56,7 +46,7 @@ psql postgres://postgres:postgres@localhost:5432
 
 ### temporal_tables
 
-**I checked the extension is enabled like this:**
+Connecting into the database, I use `\dx` to check which extensions are enabled.
 
 ```
 postgres=# \dx
@@ -69,8 +59,7 @@ postgres=# \dx
 
 ```
 
-**I created a sample table like this:**
-
+Now it's time to add a sample table.
 
 ```sql
 CREATE TABLE employees
@@ -81,13 +70,18 @@ CREATE TABLE employees
 );
 ```
 
-**Then, to add version history, I ran these commands:**
+**Next, we enable version history.**
 
 ```sql
+-- Add a time range to the employees table
 ALTER TABLE employees ADD COLUMN sys_period tstzrange NOT NULL;
 
+-- Create a new table using the same columns from the employees table,
+-- this table will store the old versions of rows from the employees table.
 CREATE TABLE employees_history (LIKE employees);
 
+-- Connect the employees_history table to be the version history of
+-- the employees table.
 CREATE TRIGGER versioning_trigger
 BEFORE INSERT OR UPDATE OR DELETE ON employees
 FOR EACH ROW EXECUTE PROCEDURE versioning('sys_period',
@@ -95,13 +89,11 @@ FOR EACH ROW EXECUTE PROCEDURE versioning('sys_period',
                                           true);
 ```
 
-**This example is directly copy / pasted from the temporal_tables README.** Reviewing how it works, we see that we add a column to the existing table called “sys_period” which is a time range. That will represent “since when” has this row been the current value. I like how this extension is designed, it’s easy to understand how it’s working. We have a separate table called employees_history and this contains rows just like in the employees table, except that the time periods are defined.
-
 It’s using a Postgres feature `TRIGGER` to perform the update into the history table when the employees table is updated. These are all normal Postgres commands until we get to the function `versioning( ... )`. This function is extended SQL from the **temporal_tables** extension.
 
-**Following along with the example in the README, I inserted some data to the employees table:**
-
 ```sql
+-- Adding in some data to the employees table
+
 INSERT INTO employees (name, department, salary)
 VALUES ('Bernard Marx', 'Hatchery and Conditioning Centre', 10000);
 
@@ -112,8 +104,11 @@ INSERT INTO employees (name, department, salary)
 VALUES ('Helmholtz Watson', 'College of Emotional Engineering', 18500);
 ```
 
+
+The employees table now has data, and the employees_history table is empty.
+
 ```
-postgres=# select * from employees;
+postgres=# SELECT * FROM employees;
        name       |            department            |  salary  |             sys_period
 ------------------+----------------------------------+----------+------------------------------------
  Bernard Marx     | Hatchery and Conditioning Centre | 10000.00 | ["2023-09-13 15:44:13.764502+00",)
@@ -122,20 +117,23 @@ postgres=# select * from employees;
 (3 rows)
 
 
-postgres=# select * from employees_history;
+postgres=# SELECT * FROM employees_history;
  name | department | salary | sys_period
 ------+------------+--------+------------
 (0 rows)
 ```
 
-**Now, we do an update:**
+
+Perfoming an update:
 
 ```sql
 UPDATE employees SET salary = 11200 WHERE name = 'Bernard Marx';
 ```
 
+After performing an update, now the employees_history table has one previous version stored!
+
 ```
-postgres=# select * from employees;
+postgres=# SELECT * FROM employees;
        name       |            department            |  salary  |             sys_period
 ------------------+----------------------------------+----------+------------------------------------
  Lenina Crowne    | Hatchery and Conditioning Centre |  7000.00 | ["2023-09-13 15:44:18.01873+00",)
@@ -150,11 +148,7 @@ postgres=# select * from employees_history;
 (1 row)
 ```
 
-**Having performed 1 update, now we find one row in the employees history table!**
-
-Hey alright! That was pretty easy to do, and the data is already in a format that I know how to work with. I really like how even if I don’t know what the extension is doing under the hood, the data ends up in a format that is normal. This leaves me with an option to just turn it off if it’s giving me any issues, and I already have a data format that would make sense for version history that could be handled by my application, or by a different extension.
-
-**Next, I would like to also automatically delete old versions.** In the temporal_tables README, it’s recommending one thing to try is partitioned tables, so let’s give it a shot.
+**I would like to also automatically delete old versions.** For this, let's use pg_partman.
 
 ### Partitions and expiry
 
