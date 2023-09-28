@@ -17,7 +17,7 @@ dotnet add package Npgsql
 ```
 
 :::info
-Npgsql is an open source ADO.NET Data Provider for PostgreSQL, it allows C# programs to connect to the PostgreSQL database server. To learn more about Npgsql, [click here](https://www.npgsql.org/index.html)
+Npgsql is an open source ADO.NET Data Provider for PostgreSQL, it allows C# programs to connect to the PostgreSQL database server. To learn more about Npgsql, [take a look at its official documentation](https://www.npgsql.org/index.html).
 :::
 
 **Step 2** - Create a connection string that includes all the necessary credentials required to setup a connection with Postgres database.
@@ -32,7 +32,7 @@ User Id=username;
 Password=password;";
 ```
 
-Do replace the my_host, port_number, database_name, username, and password with the respective credentials of your database
+Do replace the `my_host`, `port_number`, `database_name`, `username`, and `password` parameters with the respective credentials of your database.
 
 **Step 3** - Initialize the _NpgsqlConnection_ class in your project to setup a connection to the Postgres database. You will also need to use the connection string you have created.
 
@@ -41,7 +41,7 @@ using NpgsqlConnection connection = new NpgsqlConnection(connectionString);
 connection.Open();
 ```
 
-You can also use the _using_ block as a wrapper to make sure that the connection is properly closed after it’s work is done
+You can also use the `using` block as a wrapper to make sure that the connection is properly closed when the program exits the `using` block.
 
 **Step 4** - Execute the desired SQL query using the NpgsqlCommand class.
 
@@ -58,7 +58,7 @@ while (reader.Read())
 
 You can execute any of your desired query
 
-Here’s the complete code to connect to Postgres database with C#
+Here’s the complete code to connect to a Postgres database with C#:
 
 ```
 using Npgsql;
@@ -87,7 +87,7 @@ class Program
 
 ```
 
-In this example, we have demonstrated how you can read the data, but you can also perform other operations of Posgtres database also like Insert, Update, and Create Table
+In this example, we have demonstrated how you can read the data, but you can also perform other operations - DML statements like Insert, Update, and DDL statements like Create Table.
 
 **Insert**
 
@@ -122,8 +122,8 @@ You can simply copy and paste this code snippet to integrate in your project. Ju
 
 ## Conclusion
 
-In this guide, we discussed the step-by-step process to connect to the Postgres database with C#
+In this guide, we discussed the step-by-step process to connect to the Postgres database with C#.
 
-If you are working on a Python project, you can check out other guide to know how you can connect a Postgres database with Python
+If you are working on a Python project, you can check out other guide to know how you can connect a Postgres database with Python.
 
-Also, check out our new extensions [pgmq](https://tembo.io/blog/introducing-pgmq) and [pg_later](https://tembo.io/blog/introducing-pg-later) which can ease your work a lot much
+Also, check out our new extensions [pgmq](https://tembo.io/blog/introducing-pgmq) and [pg_later](https://tembo.io/blog/introducing-pg-later).
