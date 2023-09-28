@@ -10,7 +10,7 @@ In this tutorial, we've covered a comprehensive, step-by-step procedure for esta
 
 Let’s get started
 
-**Step 1** - Install the “psycopg” library in your project. Run this command in your terminal to install the library
+**Step 1** - Install the “psycopg” library in your project. Run this command in your terminal to install the library:
 
 ```
 pip install psycopg
@@ -45,7 +45,7 @@ import psycopg
 
 Make sure to replace the database_name, username, password, host, and port with the credentials of your database.
 
-**Step 4** - Create a cursor object to run the SQL queries. Cursor mainly interacts with the database
+**Step 4** - Create a cursor object to run the SQL queries. A cursor is the main object that interacts with the database
 
 ```
 cursor = connection.cursor()
@@ -72,7 +72,7 @@ connection.close()
 
 You can always create a new cursor object after closing an existing cursor object.
 
-Here’s the full code -
+Here’s the full code sample-
 
 ```
 # Importing library
@@ -108,8 +108,8 @@ You can simply copy and paste this code snippet to integrate in your project. Ju
 
 ## Conclusion
 
-In this guide, we discussed the step-by-step process to connect to the Postgres database with Python
+In this guide, we discussed the step-by-step process to connect to the Postgres database with Python.
 
-You can also read our well-structured guides to know more operations you can perform on Postgres database, [click here](https://tembo.io/docs/category/postgres-guides)
+You can also read our well-structured [guides for Postgres operations](https://tembo.io/docs/category/postgres-guides).
 
 For further exploration of valuable PostgreSQL-related content, we encourage you to explore our informative [blog posts](https://tembo.io/blog).
