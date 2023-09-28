@@ -6,7 +6,7 @@ tags:
 
 # Try extensions locally
 
-This guide is for running a Postgres container locally that supports installing extensions with Trunk.
+Run a Postgres container locally and install extensions with Trunk.
 
 ## Start Postgres using Docker
 
@@ -35,7 +35,7 @@ trunk install pgmq
 ```
 psql postgres://postgres:postgres@localhost:5432
 ```
-- Enable an extension
+- Enable an extension. Note a hyphenated extension name, e.g., uuid-ossp, will require double quotes when enabling.
 ```
 CREATE EXTENSION pgmq CASCADE;
 ```
