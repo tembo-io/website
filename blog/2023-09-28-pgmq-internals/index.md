@@ -226,6 +226,11 @@ pgmq=# select * from pgmq.meta;
 ------------+------------
 (0 rows)
 ```
+
+The following diagram shows what the pgmq schema looks like right after `CREATE EXTENSION` is executed:
+
+![after-create-extension](after-create-extension.png "after create extension")
+
 From this point, we can suspect that every time we create a queue, a new row is inserted into this table.
 
 Let us see what `pgmq.create()` does...
@@ -312,6 +317,10 @@ pgmq=# select * from pgmq.meta;
   (1 row)
 ```
 
+The following diagram shows what the pgmq schema looks like at this point:
+
+![complete](complete.png "after create queue")
+
 For the queue `my_queue`, we can see the underlying table and the corresponding archive table. Each table has an index associated with the primary key. The `pgmq.q_my_queue` table also has an index on the `vt` column, and `pgmq.a_my_queue` has an index on the `archived_at` column.
 
 We can suspect that the `pgmq.q_my_queue` table is used in the send and read operations. Let us look at those two functions.
@@ -326,6 +335,8 @@ INSERT INTO {PGMQ_SCHEMA}.{QUEUE_PREFIX}_{name} (vt, message)
 VALUES {values}
 RETURNING msg_id; 
 ```
+
+![pgmq-send](pgmq-send.png "what send does")
 
 :::note 
 At this point, we can see the following pattern in the pgmq project: 
@@ -371,6 +382,8 @@ WHERE t.msg_id=cte.msg_id
 RETURNING *;
 ```
 
+![pgmq-read](pgmq-read.png "what read does")
+
 Firstly, in pgmq's version, there is a CTE (Common Table Expression) to obtain the first `{limit}` message IDs whose `vt` has expired. (It would be interesting to discuss why pgmq developers used a CTE, but we can explore that in another post.)
 
 There are two crucial things to notice in the CTE. One is the `order by` clause that ensures the FIFO ordering. The other one is the `FOR UPDATE SKIP LOCKED` clause, claiming the rows no one else has claimed. This part is essential because it ensures correctness in the case of concurrent  `pgmq.read()` operations. 
@@ -396,6 +409,8 @@ RETURNING msg_id;
 ```
 
 Essentially, it deletes the message with the provided `msg_id` from the queue table, and then the message is placed in the corresponding archive table.
+
+![pgmq-archive](pgmq-archive.png "what archive does")
 
 One interesting thing to notice is that `pgmq.archive()` can be used to archive a batch of messages too:
 
