@@ -240,31 +240,10 @@ SELECT * FROM employees_history;
 
 ### Querying past versions
 
-Let's say we want to look up Bernard's salary at a previous date. We will likely want to check both the **employees** table and the **employees_history** table to find the row where the time range matches our provided timestamp.
+Let's say we want to look up Bernard's salary at a previous date. We can check the **employees_history** table to find the row where the time range matches our provided timestamp. However, this wouldn't find the correct salary if we provide a timestamp that is after the most recent update to Bernard's salary, since that row is in the **employees** table.
 
-```sql
-SELECT salary
-FROM employees_history
-WHERE name = 'Bernard Marx'
-AND sys_period @> TIMESTAMP WITH TIME ZONE '2023-09-28 13:58:00+00';
-```
+We can first create a [view](https://www.postgresql.org/docs/current/tutorial-views.html) for this purpose. We only need to do this once, then we can query this view like a table going forward.
 
-This output looks correct, comparing with the above **employees_history** table.
-```
-  salary
-----------
- 10000.00
-(1 row)
-```
-
-`@>` Is a *containment operator* and you might recognize it if you have used [JSONB](https://tembo.io/docs/postgres_guides/postgres-basics/jsonb).
-
-
-#### Querying from a table and its history
-
-One problem with the above query is that we assume the provided timestamp is from a previous version. But what if we provided a timestamp for which the current version is valid? After all, that seems a more likely use case.
-
-To simplify this, we can first create a [view](https://www.postgresql.org/docs/current/tutorial-views.html). We only need to do this once, then we can query this view like a table going forward.
 ```sql
 CREATE VIEW employee_history_view AS
 
@@ -277,7 +256,7 @@ SELECT name, department, salary, sys_period
 FROM employees_history;
 ```
 
-We can use this query instead to find Bernard's salary at any given date.
+Then, we can use this query to find Bernard's salary at any given date.
 
 ```sql
 SELECT salary
@@ -287,21 +266,18 @@ AND sys_period @> TIMESTAMP WITH TIME ZONE '2023-09-28 13:58:00+00'
 LIMIT 1;
 ```
 
-This still returns the correct result for the same timestamp we used in the previous example:
-```
-SELECT salary
-FROM employee_history_view
-WHERE name = 'Bernard Marx'
-AND sys_period @> TIMESTAMP WITH TIME ZONE '2023-09-28 13:58:00+00'
-LIMIT 1;
+`@>` Is a *containment operator* and you might recognize it if you have used [JSONB](https://tembo.io/docs/postgres_guides/postgres-basics/jsonb).
 
+Comparing to the **employees_history** table shown above, it is returning the correct value.
+
+```
   salary
 ----------
  10000.00
 (1 row)
 ```
 
-But now, it also works to look up the current salary:
+It also works to look up the current salary:
 
 ```
 SELECT salary
@@ -326,178 +302,17 @@ SELECT salary FROM employees WHERE name = 'Bernard Marx';
 
 If I try to query a salary from the future, it will return the current salary. If I try to query a salary from before Bernard is known in the **employees_history** table, then I get an empty result.
 
--------------------
-
-Perfoming an update:
-
-```sql
-UPDATE employees SET salary = 11200 WHERE name = 'Bernard Marx';
-```
-
-After performing an update, now the employees_history table has one previous version stored!
-
-```
-postgres=# SELECT * FROM employees;
-       name       |            department            |  salary  |             sys_period
-------------------+----------------------------------+----------+------------------------------------
- Lenina Crowne    | Hatchery and Conditioning Centre |  7000.00 | ["2023-09-13 15:44:18.01873+00",)
- Helmholtz Watson | College of Emotional Engineering | 18500.00 | ["2023-09-13 15:44:21.665618+00",)
- Bernard Marx     | Hatchery and Conditioning Centre | 11200.00 | ["2023-09-13 15:45:59.918723+00",)
-(3 rows)
-
-postgres=# select * from employees_history;
-     name     |            department            |  salary  |                            sys_period
---------------+----------------------------------+----------+-------------------------------------------------------------------
- Bernard Marx | Hatchery and Conditioning Centre | 10000.00 | ["2023-09-13 15:44:13.764502+00","2023-09-13 15:45:59.918723+00")
-(1 row)
-```
-
-**I would like to also automatically delete old versions.** For this, let's use pg_partman.
-
-### Partitions and expiry
-
-Partitioning tables is something I’m familiar with from Tembo’s work in [PGMQ](https://github.com/tembo-io/pgmq). PGMQ can optionally work with another extension, pg_partman, an extension which helps Postgres automatically manage a partitioned table. In this example, it can be a cool way to show how combining different extensions can solve specific problems.
+## pg_partman
 
 **What is partitioning?** [Postgres documentation](https://www.postgresql.org/docs/current/ddl-partitioning.html) has detailed information on partitioning but just to summarize, partitioning is about splitting what is logically one large table into smaller tables. A typical example is event data where a table is updated with new rows that represent something that happened at a particular time. This can end up as a table with a lot of rows, so it can take a lot of time to scan the whole table, but maybe your application is mostly accessing recent rows. So, partitioning by time (splitting up the data into time chunks, each a different partition) helps improve query performance.
 
+Partitioning tables is something I’m familiar with from Tembo’s work in [PGMQ](https://github.com/tembo-io/pgmq). PGMQ can optionally work with another extension, pg_partman, an extension which helps Postgres automatically manage a partitioned table. In this example, it can be a cool way to show how combining different extensions can solve specific problems.
+
 :::info
-When using a time-partitioned table, querying recent events only needs to consider a small table, the most recent partition.
+When using a time-partitioned table, querying the table with a timestamp will only consider the partition that is applicable to that time.
 :::
 
-Let’s add **pg_partman** to our database, configure our employees_history table to be time-partitioned, and configure it to expire old data.
-
-### pg_partman
-
-First, I’ll update my database to install pg_partman. **pg_partman requires both `CREATE EXTENSION` and `LOAD`** because it’s an extension with SQL that uses hooks. pg_partman hooks into Postgres' initialization to start a background worker. I think it can be confusing how different extensions are turned on in different ways, and that's why I wrote [this blog post](https://tembo.io/blog/four-types-of-extensions) to categorize how extensions are turned on.
-
-**Dockerfile:**
-```Dockerfile
-FROM quay.io/tembo/tembo-local:latest
-
-RUN trunk install pg_partman
-RUN trunk install temporal_tables
-
-COPY custom.conf $PGDATA/extra-configs
-COPY startup.sql $PGDATA/startup-scripts
-```
-
-**custom.conf:**
-```
-shared_preload_libraries = 'pg_partman_bgw'
-```
-
-**startup.sql:**
-```sql
-CREATE EXTENSION IF NOT EXISTS temporal_tables;
-CREATE EXTENSION IF NOT EXISTS pg_partman;
-```
-
-**Then, I start my database again:**
-```bash
-docker build -t example-local-image .
-docker run -it --name local-tembo -p 5432:5432 --rm example-local-image
-```
-
-**Check the extensions are enabled:**
-```
-postgres=# \dx
-                                 List of installed extensions
-      Name       | Version |   Schema   |                     Description
------------------+---------+------------+------------------------------------------------------
- pg_partman      | 4.7.3   | public     | Extension to manage partitioned tables by time or ID
- plpgsql         | 1.0     | pg_catalog | PL/pgSQL procedural language
- temporal_tables | 1.2.1   | public     | temporal tables
-(3 rows)
-
-postgres=# SHOW shared_preload_libraries;
- shared_preload_libraries
---------------------------
- pg_partman_bgw
-(1 row)
-```
-
-**That only took me a few seconds to add in, and now I’m ready to start experimenting with pg_partman**. This allows me to focus my time on how this extension works and what I want to do with it, not on setup hassle. There is no other way to get up and running with extensions this fast.
-
-### Making the version history partitioned
-
-I need to combine the `pg_partman` process for creating a partitioned table with a retention policy with the `temporal_tables` process for creating versioned tables. After some tinkering, here is what I came up with:
-
-**Dockerfile looks like this now:**
-```Dockerfile
-FROM quay.io/tembo/tembo-local:latest
-
-RUN trunk install pg_partman
-RUN trunk install temporal_tables
-
-COPY custom.conf $PGDATA/extra-configs
-
-# Note: now we have two startup sql scripts
-COPY 0_startup.sql $PGDATA/startup-scripts
-COPY 1_create_versioned_table.sql $PGDATA/startup-scripts
-```
-Above, now we have two sql scripts. I wanted to separate the `CREATE EXTENSION` part from my version history experiment.
-
-**custom.conf needed one adjustment:**
-```
-shared_preload_libraries = 'pg_partman_bgw'
-
-# New!
-pg_partman_bgw.dbname = 'postgres'
-```
-
-**0_startup.sql is the same:**
-```sql
-CREATE EXTENSION IF NOT EXISTS temporal_tables;
-CREATE EXTENSION IF NOT EXISTS pg_partman;
-```
-
-And here is my new script to create a versioned table, with a lifecycle policy!
-
-**1_create_versioned_table.sql:**
-```sql
--- Sample: an existing table we want to enable versioning on
-CREATE TABLE employees
-(
-  name text NOT NULL PRIMARY KEY,
-  department text,
-  salary numeric(20, 2)
-);
-
--- Adding version history to the table,
--- first we need to add a time range to the existing table.
--- This represents "since when" has this row been current.
-ALTER TABLE employees ADD COLUMN sys_period tstzrange NOT NULL;
-
--- Creating a time-partitioned version table
--- each row has the range the data was valid for,
--- and also the time this version was created.
-CREATE TABLE employees_history (
-    LIKE employees INCLUDING DEFAULTS EXCLUDING INDEXES EXCLUDING CONSTRAINTS,
-    created_at timestamptz NOT NULL DEFAULT now())
-    PARTITION BY RANGE (created_at);
-
--- Allow efficient querying of partition key
-CREATE INDEX ON employees_history (created_at);
-
--- Enable automatic partitioning with pg_partman
-SELECT create_parent('public.employees_history', 'created_at', 'native', 'daily');
-
--- This connects employees table to employees_history
-CREATE TRIGGER versioning_trigger
-    BEFORE INSERT OR UPDATE OR DELETE ON employees
-    FOR EACH ROW EXECUTE PROCEDURE versioning('sys_period',
-                                              'employees_history',
-                                              true);
-
--- Configure retention policy for employee history
-UPDATE part_config
-    SET retention = '365 days',
-        retention_keep_table = false,
-        retention_keep_index = false
-    WHERE parent_table = 'public.employees_history';
-```
-
-### Check if it works
+### Partition expiry
 
 To save myself 1 year, I reconfigured the retention to 5 minutes, and partitioning interval to 1 minute.
 
