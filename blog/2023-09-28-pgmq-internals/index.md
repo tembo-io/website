@@ -3,6 +3,7 @@ slug: postgres-extension-in-rust-pgmq
 title: "Anatomy of a Postgres extension written in Rust: pgmq"
 authors: [rjzv]
 tags: [postgres, pgmq, rust, pgrx, extensions]
+image: pgmq-archive.png
 ---
 
 In my [previous submission](https://tembo.io/blog/pgmq-with-python) to this space, I described my experience with [pgmq](https://github.com/tembo-io/pgmq) while using the Python library. In this post, I'll share what I found after inspecting the code.
