@@ -10,7 +10,7 @@ In this guide, we'll show you two different ways to describe tables: using the p
 
 ## Using psql
 
-**Step 1** - Open the terminal on your device and connect it to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/postgres-basics/how-to-connect-to-postgres)
+**Step 1** - Open the terminal on your device and connect it to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres)
 
 ![connected-database](images/connected-database.png)
 
@@ -54,7 +54,7 @@ Columns tab will display the details of all columns present in that table.
 
 There is a SQL query which uses Postgres’ information_schema tables, which contain metadata about tables in Postgres can be executed in the terminal to display a comprehensive list of columns along with their respective data-types present in that tables.
 
-**Step 1** - Open your terminal and connect it to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/postgres-basics/how-to-connect-to-postgres)
+**Step 1** - Open your terminal and connect it to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres/)
 
 **Step 2** - Now run this SQL query to get the list of all tables present in the database
 
