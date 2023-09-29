@@ -3,6 +3,7 @@ slug: table-version-history
 title: "Version History and Lifecycle Policies for Postgres Tables"
 authors: [steven]
 tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
+image: ./images/back-in-time.jpeg
 ---
 
 A nice feature of AWS S3 is version history and lifecycle policies. When objects are updated or deleted, the old object version remains in the bucket, but it’s hidden. Old versions are deleted eventually by the lifecycle policy.
