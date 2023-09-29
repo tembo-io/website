@@ -72,7 +72,7 @@ connection.close()
 
 You can always create a new cursor object after closing an existing cursor object.
 
-Here’s the full code sample-
+Here’s the full code sample:
 
 ```
 # Importing library
