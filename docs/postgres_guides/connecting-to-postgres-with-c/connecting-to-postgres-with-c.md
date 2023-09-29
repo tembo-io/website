@@ -56,8 +56,6 @@ while (reader.Read())
 }
 ```
 
-You can execute any of your desired query
-
 Here’s the complete code to connect to a Postgres database with C#:
 
 ```
