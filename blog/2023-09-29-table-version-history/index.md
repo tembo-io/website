@@ -3,6 +3,7 @@ slug: table-version-history
 title: "Version History and Lifecycle Policies for Postgres Tables"
 authors: [steven]
 tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
+hide_reading_time: true
 ---
 
 ![back-in-time](./images/back-in-time.jpeg)
@@ -338,33 +339,89 @@ INSERT INTO employees_write_test (name, department, salary, sys_period)
 VALUES ('Bernard Marx', 'Hatchery and Conditioning Centre', 11600.00, tstzrange(now(), null));
 ```
 
-Then, I used `EXPLAIN ANALYZE` to compare the write performance.
-```
-postgres=# explain analyze UPDATE employees SET salary = 11608 WHERE name = 'Bernard Marx';
-                                                         QUERY PLAN
------------------------------------------------------------------------------------------------------------------------------
- Update on employees  (cost=4.14..8.15 rows=0 width=0) (actual time=4.411..4.420 rows=0 loops=1)
-   ->  Bitmap Heap Scan on employees  (cost=4.14..8.15 rows=1 width=26) (actual time=0.909..0.940 rows=1 loops=1)
-         Recheck Cond: (name = 'Bernard Marx'::text)
-         Heap Blocks: exact=1
-         ->  Bitmap Index Scan on employees_pkey  (cost=0.00..4.14 rows=1 width=0) (actual time=0.647..0.650 rows=1 loops=1)
-               Index Cond: (name = 'Bernard Marx'::text)
- Planning Time: 1.697 ms
- Trigger versioning_trigger: time=2.390 calls=1
- Execution Time: 4.889 ms
-(9 rows)
+Then, I used `EXPLAIN ANALYZE` to compare the write performance. I ran the query a few times for each.
 
-postgres=# explain analyze UPDATE employees_write_test SET salary = 11608 WHERE name = 'Bernard Marx';
+**Without the versioning:**
+```
+postgres=# EXPLAIN ANALYZE UPDATE employees_write_test SET salary = 11608 WHERE name = 'Bernard Marx';
                                                       QUERY PLAN
 ----------------------------------------------------------------------------------------------------------------------
- Update on employees_write_test  (cost=0.00..10.01 rows=0 width=0) (actual time=1.523..1.540 rows=0 loops=1)
-   ->  Seq Scan on employees_write_test  (cost=0.00..10.01 rows=1 width=26) (actual time=0.596..0.617 rows=1 loops=1)
+ Update on employees_write_test  (cost=0.00..17.00 rows=0 width=0) (actual time=0.984..1.001 rows=0 loops=1)
+   ->  Seq Scan on employees_write_test  (cost=0.00..17.00 rows=3 width=26) (actual time=0.361..0.384 rows=1 loops=1)
          Filter: (name = 'Bernard Marx'::text)
- Planning Time: 3.502 ms
- Execution Time: 2.647 ms
+ Planning Time: 1.654 ms
+ Execution Time: 1.540 ms
+(5 rows)
+
+postgres=# EXPLAIN ANALYZE UPDATE employees_write_test SET salary = 11608 WHERE name = 'Bernard Marx';
+                                                      QUERY PLAN
+----------------------------------------------------------------------------------------------------------------------
+ Update on employees_write_test  (cost=0.00..17.00 rows=0 width=0) (actual time=0.450..0.457 rows=0 loops=1)
+   ->  Seq Scan on employees_write_test  (cost=0.00..17.00 rows=3 width=26) (actual time=0.155..0.165 rows=1 loops=1)
+         Filter: (name = 'Bernard Marx'::text)
+ Planning Time: 0.760 ms
+ Execution Time: 0.707 ms
+(5 rows)
+
+postgres=# EXPLAIN ANALYZE UPDATE employees_write_test SET salary = 11608 WHERE name = 'Bernard Marx';
+                                                      QUERY PLAN
+----------------------------------------------------------------------------------------------------------------------
+ Update on employees_write_test  (cost=0.00..17.00 rows=0 width=0) (actual time=1.389..1.406 rows=0 loops=1)
+   ->  Seq Scan on employees_write_test  (cost=0.00..17.00 rows=3 width=26) (actual time=0.652..0.678 rows=1 loops=1)
+         Filter: (name = 'Bernard Marx'::text)
+ Planning Time: 1.707 ms
+ Execution Time: 2.079 ms
 (5 rows)
 ```
-I found it's about twice as slow to write when versioning is enabled. That's expected because since are writing to two tables, both the primary table and the history table.
+
+**With versioning:**
+```
+postgres=# EXPLAIN ANALYZE UPDATE employees SET salary = 11610 WHERE name = 'Bernard Marx';
+                                                           QUERY PLAN
+---------------------------------------------------------------------------------------------------------------------------------
+ Update on employees  (cost=0.15..8.17 rows=0 width=0) (actual time=16.634..16.638 rows=0 loops=1)
+   ->  Index Scan using employees_pkey on employees  (cost=0.15..8.17 rows=1 width=26) (actual time=1.102..1.133 rows=1 loops=1)
+         Index Cond: (name = 'Bernard Marx'::text)
+ Planning Time: 2.203 ms
+ Trigger versioning_trigger: time=14.441 calls=1
+ Execution Time: 17.205 ms
+(6 rows)
+
+postgres=# EXPLAIN ANALYZE UPDATE employees SET salary = 11610 WHERE name = 'Bernard Marx';
+                                                           QUERY PLAN
+---------------------------------------------------------------------------------------------------------------------------------
+ Update on employees  (cost=0.15..8.17 rows=0 width=0) (actual time=4.211..4.218 rows=0 loops=1)
+   ->  Index Scan using employees_pkey on employees  (cost=0.15..8.17 rows=1 width=26) (actual time=0.753..0.796 rows=1 loops=1)
+         Index Cond: (name = 'Bernard Marx'::text)
+ Planning Time: 2.423 ms
+ Trigger versioning_trigger: time=2.430 calls=1
+ Execution Time: 4.783 ms
+(6 rows)
+
+postgres=# EXPLAIN ANALYZE UPDATE employees SET salary = 11610 WHERE name = 'Bernard Marx';
+                                                           QUERY PLAN
+---------------------------------------------------------------------------------------------------------------------------------
+ Update on employees  (cost=0.15..8.17 rows=0 width=0) (actual time=2.447..2.453 rows=0 loops=1)
+   ->  Index Scan using employees_pkey on employees  (cost=0.15..8.17 rows=1 width=26) (actual time=0.602..0.633 rows=1 loops=1)
+         Index Cond: (name = 'Bernard Marx'::text)
+ Planning Time: 2.311 ms
+ Trigger versioning_trigger: time=1.091 calls=1
+ Execution Time: 2.979 ms
+(6 rows)
+
+postgres=# EXPLAIN ANALYZE UPDATE employees SET salary = 11610 WHERE name = 'Bernard Marx';
+                                                           QUERY PLAN
+---------------------------------------------------------------------------------------------------------------------------------
+ Update on employees  (cost=0.15..8.17 rows=0 width=0) (actual time=5.093..5.099 rows=0 loops=1)
+   ->  Index Scan using employees_pkey on employees  (cost=0.15..8.17 rows=1 width=26) (actual time=2.323..2.363 rows=1 loops=1)
+         Index Cond: (name = 'Bernard Marx'::text)
+ Planning Time: 2.825 ms
+ Trigger versioning_trigger: time=1.711 calls=1
+ Execution Time: 5.686 ms
+(6 rows)
+```
+
+It's important to note that writes are significantly slower if you enable versioning.
 
 ### Reads
 
@@ -406,20 +463,17 @@ Run the procedure:
 CALL increment_salary('Bernard Marx', 'employees');
 ```
 
-## TODO: redo this experiment with new partition configurations
-
-This took 54 seconds to run on my laptop. Also, while working on this blog post, I ran that command several times. So, now I have an **employees_history** table that's populated with many rows for Bernard.
+This took 55 seconds to run on my laptop. I also tried it on the table without versioning enabled, at in this case it took 38 seconds. I ran it a couple more times on the table with versioning enabled, so that the versions would be distributed across multiple partitions. Now we have an **employees_history** table that's populated with many rows for Bernard.
 
 ```
-postgres=# SELECT count(*) FROM employees_history WHERE name = 'Bernard Marx';
+postgres=#  SELECT count(*) FROM employees_history WHERE name = 'Bernard Marx';
  count
- --------
-  324125
-  (1 row)
-
+--------
+ 300000
+(1 row)
 ```
 
-Let's run the same type of query command we ran before, with `EXPLAIN ANALYZE`. I picked a timestamp from the middle of the **employees_history** table, so that it does not get lucky and return from scanning early, since we also have `LIMIT 1` in the query. If I use the same timestamp from the previous example, it's found early in the scan and the read only takes 1 or 2 milliseconds.
+Let's run the same type of query command we ran before, with `EXPLAIN ANALYZE`. I picked a timestamp that will not be found to ensure it's as slow as possible.
 
 ```sql
 EXPLAIN ANALYZE
@@ -430,50 +484,61 @@ AND sys_period @> TIMESTAMP WITH TIME ZONE '2023-09-28 15:28:25+00'
 LIMIT 1;
 ```
 
-
-
 ```
-                                                                           QUERY PLAN
------------------------------------------------------------------------------------------------------------------------------------------------------------------
- Limit  (cost=4.14..481.69 rows=1 width=14) (actual time=159.192..159.206 rows=1 loops=1)
-   ->  Append  (cost=4.14..4302.15 rows=9 width=14) (actual time=159.157..159.165 rows=1 loops=1)
-         ->  Bitmap Heap Scan on employees  (cost=4.14..8.15 rows=1 width=7) (actual time=0.307..0.310 rows=0 loops=1)
+                                                                            QUERY PLAN
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=4.14..534.96 rows=1 width=16) (actual time=261.602..261.618 rows=0 loops=1)
+   ->  Append  (cost=4.14..9028.12 rows=17 width=16) (actual time=261.572..261.586 rows=0 loops=1)
+         ->  Bitmap Heap Scan on employees  (cost=4.14..8.15 rows=1 width=6) (actual time=0.383..0.387 rows=0 loops=1)
                Recheck Cond: (name = 'Bernard Marx'::text)
-               Filter: (sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone)
+               Filter: (sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone)
                Rows Removed by Filter: 1
                Heap Blocks: exact=1
-               ->  Bitmap Index Scan on employees_pkey  (cost=0.00..4.14 rows=1 width=0) (actual time=0.136..0.137 rows=1 loops=1)
+               ->  Bitmap Index Scan on employees_pkey  (cost=0.00..4.14 rows=1 width=0) (actual time=0.203..0.204 rows=1 loops=1)
                      Index Cond: (name = 'Bernard Marx'::text)
-         ->  Seq Scan on employees_history_p2023_09_28_2147 employees_history  (cost=0.00..1274.20 rows=1 width=6) (actual time=66.110..66.110 rows=0 loops=1)
-               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
-               Rows Removed by Filter: 43480
-         ->  Seq Scan on employees_history_p2023_09_28_2148 employees_history_1  (cost=0.00..9.74 rows=1 width=7) (actual time=0.385..0.385 rows=0 loops=1)
-               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
-               Rows Removed by Filter: 316
-         ->  Seq Scan on employees_history_p2023_09_28_2149 employees_history_2  (cost=0.00..2920.26 rows=1 width=6) (actual time=92.327..92.327 rows=1 loops=1)
-               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
-               Rows Removed by Filter: 97972
-         ->  Seq Scan on employees_history_p2023_09_28_2150 employees_history_3  (cost=0.00..17.95 rows=1 width=20) (never executed)
-               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
-         ->  Seq Scan on employees_history_p2023_09_28_2151 employees_history_4  (cost=0.00..17.95 rows=1 width=20) (never executed)
-               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
-         ->  Seq Scan on employees_history_p2023_09_28_2152 employees_history_5  (cost=0.00..17.95 rows=1 width=20) (never executed)
-               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
-         ->  Seq Scan on employees_history_p2023_09_28_2153 employees_history_6  (cost=0.00..17.95 rows=1 width=20) (never executed)
-               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
-         ->  Seq Scan on employees_history_default employees_history_7  (cost=0.00..17.95 rows=1 width=20) (never executed)
-               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
- Planning Time: 16.128 ms
- Execution Time: 160.093 ms
-(30 rows)
-
+         ->  Seq Scan on employees_history_p2023_09_29_0028 employees_history  (cost=0.00..17.95 rows=1 width=20) (actual time=0.035..0.035 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_29_0029 employees_history_1  (cost=0.00..17.95 rows=1 width=20) (actual time=0.012..0.012 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_29_0030 employees_history_2  (cost=0.00..17.95 rows=1 width=20) (actual time=0.139..0.139 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+               Rows Removed by Filter: 31
+         ->  Seq Scan on employees_history_p2023_09_29_0031 employees_history_3  (cost=0.00..2928.53 rows=1 width=6) (actual time=107.100..107.100 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+               Rows Removed by Filter: 99969
+         ->  Seq Scan on employees_history_p2023_09_29_0032 employees_history_4  (cost=0.00..17.95 rows=1 width=20) (actual time=0.033..0.033 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_29_0033 employees_history_5  (cost=0.00..17.95 rows=1 width=20) (actual time=0.004..0.004 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_29_0034 employees_history_6  (cost=0.00..17.95 rows=1 width=20) (actual time=0.004..0.004 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_29_0035 employees_history_7  (cost=0.00..2852.89 rows=1 width=6) (actual time=75.441..75.441 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+               Rows Removed by Filter: 97393
+         ->  Seq Scan on employees_history_p2023_09_29_0036 employees_history_8  (cost=0.00..3005.11 rows=1 width=6) (actual time=78.196..78.196 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+               Rows Removed by Filter: 102607
+         ->  Seq Scan on employees_history_p2023_09_29_0037 employees_history_9  (cost=0.00..17.95 rows=1 width=20) (actual time=0.011..0.011 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_29_0038 employees_history_10  (cost=0.00..17.95 rows=1 width=20) (actual time=0.004..0.004 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_29_0039 employees_history_11  (cost=0.00..17.95 rows=1 width=20) (actual time=0.003..0.003 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_29_0040 employees_history_12  (cost=0.00..17.95 rows=1 width=20) (actual time=0.007..0.008 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_29_0041 employees_history_13  (cost=0.00..17.95 rows=1 width=20) (actual time=0.004..0.004 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_29_0042 employees_history_14  (cost=0.00..17.95 rows=1 width=20) (actual time=0.003..0.004 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_default employees_history_15  (cost=0.00..17.95 rows=1 width=20) (actual time=0.003..0.003 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 15:28:25+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+ Planning Time: 12.427 ms
+ Execution Time: 262.706 ms
+(47 rows)
 ```
-This query took 213 milliseconds, and most of the time was spent scanning the **employees_history** table, on one of the partitions. We see it scanned and filtered 173,150 rows in the partition before it found a matching row, then returned that value.
+This query took 263 milliseconds, and most of the time was spent scanning the the partitions with the most versions. It's notable that we have to scan all partitions, because we are partitioning by `created_at`, which means when the version was created, not partitioning by `sys_period`, which is what we are looking for.
 
-If this was a real workload, I doubt that employees' salaries are being updated so frequently, or at least that's been the case in my personal experience. However, if it's a big company, then there could be a lot of employees. In that case, it would be best to add an index on the name (or more realistically, employee ID) in the **employees_history** table. Then, they query plan can skip all partitions that cover time ranges not relevant to the query, then within a single partition it will find only rows for the employee being queryed using the index, then it would scan the remaining rows, probably always just one or two rows, to find the correct salary.
-
-In this case, we are updating the salary over and over rapidly.
-
+If this was a real workload, I doubt that employees' salaries are being updated so frequently, or at least that's been the case in my personal experience. However, if it's a big company, then there could be a lot of employees. In that case, it would be best to add an index on the name (or more realistically, employee ID) in the **employees_history** table. Then, withing each partition it will find only rows for the employee being queryed using the index, then it would scan the remaining rows, probably typically zero, one, or two rows, to find the correct salary.
 
 ### Expiring old versions
 
