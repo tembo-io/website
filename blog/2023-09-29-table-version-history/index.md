@@ -91,24 +91,32 @@ CREATE TABLE employees
   salary numeric(20, 2)
 );
 
--- Adding version history to the table,
--- first we need to add a time range to the existing table.
--- This represents "since when" has this row been current.
+/*
+Adding version history to the table,
+first we need to add a time range to the existing table.
+This represents "since when" has this row been current.
+*/
 ALTER TABLE employees ADD COLUMN sys_period tstzrange NOT NULL;
 
--- Creating a time-partitioned version table
--- each row has the range the data was valid for,
--- and also the time this version was created.
+/*
+Creating a time-partitioned version table
+each row has the range the data was valid for,
+and also the time this version was created.
+*/
 CREATE TABLE employees_history (
     LIKE employees INCLUDING DEFAULTS EXCLUDING INDEXES EXCLUDING CONSTRAINTS,
     created_at timestamptz NOT NULL DEFAULT now())
     PARTITION BY RANGE (created_at);
 
--- Allow efficient querying of partition key
+-- Allow efficient querying of partition key and name
 CREATE INDEX ON employees_history (created_at);
 
--- Enable automatic partitioning with pg_partman
-SELECT create_parent('public.employees_history', 'created_at', 'native', 'daily');
+/*
+Enable automatic partitioning with pg_partman, partitioning every 1 minute.
+
+It's more realistic to partition daily or greater.
+*/
+SELECT create_parent('public.employees_history', 'created_at', 'native', '1 minute');
 
 -- This connects employees table to employees_history
 CREATE TRIGGER versioning_trigger
@@ -117,12 +125,18 @@ CREATE TRIGGER versioning_trigger
                                               'employees_history',
                                               true);
 
--- Configure retention policy for employee history
+/*
+Configure retention policy for employee history to keep old versions for 10 minutes.
+
+It's more realistic to configure retention for 1 year.
+*/
 UPDATE part_config
-    SET retention = '365 days',
+    SET retention = '10 minutes',
         retention_keep_table = false,
-        retention_keep_index = false
+        retention_keep_index = false,
+        infinite_time_partitions = true
     WHERE parent_table = 'public.employees_history';
+
 ```
 
 **custom.conf:** our additions to the Postgres configuration.
@@ -132,12 +146,13 @@ UPDATE part_config
 shared_preload_libraries = 'pg_partman_bgw'
 
 # How many seconds between pg_partman background worker runs
-pg_partman_bgw.interval = 3600
+# It's more realistic to run every 3600 seconds, or longer
+pg_partman_bgw.interval = 10
 
 # Which database pg_partman should target
 pg_partman_bgw.dbname = 'postgres'
 
-# Can be further improved by using limited permissions
+# It's best practice to use limited permissions for the background worker
 # pg_partman_bgw.role = 'limitedrole'
 
 # This was helpful when I was working on getting the settings working
@@ -148,7 +163,7 @@ With those four files in place, we can run Postgres like this:
 
 ```bash
 docker build -t example-local-image .
-docker run -it --name local-tembo -p 5432:5432 --rm example-local-image
+docker run -it -d --name local-tembo -p 5432:5432 --rm example-local-image
 ```
 
 In a separate shell, I connect into the Postgres container.
@@ -157,7 +172,7 @@ In a separate shell, I connect into the Postgres container.
 psql postgres://postgres:postgres@localhost:5432
 ```
 
-## temporal_tables
+## Basic example of saving old versions
 
 After we are set up, we have version history and retention policy configured on the **employees** table, but both the **employees** table and the **employees_history** table are empty.
 
@@ -188,19 +203,17 @@ INSERT INTO employees (name, department, salary)
 VALUES ('Helmholtz Watson', 'College of Emotional Engineering', 18500);
 ```
 
-Now, the **employees** has some data, and employees_history is still empty.
+Now, the **employees** has some data, and **employees_history** is still empty.
 ```
-SELECT * FROM employees;
-
+postgres=# SELECT * FROM employees;
        name       |            department            |  salary  |             sys_period
 ------------------+----------------------------------+----------+------------------------------------
- Bernard Marx     | Hatchery and Conditioning Centre | 10000.00 | ["2023-09-28 13:57:34.680654+00",)
- Lenina Crowne    | Hatchery and Conditioning Centre |  7000.00 | ["2023-09-28 13:57:34.734182+00",)
- Helmholtz Watson | College of Emotional Engineering | 18500.00 | ["2023-09-28 13:57:34.737762+00",)
+ Bernard Marx     | Hatchery and Conditioning Centre | 10000.00 | ["2023-09-28 20:23:14.840624+00",)
+ Lenina Crowne    | Hatchery and Conditioning Centre |  7000.00 | ["2023-09-28 20:23:14.911528+00",)
+ Helmholtz Watson | College of Emotional Engineering | 18500.00 | ["2023-09-28 20:23:14.913555+00",)
 (3 rows)
 
-SELECT * FROM employees_history;
-
+postgres=# SELECT * FROM employees_history;
  name | department | salary | sys_period | created_at
 ------+------------+--------+------------+------------
 (0 rows)
@@ -218,27 +231,25 @@ UPDATE employees SET salary = 11601 WHERE name = 'Lenina Crowne';
 Now, the **employees_history** table has past versions.
 
 ```
-SELECT * FROM employees;
-
-       name       |            department            |  salary  |             sys_period
-------------------+----------------------------------+----------+------------------------------------
- Helmholtz Watson | College of Emotional Engineering | 18500.00 | ["2023-09-28 13:57:34.737762+00",)
- Bernard Marx     | Hatchery and Conditioning Centre | 11600.00 | ["2023-09-28 14:03:17.889818+00",)
- Lenina Crowne    | Hatchery and Conditioning Centre | 11601.00 | ["2023-09-28 14:03:17.892413+00",)
+postgres=# SELECT name, salary, sys_period FROM employees;
+       name       |  salary  |             sys_period
+------------------+----------+------------------------------------
+ Helmholtz Watson | 18500.00 | ["2023-09-28 20:23:14.913555+00",)
+ Bernard Marx     | 11600.00 | ["2023-09-28 20:23:50.731597+00",)
+ Lenina Crowne    | 11601.00 | ["2023-09-28 20:23:50.734214+00",)
 (3 rows)
 
-SELECT * FROM employees_history;
-
-     name      |            department            |  salary  |                            sys_period                             |          created_at
----------------+----------------------------------+----------+-------------------------------------------------------------------+-------------------------------
- Bernard Marx  | Hatchery and Conditioning Centre | 10000.00 | ["2023-09-28 13:57:34.680654+00","2023-09-28 14:03:17.842956+00") | 2023-09-28 14:03:17.842956+00
- Bernard Marx  | Hatchery and Conditioning Centre | 11200.00 | ["2023-09-28 14:03:17.842956+00","2023-09-28 14:03:17.885354+00") | 2023-09-28 14:03:17.885354+00
- Bernard Marx  | Hatchery and Conditioning Centre | 11400.00 | ["2023-09-28 14:03:17.885354+00","2023-09-28 14:03:17.889818+00") | 2023-09-28 14:03:17.889818+00
- Lenina Crowne | Hatchery and Conditioning Centre |  7000.00 | ["2023-09-28 13:57:34.734182+00","2023-09-28 14:03:17.892413+00") | 2023-09-28 14:03:17.892413+00
+postgres=# SELECT name, salary, sys_period FROM employees_history;
+     name      |  salary  |                            sys_period
+---------------+----------+-------------------------------------------------------------------
+ Bernard Marx  | 10000.00 | ["2023-09-28 20:23:14.840624+00","2023-09-28 20:23:50.684293+00")
+ Bernard Marx  | 11200.00 | ["2023-09-28 20:23:50.684293+00","2023-09-28 20:23:50.727283+00")
+ Bernard Marx  | 11400.00 | ["2023-09-28 20:23:50.727283+00","2023-09-28 20:23:50.731597+00")
+ Lenina Crowne |  7000.00 | ["2023-09-28 20:23:14.911528+00","2023-09-28 20:23:50.734214+00")
 (4 rows)
 ```
 
-### Querying past versions
+## Querying past versions
 
 Let's say we want to look up Bernard's salary at a previous date. We can check the **employees_history** table to find the row where the time range matches our provided timestamp. However, this wouldn't find the correct salary if we provide a timestamp that is after the most recent update to Bernard's salary, since that row is in the **employees** table.
 
@@ -262,7 +273,7 @@ Then, we can use this query to find Bernard's salary at any given date.
 SELECT salary
 FROM employee_history_view
 WHERE name = 'Bernard Marx'
-AND sys_period @> TIMESTAMP WITH TIME ZONE '2023-09-28 13:58:00+00'
+AND sys_period @> TIMESTAMP WITH TIME ZONE '2023-09-28 20:23:30+00'
 LIMIT 1;
 ```
 
@@ -278,22 +289,23 @@ Comparing to the **employees_history** table shown above, it is returning the co
 ```
 
 It also works to look up the current salary:
-
-```
+```sql
 SELECT salary
 FROM employee_history_view
 WHERE name = 'Bernard Marx'
-AND sys_period @> TIMESTAMP WITH TIME ZONE '2023-09-28 14:38:00+00'
+AND sys_period @> now()::TIMESTAMP WITH TIME ZONE
 LIMIT 1;
-
+```
+```
   salary
 ----------
  11600.00
 (1 row)
-
-
+```
+```sql
 SELECT salary FROM employees WHERE name = 'Bernard Marx';
-
+```
+```
   salary
 ----------
  11600.00
@@ -302,124 +314,13 @@ SELECT salary FROM employees WHERE name = 'Bernard Marx';
 
 If I try to query a salary from the future, it will return the current salary. If I try to query a salary from before Bernard is known in the **employees_history** table, then I get an empty result.
 
-## pg_partman
+## Partitioning
 
-**What is partitioning?** [Postgres documentation](https://www.postgresql.org/docs/current/ddl-partitioning.html) has detailed information on partitioning but just to summarize, partitioning is about splitting what is logically one large table into smaller tables. A typical example is event data where a table is updated with new rows that represent something that happened at a particular time. This can end up as a table with a lot of rows, so it can take a lot of time to scan the whole table, but maybe your application is mostly accessing recent rows. So, partitioning by time (splitting up the data into time chunks, each a different partition) helps improve query performance.
+**What is partitioning?** [Postgres documentation](https://www.postgresql.org/docs/current/ddl-partitioning.html) has detailed information on partitioning but just to summarize, partitioning is about splitting what is logically one large table into smaller tables. Typically, this is done for query performance. In our case, we are partitioning to enable expiring old versions.
 
-Partitioning tables is something I’m familiar with from Tembo’s work in [PGMQ](https://github.com/tembo-io/pgmq). PGMQ can optionally work with another extension, pg_partman, an extension which helps Postgres automatically manage a partitioned table. In this example, it can be a cool way to show how combining different extensions can solve specific problems.
-
-:::info
-When using a time-partitioned table, querying the table with a timestamp will only consider the partition that is applicable to that time.
-:::
-
-### Partition expiry
-
-To save myself 1 year, I reconfigured the retention to 5 minutes, and partitioning interval to 1 minute.
-
-**Modified excerpt from  1_create_versioned_table.sql:**
-```sql
- SELECT create_parent('public.employees_history', 'created_at', 'native', '1 minute');
-…
-UPDATE part_config
-    SET retention = '5 minutes',
-        retention_keep_table = false,
-        retention_keep_index = false
-    WHERE parent_table = 'public.employees_history';
-```
-
-:::note
-I recommend you do not actually set this low of a partitioning interval, but I encourage you to do whatever you want.
-:::
-
-Also, I had to add one more configuration for pg_partman.
-
-**custom.conf:**
-```
-shared_preload_libraries = 'pg_partman_bgw'
-pg_partman_bgw.dbname = 'postgres'
-
-# New! Run background worker every 30 seconds
-pg_partman_bgw.interval = 30
-```
-
-I restarted my container, so I am on a fresh and empty database, other than my startup scripts.
-
-**I added data to the table, just like I did before:**
-
-```sql
-INSERT INTO employees (name, department, salary)
-VALUES ('Bernard Marx', 'Hatchery and Conditioning Centre', 10000);
-
-INSERT INTO employees (name, department, salary)
-VALUES ('Lenina Crowne', 'Hatchery and Conditioning Centre', 7000);
-
-INSERT INTO employees (name, department, salary)
-VALUES ('Helmholtz Watson', 'College of Emotional Engineering', 18500);
-```
-
-**Then, I modified a few of the rows:**
-```sql
-UPDATE employees SET salary = 11200 WHERE name = 'Bernard Marx';
-UPDATE employees SET salary = 11400 WHERE name = 'Bernard Marx';
-UPDATE employees SET salary = 11600 WHERE name = 'Bernard Marx';
-UPDATE employees SET salary = 11601 WHERE name = 'Lenina Crowne';
-```
-
-**I waited a minute or so, then I did one more update:**
-```sql
-UPDATE employees SET salary = 11600 WHERE name = 'Helmholtz Watson';
-```
-
-**Checking what the data looks like shortly after updating:**
-```
-postgres=# select * from employees;
-       name       |            department            |  salary  |             sys_period
-------------------+----------------------------------+----------+------------------------------------
- Helmholtz Watson | College of Emotional Engineering | 18500.00 | ["2023-09-13 18:33:18.703002+00",)
- Bernard Marx     | Hatchery and Conditioning Centre | 11600.00 | ["2023-09-13 18:33:23.562748+00",)
- Lenina Crowne    | Hatchery and Conditioning Centre | 11601.00 | ["2023-09-13 18:33:23.565158+00",)
-(3 rows)
-
-postgres=# select * from employees_history;
-     name      |            department            |  salary  |                            sys_period                             |          created_at
----------------+----------------------------------+----------+-------------------------------------------------------------------+-------------------------------
- Bernard Marx  | Hatchery and Conditioning Centre | 10000.00 | ["2023-09-13 18:33:18.613263+00","2023-09-13 18:33:23.480441+00") | 2023-09-13 18:33:23.480441+00
- Bernard Marx  | Hatchery and Conditioning Centre | 11200.00 | ["2023-09-13 18:33:23.480441+00","2023-09-13 18:33:23.55839+00")  | 2023-09-13 18:33:23.55839+00
- Bernard Marx  | Hatchery and Conditioning Centre | 11400.00 | ["2023-09-13 18:33:23.55839+00","2023-09-13 18:33:23.562748+00")  | 2023-09-13 18:33:23.562748+00
- Lenina Crowne | Hatchery and Conditioning Centre |  7000.00 | ["2023-09-13 18:33:18.700762+00","2023-09-13 18:33:23.565158+00") | 2023-09-13 18:33:23.565158+00
-(4 rows)
-```
-Above, we see all versions are still retained.
-
-Then, I tabbed over to Slack since I need to wait 5 minutes. 2 hours later...
-
-**Now we see:**
-
-```
-postgres=# select * from employees_history;
- name | department | salary | sys_period | created_at
-------+------------+--------+------------+------------
-(0 rows)
-```
-
-That worked!
-
-I took a video watching the extensions_history table to capture the moment the first batch of updates was deleted.
-
-:::info
-In psql, use `\watch` to re-run the last command you ran over and over
-:::
-
-**We see rows are deleted according to their retention policy:**
-
-![auto-delete](./images/auto-delete.png)
-
-
---------
+Partitioning tables is something I’m familiar with from Tembo’s work in [PGMQ](https://github.com/tembo-io/pgmq), which is a queueing extension for Postgres.
 
 ## Performance
-
-We created a view which is a union between **employees** and **employees_history**, then we query the view to find an employee's salary at a given time.
 
 ### Writes
 
@@ -427,10 +328,12 @@ We should expect write performance to be slower, since we are writing to two tab
 
 I created a new table that does not have versioning enabled to compare write performance.
 ```sql
+-- Create a table like employees
 CREATE TABLE employees_write_test
 AS TABLE employees
 WITH NO DATA;
 
+-- ...and insert one row
 INSERT INTO employees_write_test (name, department, salary, sys_period)
 VALUES ('Bernard Marx', 'Hatchery and Conditioning Centre', 11600.00, tstzrange(now(), null));
 ```
@@ -463,11 +366,11 @@ postgres=# explain analyze UPDATE employees_write_test SET salary = 11608 WHERE 
 ```
 I found it's about twice as slow to write when versioning is enabled. That's expected because since are writing to two tables, both the primary table and the history table.
 
-Read query performance is likely more important for most use cases.
-
 ### Reads
 
-First, let's generate 100,000 changes to Bernard's salary. The below example uses [PL/pgSQL](https://www.postgresql.org/docs/current/plpgsql.html). By default, PL/pgSQL functions run as a single transaction, so it would only result in a single update to the **employees_history** table. For this reason, I am using a procedure with `COMMIT` so that each increment will be a separate transaction, this way we also get 100,000 updates to the **employees_history** table. I had to explain that nuance to chatGPT in order for this query to be produced properly.
+We created a view which is a union between **employees** and **employees_history**, then we query the view to find an employee's salary at a given time. We should understand the performance implications of this query.
+
+First, let's make a procedure to update a salary 100,000 times in a row. The below example uses [PL/pgSQL](https://www.postgresql.org/docs/current/plpgsql.html). By default, PL/pgSQL functions run as a single transaction, so it would only result in a single update to the **employees_history** table. For this reason, I am using a procedure with `COMMIT` so that each increment will be a separate transaction, this way we also get 100,000 updates to the **employees_history** table. I had to explain that nuance to chatGPT in order for this procedure to be produced properly.
 
 ```sql
 -- Table name and employee name as inputs
@@ -503,15 +406,17 @@ Run the procedure:
 CALL increment_salary('Bernard Marx', 'employees');
 ```
 
-This took 54 seconds to run on my laptop. Also, while working on this blog post, I ran that command several times. So, now I have an **employees_history** table that's populated with over half a million rows for Bernard.
+## TODO: redo this experiment with new partition configurations
+
+This took 54 seconds to run on my laptop. Also, while working on this blog post, I ran that command several times. So, now I have an **employees_history** table that's populated with many rows for Bernard.
 
 ```
-SELECT count(*) FROM employees_history WHERE name = 'Bernard Marx';
-
+postgres=# SELECT count(*) FROM employees_history WHERE name = 'Bernard Marx';
  count
---------
- 537793
-(1 row)
+ --------
+  324125
+  (1 row)
+
 ```
 
 Let's run the same type of query command we ran before, with `EXPLAIN ANALYZE`. I picked a timestamp from the middle of the **employees_history** table, so that it does not get lucky and return from scanning early, since we also have `LIMIT 1` in the query. If I use the same timestamp from the previous example, it's found early in the scan and the read only takes 1 or 2 milliseconds.
@@ -524,42 +429,233 @@ WHERE name = 'Bernard Marx'
 AND sys_period @> TIMESTAMP WITH TIME ZONE '2023-09-28 15:28:25+00'
 LIMIT 1;
 ```
+
+
+
 ```
-                                                                          QUERY PLAN
----------------------------------------------------------------------------------------------------------------------------------------------------------------
- Limit  (cost=4.14..1451.00 rows=1 width=18) (actual time=212.125..212.141 rows=1 loops=1)
-   ->  Append  (cost=4.14..15919.67 rows=11 width=18) (actual time=212.090..212.101 rows=1 loops=1)
-         ->  Bitmap Heap Scan on employees  (cost=4.14..8.15 rows=1 width=7) (actual time=0.852..0.854 rows=0 loops=1)
+                                                                           QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=4.14..481.69 rows=1 width=14) (actual time=159.192..159.206 rows=1 loops=1)
+   ->  Append  (cost=4.14..4302.15 rows=9 width=14) (actual time=159.157..159.165 rows=1 loops=1)
+         ->  Bitmap Heap Scan on employees  (cost=4.14..8.15 rows=1 width=7) (actual time=0.307..0.310 rows=0 loops=1)
                Recheck Cond: (name = 'Bernard Marx'::text)
-               Filter: (sys_period @> '2023-09-28 15:35:26+00'::timestamp with time zone)
+               Filter: (sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone)
                Rows Removed by Filter: 1
                Heap Blocks: exact=1
-               ->  Bitmap Index Scan on employees_pkey  (cost=0.00..4.14 rows=1 width=0) (actual time=0.383..0.384 rows=6 loops=1)
+               ->  Bitmap Index Scan on employees_pkey  (cost=0.00..4.14 rows=1 width=0) (actual time=0.136..0.137 rows=1 loops=1)
                      Index Cond: (name = 'Bernard Marx'::text)
+         ->  Seq Scan on employees_history_p2023_09_28_2147 employees_history  (cost=0.00..1274.20 rows=1 width=6) (actual time=66.110..66.110 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+               Rows Removed by Filter: 43480
+         ->  Seq Scan on employees_history_p2023_09_28_2148 employees_history_1  (cost=0.00..9.74 rows=1 width=7) (actual time=0.385..0.385 rows=0 loops=1)
+               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+               Rows Removed by Filter: 316
+         ->  Seq Scan on employees_history_p2023_09_28_2149 employees_history_2  (cost=0.00..2920.26 rows=1 width=6) (actual time=92.327..92.327 rows=1 loops=1)
+               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+               Rows Removed by Filter: 97972
+         ->  Seq Scan on employees_history_p2023_09_28_2150 employees_history_3  (cost=0.00..17.95 rows=1 width=20) (never executed)
+               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_28_2151 employees_history_4  (cost=0.00..17.95 rows=1 width=20) (never executed)
+               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_28_2152 employees_history_5  (cost=0.00..17.95 rows=1 width=20) (never executed)
+               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_p2023_09_28_2153 employees_history_6  (cost=0.00..17.95 rows=1 width=20) (never executed)
+               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+         ->  Seq Scan on employees_history_default employees_history_7  (cost=0.00..17.95 rows=1 width=20) (never executed)
+               Filter: ((sys_period @> '2023-09-28 21:49:58+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
+ Planning Time: 16.128 ms
+ Execution Time: 160.093 ms
+(30 rows)
 
-         ->  Seq Scan on employees_history_p2023_09_24 employees_history  (cost=0.00..17.95 rows=1 width=20) (actual time=0.034..0.035 rows=0 loops=1)
-               Filter: ((sys_period @> '2023-09-28 15:35:26+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
-
-		 ... some partitions omitted here ...
-
-         ->  Seq Scan on employees_history_p2023_09_28 employees_history_4  (cost=0.00..15749.91 rows=1 width=6) (actual time=210.503..210.503 rows=1 loops=1)
-               Filter: ((sys_period @> '2023-09-28 15:35:26+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
-               Rows Removed by Filter: 173150
-
-         ->  Seq Scan on employees_history_p2023_09_29 employees_history_5  (cost=0.00..17.95 rows=1 width=20) (never executed)
-               Filter: ((sys_period @> '2023-09-28 15:35:26+00'::timestamp with time zone) AND (name = 'Bernard Marx'::text))
-
-		 ... some partitions omitted here ...
-
- Planning Time: 8.394 ms
- Execution Time: 213.199 ms
-(32 rows)
 ```
 This query took 213 milliseconds, and most of the time was spent scanning the **employees_history** table, on one of the partitions. We see it scanned and filtered 173,150 rows in the partition before it found a matching row, then returned that value.
 
 If this was a real workload, I doubt that employees' salaries are being updated so frequently, or at least that's been the case in my personal experience. However, if it's a big company, then there could be a lot of employees. In that case, it would be best to add an index on the name (or more realistically, employee ID) in the **employees_history** table. Then, they query plan can skip all partitions that cover time ranges not relevant to the query, then within a single partition it will find only rows for the employee being queryed using the index, then it would scan the remaining rows, probably always just one or two rows, to find the correct salary.
 
 In this case, we are updating the salary over and over rapidly.
+
+
+### Expiring old versions
+
+Earlier in this blog, we configured **pg_partman** to partition in 1 minute increments, to expire partitions that are older than 15 minutes, and to check every 30 seconds. Every 30 seconds, any partition that is older that 15 minutes is deleted by the **pg_partman** background worker.
+
+With this query, I can check how many rows and the total data size in each partition.
+```sql
+-- This query was produced by ChatGPT 4 with the prompt:
+-- "How can I check the number of rows in each partition of employees_history?"
+SELECT
+    child.relname AS partition_name,
+    pg_total_relation_size(child.oid) AS total_size,
+    pg_relation_size(child.oid) AS data_size,
+    pg_stat_user_tables.n_live_tup AS row_count
+FROM
+    pg_inherits
+JOIN
+    pg_class parent ON pg_inherits.inhparent = parent.oid
+JOIN
+    pg_class child ON pg_inherits.inhrelid = child.oid
+LEFT JOIN
+    pg_stat_user_tables ON child.oid = pg_stat_user_tables.relid
+WHERE
+    parent.relname='employees_history'
+ORDER BY
+    partition_name;
+```
+
+In order to check that old versions are being dropped, I ran the procedure to create a lot of salaray increments several times in a row.
+
+Then, running the above query, I find an output like this:
+
+
+```
+           partition_name           | total_size | data_size | row_count
+------------------------------------+------------+-----------+-----------
+ employees_history_default          |      16384 |         0 |         0
+ employees_history_p2023_09_28_2204 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2205 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2206 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2207 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2208 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2209 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2210 |      32768 |      8192 |         4
+ employees_history_p2023_09_28_2211 |    9584640 |   7995392 |     68267
+ employees_history_p2023_09_28_2212 |    4489216 |   3719168 |     31733
+ employees_history_p2023_09_28_2213 |   13180928 |  11018240 |     94144
+ employees_history_p2023_09_28_2214 |     868352 |    688128 |      5856
+ employees_history_p2023_09_28_2215 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2216 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2217 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2218 |      16384 |         0 |         0
+(16 rows)
+```
+In this output, we can see that we have 1 partition for every minute, and a total of 15 partitions. I have old versions expiring after 10 minutes. I thought it's interesting to note that **pg_partman** is preemptively creating partitions for the future, in this case 5 minutes into the future.
+
+If you refer to the original set up steps, I have configured `infinite_time_partitions = true`, and this means we will generate partitions even when we are not generating any data for them. I think this is the proper configuration since we also have a retention policy that will drop the old partitions. The concern of making infinite partitions as time passes, even if no data is being generated, is not applicable because old tables are being dropped.
+
+To confirm data was being deleted, I sampled the above query over time, and we can see the large body of inserts moving up into the oldest available partitions, then falling outside of the retention policy and being deleted.
+
+```
+
+           partition_name           | total_size | data_size | row_count
+------------------------------------+------------+-----------+-----------
+ employees_history_default          |      16384 |         0 |         0
+ employees_history_p2023_09_28_2207 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2208 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2209 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2210 |      32768 |      8192 |         4
+ employees_history_p2023_09_28_2211 |    9584640 |   7995392 |     68267
+ employees_history_p2023_09_28_2212 |    4489216 |   3719168 |     31733
+ employees_history_p2023_09_28_2213 |   13189120 |  11018240 |     94144
+ employees_history_p2023_09_28_2214 |     876544 |    688128 |      5856
+ employees_history_p2023_09_28_2215 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2216 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2217 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2218 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2219 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2220 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2221 |      16384 |         0 |         0
+(16 rows)
+
+
+           partition_name           | total_size | data_size | row_count
+------------------------------------+------------+-----------+-----------
+ employees_history_default          |      16384 |         0 |         0
+ employees_history_p2023_09_28_2211 |    9584640 |   7995392 |     68267
+ employees_history_p2023_09_28_2212 |    4489216 |   3719168 |     31733
+ employees_history_p2023_09_28_2213 |   13189120 |  11018240 |     94144
+ employees_history_p2023_09_28_2214 |     876544 |    688128 |      5856
+ employees_history_p2023_09_28_2215 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2216 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2217 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2218 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2219 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2220 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2221 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2222 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2223 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2224 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2225 |      16384 |         0 |         0
+(16 rows)
+
+
+           partition_name           | total_size | data_size | row_count
+------------------------------------+------------+-----------+-----------
+ employees_history_default          |      16384 |         0 |         0
+ employees_history_p2023_09_28_2212 |    4489216 |   3719168 |     31733
+ employees_history_p2023_09_28_2213 |   13189120 |  11018240 |     94144
+ employees_history_p2023_09_28_2214 |     876544 |    688128 |      5856
+ employees_history_p2023_09_28_2215 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2216 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2217 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2218 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2219 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2220 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2221 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2222 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2223 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2224 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2225 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2226 |      16384 |         0 |         0
+(16 rows)
+
+postgres=# select count(*) from employees_history;
+ count
+--------
+ 131733
+(1 row)
+
+           partition_name           | total_size | data_size | row_count
+------------------------------------+------------+-----------+-----------
+ employees_history_default          |      16384 |         0 |         0
+ employees_history_p2023_09_28_2214 |     876544 |    688128 |      5856
+ employees_history_p2023_09_28_2215 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2216 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2217 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2218 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2219 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2220 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2221 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2222 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2223 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2224 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2225 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2226 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2227 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2228 |      16384 |         0 |         0
+(16 rows)
+
+postgres=# select count(*) from employees_history;
+ count
+-------
+  5856
+(1 row)
+
+           partition_name           | total_size | data_size | row_count
+------------------------------------+------------+-----------+-----------
+ employees_history_default          |      16384 |         0 |         0
+ employees_history_p2023_09_28_2215 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2216 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2217 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2218 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2219 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2220 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2221 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2222 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2223 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2224 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2225 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2226 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2227 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2228 |      16384 |         0 |         0
+ employees_history_p2023_09_28_2229 |      16384 |         0 |         0
+(16 rows)
+
+postgres=# select count(*) from employees_history;
+ count
+-------
+     0
+(1 row)
+```
 
 ## Thanks!
 
