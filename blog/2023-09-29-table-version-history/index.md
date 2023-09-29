@@ -498,7 +498,7 @@ This query took 263 milliseconds. We notice this query needs to scan all partiti
 
 If this was a real workload, I doubt that employees' salaries are being updated so frequently, or at least that's been the case in my personal experience. However, if it's a big company, then there could be a lot of employees. In that case, it would be best to add an index on the name (or more realistically, employee ID) in the **employees_history** table. Then, withing each partition it will find only rows for the employee being queryed using the index, then it would scan the remaining rows, probably typically zero, one, or two rows, to find the correct salary.
 
-### Expiring old versions
+## Expiring old versions
 
 Earlier in this blog, we configured **pg_partman** to partition in 1 minute increments, to expire partitions that are older than 15 minutes, and to check every 30 seconds. Every 30 seconds, any partition that is older that 15 minutes is deleted by the **pg_partman** background worker.
 
