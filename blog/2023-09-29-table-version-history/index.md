@@ -23,7 +23,7 @@ Let's say we have a table **employees**, and it looks like this:
  Helmholtz Watson | 18500.00
 ```
 
-We will add one more column to this table, `sys_period`, which is a time range. This time range represents "since when" is this row the current version. this range is unbounded on the right side, because all the rows in the **employees** table are the present version.
+We will add one more column to this table, `sys_period`, which is a time range. This time range represents "since when" is this row the current version. This range is unbounded on the right side, because all the rows in the **employees** table are the present version.
 
 ```
        name       |  salary  |             sys_period
@@ -44,7 +44,7 @@ We will make a new table **employees_history** to store previous versions. This 
  Lenina Crowne |  7000.00 | ["2023-09-28 13:30:19.239152+00","2023-09-28 13:33:58.738827+00")
 ```
 
-To automatically deleting old versions, we'll add one more column to the **employees_table**, `created_at`. We will use this information to expire old versions after they are older than our retenion configuration, with the help of **pg_partman**.
+To automatically delete old versions, we'll add one more column to the **employees_table**, `created_at`. We will use this information to expire old versions after they are older than our retenion configuration, with the help of **pg_partman**.
 
 ## Getting set up
 
