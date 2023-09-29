@@ -8,6 +8,8 @@ tags:
 
 Run a Postgres container locally and install extensions with Trunk.
 
+There's an example of using this method of trying extensions in the blog [Version History and Lifecycle Policies for Postgres Tables](https://tembo.io/blog/table-version-history).
+
 ## Start Postgres using Docker
 
 - You can start a Postgres container locally like this
