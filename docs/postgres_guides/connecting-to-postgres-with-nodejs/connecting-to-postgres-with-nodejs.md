@@ -17,7 +17,7 @@ npm install pg
 ```
 
 :::info
-pg is a popular Node.sj library used to work with Postgres database. Serves as a PostgreSQL database driver for Node.js applications. To know more about pg, [click here](hhttps://node-postgres.com/)
+pg is a popular Node.js library used to work with Postgres. It serves as a PostgreSQL database driver for Node.js applications. To know more about pg, [check their official documentation](hhttps://node-postgres.com/)
 :::
 
 **Step 2** - Initialise the `pg` package in your Node.js script and get the Client from it.
@@ -127,7 +127,7 @@ client.connect()
 
 In this example, we have demonstrated how you can read the data, but you can also perform other operations of Posgtres database also like Insert, Update, and Create Table
 
-**Insert**
+## `Insert` statements
 
 ```
 client.connect()
@@ -151,7 +151,7 @@ client.connect()
   });
 ```
 
-**Update**
+## `Update` statements
 
 ```
 const update = 'UPDATE employees SET column1 = value1 WHERE column2 = value2';
@@ -169,7 +169,7 @@ client.query(update, values, (err, result) => {
 
 ```
 
-**Create Table**
+## DDL statements like `Create Table`
 
 ```
 const createTable = `
@@ -196,6 +196,6 @@ client.query(createTable, (err, result) => {
 
 In this guide, we discussed the step-by-step process to connect to the Postgres database with Node.js.
 
-We highly suggest you to read our well-written guides to understand the multiple operations you can perform on the Postgres database, [click here](https://tembo.io/docs/category/postgres-guides)
+We highly suggest you to read our [guides to understand the multiple operations you can perform with the Postgres database](https://tembo.io/docs/category/postgres-guides)
 
 Also, check our highly informative [blog posts](https://tembo.io/blog) to learn about our useful extensions.
