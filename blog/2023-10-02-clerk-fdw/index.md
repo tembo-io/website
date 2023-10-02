@@ -1,3 +1,11 @@
+---
+slug: clerk-fdw
+title: "Unlocking value from your Clerk User Management platform with Postgres"
+authors: [jay]
+tags: [postgres, extensions]
+image: clerk-flowchart.png
+---
+
 # Unlocking value from your Clerk User Management platform with Postgres
 
 The maxim of building a product is to know your user. However, any company big or small will often have user data spread around in various systems. A data platform team will often deploy various pipelines that can sync data from various sources into a data warehouse. As an alternative, Postgres supports the concept of a Foreign Data Wrapper. Let’s dive into what this is and how it can help us.
@@ -22,6 +30,8 @@ In fact, we built `clerk_fdw` at Tembo to address needs in our internal analytic
 - Run advanced analytics that combine internal data with user data from Clerk.
 - Understand user interaction patterns with our product.
 - Identify and engage with top users.
+
+![clerk](clerk-flowchart.png "clerk_fdw structure")
 
 ## Setting up `clerk_fdw`
 
