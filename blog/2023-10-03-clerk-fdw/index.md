@@ -10,17 +10,17 @@ image: clerk-flowchart.png
 
 The maxim of building a product is to know your user. However, any company big or small will often have user data spread around in various systems. A data platform team will often deploy various pipelines that can sync data from various sources into a data warehouse. As an alternative, Postgres supports the concept of a Foreign Data Wrapper. Let’s dive into what this is and how it can help us.
 
-In this blog, we'll look at `clerk_fdw`—a tool that bridges the gap between Clerk, a leading user management solution, and your very own Postgres Database. By the end, you'll discover how this integration can empower you to make data-driven decisions, optimize your pricing strategy, and refine your market approach. Let's get started!
+In this blog, we'll look at [clerk_fdw](https://github.com/tembo-io/clerk_fdw)—a tool that bridges the gap between [Clerk](https://clerk.com/), a leading user management solution, and your very own Postgres Database. By the end, you'll discover how this integration can empower you to make data-driven decisions, optimize your pricing strategy, and refine your market approach. Let's get started!
 
 ## What’s a Foreign Data Wrapper?
 
-A foreign data wrapper is an extension available in PostgreSQL that allows you to bring ‘foreign data’ (i.e. data in a different Postgres DB, a different database like DB2, or even a different kind of data source, like an API) and query it the same way you would query a normal Postgres table. They are particularly useful when your data may be segregated into different databases, but are still related in ways that you could gather some useful information from them. In building a foreign data wrapper for Clerk.com, we have used Supabase Wrappers that make it easier to build Foreign Data Wrappers and interact with third-party data using SQL.
+A foreign data wrapper is an extension available in PostgreSQL that allows you to bring ‘foreign data’ (i.e. data in a different Postgres DB, a different database like DB2, or even a different kind of data source, like an API) and query it the same way you would query a normal Postgres table. They are particularly useful when your data may be segregated into different databases, but are still related in ways that you could gather some useful information from them. In building a foreign data wrapper for Clerk.com, we have used [Supabase Wrappers](https://supabase.github.io/wrappers/) that make it easier to build Foreign Data Wrappers and interact with third-party data using SQL.
 
-If you should take something away from this blog, is that Postgres’ Foreign Data Wrappers are a great tool to build an analytics platform based on Postgres. See examples of other [FDWs in Trunk](link to trunk foreign data wrappers)
+If you should take something away from this blog, is that Postgres’ Foreign Data Wrappers are a great tool to build an analytics platform based on Postgres. See examples of other [FDWs in Trunk](https://pgt.dev/?cat=connectors)
 
 ## What’s Clerk?
 
-Clerk is a user management tool. With Clerk, users experience a seamless sign-up and sign-in flow, whether they prefer using email, SMS, or even their favorite social media accounts. Its versatility and developer-friendly APIs make it an excellent choice for us at Tembo for both efficiency and a superior user experience.
+[Clerk](https://clerk.com/) is a user management tool. With Clerk, users experience a seamless sign-up and sign-in flow, whether they prefer using email, SMS, or even their favorite social media accounts. Its versatility and developer-friendly APIs make it an excellent choice for us at Tembo for both efficiency and a superior user experience.
 
 ## The Power of Integration
 
@@ -35,7 +35,7 @@ In fact, we built `clerk_fdw` at Tembo to address needs in our internal analytic
 
 ## Setting up `clerk_fdw`
 
-The first step would be installing the `clerk_fdw` extension. You can install this extension using trunk.
+The first step would be installing the `clerk_fdw` extension. You can [install this extension using trunk](https://tembo-io.github.io/trunk/#trunk-install).
 ```bash
 trunk install clerk_fdw
 ```
@@ -125,10 +125,11 @@ Now you can query through your database and get useful information like:
 
 Here are some of the charts we were able to make from the clerk foreign data wrapper using some synthetic data.
 
----
+![chart1](chart1.png "Daily New Signups")
+![chart2](chart2.png "Total Organizations")
 
 ## Conclusion
 
 In conclusion, we believe that Postgres’ concept of Foreign Data Wrappers is more than just a technical integration—it's a game-changer that allows Postgres users to build data warehouse platforms that reach across all data sources in the business. It paves the way for businesses to harness critical insights directly from their operational databases, making informed decisions easier than ever before. See examples of other [FDWs in Trunk](https://pgt.dev/?cat=connectors)
 
-Give us a star and try out `clerk_fdw` by running the example in the README. If you hit any snags, please create an issue. We would greatly welcome contributions to the project as well.
+Give us a star and try out [clerk_fdw](https://github.com/tembo-io/clerk_fdw) by running the example in the README. If you hit any snags, please create an issue. We would greatly welcome contributions to the project as well.
