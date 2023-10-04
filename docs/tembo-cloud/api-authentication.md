@@ -1,15 +1,13 @@
 ---
-sidebar_position: 4
+sidebar_position: 2
 tags:
   - api
   - authentication
 ---
 
-# API
+# API Authentication
 
 To explore the Tembo Cloud API, visit our [API documentation](/docs/tembo-cloud/openapi).
-
-## Authentication 
 
 ### Create a service user
 
