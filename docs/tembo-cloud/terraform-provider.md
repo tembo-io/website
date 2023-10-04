@@ -149,6 +149,7 @@ output "instance" {
 - `state` (String) Instance state. Values: Submitted, Up, Configuring, Error, Restarting, Starting, Stopping, Stopped, Deleting, Deleted
 
 <a id="nestedatt--extensions"></a>
+
 #### Nested Schema for `extensions`
 
 Required:
@@ -161,6 +162,7 @@ Optional:
 - `description` (String)
 
 <a id="nestedatt--extensions--locations"></a>
+
 #### Nested Schema for `extensions.locations`
 
 Required:
@@ -174,6 +176,7 @@ Optional:
 - `version` (String)
 
 <a id="nestedatt--postgres_configs"></a>
+
 #### Nested Schema for `postgres_configs`
 
 Required:
@@ -186,6 +189,7 @@ Optional:
 
 
 <a id="nestedatt--trunk_installs"></a>
+
 #### Nested Schema for `trunk_installs`
 
 Required:
