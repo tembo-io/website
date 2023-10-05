@@ -39,7 +39,7 @@ Postgres connections are encrypted and authenticated inside each customer's data
 
 ## Data storage
 
-For instances deployed to an Amazon Web Services (AWS) region, the data is stored in an Elastic Block Storage General Purpose storage version 3 (EBS gp3). The volumes are encrypted with [AES-256 using AWS-managed keys](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html).
+For instances deployed to an Amazon Web Services (AWS) region, the data and extensions of each instance are stored in a dedicated Elastic Block Storage volume (EBS gp3). The volumes are encrypted with [AES-256 using AWS-managed keys](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html).
 
 ## Need stronger isolation?
 
