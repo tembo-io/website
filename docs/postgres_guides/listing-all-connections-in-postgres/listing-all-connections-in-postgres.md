@@ -70,4 +70,4 @@ In this guide, we discussed different methods to list down all the connections p
 
 If you are interested to learn more about Postgres, we highly recommend you to check out other [guides](https://tembo.io/docs/category/postgres-guides).
 
-Do check out well-written blogs to explore Tembo’s extensions, [click here](https://tembo.io/blog/)
+Do check out the [Tembo blogs](https://tembo.io/blog/) for more launches and interesting news.
