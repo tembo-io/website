@@ -1,5 +1,6 @@
 ---
-sidebar_position: 1000
+tags:
+  - troubleshooting
 ---
 
 # Troubleshooting

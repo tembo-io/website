@@ -1,4 +1,11 @@
-# PostgreSQL Database Access Guide
+---
+sidebar_position: 7
+tags:
+  - permissions
+  - rbac
+---
+
+# Postgres Users
 
 This document will guide you through the two default users and databases that are part of your PostgreSQL deployment.
 
