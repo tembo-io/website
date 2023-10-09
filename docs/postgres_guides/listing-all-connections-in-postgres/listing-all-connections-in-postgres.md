@@ -25,7 +25,7 @@ SELECT * FROM pg_stat_activity;
 ```
 
 :::info
-`pg_stat_activity` displays the information about the current activity of database connections present in PostgreSQL database server. Check out the official documentation to learn more about it, [click here](https://www.postgresql.org/docs/current/monitoring-stats.html#MONITORING-PG-STAT-ACTIVITY-VIEW)
+`pg_stat_activity` displays the information about the current activity of database connections present in PostgreSQL database server. Check out [the official documentation to learn more about it](https://www.postgresql.org/docs/current/monitoring-stats.html#MONITORING-PG-STAT-ACTIVITY-VIEW).
 :::
 
 <img src={PgadminDashboard} width="800" alt="PgadminDashboard" />
