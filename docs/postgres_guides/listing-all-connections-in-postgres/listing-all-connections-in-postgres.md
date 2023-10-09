@@ -34,7 +34,7 @@ SELECT * FROM pg_stat_activity;
 
 - **datname** - It shows the names of the connected database. It gives the human-readabale name of the database connected with the session.
 
-- **pid** - It shows the process ID (pid) of teh backend server process associated with the session. There is a backend process for each individual active session.
+- **pid** - It shows the process ID (pid) of the backend server process associated with the session. There is a backend process for each individual active session.
 
 - **usesysid** - It lists down the system identifier of all the users who has started the session.
 
