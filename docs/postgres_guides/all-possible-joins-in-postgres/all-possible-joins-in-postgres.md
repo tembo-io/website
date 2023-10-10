@@ -195,21 +195,6 @@ You can check out our [guides page](https://tembo.io/docs/category/postgres-guid
 
 ## Appendix
 
-Here is a database dump so you can duplicate the database, and try the joins yourself. You can simply run these codes in your terminal to create a copy of whole database -
+Here is a sql file so you can duplicate the database, and try the joins yourself. You can simply download the attached sql file and open it in your terminal to create a similar database and try out the above explained Join methods
 
-```
-# Dump the source database to a file
-pg_dump -U postgres -d practice -f database_dump.sql
-```
-
-```
-# Create a new database in your account
-createdb -U your_username your_database_name
-```
-
-```
-# Restore the dumped data into the new database
-psql -U your_username -d your_database_name database_dump.sql
-```
-
-Replace the `your_username` and `your_database_name` with your username and your desired database respectively.
+To download the sql file, [click here](https://drive.google.com/file/d/160UlOIkI5V3_owo-MxWPabpQeZemgGWW/view?usp=sharing)
