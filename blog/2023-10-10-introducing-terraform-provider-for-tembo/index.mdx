@@ -5,6 +5,9 @@ authors: [adarsh]
 tags: [postgres, announcement, terraform, infrastructure_as_code]
 ---
 
+import ReactPlayer from 'react-player'
+import DemoVideoUrl from './tembo-terraform-provider.mov';
+
 At Tembo, we want to empower developers to build fast. That’s why we built the [Terraform Provider for Tembo Cloud](https://registry.terraform.io/providers/tembo-io/tembo), allowing developers to manage Postgres resources using Infrastructure-as-Code (IaC). In this blog, we'll explore the Terraform Provider for Tembo and how it can help you streamline database management while keeping teams agile, accountable and enforcing organizational policies.
 
 Simpler, faster, safer, and easier? That’s Tembo - but let’s back up and start at the beginning.
@@ -85,7 +88,7 @@ Applying the above Terraform will provision a Postgres Instance on Tembo Cloud. 
 
 The demo in the video explains how to use the Terraform Provider for Tembo. The Terraform code used in the video can be found [here](https://github.com/tembo-io/terraform-provider-tembo/tree/main/examples/resource-creation).
 
-![](tembo-terraform-provider.mov)
+<ReactPlayer controls url={DemoVideoUrl} />
 
 ## What’s next for the Provider
 
