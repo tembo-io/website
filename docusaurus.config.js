@@ -154,7 +154,6 @@ const config = {
             label: 'Merch',
             target: '_blank',
             position: 'right',
-            // className: "header-github-link",
           }
         ],
       },
