@@ -6,7 +6,7 @@ tags: [postgres, extensions, embedding, vector, pgvector]
 image: ./RAG.png
 ---
 
-Language models are like the wizards of the digital world, conjuring up text that sounds eerily human. These marvels of artificial intelligence, such as GPT-3.5, are sophisticated algorithms that have been trained on vast swathes of text from the internet. They can understand context, generate coherent paragraphs, translate languages, and even assist in tasks like writing, chatbots, and more. Think of them as your trusty digital scribe, ready to assist with their textual sorcery whenever you summon them.
+*Language models are like the wizards of the digital world, conjuring up text that sounds eerily human. These marvels of artificial intelligence, such as GPT-3.5, are sophisticated algorithms that have been trained on vast swathes of text from the internet. They can understand context, generate coherent paragraphs, translate languages, and even assist in tasks like writing, chatbots, and more. Think of them as your trusty digital scribe, ready to assist with their textual sorcery whenever you summon them.*
 
 If you have used ChatGPT in the past, you probably were able to suspect that the previous paragraph was generated using it. And that's true :smiley: See the prompt [here](https://chat.openai.com/share/9fab8ac9-6e34-481d-a281-db2f00b0f7f5).
 
@@ -217,3 +217,8 @@ In this post, we briefly discussed the concept of `embeddings`, why they are imp
 These concepts are relevant to leveraging a knowledge base in conjunction with LLMs in an emerging technique called RAG. Of course, when implementing a real-life solution, [more factors need to be considered](ttps://medium.com/@neum_ai/retrieval-augmented-generation-at-scale-building-a-distributed-system-for-synchronizing-and-eaa29162521), and this post was just an introduction.
 
 I invite everyone to try out pgvector (e.g. using the scripts in this post), and the different operations that it offers. Also, can you think of other uses of pgvector? Let us know your thoughts in [@tembo_io](https://twitter.com/tembo_io).
+
+## Disclaimer
+
+*The first paragraph in this blog post was generated using ChatGPT. [Here’s the prompt](https://chat.openai.com/share/9fab8ac9-6e34-481d-a281-db2f00b0f7f5)*
+
