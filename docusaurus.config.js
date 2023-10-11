@@ -149,6 +149,13 @@ const config = {
             position: 'right',
             className: "header-github-link",
           },
+          {
+            href: 'https://store.tembo.io/',
+            label: 'Merch',
+            target: '_blank',
+            position: 'right',
+            // className: "header-github-link",
+          }
         ],
       },
       footer: {
