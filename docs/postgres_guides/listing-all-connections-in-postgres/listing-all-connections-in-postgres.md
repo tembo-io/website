@@ -25,7 +25,7 @@ SELECT * FROM pg_stat_activity;
 ```
 
 :::info
-`pg_stat_activity` displays the information about the current activity of database connections present in PostgreSQL database server. Check out the official documentation to learn more about it, [click here](https://www.postgresql.org/docs/current/monitoring-stats.html#MONITORING-PG-STAT-ACTIVITY-VIEW)
+`pg_stat_activity` displays the information about the current activity of database connections present in PostgreSQL database server. Check out [the official documentation to learn more about it](https://www.postgresql.org/docs/current/monitoring-stats.html#MONITORING-PG-STAT-ACTIVITY-VIEW).
 :::
 
 <img src={PgadminDashboard} width="800" alt="PgadminDashboard" />
@@ -34,7 +34,7 @@ SELECT * FROM pg_stat_activity;
 
 - **datname** - It shows the names of the connected database. It gives the human-readabale name of the database connected with the session.
 
-- **pid** - It shows the process ID (pid) of teh backend server process associated with the session. There is a backend process for each individual active session.
+- **pid** - It shows the process ID (pid) of the backend server process associated with the session. There is a backend process for each individual active session.
 
 - **usesysid** - It lists down the system identifier of all the users who has started the session.
 
@@ -70,4 +70,4 @@ In this guide, we discussed different methods to list down all the connections p
 
 If you are interested to learn more about Postgres, we highly recommend you to check out other [guides](https://tembo.io/docs/category/postgres-guides).
 
-Do check out well-written blogs to explore Tembo’s extensions, [click here](https://tembo.io/blog/)
+Do check out the [Tembo blogs](https://tembo.io/blog/) for more launches and interesting news.
