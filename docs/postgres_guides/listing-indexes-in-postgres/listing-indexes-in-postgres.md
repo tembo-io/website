@@ -62,6 +62,6 @@ Here, we have displayed the _indexname_ and _tablename_ from the `pg_indexes`. H
 
 In this guide, we discussed different methods to list down all the indexes present in Postgres.
 
-If you have a desire to expand your knowledge of Postgres, we strongly encourage you to explore our additional [guides](https://tembo.io/docs/category/postgres-guides).
+Want to expand your knowledge of Postgres? Explore our additional [guides](https://tembo.io/docs/category/postgres-guides).
 
-Please make sure to visit carefully crafted [blog posts](https://tembo.io/blog/) to delve into Tembo's extensions.
+Curious about extensions? Check out our [blog posts](https://tembo.io/blog/) to delve into Tembo's extensions.
