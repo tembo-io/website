@@ -1,30 +1,31 @@
 ---
-slug: pgvector-and-embedding-solutions
-title: "pgvector and embedding solutions"
+slug: pgvector-and-embedding-solutions-with-postgres
+title: "Unleashing the power of vector embeddings with PostgreSQL"
 authors: [rjzv]
 tags: [postgres, extensions, embedding, vector, pgvector]
 image: ./distance-vectors.png
 ---
 
-Language Models are models designed to understand and generate human language. Models like GPT-4 and its predecessors have become very popular because of their outstanding capability to handle natural language and generate human-like responses.
+Language models are like the wizards of the digital world, conjuring up text that sounds eerily human. These marvels of artificial intelligence, such as GPT-3.5, are sophisticated algorithms that have been trained on vast swathes of text from the internet. They can understand context, generate coherent paragraphs, translate languages, and even assist in tasks like writing, chatbots, and more. Think of them as your trusty digital scribe, ready to assist with their textual sorcery whenever you summon them.
 
-Behind language models lay concepts like vector embeddings. This post will explore embeddings and how they can be used in Postgres through the pgvector extension.
+If you have used ChatGPT in the past, you probably were able to suspect that the previous paragraph was generated using it. And that's true :smiley: See the prompt [here](https://chat.openai.com/share/9fab8ac9-6e34-481d-a281-db2f00b0f7f5).
+
+From the example above, you can witness the eloquence LLMs are capable of. Some people have been shocked so much that they became convinced that these [models were sentient](https://www.scientificamerican.com/article/google-engineer-claims-ai-chatbot-is-sentient-why-that-matters/). However, in the end, they are nothing but a large, complex series of [matrix and vector operations](https://www.youtube.com/watch?v=bCz4OMemCcA). These matrices and vectors have been trained to represent the semantic meaning of words.
+
+In today's post, we will explore these meaning vectors and how they are related to Postgres. In particular, we are going to play with sentence transformers, vectors, and similarity search. All of that with the help of the pgvector Postgres extension.
+
+Let’s go!
 
 
-## Representing text as vectors
+## From words to vectors
 
-A vector can represent many things, for example, the position of a character in a 3D video game, the position of a pixel in your screen, the force applied to an object, a color in the RGB space, or even words…
+Like we said, a vector can represent many things, for example, the position of a character in a 3D video game, the position of a pixel in your screen, the force applied to an object, a color in the RGB space, or even the meaning of a word…
 
-Word embedding refers to the technique by which words can be represented as vectors. These days, [OpenAI embeddings](https://platform.openai.com/docs/models/embeddings) are very popular. However, other alternatives exist. The following are some examples:
+Word embedding refers to the technique by which words can be represented as vectors. These days, the embeddings offered by [OpenAI](https://openai.com/blog/new-and-improved-embedding-model) are very popular. However, other alternatives exist, like [word2vect](https://arxiv.org/abs/1301.3781), [Glove](https://aclanthology.org/D14-1162.pdf), [FastText](https://fasttext.cc/docs/en/support.html), and [ELMo](https://arxiv.org/abs/1802.05365v2).
 
-- [word2vect](https://arxiv.org/abs/1301.3781)
-- [Glove](https://aclanthology.org/D14-1162.pdf)
-- [FastText](https://fasttext.cc/docs/en/support.html)
-- [ELMo](https://arxiv.org/abs/1802.05365v2)
+Similarly, entire sentences can be represented as vectors using [OpenAI embeddings](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) or [SentenceTransformers](https://sbert.net/), for example.
 
-Similarly, entire sentences can be represented as vectors using models such as [Sentence-BERT](https://sbert.net/).
-
-These models can be accessed through libraries for different languages. For example, the following Python snippet shows how to obtain the vector embeddings of three sentences using Sentence-BERT:
+These models can be accessed through libraries for different languages. The following Python snippet shows how to obtain the vector embeddings of three sentences using SentenceTransformer:
 
 ```python
 from sentence_transformers import SentenceTransformer
@@ -42,61 +43,39 @@ for sentence, embedding in zip(sentences, sentence_embeddings):
     print("")
 ```
 
+:::note 
+The code used in this blog post can be found in [this gist](https://gist.github.com/binidxaba/2eb3bff573c6be700e4391d650a302db). :wink:
+:::
+
+The mind-blowing part is that words and sentences with a similar meaning will have similar vectors. 🤯 This characteristic is the basis of a search technique called similarity search, where we simply find the nearest embedding vectors to find texts that are similar to our query.
+
 
 ## Postgres meets Language Models
 
-Models do an excellent job of converting your information into vectors, but those models are pre-trained with general data. They can understand human language but don’t know specific details about your company, for example. Even if that’s the case, the data with which the model was trained may not be current. So, creating a chatbot based only on the pre-trained data won’t be helpful for your customers.
+Models are great at generating content that seems credible, as shown earlier. However, you may have experienced cases where ChatGPT hallucinates answers or delivers out-of-date information. That's because LLMs are **pre-trained** using **general data**. And, because of that, creating a chatbot based only on the pre-trained data wouldn't be helpful for your customers, for instance.
 
-The concept of [RAG (Retrieval-Augmented Generation)](https://arxiv.org/abs/2005.11401) acknowledges this limitation.
+The concept of [RAG (Retrieval-Augmented Generation)](https://arxiv.org/abs/2005.11401) acknowledges this limitation. 
 
-One way of overcoming that limitation is to store your company's knowledge base in a database.... preferably in a vector database.
+One way of overcoming these problems is to store your company's knowledge base in a database.... preferably in a vector database. You could then query related content and feed that content to the LLM of your preference.
 
-Specialized vector databases include:
- - [Milvus](https://milvus.io/)
- - [Qdrant](https://qdrant.tech/)
- - [Marqo](https://github.com/marqo-ai/marqo)
- - [Weaviate](https://weaviate.io/)
- - [Pinecone](https://www.pinecone.io/)
+![RAG with pgvector](./RAG.png)
 
-However, you probably want to stick to your [Postgres database](https://www.amazingcto.com/postgres-for-everything/). Postgres is not in itself a vector database, but at least a couple of Postgres extensions exist to allow working with vectors:
 
-- [`pgvector`](https://github.com/pgvector/pgvector)
+Specialized vector databases include [Milvus](https://milvus.io/), [Qdrant](https://qdrant.tech/), [Weaviate](https://weaviate.io/), and [Pinecone](https://www.pinecone.io/). However, you probably want to [stick to your Postgres database](https://www.amazingcto.com/postgres-for-everything/). 
+
+Postgres is not in itself a vector database, but at least a couple of Postgres extensions exist to allow working with vectors:
+
+- [`pgvector`](https://github.com/pgvector/pgvector) 
 - [`pg_embedding`](https://github.com/neondatabase/pg_embedding)
 
+Let’s explore how we would query related content from a Postgres database.
 
-## What is pgvector?
+
+## pgvector: Postgres as a vector database
 
 [pgvector](https://github.com/pgvector/pgvector) is a Postgres extension that helps work with vectors and stores them in your postgres database. It offers functions for calculating the distance between vectors and for similarity search.
 
-
-## What do we mean by the distance between vectors?
-
-Given two vectors v and w, the distance between them is the length of the vector v-w.
-
-Say we have a vector v=(7,5) and w=(4,1) as shown in the following image:
-
-![Example of Euclidean distance](./distance-vectors.png)
-
-The vector v-w is (3,4). What’s the length of such a vector? Well, one way of calculating the length is by using the Pythagorean theorem: sqrt (3^2 + 4^2) = sqrt (9 + 16) = sqrt (25) = 5 units. This is called the euclidean distance.
-
-```console
-postgres=# select  l2_distance('[7,5]','[4,1]');
- l2_distance
--------------
-           5
-(1 row)
-
-```
-
-Other important metrics are:
-- Cosine similarity,
-- Inner product
-
-These metrics are essential because an important assumption when using embeddings is that, for example, similar sentences are located closer to each other when translated to the vector space.
-
-## A quick pgvector example
-
-I converted all of Tembo’s blogs into document vectors using this Python script that uses the [langchain framework](https://python.langchain.com)
+For the following demo, I converted all of Tembo’s blogs into document vectors using the following Python script that uses the [langchain framework](https://python.langchain.com).
 
 ```python
 from langchain.document_loaders import TextLoader
@@ -141,15 +120,16 @@ The following picture shows part of the contents of (2):
 
 ![Show vectors](./select-vectors.png)
 
+The resulting vectors have [384 dimensions](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2).  
 
-The resulting vectors have [384 dimensions](https://sbert.net/docs/pretrained_models.html#model-overview).
 
+## Are these sentences similar?
 
-## Finding similar text
+Let’s now play with these vectors.
 
 Using pgvector we can search content that is similar to a query. For example, we can find content related to `postgres 16`.
 
-First, we obtain the vector:
+First, we can obtain a vector that represents a query:
 
 ```python
 from langchain.embeddings import HuggingFaceEmbeddings
@@ -158,7 +138,7 @@ embeddings = HuggingFaceEmbeddings(model_name='all-MiniLM-L6-v2')
 print embeddings.embed_query(“What is new in postgres 16")
 ```
 
-Then we can execute the following query in psql:
+Then we can search vectors stored in the database that are similar to the query vector. The tool for that is [`cosine distance`](https://en.wikipedia.org/wiki/Cosine_similarity), which in pgvector is represented with the `<=>` operator:
 
 ```sql
 SELECT document, 1-(embedding <=> '[<your_vector_here>]') as cosine_similarity
@@ -167,8 +147,7 @@ ORDER BY cosine_similarity DESC
 LIMIT 2;
 ```
 
-In my case, the most similar chunk of text was:
-
+The above query retrieves vectors/chunks of text ordered by how close they are (in terms of `cosine distance`) to the query vector. In my case, the most similar chunk of text was:
 
 > In case you missed it, Postgres 16 came out last week - and this year it
 > arrived earlier than the last few years. There are many features that
@@ -192,7 +171,7 @@ In my case, the most similar chunk of text was:
 
 Which is an excerpt from [Postgres 16: The exciting and the unnoticed](https://tembo.io/blog/postgres-16).
 
-The problem with the above query is that it calculates the cosine distance to all vectors in the database. That is not very efficient:
+Let us look at what Postgres is doing behind the scenes, using `explain analyze`:
 
 ```console
 Limit  (cost=28.07..28.08 rows=2 width=641) (actual time=1.069..1.071 rows=2 loops=1)
@@ -207,7 +186,9 @@ Limit  (cost=28.07..28.08 rows=2 width=641) (actual time=1.069..1.071 rows=2 loo
 
 ```
 
-Fortunately, pgvector also provides specialized vector indexes, for example:
+We can observe that Postgres is sequentially scanning all rows. Then it computes the `cosine distance` for all those rows and sorts them. Finally,  it takes the first two rows.
+
+The `sequential scan` could be avoided if we had an index. Indeed, we can create one thanks to pgvector, for example:
 
 ```sql
 alter table langchain_pg_embedding alter column embedding type vector(384);
@@ -224,14 +205,15 @@ CREATE INDEX ON langchain_pg_embedding  USING ivfflat (embedding vector_cosine_o
 (5 rows)
 ```
 
-However, these specialized indexes are used for `approximate nearest neighbor search`. We’ll explore what that means in a future blog post. 
+One thing to keep in mind is that these indexes are used for `approximate nearest neighbor search`. We’ll explore what that means in a future blog post. [Let us know](https://twitter.com/tembo_io) if that would be interesting for you.
 
-In any case, the preceding example showed how to generate vectors from a bunch of articles and find relevant information by translating the text to the vector space. 
+Ok, at this point you should now have a sense of what pgvector is about and how to use it with embeddings. 
 
 
 ## Conclusion
 
-In this post, we explored pgvector from a user's perspective. We explored how embeddings can be used to answer queries utilizing a vector database.
+In this post, we briefly discussed the concept of `embeddings`, why they are important, and how they can be generated using one of the multiple available libraries. We also explored how to store and query the resulting vectors using Postgres and the pgvector extension.
 
-I invite everyone to try pgvector and sentence embeddings extending the example in this post. What other uses could this technology have? Let us know your thoughts in [@tembo_io](https://twitter.com/tembo_io)
+These concepts are relevant to leveraging a knowledge base in conjunction with LLMs in an emerging technique called RAG. Of course, when implementing a real-life solution, [more factors need to be considered](ttps://medium.com/@neum_ai/retrieval-augmented-generation-at-scale-building-a-distributed-system-for-synchronizing-and-eaa29162521), and this post was just an introduction.
 
+I invite everyone to try out pgvector (e.g. using the scripts in this post), and the different operations that it offers. Also, can you think of other uses of pgvector? Let us know your thoughts in [@tembo_io](https://twitter.com/tembo_io).
