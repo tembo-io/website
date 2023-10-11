@@ -102,7 +102,7 @@ UPDATE "students" SET "info"=jsonb_set("info"::jsonb, '{age}', '16') WHERE "info
 
 <img src={Update} width="900" alt="Update" />
 
-There are many other json functions that you can use to manipulate data in the desired manner. To know about more json function, [check their official documentation](https://www.postgresql.org/docs/9.5/functions-json.html)
+There are many other json functions that you can use to manipulate data; to learn more, [check their official documentation](https://www.postgresql.org/docs/9.5/functions-json.html)
 
 ## Delete JSON data
 
@@ -126,4 +126,4 @@ If a key in JSON data has an object as it’s value, we can use the combination 
 
 In this guide, we studied how you can work with JSON data in the Postgres database from inserting in a table to manipulating data to deleting data.
 
-If you are struggling to connect to Postgres on your project, we recommend you to check our well-written [Postgres guides](https://tembo.io/docs/category/postgres-guides) to solve your problem.
+Struggling to connect to Postgres on your project? Check out our other [Postgres guides](https://tembo.io/docs/category/postgres-guides) for more help.
