@@ -3,7 +3,7 @@ slug: pgvector-and-embedding-solutions-with-postgres
 title: "Unleashing the power of vector embeddings with PostgreSQL"
 authors: [rjzv]
 tags: [postgres, extensions, embedding, vector, pgvector]
-image: ./distance-vectors.png
+image: ./RAG.png
 ---
 
 Language models are like the wizards of the digital world, conjuring up text that sounds eerily human. These marvels of artificial intelligence, such as GPT-3.5, are sophisticated algorithms that have been trained on vast swathes of text from the internet. They can understand context, generate coherent paragraphs, translate languages, and even assist in tasks like writing, chatbots, and more. Think of them as your trusty digital scribe, ready to assist with their textual sorcery whenever you summon them.
