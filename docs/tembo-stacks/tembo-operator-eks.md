@@ -32,7 +32,7 @@ cd tembo-stacks/tembo-operator
 ## Step 3: Install dependencies on the Kubernetes cluster
 
 ```bash
-just install-dependencies
+just --set STORAGE_CLASS_NAME gp2 install-dependencies
 ```
 
 ## Step 4: Install the Tembo Operator into the Kubernetes cluster
