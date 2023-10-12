@@ -9,7 +9,9 @@ Operator on AWS EKS and provides an example of spinning up and connecting to a P
 
 This tutorial requires the following prerequisites:
 
-- AWS EKS (link to AWS EKS setup guide)
+- AWS EKS Cluster configured with a storage provisioner. See the following guides if you're creating theses from scratch:
+  - [Getting started with eksctl](https://eksctl.io/getting-started/)
+  - [Managing the Amazon EBS CSI driver as an Amazon EKS add-on](https://docs.aws.amazon.com/eks/latest/userguide/managing-ebs-csi.html)
 - [just](https://github.com/casey/just) command runner installed
 - [helm](https://helm.sh/) package manager installed
 
