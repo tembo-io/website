@@ -32,7 +32,7 @@ CREATE TABLE table_name (
 ```
 
 :::note
-Make sure to connect your desired Postgres database before executing these commands. Check out our guide to follow the step-by-step process, [click here](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres/)
+Make sure to connect your desired Postgres database before executing these commands. Check out [our guide to follow the step-by-step process](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres/).
 :::
 
 ## `INSERT` JSON data statements
