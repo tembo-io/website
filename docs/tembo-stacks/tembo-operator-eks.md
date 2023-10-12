@@ -29,6 +29,12 @@ git clone https://github.com/tembo-io/tembo-stacks.git
 cd tembo-stacks/tembo-operator
 ```
 
+## Step 3: Install dependencies on the Kubernetes cluster
+
+```bash
+just install-dependencies
+```
+
 ## Step 4: Install the Tembo Operator into the Kubernetes cluster
 
 ```bash
