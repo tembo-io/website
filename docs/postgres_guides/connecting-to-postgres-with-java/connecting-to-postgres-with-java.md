@@ -8,7 +8,7 @@ import AddingJdbc from './images/adding-jdbc.png'
 
 # Connecting to Postgres with Java using JDBC
 
-In this guide, we will study the step-by-step procedure to establish a connection to the Postgres database with your Java project. We will take advantage of the JDBC (Java Database Connectivity) driver to setup the connection. We will take a look at different approaches to integrate the JDBC driver into your project.
+In this guide, we will study the step-by-step procedure to establish a connection to the Postgres database with your Java project. We will take advantage of the JDBC (Java Database Connectivity) driver to setup the connection, and then will take a look at different approaches to integrate the JDBC driver into your project.
 
 Let’s get started
 
@@ -172,4 +172,4 @@ In this guide, we discussed the step-by-step process to connect to the Postgres 
 
 Working on a C# project? Explore our [C# guide](https://tembo.io/docs/postgres_guides/connecting-to-postgres-with-c/) to learn how to establish a connection with a PostgreSQL database using C#.
 
-Also, check out our new extensions [pgmq](https://tembo.io/blog/introducing-pgmq) and [pg_later](https://tembo.io/blog/introducing-pg-later) which can ease your work a lot much.
+Also, check out our new extensions [pgmq](https://tembo.io/blog/introducing-pgmq) and [pg_later](https://tembo.io/blog/introducing-pg-later) which can help you manage basic message and long-running query operations.
