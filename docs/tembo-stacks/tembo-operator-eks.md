@@ -59,12 +59,13 @@ Get your connection password and save it as an environment variable.
 export PGPASSWORD=$(kubectl get secrets/sample-machine-learning-connection --template={{.data.password}} | base64 -D)
 ```  
 
-## Step 7: Configure /etc/hosts
 
-Add the following line to `/etc/hosts`
+## Step 7: Setup port-forwarding
+
+Port Forward from your Kubernetes to your local machine.
 
 ```bash
-127.0.0.1 sample-machine-learning.localhost
+kubectl port-forward svc/sample-machine-learning-rw 5432:5432 &
 ```
 
 ## Step 8: Connect
@@ -72,8 +73,8 @@ Add the following line to `/etc/hosts`
 Connect to the running Postgres instance:
 
 ```bash
-psql postgres://postgres:$PGPASSWORD@sample-machine-learning.localhost:5432
-```  
+psql postgres://postgres:$PGPASSWORD@localhost:5432
+```
 
 ## Step 9. Enjoy and ask questions!
 
