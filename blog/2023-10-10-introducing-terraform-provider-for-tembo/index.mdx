@@ -1,0 +1,97 @@
+---
+slug: introducing-terraform-provider-for-tembo
+title: "Introducing Terraform Provider for Tembo"
+authors: [adarsh]
+tags: [postgres, announcement, terraform, infrastructure_as_code]
+---
+
+import ReactPlayer from 'react-player'
+import DemoVideoUrl from './videos/tembo-terraform-provider.mov';
+
+![tembo-terraform-provider](./images/tembo-terraform-provider.png)
+
+At Tembo, we want to empower developers to build fast. That’s why we built the [Terraform Provider for Tembo Cloud](https://registry.terraform.io/providers/tembo-io/tembo), allowing developers to manage Postgres resources using Infrastructure-as-Code (IaC). In this blog, we'll explore the Terraform Provider for Tembo and how it can help you streamline database management while keeping teams agile, accountable and enforcing organizational policies.
+
+Simpler, faster, safer, and easier? That’s Tembo - but let’s back up and start at the beginning.
+
+## What is Tembo Cloud?
+
+[Tembo Cloud](https://cloud.tembo.io/) is a developer-first, fully-extensible, fully-managed, secure, and scalable Postgres service. It not only simplifies Postgres management but also provides specialized Postgres deployments through [Tembo Stacks](https://tembo.io/blog/tembo-stacks-intro), catering to various use cases.
+
+## Database as Code using Terraform
+
+Databases as code provides a safe, consistent, and repeatable way of managing databases and is a game-changer for developers. This approach allows you to version-control any changes, ensuring auditability, and facilitates efficient workflows such as Pull Request flows and [GitOps](https://about.gitlab.com/topics/gitops/).
+
+Terraform is the most popular Infrastructure as Code tool today. It provides a way to define the desired state of your infrastructure using Hashicorp Configuration Language(HCL). Terraform handles all the complexity of making sure that when changes are applied, the actual state  matches the desired state. Therefore, it is an efficient way of managing databases as code.
+
+## Using Terraform Provider for Tembo
+
+With the Terraform Provider for Tembo, you can manage Postgres databases on Tembo Cloud with all the benefits mentioned in the previous section. You can find the Terraform Provider for Tembo on the [Terraform Registry](https://registry.terraform.io/providers/tembo-io/tembo) along with [the documentation](https://registry.terraform.io/providers/tembo-io/tembo/latest/docs/resources/), and the Github repo is [here](https://github.com/tembo-io/terraform-provider-tembo). A new Postgres instance can be provisioned on Tembo Cloud in about 1 minute and destroying an instance takes just 10 seconds.
+
+### Example Terraform file
+
+You can create a new Tembo instance on Tembo Cloud using the `tembo_instance` resource available with the provider. Below is an example configuration.
+
+**Note:** Tembo Terraform Provider needs an `access_token` to authenticate with the API. Generate a long-lived API token by following steps [here](https://tembo.io/docs/tembo-cloud/api-authentication#create-a-long-lived-api-token).
+
+```terraform
+terraform {
+  required_providers {
+    tembo = {
+      source = "tembo-io/tembo"
+      version = ">= 0.1.0"
+    }
+  }
+}
+
+provider "tembo" {
+  access_token = var.access_token
+}
+
+variable "access_token" {
+  type = string
+}
+
+resource "tembo_instance" "test_instance" {
+  instance_name = "test-instance"
+  org_id        = "org_test" # Replace this with your Tembo organization id
+  cpu           = "1"
+  stack_type    = "Standard"
+  environment   = "dev"
+  memory        = "4Gi"
+  storage       = "10Gi"
+  replicas      = 1
+  extensions = [{
+    name        = "plperl"
+    description = "PL/Perl procedural language"
+    locations = [{
+      database = "app"
+      schema   = "public"
+      version  = "1.0"
+      enabled  = false
+      },
+      {
+        database = "postgres"
+        schema   = "public"
+        version  = "1.0"
+        enabled  = true
+    }]
+  }]
+}
+
+output "instance" {
+  value = tembo_instance.test_instance
+}
+```
+
+Applying the above Terraform will provision a Postgres Instance on Tembo Cloud. For a demo explaining the steps watch the video below.
+
+## Demo
+
+The demo in the video explains how to use the Terraform Provider for Tembo. The Terraform code used in the video can be found [here](https://github.com/tembo-io/terraform-provider-tembo/tree/main/examples/resource-creation).
+
+<ReactPlayer controls url={DemoVideoUrl} />
+
+## What’s next for the Provider
+
+We are actively working on an Import feature that will allow you to import existing Tembo instances to Terraform to easily start managing existing instances with Terraform. Stay updated by starring our [GitHub repository](https://github.com/tembo-io/terraform-provider-tembo) and monitoring changes on the [Terraform Registry](https://registry.terraform.io/providers/tembo-io/tembo). Most importantly, please try it out, and [file any issues and feature requests in our repository](https://github.com/tembo-io/terraform-provider-tembo/issues). You can also access the documentation for the Tembo provider [here](https://registry.terraform.io/providers/tembo-io/tembo/latest/docs).
