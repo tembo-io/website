@@ -18,9 +18,9 @@ JSON (JavaScript Object Notation) is a compact format designed for the storage a
 
 The JSON data type gives Postgres capabilities that resemble document databases like MongoDB or Firestore. It grants great flexibility on the kinds of data that a document can hold, as the schema (i.e. the shape) of the data does not have to be known beforehand.
 
-In this guide, we will study how you can store JSON data in Postgres database and perform multiple operations on it. Let’s get started
+In this guide, we will study how you can store JSON data in Postgres database and perform multiple operations on it. Let’s get started.
 
-## `Create Table` with JSON data type statements
+## `CREATE TABLE` with JSON data type statements
 
 JSON works like a regular data type, just like other data types in Postgres. So, to add a json data type column in a table, you can simply assign `JSON` data type to that column.
 
@@ -35,7 +35,7 @@ CREATE TABLE table_name (
 Make sure to connect your desired Postgres database before executing these commands. Check out our guide to follow the step-by-step process, [click here](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres/)
 :::
 
-## `Insert` JSON data statements
+## `INSERT` JSON data statements
 
 Since JSON data type is actually an object data type consisting of key-value pairs. So, to insert JSON data in the table, we have to pass the data in the object format.
 
@@ -44,7 +44,7 @@ INSERT INTO table_name (data)
 VALUES ('{"key1": "value1", "key2": value2}');
 ```
 
-you can also insert multiple JSON values at once
+you can also insert multiple JSON values at once:
 
 ```
 INSERT INTO table_name (data)
@@ -55,14 +55,14 @@ VALUES  ('{"key1": "value1", "key2": value2}'),
 
 ## Displaying JSON data statements
 
-You can simply get the JSON data type column and display it
+You can simply get the JSON data type column and display it:
 
 <img src={DisplayingData} width="600" alt="DisplayingData" />
 
-Postgres comes with 2 built-in operators to operate over JSON objects: `->` and `->>`
+Postgres comes with 2 built-in operators to operate over JSON objects: `->` and `->>`.
 
 - `->` operator returns the JSON value as key data type. In other words, it returns the elements as JSON data type.
-- `->>` operator returns the JSON value as string (text) data type
+- `->>` operator returns the JSON value as string (text) data type.
 
 ```
 select info -> 'name' as names from students;
@@ -76,7 +76,7 @@ select info ->> 'name' as names from students;
 
 <img src={Operator2} width="600" alt="Operator2" />
 
-You can also use the ‘WHERE’ clause to filter out the data
+You can also use the ‘WHERE’ clause to filter out the data:
 
 ```
 SELECT * FROM students WHERE info->>'age' < '15';
@@ -102,11 +102,11 @@ UPDATE "students" SET "info"=jsonb_set("info"::jsonb, '{age}', '16') WHERE "info
 
 <img src={Update} width="900" alt="Update" />
 
-There are many other json functions that you can use to manipulate data; to learn more, [check their official documentation](https://www.postgresql.org/docs/9.5/functions-json.html)
+There are many other json functions that you can use to manipulate data; to learn more, [check their official documentation](https://www.postgresql.org/docs/9.5/functions-json.html).
 
 ## Delete JSON data
 
-You can use the `DELETE` statement to delete any specific row
+You can use the `DELETE` statement to delete any specific row:
 
 ```
 DELETE FROM students WHERE info->>'name' = 'John';
