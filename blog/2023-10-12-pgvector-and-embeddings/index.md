@@ -63,12 +63,9 @@ One way of overcoming these problems is to store your company's knowledge base i
 
 Specialized vector databases include [Milvus](https://milvus.io/), [Qdrant](https://qdrant.tech/), [Weaviate](https://weaviate.io/), and [Pinecone](https://www.pinecone.io/). However, you probably want to [stick to your Postgres database](https://www.amazingcto.com/postgres-for-everything/). 
 
-Postgres is not in itself a vector database, but at least a couple of Postgres extensions exist to allow working with vectors:
+Postgres is not in itself a vector database, but extensions can come to the rescue one more time... This time with [**pgvector**](https://github.com/pgvector/pgvector).
 
-- [`pgvector`](https://github.com/pgvector/pgvector) 
-- [`pg_embedding`](https://github.com/neondatabase/pg_embedding)
-
-Let’s explore how we would query related content from a Postgres database.
+Let's use it and explore how we would query related content from a Postgres database.
 
 
 ## pgvector: Postgres as a vector database
@@ -207,7 +204,14 @@ CREATE INDEX ON langchain_pg_embedding  USING ivfflat (embedding vector_cosine_o
 
 One thing to keep in mind is that these indexes are used for `approximate nearest neighbor search`. We’ll explore what that means in a future blog post. [Let us know](https://twitter.com/tembo_io) if that would be interesting for you.
 
-Ok, at this point you should now have a sense of what pgvector is about and how to use it with embeddings. 
+
+## Pgvector(ize)? 
+
+Ok, at this point you should now have a sense of what pgvector is, and how to use it together with Python. However, wouldn't it be great if the vectorizing step could happen all within Postgres?
+
+[**Pg_vectorize**](https://github.com/tembo-io/pg_vectorize) is an extension being developed by **Tembo** that intends to streamline the process of generating vectors from the data in your Postgres tables. If the data changes, a background job updates the embeddings. If you need to find similar vectors, the extension can do that. All within Postgres. Isn't that a cool idea? :wink: 
+
+I invite you to check out the repository and stay tuned.
 
 
 ## Conclusion
