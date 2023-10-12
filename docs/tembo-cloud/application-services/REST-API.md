@@ -26,15 +26,13 @@ Main Features:
 - Support for Stored Procedures: Custom business logic can be incorporated directly through PostgreSQL stored procedures, making it accessible via the API.
 
 
-## Enabling PostgREST
+## Enabling PostgREST on Tembo Cloud
 
 :::info
 Coming soon: enable PostgREST via the [Tembo Cloud UI](https://cloud.tembo.io)
 :::
 
 First, you will need to generate an API token so that you can communicate with your Tembo instance. Navigate to cloud.tembo.io/generate-jwt and follow the instructions to generate a token. Alternatively, you can follow the instructions [here](https://tembo.io/docs/tembo-cloud/api-authentication).
-
-
 
 Set your Tembo token as an environment variable, along with your organization id and the Tembo instance id. Fetch the `TEMBO_DATA_DOMAIN` from the "Host" parameter of your Tembo instance.
 
@@ -47,7 +45,7 @@ export TEMBO_DATA_DOMAIN=<you Tembo domain>
 
 PostgREST comes pre-configured to run in Tembo Cloud. However, you can optionally configure PostgREST by setting any of the [environment variables configurations](https://postgrest.org/en/stable/references/configuration.html?highlight=environment%20variables#environment-variables) supported by PostgREST.
 
-Patch your existing Tembo instance to enable PostgREST. We'll set the the configurations to `None` so that the defaults are assigned.
+Patch your existing Tembo instance using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi) to enable PostgREST. We'll set the the configurations to `None` so that the defaults are assigned.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -93,7 +91,6 @@ curl -X PATCH \
 PostgREST is served within your data plane domain. This value is the same value as the host on your Tembo Postgres instance and can be found in at cloud.temb.io. 
 
 First, create a table in the database:
-
 
 ```bash
 psql postgres://$yourUser:$yourPassword@${TEMBO_DATA_DOMAIN}:5432/postgres
