@@ -167,8 +167,8 @@ const config = {
             href: '/docs',
           },
           {
-            label: 'Twitter',
-            href: 'https://twitter.com/tembo_io',
+            label: 'X',
+            href: 'https://x.com/tembo_io',
           },
           {
             label: 'LinkedIn',
