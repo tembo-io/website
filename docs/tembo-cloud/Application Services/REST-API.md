@@ -5,7 +5,9 @@ tags:
   - tools
 ---
 
-# REST API (via PostgREST)
+# REST API
+
+__Powered by [PostgREST](https://postgrest.org/en/stable/)__
 
 Have an HTTP interface to your Postgres database significantly improves the rate at which you can develop applications. Sometimes developers build these CRUD webservers from scratch, but for many use cases, you can simply use [PostgREST](https://postgrest.org/en/stable/) and it is available on Tembo Cloud.
 
@@ -31,7 +33,7 @@ Set your Tembo token as an environment variable:
 export TEMBO_TOKEN=<your token>
 ```
 
-PostgREST will come configured to run in Tembo Cloud and no configuration is required. However, you optionally configure PostgREST by setting any of the [environment variables configurations](https://postgrest.org/en/stable/references/configuration.html?highlight=environment%20variables#environment-variables) supported by PostgREST.
+PostgREST comes pre-configured to run in Tembo Cloud. However, you can optionally configure PostgREST by setting any of the [environment variables configurations](https://postgrest.org/en/stable/references/configuration.html?highlight=environment%20variables#environment-variables) supported by PostgREST.
 
 Patch your existing Tembo instance to enable PostgREST. We'll set the the configurations to `None` so that the defaults are assigned.
 
@@ -258,7 +260,7 @@ curl -X GET \
 ```
 
 
-### Read all records where price is less than 1
+### Read all records where price is less than 2
 
 
 
