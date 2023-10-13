@@ -294,7 +294,7 @@ resp.json()
 curl -X GET \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
   -H "Content-Type: application/json" \
-  https://${TEMBO_DATA_DOMAIN}/products?unit_price=lt.2.00
+  https://${TEMBO_DATA_DOMAIN}/restapi/v1/products?unit_price=lt.2.00
 ```
 
 </TabItem>
