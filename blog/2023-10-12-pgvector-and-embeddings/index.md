@@ -209,7 +209,7 @@ One thing to keep in mind is that these indexes are used for `approximate neares
 
 Ok, at this point you should now have a sense of what pgvector is, and how to use it together with Python. However, wouldn't it be great if the vectorizing step could happen all within Postgres?
 
-[**Pg_vectorize**](https://github.com/tembo-io/pg_vectorize) is an extension being developed by **Tembo** that intends to streamline the process of generating vectors from the data in your Postgres tables. If the data changes, a background job updates the embeddings. If you need to find similar vectors, the extension can do that. All within Postgres. Isn't that a cool idea? :wink: 
+[**Pg_vectorize**](https://github.com/tembo-io/pg_vectorize) is an extension being developed by **Tembo** that intends to streamline the process of generating vectors from the data in your Postgres tables. It uses a background worker to generate and update the embeddings in batches every *N* seconds. Also, if you need to find similar vectors, the extension can do that. All within Postgres. Isn't that a cool idea? :wink: 
 
 I invite you to check out the repository and stay tuned.
 
