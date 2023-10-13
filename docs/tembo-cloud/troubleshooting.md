@@ -17,9 +17,9 @@ tags:
 psql 'postgresql://postgres:***@***.data-1.use1.tembo.io:5432?sslmode=require'
 ```
 
-### Tembo requires PostgreSQL clients of version 14+
+### Tembo requires PostgreSQL clients that support Server Name Indication (SNI)
 
-- [Server Name Indication](https://en.wikipedia.org/wiki/Server_Name_Indication) was introduced in version 14, and this feature is used in Tembo to route requests to the appropriate databases
+- [Server Name Indication](https://en.wikipedia.org/wiki/Server_Name_Indication) was introduced in Postgres version 14, and this feature is used in Tembo to route requests to the appropriate databases
   - [Release notes](https://www.postgresql.org/docs/release/14.0/)
 - Ruling out SNI versioning issues
 
