@@ -10,7 +10,7 @@ import AddingJdbc from './images/adding-jdbc.png'
 
 In this guide, we will study the step-by-step procedure to establish a connection to the Postgres database with your Java project. We will take advantage of the JDBC (Java Database Connectivity) driver to setup the connection, and then will take a look at different approaches to integrate the JDBC driver into your project.
 
-Let’s get started
+Let’s get started.
 
 **Step 1** - Integrate the PostgreSQL JDBC driver into your project directory. We can add the JDBC driver either by manually adding the JAR file in the project or using a management tool like Maven.
 
@@ -19,7 +19,7 @@ Let’s get started
 **1.1** - Download the PostgreSQL JDBC Driver in your Device. Visit their [official website](https://jdbc.postgresql.org/download/) to download it.
 
 :::info
-PostgreSQL JDBC Driver is driver that allows the users to connect a Java progam to a PostgreSQL database. It is an Open-source driver. To learn more about it, [check there official documentation](https://jdbc.postgresql.org/)
+PostgreSQL JDBC Driver is driver that allows the users to connect a Java progam to a PostgreSQL database. It is an Open-source driver. To learn more about it, [check there official documentation](https://jdbc.postgresql.org/).
 :::
 
 **1.2** - Add the PostgreSQL JDBC Driver JAR file to your project.
@@ -57,7 +57,7 @@ Check their [official documentation](https://maven.apache.org/what-is-maven.html
 
 You do not need to manually download the JDBC Driver when you are using Maven method. Maven takes care of that by automatically downloading all the required JAR files from remote repositories.
 
-**Step 3** - Connect the PostgreSQL database to your project. Use this code to connect the database
+**Step 3** - Connect the PostgreSQL database to your project. Use this code to connect the database:
 
 ```
 import java.sql.Connection;
@@ -89,7 +89,7 @@ public class PostgreSQLExample {
 
 ```
 
-Make sure to replace the `username`, `password`, and `database_name` with the credentials of your database
+Make sure to replace the `username`, `password`, and `database_name` with the credentials of your database.
 
 **Step 4** - Now you can execute your desired SQL queries to perform operations on database.
 
@@ -107,7 +107,7 @@ System.out.println("Column Value: " + columnValue);
 }
 ```
 
-Use your table name in-place of `employees`
+Use your table name in-place of `employees`.
 
 **Step 5** - Close the connection after you have performed the desired operations on the database.
 
@@ -117,7 +117,7 @@ statement.close();
 connection.close();
 ```
 
-In this example, we have demonstrated how you can read the data, but you can also perform other operations on Posgtres database like Insert, Update, and Create Table
+In this example, we have demonstrated how you can read the data, but you can also perform DML operations on Posgtres like Insert and Update, and DDL operations like Create Table.
 
 **Insert**
 
