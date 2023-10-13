@@ -65,7 +65,7 @@ resp = requests.patch(
     headers={"Authorization": f"Bearer {TEMBO_TOKEN}"},
     json={
         "app_services": [
-            {"postgrest": None},  // default configuration
+            {"restapi": None},  // default configuration
         ]
     }
 )
@@ -79,7 +79,7 @@ resp = requests.patch(
 curl -X PATCH \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
   -H "Content-Type: application/json" \
-  -d '{"app_services": [{"postgrest": null}]}' \
+  -d '{"app_services": [{"restapi": null}]}' \
   "https://api.tembo.io/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
 ```
 
@@ -88,7 +88,7 @@ curl -X PATCH \
 
 ## Using PostgREST
 
-PostgREST is served within your data plane domain. This value is the same value as the host on your Tembo Postgres instance and can be found in at cloud.temb.io. 
+PostgREST is served within your data plane domain. This value is the same value as the host on your Tembo Postgres instance and can be found in at cloud.temb.io.
 
 First, create a table in the database:
 
@@ -115,7 +115,7 @@ PostgREST auto-generates the OpenAPI schema for your tables. You can read this w
 TEMBO_DATA_DOMAIN = os.environ["TEMBO_DATA_DOMAIN"]
 
 resp = requests.get(
-    url=f"https://{TEMBO_DATA_DOMAIN}/",
+    url=f"https://{TEMBO_DATA_DOMAIN}/restapi/v1",
     headers={"Authorization": f"Bearer {TEMBO_TOKEN}"},
 )
 resp.json()['definitions']['products']
@@ -129,7 +129,7 @@ resp.json()['definitions']['products']
 curl -X GET \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
   -H "Content-Type: application/json" \
-  https://${TEMBO_DATA_DOMAIN}/ | jq .definitions.products
+  https://${TEMBO_DATA_DOMAIN}/restapi/v1 | jq .definitions.products
 ```
 
 </TabItem>
@@ -184,7 +184,7 @@ There are no products in the table since we just created it. Let's use the REST 
 
 ```py
 resp = requests.post(
-    url=f"https://{TEMBO_DATA_DOMAIN}/products",
+    url=f"https://{TEMBO_DATA_DOMAIN}/restapi/v1/products",
     headers={"Authorization": f"Bearer {TEMBO_TOKEN}"},
     json=[
       {
@@ -210,7 +210,7 @@ curl -X POST \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
   -H "Content-Type: application/json" \
   -d '[{"name": "ballpoint-pen", "category": "office-supplies", "unit_price": 0.75}, {"name": "stapler", "category": "office-supplies", "unit_price": 2.5}]' \
-  "https://${TEMBO_DATA_DOMAIN}/products"
+  "https://${TEMBO_DATA_DOMAIN}/restapi/v1/products"
 ```
 
 </TabItem>
@@ -226,7 +226,7 @@ Now that we added some data, let's use the REST API to select all records from t
 
 ```py
 resp = requests.get(
-    url=f"https://{TEMBO_DATA_DOMAIN}/products",
+    url=f"https://{TEMBO_DATA_DOMAIN}/restapi/v1/products",
     headers={"Authorization": f"Bearer {TEMBO_TOKEN}"},
 )
 resp.json()
@@ -240,7 +240,7 @@ resp.json()
 curl -X GET \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
   -H "Content-Type: application/json" \
-  https://${TEMBO_DATA_DOMAIN}/products
+  https://${TEMBO_DATA_DOMAIN}/restapi/v1/products
 ```
 
 </TabItem>
@@ -277,7 +277,7 @@ We can also filter the records by adding query parameters to the URL. Let's filt
 
 ```py
 resp = requests.get(
-    url=f"https://{TEMBO_DATA_DOMAIN}/products",
+    url=f"https://{TEMBO_DATA_DOMAIN}/restapi/v1/products",
     headers={"Authorization": f"Bearer {TEMBO_TOKEN}"},
     params={
         "unit_price": "lt.2.00"
