@@ -15,6 +15,48 @@ This tutorial requires the following prerequisites:
 - [just](https://github.com/casey/just) command runner installed
 - [helm](https://helm.sh/) package manager installed
 
+### Optional: Configure your Cluster from Scratch
+
+<details>
+  <summary>These commands follow the AWS guides linked above</summary>
+  <div>
+    <p>
+      <h4>Create a Cluster using eksctl</h4>
+        <code>eksctl create cluster --region us-east-1 --zones=us-east-1a,us-east-1b,us-east-1c,us-east-1d,us-east-1f --version 1.28</code>
+        <h1></h1> 
+    </p>
+    <p>
+      <h4>Find Cluster Name</h4>
+        <code>eksctl get clusters</code>
+    </p>
+    <p>
+      <h4>Determine OIDC Issuer ID</h4>
+        <p><code>cluster_name=<i>my-cluster-name</i></code></p>
+        <p><code>oidc_id=$(aws eks describe-cluster --name $cluster_name --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)</code></p>
+    </p>
+    <p>
+      <h4>Create an OIDC Identity Provider for your cluster</h4>
+        <code>eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve</code>
+    </p>
+    <p>
+      <h4>Create Amazon EBS CSI plugin IAM role</h4>
+      <code>eksctl create iamserviceaccount \
+    --name ebs-csi-controller-sa \
+    --namespace kube-system \
+    --cluster <i>my-cluster-name</i> \
+    --role-name AmazonEKS_EBS_CSI_DriverRole \
+    --role-only \
+    --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
+    --approve</code>
+    </p>
+    <p>
+      <h4>Add Amazon EBS CSI add-on</h4>
+        <code>eksctl create addon --name aws-ebs-csi-driver --cluster <i>my-cluster-name</i> --service-account-role-arn arn:aws:iam::<i>my-account-number</i>:role/AmazonEKS_EBS_CSI_DriverRole --force</code>
+    </p>
+  </div>
+</details>
+
+
 ## Step 1: Clone the repo 
 
 Clone the [Tembo Stacks Repo](https://github.com/tembo-io/tembo-stacks/tree/main).
