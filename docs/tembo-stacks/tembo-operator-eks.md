@@ -12,10 +12,7 @@ This tutorial requires the following prerequisites:
 - AWS EKS Cluster configured with a storage provisioner. See the following guides if you're creating theses from scratch:
   - [Getting started with eksctl](https://eksctl.io/getting-started/)
   - [Managing the Amazon EBS CSI driver as an Amazon EKS add-on](https://docs.aws.amazon.com/eks/latest/userguide/managing-ebs-csi.html)
-- [just](https://github.com/casey/just) command runner installed
-- [helm](https://helm.sh/) package manager installed
-
-### Optional: Configure your Cluster from Scratch
+  - Optional: Configure your Cluster from Scratch
 
 <details>
   <summary>These commands follow the AWS guides linked above</summary>
@@ -56,6 +53,8 @@ This tutorial requires the following prerequisites:
   </div>
 </details>
 
+- [just](https://github.com/casey/just) command runner installed
+- [helm](https://helm.sh/) package manager installed
 
 ## Step 1: Clone the repo 
 
