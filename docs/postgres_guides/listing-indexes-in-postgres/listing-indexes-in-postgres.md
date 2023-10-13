@@ -35,9 +35,9 @@ The [`\di` command (docs)](https://www.postgresql.org/docs/current/app-psql.html
 
 Postgres comes with a system view `pg_indexes` that can be used to list down all the indexes. You can use this SQL query to display the list of all indexes.
 
-**Step 1** - Open your terminal and connect it to your desired Postgres database. Follow our guide to setup the connection with the database, [click here](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres/).
+**Step 1** - Open your terminal and connect it to your desired Postgres database. Follow our [guide to setup the connection with the database](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres/).
 
-**Step 2** - To list down all the indexes, use this sql query –
+**Step 2** - To list down all the indexes, use this sql query:
 
 ```
 SELECT indexname AS index_name,
