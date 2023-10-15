@@ -12,7 +12,7 @@ There's an example of using this method of trying extensions in the blog [Versio
 
 ## Start Postgres using Docker
 
-- You can start a Postgres container locally like this
+- You can start a Postgres container locally like this:
 ```
 docker run -d -it --name local-tembo -p 5432:5432 --rm quay.io/tembo/tembo-local
 ```
@@ -20,13 +20,13 @@ docker run -d -it --name local-tembo -p 5432:5432 --rm quay.io/tembo/tembo-local
 
 ## Install extensions with Trunk
 
-- Browse [Trunk](https://pgt.dev) to find interesting extensions
-- Get a shell connection into your Postgres container
+- Browse [Trunk](https://pgt.dev) to find interesting extensions.
+- Get a shell connection into your Postgres container:
 ```
 docker exec -it local-tembo /bin/bash
 ```
 
-- Trunk install an extension
+- `trunk install` an extension:
 ```
 trunk install pgmq
 ```
@@ -37,11 +37,11 @@ trunk install pgmq
 ```
 psql postgres://postgres:postgres@localhost:5432
 ```
-- Enable an extension. Note a hyphenated extension name, e.g., uuid-ossp, will require double quotes when enabling.
+- Enable an extension. Note a hyphenated extension name, e.g., `uuid-ossp`, will require double quotes when enabling.
 ```
 CREATE EXTENSION pgmq CASCADE;
 ```
-- List enabled extensions
+- List enabled extensions.
 ```
 \dx
 ```
