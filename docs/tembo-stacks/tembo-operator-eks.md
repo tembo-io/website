@@ -9,7 +9,7 @@ Operator on AWS EKS and provides an example of spinning up and connecting to a P
 
 This tutorial requires the following prerequisites:
 
-- AWS EKS Cluster configured with a storage provisioner. See the following guides if you're creating theses from scratch:
+- AWS EKS Cluster configured with a storage provisioner. See the following guides if you're creating these from scratch:
   - [Getting started with eksctl](https://eksctl.io/getting-started/)
   - [Managing the Amazon EBS CSI driver as an Amazon EKS add-on](https://docs.aws.amazon.com/eks/latest/userguide/managing-ebs-csi.html)
   - Optional: Configure your Cluster from Scratch
@@ -86,7 +86,7 @@ just install-chart
 
 Choose a Tembo Stack you would like to use. 
 
-We are using `sample-machine-learning.yaml` but there are [other samples](https://github.com/tembo-io/tembo-stacks/tree/main/tembo-operator/yaml)
+Here we are using `sample-machine-learning.yaml`, but there are [other samples](https://github.com/tembo-io/tembo-stacks/tree/main/tembo-operator/yaml).
 
 ```bash
 kubectl apply -f yaml/sample-machine-learning.yaml
