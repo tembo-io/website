@@ -8,9 +8,9 @@ Machine learning significantly enhances the features and capabilities of applica
 
 ## Extensions
 
-- [postgresml](https://pgt.dev/extensions/postgresml) - `pgml` allows you to train and run machine learning models in Postgres. It supports a variety of models and algorithms, including linear regression, logistic regression, decision tree, random forest, and k-means clustering. It also provides hooks into HuggingFace for downloading and consuming pre-training models and transformers.
-- [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embedding and then conducting vector search on that data.
-- [pg_embedding](https://pgt.dev/extensions/pg_embedding) - an alternative to `pgvector` and provides similar functionality.
+- [postgresml](https://pgt.dev/extensions/postgresml) - `pgml` allows you to train and run machine learning models in Postgres. It supports a variety of models and algorithms, including linear regression, logistic regression, decision tree, random forest, and k-means clustering. It also provides hooks into HuggingFace for downloading and consuming pre-trained models and transformers.
+- [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embeddings and then conducting vector search on that data.
+- [pg_embedding](https://pgt.dev/extensions/pg_embedding) - an alternative to `pgvector` that provides similar functionality.
 - [pg_vectorize](https://pgt.dev/extensions/vectorize) - an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
 
 The extensions listed above are all very flexible and support many use cases. Visit their documentation pages for additional details.
@@ -67,7 +67,7 @@ SELECT vectorize.table(
 
 By default, this job will run to generate and update embeddings every minute based on the `last_updated_at` column. This update process is triggered by a `pg_cron`, which is setup for your automatically by `pg_vectorize`. If there are updates to the `products` table, the next job run will subsequently update the embeddings accordingly.
 
-By default, this will add two columns to your table; `<job_name>_embeddings` and `<job_name>_updated_at`.
+By default, this will add two columns to your table: `<job_name>_embeddings` and `<job_name>_updated_at`.
 
 ```sql
 SELECT column_name
@@ -89,7 +89,7 @@ AND table_name   = 'products';
 
 ### Manually trigger embedding generation
 
-We can manually trigger the update, or wait for the cron job to do it
+We can manually trigger the update, or wait for the cron job to do it.
 
 ```sql
 -- manually trigger the refresh
@@ -140,7 +140,7 @@ WHERE job_name = 'product_search';
 
 ### Tuning performance with indexes
 
-When you have tens of thousands of rows, your query performance will improve by adding an index. See the [pgvector documentation](https://github.com/pgvector/pgvector#indexing) to tune the index for your use case.s
+When you have tens of thousands of rows, your query performance will improve by adding an index. See the [pgvector documentation](https://github.com/pgvector/pgvector#indexing) to tune the index for your use case.
 
 ```sql
 CREATE INDEX ON products USING ivfflat (product_search_embeddings vector_cosine_ops) WITH (lists = 100);
