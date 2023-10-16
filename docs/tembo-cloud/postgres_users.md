@@ -7,7 +7,7 @@ tags:
 
 # Postgres Users
 
-This document will guide you through the two default users and databases that are part of your PostgreSQL deployment.
+This document will guide you through the **two default users and databases** that are part of your PostgreSQL deployment.
 
 ## Overview
 

@@ -20,6 +20,7 @@ sidebar_position: 1
 
 - [GitHub](http://github.com/tembo-io)
 - [X](https://x.com/tembo_io)
+- [LinkedIn](https://www.linkedin.com/company/tembo-inc/)
 - [Blog](/blog)
 - [Slack](https://join.slack.com/t/tembocommunity/shared_invite/zt-24adoic5s-XULZMVjA0blApbpkPA7PXw)
 

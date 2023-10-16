@@ -50,7 +50,7 @@ Today, Tembo is differentiated by:
 ## Monitoring
 
 - We're watching everything for you during Alpha, we'll reach out if we see any problems or opportunities for improvement.
-- Some ideas for self-monitoring in meantime:
+- Some ideas for self-monitoring in the meantime:
   - Connections — you can get a live count of connections with a query like this:
     `select count(*) from pg_stat_activity where usename = 'postgres';`
   - CPU and Memory usage — follow [Aaron Parecki's "Monitoring CPU and memory usage from Postgres" Guide](https://aaronparecki.com/2015/02/19/8/monitoring-cpu-memory-usage-from-postgres)

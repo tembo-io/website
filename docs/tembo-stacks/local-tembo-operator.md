@@ -43,7 +43,7 @@ just install-chart
 
 Choose a Tembo Stack you would like to use. 
 
-We are using `sample-machine-learning.yaml` but there are [other samples](https://github.com/tembo-io/tembo-stacks/tree/main/tembo-operator/yaml)
+Here we are using `sample-machine-learning.yaml`, but there are [other samples](https://github.com/tembo-io/tembo-stacks/tree/main/tembo-operator/yaml).
 
 ```bash
 kubectl apply -f yaml/sample-machine-learning.yaml
