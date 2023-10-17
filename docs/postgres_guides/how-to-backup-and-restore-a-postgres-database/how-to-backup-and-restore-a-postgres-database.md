@@ -46,9 +46,9 @@ Make sure to replace the `username` with your own Posgtres’ username.
 To learn more about it, check their [official documentation](https://www.postgresql.org/docs/current/app-pg-dumpall.html).
 :::
 
-It generates the `backup_file.sql` file which consists of all the necessary sql commands to recreate the entire PostgreSQL cluster.
+It generates the `backup_file.sql` file which consists of all the necessary SQL commands to recreate the entire PostgreSQL cluster.
 
-Just like `pg_dump`, `pg_dumpall` will also generate the `backup_file.sql` file holding all the necessary sql commands to recreate the database.
+Just like `pg_dump`, `pg_dumpall` will also generate the `backup_file.sql` file holding all the necessary SQL commands to recreate the database.
 
 ### Using a Continuous Archiving Solution
 
