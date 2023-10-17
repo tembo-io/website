@@ -1,4 +1,9 @@
-## Hacking Postgres, Ep. 4: Pavlo Golub
+---
+slug: hacking-postgres-ep4
+title: "Hacking Postgres, Ep. 4: Pavlo Golub"
+authors: [eric]
+tags: [postgres, hacking_postgres]
+---
 
 In this episode, Ry and Pavlo talk about pg_timetable, about the value and place of risk in the ecosystem, and about building for the Postgres core. If you haven’t seen or listened to it yet, you can watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Pavlo for joining us today!
 
