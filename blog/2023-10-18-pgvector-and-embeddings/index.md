@@ -8,7 +8,7 @@ image: ./RAG.png
 
 *Language models are like the wizards of the digital world, conjuring up text that sounds eerily human. These marvels of artificial intelligence, such as GPT-3.5, are sophisticated algorithms that have been trained on vast swathes of text from the internet. They can understand context, generate coherent paragraphs, translate languages, and even assist in tasks like writing, chatbots, and more. Think of them as your trusty digital scribe, ready to assist with their textual sorcery whenever you summon them.*
 
-If you have used ChatGPT in the past, you probably were able to suspect that the previous paragraph was generated using it. And that's true :smiley: See the prompt [here](https://chat.openai.com/share/9fab8ac9-6e34-481d-a281-db2f00b0f7f5).
+If you have used ChatGPT in the past, you probably were able to suspect that the previous paragraph was generated using it. And that's true. See the prompt [here](https://chat.openai.com/share/9fab8ac9-6e34-481d-a281-db2f00b0f7f5).
 
 From the example above, you can witness the eloquence LLMs are capable of. Some people have been shocked so much that they became convinced that these [models were sentient](https://www.scientificamerican.com/article/google-engineer-claims-ai-chatbot-is-sentient-why-that-matters/). However, in the end, they are nothing but a large, complex series of [matrix and vector operations](https://www.youtube.com/watch?v=bCz4OMemCcA). These matrices and vectors have been trained to represent the semantic meaning of words.
 
@@ -44,10 +44,10 @@ for sentence, embedding in zip(sentences, sentence_embeddings):
 ```
 
 :::note 
-The code used in this blog post can be found in [this gist](https://gist.github.com/binidxaba/2eb3bff573c6be700e4391d650a302db). :wink:
+The code used in this blog post can be found in [this gist](https://gist.github.com/binidxaba/2eb3bff573c6be700e4391d650a302db).
 :::
 
-The mind-blowing part is that words and sentences with a similar meaning will have similar vectors. 🤯 This characteristic is the basis of a search technique called similarity search, where we simply find the nearest embedding vectors to find texts that are similar to our query.
+The mind-blowing part is that words and sentences with a similar meaning will have similar vectors. This characteristic is the basis of a search technique called similarity search, where we simply find the nearest embedding vectors to find texts that are similar to our query.
 
 
 ## Postgres meets Language Models
@@ -209,12 +209,12 @@ One thing to keep in mind is that these indexes are used for `approximate neares
 
 Ok, at this point you should now have a sense of what pgvector is, and how to use it together with Python. However, wouldn't it be great if the vectorizing step could happen all within Postgres?
 
-[**Pg_vectorize**](https://github.com/tembo-io/pg_vectorize) is an extension being developed by **Tembo** that intends to streamline the process of generating vectors from the data in your Postgres tables. It uses a background worker to generate and update the embeddings in batches every *N* seconds. Also, if you need to find similar vectors, the extension can do that. All within Postgres. Isn't that a cool idea? :wink: 
+[**Pg_vectorize**](https://github.com/tembo-io/pg_vectorize) is an extension being developed by **Tembo** that intends to streamline the process of generating vectors from the data in your Postgres tables. It uses a background worker to generate and update the embeddings in batches every *N* seconds. Also, if you need to find similar vectors, the extension can do that. All within Postgres. Isn't that a cool idea? 
 
 I invite you to check out the repository and stay tuned.
 
 
-## Conclusion
+## To wrap up...
 
 In this post, we briefly discussed the concept of `embeddings`, why they are important, and how they can be generated using one of the multiple available libraries. We also explored how to store and query the resulting vectors using Postgres and the pgvector extension.
 
