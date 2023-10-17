@@ -1,13 +1,13 @@
 ---
 slug: hacking-postgres-ep1
-title: "Hacking Postgres Episode 1: Marco Slot - pg_cron, CitusData and Microsoft"
+title: "Hacking Postgres Ep. 1: Marco Slot"
 authors: [eric]
 tags: [postgres, hacking_postgres]
 ---
 
 ## Episode Notes
 
-In this episode, Ry and Marco talk about the early days of Citus and its development, creating pg_cron (on a plane!), and the new possibilities on the horizon for extensions in the Postgres landscape. Special thanks to Marco for joining us today!
+In this episode, Ry and Marco talk about the early days of Citus and its development, creating pg_cron (on a plane!), and the new possibilities on the horizon for extensions in the Postgres landscape. If you haven’t seen or listened to it yet, you can play the video below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Marco for joining us today!
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/UxUrn6bKDfU?si=JMm_cMMPToh1K2KK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
