@@ -7,12 +7,21 @@ tags:
 
 # Postgres Configuration
 
-Postgres allows for a wide range of configuration options. This document will guide you through the process of configuring your Postgres instance on Tembo Cloud.
+Postgres allows for setting a wide range of configuration options. These configurations include settings for memory, vacuum, 
+extensions, logging, and more.
+
+This document will guide you through the process of setting Postgres configuration values on Tembo Cloud.
+For a full list of configuration options, visit https://postgresqlco.nf/doc/en/param/.
 
 ## Setting Postgres Configuration Values via the Tembo Cloud API
 
 :::info
 Coming soon: Configure Postgres via the [Tembo Cloud UI](https://cloud.tembo.io)
+:::
+
+:::note
+Configuration values set via API are not validated. Please ensure the configuration value you're setting is valid.
+More information on valid Postgres configuration values can be found at https://postgresqlco.nf/doc/en/param/.
 :::
 
 First, you will need to generate an API token so that you can communicate with your Tembo instance. Navigate to https://cloud.tembo.io/generate-jwt and follow the instructions to generate a token.
@@ -62,22 +71,22 @@ curl -X 'PATCH' \
 
 ## Confirming Configuration Values are Applied
 
-You can confirm that your configuration values are applied by connecting to your Postgres instance and running the following:
+You can confirm that your configuration values are applied by connecting to your Postgres instance and running `SHOW <configuration-name>`:
 
 ```sql
-postgres=# show max_connections;
+postgres=# SHOW max_connections;
  max_connections
 -----------------
  500
 (1 row)
 
-postgres=# show log_connections;
+postgres=# SHOW log_connections;
  log_connections
 -----------------
  on
 (1 row)
 
-postgres=# show log_disconnections;
+postgres=# SHOW log_disconnections;
  log_disconnections
 --------------------
  on
