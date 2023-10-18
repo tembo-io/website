@@ -16,7 +16,7 @@ For a full list of configuration options, visit https://postgresqlco.nf/doc/en/p
 ## Setting Postgres Configuration Values via the Tembo Cloud API
 
 :::info
-Coming soon: Configure Postgres via the [Tembo Cloud UI](https://cloud.tembo.io)
+Coming soon: Set Postgres configuration values via the [Tembo Cloud UI](https://cloud.tembo.io)
 :::
 
 :::note
@@ -24,17 +24,19 @@ Configuration values set via API are not validated. Please ensure the configurat
 More information on valid Postgres configuration values can be found at https://postgresqlco.nf/doc/en/param/.
 :::
 
-First, you will need to generate an API token so that you can communicate with your Tembo instance. Navigate to https://cloud.tembo.io/generate-jwt and follow the instructions to generate a token.
+1. Generate an API token for communicating with your Tembo instance. Navigate to https://cloud.tembo.io/generate-jwt and follow the instructions to generate a token.
 
-Set the following environment variables:
 
-```bash
-export TEMBO_TOKEN=<your token>
-export TEMBO_ORG=<your organization id>
-export TEMBO_INST=<your instance id>
-```
+2. Set the following environment variables:
 
-Patch your existing Tembo instance with new configuration values using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi).
+    ```bash
+    export TEMBO_TOKEN=<your token>
+    export TEMBO_ORG=<your organization id>
+    export TEMBO_INST=<your instance id>
+    ```
+
+
+3. Patch your existing Tembo instance with new configuration values using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi).
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
