@@ -61,3 +61,25 @@ curl -X 'PATCH' \
 </Tabs>
 
 ## Confirming Configuration Values are Applied
+
+You can confirm that your configuration values are applied by connecting to your Postgres instance and running the following:
+
+```sql
+postgres=# show max_connections;
+ max_connections
+-----------------
+ 500
+(1 row)
+
+postgres=# show log_connections;
+ log_connections
+-----------------
+ on
+(1 row)
+
+postgres=# show log_disconnections;
+ log_disconnections
+--------------------
+ on
+(1 row)
+```
