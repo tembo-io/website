@@ -12,7 +12,7 @@ This tutorial requires the following prerequisites:
 - [Docker](https://www.docker.com/) running locally
 - [just](https://github.com/casey/just) command runner installed
 - [helm](https://helm.sh/) package manager installed
-- (Rust](https://www.rust-lang.org/tools/install) installed
+- [Rust](https://www.rust-lang.org/tools/install) installed
 
 ## Step 1: Clone the repo 
 
