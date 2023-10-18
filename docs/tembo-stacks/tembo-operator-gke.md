@@ -2,10 +2,10 @@
 sidebar_position: 9
 ---
 
-# Running the Tembo Operator on AWS EKS
+# Running the Tembo Operator on GCP GKE
 
 The Tembo Operator allows you to run multiple Tembo Stacks on Kubernetes. This guide shows you how to set up the Tembo
-Operator on AWS EKS and provides an example of spinning up and connecting to a Postgres instance hosted on Kubernetes.
+Operator on GCP GKE and provides an example of spinning up and connecting to a Postgres instance hosted on Kubernetes.
 
 This tutorial requires the following prerequisites:
 
