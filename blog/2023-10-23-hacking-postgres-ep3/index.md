@@ -12,7 +12,6 @@ In this episode, Ry and Eric talk about ZomboDB, the complicated road that led t
 Want to know more about something they mentioned? Here’s a starting point:
 
 
-
 * ZomboDB - https://github.com/zombodb/zombodb
 * pgrx - https://github.com/pgcentralfoundation/pgrx
 * plrust - https://github.com/tcdi/plrust
