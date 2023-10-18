@@ -7,9 +7,9 @@ tags:
 
 # Postgres Configuration
 
-Intro about configuration
+Postgres allows for a wide range of configuration options. This document will guide you through the process of configuring your Postgres instance on Tembo Cloud.
 
-## Configuring Postgres via the Tembo Cloud API
+## Setting Postgres Configuration Values via the Tembo Cloud API
 
 :::info
 Coming soon: Configure Postgres via the [Tembo Cloud UI](https://cloud.tembo.io)
