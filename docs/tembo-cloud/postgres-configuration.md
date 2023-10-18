@@ -36,7 +36,7 @@ More information on valid Postgres configuration values can be found at https://
     ```
 
 
-3. Patch your existing Tembo instance with new configuration values using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi).
+3. Patch your existing Tembo instance with new configuration values using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi):
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -75,7 +75,7 @@ curl -X 'PATCH' \
 
 You can confirm that your configuration values are applied by connecting to your Postgres instance and running `SHOW <configuration-name>`:
 
-```sql
+```shell
 postgres=# SHOW max_connections;
  max_connections
 -----------------
