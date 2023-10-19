@@ -7,7 +7,13 @@ tags:
 
 # Connection Pooling
 
-Intro
+
+A connection pooler is a tool used to manage database connections, sitting between your application and Postgres
+instance. Because of the way Postgres handles connections, the server may encounter resource constraint issues when
+managing a few thousand connections. Using a pooler can alleviate these issues by using actual Postgres connections
+only when necessary, allowing for easier handling of thousands of connections at a lower cost.
+
+This document will guide you through the process of enabling and configuring connection pooling on Tembo Cloud.
 
 ## Enabling and Configuring Connnection Pooling via the Tembo Cloud API
 
