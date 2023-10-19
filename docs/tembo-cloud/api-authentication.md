@@ -11,7 +11,7 @@ To explore the Tembo Cloud API, visit our [API documentation](/docs/tembo-cloud/
 
 ### Create a personal access token
 
-After logging into Tembo Cloud, navigate here: https://cloud.tembo.io/generate-jwt
+After logging in to Tembo Cloud, navigate here: https://cloud.tembo.io/generate-jwt
 
 ### Test an API request
 
