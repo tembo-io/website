@@ -4,7 +4,7 @@ tags:
   - Postgres Basics
 ---
 
-# Connecting to Postgres with C#
+# Connecting to Postgres with C-sharp
 
 In this tutorial, we have provided a thorough, step-by-step guide for creating a connection to a PostgreSQL database using C#. We will utilize the Npgsql package for establishing a connection to the Postgres database.
 
