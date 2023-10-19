@@ -170,6 +170,6 @@ In this example, we have demonstrated how you can read the data, but you can als
 
 In this guide, we discussed the step-by-step process to connect to the Postgres database with Java.
 
-Working on a C# project? Explore our [C# guide](https://tembo.io/docs/postgres_guides/connecting-to-postgres-with-c/) to learn how to establish a connection with a PostgreSQL database using C#.
+Working on a C# project? Explore our [C# guide](https://tembo.io/docs/postgres_guides/connecting-to-postgres-with-c-sharp/) to learn how to establish a connection with a PostgreSQL database using C#.
 
 Also, check out our new extensions [pgmq](https://tembo.io/blog/introducing-pgmq) and [pg_later](https://tembo.io/blog/introducing-pg-later) which can help you manage basic message and long-running query operations.

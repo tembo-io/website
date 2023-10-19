@@ -12,6 +12,7 @@ This tutorial requires the following prerequisites:
 - [Docker](https://www.docker.com/) running locally
 - [just](https://github.com/casey/just) command runner installed
 - [helm](https://helm.sh/) package manager installed
+- [Rust](https://www.rust-lang.org/tools/install) installed
 
 ## Step 1: Clone the repo 
 
@@ -55,22 +56,18 @@ Get your connection password and save it as an environment variable.
 
 ```bash
 export PGPASSWORD=$(kubectl get secrets/sample-machine-learning-connection --template={{.data.password}} | base64 -D)
-```  
-
-## Step 7: Configure /etc/hosts
-
-Add the following line to `/etc/hosts`
-
-```bash
-127.0.0.1 sample-machine-learning.localhost
 ```
+
+## Step 7: Expose the service to localhost 
+
+kubectl port-forward svc/sample-machine-learning-rw 5432:5432 
 
 ## Step 8: Connect
 
 Connect to the running Postgres instance:
 
 ```bash
-psql postgres://postgres:$PGPASSWORD@sample-machine-learning.localhost:5432
+psql postgres://postgres:$PGPASSWORD@localhost:5432
 ```  
 
 ## Step 9. Enjoy and ask questions!
