@@ -46,7 +46,7 @@ In this example, the `home_coordinates` column will store an array of maximum le
 
 **Step 2** - Now, you insert the array values in the column. Postgres has two different methods to insert array values:
 
-### Using `ARRAY` constructor
+**Using `ARRAY` constructor**
 
 Postgres comes with an `ARRAY` constructor that can be initialized in the SQL query to insert the array values into the table:
 
@@ -56,19 +56,19 @@ INSERT INTO students (id, name, age, home_coordinates) VALUES (1, 'John', 15, AR
 
 Learn more about `ARRAY` constructor on their [official website](https://www.postgresql.org/docs/current/sql-expressions.html#SQL-SYNTAX-ARRAY-CONSTRUCTORS).
 
-### Directly inserting values
+**Directly inserting values**
 
 You can also use braces to represent an array:
 
 ```
-INSERT INTO students (id, name, age, subjects) VALUES (1, 'John', 15, {40.7, 74.0});
+INSERT INTO students (id, name, age, home_coordinates) VALUES (1, 'John', 15, {40.7, 74.0});
 ```
 
 **Step 3** - You can query the data from the array column and display it. Postgres also comes with a way to fetch specific data from the whole array and showcase it.
 
 Specify the element number along with the column name that you want to fetch. Following command will display the first element of `home_coordinates` array: 
 ```
-SELECT home_coordinates[1] FROM students;  -– display the 1st element
+SELECT home_coordinates[1] FROM students;  
 ```
 
 <img src={SelectElement} width="600" alt="SelectElement" />
