@@ -35,7 +35,7 @@ Tembo Cloud distinguishes itself from other managed Postgres offerings in severa
 
 It also introduces the concept of [Stacks](https://tembo.io/blog/tembo-stacks-intro), which are pre-built use-case-specific Postgres deployments which are optimized and tuned to serve a specific workload.
 
-### Roll your own
+### Roll Your Own
 
 In order to build these unique capabilities, we knew we’d need to harness the power and flexibility of a Kubernetes operator in our own way. Although there are several Kubernetes operators for Postgres available, none of them offer the same unique Postgres extension management experience or the concept of Stacks.
 
@@ -222,7 +222,8 @@ postgres=# \dx
  vectorize          | 0.0.2   | vectorize  | The simplest way to do vector search on Postgres
 ```
 
-## Try it out or contribute
+## Up Next
+We’re currently working on exciting new features that enable the deployment of custom applications alongside Postgres. These features include a REST API, GraphQL, and more. Stay tuned for future updates!
 
 For more information on running the Tembo Operator, check out our docs at:
 - https://tembo.io/docs/tembo-stacks/local-tembo-operator
