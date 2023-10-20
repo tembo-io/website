@@ -8,9 +8,9 @@ tags: [postgres, hacking_postgres]
 
 In this episode, Ry and Alexander talk about OrioleDB (and the challenge of fighting bloat), fuzzy and vector search, and the challenges behind database management. Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Alexander for joining us today!
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/FrOvwkmAPvg?si=9OgASSFxHfkYSfb2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 Want to know more about something they mentioned? Here’s a starting point:
-
-
 
 * OrioleDB - [https://www.orioledata.com/](https://www.orioledata.com/)
 * fuzzystrmatch - https://www.postgresql.org/docs/current/fuzzystrmatch.html
