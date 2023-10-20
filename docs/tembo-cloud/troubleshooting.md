@@ -13,7 +13,7 @@ tags:
 - Please use the sslmode 'require' to avoid this issue, and Tembo team will work on getting this issue resolved for sslmode 'prefer'.
 - Tembo will only accept encrypted connections, regardless of sslmode configured on the client side.
 
-```
+```bash
 psql 'postgresql://postgres:***@***.data-1.use1.tembo.io:5432?sslmode=require'
 ```
 
@@ -27,7 +27,7 @@ Connection examples are provided [here](/docs/category/connection-examples).
 
   - This command will attempt to connect to your cluster using a known, working version of psql. Replace the connection string with your connection string, found in the Tembo UI
 
-  ```
+  ```bash
    docker run -it --rm \
       --entrypoint=psql postgres:15 \
       'postgresql://postgres:***@***.data-1.use1.tembo.io:5432?sslmode=require'
@@ -36,7 +36,7 @@ Connection examples are provided [here](/docs/category/connection-examples).
 - If the above fails, you may have problems reaching your cluster
 - Here is an example of installing an updated PostgreSQL client on a Debian-based linux system
 
-  ```
+  ```bash
   sudo apt-get update && sudo apt-get install -y lsb-release
   sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
   wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo tee /etc/apt/trusted.gpg.d/pgdg.asc &>/dev/null

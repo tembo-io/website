@@ -111,7 +111,7 @@ psql: error: connection to server at "steven.tembo-development.com" (23.23.245.5
 
 For example, using the API:
 
-```
+```bash
 ORG_ID='org_2T7FJA0DpaNBnELVLU1IS4XzZG0'
 INST_ID='inst_1694461015944_UYCow2_0'
 JWT='****'

@@ -20,7 +20,7 @@ It is more secure to connect to Tembo Cloud with certificate validation, using s
 
 For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](/docs/tembo-cloud/api-authentication).
 
-```
+```bash
 ORG_ID='org_id123456'
 INST_ID='inst_id123456'
 JWT="****"
