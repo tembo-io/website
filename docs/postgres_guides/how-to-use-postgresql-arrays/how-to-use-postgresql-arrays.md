@@ -81,9 +81,9 @@ SELECT * FROM students WHERE 40 < ANY (home_coordinates);
 
 <img src={WhereClause} width="600" alt="WhereClause" />
 
-**Step 4** - There are also methods to manipulate or update the data in the array. You can use the traditional `UPDATE` method to update the data:
+**Step 4** - There are also methods to manipulate or update the data in the array. You can use the traditional `UPDATE` statement to update the data:
 
-`UPDATE` method can be used to remove element(s) from the array. To remove the value `74.0` from the array, execute the following command: 
+`UPDATE` statement can be used to remove element(s) from the array. To remove the value `74.0` from the array, execute the following command: 
 
 ```
  UPDATE students SET home_coordinates = array_remove(home_coordinates, 74.0);
