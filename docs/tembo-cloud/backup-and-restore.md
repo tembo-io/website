@@ -24,26 +24,13 @@ Tembo sets `archive_timeout` to 5min, ensuring that WAL files are closed and arc
 
 ## Restore
 
-In Tembo Cloud, we support Point-In-Time Recovery (PITR) to a new Tembo Cluster for the last 30 days. Backup data is saved an additional 30 days after deletion to protect against accidental deletion, so backup data in total is retained for 60 days.
+Tembo Cloud supports Point-In-Time Recovery (PITR) to a new Tembo Instance for all running Instances and for 30 days after deletion.
 
 :::info
 Coming soon: Point-In-Time Recovery (PITR) via the [Tembo Cloud UI](https://cloud.tembo.io)
 :::
 
-1. Generate an API token for communicating with your Tembo instance. Navigate to https://cloud.tembo.io/generate-jwt and follow the instructions to generate a token.
-
-
-2. Set the following environment variables:
-
-    ```bash
-    export TEMBO_TOKEN=<your token>
-    export TEMBO_ORG=<your organization id>
-    export TEMBO_INST=<your instance id>
-    ```
-
-3. Initiate a restore from an existing instance using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi/#tag/instance/operation/restore_instance):
-
-### Full Restore
+For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](/docs/tembo-cloud/api-authentication)
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -52,57 +39,21 @@ import TabItem from '@theme/TabItem';
 <TabItem value="curl" label="Curl">
 
 ```shell
+export TEMBO_TOKEN=<your token>
+export TEMBO_ORG=<your organization id>
+export TEMBO_INST_RESTORE_FROM=<your instance id>
+export TEMBO_INST_RESTORE_TO=<your new instance name>
+export TEMBO_RECOVERY_TIME=$(date -u +'%Y-%m-%dT%H:%M:%SZ' -d '-5 minutes')
+
 curl -X 'POST' \
   "https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/restore" \
   -H "accept: application/json" \
   -H "Authorization: Bearer $TEMBO_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "instance_name": "$TEMBO_INST-restore",
+    "instance_name": "$TEMBO_INST_RESTORE_TO",
     "restore": {
-      "instance_id": "$TEMBO_INST"
-    }
-}'
-```
-
-</TabItem>
-</Tabs>
-
-### Point-In-Time (PITR) Restore
-
-1. To initiate a PITR you will need to get the earliest time to recover using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi):
-
-    ```bash
-    curl -X 'GET' \
-      "https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/instances/$TEMBO_INST" \
-      -H "accept: application/json" \
-      -H "Authorization: Bearer $TEMBO_TOKEN" \
-      -H "Content-Type: application/json" | | jq .first_recoverability_time 
-    ```
-
-2. Now pick a time you want to restore to based off your `first_recoverability_time` and the current date and time.
-
-    ```bash
-    export TEMBO_RECOVERY_TIME="2023-10-18T23:00:08Z"
-
-    ```
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs>
-<TabItem value="curl" label="Curl">
-
-```shell
-curl -X 'POST' \
-  "https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/restore" \
-  -H "accept: application/json" \
-  -H "Authorization: Bearer $TEMBO_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "instance_name": "$TEMBO_INST-restore",
-    "restore": {
-      "instance_id": "$TEMBO_INST",
+      "instance_id": "$TEMBO_INST_RESTORE_FROM",
       "recovery_target_time": "$TEMBO_RECOVERY_TIME"
     }
 }'
@@ -110,3 +61,7 @@ curl -X 'POST' \
 
 </TabItem>
 </Tabs>
+
+* If `recovery_target_time` is omitted from the API call then it will use now as the time
+
+For more information to restore from an existing instance, please use the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi/#tag/instance/operation/restore_instance) documentation.
