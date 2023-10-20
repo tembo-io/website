@@ -62,6 +62,6 @@ curl -X 'POST' \
 </TabItem>
 </Tabs>
 
-* If `recovery_target_time` is omitted from the API call then it will use now as the time
+If `recovery_target_time` is omitted, then it will use now as the time.
 
 For more information to restore from an existing instance, please use the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi/#tag/instance/operation/restore_instance) documentation.
