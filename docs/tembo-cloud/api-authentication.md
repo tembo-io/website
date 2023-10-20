@@ -17,7 +17,7 @@ After logging in to Tembo Cloud, navigate here: https://cloud.tembo.io/generate-
 
 Then, you can use this token in API requests to Tembo Cloud, for example:
 
-```shell
+```bash
 export TOKEN='******'
 
 curl "https://api.tembo.io/api/v1/orgs/instances/schema" \
