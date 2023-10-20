@@ -64,6 +64,12 @@ metadata:
   name: postgres-selfsigned-ca
   namespace: cert-manager
 spec:
+  commonName: data-1.use1.tembo.io
+  subject:
+    organizations:
+      - tembo
+    organizationalUnits:
+      - engineering
   dnsNames:
     - data-1.use1.coredb.io
     - data-1.use1.tembo.io
