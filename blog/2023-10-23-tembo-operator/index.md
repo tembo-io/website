@@ -49,7 +49,7 @@ Initially, we attempted to build our own operator from scratch. We had successfu
 
 ### CNPG to the Rescue
 
-Enter [CloudNativePG](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiym_u5qoOCAxW7DjQIHea4A9YQFnoECB0QAQ&url=https%3A%2F%2Fcloudnative-pg.io%2F&usg=AOvVaw3zVPBgsCHHskahSDYpbc1r&opi=89978449) (CNPG). CNPG is a Kubernetes operator for Postgres created by the folks at EDB. We found it to be the most compelling of the many Kubernetes operators for Postgres out there. It provided many of the features we needed, including backup, recovery, connection pooling, failover, and upgrades. However, we still needed the ability to install and enable any Postgres extensions on the fly and define Stacks.
+Enter [CloudNativePG](https://cloudnative-pg.io/) (CNPG). CNPG is a Kubernetes operator for Postgres created by the folks at EDB. We found it to be the most compelling of the many Kubernetes operators for Postgres out there. It provided many of the features we needed, including backup, recovery, connection pooling, failover, and upgrades. However, we still needed the ability to install and enable any Postgres extensions on the fly and define Stacks.
 
 This is where the Tembo Operator comes in. We built the Tembo Operator in a way that utilizes CNPG, which enables us to offer a distinctive management experience for Postgres extensions and Stacks while utilizing a reliable and stable Postgres solution.
 
