@@ -38,7 +38,7 @@ CREATE TABLE students(
     id integer PRIMARY KEY,
     name VARCHAR(30),
     age integer,
-    home_coordinatesREAL[2]
+    home_coordinates REAL[2]
 );
 ```
 
@@ -66,41 +66,42 @@ INSERT INTO students (id, name, age, subjects) VALUES (1, 'John', 15, {40.7, 74.
 
 **Step 3** - You can query the data from the array column and display it. Postgres also comes with a way to fetch specific data from the whole array and showcase it.
 
-Specify the element number along with the column name that you want to fetch:
-
+Specify the element number along with the column name that you want to fetch. Following command will display the first element of `home_coordinates` array: 
 ```
 SELECT home_coordinates[1] FROM students;  -– display the 1st element
 ```
 
 <img src={SelectElement} width="600" alt="SelectElement" />
 
-You can also specify a `WHERE` clause condition in the query:
+You can also specify a `WHERE` clause condition in the query. Following command will display the whole row where the latitude or longitude of a home is above 40 degrees:
 
 ```
-SELECT * FROM students WHERE 40 < ANY (home_coordinates); –- display the whole row where the latitude or longitude of a home is above 40 degrees
+SELECT * FROM students WHERE 40 < ANY (home_coordinates); 
 ```
 
 <img src={WhereClause} width="600" alt="WhereClause" />
 
 **Step 4** - There are also methods to manipulate or update the data in the array. You can use the traditional `UPDATE` method to update the data:
 
-`UPDATE` method can be used to remove element(s) from the array:
+`UPDATE` method can be used to remove element(s) from the array. To remove the value `74.0` from the array, execute the following command: 
 
 ```
- UPDATE students SET home_coordinates = array_remove(home_coordinates, 74.0); -- Removes the element 74.0 from the array
+ UPDATE students SET home_coordinates = array_remove(home_coordinates, 74.0);
 ```
 
 <img src={RemoveElement} width="700" alt="RemoveElement" />
 
-It can then be used to append data to the array
+It can then be used to append data to the array. To add the value `80.0` at the end of `home_coordinates` array, execute the following command:
 
 ```
-UPDATE students SET home_coordinates = home_coordinates || ARRAY[120]; -- Adds 120 to the end of the array
+UPDATE students SET home_coordinates = home_coordinates || ARRAY[80.0];
 ```
 
 <img src={AddElement} width="700" alt="AddElement" />
 
-**Step 5** - PostgreSQL offers a range of utilities to manage arrays. Some of these popular array functions are `array_cat`, `array_dims`, `array_length`, etc.
+## Array Functions in Postgres
+
+PostgreSQL offers a range of utilities to manage arrays. Some of these popular array functions are `array_cat`, `array_dims`, `array_length`, etc.
 
 `array_cat` function concatenates or merges multiple arrays and returns the merged array:
 
@@ -123,6 +124,8 @@ SELECT array_dims(array[[1, 2, 3], [4, 5, 6]]);
 ```
  SELECT array_length(home_coordinates, 1) AS total_coordinates FROM students;
 ```
+
+In this example, `1` represents the dimension of the array whose length you want to calculate.
 
 <img src={ArrayLength} width="700" alt="ArrayLength" />
 
