@@ -32,35 +32,30 @@ Coming soon: Point-In-Time Recovery (PITR) via the [Tembo Cloud UI](https://clou
 
 For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](/docs/tembo-cloud/api-authentication).
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs>
-<TabItem value="curl" label="Curl">
-
 ```shell
-export TEMBO_TOKEN=<your token>
-export TEMBO_ORG=<your organization id>
-export TEMBO_INST_RESTORE_FROM=<your instance id>
-export TEMBO_INST_RESTORE_TO=<your new instance name>
-export TEMBO_RECOVERY_TIME=$(date -u +'%Y-%m-%dT%H:%M:%SZ' -d '-5 minutes')
+TEMBO_TOKEN=<your token>
+TEMBO_ORG=<your organization id>
+TEMBO_INST_RESTORE_FROM=<your instance id>
+TEMBO_INST_RESTORE_TO=<your new instance name>
+
+# Recover to five minutes ago
+TEMBO_RECOVERY_TIME=$(date -u +'%Y-%m-%dT%H:%M:%SZ' -d '-5 minutes')
 
 curl -X 'POST' \
   "https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/restore" \
   -H "accept: application/json" \
   -H "Authorization: Bearer $TEMBO_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{
+  -d @- <<EOF
+{
     "instance_name": "$TEMBO_INST_RESTORE_TO",
     "restore": {
-      "instance_id": "$TEMBO_INST_RESTORE_FROM",
-      "recovery_target_time": "$TEMBO_RECOVERY_TIME"
+        "instance_id": "$TEMBO_INST_RESTORE_FROM",
+        "recovery_target_time": "$TEMBO_RECOVERY_TIME"
     }
-}'
+}
+EOF
 ```
-
-</TabItem>
-</Tabs>
 
 If `recovery_target_time` is omitted, then it will use now as the time.
 
