@@ -20,7 +20,7 @@ Postgres workloads are running on shared compute infrastructure.
 Compute isolation is handled with containers. To address container escape attacks, Tembo Cloud does not allow root and drops all Linux capabilities from the container using Kubernetes security policies.
 
 Kubernetes Pod configuration excerpt:
-```
+```yaml
 securityContext:
   allowPrivilegeEscalation: false
   capabilities:
@@ -33,13 +33,110 @@ securityContext:
 
 Network isolation is handled with Kubernetes network policies, which are handled by [Calico](https://docs.tigera.io/calico/latest/reference/installation/api). Each server is in an isolated namespace, with a default deny-all network policy. Network access is permitted on a case-by-case basis, and the configurations are open source in [this file](https://github.com/tembo-io/tembo-stacks/blob/main/tembo-operator/src/network_policies.rs).
 
+## Data storage
+
+For instances deployed to an Amazon Web Services (AWS) region, the data and extensions of each instance are stored in a dedicated Elastic Block Storage volume (EBS gp3). The volumes are encrypted with [AES-256 using AWS-managed keys](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html).
+
 ## Network connections
 
 Postgres connections are encrypted and authenticated inside each customer's database. When an end user connects to their Tembo Cloud instance, they are establishing an encrypted TLS session with their Postgres server. There is no part of the network that decrypts the user's connections, and connections are routed into the correct database using [Server Name Indication](https://https.cio.gov/sni/), which is an extension of TLS that allows for routing connections to different hosts without decrypting the traffic. Likewise, username / password authentication to Postgres is performed in the customer's database.
 
-## Data storage
+### SSL and certificates
 
-For instances deployed to an Amazon Web Services (AWS) region, the data and extensions of each instance are stored in a dedicated Elastic Block Storage volume (EBS gp3). The volumes are encrypted with [AES-256 using AWS-managed keys](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html).
+Tembo Cloud supports [Postgres Connection sslmode](https://www.postgresql.org/docs/current/libpq-ssl.html) `require`, `verify-ca`, and `verify-full`. Users cannot connect to their database without using encryption. For a guide on how to connect with these modes, please see the [Tembo sslmode documentation](/docs/tembo-cloud/connecting-with-stronger-sslmode).
+
+Tembo uses a self-signed certificate authority (CA) to issue unique certificates for each Tembo Instance. The CA is managed with [cert-manager](https://cert-manager.io/). All Tembo Instances are issued unique certificates with no wildcard domains. A self-signed CA is used instead of a publicly trusted CA so that Tembo can manage the CA used to sign leaf certificates for each Tembo Instance, allowing for scalable certificate management. Public CAs will not issue leaf certificates quickly enough or in high enough volume to allow for a platform-as-a-service use case, where each database will have unique certificates.
+
+The certificate infrastructure is configured like this:
+
+```yaml
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigning-postgres-ca-issuer
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgres-selfsigned-ca
+  namespace: cert-manager
+spec:
+  commonName: data-1.use1.tembo.io
+  subject:
+    organizations:
+      - tembo
+    organizationalUnits:
+      - engineering
+  dnsNames:
+    - data-1.use1.coredb.io
+    - data-1.use1.tembo.io
+  isCA: true
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: selfsigning-postgres-ca-issuer
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  secretName: postgres-ca-secret
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: postgres-server-issuer
+spec:
+  ca:
+    secretName: postgres-ca-secret
+```
+
+Above, we use a self-signed ClusterIssuer to create a self-signed CA Certificate. Then, another ClusterIssuer is created to issue certificates for Tembo Instances using that CA.
+
+Each tembo instance will have certificates created, for example like this:
+
+```yaml
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: instance-name
+  namespace: namespace
+spec:
+  dnsNames:
+  - instance-name.data-1.use1.tembo.io
+  - instance-name-rw
+  - instance-name-rw.namespace
+  - instance-name-rw.namespace.svc
+  - instance-name-r
+  - instance-name-r.namespace
+  - instance-name-r.namespace.svc
+  - instance-name-ro
+  - instance-name-ro.namespace
+  - instance-name-ro.namespace.svc
+  - instance-name-rw
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: postgres-server-issuer
+  secretName: ...
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: instance-name
+  namespace: namespace
+spec:
+  commonName: streaming_replica
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: postgres-server-issuer
+  secretName: ...
+```
+
+The code to issue certificates is open source in [this GitHub repository](https://github.com/tembo-io/tembo-stacks).
 
 ## Need stronger isolation?
 
