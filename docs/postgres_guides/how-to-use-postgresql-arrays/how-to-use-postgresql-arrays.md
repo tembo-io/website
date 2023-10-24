@@ -4,16 +4,13 @@ tags:
   - Postgres Basics
 ---
 
-# <<<<<<< HEAD
-
-> > > > > > > e3079e5540b685a2196cc3bf3b19fd0c0ab52f9c
-> > > > > > > import AddElement from './images/add-element-to-array.png'
-> > > > > > > import RemoveElement from './images/remove-element-from-array.png'
-> > > > > > > import ArrayLength from './images/array-length.png'
-> > > > > > > import ArrayCat from './images/array-cat.png'
-> > > > > > > import ArrayDims from './images/array-dims.png'
-> > > > > > > import SelectElement from './images/select-element-from-array.png'
-> > > > > > > import WhereClause from './images/where-clause-in-array.png'
+import AddElement from './images/add-element-to-array.png'
+import RemoveElement from './images/remove-element-from-array.png'
+import ArrayLength from './images/array-length.png'
+import ArrayCat from './images/array-cat.png'
+import ArrayDims from './images/array-dims.png'
+import SelectElement from './images/select-element-from-array.png'
+import WhereClause from './images/where-clause-in-array.png'
 
 # How to use PostgreSQL arrays
 
@@ -49,14 +46,7 @@ In this example, the `home_coordinates` column will store an array of maximum le
 
 **Step 2** - Now, you insert the array values in the column. Postgres has two different methods to insert array values:
 
-<<<<<<< HEAD
-
-### Using `ARRAY` constructor
-
-=======
 **Using `ARRAY` constructor**
-
-> > > > > > > e3079e5540b685a2196cc3bf3b19fd0c0ab52f9c
 
 Postgres comes with an `ARRAY` constructor that can be initialized in the SQL query to insert the array values into the table:
 
@@ -66,23 +56,12 @@ INSERT INTO students (id, name, age, home_coordinates) VALUES (1, 'John', 15, AR
 
 Learn more about `ARRAY` constructor on their [official website](https://www.postgresql.org/docs/current/sql-expressions.html#SQL-SYNTAX-ARRAY-CONSTRUCTORS).
 
-<<<<<<< HEAD
-
-### Directly inserting values
-
-=======
 **Directly inserting values**
-
-> > > > > > > e3079e5540b685a2196cc3bf3b19fd0c0ab52f9c
 
 You can also use braces to represent an array:
 
 ```
-<<<<<<< HEAD
-INSERT INTO students (id, name, age, subjects) VALUES (1, 'John', 15, {40.7, 74.0});
-=======
 INSERT INTO students (id, name, age, home_coordinates) VALUES (1, 'John', 15, {40.7, 74.0});
->>>>>>> e3079e5540b685a2196cc3bf3b19fd0c0ab52f9c
 ```
 
 **Step 3** - You can query the data from the array column and display it. Postgres also comes with a way to fetch specific data from the whole array and showcase it.
@@ -90,11 +69,7 @@ INSERT INTO students (id, name, age, home_coordinates) VALUES (1, 'John', 15, {4
 Specify the element number along with the column name that you want to fetch. Following command will display the first element of `home_coordinates` array:
 
 ```
-<<<<<<< HEAD
-SELECT home_coordinates[1] FROM students;  -– display the 1st element
-=======
 SELECT home_coordinates[1] FROM students;
->>>>>>> e3079e5540b685a2196cc3bf3b19fd0c0ab52f9c
 ```
 
 <img src={SelectElement} width="600" alt="SelectElement" />
@@ -107,16 +82,9 @@ SELECT * FROM students WHERE 40 < ANY (home_coordinates);
 
 <img src={WhereClause} width="600" alt="WhereClause" />
 
-<<<<<<< HEAD
-**Step 4** - There are also methods to manipulate or update the data in the array. You can use the traditional `UPDATE` method to update the data:
-
-# `UPDATE` method can be used to remove element(s) from the array. To remove the value `74.0` from the array, execute the following command:
-
 **Step 4** - There are also methods to manipulate or update the data in the array. You can use the traditional `UPDATE` statement to update the data:
 
 `UPDATE` statement can be used to remove element(s) from the array. To remove the value `74.0` from the array, execute the following command:
-
-> > > > > > > e3079e5540b685a2196cc3bf3b19fd0c0ab52f9c
 
 ```
  UPDATE students SET home_coordinates = array_remove(home_coordinates, 74.0);
