@@ -3,6 +3,7 @@ slug: tembo-operator
 title: "Tembo Operator: A Rust-based Kubernetes Operator for Postgres"
 authors: [ian]
 tags: [postgres, kubernetes, rust]
+image: ./k8s-operator.webp
 ---
 
 At Tembo, we’ve been developing an open-source Kubernetes Operator for Postgres. We use this operator to power our managed Postgres platform, [Tembo Cloud](https://cloud.tembo.io/). We’re excited to share our progress, experience, and vision for this project. This post aims to assist anyone interested in utilizing Kubernetes operators for Postgres or writing Kubernetes operators using Rust.
@@ -16,6 +17,8 @@ With a Kubernetes operator, users can write code that defines how their applicat
 In short, using a Kubernetes operator is the most effective way to run applications on Kubernetes in 2023.
 
 You can read more about Kubernetes operators at https://www.cncf.io/blog/2022/06/15/kubernetes-operators-what-are-they-some-examples/
+
+![./k8s-operator.webp](./k8s-operator.webp)
 
 ## Kubernetes Operators and the Rise of Rust
 
