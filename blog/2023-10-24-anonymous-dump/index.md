@@ -113,3 +113,5 @@ You can do further modification from here, for example masking and replacing add
 ## Done!
 
 Now you have an anonymized database locally. From here, you can pg_dump to a file, or do something else!
+
+If you think this kind of thing is cool, follow me on X ([@sjmiller609](https://x.com/sjmiller609)) for more content. At Tembo, we are all about Postgres extensions. You can try out extensions on [Tembo Cloud](https://cloud.tembo.io) for free.
