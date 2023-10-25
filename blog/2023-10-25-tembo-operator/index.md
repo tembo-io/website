@@ -16,11 +16,11 @@ With a Kubernetes operator, users can write code that defines how their applicat
 
 In short, using a Kubernetes operator is the most effective way to run applications on Kubernetes in 2023.
 
-You can read more about Kubernetes operators on this [CNCF blog post](https://www.cncf.io/blog/2022/06/15/kubernetes-operators-what-are-they-some-examples/), where the image below is.
+You can read more about Kubernetes operators on this [CNCF blog post](https://www.cncf.io/blog/2022/06/15/kubernetes-operators-what-are-they-some-examples/).
 
 ![./k8s-operator.webp](./k8s-operator.webp)
 <p align="center">
-*Image credit: CNCF blog*
+*Image credit: the CNCF blog*
 </p>
 
 ## Kubernetes Operators and the Rise of Rust
