@@ -21,7 +21,11 @@ There are mainly two ways to import the CSV file - Via a SQL query and via the P
 **Step 1** - Prepare your CSV file. Create the table in Excel and save your desired data of users in it.
 
 :::tip
+<<<<<<< HEAD
 Save your CSV file on the desktop so that it becomes easy to get its path and import it in Postgres database.
+=======
+Save your CSV file on the machine where your database is running. Postgres needs to access the CSV file on the filesystem to be able to load it.
+>>>>>>> e1322a77e87b169fee6c9e272469a33ccb2bfdf5
 :::
 
 **Step 2** - Open your terminal and connect it to your desired Postgres database. Check out our [guide](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres/) on how to connect to Postgres.
