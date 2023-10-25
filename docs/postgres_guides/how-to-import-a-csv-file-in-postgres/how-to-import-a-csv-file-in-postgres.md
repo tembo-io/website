@@ -82,3 +82,5 @@ CREATE TABLE table_name (column1 data_type, column2 data_type, column3 data_type
 ## Conclusion
 
 In this guide, we understood the two different methods to import a CSV file into a Postgres table.
+
+Interested to learn more about Postgres utilities? Check out our collection of [guides](https://tembo.io/docs/category/postgres-guides) to continue learning about Postgres.
