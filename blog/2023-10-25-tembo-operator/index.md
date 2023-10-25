@@ -233,7 +233,8 @@ We’re currently working on exciting new features that enable the deployment of
 
 For more information on running the Tembo Operator, check out our docs at:
 - https://tembo.io/docs/tembo-stacks/local-tembo-operator
-- https://tembo.io/docs/tembo-stacks/tembo-operator-eks
 
 If you're interested in contributing to the project, check out our Github repo at:
 - https://github.com/tembo-io/tembo-stacks/tree/main/tembo-operator
+
+And if you want to try out the full power of Postgres and fully delegate extension management to us, [try out Tembo Cloud](cloud.tembo.io).
