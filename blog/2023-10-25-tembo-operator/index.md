@@ -237,4 +237,4 @@ For more information on running the Tembo Operator, check out our docs at:
 If you're interested in contributing to the project, check out our Github repo at:
 - https://github.com/tembo-io/tembo-stacks/tree/main/tembo-operator
 
-And if you want to try out the full power of Postgres and fully delegate extension management to us, [try out Tembo Cloud](cloud.tembo.io).
+And if you want to try out the full power of Postgres and fully delegate extension management to us, [try out Tembo Cloud](https://cloud.tembo.io).
