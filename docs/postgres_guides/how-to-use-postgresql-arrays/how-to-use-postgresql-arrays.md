@@ -4,7 +4,6 @@ tags:
   - Postgres Basics
 ---
 
-
 import AddElement from './images/add-element-to-array.png'
 import RemoveElement from './images/remove-element-from-array.png'
 import ArrayLength from './images/array-length.png'
@@ -67,9 +66,10 @@ INSERT INTO students (id, name, age, home_coordinates) VALUES (1, 'John', 15, {4
 
 **Step 3** - You can query the data from the array column and display it. Postgres also comes with a way to fetch specific data from the whole array and showcase it.
 
-Specify the element number along with the column name that you want to fetch. Following command will display the first element of `home_coordinates` array: 
+Specify the element number along with the column name that you want to fetch. Following command will display the first element of `home_coordinates` array:
+
 ```
-SELECT home_coordinates[1] FROM students;  
+SELECT home_coordinates[1] FROM students;
 ```
 
 <img src={SelectElement} width="600" alt="SelectElement" />
@@ -77,14 +77,14 @@ SELECT home_coordinates[1] FROM students;
 You can also specify a `WHERE` clause condition in the query. Following command will display the whole row where the latitude or longitude of a home is above 40 degrees:
 
 ```
-SELECT * FROM students WHERE 40 < ANY (home_coordinates); 
+SELECT * FROM students WHERE 40 < ANY (home_coordinates);
 ```
 
 <img src={WhereClause} width="600" alt="WhereClause" />
 
 **Step 4** - There are also methods to manipulate or update the data in the array. You can use the traditional `UPDATE` statement to update the data:
 
-`UPDATE` statement can be used to remove element(s) from the array. To remove the value `74.0` from the array, execute the following command: 
+`UPDATE` statement can be used to remove element(s) from the array. To remove the value `74.0` from the array, execute the following command:
 
 ```
  UPDATE students SET home_coordinates = array_remove(home_coordinates, 74.0);
