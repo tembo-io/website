@@ -229,7 +229,7 @@ postgres=# \dx
 ```
 
 ## Up Next
-We’re currently working on exciting new features that enable the deployment of custom applications alongside Postgres. These features include a REST API, GraphQL, and more. Stay tuned for future updates!
+We are currently working on exciting new features that enable the deployment of custom applications alongside Postgres. These features include a REST API, GraphQL, and more. Stay tuned for future updates!
 
 For more information on running the Tembo Operator, check out our docs at:
 - https://tembo.io/docs/tembo-stacks/local-tembo-operator
