@@ -12,19 +12,19 @@ When an application creates a new connection to Postgres, the Postgres database 
 
 Connection pooling is a method to effectively share database connections. It reduces the load of establishing and breaking down connections for database operations, and improves database performance.
 
-Let's take a look at the step-by-step process of enabling connection pooling in Postgres using PgBouncer:
-
 **PgBouncer** is a lightweight connection pool for PostgreSQL. Its purpose is to effectively establish database connections, simultaneously improving the performance of applications built on PostgreSQL. PgBouncer acts as a Postgres server, so simply point your client to the PgBouncer port.
 
 Any application can connect to PgBouncer as a PostgeSQL server - PgBouncer will then manage connections from itself to the Postgres database.
 
 Check out the [official documentation](https://www.pgbouncer.org/) to learn more about PgBouncer.
 
+Let's take a look at the step-by-step process of enabling connection pooling in Postgres using PgBouncer:
+
 **Step 1** - Firstly, install PgBouncer on a server or machine that can be reached by both your application servers and your PostgreSQL database server. There are two ways to install pgBouncer:
 
 **Using System’s Package Manager**
 
-If you are server is running on a Lunix-based system, you can take advantage of system’s package manager. To install the PgBouncer, run the following command in your terminal:
+If your server is running on a Lunix-based system, you can take advantage of your system's package manager. To install the PgBouncer in Ubuntu, you can run the following command in your terminal:
 
 ```
 sudo apt-get install pgbouncer
@@ -32,7 +32,7 @@ sudo apt-get install pgbouncer
 
 **Building from Source**
 
-PgBouncer can also be built from its source code. Simply download the source code from it’s repository, compile it and install it in your system.
+PgBouncer can also be built from its source code. Simply download the source code from its repository, compile it and install it in your system.
 
 **Step 2** - Configure PgBouncer with the pgbouncer.ini file that resides in the installation directory. You can also pass the file as a parameter when starting it.
 
