@@ -60,7 +60,9 @@ export PGPASSWORD=$(kubectl get secrets/sample-machine-learning-connection --tem
 
 ## Step 7: Expose the service to localhost 
 
+```bash
 kubectl port-forward svc/sample-machine-learning-rw 5432:5432 
+```
 
 ## Step 8: Connect
 
