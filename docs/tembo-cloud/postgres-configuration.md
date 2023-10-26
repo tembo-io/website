@@ -15,10 +15,6 @@ For a full list of configuration options, visit https://postgresqlco.nf/doc/en/p
 
 ## Setting Postgres Configuration Values via the Tembo Cloud API
 
-:::info
-Coming soon: Set Postgres configuration values via the [Tembo Cloud UI](https://cloud.tembo.io)
-:::
-
 :::note
 Configuration values set via API are not validated. Please ensure the configuration value you're setting is valid.
 More information on valid Postgres configuration values can be found at https://postgresqlco.nf/doc/en/param/.
@@ -94,3 +90,13 @@ postgres=# SHOW log_disconnections;
  on
 (1 row)
 ```
+
+## Setting Postgres Configuration Values via the Tembo Cloud UI
+
+Log in to the [Tembo Cloud UI](https://cloud.tembo.io/) and select the "Database" tab in the navigation bar. In the "Configurations" view, you can tune a set of configuration parameters.
+
+The form is not an exhaustive list of parameters. If you need to tune a parameter that is not in the form, you can add a custom entry at the bottom. If the value has an associated unit, please include it in the format `<number><unit>` e.g. `1GB` or `128KB`.
+
+:::info
+If you enter an invalid field or value in the custom configurations section, your instance may get stuck in the configuring state. If this happens, please delete the erroneous field and save your changes to restore it.
+:::
