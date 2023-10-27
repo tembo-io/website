@@ -10,13 +10,13 @@ Imagine you are the manager of an e-commerce website, and you want to analyze th
 
 In such scenarios, you can look for the row count in the table to get the total number of orders placed. Postgres comes with three different methods to get the row count of a table: Using `COUNT` function, the `table_schema`, and the `pg_stat_user_tables`.
 
-Let’s walkthrough each of these methods in brief along with an examples:
+Let’s walkthrough each of these methods in brief along with examples:
 
 ## Using `COUNT` function
 
 The SQL language has a built-in `COUNT` function that can be used to get the row count of tables. Here’s an example of `COUNT` function to find the number of rows in a table:
 
-```
+```sql
 SELECT COUNT(*) FROM your_table_name;
 ```
 
@@ -26,7 +26,7 @@ Make sure that you are connected to your Postgres server via terminal before exe
 
 `COUNT` function can also be used to get the row count of multiple tables at once. You can create a series of `COUNT` function queries to get the row count of all tables you are interested in. Here’s an example of it:
 
-```
+```sql
 SELECT 'table1' AS table_name1, COUNT(*) AS row_count FROM table1
 UNION ALL
 SELECT 'table2' AS table_name2, COUNT(*) AS row_count FROM table2
@@ -47,7 +47,7 @@ The _schema_ property present in every table can also be used to get the row cou
 
 Execute the following SQL query to get the row count:
 
-```
+```sql
 SELECT table_name, (SELECT n_live_tup FROM pg_stat_user_tables WHERE relname = table_name) AS row_count
 FROM information_schema.tables
 WHERE table_schema = 'public';
@@ -63,7 +63,7 @@ You can also use the `pg_stat_user_tables` alone, without even mentioning the ta
 
 To obtain the row count, run the following SQL query:
 
-```
+```sql
 SELECT relname, n_live_tup
 FROM pg_stat_user_tables;
 ```
