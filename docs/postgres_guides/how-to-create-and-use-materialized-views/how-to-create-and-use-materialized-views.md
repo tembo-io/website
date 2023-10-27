@@ -27,12 +27,12 @@ FROM orders
 GROUP BY customer_id;
 ```
 
-In this example-
+In this example:
 
 - `customer_order_totals` is the name of the view
-- `customer_id` and `order_amount` are the column whose data we want to store in created materialized view
+- `customer_id` and `order_amount` are the columns whose data we want to store in the created materialized view
 - `orders` is the name of the table
-- `customer_id` is the condition too filter out the data
+- `customer_id` is the condition to filter out the data
 
 **Step 3** - After successfully creating the materialized view, the next step is to populate/fill it with the data. There are 2 ways in Postgres to populate the materialized view:
 
