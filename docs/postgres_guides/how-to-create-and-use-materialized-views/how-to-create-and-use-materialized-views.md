@@ -6,9 +6,9 @@ tags:
 
 # How to Create and Use Materialized Views
 
-Imagine yourself as the administrator of a users' database for an e-commerce website. Within this database, there exists a table known as "orders," which stores the details of every order that has been made. Now suppose that you want to continuously have a view with the number of orders made by each customer.
+Imagine yourself as the administrator of a users' database for an e-commerce website. Within this database, there exists a table known as "orders" which stores the details of every order that has been made. Now suppose that you want to continuously have a view with the number of orders made by each customer.
 
-If you create a normal Postgres view, you will be running a large table scan and aggregation every time you view this data. Instead, you can use materialized views.
+If you create a normal Postgres view, you will be running a large table scan and aggregation every time you view this data. Instead, you can use **materialized views**.
 
 Materialized views are very similar to normal Postgres views, but their difference is that their results can be stored in disk as they are computed. By physically storing the data, they avoid the need to recompute the results each time a query runs.
 
