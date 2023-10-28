@@ -85,7 +85,7 @@ curl -X 'PATCH' \
 
 ### Enable and Configure your Tembo Instance's Connection Pooler
 
-Log in to the [Tembo Cloud UI](https://cloud.tembo.io/) and select the "Database" tab in the navigation bar. In the "Settings" view, you can enable/disblae connection pooling and tune a set of parameters.
+Log in to the [Tembo Cloud UI](https://cloud.tembo.io/) and select the "Database" tab in the navigation bar. In the "Settings" view, you can enable/disable connection pooling and tune a set of parameters.
 
 ### Connect to your Tembo Instance's Connection Pooler
 
