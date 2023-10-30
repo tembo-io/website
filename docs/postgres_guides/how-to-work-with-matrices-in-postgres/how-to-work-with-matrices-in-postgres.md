@@ -12,13 +12,13 @@ import Creatematrices from './images/create-matrices.png'
 
 Working with matrices in PostgreSQL opens a world of possibilities for managing structured data. Whether you're dealing with scientific data, financial models, or any other multidimensional datasets, PostgreSQL provides powerful tools and techniques to store, manipulate, and query matrices efficiently.
 
-Matrices consist of arrays organized in a two-dimensional plane to store data in rows and columns. Consequently, matrices operate much like arrays do within PostgreSQL. Check our [guide](https://tembo.io/docs/postgres_guides/how-to-use-postgresql-arrays/) to learn more about using arrays in Postgres.
+Matrices consist of arrays organized in a two-dimensional plane to store data in rows and columns. As a result, they operate much like arrays do within PostgreSQL. (Check our [guide](https://tembo.io/docs/postgres_guides/how-to-use-postgresql-arrays/) to learn more about using arrays in Postgres.)
 
 This guide will walk you through the essentials of working with matrices in PostgreSQL.
 
 ## Creating a matrix in Postgres
 
-As explained earlier, matrix is just a 2-D array, therefore you can use the `ARRAY` constructor to create a matrix in Postgres. Here’s an example of 2x2 matrix:
+As we mentioned, matrix is just a 2-D array, therefore you can use the `ARRAY` constructor to create a matrix in Postgres. Here’s an example of 2x2 matrix:
 
 ```
 SELECT ARRAY[ARRAY[1, 2], ARRAY[3, 4]] AS matrix1;
@@ -30,7 +30,7 @@ In this example, we have used 2 `ARRAY` constructors (`ARRAY[1,2]`, `ARRAY[3,4]`
 
 ## Matrix Storage in Tables
 
-In Postgres it’s possible to use matrix as a data type for a column in a table. You can create a column in the table and store matrix format data in it. Here’s an example of it:
+In Postgres it’s possible to use "matrix" as a data type for a column in a table. You can create a column in the table and store matrix format data in it, like this:
 
 ```
 CREATE TABLE matrix_table (
@@ -39,9 +39,9 @@ CREATE TABLE matrix_table (
 );
 ```
 
-In this example, the `data` column is of type integer matrix. You can use any data type as the element type when defining matrices.
+In this example, the `data` column is of type integer matrix, but you can use any data type as the element type when defining matrices.
 
-To insert values in `data` column, you can follow the traditional method, for example:
+Once your matrix is created, you can follow the traditional method to insert values into it:
 
 ```
 INSERT INTO matrix_table (data)
@@ -50,7 +50,7 @@ VALUES (ARRAY[ARRAY[1, 2, 3], ARRAY[4, 5, 6]]);
 
 ## Accessing elements
 
-You can specify each element present in the matrix individually by specifying the row and column indices for that element. For example:
+You can also specify each element present in the matrix individually by specifying the row and column indices for that element. For example:
 
 ```
 SELECT data[2][1] FROM matrix_table;
@@ -81,7 +81,7 @@ $$ LANGUAGE plpgsql;
 
 ## Matrix manipulation
 
-PostgreSQL comes with some array functions that can be used to manipulate matrices. For example, you can use the `ARRAY_AGG` function to transpose a matrix:
+PostgreSQL includes some array functions that can be used to manipulate matrices. For example, you can use the `ARRAY_AGG` function to transpose a matrix:
 
 ```
 SELECT ARRAY_AGG(value ORDER BY rownum, colnum) AS transposed_matrix
@@ -90,12 +90,10 @@ FROM my_matrix;
 
 <img src={ArrayFunctions} width="600" alt="ArrayFunctions" />
 
-Here, `ARRAY_AGG` is an array function that we have applied on a matrix to perform the operation. Therefore, array functions available in Postgres can be used to perform operations over matrices. However, not every array function will work on matrices.
-
-There are tons of built-in array functions available in Postgres. You can check the official [PostgreSQL documentation](https://www.postgresql.org/docs/current/functions-array.html) for a comprehensive list of array functions and operators.
+Here, `ARRAY_AGG` is an array function that we have applied on a matrix to perform the operation. However it's important to know that not every array function will work on matrices. To see a comprehensive list of array functions and operators, see the official [PostgreSQL documentation](https://www.postgresql.org/docs/current/functions-array.html).
 
 ## Conclusion
 
-In this guide, we explored and learned about the matrices and how you can work with matrices in Postgres.
+In this guide, we explored the matrices and how you can work with them in Postgres.
 
-Struggling to connect Postgres to your project? Have a look at our comprehensive well-structured [guides](https://tembo.io/docs/category/postgres-guides) that will assist you in working with Postgres.
+Struggling to connect Postgres to your project? We're here to help. Have a look at our guides [guides](https://tembo.io/docs/category/postgres-guides) for more ideas and assistance in working with Postgres.
