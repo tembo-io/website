@@ -15,7 +15,7 @@ Tembo uses [Loki](https://grafana.com/docs/loki/) for logs. Tembo grants users a
 
 ## Examples
 
-### Connecting directly to the API
+### API
 
 Here is an example script that calls the Tembo Loki API to stream all logs for one instance:
 
