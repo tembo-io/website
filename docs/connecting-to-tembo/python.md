@@ -1,8 +1,9 @@
 It’s important to use `psycopg2-binary` version 2.9 or greater. Your requirements.txt should contain:
+**requirements.txt**
 ```
 psycopg2-binary==2.9
 ```
-main.py
+**main.py**
 ```
 import psycopg2
 import subprocess
