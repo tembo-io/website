@@ -39,7 +39,7 @@ In essence, the visibility timeout provides a grace period for tasks to be proce
 
 ## Queue regulation isn’t just for error modes
 
-A common use case is for a consumer that needs to process a long-running I/O bound task. Let’s say there is a message with a task to create some infrastructure in your favorite [cloud provider](cloud.tembo.io), e.g. create an EC2 instance if it doesn’t already exist. That could take minutes to start up. Your consumer can submit the request to provision EC2, and then instead of waiting for EC2 to create, it can set the VT on that message to 60 seconds from now, then move on to read the next message. In 60 seconds, the message will become visible again and can be picked up.  That can look something like the follow pseudo-code:
+A common use case is for a consumer that needs to process a long-running I/O bound task. Let’s say there is a message with a task to create some infrastructure in your favorite [cloud provider](https://cloud.tembo.io), e.g. create an EC2 instance if it doesn’t already exist. That could take minutes to start up. Your consumer can submit the request to provision EC2, and then instead of waiting for EC2 to create, it can set the VT on that message to 60 seconds from now, then move on to read the next message. In 60 seconds, the message will become visible again and can be picked up.  That can look something like the follow pseudo-code:
 
 ```text
 # read a message, make it invisible for 30 seconds
@@ -59,4 +59,4 @@ With PGMQ’s design, messages do not leave the queue until they are explicitly 
 
 ## Choose the simplest queue architecture with PGMQ
 
-Use `FOR UPDATE` so that you ensure messages are only read by one consumer at time. `SKIP LOCKED` so that you can have multiple workers processing messages concurrently. Finally, implement a visibility timeout so that you no longer need to rely on an external process to handle messages that have failed to process. Install the open-source [PGMQ extension](https://github.com/tembo-io/pgmq) for Postgres or try it on [Tembo Cloud](cloud.tembo.io) today and immediately benefit from all of these design decisions.
+Use `FOR UPDATE` so that you ensure messages are only read by one consumer at time. `SKIP LOCKED` so that you can have multiple workers processing messages concurrently. Finally, implement a visibility timeout so that you no longer need to rely on an external process to handle messages that have failed to process. Install the open-source [PGMQ extension](https://github.com/tembo-io/pgmq) for Postgres or try it on [Tembo Cloud](https://cloud.tembo.io) today and immediately benefit from all of these design decisions.
