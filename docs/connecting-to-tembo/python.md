@@ -1,16 +1,11 @@
-It’s important to use `psycopg2-binary` version 2.9 or greater. Your requirements.txt should contain:
-**requirements.txt**
-```
-psycopg2-binary==2.9
+It’s important to use `psycopg2-binary` version 2.9 or greater.
+
+```shell
+pip install psycopg2-binary==2.9
 ```
 **main.py**
-```
+```python
 import psycopg2
-import subprocess
-import sys
-
-# Install required packages from requirements.txt
-subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
 
 def main():
     # Connection string
