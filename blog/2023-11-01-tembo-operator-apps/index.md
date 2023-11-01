@@ -1,7 +1,7 @@
 ---
 slug: tembo-operator-apps
 title: "Tembo Operator: Enhancing Postgres Capabilities in Kubernetes"
-authors: [ian]
+authors: [adam]
 tags: [postgres, kubernetes, rust]
 ---
 
