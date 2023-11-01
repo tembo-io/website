@@ -2,10 +2,12 @@
 slug: pgmq-self-regulating-queue
 title: "PGMQ: A self-regulating queue extension for Postgres"
 authors: [adam]
-tags: [postgres, pgmq, rust, pgrx, extensions]
+tags: [postgres, message-queue, pgmq]
 ---
 
-![alt_text](./tembo-queue.png "Tembo MQ")
+<p align="center">
+    <img src="./tembo-queue.png" alt="drawing" width="600"/>
+</p>
 
 When building a queue on Postgres, you have several important design decisions to make related to the mechanisms for identifying messages able to be read, how messages are marked as ‘in-progress’, and finally the mechanism for marking messages as ‘complete’. FOR UPDATE and SKIP LOCKED are amazing Postgres features that help with how messages are read and marked as in-progress, but  do not help with marking messages as ‘complete’. Many people resort to implementing a “watcher process” or background worker to oversee the queues and check on the status of messages—but there’s a better way. By designing with a visibility timeout, we can further simplify the architecture to require no external processes for queue management. PGMQ is a Postgres extension built following this self-regulating queue.
 
