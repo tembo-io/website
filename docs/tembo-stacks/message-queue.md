@@ -10,7 +10,7 @@ Tembo optimized this Postgres instance for Message queue workloads by tuning the
 
 ## SQL API
 
-The [PGMQ](https://github.com/tembo-io/pgmq) comes pre-installed in the Tembo Message Queue Stack.
+For users familiar with Postgres, you can interact with your queues using SQL. The [PGMQ](https://github.com/tembo-io/pgmq) extension comes pre-installed in the Tembo Message Queue Stack.
 
 Please refer to the [PGMQ API documentation](https://tembo-io.github.io/pgmq/api/sql/functions/) for a guide on getting started with PGMQ.
 
