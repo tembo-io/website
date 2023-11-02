@@ -12,6 +12,14 @@ install.packages('magrittr') #version 2.0.3 or greater
 **Test the Connection**
 
 ```r title="main.r"
+library(DBI)
+library(RPostgres)
+library(magrittr)
+
+#Connection string
+connection_string <-"postgresql://postgres:******@your-subdomain-here.data-1.use1.tembo.io:5432/postgres"
+
+
 # Parse Connection String
 parsed <- sub("postgresql://", "", connection_string) %>% strsplit(":") %>% unlist()
 username <- parsed[1]
