@@ -131,7 +131,7 @@ In pgvector, such recall is achieved with the following settings:
 | Index type | Parameters |
 | ------- | ------------------------- |
 | **IVFFlat** | Lists = 200, Probes = 100 |
-| **HNSW**    | m = 24, ef_search = 800   |
+| **HNSW**    | m = 24, ef_construction = 200, ef_search = 800   |
 
 
 ### Build Time
@@ -149,6 +149,10 @@ In terms of index size, IVFFlat is again the winner. For a recall of 0.998, IVFF
 
 
 ### Speed
+
+:::note 
+The benchmark uses one thread to execute the vector queries.
+:::
 
 It is in speed where HNSW shines. With a recall of 0.998, HNSW can achieve a throughput of 40.5 QPS, whereas IVFFlat can only execute 2.6 QPS. HNSW is 15.5X better in this aspect.
 
