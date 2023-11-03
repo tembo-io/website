@@ -10,7 +10,7 @@ Postgres for everything? How about building a new cloud provider? In episode 7 o
 
 Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Regina and Paul for joining us today!
 
-&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/_f4WZwkrXQw?si=l4mrh1k83SnFX6qB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>&lt;/iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_f4WZwkrXQw?si=V2H6vs_e86Aq2xJt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Want to know more about something they mentioned? Here’s a starting point:
 
