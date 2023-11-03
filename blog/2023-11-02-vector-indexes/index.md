@@ -159,13 +159,59 @@ It is in speed where HNSW shines. With a recall of 0.998, HNSW can achieve a thr
 ![Queries per second](./003_query_per_second.png)
 
 
+### Recall vs Index Updates
+
+Another weakness of the IVFFlat index is that it is not resilient to index updates in terms of recall. The reason for that is that the centroids are not recalculated. So, the different regions in the vector space remain the same if vectors are added or removed. If, after a series of updates, the real centroids (if they were recomputed) are different, the previous mapping would be less effective, leading to a worse recall.
+
+In fact, in `psql` you will get the following messages if you attempt to create an IVFFlat index when there are only a few rows in the table:
+
+```console
+postgres=# CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3));
+CREATE TABLE         
+
+postgres=# INSERT INTO items (embedding) VALUES ('[1,2,3]'), ('[4,5,6]');
+INSERT 0 2
+
+postgres=# CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100);
+NOTICE:  ivfflat index created with little data
+DETAIL:  This will cause low recall.
+HINT:  Drop the index until the table has more data.
+CREATE INDEX
+
+postgres=# drop index items_embedding_idx;
+DROP INDEX
+```
+
+The solution to this problem would be to recalculate the centroids and the lists... which effectively means rebuilding the index. 
+
+HNSW doesn't show that:
+
+```console
+postgres=# CREATE INDEX ON items USING hnsw (embedding vector_l2_ops);
+CREATE INDEX
+```
+
+To exercise this behavior, I modified the benchmark to set up the database as follows:
+
+1. Insert 1/100 of the training dataset
+2. Build the index
+3. Insert the rest of the training dataset
+4. Execute the queries using the test dataset
+
+For the chosen parameters, we can see that the recall is more sensitive to index updates for IVFFlat. For HNSW, the change is negligible. 
+
+![IVFFlat recall](./005_IVFFlat_Recall.png)
+
+![HNSW recall](./004_HNSW_Recall.png)
+
 ## General Guidelines
 
 With the results above, we can then make the following recommendations:
 
-- If you care more about index size, then choose IVFFlat
-- If you care more about index build time, then select IVFFlat
-- If you care more about speed, then choose HNSW
+- If you care more about index size, then choose IVFFlat.
+- If you care more about index build time, then select IVFFlat.
+- If you care more about speed, then choose HNSW.
+- If you expect vectors to be added or modified, then select HNSW.
 
 
 ## Wrapping up…
