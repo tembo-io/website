@@ -11,19 +11,17 @@ image: ./pgvector.jpeg
 Image credit: Generated with Bing Image Creator
 </em></p>
 
-Indexes are data structures that make database searches more efficient. Specifically, they speed up finding specific values in a database column. So, instead of having to scan a complete table to find a `Student` with `ID=9876`, having an index on the ID column could locate said student in fewer operations.
+Indexes are data structures that make database searches more efficient. Specifically, they speed up finding specific values in a database column. So, instead of having to scan a table with 50,000 records to find a student with ID=9876, having an index on the ID column could locate said student in fewer operations.
 
-When deciding whether to create one or more indexes on a table, several factors need to be considered, for example, the size of the tables, whether the table is modified frequently, how the table is used in queries, etc. 
+Problem solved, right? Not so fast.
 
-These considerations and some others apply also to vector databases and vector indexes. 
+See, when deciding whether to create one or more indexes on a table, several factors need to be considered—for example, the size of the tables, whether the table is modified frequently, how the table is used in queries, and so on.
 
-Consider the typical example of [finding text similar to a query](https://tembo.io/blog/pgvector-and-embedding-solutions-with-postgres) to generate possible answers. One approach would be to scan the whole table that contains the related knowledge base and use a `LIKE` query. 
+Well, could we just use a vector database and vector indexes?” Sure, but these considerations (and some others) apply to them too.
 
-A second approach would be to transform the knowledge base and the query into embedding vectors. Then, the database could calculate the distance to all the vectors in the table and find the closer K vectors. This approach works well for small datasets but becomes expensive and impractical for [large ones](https://en.wikipedia.org/wiki/Curse_of_dimensionality).
+Consider the typical example of finding [text similar to a query](https://tembo.io/blog/pgvector-and-embedding-solutions-with-postgres) to generate possible answers. Spoiler alert: there are multiple ways to get the answer, but all of them involve tradeoffs of speed, accuracy, and resource demands.
 
-A third approach would be to generate an index for the vectors column and use it to find the closest neighbors. But how can we decide what's the appropriate index for our data? 
-
-In today's post, let us explore this question for the case of Postgres and pgvector. 
+So, in today's post, let us explore these tradeoffs in the context of Postgres and pgvector.
 
 
 ## Indexes in Pgvector
