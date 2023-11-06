@@ -1,6 +1,6 @@
 ---
 slug: tembo-operator-apps
-title: "Tembo Operator: Enhancing Postgres Capabilities in Kubernetes"
+title: "Application Services: Helping Postgres Do More, Faster"
 authors: [adam]
 tags: [postgres, kubernetes, rust]
 ---
@@ -83,7 +83,7 @@ spec:
           value: my_value
 ```
 
-**Kuberneternets Footprint**
+**Kubernetes Footprint**
 
 Let’s take a look at what actually gets created when you specify an appService; we’ll use the postgREST example as an illustration.
 
