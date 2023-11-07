@@ -20,9 +20,7 @@ Let's build it on Postgres! However, if you follow most blogs and guides, you'll
 
 Fortunately, there's a better way.
 
-## Core Postgres Features
-
-FOR UPDATE and SKIP LOCKED are likely two recommendations you’ll come across. FOR UPDATE helps ensure that just a single consumer receives a message in the queue. And SKIP LOCKED is required if you want to have multiple consumers on the same queue – without it each consumer would wait for the others to remove their locks. Those are two great features of Postgres, so let’s quickly review them.
+By designing with a visibility timeout, we remove the need for external processes for queue management. PGMQ is a Postgres extension built following exactly this sort of self-regulating queue. Today we're going to combine PGMQ with pair of core Postgres features—FOR UPDATE and SKIP LOCKED—to cover all the needs of our message queue. FOR UPDATE helps ensure that just a single consumer receives a message in the queue. And SKIP LOCKED is required if you want to have multiple consumers on the same queue – without it each consumer would wait for the others to remove their locks. Before we put all the pieces together, let's do a quick refresher on how each of these works.
 
 ## FOR UPDATE: Ensuring Exclusive Access
 
