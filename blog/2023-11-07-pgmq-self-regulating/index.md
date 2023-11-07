@@ -1,6 +1,6 @@
 ---
 slug: pgmq-self-regulating-queue
-title: "PGMQ: No More Background Worker"
+title: "PGMQ: Lightweight Message Queue on Postgres with No Background Worker"
 authors: [adam]
 tags: [postgres, message-queue, pgmq]
 ---
