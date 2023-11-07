@@ -1,6 +1,6 @@
 ---
 slug: pgmq-self-regulating-queue
-title: "PGMQ: A self-regulating queue extension for Postgres"
+title: "PGMQ: No More Background Worker"
 authors: [adam]
 tags: [postgres, message-queue, pgmq]
 ---
@@ -11,11 +11,16 @@ tags: [postgres, message-queue, pgmq]
 
 </div>
 
-When building a queue on Postgres, you have several important design decisions to make related to the mechanisms for identifying messages able to be read, how messages are marked as ‘in-progress’, and finally the mechanism for marking messages as ‘complete’. FOR UPDATE and SKIP LOCKED are amazing Postgres features that help with how messages are read and marked as in-progress, but  do not help with marking messages as ‘complete’. Many people resort to implementing a “watcher process” or background worker to oversee the queues and check on the status of messages—but there’s a better way. By designing with a visibility timeout, we can further simplify the architecture to require no external processes for queue management. PGMQ is a Postgres extension built following this self-regulating queue.
+Your app needs a message queue. Simple enough—until you try to do it, anyway.
 
-## Core Postgres Features
+Go set it up on Kafka? Sure...but now you have a Kafka cluster to manage.
+Redis could work, but now you're just managing Redis instances instead.
+SQS? That means you have to reconfigure your application to talk to AWS, and you also get an extra external bill as icing on the cake.
+Let's build it on Postgres! However, if you follow most blogs and guides, you'll probably end up building an agent, watcher process, or background worker to make sure the queue stays healthy. It's better, but if the background worker fails, you could end up with bigger problems.
 
-FOR UPDATE and SKIP LOCKED are likely two recommendations you’ll come across. FOR UPDATE helps ensure that just a single consumer receives a message in the queue. And SKIP LOCKED is required if you want to have multiple consumers on the same queue – without it each consumer would wait for the others to remove their locks. Those are two great features of Postgres, so let’s quickly review them.
+Fortunately, there's a better way.
+
+By designing with a visibility timeout, we remove the need for external processes for queue management. PGMQ is a Postgres extension built following exactly this sort of self-regulating queue. Today we're going to combine PGMQ with pair of core Postgres features—FOR UPDATE and SKIP LOCKED—to cover all the needs of our message queue. FOR UPDATE helps ensure that just a single consumer receives a message in the queue. And SKIP LOCKED is required if you want to have multiple consumers on the same queue – without it each consumer would wait for the others to remove their locks. Before we put all the pieces together, let's do a quick refresher on how each of these works.
 
 ## FOR UPDATE: Ensuring Exclusive Access
 
