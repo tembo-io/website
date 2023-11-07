@@ -1,6 +1,6 @@
 ---
 slug: pgmq-self-regulating-queue
-title: "PGMQ: A self-regulating queue extension for Postgres"
+title: "PGMQ: No More Background Worker"
 authors: [adam]
 tags: [postgres, message-queue, pgmq]
 ---
