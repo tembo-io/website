@@ -11,7 +11,14 @@ tags: [postgres, message-queue, pgmq]
 
 </div>
 
-When building a queue on Postgres, you have several important design decisions to make related to the mechanisms for identifying messages able to be read, how messages are marked as ‘in-progress’, and finally the mechanism for marking messages as ‘complete’. FOR UPDATE and SKIP LOCKED are amazing Postgres features that help with how messages are read and marked as in-progress, but  do not help with marking messages as ‘complete’. Many people resort to implementing a “watcher process” or background worker to oversee the queues and check on the status of messages—but there’s a better way. By designing with a visibility timeout, we can further simplify the architecture to require no external processes for queue management. PGMQ is a Postgres extension built following this self-regulating queue.
+Your app needs a message queue. Simple enough—until you try to do it, anyway.
+
+Go set it up on Kafka? Sure...but now you have a Kafka cluster to manage.
+Redis could work, but now you're just managing Redis instances instead.
+SQS? That means you have to reconfigure your application to talk to AWS, and you also get an extra external bill as icing on the cake.
+Let's build it on Postgres! However, if you follow most blogs and guides, you'll probably end up building an agent, watcher process, or background worker to make sure the queue stays healthy. It's better, but if the background worker fails, you could end up with bigger problems.
+
+Fortunately, there's a better way.
 
 ## Core Postgres Features
 
