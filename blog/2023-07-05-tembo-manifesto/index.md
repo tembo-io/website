@@ -34,6 +34,10 @@ Developers would love an open-source, multi-functional data platform to simplify
 
 Postgres, the world's favorite database with millions of deployments, features a liberal OSS license and a large community. It efficiently manages SQL and JSON queries across diverse workloads due to its growing, decade-old ecosystem of add-ons and extensions. It is popular for its open-source, standards-compliant, extensible nature, and ACID compliance, making it a reliable, cost-effective system. It handles low latency, high throughput analytical cases, offering HTAP-lite capabilities through window functions and foreign data wrappers. Even better, it’s extensibility has resulted in a wide ecosystem of add-ons and plugins for GIS data, image processing, vector databases, and more, with some extensions evolving into companies like CitusDB and Timescale. In short, everything you’d want and then some.
 
+[Postgres is most admired and desired](postgres_is_admired_and_desired_stackoverflow.png)
+
+*Source: [Stack Overflow Developer Survey 2023](https://survey.stackoverflow.co/2023/#section-admired-and-desired-databases)*
+
 Problem solved, right? Not so fast. 
 
 ## Overwhelmment
@@ -58,6 +62,8 @@ Additionally, Tembo invests in the Postgres extension ecosystem, aiming to stand
 
 It's Postgres the way it *should* be. With Tembo, you don't have to be a database expert to build an expert database. We are building a dev-first, fully-extensible, fully-managed, secure, and scalable Postgres service. Available on all clouds and bare metal providers, Tembo Cloud provides the largest curated library of easily-installed extensions, allowing our customers to expand their use cases of Postgres.
 
+![Organization home](org_home.png)
+
 ## Tembo Stacks
 
 It's “Postgres for Everything,” and we mean it. Stacks accelerate your development by enabling you to quickly create and deploy custom-built "flavors" of Postgres + extensions that are tailor made for key enterprise needs. No need to spin up new databases and endure the pain and associated sprawl—Stacks enable you to replace external, non-Postgres data services. 
@@ -68,6 +74,8 @@ No matter who you are or what you're trying to build, three things are true abou
 
 1. **True Managed Open Source**: You don't have to settle for a complex web of OSS data services **or** a restrictive, locked-in, expensive managed contract with one of the large cloud providers. Tembo is committed to making true open-source Postgres manageable and accessible.
 2. **Developer Centric**: You *can* have the flexibility and control you've dreamed of. Tembo is made by developers, for developers; we give you fast deployment, automatic migration, and a clear path to genuine value. We win when you win.
-3. **Future Proof**: Postgres is the world's most developer beloved database. It isn't going anywhere, and with the constantly growing ecosystem of extensions and applications, it's only getting better. With Tembo, you get all the potential of that ever-growing network, right at the click of a button. 
+3. **Future Proof**: Postgres is the world's most developer beloved database. It isn't going anywhere, and with the constantly growing ecosystem of extensions and applications, it's only getting better. With Tembo, you get all the potential of that ever-growing network, right at the click of a button.
+
+![Instance home](instance_home.png)
 
 **Tembo: It's everything you need to build anything on Postgres.**
