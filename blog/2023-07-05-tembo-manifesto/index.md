@@ -38,7 +38,7 @@ Problem solved, right? Not so fast.
 
 ## Overwhelmment
 
-*(yes it's a word)*
+*(It's a word now. Go with it.)*
 
 Companies are typically hesitant to adopt databases due to costs, complexity, and risk. The effort required to build, configure, and optimize a new system often makes the transition value negligible at best. For these companies (especially large enterprises that spend billions per year on a fragmented database architecture), Postgres and it's assimilation of database innovations *should* be an ideal solution. Open source, extensible, free from vendor lock in and ever-increasing costs—it should be a no brainer. 
 
