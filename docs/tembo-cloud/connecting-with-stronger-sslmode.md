@@ -37,4 +37,8 @@ curl -s -X 'GET' \
 psql 'postgresql://postgres:****@org-name-inst-name.data-1.use1.tembo.io:5432?sslmode=verify-full&sslrootcert=ca.crt'
 ```
 
+:::info
+`sslmode=verify-full` will not work when using a [Tembo Custom Domain](/docs/tembo-cloud/custom-domains), but your connections is still highly secure. This is because your custom domain host will not match the host at Tembo. 
+:::
+
 Different client software may connect in different ways. Connection examples are available in [this section of the Tembo documentation](/docs/category/connection-examples).
