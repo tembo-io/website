@@ -63,6 +63,8 @@ It's Postgres the way it *should* be. With Tembo, you don't have to be a databas
 
 ![Organization home](org_home.png)
 
+![Instance home](instance_home.png)
+
 ## Tembo Stacks
 
 It's “Postgres for Everything,” and we mean it. Stacks accelerate your development by enabling you to quickly create and deploy custom-built "flavors" of Postgres + extensions that are tailor made for key enterprise needs. No need to spin up new databases and endure the pain and associated sprawl—Stacks enable you to replace external, non-Postgres data services. 
@@ -74,7 +76,5 @@ No matter who you are or what you're trying to build, three things are true abou
 1. **True Managed Open Source**: You don't have to settle for a complex web of OSS data services **or** a restrictive, locked-in, expensive managed contract with one of the large cloud providers. Tembo is committed to making true open-source Postgres manageable and accessible.
 2. **Developer Centric**: You *can* have the flexibility and control you've dreamed of. Tembo is made by developers, for developers; we give you fast deployment, automatic migration, and a clear path to genuine value. We win when you win.
 3. **Future Proof**: Postgres is the world's most developer beloved database. It isn't going anywhere, and with the constantly growing ecosystem of extensions and applications, it's only getting better. With Tembo, you get all the potential of that ever-growing network, right at the click of a button.
-
-![Instance home](instance_home.png)
 
 **Tembo: It's everything you need to build anything on Postgres.**
