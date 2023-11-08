@@ -33,7 +33,7 @@ Developers would love an open-source, multi-functional data platform to simplify
 
 Postgres, the world's favorite database with millions of deployments, features a liberal OSS license and a large community. It efficiently manages SQL and JSON queries across diverse workloads due to its growing, decade-old ecosystem of add-ons and extensions. It is popular for its open-source, standards-compliant, extensible nature, and ACID compliance, making it a reliable, cost-effective system. It handles low latency, high throughput analytical cases, offering HTAP-lite capabilities through window functions and foreign data wrappers. Even better, it’s extensibility has resulted in a wide ecosystem of add-ons and plugins for GIS data, image processing, vector databases, and more, with some extensions evolving into companies like CitusDB and Timescale. In short, everything you’d want and then some.
 
-[Postgres is most admired and desired](postgres_is_admired_and_desired_stackoverflow.png)
+![Postgres is most admired and desired](postgres_is_admired_and_desired_stackoverflow.png)
 
 *Source: [Stack Overflow Developer Survey 2023](https://survey.stackoverflow.co/2023/#section-admired-and-desired-databases)*
 
