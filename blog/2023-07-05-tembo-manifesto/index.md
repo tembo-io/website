@@ -7,7 +7,6 @@ tags: [postgres, announcement]
 
 ![tembo brand](./tembo_brand.png)
 
-
 ## $100 billion+
 
 That's the expected size of the global database market in the coming years. The amount of data being generated, stored, and leveraged is growing exponentially, as is the need for applications to operate at a global scale. We're producing more data, we need it faster, and the uses for it are more and more complex by the day. 
