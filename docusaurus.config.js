@@ -183,7 +183,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages: ['r','java'],
+        additionalLanguages: ['r'],
       },
       hubspot: {
         accountId: 23590420
