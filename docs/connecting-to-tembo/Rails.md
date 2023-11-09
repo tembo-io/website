@@ -10,7 +10,7 @@ You will need to add the PostgreSQL Gem
 gem "pg"
 ```
 Navigate to `/config/database.yml` and add the following contents  
-Rails will create a database, so use a database not currently in Tembo Postgres
+Rails will create a database, so use a database name not currently in Tembo Postgres
 ```bash title="/config/database.yml"
 development:
   adapter: postgresql
