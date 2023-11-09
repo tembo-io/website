@@ -1,4 +1,4 @@
-It is important to use `Java 8` or greater and `PostgreSQL 4.2 JDBC Driver`
+It is important to use Java version 8 or greater and PostgreSQL JDBC Driver version 4.2 or greater.
 We recommend downloading the latest Java Development Kit  [JDK 21](https://www.oracle.com/java/technologies/downloads/#java8-mac)
 Also, you must download the [PostgreSQL 4.2 JDBC Driver](https://jdbc.postgresql.org/download/)
 
