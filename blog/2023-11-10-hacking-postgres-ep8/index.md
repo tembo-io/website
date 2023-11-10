@@ -1,6 +1,6 @@
 ---
 slug: hacking-postgres-ep8
-title: "Hacking Postgres, Ep. 3: Philippe Noël"
+title: "Hacking Postgres, Ep. 8: Philippe Noël"
 authors: [eric]
 tags: [postgres, hacking_postgres]
 ---
