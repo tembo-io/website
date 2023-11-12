@@ -4,6 +4,6 @@
   "collapsible": true,
   "link": {
     "type": "generated-index",
-    "description": "These Postgres guides will help you to perform some basic operations like displaying tables, connecting to database, exiting from database, and much more"
+    "description": "Stuck? Looking for help on specific Postgres operations? Look no further - we're here to help."
   }
 }
