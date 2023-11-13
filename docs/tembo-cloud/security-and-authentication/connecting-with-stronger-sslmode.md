@@ -16,7 +16,22 @@ Tembo Cloud supports sslmodes `require`, `verify-ca`, and `verify-full`. All of 
 
 ## Connecting with certificate validation
 
-It is more secure to connect to Tembo Cloud with certificate validation, using sslmode `verify-ca` or `verify-full`. To use one of these options, the postgres client needs to be configured with the appropriate `sslmode` and with `sslrootcert` configured with a local certificate. Users can download the root certificate using the Tembo API.
+It is more secure to connect to Tembo Cloud with certificate validation, using sslmode `verify-ca` or `verify-full`. To use one of these options, the postgres client needs to be configured with the appropriate `sslmode` and with `sslrootcert` configured with a local certificate. Users can download the root certificate using the the cloud ui or via the Tembo API.
+
+### Downloading the root certificate using the cloud ui
+
+:::note
+The root certificate will work for every instance in your organization. If you have multiple instances, you only need to download the root certificate once. Keep in mind that the root cert will not work with the `verify-full` parameter when using a [custom domain](/docs/tembo-cloud/configuration-and-management/custom-domains).
+:::
+
+- Visit [Tembo Cloud](https://cloud.tembo.io)
+- Navigate to your desired instance
+- Click "Show connection strings" on the right side of the screen
+- Download the root certificate using the button below:
+
+![test](./tembo-ui-download-cert-btn.svg)
+
+### Downloading the root certificate via the Tembo API
 
 For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication).
 
@@ -37,4 +52,4 @@ curl -s -X 'GET' \
 psql 'postgresql://postgres:****@org-name-inst-name.data-1.use1.tembo.io:5432?sslmode=verify-full&sslrootcert=ca.crt'
 ```
 
-Different client software may connect in different ways. Connection examples are available in [this section of the Tembo documentation](/docs/category/connection-examples).
+Different clients may connect in different ways. Connection examples are available in [this section of the Tembo documentation](/docs/category/connection-examples).
