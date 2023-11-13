@@ -1,6 +1,6 @@
 ---
 slug: vector-indexes-in-pgvector
-title: "Vector Indexes in pgvector: IVFFlat vs HNSW"
+title: "Vector Indexes in Postgres using pgvector: IVFFlat vs HNSW"
 authors: [rjzv]
 tags: [postgres, extensions, vector, indexes, pgvector, ivfflat, hnsw]
 image: ./pgvector.jpeg
@@ -54,7 +54,7 @@ The [pgvector documentation](https://github.com/pgvector/pgvector#ivfflat) sugge
 > When querying, specify an appropriate number of probes (higher is better for recall, lower is better for speed) - a good place to start is sqrt(lists)
 
 
-So, imagine that we have a dataset of 1M vectors. With the parameters above, pgvector would generate 1 000 lists of _approximately_ 1 000 vectors. When executing a query, it would only query ~32 of such lists and execute ~32 000 comparisons to find the closest neighbors to a search vector. That is, only 0.032X compared to a full scan.
+So, imagine that we have a dataset of 1M vectors. With the parameters above, pgvector would generate 1,000 lists of _approximately_ 1,000 vectors. When executing a query, it would only query ~32 of such lists and execute ~32,000 comparisons to find the closest neighbors to a search vector. That is, only 0.032X compared to a full scan.
 
 Of course, you can choose different parameters to achieve the desired recall. More on that later in this post.
 
