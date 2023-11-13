@@ -9,7 +9,7 @@ tags:
 # graphQL
 
 :::info
-__Powered by [PostgREST](https://postgrest.org/en/stable/) and [pg_graphql](https://github.com/supabase/pg_graphql)__
+**Powered by [PostgREST](https://postgrest.org/en/stable/) and [pg_graphql](https://github.com/supabase/pg_graphql)**
 :::
 
 GraphQL is a query language for APIs, as well as a server-side runtime for executing those queries by using a type system that you define for your data. It offers a more efficient, flexible, and powerful alternative to the traditional REST API. Instead of accessing multiple endpoints to fetch or modify data, GraphQL enables you to request exactly what you need and nothing more from a single endpoint. This minimizes over-fetching or under-fetching of data, which can lead to faster and more efficient applications.
@@ -24,7 +24,7 @@ In Tembo Cloud, graphQL is made possible by combining [PostgREST](https://postgr
 Coming soon: enable graphQL via the [Tembo Cloud UI](https://cloud.tembo.io)
 :::
 
-First, you will need to generate an API token so that you can communicate with your Tembo instance. Navigate to cloud.tembo.io/generate-jwt and follow the instructions to generate a token. Alternatively, you can follow the instructions [here](https://tembo.io/docs/tembo-cloud/api-authentication).
+First, you will need to generate an API token so that you can communicate with your Tembo instance. Navigate to cloud.tembo.io/generate-jwt and follow the instructions to generate a token. Alternatively, you can follow the instructions [here](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication).
 
 Set your Tembo token as an environment variable, along with your organization id and the Tembo instance id. Fetch the `TEMBO_DATA_DOMAIN` from the "Host" parameter of your Tembo instance.
 
@@ -175,8 +175,8 @@ You should see the following response. Note that the function we created simply 
 ### Query the database with the graphQL API
 
 Now we can query the products table using graphQL syntax.
- If you've been following the example, there should be two products in the database; a pen and a computer.
- Let's query the database and ask for products that have a unit price less than 2.
+If you've been following the example, there should be two products in the database; a pen and a computer.
+Let's query the database and ask for products that have a unit price less than 2.
 
 <Tabs>
 <TabItem value="py" label="Python">
@@ -189,9 +189,9 @@ resp = requests.post(
     headers={"Authorization": f"Bearer {TEMBO_TOKEN}"},
     json={
         "query": '''
-        { 
-            productsCollection(filter: { unit_price: {lt: "2" }}) 
-            { 
+        {
+            productsCollection(filter: { unit_price: {lt: "2" }})
+            {
                 edges { node { uid, name, category, unit_price } }
             }
         }
