@@ -18,7 +18,7 @@ Tembo Cloud supports sslmodes `require`, `verify-ca`, and `verify-full`. All of 
 
 It is more secure to connect to Tembo Cloud with certificate validation, using sslmode `verify-ca` or `verify-full`. To use one of these options, the postgres client needs to be configured with the appropriate `sslmode` and with `sslrootcert` configured with a local certificate. Users can download the root certificate using the the cloud ui or via the Tembo API.
 
-### Downloading the root certificate using the cloud ui
+### Downloading the root certificate using the Tembo Cloud UI
 
 :::note
 The root certificate will work for every instance in your organization. If you have multiple instances, you only need to download the root certificate once. Keep in mind that the root cert will not work with the `verify-full` parameter when using a [custom domain](/docs/tembo-cloud/configuration-and-management/custom-domains).
