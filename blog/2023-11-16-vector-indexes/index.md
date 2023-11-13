@@ -11,27 +11,20 @@ image: ./pgvector.jpeg
 Image credit: Generated with Bing Image Creator
 </em></p>
 
-Indexes are data structures that make database searches more efficient. Specifically, they speed up finding specific values in a database column. So, instead of having to scan a table with 50,000 records to find a student with ID=9876, having an index on the ID column could locate said student in fewer operations.
+In databases, indexes are data structures that speed up finding specific values in a table column. The analogous task in vector databases consists of finding the (approximate) nearest-neighbors of a given vector. So, to accomplish this task fast, we can similarly create specialized vector indexes. 
 
-Problem solved, right? Not so fast.
+But, speeding up a query is not just about blindly creating an index. When deciding whether to create one or more indexes on a table, several factors need to be considered—for example, the size of the tables, whether the table is modified frequently, how the table is used in queries, and so on. Similar considerations apply to vector indexes.
 
-See, when deciding whether to create one or more indexes on a table, several factors need to be considered—for example, the size of the tables, whether the table is modified frequently, how the table is used in queries, and so on.
-
-Well, could we just use a vector database and vector indexes?” Sure, but these considerations (and some others) apply to them too.
-
-Consider the typical example of finding [text similar to a query](https://tembo.io/blog/pgvector-and-embedding-solutions-with-postgres) to generate possible answers. Spoiler alert: there are multiple ways to get the answer, but all of them involve tradeoffs of speed, accuracy, and resource demands.
-
-So, in today's post, let us explore these tradeoffs in the context of Postgres and pgvector.
+In today's post, let us explore vector indexes and their tradeoffs in the context of Postgres and [Pgvector](https://github.com/pgvector/pgvector). In particular, let us compare their build time, size, and speed, and, based on that, derive some guidelines to decide which one to choose for a given application.
 
 
 ## Indexes in Pgvector
 
-[Pgvector](https://github.com/pgvector/pgvector) is an open-source Postgres extension for similarity search. It allows for exact and approximate nearest-neighbor search. In particular, for ANN it offers two types of indexes: **IVFFlat** and **HNSW**.
+Pgvector is an open-source Postgres extension for similarity search. It allows for exact and approximate nearest-neighbor search. In particular, for ANN it offers two types of indexes: IVFFlat and HNSW. Let us briefly discuss them.
 
+### IVFFlat
 
-## IVFFlat
-
-The IVFFlat (Inverted File with Flat Compression) index works by dividing the vectors in the table into multiple lists: the algorithm calculates a number of ‘centroids’ (let’s call it C) and groups vectors in the dataset according to the centroid that is closest to them. The result is C clusters of vectors, and the elements of these clusters correspond to the groups I described previously.
+The IVFFlat (Inverted File with Flat Compression) index works by dividing the vectors in the table into multiple lists. The algorithm calculates a number of **centroids** and finds the **clusters** around those centroids. So, there is a list for each centroid, and the elements of these lists are the vectors that make up its corresponding cluster.
 
 When searching for the K nearest vectors, instead of calculating the distance to all vectors, the search space is narrowed to only a subset of the lists, thus reducing the number of computations. Which lists are the candidates? The ones whose centroid is closer to the search vector.
 
@@ -40,15 +33,15 @@ When searching for the K nearest vectors, instead of calculating the distance to
 IVFFlat generates lists based on clusters.
 </em></p>
 
-From the previous description, we can derive that the effectiveness of the index depends on two parameters: the number/size of the lists and the number of lists that need to be examined during the search (aka probes).
+So, we can infer that the effectiveness of the index depends on two parameters: the number/size of the lists and the number of lists that need to be examined during the search (aka probes).
 
-In pgvector, these two parameters are selected in two moments. As mentioned earlier, the number of lists is chosen when creating the index, for example:
+In pgvector, these two parameters are selected in two distinct moments. First, the number of lists is chosen when creating the index, for example:
 
 ```sql
 CREATE INDEX ON items USING ivfflat (embedding vector_cosine_ops) WITH (lists = 1000)
 ``` 
 
-In contrast, the number of lists to be explored is indicated during execution, e.g.:
+Second, the number of lists to be explored is established during execution, e.g.:
 
 ```sql
 SET ivfflat.probes = 32
@@ -61,14 +54,14 @@ The [pgvector documentation](https://github.com/pgvector/pgvector#ivfflat) sugge
 > When querying, specify an appropriate number of probes (higher is better for recall, lower is better for speed) - a good place to start is sqrt(lists)
 
 
-So, imagine that we have a dataset of 1M vectors. With the parameters above, pgvector would generate 1 000 lists of approximately 1 000 vectors. When executing a query, it would only query 32 of such lists and execute 32 000 comparisons to find the closest neighbors to a search vector. That is, only 0.032X compared to a full scan.
+So, imagine that we have a dataset of 1M vectors. With the parameters above, pgvector would generate 1 000 lists of _approximately_ 1 000 vectors. When executing a query, it would only query ~32 of such lists and execute ~32 000 comparisons to find the closest neighbors to a search vector. That is, only 0.032X compared to a full scan.
 
 Of course, you can choose different parameters to achieve the desired recall. More on that later in this post.
 
 
-## HNSW
+### HNSW
 
-The [Hierarchical Navigable Small Worlds (HNSW)](https://arxiv.org/pdf/1603.09320.pdf) index creates a graph with multiple layers. The nodes in the graph represent vectors, and the links represent distances. Finding the kNN consists of traversing the graph and looking for the shorter distances. 
+The [Hierarchical Navigable Small Worlds (HNSW)](https://arxiv.org/pdf/1603.09320.pdf) index creates a graph with multiple layers. The nodes in the graph represent vectors, and the links represent distances. Finding the ANN consists of traversing the graph and looking for the shorter distances. 
 
 We can think of these layers as different zoom levels of the graph. Zooming out, we see a few nodes (vectors) and links. But as we zoom in, we see more and more nodes and more and more links. 
 
@@ -80,7 +73,7 @@ HNSW creates a graph with multiple layers
 </em></p>
 
 
-For HNSW, there are two tuning parameters: the maximum number of connections per layer (`m`) and the size of the dynamic candidate list for constructing the graph (`ef_construction`). These settings are decided when creating the index:
+For HNSW, two tuning parameters are decided at creation time: the maximum number of connections per layer (`m`) and the size of the dynamic candidate list for constructing the graph (`ef_construction`):
 
 ```sql
 CREATE INDEX ON items USING hnsw (embedding vector_cosine_ops) WITH (m = 16, ef_construction = 64)
@@ -90,20 +83,26 @@ A bigger value for `m` means that each node would have more links in each layer 
 
 `ef_construction` is also used during the build phase of the index, and it indicates the entry points in layer i+1. That means that bigger values would lead to heavier indexes. 
 
-In contrast with IVFFlat, Pgvector does not mention any particular [recommendation for HNSW](https://github.com/pgvector/pgvector#hnsw), but the defaults are `m=16`  and `ef_construction=64`.
+Pgvector does not mention any particular [recommendation for HNSW](https://github.com/pgvector/pgvector#hnsw), but the defaults are `m=16`  and `ef_construction=64`.
+
+Another parameter, `ef_search`, determines the size of the dynamic candidate list of vectors. In pgvector, the default is `ef_search=40`, but can be modified as follows at query time:
+
+```sql
+SET hnsw.ef_search = 100;
+```
 
 
-## Why are they approximate?
+## Impact of Approximation on Recall
 
 In the previous sections, I mentioned a couple of times that the build parameters affect recall. What do we mean by that?
 
-`Recall` measures how many retrieved neighbors are indeed in the true kNN group. A recall of 1.0 means that all calculated neighbors are really the closest. Whereas a recall of 0.5 means that only half of the computed neighbors are in fact the closest.
+Well, `Recall` measures how many retrieved neighbors are indeed in the true kNN group. For example, a recall of 1.0 means that all calculated neighbors are really the closest. Whereas a recall of 0.5 means that only half of the computed neighbors are the closest. Recall is an important metric because it helps measure the approximation errors and tune the index parameters.
 
-Recall is an important metric for IVFFlat and HNSW because they are approximate indexes that work with heuristics. That means that there could be errors. Knowing the recall helps in tuning the index parameters.
+IVFFlat and HNSW are approximate indexes that work with heuristics. That means that there could be errors in their search results.
 
 Take IVFFlat as an example. When deciding which lists to scan, the decision is taken based on the distance to the centroid of the list. Depending on the data and the tuning parameters, the closest vector to the search vector could correspond to a list that was not selected for probing, thus reducing the accuracy of the result.
 
-One way to mitigate this problem and boost recall is to increase the number of lists to probe. But that, of course, would incur a performance penalty. Improving the recall is not free, and careful evaluation and tuning of the parameters is paramount. 
+One way to mitigate this problem and boost recall is to increase the number of lists to probe. But that, of course, would incur a performance penalty. So, **improving the recall is not for free**, and careful evaluation and tuning of the parameters is paramount. 
 
 
 ## IVFFlat vs HNSW in the pgvector arena
@@ -202,7 +201,17 @@ For the chosen parameters, we can see that the recall is more sensitive to index
 
 ![HNSW recall](./004_HNSW_Recall.png)
 
-## General Guidelines
+
+## Picking the right index for your use case
+
+As a quick summary, these were there results that we obtained from our experiments:
+
+|                                   | **IVFFlat** | **HNSW**   |
+|-----------------------------------|-------------|------------|
+| **Build Time (in seconds)**       |         128 |      4,065 |
+| **Size (in MB)**                  |         257 |        729 |
+| **Speed (in QPS)**                |         2.6 |       40.5 |
+| **Change in Recall upon updates** | Significant | Negligible |
 
 With the results above, we can then make the following recommendations:
 
