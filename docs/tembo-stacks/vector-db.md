@@ -4,12 +4,12 @@ sidebar_position: 2
 
 # Tembo Vector DB
 
-Tembo's Vector Database provides tool to automate the process of generating embeddings on your existing data, which allows you to have vector search semantic search capabilities on day one.
+Tembo's Vector Database provides tooling to automate the process of generating embeddings on your existing data, which allows you to have vector search semantic search capabilities on day one.
 
 
 ## Getting started
 
-We will build a simple vector search application using `pg_vectorize`, which is powered by [OpenAI](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key), [pgvector](https://github.com/pgvector/pgvector), [pgmq](https://github.com/tembo-io/pgmq), and [pg_cron](https://github.com/citusdata/pg_cron).
+We will build a simple vector search database application using [pg_vectorize](https://github.com/tembo-io/pg_vectorize), Tembo's high level Postgres API which automated the transformation of text to embeddings and the management of embeddings in your database. It is powered by [OpenAI](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key), [pgvector](https://github.com/pgvector/pgvector), [pgmq](https://github.com/tembo-io/pgmq), and [pg_cron](https://github.com/citusdata/pg_cron).
 
 ### Setup
 
