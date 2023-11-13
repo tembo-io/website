@@ -6,8 +6,8 @@ tags: [postgres, announcement, terraform, infrastructure_as_code]
 image: ./images/tembo-terraform-provider.png
 ---
 
-import ReactPlayer from 'react-player'
-import DemoVideoUrl from './videos/tembo-terraform-provider.mov';
+import ReactPlayer from "react-player"
+import DemoVideoUrl from "./videos/tembo-terraform-provider.mov"
 
 ![tembo-terraform-provider](./images/tembo-terraform-provider.png)
 
@@ -23,7 +23,7 @@ Simpler, faster, safer, and easier? That’s Tembo - but let’s back up and sta
 
 Databases as code provides a safe, consistent, and repeatable way of managing databases and is a game-changer for developers. This approach allows you to version-control any changes, ensuring auditability, and facilitates efficient workflows such as Pull Request flows and [GitOps](https://about.gitlab.com/topics/gitops/).
 
-Terraform is the most popular Infrastructure as Code tool today. It provides a way to define the desired state of your infrastructure using Hashicorp Configuration Language(HCL). Terraform handles all the complexity of making sure that when changes are applied, the actual state  matches the desired state. Therefore, it is an efficient way of managing databases as code.
+Terraform is the most popular Infrastructure as Code tool today. It provides a way to define the desired state of your infrastructure using Hashicorp Configuration Language(HCL). Terraform handles all the complexity of making sure that when changes are applied, the actual state matches the desired state. Therefore, it is an efficient way of managing databases as code.
 
 ## Using Terraform Provider for Tembo
 
@@ -33,7 +33,7 @@ With the Terraform Provider for Tembo, you can manage Postgres databases on Temb
 
 You can create a new Tembo instance on Tembo Cloud using the `tembo_instance` resource available with the provider. Below is an example configuration.
 
-**Note:** Tembo Terraform Provider needs an `access_token` to authenticate with the API. Generate a long-lived API token by following steps [here](https://tembo.io/docs/tembo-cloud/api-authentication#create-a-long-lived-api-token).
+**Note:** Tembo Terraform Provider needs an `access_token` to authenticate with the API. Generate a long-lived API token by following steps [here](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication#create-a-long-lived-api-token).
 
 ```terraform
 terraform {
