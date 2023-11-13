@@ -16,12 +16,16 @@ Tembo Cloud supports sslmodes `require`, `verify-ca`, and `verify-full`. All of 
 
 ## Connecting with certificate validation
 
-It is more secure to connect to Tembo Cloud with certificate validation, using sslmode `verify-ca` or `verify-full`. To use one of these options, the postgres client needs to be configured with the appropriate `sslmode` and with `sslrootcert` configured with a local certificate. Users can download the root certificate using the the cloud ui or via the Tembo API.
+The root CA certificate, know as `sslrootcert` in the [Postgres documentation](https://www.postgresql.org/docs/current/libpq-ssl.html), can be used to authenticate the server when connecting to Postgres.
+It is more secure to connect to Postgres with certificate validation, using **sslmode** `verify-ca` or `verify-full`.
 
-### Downloading the root certificate using the Tembo Cloud UI
+To use one of these options, the Postgres client needs to be configured to use the `sslrootcert` to authenticate the Postgres server. Users can download the root certificate using the the cloud ui or via the Tembo API.
+Both modes `verify-ca` or `verify-full` will authenticate the server, checking that the server's certificate was signed by the `sslrootcert`. `verify-full` also checks that the hostname on the certificate matches the domain name used to connect, therefore `verify-full` does not work with the [custom domains](/docs/tembo-cloud/configuration-and-management/custom-domains) feature.
+
+### Downloading the root certificate
 
 :::note
-The root certificate will work for every instance in your organization. If you have multiple instances, you only need to download the root certificate once. Keep in mind that the root cert will not work with the `verify-full` parameter when using a [custom domain](/docs/tembo-cloud/configuration-and-management/custom-domains).
+The root CA certificate, know as the `sslrootcert` in the [Postgres documentation](https://www.postgresql.org/docs/current/libpq-ssl.html), is the same between all Tembo instances.
 :::
 
 - Visit [Tembo Cloud](https://cloud.tembo.io)
