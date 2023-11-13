@@ -9,7 +9,6 @@ const config = {
   title: 'Tembo',
   tagline: 'The developer platform for building any data service',
   favicon: 'img/favicon.ico',
-
   // Set the production url of your site here
   url: 'https://tembo.io',
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -118,7 +117,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       image: 'img/social-card.png',
-      
+
       navbar: {
         logo: {
           alt: 'Tembo Logo',

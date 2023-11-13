@@ -4,6 +4,6 @@
   "collapsible": true,
   "link": {
     "type": "generated-index",
-    "description": "Guides for working with Tembo Cloud"
+    "description": "Tembo Cloud is a dev-first, fully-extensible, fully-managed, secure, and scalable Postgres service. No matter what you're building, we it easy for you to get up and running with Postgres. Find out more in these docs, or contact us at support@tembo.io."
   }
 }
