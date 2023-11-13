@@ -12,13 +12,13 @@ Please report security issues by emailing security@tembo.io
 
 Postgres has a connection setting called [sslmode](https://www.postgresql.org/docs/current/libpq-ssl.html).
 
-Tembo Cloud supports sslmodes `require`, `verify-ca`, and `verify-full`. All of these options require encryption. The modes `verify-ca` and `verify-full` validate the server certificate using a locally provided certificate. For more information, please review the [security documentation](/docs/tembo-cloud/security#ssl-and-certificates).
+Tembo Cloud supports sslmodes `require`, `verify-ca`, and `verify-full`. All of these options require encryption. The modes `verify-ca` and `verify-full` validate the server certificate using a locally provided certificate. For more information, please review the [security documentation](/docs/tembo-cloud/security-and-authentication/security#ssl-and-certificates).
 
 ## Connecting with certificate validation
 
 It is more secure to connect to Tembo Cloud with certificate validation, using sslmode `verify-ca` or `verify-full`. To use one of these options, the postgres client needs to be configured with the appropriate `sslmode` and with `sslrootcert` configured with a local certificate. Users can download the root certificate using the Tembo API.
 
-For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](/docs/tembo-cloud/api-authentication).
+For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication).
 
 ```bash
 ORG_ID='org_id123456'
