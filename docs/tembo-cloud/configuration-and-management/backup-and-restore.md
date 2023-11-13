@@ -30,7 +30,7 @@ Tembo Cloud supports Point-In-Time Recovery (PITR) to a new Tembo Instance for a
 Coming soon: Point-In-Time Recovery (PITR) via the [Tembo Cloud UI](https://cloud.tembo.io)
 :::
 
-For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](/docs/tembo-cloud/api-authentication).
+For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](/docs/tembo-cloud/security-and-authentication/api-authentication).
 
 ```shell
 TEMBO_TOKEN=<your token>

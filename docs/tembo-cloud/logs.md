@@ -11,7 +11,7 @@ Get logs from your Tembo Instances.
 
 ## Loki
 
-Tembo uses [Loki](https://grafana.com/docs/loki/) for logs. Tembo grants users access to the Loki API. Users must include an **Authorization** header, which is a Tembo Cloud token (see [authentication](https://tembo.io/docs/tembo-cloud/api-authentication)), and a header **X-Scope-OrgID**, which should be set to the Tembo Organization ID (for more information, see Loki docs on multi-tenancy [here](https://grafana.com/docs/loki/latest/operations/multi-tenancy/)).
+Tembo uses [Loki](https://grafana.com/docs/loki/) for logs. Tembo grants users access to the Loki API. Users must include an **Authorization** header, which is a Tembo Cloud token (see [authentication](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication)), and a header **X-Scope-OrgID**, which should be set to the Tembo Organization ID (for more information, see Loki docs on multi-tenancy [here](https://grafana.com/docs/loki/latest/operations/multi-tenancy/)).
 
 ## Examples
 
@@ -47,17 +47,19 @@ To connect your Grafana server to Tembo's logging server, [add a new data source
 - Select "Loki" as the data source type
 - For URL, configure your data plane domain name. For example, `https://api.data-1.use1.tembo.io/`.
 - Add two HTTP Headers configurations:
-    - Header: `X-Scope-OrgID`, Value: `your-tembo-org-here`
-    - Header: `Authorization`, Value: `Bearer your-tembo-cloud-token-here`
+  - Header: `X-Scope-OrgID`, Value: `your-tembo-org-here`
+  - Header: `Authorization`, Value: `Bearer your-tembo-cloud-token-here`
 
 #### Example running Grafana locally
 
 Run Grafana:
+
 ```bash
 docker run -d -p 8080:3000 --name=grafana grafana/grafana-oss
 ```
 
 Configure the datasource:
+
 ```bash
 curl -X "POST" "http://admin:admin@localhost:8080/api/datasources" \
      -H "Content-Type: application/json" \

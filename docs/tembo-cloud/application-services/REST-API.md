@@ -9,7 +9,7 @@ tags:
 # REST API
 
 :::info
-__Powered by [PostgREST](https://postgrest.org/en/stable/)__
+**Powered by [PostgREST](https://postgrest.org/en/stable/)**
 :::
 
 Having an HTTP interface to your Postgres database significantly improves the rate at which you can develop applications. Sometimes developers build CRUD webservers from scratch, but for many use cases, you can simply use [PostgREST](https://postgrest.org/en/stable/) and it is available on Tembo Cloud.
@@ -25,14 +25,13 @@ Main Features:
 - Real-time updates with WebSockets: PostgREST can push real-time updates to clients through WebSockets, enhancing responsiveness and interactivity.
 - Support for Stored Procedures: Custom business logic can be incorporated directly through PostgreSQL stored procedures, making it accessible via the API.
 
-
 ## Enabling PostgREST on Tembo Cloud
 
 :::info
 Coming soon: enable PostgREST via the [Tembo Cloud UI](https://cloud.tembo.io)
 :::
 
-First, you will need to generate an API token so that you can communicate with your Tembo instance. Navigate to cloud.tembo.io/generate-jwt and follow the instructions to generate a token. Alternatively, you can follow the instructions [here](https://tembo.io/docs/tembo-cloud/api-authentication).
+First, you will need to generate an API token so that you can communicate with your Tembo instance. Navigate to cloud.tembo.io/generate-jwt and follow the instructions to generate a token. Alternatively, you can follow the instructions [here](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication).
 
 Set your Tembo token as an environment variable, along with your organization id and the Tembo instance id. Fetch the `TEMBO_DATA_DOMAIN` from the "Host" parameter of your Tembo instance.
 
@@ -139,13 +138,7 @@ The API response gives us the schema for our `products` table.
 
 ```json
 {
-  "required": [
-    "uid",
-    "name",
-    "category",
-    "unit_price",
-    "created_at"
-  ],
+  "required": ["uid", "name", "category", "unit_price", "created_at"],
   "properties": {
     "uid": {
       "description": "Note:\nThis is a Primary Key.<pk/>",
@@ -177,7 +170,6 @@ The API response gives us the schema for our `products` table.
 ### Insert two records into the products table
 
 There are no products in the table since we just created it. Let's use the REST API to insert two products into the table.
-
 
 <Tabs>
 <TabItem value="py" label="Python">
@@ -220,7 +212,6 @@ curl -X POST \
 
 Now that we added some data, let's use the REST API to select all records from the table.
 
-
 <Tabs>
 <TabItem value="py" label="Python">
 
@@ -234,7 +225,6 @@ resp.json()
 
 </TabItem>
 <TabItem value="curl" label="Curl">
-
 
 ```bash
 curl -X GET \
@@ -271,7 +261,6 @@ We inserted two products and as expected, we the API response gave us two record
 
 We can also filter the records by adding query parameters to the URL. Let's filter the records to only show products where the unit price is less than 2.
 
-
 <Tabs>
 <TabItem value="py" label="Python">
 
@@ -299,7 +288,6 @@ curl -X GET \
 
 </TabItem>
 </Tabs>
-
 
 As expected, there is just one product with a price less than 2.
 
