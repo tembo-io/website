@@ -220,6 +220,16 @@ With the results above, we can then make the following recommendations:
 - If you care more about speed, then choose HNSW.
 - If you expect vectors to be added or modified, then select HNSW.
 
+Let us see some examples.
+
+Imagine a case of a database of Constellations for Astronomy. Data updates would be infrequent (inverse of guideline #4), so IVFFlat would be a good candidate. The index would remain of modest size (guideline #1) and give good recall by tuning only two parameters.
+
+Let's take another example. Imagine a system of Facial Recognition. You'd likely want a fast response time (guideline #2) with good accuracy. You may also be OK with the size of the index (inverse of guideline #1). So, HNSW would be the best choice.
+
+The case of an IoT Sensor Data Database where read values keep changing (e.g., temperature, position, etc.) would also be a good candidate for HNSW (guideline #4). IVFFlat could not handle the index changes properly.
+
+Finally, imagine a database of vector embeddings obtained from your company's knowledge base to generate a chatbot. If the knowledge base rarely changes (inverse of guideline #4) and rebuilding the index is acceptable (if recall ever degrades) (guideline #3), you may choose IVFFlat.
+
 
 ## Wrapping up…
  
@@ -227,7 +237,7 @@ In this post, we discussed the two types of indexes currently available in pgvec
 
 With the help of a benchmark, we compared the indexes quantitatively in terms of build time, index size, QPS, and recall. We derived some general guidelines for choosing the appropriate index type based on our results.
 
-I invite everyone to try out the benchmarking program, which can be found [here](https://github.com/erikbern/ann-benchmarks/), and our modified version, which is [here](https://github.com/binidxaba/ann-benchmarks).
+I invite everyone to try out the benchmarking program, which can be found [here](https://github.com/erikbern/ann-benchmarks/), and the modified version, which is [here](https://github.com/binidxaba/ann-benchmarks).
 
 What other elements should we consider when choosing a vector index? Let us know your thoughts at [@tembo_io](https://twitter.com/tembo_io). 
 
