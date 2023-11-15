@@ -1,2 +1,3 @@
-blog/** @ericankenman
-docs/** @ericankenman
+docusaurus/blog/** @ericankenman
+docusaurus/docs/** @ericankenman
+landing/** @DarrenBaldwin07
