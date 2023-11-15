@@ -4,6 +4,8 @@
 <a href='https:tembo.io' target='_blank'>tembo.io</a>
 </div>
 
+<br />
+
 The Tembo website is built using [Astro](https://astro.build) and [Docusaurus 2](https://docusaurus.io/), both are modern static website and docs generators.
 
 ### Installation
