@@ -1,5 +1,5 @@
 # Dependencies
-/node_modules
+node_modules
 
 # Production
 /build
@@ -16,6 +16,11 @@ yarn.lock
 .env.test.local
 .env.production.local
 
+# build output
+dist/
+
+# generated types
+.astro/
+
+# logs
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*

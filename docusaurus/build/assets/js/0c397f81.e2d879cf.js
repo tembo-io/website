@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[339],{60244:s=>{s.exports=JSON.parse('{"label":"hacking_postgres","permalink":"/blog/tags/hacking-postgres","allTagsPath":"/blog/tags","count":8}')}}]);

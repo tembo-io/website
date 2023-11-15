@@ -1,0 +1,18 @@
+.docusaurus-highlight-code-line {
+  background-color: rgb(72, 77, 91);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+/* Loading icon */
+.redocusaurus > div:first-child > svg {
+  margin-top: 10px;
+  max-width: 4rem;
+  max-height: 4rem;
+}
+
+/* Table row color override to match your Docusaurus CSS */
+.redocusaurus table > tbody > tr {
+  background-color: var(--ifm-table-cell-color) !important;
+}

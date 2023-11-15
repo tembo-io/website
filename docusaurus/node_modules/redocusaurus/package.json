@@ -1,0 +1,54 @@
+{
+  "name": "redocusaurus",
+  "version": "1.6.3",
+  "description": "Redoc for DocusaurusV2",
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./plugin": "./dist/plugin.js",
+    "./theme": "./dist/theme.js"
+  },
+  "files": [
+    "dist",
+    "src",
+    "plugin.js",
+    "theme.js"
+  ],
+  "scripts": {
+    "build": "tsc && echo \"built preset\"",
+    "dev": "tsc -w",
+    "prepublish": "rm -rf .tsbuild.info",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohit-gohri/redocusaurus.git"
+  },
+  "keywords": [
+    "redoc",
+    "openapi",
+    "api",
+    "swagger",
+    "documentation",
+    "api-doc",
+    "docusaurus",
+    "docusaurus-preset"
+  ],
+  "author": "Rohit Gohri <code@rohit.page>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rohit-gohri/redocusaurus/issues"
+  },
+  "homepage": "https://redocusaurus.vercel.app/",
+  "dependencies": {
+    "docusaurus-plugin-redoc": "1.6.0",
+    "docusaurus-theme-redoc": "1.6.3"
+  },
+  "peerDependencies": {
+    "@docusaurus/theme-common": "^2.0.0",
+    "@docusaurus/utils": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[8256],{70092:s=>{s.exports=JSON.parse('{"label":"logs","permalink":"/docs/tags/logs","allTagsPath":"/docs/tags","count":1,"items":[{"id":"tembo-cloud/logs","title":"Logs","description":"Get logs from your Tembo Instances.","permalink":"/docs/tembo-cloud/logs"}]}')}}]);

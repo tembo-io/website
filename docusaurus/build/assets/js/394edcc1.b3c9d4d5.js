@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[9116],{9432:a=>{a.exports=JSON.parse('{"label":"pg_partman","permalink":"/blog/tags/pg-partman","allTagsPath":"/blog/tags","count":1}')}}]);

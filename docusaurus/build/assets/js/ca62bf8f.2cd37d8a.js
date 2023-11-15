@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[1048],{66805:a=>{a.exports=JSON.parse('{"label":"temporal_tables","permalink":"/blog/tags/temporal-tables","allTagsPath":"/blog/tags","count":1}')}}]);
