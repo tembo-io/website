@@ -1,3 +1,4 @@
+![tembo-banner](https://github.com/tembo-io/website/assets/68653294/2f41b6e1-1be6-4c14-9d64-56c7636d8c54)
 <h1 align='center'>Tembo Website</h1>
 <h4 align='center'>Goodbye Database Sprawl, Hello Postgres</h4>
 <div align='center'>
