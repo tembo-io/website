@@ -1,4 +1,8 @@
-# Tembo Website
+<h1 align='center'>Tembo Website</h1>
+<h4 align='center'>Goodbye Database Sprawl, Hello Postgres</h4>
+<div align='center'>
+<a href='https:tembo.io' target='_blank'>tembo.io</a>
+</div>
 
 The Tembo website is built using [Astro](https://astro.build) and [Docusaurus 2](https://docusaurus.io/), both are modern static website and docs generators.
 
@@ -24,7 +28,7 @@ $ npm run landing
 $ npm run docs
 ```
 
-This command starts a local development server and opens up a browser window. All changes are reflected live without having to restart the server.
+These command(s) start local development servers and open up browsers. All changes are reflected live without having to restart the server.
 
 ### Build
 
@@ -40,7 +44,7 @@ $ npm run build-landing
 $ npm run build-docs
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+This commands will generate static content into the associated `build` directory and can be served using any static contents hosting service.
 
 ### Deployment
 
