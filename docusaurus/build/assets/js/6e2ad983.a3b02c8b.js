@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[144],{30608:s=>{s.exports=JSON.parse('{"label":"pgmq","permalink":"/blog/tags/pgmq","allTagsPath":"/blog/tags","count":3}')}}]);

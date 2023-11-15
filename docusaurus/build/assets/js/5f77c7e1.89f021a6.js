@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[505],{70623:e=>{e.exports=JSON.parse('{"label":"message-queue","permalink":"/blog/tags/message-queue","allTagsPath":"/blog/tags","count":1}')}}]);

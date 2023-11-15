@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[9711],{67183:s=>{s.exports=JSON.parse('{"label":"postgres","permalink":"/blog/tags/postgres","allTagsPath":"/blog/tags","count":26}')}}]);

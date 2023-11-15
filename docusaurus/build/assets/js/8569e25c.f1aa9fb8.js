@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[1004],{48359:s=>{s.exports=JSON.parse('{"label":"infrastructure_as_code","permalink":"/blog/tags/infrastructure-as-code","allTagsPath":"/blog/tags","count":1}')}}]);

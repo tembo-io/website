@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[5888],{43640:s=>{s.exports=JSON.parse('{"label":"JSONB","permalink":"/docs/tags/jsonb","allTagsPath":"/docs/tags","count":1,"items":[{"id":"postgres_guides/postgres-basics/jsonb","title":"JSONB","description":"Why JSONB?","permalink":"/docs/postgres_guides/postgres-basics/jsonb"}]}')}}]);

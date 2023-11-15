@@ -8,7 +8,9 @@
 	"scripts": {
 		"pretty": "prettier --write \"./**/*.{ts,js,tsx,json,astro}\" --config ./.prettierrc.json",
 		"docs": "cd ./docusaurus && npm run start",
-		"landing": "cd ./landing && npm run dev"
+		"landing": "cd ./landing && npm run dev",
+		"build-landing": "npm run build -w landing",
+		"build-docs": "npm run build -w docs"
 	},
 	"license": "PostgreSQL",
 	"devDependencies": {
