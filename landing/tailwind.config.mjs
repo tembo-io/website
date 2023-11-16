@@ -1,8 +1,14 @@
+import {
+	rapidStylesPath,
+	rapidTailwindTheme,
+	rapidPlugin,
+} from '@rapid-web/ui';
+
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
-		extend: {
+		extend: rapidTailwindTheme({
 			fontFamily: {
 				primary: ['Bai Jamjuree'],
 			},
@@ -18,7 +24,7 @@ export default {
 				grey: '#9EA2A6',
 				lightGrey: '#BBBBBB',
 			},
-		},
+		}),
 	},
-	plugins: [],
+	plugins: [rapidPlugin({})]
 };
