@@ -26,5 +26,5 @@ export default {
 			},
 		}),
 	},
-	plugins: [rapidPlugin({})]
+	plugins: []
 };
