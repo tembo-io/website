@@ -1,10 +1,10 @@
 ---
-sidebar_position: 5
+sidebar_position: 4
 ---
 
-# Tembo Enterprise LLM
+# Tembo Machine Learning
 
-Machine learning significantly enhances the features and capabilities of applications. The Enterprise Machine Learning Stack is a Postgres cluster with the latest machine learning and large language model toolchains pre-installed and enabled.
+The Machine Learning stack is configured for machine learning training and inference workloads in your database. With PostgresML, pg_vector and pg_vectorize built in, you’ll have everything you need for compute-heavy predictive analytics applications or a production-ready AI pipeline.
 
 ## Extensions
 
@@ -12,6 +12,7 @@ Machine learning significantly enhances the features and capabilities of applica
 - [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embeddings and then conducting vector search on that data.
 - [pg_embedding](https://pgt.dev/extensions/pg_embedding) - an alternative to `pgvector` that provides similar functionality.
 - [pg_vectorize](https://pgt.dev/extensions/vectorize) - an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
+- [pg_later] (https://pgt.dev/extensions/pg_later) - Enables asynchronous query execution, which helps better manage resources and frees users up for other tasks. 
 
 The extensions listed above are all very flexible and support many use cases. Visit their documentation pages for additional details.
 
