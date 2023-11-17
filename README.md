@@ -1,4 +1,5 @@
 ![tembo-banner](https://github.com/tembo-io/website/assets/68653294/2f41b6e1-1be6-4c14-9d64-56c7636d8c54)
+
 <h1 align='center'>Tembo Website</h1>
 <h4 align='center'>Goodbye Database Sprawl, Hello Postgres</h4>
 <div align='center'>
@@ -7,7 +8,7 @@
 
 <br />
 
-The Tembo website is built using [Astro](https://astro.build) and [Docusaurus 2](https://docusaurus.io/), both are modern static website and docs generators.
+The Tembo website is built using [Astro](https://astro.build) + [React](https://react.dev) and [Docusaurus 2](https://docusaurus.io/), both are modern static website and docs generators.
 
 ### Installation
 
@@ -31,7 +32,7 @@ $ npm run landing
 $ npm run docs
 ```
 
-These command(s) start local development servers and open up browsers. All changes are reflected live without having to restart the server.
+These command(s) start local dev servers and open up browsers on `localhost:3000` and `localhost:4321` by default. All changes are reflected live without having to restart the server.
 
 ### Build
 
@@ -56,8 +57,8 @@ This commands will generate static content into the associated `build` directory
 
 ### Recommended Workflow
 
-- Check out new branch
-- npm run start
+- Checkout new branch
+- `npm run docs` or `npm run landing`
   - commits locally... looking at site in browser
   - push to remote each commit (opened draft PR)
 - Ready to go?
