@@ -10,7 +10,7 @@ import psycopg2
 def main():
     # Connection string
     conn_str = 'postgresql://postgres:******@your-subdomain-here.data-1.use1.tembo.io:5432?sslmode=require'
-    
+
     try:
         # Create a new database session
         conn = psycopg2.connect(conn_str)
@@ -41,6 +41,6 @@ if __name__ == "__main__":
 
 ## Support and Community
 
-If you encounter any issues, please check out our [troubleshooting guide](https://tembo.io/docs/tembo-cloud/troubleshooting) or contact [support@tembo.io](mailto:support@tembo.io).  
+If you encounter any issues, please check out our [troubleshooting guide](https://tembo.io/docs/tembo-cloud/troubleshooting) or contact [support@tembo.io](mailto:support@tembo.io).
 
-You're also welcome to join our [Tembo Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-23o25qt91-AnZoC1jhLMLubwia4GeNGw) to meet and collaborate with other Tembo users. 
+You're also welcome to join our [Tembo Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-23o25qt91-AnZoC1jhLMLubwia4GeNGw) to meet and collaborate with other Tembo users.
