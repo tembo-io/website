@@ -1,5 +1,5 @@
 ---
-import { Container, Button } from '@rapid-web/ui';
+
 interface Props {
 	title: string;
 }
@@ -22,4 +22,48 @@ const { title } = Astro.props;
 	</body>
 </html>
 <style is:global>
+	@font-face {
+		font-family: 'Bai Jamjuree';
+		font-style: normal;
+		font-weight: 200;
+		src: local('Bai Jamjuree ExtraLight'), local('BaiJamjuree-ExtraLight'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-200-normal.woff') format('truetype');
+	}
+
+	@font-face {
+		font-family: 'Bai Jamjuree';
+		font-style: normal;
+		font-weight: 300;
+		src: local('Bai Jamjuree Light'), local('BaiJamjuree-Light'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-300-normal.woff') format('truetype');
+	}
+
+	@font-face {
+		font-family: 'Bai Jamjuree';
+		font-style: normal;
+		font-weight: 400;
+		src: local('Bai Jamjuree Regular'), local('BaiJamjuree-Regular'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-400-normal.woff') format('truetype');
+	}
+
+	@font-face {
+		font-family: 'Bai Jamjuree';
+		font-style: normal;
+		font-weight: 500;
+		src: local('Bai Jamjuree Medium'), local('BaiJamjuree-Medium'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-500-normal.woff') format('truetype');
+	}
+
+	@font-face {
+		font-family: 'Bai Jamjuree';
+		font-style: normal;
+		font-weight: 600;
+		src: local('Bai Jamjuree SemiBold'), local('BaiJamjuree-SemiBold'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-600-normal.woff') format('truetype');
+	}
+
+	@font-face {
+		font-family: 'Bai Jamjuree';
+		font-style: normal;
+		font-weight: 700;
+		src: local('Bai Jamjuree Bold'), local('BaiJamjuree-Bold'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-700-normal.woff') format('truetype');
+	}
+	body {
+  		font-family: 'Bai Jamjuree';
+	}
 </style>

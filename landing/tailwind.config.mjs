@@ -24,7 +24,14 @@ export default {
 				grey: '#9EA2A6',
 				lightGrey: '#BBBBBB',
 			},
+			backgroundImage: {
+				'gradient-small': "url('/assets/gradientSmall.svg')",
+				'gradient-rainbow':
+					'linear-gradient(89.98deg, #FFC6D9 1.27%, #7CCFE1 34.18%, #89CBA6 64.52%, #A5D571 100%)',
+			},
 		}),
 	},
 	plugins: []
 };
+
+

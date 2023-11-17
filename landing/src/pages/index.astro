@@ -1,19 +1,15 @@
 ---
 import '../styles/globals.css';
 import Test from '../components/Test';
+import NavBar from '../components/NavBar';
 import Layout from '../layouts/Layout.astro';
-import '@fontsource/bai-jamjuree/200.css';
-import '@fontsource/bai-jamjuree/300.css';
-import '@fontsource/bai-jamjuree/400.css';
-import '@fontsource/bai-jamjuree/500.css';
-import '@fontsource/bai-jamjuree/600.css';
-import '@fontsource/bai-jamjuree/700.css';
 import pkg from '@rapid-web/ui';
 const { Container } = pkg;
 ---
 
 <Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
 	<main>
+		<NavBar />
 		<Container maxWidth='lg'>
 			<Test />
 		</Container>
