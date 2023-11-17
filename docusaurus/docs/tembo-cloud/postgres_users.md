@@ -1,11 +1,11 @@
 ---
-sidebar_position: 7
+sidebar_position: 2
 tags:
   - permissions
   - rbac
 ---
 
-# Postgres Users
+# Managing Users
 
 This document will guide you through the **two default users and databases** that are part of your PostgreSQL deployment.
 
