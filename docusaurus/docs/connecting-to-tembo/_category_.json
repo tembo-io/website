@@ -1,6 +1,6 @@
 {
   "position": 100,
-  "label": "Connection Examples",
+  "label": "Connecting to Postgres",
   "collapsible": true,
   "link": {
     "type": "generated-index",
