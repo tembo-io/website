@@ -1,6 +1,6 @@
 import React from 'react';
 import pkg from '@rapid-web/ui';
-const { Flex, Container, styles } = pkg;
+const { Flex, Container, styles, createVariant } = pkg;
 
 interface Props {
   currentPage: string;
