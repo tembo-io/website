@@ -1,10 +1,10 @@
 ---
-sidebar_position: 3
+sidebar_position: 5
 ---
 
 # Tembo OLTP
 
-Designed for low-latency, high-concurrency transactional applications. Includes optimized configs, extensions for simpler debugging and monitoring, and balanced hardware profiles.
+The OLTP stack is a finely-tuned database cluster optimized for transactional workloads, designed to handle concurrency with ease. Built with optimized WAL and auto-vacuum settings, it also includes extensions for debugging and real-time metrics. 
 
 ## Configuration
 
