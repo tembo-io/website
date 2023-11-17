@@ -2,29 +2,25 @@
 sidebar_position: 1
 ---
 
-# Getting Started
+# Getting Started with Tembo Cloud
 
-Goodbye Database Sprawl, Hello Postgres
-
-## What is Tembo?
+Goodbye Database Sprawl, Hello Postgres.
 
 At Tembo, we're creating a radically simpler way to build, deploy, and scale services and applications on top of Postgres. Unlike traditional managed Postgres offerings, Tembo abstracts the complexity of deployment, configuration, management, and optimization, allowing developers to easily build and deploy highly specialized data services without needing to rely on multiple different database platforms, and teams of backend engineers, devops, database administrators, and data engineers.
 
+## What Makes Tembo Unique?
+
 Today, Tembo is differentiated by:
 
-- Live extension management — powered by [Trunk](https://www.pgt.dev), you can easily install a growing list of Postgres extensions into your running Postgres cluster.
-- Start with a Stack — A **Tembo** **Stack** is a productized starting point that includes a Postgres cluster, a bundle of Postgres extensions, configuration, and possibly a sidecar. Right now we have two Stacks available, **Standard** Postgres and a **Message Queue** optimized stack.
+- Expert database management - No need to learn new database systems or hire additional teams in order to get Master DBA-level database performance.
+- Live extension management — thanks to [Trunk](https://www.pgt.dev), you can easily install a growing list of Postgres extensions into your running Postgres cluster at the click of a button.
+- Use-case specific — Tembo Stacks are productized starting points that includes a Postgres cluster, an intentionally curated bundle of Postgres extensions, optimized configuration, and application services. Want to know more? Check out our [Stacks] (https://tembo.io/docs/category/tembo-stacks) here.
 
-## Alpha Considerations
-
-- We are not charging for resources during our alpha phase.
-- So please try to keep your clusters tidy — i.e. delete clusters that you're not using.
-  We will prompt you to delete unused clusters, especially if they are large.
-- Once we have established pricing (later 2023), we'll reach out to give a permanent grandfathered pricing discount to those who run production workloads in our alpha.
+Ready to get started? Let's do it. 
 
 ## Creating an Account
 
-- 👏 Sign in at [cloud.tembo.io](http://cloud.tembo.io/).
+- Sign in at [cloud.tembo.io](http://cloud.tembo.io/).
 
 ## Creating a Database
 
@@ -56,11 +52,17 @@ Today, Tembo is differentiated by:
   - CPU and Memory usage — follow [Aaron Parecki's "Monitoring CPU and memory usage from Postgres" Guide](https://aaronparecki.com/2015/02/19/8/monitoring-cpu-memory-usage-from-postgres)
   - Slow queries — follow [Shane Lynn's "Find slow, long-running, and Blocked Queries" guide](https://www.shanelynn.ie/postgresql-find-slow-long-running-and-blocked-queries/)
 
+:::note
+We are not charging for resources during our alpha phase, so please try to keep your clusters tidy and delete clusters you aren't using. (We will prompt you to delete unused clusters, especially if they are large.) Once we have established pricing (late 2023), we'll reach out to give a grandfathered pricing discount to those who run production workloads in our alpha.
+:::
+
 ## Backups
 
 - We are automatically taking backups, and can provide point-in-time restores.
 - If you need a restore, create a new database to restore into, and send us a request to restore in Intercom.
 - Self-service backup restores are coming soon.
+
+
 
 ## Coming Soon
 
