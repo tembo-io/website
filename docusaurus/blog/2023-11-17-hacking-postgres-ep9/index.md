@@ -10,6 +10,8 @@ Build the thing you wish you had right now. That’s the story behind Hacking Po
 
 Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Bertrand for joining us today!
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Jwu8iotiZiw?si=Zya0z8YP2zmOKx9d" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 Want to know more about something they mentioned? Here’s a starting point:
 
 
