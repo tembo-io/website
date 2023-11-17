@@ -7,16 +7,22 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
-	<main>
+	<div class="main-content">
 		<NavBar currentPage={currentPath} />
 		<Container>
-			<p class='text-red-500'>Hello Tembo!</p>
+			<section class='mt-[144px]'>
+				<header class='text-center'>
+					<h2 class='text-white font-light text-5xl'>Goodbye Database Sprawl,</h2>
+					<h1 class='text-neon font-extrabold text-[112px]'>Hello Postgres.</h1>
+				</header>
+				<p class='text-red-500'>Hello Tembo!</p>
+			</section>
 		</Container>
-	</main>
+	</div>
 </Layout>
 
 <style>
-	main {
+	.main-content {
 		background-image: url('/Gradient.png');
 		width: 100%;
 		height: 100%;
