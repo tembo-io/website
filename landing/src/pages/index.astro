@@ -5,14 +5,25 @@ import NavBar from '../components/NavBar';
 import Layout from '../layouts/Layout.astro';
 import pkg from '@rapid-web/ui';
 const { Container } = pkg;
+const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
 	<main>
-		<NavBar />
+		<NavBar currentPage={currentPath} />
 		<Container maxWidth='lg'>
 			<Test />
 		</Container>
 	</main>
 </Layout>
 
+<style>
+	main {
+		background-image: url('/Gradient.png');
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		background-repeat: no-repeat;
+   		background-size: 100%;
+	}
+</style>

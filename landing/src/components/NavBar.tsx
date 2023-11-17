@@ -6,7 +6,7 @@ interface Props {
   currentPage: string;
 }
 
-const NavBar = () => {
+const NavBar: React.FC<Props> = ({ currentPage }) => {
   return (
     <div>
       <div className='bg-gradient-rainbow h-[4px] w-full' />
@@ -14,12 +14,12 @@ const NavBar = () => {
         <Flex styles='justify-between items-center py-8'>
           <img src='/logoWithText.svg' alt='tembo log' width={124} />
           <Flex styles='gap-12'>
-            <a href="/home" className='font-secondary font-medium'>Home</a>
-            <a href="/product" className='font-secondary font-medium'>Product</a>
-            <a href="/pricing" className='font-secondary font-medium'>Pricing</a>
-            <a href="/blog" className='font-secondary font-medium'>Blog</a>
+            <a href="/" className={styles('font-secondary font-medium', currentPage == '/' ? 'text-neon' : 'text-white')}>Home</a>
+            <a href="/product" className={styles('font-secondary font-medium', currentPage == '/product' ? 'text-neon' : 'text-white')}>Product</a>
+            <a href="/pricing" className={styles('font-secondary font-medium', currentPage == '/pricing' ? 'text-neon' : 'text-white')}>Pricing</a>
+            <a href="/blog" className={styles('font-secondary font-medium', currentPage == '/blog' ? 'text-neon' : 'text-white')}>Blog</a>
           </Flex>
-          <a href="https://cloud.tembo.io"><button>Try Free</button></a>
+          <a href="https://cloud.tembo.io"><button className='bg-neon'>Try Free</button></a>
         </Flex>
       </Container>
     </div>

@@ -1,10 +1,16 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import NavBar from '../components/NavBar';
+import Layout from '../layouts/Layout.astro';
+import pkg from '@rapid-web/ui';
+const { Container } = pkg;
+const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Pricing - Tembo">
-	<main>
-		Hello from pricing page
-	</main>
+	<NavBar currentPage={currentPath} />
+	<Container maxWidth='lg'>
+
+		<p class="text-white">Hello from pricing</p>
+	</Container>
 </Layout>
 

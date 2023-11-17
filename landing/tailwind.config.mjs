@@ -24,6 +24,7 @@ export default {
 				darkGrey: '#414141',
 				grey: '#9EA2A6',
 				lightGrey: '#BBBBBB',
+				offBlack: '#120F0E'
 			},
 			backgroundImage: {
 				'gradient-small': "url('/assets/gradientSmall.svg')",
