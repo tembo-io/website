@@ -1,13 +1,13 @@
 ---
-sidebar_position: 7
+sidebar_position: 3
 tags:
   - api
   - logs
 ---
 
-# Logs
+# Managing Logs
 
-Get logs from your Tembo Instances.
+Need help getting logs from your Tembo Instances? This guide can help. 
 
 ## Loki
 
