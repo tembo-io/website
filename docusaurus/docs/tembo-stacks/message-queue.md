@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 # Tembo Message Queue
@@ -7,6 +7,12 @@ sidebar_position: 6
 Message queues let you send, read, and retain messages between applications without data loss or requiring all systems in a distributed system to be available. The MQ Stack is powered by [PGMQ](https://github.com/tembo-io/pgmq#sql-examples), a Postgres extension built and maintained by Tembo that provides a simple and consistent interface for creating queues and sending, receiving, deleting and archiving messages.
 
 Tembo optimized this Postgres instance for Message queue workloads by tuning the Postgres configuration, implementing aggressive [autovacuum](https://postgresqlco.nf/doc/en/param/autovacuum/) configurations, installing the PGMQ extension, and creating a default database and user. The Message Queue Stack is a great way to get started with PGMQ and Postgres.
+
+## Extensions
+
+- [pgmq](https://pgt.dev/extensions/pgmq) - `pgmq` implements a message queue with API parity with popular message queue services like AWS SQS and Redis RSMQ.
+- [pg_partman](https://pgt.dev/extensions/pg_partman) - `pg_partman` automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
+- `pg_stat_statements` comes pre-installed and enabled. It provides statistics on SQL statements executed by the database, which helps users analyze query performance and identify areas for optimization.
 
 ## SQL API
 
