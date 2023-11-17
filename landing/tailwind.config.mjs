@@ -1,17 +1,14 @@
-import {
-	rapidStylesPath,
-	rapidTailwindTheme,
-	rapidPlugin,
-} from '@rapid-web/ui';
-
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
-		extend: rapidTailwindTheme({
+		extend: {
 			fontFamily: {
 				primary: ['Bai Jamjuree'],
 				secondary: ['Inter']
+			},
+			maxWidth: {
+				container: '100rem',
 			},
 			colors: {
 				neon: '#E9FC87',
@@ -31,7 +28,7 @@ export default {
 				'gradient-rainbow':
 					'linear-gradient(89.98deg, #FFC6D9 1.27%, #7CCFE1 34.18%, #89CBA6 64.52%, #A5D571 100%)',
 			},
-		}),
+		}
 	},
 	plugins: []
 };

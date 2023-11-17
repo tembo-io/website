@@ -1,14 +1,13 @@
 ---
 import NavBar from '../components/NavBar';
 import Layout from '../layouts/Layout.astro';
-import pkg from '@rapid-web/ui';
-const { Container } = pkg;
+import Container from '../components/Container';
 const currentPath = Astro.url.pathname;
 ---
 
 <Layout title="Product - Tembo">
 	<NavBar currentPage={currentPath} />
-	<Container maxWidth='lg'>
+	<Container>
 		<p class='text-white'>Hello from product</p>
 	</Container>
 </Layout>
