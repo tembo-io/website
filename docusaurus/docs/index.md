@@ -14,7 +14,7 @@ It's Postgres the way it *should* be. You don't have to be a database expert in 
 
 ## What Are Stacks?
 
-Stacks are pre-built Postgres configurations optimized for common enterprise needs. They are a simple, seamless way to create and deploy specialized data services. Try them for yourself right **[here](/docs/category/tembo-stacks)** to see what all the fuss is about.
+Stacks are pre-built Postgres configurations optimized for common enterprise needs. They are a simple, seamless way to create and deploy specialized data services. Try them for yourself right [here](/docs/category/tembo-stacks)** to see what all the fuss is about.
 
 
 ## Stay Connected
