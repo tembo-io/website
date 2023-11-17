@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 6
 ---
 
 # Tembo OLAP
@@ -20,11 +20,11 @@ The following configurations automatically scale based on the size of cpu, memor
 
 ## Extensions
 
-- `pg_stat_statements`
-- `hydra_columnar`
-- `pg_partman`
-- `pg_cron`
-- `postgres_fdw`
-- `clerk_fdw`
-- `redis_fdw`
+- `pg_stat_statements` provides statistics on SQL statements executed by the database. It helps users analyze query performance and identify areas for optimization.
+- [hydra_columnar] (https://pgt.dev/extensions/hydra_columnar) - `hydra_columnar` is open source, column-oriented Postgres, designed for high-speed aggregate operations.
+- [pg_partman] (https://pgt.dev/extensions/pg_partman) - `pg_partman` - simplifies and automates partitioning of large database tables. It helps manage data efficiently by dividing it into smaller, more manageable partitions.
+- [pg_cron](https://pgt.dev/extensions/pg_cron) - `pg_cron` automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
+- [postgres_fdw] (https://pgt.dev/extensions/postgres_fdw) - `postgres_fdw` provides the foreign data wrapper necessary to access data stored in external Postgres servers. 
+- [clerk_fdw] (https://pgt.dev/extensions/clerk_fdw) -  `clerk_fdw` provides the foreign data wrapper necessary to access data stored in external Clerk servers. 
+- [redis_fdw] (https://pgt.dev/extensions/redis_fdw) - `redis_fdw` provides the foreign data wrapper necessary to access data stored in external Redis servers. 
 - Extensions from [Trunk](https://pgt.dev) can be installed on-demand.
