@@ -11,6 +11,7 @@ export default {
 		extend: rapidTailwindTheme({
 			fontFamily: {
 				primary: ['Bai Jamjuree'],
+				secondary: ['Inter']
 			},
 			colors: {
 				neon: '#E9FC87',
