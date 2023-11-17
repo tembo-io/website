@@ -2,9 +2,9 @@
 sidebar_position: 2
 ---
 
-# Tembo Standard
+# Tembo General
 
-A default configuration of Postgres.
+The Tembo General stack is a tuned Postgres instance balance for general purpose computing. You have full control over compute, configuration, and extension installation. 
 
 ## Configuration
 
@@ -20,5 +20,6 @@ The following configurations automatically scale based on the size of cpu, memor
 
 ## Extensions
 
-- `pg_stat_statements` comes pre-installed and enabled.
+- `pg_stat_statements` comes pre-installed and enabled. It provides statistics on SQL statements executed by the database, which helps users analyze query performance and identify areas for optimization.
+
 - Extensions from [Trunk](https://pgt.dev) can be installed on-demand.

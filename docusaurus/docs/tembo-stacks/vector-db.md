@@ -1,10 +1,17 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # Tembo Vector DB
 
 Tembo's Vector Database provides tooling to automate the process of generating embeddings on your existing data, which allows you to have vector search semantic search capabilities on day one.
+
+## Extensions
+
+- [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embeddings and then conducting vector search on that data.
+- [pg_vectorize](https://pgt.dev/extensions/vectorize) - `pg_vectorize` is an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
+- [pgmq](https://pgt.dev/extensions/pgmq) - `pgmq` implements a message queue with API parity with popular message queue services like AWS SQS and Redis RSMQ.
+- [pg_cron](https://pgt.dev/extensions/pg_cron) - `pg_cron` automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
 
 
 ## Getting started
