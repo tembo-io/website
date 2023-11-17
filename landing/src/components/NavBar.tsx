@@ -3,7 +3,7 @@ import pkg from '@rapid-web/ui';
 const { Flex, Container, styles } = pkg;
 
 interface Props {
-
+  currentPage: string;
 }
 
 const NavBar = () => {
