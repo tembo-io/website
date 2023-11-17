@@ -16,7 +16,7 @@ Tembo has a Terraform Provider that allows you to provision an Instance on the T
 
 ## Authentication
 
-Tembo Terraform Provider needs an `access_token` to authenticate with the API. Generate a long-lived API token by following steps [here](https://tembo.io/docs/tembo-cloud/api#create-a-long-lived-api-token).
+Tembo Terraform Provider needs an `access_token` to authenticate with the API. Generate a long-lived API token by following steps [here](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authenticaton.md).
 
 Note: To set `access_token` either create a local `.tfvars` file with the variable or set an environment variable with the `access_token` as shown below.
 
