@@ -1,15 +1,15 @@
-Make sure you have Ruby Version `2.7.0` or greater  
+Make sure you have Ruby Version `2.7.0` or greater
 You will have to remove the default `SQLite3` Active Record
 ```bash title="Gemfile"
 #remove `SQLite3` from Gemfile
 gem 'sqlite3', '~> 1.4'
 ```
-You will need to add the PostgreSQL Gem 
+You will need to add the PostgreSQL Gem
 ```bash title="Gemfile"
 #add `pg` to Gemfile
 gem "pg"
 ```
-Navigate to `/config/database.yml` and add the following contents  
+Navigate to `/config/database.yml` and add the following contents
 Rails will create a database, so use a database name not currently in Tembo Postgres
 ```bash title="/config/database.yml"
 development:
@@ -31,6 +31,6 @@ rails db:create
 ```
 ## Support and Community
 
-If you encounter any issues, please check out our [troubleshooting guide](https://tembo.io/docs/tembo-cloud/troubleshooting) or contact [support@tembo.io](mailto:support@tembo.io).
+If you encounter any issues, please check out our [troubleshooting guide](https://tembo.io/docs/tembo-cloud/configuration-and-management/troubleshooting) or contact [support@tembo.io](mailto:support@tembo.io).
 
 You're also welcome to join our [Tembo Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-23o25qt91-AnZoC1jhLMLubwia4GeNGw) to meet and collaborate with other Tembo users.
