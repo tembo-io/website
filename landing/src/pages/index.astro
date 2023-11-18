@@ -13,6 +13,7 @@ import Confetti2 from '../images/confetti/confetti2.svg';
 import Confetti5 from '../images/confetti/confetti5.svg';
 import Confetti9 from '../images/confetti/confetti9.svg';
 import Confetti10 from '../images/confetti/confetti10.svg';
+import Confetti11 from '../images/confetti/confetti11.svg';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -21,10 +22,10 @@ const currentPath = Astro.url.pathname;
 		<NavBar currentPage={currentPath} />
 		<Container styles='relative'>
 			<section class='mt-[144px]'>
-				<div class='flex flex-col items-center justify-center z-10 pb-[100px]'>
+				<div class='flex flex-col items-center justify-center z-10 pb-[100px] relative'>
 					<header class='text-center'>
-						<h2 class='text-white font-light text-5xl'>Goodbye Database Sprawl,</h2>
-						<h1 class='text-neon font-extrabold text-[112px]'>Hello Postgres.</h1>
+						<h2 class='text-white font-light text-5xl z-20'>Goodbye Database Sprawl,</h2>
+						<h1 class='text-neon font-extrabold text-[112px] z-10'>Hello Postgres.</h1>
 					</header>
 					<a href="https://cloud.tembo.io"><Button variant='gradient' size='lg' styles='mt-6'>Sign up</Button></a>
 				</div>
@@ -36,6 +37,8 @@ const currentPath = Astro.url.pathname;
 				<Image src={Confetti2} alt="confetti2" class='absolute top-[-185px] left-1/2'/>
 				<Image src={Confetti5} alt="confetti5" class='absolute top-[-240px] right-[160px]'/>
 				<Image src={Confetti9} alt="confetti9" class='absolute top-[-225px] right-[400px]'/>
+				<Image src={Confetti11} alt="confetti11" class='absolute -top-[210px] left-1/3'/>
+				<Image src={Confetti1} alt="confetti1" class='absolute top-[15px] left-[45%] -z-1'  />
 			</section>
 		</Container>
 	</div>
