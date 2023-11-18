@@ -1,5 +1,6 @@
 import React from 'react';
 import Container from '../components/Container';
+import Button from './Button';
 import cx from 'classnames';
 
 interface Props {
@@ -19,7 +20,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
             <a href="/pricing" className={cx('font-secondary font-medium', currentPage == '/pricing' ? 'text-neon' : 'text-white opacity-70')}>Pricing</a>
             <a href="/blog" className={cx('font-secondary font-medium', currentPage == '/blog' ? 'text-neon' : 'text-white opacity-70')}>Blog</a>
           </div>
-          <a href="https://cloud.tembo.io"><button className='bg-neon hover:bg-[#D1E278] transition-all duration-150 ease-in font-semibold py-4 px-8 rounded-full font-secondary'>Try Free</button></a>
+          <a href="https://cloud.tembo.io"><Button variant='neon'>Try Free</Button></a>
         </div>
       </Container>
     </div>

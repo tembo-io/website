@@ -3,19 +3,39 @@ import '../styles/globals.css';
 import NavBar from '../components/NavBar';
 import Layout from '../layouts/Layout.astro';
 import Container from '../components/Container';
+import Button from '../components/Button';
+import { Image } from 'astro:assets';
+import Confetti1 from '../images/confetti/confetti1.svg';
+import Confetti6 from '../images/confetti/confetti6.svg';
+import Confetti7 from '../images/confetti/confetti7.svg';
+import Confett8 from '../images/confetti/confetti8.svg';
+import Confetti2 from '../images/confetti/confetti2.svg';
+import Confetti5 from '../images/confetti/confetti5.svg';
+import Confetti9 from '../images/confetti/confetti9.svg';
+import Confetti10 from '../images/confetti/confetti10.svg';
 const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
 	<div class="main-content">
 		<NavBar currentPage={currentPath} />
-		<Container>
+		<Container styles='relative'>
 			<section class='mt-[144px]'>
-				<header class='text-center'>
-					<h2 class='text-white font-light text-5xl'>Goodbye Database Sprawl,</h2>
-					<h1 class='text-neon font-extrabold text-[112px]'>Hello Postgres.</h1>
-				</header>
-				<p class='text-red-500'>Hello Tembo!</p>
+				<div class='flex flex-col items-center justify-center z-10 pb-[100px]'>
+					<header class='text-center'>
+						<h2 class='text-white font-light text-5xl'>Goodbye Database Sprawl,</h2>
+						<h1 class='text-neon font-extrabold text-[112px]'>Hello Postgres.</h1>
+					</header>
+					<a href="https://cloud.tembo.io"><Button variant='gradient' size='lg' styles='mt-6'>Sign up</Button></a>
+				</div>
+				<Image src={Confetti1} alt="confetti1" class='absolute top-0 left-[120px]'/>
+				<Image src={Confetti6} alt="confetti6" class='absolute top-[-100px] right-[200px]'/>
+				<Image src={Confetti7} alt="confetti7" class='absolute top-[-50px] right-[50px]'/>
+				<Image src={Confett8} alt="confetti8" class='absolute top-[100px] left-[-20px]'/>
+				<Image src={Confetti10} alt="confetti10" class='absolute top-[200px] left-[-10px]'/>
+				<Image src={Confetti2} alt="confetti2" class='absolute top-[-185px] left-1/2'/>
+				<Image src={Confetti5} alt="confetti5" class='absolute top-[-240px] right-[160px]'/>
+				<Image src={Confetti9} alt="confetti9" class='absolute top-[-225px] right-[400px]'/>
 			</section>
 		</Container>
 	</div>

@@ -24,9 +24,9 @@ export default {
 				offBlack: '#120F0E'
 			},
 			backgroundImage: {
-				'gradient-small': "url('/assets/gradientSmall.svg')",
 				'gradient-rainbow':
 					'linear-gradient(89.98deg, #FFC6D9 1.27%, #7CCFE1 34.18%, #89CBA6 64.52%, #A5D571 100%)',
+				'gradient-button': 'linear-gradient(68.42deg, #F77577 0%, #DB39CB 79.07%, #CA6FE5 170.36%)'
 			},
 		}
 	},
