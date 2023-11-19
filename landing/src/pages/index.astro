@@ -4,6 +4,9 @@ import Layout from '../layouts/Layout.astro';
 import Container from '../components/Container';
 import Button from '../components/Button';
 import Confetti from '../components/Confetti.astro';
+import Card from '../components/Card';
+import { Image } from 'astro:assets';
+import blackStar from '../images/blackStar.svg';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -11,7 +14,7 @@ const currentPath = Astro.url.pathname;
 	<div class="main-content">
 		<NavBar currentPage={currentPath} />
 		<Container styles='relative'>
-			<section class='mt-[144px]'>
+			<section class='tembo-hero-section mt-[144px]'>
 				<div class='flex flex-col items-center justify-center z-10 pb-[100px] relative'>
 					<header class='text-center'>
 						<h2 class='text-white font-light text-5xl z-20'>Goodbye Database Sprawl,</h2>
@@ -19,7 +22,15 @@ const currentPath = Astro.url.pathname;
 					</header>
 					<a href="https://cloud.tembo.io"><Button variant='gradient' size='lg' styles='mt-6'>Sign up</Button></a>
 				</div>
-			<Confetti />
+				<Confetti />
+			</section>
+			<section class='tembo-card-stack-section'>
+				<Card styles="w-96">
+					<div class='flex items-center gap-4'>
+						<Image src={blackStar} alt='black star' />
+						<h3 class='text-black'>Real-time inference service</h3>
+					</div>
+				</Card>
 			</section>
 		</Container>
 	</div>

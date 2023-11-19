@@ -13,7 +13,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
       <div className='bg-gradient-rainbow h-[4px] w-full' />
       <Container>
         <div className='flex justify-between items-center py-8'>
-          <img src='/logoWithText.svg' alt='tembo log' width={124} />
+          <a href="/"><img src='/logoWithText.svg' alt='tembo log' width={124} /></a>
           <div className='flex items-center gap-12'>
             <a href="/" className={cx('font-secondary font-medium z-10', currentPage == '/' ? 'text-neon' : 'text-white opacity-70')}>Home</a>
             <a href="/product" className={cx('font-secondary font-medium z-10', currentPage == '/product' ? 'text-neon' : 'text-white opacity-70')}>Product</a>
