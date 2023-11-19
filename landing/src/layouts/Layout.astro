@@ -17,7 +17,7 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<main>
+		<main class='overflow-hidden'>
 			<slot />
 		</main>
 	</body>
@@ -125,5 +125,22 @@ const { title } = Astro.props;
 		-moz-user-select: none;
 		-webkit-user-select: none;
 		-ms-user-select: none;
+	}
+	.safari-blur {
+    	-webkit-backdrop-filter: blur(10px)
+	}
+	:root {
+		--gray5: hsl(0, 0%, 90.9%);
+		--gray9: hsl(0, 0%, 56.1%);
+	}
+	.shine {
+		background: linear-gradient(
+			90deg,
+			#131313 0%,
+			#242424 10%,
+			#242424 80%, /* Center color is most bright */
+			#242424 10%,
+			#131313 100%
+		);
 	}
 </style>
