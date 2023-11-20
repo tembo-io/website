@@ -6,8 +6,8 @@ import Button from '../components/Button';
 import Confetti from '../components/Confetti.astro';
 import Card from '../components/Card';
 import { Image } from 'astro:assets';
-import Star from '../images/star.svg';
 import StackHero from '../images/stackHero.svg';
+import StackSlider from '../components/StackSlider';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -29,11 +29,16 @@ const currentPath = Astro.url.pathname;
 			<section class='tembo-card-stack-section flex items-center justify-center'>
 				<Image src={StackHero} alt='Tembo Card Stack' />
 			</section>
-			<section class='tembo-build-any-application-section'>
+			<section class='tembo-build-any-application-section pb-[200px]'>
 				<div class='flex flex-col items-center justify-center mt-36 gap-6'>
 					<h3 class='text-neon font-secondary'>CURRENTLY IN BETA</h3>
-					<h1 class='text-white font-bold text-6xl max-w-4xl text-center leading-normal'>Build any application, <span>on Postgres</span></h1>
+					<h1 class='text-white font-bold text-6xl max-w-5xl text-center leading-normal'>Build any application, on Postgres</h1>
+					<a href="https://cloud.tembo.io"><Button variant='gradient' size='lg'>Deploy Now</Button></a>
 				</div>
+				<StackSlider />
+			</section>
+			<section class=''>
+
 			</section>
 		</Container>
 	</div>
@@ -41,7 +46,7 @@ const currentPath = Astro.url.pathname;
 
 <style>
 	.main-content {
-		background-image: url('/pixelBg.png');
+		background-image: url('/pixelBg.svg');
 		width: 100%;
 		height: 100%;
 		z-index: 1;
