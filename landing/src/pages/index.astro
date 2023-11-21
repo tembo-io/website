@@ -4,10 +4,12 @@ import Layout from '../layouts/Layout.astro';
 import Container from '../components/Container';
 import Button from '../components/Button';
 import Confetti from '../components/Confetti.astro';
-import Card from '../components/Card';
 import { Image } from 'astro:assets';
 import StackHero from '../images/stackHero.svg';
 import StackSlider from '../components/StackSlider';
+import ElephantScene from '../images/ElephantScene.svg';
+import Elephant11 from '../images/Elephant11.svg';
+import Elephant12 from '../images/Elephant12.svg';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -37,10 +39,21 @@ const currentPath = Astro.url.pathname;
 				</div>
 				<StackSlider />
 			</section>
-			<section class=''>
-
-			</section>
 		</Container>
+		<section class='tembo-postgres-section bg-mwasi'>
+			<Container styles='relative'>
+				<div class='flex flex-col gap-6 pt-28 mb-6'>
+					<h1 class='text-neon font-extrabold text-6xl z-10'>100% Postgres,</h1>
+					<h2 class='text-white font-light text-3xl z-10'>the most beloved database on earth</h2>
+					<Button variant='gradient' size='lg' styles='w-max'>Deploy Now</Button>
+				</div>
+				<div class='flex'>
+					<Image src={ElephantScene} alt='Three elephants' class='w-[700px]' />
+				</div>
+				<Image src={Elephant11} alt='Three elephants' class='absolute top-[50px] right-[150px] w-[200px]' />
+				<Image src={Elephant12} alt='Three elephants' class='absolute top-[150px] right-[500px] w-[150px]' />
+			</Container>
+		</section>
 	</div>
 </Layout>
 
@@ -51,6 +64,6 @@ const currentPath = Astro.url.pathname;
 		height: 100%;
 		z-index: 1;
 		background-repeat: no-repeat;
-   		background-size: cover;
+		background-size: cover;
 	}
 </style>
