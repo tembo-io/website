@@ -146,10 +146,11 @@ const { title } = Astro.props;
 	.mirror-horizontal {
       transform: scaleX(-1);
     }
-	*:focus {
+	*:focus-visible {
 		outline: 2px solid #F77577;
 		outline-offset: 4px;
 	}
+
 	::selection {
 		background-color: rgba(255, 125, 127, 0.7);;
 		opacity: 60%;

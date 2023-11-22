@@ -30,7 +30,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
         <nav className={cx('flex justify-between items-center transition-all duration-100', scrollY > 20 ? 'py-4' : 'py-8')}>
           <a href="/"><img src='/logoWithText.svg' alt='tembo log' width={124} /></a>
           <div className='flex items-center gap-12'>
-            <a href="/" className={cx('font-secondary font-medium z-10 active:outline-none', currentPage == '/' ? 'text-neon' : 'text-white opacity-70')}>Home</a>
+            <a href="/" className={cx('font-secondary font-medium z-10', currentPage == '/' ? 'text-neon' : 'text-white opacity-70')}>Home</a>
             <a href="/product" className={cx('font-secondary font-medium z-10', currentPage == '/product' ? 'text-neon' : 'text-white opacity-70')}>Product</a>
             <a href="/pricing" className={cx('font-secondary font-medium z-10', currentPage == '/pricing' ? 'text-neon' : 'text-white opacity-70')}>Pricing</a>
             <a href="/blog" className={cx('font-secondary font-medium z-10', currentPage == '/blog' ? 'text-neon' : 'text-white opacity-70')}>Blog</a>
