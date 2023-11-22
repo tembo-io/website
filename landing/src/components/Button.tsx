@@ -4,14 +4,14 @@ import cx from 'classnames';
 type Variant = 'neon' | 'gradient';
 type Size = 'sm' | 'md' | 'lg';
 
-interface Props {
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant: Variant;
     children: React.ReactNode;
     styles?: string;
     size?: Size;
 }
 
-const Button: React.FC<Props> = ({ children, variant, styles, size }) => {
+const Button: React.FC<Props> = ({ children, variant, styles, size, ...rest }) => {
     const getSizeStyles = () => {
         switch(size) {
             case 'sm':
@@ -26,7 +26,9 @@ const Button: React.FC<Props> = ({ children, variant, styles, size }) => {
     }
     return (
         <button
-            className={cx('transition-all duration-150 ease-in font-semibold rounded-full font-secondary', variant == 'neon' ? 'bg-neon hover:bg-[#D1E278]' : 'bg-gradient-button text-white', getSizeStyles(), styles)}>
+            className={cx('transition-all duration-150 ease-in font-semibold rounded-full font-secondary', variant == 'neon' ? 'bg-neon hover:bg-[#D1E278]' : 'bg-gradient-button text-white', getSizeStyles(), styles)}
+            {...rest}
+        >
             {children}
         </button>
     )

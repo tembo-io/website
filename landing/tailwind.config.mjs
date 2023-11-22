@@ -22,7 +22,8 @@ export default {
 				semiGrey: '#3E4243',
 				grey: '#9EA2A6',
 				lightGrey: '#BBBBBB',
-				offBlack: '#120F0E'
+				offBlack: '#120F0E',
+				offGrey: '#1A1E22'
 			},
 			backgroundImage: {
 				'gradient-rainbow':

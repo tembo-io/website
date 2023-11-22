@@ -2,6 +2,7 @@ import React, { useEffect, useState} from 'react';
 import Container from '../components/Container';
 import Button from './Button';
 import cx from 'classnames';
+import { navigate } from 'astro/transitions/router';
 
 interface Props {
   currentPage: string
@@ -34,7 +35,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
             <a href="/pricing" className={cx('font-secondary font-medium z-10', currentPage == '/pricing' ? 'text-neon' : 'text-white opacity-70')}>Pricing</a>
             <a href="/blog" className={cx('font-secondary font-medium z-10', currentPage == '/blog' ? 'text-neon' : 'text-white opacity-70')}>Blog</a>
           </div>
-          <a href="https://cloud.tembo.io"><Button variant='neon' styles='z-100'>Try Free</Button></a>
+         <Button variant='neon' styles='z-100' onClick={() => navigate('https://cloud.tembo.io')}>Try Free</Button>
         </nav>
       </Container>
       <div className={cx('absolute bottom-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine', scrollY > 20 ? 'flex' : 'hidden' )} />

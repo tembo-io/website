@@ -10,6 +10,9 @@ import StackSlider from '../components/StackSlider';
 import ElephantScene from '../images/ElephantScene.svg';
 import Elephant11 from '../images/Elephant11.svg';
 import Elephant12 from '../images/Elephant12.svg';
+import Showcase from '../components/Showcase.astro';
+import { navigate } from 'astro/transitions/router';
+import Section3Confetti from '../components/Section3Confetti.astro';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -20,38 +23,45 @@ const currentPath = Astro.url.pathname;
 		<Container styles='relative'>
 			<section class='tembo-hero-section mt-[144px]'>
 				<div class='flex flex-col items-center justify-center z-10 pb-[100px] relative'>
-					<header class='text-center'>
+					<header class='text-center mb-6'>
 						<h2 class='text-white font-light text-5xl z-20'>Goodbye Database Sprawl,</h2>
 						<h1 class='text-neon font-extrabold text-[112px] z-10'>Hello Postgres.</h1>
 					</header>
-					<a href="https://cloud.tembo.io"><Button variant='gradient' size='lg' styles='mt-6'>Sign up</Button></a>
+					<Button variant='gradient' size='lg' onClick={() => navigate('https://cloud.tembo.io')}>Sign up</Button>
 				</div>
 				<Confetti />
 			</section>
 			<section class='tembo-card-stack-section flex items-center justify-center'>
-				<Image src={StackHero} alt='Tembo Card Stack' />
+				<Image src={StackHero} alt='Tembo Card Stack' quality='max' />
 			</section>
 			<section class='tembo-build-any-application-section pb-[200px]'>
 				<div class='flex flex-col items-center justify-center mt-36 gap-6'>
 					<h3 class='text-neon font-secondary'>CURRENTLY IN BETA</h3>
 					<h1 class='text-white font-bold text-6xl max-w-5xl text-center leading-normal'>Build any application, on Postgres</h1>
-					<a href="https://cloud.tembo.io"><Button variant='gradient' size='lg'>Deploy Now</Button></a>
+					<Button variant='gradient' size='lg' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
 				</div>
 				<StackSlider />
 			</section>
 		</Container>
 		<section class='tembo-postgres-section bg-mwasi'>
-			<Container styles='relative'>
-				<div class='flex flex-col gap-6 pt-28 mb-6'>
+			<Container styles='relative py-28'>
+				<div class='flex flex-col gap-6 mb-6'>
 					<h1 class='text-neon font-extrabold text-6xl z-10'>100% Postgres,</h1>
 					<h2 class='text-white font-light text-3xl z-10'>the most beloved database on earth</h2>
-					<Button variant='gradient' size='lg' styles='w-max'>Deploy Now</Button>
+					<Button variant='gradient' size='lg' styles='w-max' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
 				</div>
-				<div class='flex'>
-					<Image src={ElephantScene} alt='Three elephants' class='w-[700px]' />
-				</div>
+				<Image src={ElephantScene} alt='Three elephants' class='w-[850px]' />
 				<Image src={Elephant11} alt='Three elephants' class='absolute top-[50px] right-[150px] w-[200px]' />
 				<Image src={Elephant12} alt='Three elephants' class='absolute top-[150px] right-[500px] w-[150px]' />
+				<div class='absolute right-0 top-1/2 px-4'>
+					<Showcase />
+				</div>
+			</Container>
+		</section>
+		<section class='py-28 bg-offBlack'>
+			<Container styles='relative'>
+				<h1 class='text-7xl text-white font-semibold tracking-[0.24px]'>TEMBO + STACKS</h1>
+				<Section3Confetti />
 			</Container>
 		</section>
 	</div>
@@ -59,11 +69,10 @@ const currentPath = Astro.url.pathname;
 
 <style>
 	.main-content {
+		background: rgb(0, 0, 0);
 		background-image: url('/pixelBg.svg');
 		width: 100%;
 		height: 100%;
 		z-index: 1;
-		background-repeat: no-repeat;
-		background-size: cover;
 	}
 </style>
