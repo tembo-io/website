@@ -21,6 +21,7 @@ const currentPath = Astro.url.pathname;
 		<NavBar currentPage={currentPath} client:load />
 		<div class='w-full h-[150px]' />
 		<Container styles='relative'>
+			<div class='radial-gradient absolute -top-[700px] -right-[900px]' />
 			<section class='tembo-hero-section mt-[144px]'>
 				<div class='flex flex-col items-center justify-center z-10 pb-[100px] relative'>
 					<header class='text-center mb-6'>
@@ -74,5 +75,11 @@ const currentPath = Astro.url.pathname;
 		width: 100%;
 		height: 100%;
 		z-index: 1;
+	}
+	.radial-gradient {
+		width: 2500px;
+		height: 1250px;
+		background: radial-gradient(#ffffff 0px, transparent 20%);
+		filter: blur(300px) saturate(150%);
 	}
 </style>
