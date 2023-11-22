@@ -44,7 +44,7 @@ const currentPath = Astro.url.pathname;
 				<StackSlider />
 			</section>
 		</Container>
-		<section class='tembo-postgres-section bg-mwasi'>
+		<section class='tembo-postgres-section'>
 			<Container styles='relative py-28'>
 				<div class='flex flex-col gap-6 mb-6'>
 					<h1 class='text-neon font-extrabold text-6xl z-10'>100% Postgres,</h1>
@@ -81,5 +81,8 @@ const currentPath = Astro.url.pathname;
 		height: 1250px;
 		background: radial-gradient(#ffffff 0px, transparent 20%);
 		filter: blur(300px) saturate(150%);
+	}
+	.tembo-postgres-section {
+  		background-image: linear-gradient(-30deg, transparent 50%, #1C1C1C 50%);
 	}
 </style>
