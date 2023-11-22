@@ -21,7 +21,7 @@ const currentPath = Astro.url.pathname;
 		<NavBar currentPage={currentPath} client:load />
 		<div class='w-full h-[150px]' />
 		<Container styles='relative'>
-			<div class='radial-gradient absolute -top-[700px] -right-[900px]' />
+			<div class='light-gradient absolute -top-[700px] -right-[900px]' />
 			<section class='tembo-hero-section mt-[144px]'>
 				<div class='flex flex-col items-center justify-center z-10 pb-[100px] relative'>
 					<header class='text-center mb-6'>
@@ -46,6 +46,7 @@ const currentPath = Astro.url.pathname;
 		</Container>
 		<section class='tembo-postgres-section'>
 			<Container styles='relative py-28'>
+				<div class='light-gradient absolute -top-[200px] -right-[900px]' />
 				<div class='flex flex-col gap-6 mb-6'>
 					<h1 class='text-neon font-extrabold text-6xl z-10'>100% Postgres,</h1>
 					<h2 class='text-white font-light text-3xl z-10'>the most beloved database on earth</h2>
@@ -76,7 +77,7 @@ const currentPath = Astro.url.pathname;
 		height: 100%;
 		z-index: 1;
 	}
-	.radial-gradient {
+	.light-gradient {
 		width: 2500px;
 		height: 1250px;
 		background: radial-gradient(#ffffff 0px, transparent 20%);
