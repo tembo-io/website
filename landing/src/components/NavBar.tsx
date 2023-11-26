@@ -28,7 +28,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
       <div className='bg-gradient-rainbow h-[4px] w-full' />
       <Container>
         <nav className={cx('flex justify-between items-center transition-all duration-100', scrollY > 20 ? 'py-4' : 'py-8')}>
-          <a href="/" className='focus:outline-none'><img src='/logoWithText.svg' alt='tembo log' width={124} /></a>
+          <a href="/" className='focus:outline-none transition hover:scale-105 duration-300 ease-in-out delay-70'><img src='/logoWithText.svg' alt='tembo log' width={124} /></a>
           <div className='flex items-center gap-12'>
             <a href="/" className={cx('font-secondary font-medium z-10', currentPage == '/' ? 'text-neon' : 'text-white opacity-70')}>Home</a>
             <a href="/product" className={cx('font-secondary font-medium z-10', currentPage == '/product' ? 'text-neon' : 'text-white opacity-70')}>Product</a>
