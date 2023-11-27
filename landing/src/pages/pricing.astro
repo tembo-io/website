@@ -1,3 +1,16 @@
-<main>
-	Hello from pricing page
-</main>
+---
+import NavBar from '../components/NavBar';
+import Layout from '../layouts/Layout.astro';
+import Container from '../components/Container';
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title="Pricing - Tembo">
+	<NavBar currentPage={currentPath} />
+	<Container>
+		<section class='tembo-pricing-hero-section mt-[144px]'>
+			<p class="text-white">Hello from pricing</p>
+		</section>
+	</Container>
+</Layout>
+

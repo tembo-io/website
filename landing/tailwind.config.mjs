@@ -5,6 +5,10 @@ export default {
 		extend: {
 			fontFamily: {
 				primary: ['Bai Jamjuree'],
+				secondary: ['Inter']
+			},
+			maxWidth: {
+				container: '100rem',
 			},
 			colors: {
 				neon: '#E9FC87',
@@ -15,10 +19,30 @@ export default {
 				salmon: '#FF7D7F',
 				mwasi: '#1C1C1C',
 				darkGrey: '#414141',
+				semiGrey: '#3E4243',
 				grey: '#9EA2A6',
 				lightGrey: '#BBBBBB',
+				offBlack: '#120F0E',
+				offGrey: '#1A1E22'
 			},
-		},
+			backgroundImage: {
+				'gradient-rainbow':
+					'linear-gradient(89.98deg, #FFC6D9 1.27%, #7CCFE1 34.18%, #89CBA6 64.52%, #A5D571 100%)',
+				'gradient-button': 'linear-gradient(68.42deg, #F77577 0%, #DB39CB 79.07%, #CA6FE5 170.36%)'
+			},
+			animation: {
+				'infinite-scroll': 'infinite-scroll 25s linear infinite',
+				'infinite-scroll-fast': 'infinite-scroll 15s linear infinite'
+			},
+			keyframes: {
+				'infinite-scroll': {
+					from: { transform: 'translateX(0)' },
+					to: { transform: 'translateX(-100%)' },
+				}
+			}
+		}
 	},
-	plugins: [],
+	plugins: []
 };
+
+
