@@ -15,6 +15,7 @@
 	"license": "PostgreSQL",
 	"devDependencies": {
 		"prettier": "^2.8.4",
+		"prettier-plugin-astro": "^0.12.2",
 		"prettier-plugin-tailwindcss": "^0.2.2"
 	}
 }

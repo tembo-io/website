@@ -1,14 +1,89 @@
 ---
-import Test from '../components/Test';
-import '@fontsource/bai-jamjuree/200.css';
-import '@fontsource/bai-jamjuree/300.css';
-import '@fontsource/bai-jamjuree/400.css';
-import '@fontsource/bai-jamjuree/500.css';
-import '@fontsource/bai-jamjuree/600.css';
-import '@fontsource/bai-jamjuree/700.css';
-import '../styles/globals.css';
+import NavBar from '../components/NavBar';
+import Layout from '../layouts/Layout.astro';
+import Container from '../components/Container';
+import Button from '../components/Button';
+import Confetti from '../components/Confetti.astro';
+import { Image } from 'astro:assets';
+import StackHero from '../images/stackHero.svg';
+import StackSlider from '../components/StackSlider';
+import ElephantScene from '../images/ElephantScene.svg';
+import Elephant11 from '../images/Elephant11.svg';
+import Elephant12 from '../images/Elephant12.svg';
+import Showcase from '../components/Showcase.astro';
+import { navigate } from 'astro/transitions/router';
+import Section3Confetti from '../components/Section3Confetti.astro';
+const currentPath = Astro.url.pathname;
 ---
 
-<main>
-	<Test />
-</main>
+<Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
+	<div class="main-content">
+		<NavBar currentPage={currentPath} client:load />
+		<div class='w-full h-[150px]' />
+		<Container styles='relative'>
+			<div class='light-gradient absolute -top-[700px] -right-[900px]' />
+			<section class='tembo-hero-section mt-[144px]'>
+				<div class='flex flex-col items-center justify-center z-10 pb-[100px] relative slide-enter-content'>
+					<header class='text-center mb-6'>
+						<h2 class='text-white font-light text-5xl z-20'>Goodbye Database Sprawl,</h2>
+						<h1 class='text-neon font-extrabold text-[112px] z-10'>Hello Postgres.</h1>
+					</header>
+					<Button variant='gradient' size='lg' onClick={() => navigate('https://cloud.tembo.io')}>Sign up</Button>
+				</div>
+				<Confetti />
+			</section>
+			<section class='tembo-card-stack-section flex items-center justify-center'>
+				<Image src={StackHero} alt='Tembo Card Stack' quality='max' />
+			</section>
+			<section class='tembo-build-any-application-section pb-[200px]'>
+				<div class='flex flex-col items-center justify-center mt-36 gap-6'>
+					<h3 class='text-neon font-secondary'>CURRENTLY IN BETA</h3>
+					<h1 class='text-white font-bold text-6xl max-w-5xl text-center leading-normal'>Build any application, on Postgres</h1>
+					<Button variant='gradient' size='lg' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
+				</div>
+				<StackSlider />
+			</section>
+		</Container>
+		<section class='tembo-postgres-section'>
+			<Container styles='relative py-28'>
+				<div class='light-gradient absolute -top-[200px] -right-[900px]' />
+				<div class='flex flex-col gap-6 mb-6'>
+					<h1 class='text-neon font-extrabold text-6xl z-10'>100% Postgres,</h1>
+					<h2 class='text-white font-light text-3xl z-10'>the most beloved database on earth</h2>
+					<Button variant='gradient' size='lg' styles='w-max' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
+				</div>
+				<Image src={ElephantScene} alt='Three elephants' class='w-[850px]' />
+				<Image src={Elephant11} alt='Three elephants' class='absolute top-[50px] right-[150px] w-[200px]' />
+				<Image src={Elephant12} alt='Three elephants' class='absolute top-[150px] right-[500px] w-[150px]' />
+				<div class='absolute right-0 top-1/2 px-4'>
+					<Showcase />
+				</div>
+			</Container>
+		</section>
+		<section class='py-28 bg-offBlack'>
+			<Container styles='relative'>
+				<h1 class='text-7xl text-white font-semibold tracking-[0.24px]'>TEMBO + STACKS</h1>
+				<Section3Confetti />
+			</Container>
+		</section>
+	</div>
+</Layout>
+
+<style>
+	.main-content {
+		background: rgb(0, 0, 0);
+		background-image: url('/pixelBg.svg');
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+	}
+	.light-gradient {
+		width: 2500px;
+		height: 1250px;
+		background: radial-gradient(#ffffff 0px, transparent 20%);
+		filter: blur(300px) saturate(150%);
+	}
+	.tembo-postgres-section {
+  		background-image: linear-gradient(-30deg, transparent 50%, #1C1C1C 50%);
+	}
+</style>
