@@ -88,7 +88,9 @@ const SecondStackCards = () => {
 const StackSlider = () => {
   return (
     <>
-        <div className='mt-24 w-full gap-4 inline-flex flex-nowrap overflow-hidden fade-x-md'>
+        <div className='mt-24 w-full gap-4 inline-flex flex-nowrap overflow-hidden fade-x-md relative'>
+            <div className='absolute left-0 top-0 bottom-0 w-[150px] z-10' />
+            <div className='absolute right-0 top-0 bottom-0 w-[150px] z-10' />
             <FirstStackCards />
             <FirstStackCards aria-hidden={true} />
         </div>
