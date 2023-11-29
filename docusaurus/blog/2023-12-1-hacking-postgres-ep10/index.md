@@ -6,8 +6,6 @@ tags: [postgres, hacking_postgres]
 ---
 
 
-“It’s like Git and Postgres or MySQL had a baby.”
-
 Even describing something truly novel is challenging, let alone building it. That’s the story of our final episode from Season 1, where Ry sits down with Tim Sehn from Dolthub to talk about the journey of building Dolt, the new release of Doltgres, and the challenges of adapting to the changing ways users engage with your product. 
 
 Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Tim for joining us today!
