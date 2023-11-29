@@ -88,11 +88,11 @@ const SecondStackCards = () => {
 const StackSlider = () => {
   return (
     <>
-        <div className='mt-24 w-full gap-4 inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]'>
+        <div className='mt-24 w-full gap-4 inline-flex flex-nowrap overflow-hidden fade-x-md'>
             <FirstStackCards />
             <FirstStackCards aria-hidden={true} />
         </div>
-        <div className='mt-4 w-full gap-4 inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]'>
+        <div className='mt-4 w-full gap-4 inline-flex flex-nowrap overflow-hidden fade-x-md'>
             <SecondStackCards />
             <SecondStackCards aria-hidden={true} />
         </div>
