@@ -13,7 +13,8 @@ import Elephant12 from '../images/elephant12.svg';
 import Showcase from '../components/Showcase.astro';
 import { navigate } from 'astro/transitions/router';
 import Section3Confetti from '../components/Section3Confetti.astro';
-import ConfettiAnimation from '../components/ConfettiAnimation';
+import Animation from '../components/Animation';
+import ConfettiAnimationJson from '../animations/Confetti.json';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -46,7 +47,7 @@ const currentPath = Astro.url.pathname;
 				</div>
 			</Container>
 			<div class='container max-w-stackSlider mx-auto'>
-				<StackSlider />
+				<StackSlider client:load />
 			</div>
 		</section>
 		<section class='tembo-postgres-section'>
@@ -67,9 +68,9 @@ const currentPath = Astro.url.pathname;
 		</section>
 		<section class='bg-offBlack'>
 			<Container styles='relative'>
-				<ConfettiAnimation client:load />
-				<div class='py-28'>
-					<h1 class='text-7xl text-white font-semibold tracking-[0.24px] z-100'>TEMBO + STACKS</h1>
+				<Animation animation={ConfettiAnimationJson} client:load />
+				<div class='py-28 z-10 relative'>
+					<h1 class='text-7xl text-white font-semibold tracking-[0.24px]'>TEMBO + STACKS</h1>
 				</div>
 				<Section3Confetti />
 			</Container>
@@ -93,4 +94,4 @@ const currentPath = Astro.url.pathname;
 	.tembo-postgres-section {
   		background-image: linear-gradient(-30deg, transparent 50%, #1C1C1C 50%);
 	}
-</style>
+</style>../components/Animation

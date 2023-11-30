@@ -1,12 +1,17 @@
 import React from 'react';
 import Lottie from 'lottie-react';
-import ConfettiAnimationJson from '../animations/Confetti.json';
 
-const ConfettiAnimation = () => {
+interface Props {
+	animation: unknown;
+	styles?: string;
+}
+
+const Animation: React.FC<Props> = ({ animation, styles }) => {
   return (
 	<Lottie
-		animationData={ConfettiAnimationJson}
+		animationData={animation}
 		loop={true}
+		className={styles}
 		style={{
 			position: 'absolute',
 			width: '100%',
@@ -17,4 +22,4 @@ const ConfettiAnimation = () => {
   )
 }
 
-export default ConfettiAnimation;
+export default Animation;

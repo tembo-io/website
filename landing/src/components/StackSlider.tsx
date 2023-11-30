@@ -1,5 +1,10 @@
 import React from 'react';
 import Card from './Card';
+import Animation from './Animation';
+import Animation1 from '../animations/elephant4.json';
+import Animation2 from '../animations/elephant8.json';
+import Animation3 from '../animations/elephant5.json';
+import Animation4 from '../animations/elephant6.json';
 
 const FirstStackCards = () => {
     return (
@@ -9,28 +14,28 @@ const FirstStackCards = () => {
                     <p>Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>Real-time inference service</h2>
                 </span>
-                <img src='/elephant2.svg' alt='elephant' className='absolute w-[215px] -top-[10px] -right-[60px] -z-0' />
+                <Animation animation={Animation1} styles='absolute w-[215px] -top-[80px] -right-[100px] -z-0'  />
             </Card>
-            <Card styles='bg-neon flex flex-col justify-start min-w-[342px] h-[342px] rounded-2xl  relative overflow-hidden'>
+            <Card styles='bg-neon flex flex-col justify-start min-w-[342px] h-[342px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10'>
                     <p>Document Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>Mobile app backend</h2>
                 </span>
-                <img src='/elephant7.svg' alt='elephant' className='absolute w-[215px] -bottom-[10px] -right-[30px] -z-0' />
+                <Animation animation={Animation2} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0'  />
             </Card>
             <Card styles='bg-semiGrey flex flex-col justify-start min-w-[342px] h-[342px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10 text-white'>
                     <p>Machine Learning Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>ML Training Stack</h2>
                 </span>
-                <img src='/elephant6.svg' alt='elephant' className='absolute w-[215px] -bottom-[10px] -right-[20px] -z-0 mirror-horizontal' />
+                <Animation animation={Animation3} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0 mirror-horizontal'  />
             </Card>
             <Card styles='bg-offBlack flex flex-col justify-start min-w-[342px] h-[342px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10 text-white'>
                     <p>Message Queue Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>SQS Replacement System</h2>
                 </span>
-                <img src='/elephant9.svg' alt='elephant' className='absolute w-[215px] -bottom-[10px] -right-[20px] -z-0 mirror-horizontal' />
+                <Animation animation={Animation4} styles='absolute w-[215px] -bottom-[80px] -right-[100px] -z-0 mirror-horizontal'  />
             </Card>
             <Card styles='bg-purple flex flex-col justify-center min-w-[342px] h-[342px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10 mt-12'>
@@ -58,7 +63,7 @@ const SecondStackCards = () => {
                     <p>Document Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>Mobile app backend</h2>
                 </span>
-                <img src='/elephant7.svg' alt='elephant' className='absolute w-[215px] -bottom-[10px] -right-[30px] -z-0' />
+                <Animation animation={Animation2} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0'  />
             </Card>
             <Card styles='bg-semiGrey flex flex-col justify-start min-w-[342px] h-[342px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10 text-white'>
