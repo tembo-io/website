@@ -9,6 +9,7 @@ export default {
 			},
 			maxWidth: {
 				container: '100rem',
+				stackSlider: '130rem'
 			},
 			colors: {
 				neon: '#E9FC87',
