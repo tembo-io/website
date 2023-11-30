@@ -87,7 +87,7 @@ const config = {
               ? undefined
               : defaultReadingTime({content}),
           editUrl:
-            'https://github.com/tembo-io/website/blob/main/',
+            'https://github.com/tembo-io/website/blob/main/docusaurus',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
