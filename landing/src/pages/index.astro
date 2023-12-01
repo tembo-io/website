@@ -15,6 +15,7 @@ import { navigate } from 'astro/transitions/router';
 import Section3Confetti from '../components/Section3Confetti.astro';
 import Animation from '../components/Animation';
 import ConfettiAnimationJson from '../animations/Confetti.json';
+import AppScreenshot from '../images/appScreenshot.svg';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -66,14 +67,17 @@ const currentPath = Astro.url.pathname;
 				</div>
 			</Container>
 		</section>
-		<section class='bg-offBlack'>
+		<section class='bg-offBlack relative'>
 			<Container styles='relative'>
-				<Animation animation={ConfettiAnimationJson} client:load />
-				<div class='py-28 z-10 relative'>
+				<Animation animation={ConfettiAnimationJson} client:load/>
+				<div class='pt-28 z-10 relative'>
 					<h1 class='text-7xl text-white font-semibold tracking-[0.24px]'>TEMBO + STACKS</h1>
 				</div>
 				<Section3Confetti />
 			</Container>
+			<div class='flex flex-col w-full'>
+				<Container><Image src={AppScreenshot} alt='Tembo Cloud Dashboard' class='-[1000px] h-[1000px]' /></Container>
+			</div>
 		</section>
 	</div>
 </Layout>
@@ -87,7 +91,7 @@ const currentPath = Astro.url.pathname;
 	}
 	.light-gradient {
 		width: 2500px;
-		height: 1250px;
+		height: 800px;
 		background: radial-gradient(#ffffff 0px, transparent 20%);
 		filter: blur(300px) saturate(150%);
 	}

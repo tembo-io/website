@@ -4,9 +4,10 @@ import Lottie from 'lottie-react';
 interface Props {
 	animation: unknown;
 	styles?: string;
+	isFullWidth?: boolean;
 }
 
-const Animation: React.FC<Props> = ({ animation, styles }) => {
+const Animation: React.FC<Props> = ({ animation, styles, isFullWidth = true }) => {
   return (
 	<Lottie
 		animationData={animation}
@@ -14,7 +15,7 @@ const Animation: React.FC<Props> = ({ animation, styles }) => {
 		className={styles}
 		style={{
 			position: 'absolute',
-			width: '100%',
+			width: isFullWidth ? '100%' : undefined,
 			overflow: 'hidden',
 			zIndex: 1
 		}}
