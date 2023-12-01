@@ -8,8 +8,9 @@ tags: [postgres, hacking_postgres]
 
 Even describing something truly novel is challenging, let alone building it. That’s the story of our final episode from Season 1, where Ry sits down with Tim Sehn from Dolthub to talk about the journey of building Dolt, the new release of Doltgres, and the challenges of adapting to the changing ways users engage with your product. 
 
-Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Tim for joining us today!
+Watch below, or listen on [Apple](https://podcasts.apple.com/us/podcast/s1-ep10-tim-sehn-dolthub-doltgres/id1710401793?i=1000637183773)/[Spotify](https://open.spotify.com/episode/7APPC9RQr6NHX3yaXreFc8?si=bf17b96a2cc54c5f) (or your podcast platform of choice). Special thanks to Tim for joining us today!
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/u1a5ovDUBsM?si=SbxITarJvj4eXzk1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
 Want to know more about something they mentioned? Here’s a starting point:
@@ -19,7 +20,7 @@ Want to know more about something they mentioned? Here’s a starting point:
 * Vitess - [https://vitess.io/](https://vitess.io/)
 * Sysbench - [https://github.com/akopytov/sysbench](https://github.com/akopytov/sysbench)
 
-Did you enjoy the episode? Have ideas for someone else we should invite? Let us know your thoughts on X at @tembo_io or share them with the team in our [Slack Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-23o25qt91-AnZoC1jhLMLubwia4GeNGw).
+Did you enjoy the episode? Have ideas for someone else we should invite? Let us know your thoughts on X at [@tembo_io](https://twitter.com/tembo_io) or share them with the team in our [Slack Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-23o25qt91-AnZoC1jhLMLubwia4GeNGw).
 
 
 ## Transcript
