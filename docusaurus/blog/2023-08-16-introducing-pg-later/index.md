@@ -56,7 +56,7 @@ select pglater.exec(
 ```
 
 ```text
- job_id 
+ job_id
 --------
      1
 (1 row)
