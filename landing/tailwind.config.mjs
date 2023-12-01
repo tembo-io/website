@@ -23,6 +23,7 @@ export default {
 				semiGrey: '#3E4243',
 				grey: '#9EA2A6',
 				lightGrey: '#BBBBBB',
+				otherGrey: '#EAEAEA',
 				offBlack: '#120F0E',
 				offGrey: '#1A1E22'
 			},

@@ -130,10 +130,6 @@ const { title } = Astro.props;
 	.safari-blur {
     	-webkit-backdrop-filter: blur(10px)
 	}
-	:root {
-		--gray5: hsl(0, 0%, 90.9%);
-		--gray9: hsl(0, 0%, 56.1%);
-	}
 	.shine {
 		background: linear-gradient(
 			90deg,
@@ -167,4 +163,7 @@ const { title } = Astro.props;
 		}
 	}
 
+	.fade-x-md-always {
+		-webkit-mask: linear-gradient(90deg,transparent,#000 0%,#000 90%,transparent);
+	}
 </style>
