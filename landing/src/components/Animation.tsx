@@ -27,7 +27,9 @@ const Animation: React.FC<Props> = ({ animation, styles, isFullWidth = true, loo
 					position: 'absolute',
 					width: isFullWidth ? '100%' : undefined,
 					overflow: 'hidden',
-					zIndex: 1
+					zIndex: 1,
+					padding: 0,
+					margin: 0,
 				}}
 			/>}
 
