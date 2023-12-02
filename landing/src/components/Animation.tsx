@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
-import Lottie, { useLottie, type LottieRefCurrentProps } from 'lottie-react';
+import React, { useRef } from 'react';
+import Lottie from 'lottie-react';
 import { useIntersection } from '../util';
 
 interface Props {
