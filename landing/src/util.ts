@@ -19,7 +19,7 @@ export const useIntersection = (element: any, rootMargin: string) => {
   return isVisible;
 };
 
-export function useDelayUnmount(isMounted: boolean, delayTime: number) {
+export const useDelayUnmount = (isMounted: boolean, delayTime: number) => {
   const [ shouldRender, setShouldRender ] = useState(false);
 
   useEffect(() => {
