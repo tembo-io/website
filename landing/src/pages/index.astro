@@ -17,7 +17,7 @@ import Animation from '../components/Animation';
 import ConfettiAnimationJson from '../animations/Confetti.json';
 import AppScreenshot from '../images/appScreenshot.svg';
 import DetailSequence from '../components/DetailSequence';
-import type { animationControls } from 'framer-motion';
+import TemboStacksSection from '../components/TemboStacksSection';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -69,21 +69,11 @@ const currentPath = Astro.url.pathname;
 				</div>
 			</Container>
 		</section>
-		<section class='bg-offBlack relative'>
-			<Container styles='relative'>
-				<Animation animation={ConfettiAnimationJson} client:load />
-				<div class='pt-28 z-10 relative'>
-					<h1 class='text-7xl text-white font-semibold tracking-[0.24px]'>TEMBO + STACKS</h1>
-				</div>
-				<Section3Confetti />
-				<div class='flex w-full justify-between items-start mt-20'>
-					<div class='flex flex-col z-10'>
-						<DetailSequence header='100% Open Source & Cloud Native' text='The best of both worlds. Enjoy unmodified open source community Postgres and all the benefits of cloud native architecture, such as high availability, rolling updates, resource management, and more.' iconPath='/cloudColorIcon.svg' />
-					</div>
-					<Image src={AppScreenshot} alt='Tembo Cloud Dashboard' class='w-[1000px] fade-x-md-always' />
-				</div>
-			</Container>
-		</section>
+		<Container styles='relative'>
+			<Section3Confetti />
+		</Container>
+		<TemboStacksSection client:load />
+		<section class='tembo-extensions-section'></section>
 	</div>
 </Layout>
 
