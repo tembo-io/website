@@ -1,11 +1,10 @@
-import React from 'react';
 import Card from './Card';
-import Animation from './Animation';
-import Animation1 from '../animations/elephant4.json';
-import Animation2 from '../animations/elephant8.json';
-import Animation3 from '../animations/elephant5.json';
-import Animation4 from '../animations/elephant6.json';
-import Animation5 from '../animations/elephant10.json';
+import  Animation from '../components/Animation';
+import elephant4 from '../animations/elephant4.json';
+import elephant8 from '../animations/elephant8.json';
+import elephant5 from '../animations/elephant5.json';
+import elephant6 from '../animations/elephant6.json';
+import elephant10 from '../animations/elephant10.json';
 
 const FirstStackCards = () => {
     return (
@@ -15,35 +14,35 @@ const FirstStackCards = () => {
                     <p>Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>Real-time inference service</h2>
                 </span>
-                <Animation animation={Animation1} styles='absolute w-[215px] -top-[80px] -right-[100px] -z-0'  />
+                <Animation animation={elephant4} styles='absolute w-[215px] -top-[80px] -right-[100px] -z-0' />
             </Card>
             <Card styles='bg-neon flex flex-col justify-start min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10'>
                     <p>Document Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>Mobile app backend</h2>
                 </span>
-                <Animation animation={Animation2} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0'  />
+                <Animation animation={elephant8} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0' />
             </Card>
             <Card styles='bg-semiGrey flex flex-col justify-start min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10 text-white'>
                     <p>Machine Learning Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>ML Training Stack</h2>
                 </span>
-                <Animation animation={Animation3} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0 mirror-horizontal'  />
+                <Animation animation={elephant5} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0 mirror-horizontal' />
             </Card>
             <Card styles='bg-offBlack flex flex-col justify-start min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10 text-white'>
                     <p>Message Queue Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>SQS Replacement System</h2>
                 </span>
-                <Animation animation={Animation4} styles='absolute w-[215px] -bottom-[80px] -right-[100px] -z-0 mirror-horizontal'  />
+                <Animation animation={elephant6} styles='absolute w-[215px] -bottom-[80px] -right-[100px] -z-0 mirror-horizontal' />
             </Card>
             <Card styles='bg-purple flex flex-col justify-center min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10 mt-12'>
                     <p>OLAP Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>Data Warehouse for Analytics</h2>
                 </span>
-                <Animation animation={Animation5} styles='absolute w-[215px] -top-[70px] -right-[120px] -z-0' />
+                <Animation animation={elephant10} styles='absolute w-[215px] -top-[70px] -right-[120px] -z-0' />
             </Card>
         </ul>
     )
@@ -57,35 +56,35 @@ const SecondStackCards = () => {
                     <p>Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>Real-time inference service</h2>
                 </span>
-                <Animation animation={Animation1} styles='absolute w-[215px] -top-[80px] -right-[100px] -z-0'  />
+                <Animation animation={elephant4} styles='absolute w-[215px] -top-[80px] -right-[100px] -z-0' />
             </Card>
             <Card styles='bg-neon flex flex-col justify-start min-w-[320px] h-[320px]  rounded-2xl relative overflow-hidden'>
                 <span className='z-10'>
                     <p>Document Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>Mobile app backend</h2>
                 </span>
-                <Animation animation={Animation2} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0'  />
+                <Animation animation={elephant8} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0' />
             </Card>
             <Card styles='bg-semiGrey flex flex-col justify-start min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10 text-white'>
                     <p>Machine Learning Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>ML Training Stack</h2>
                 </span>
-                <Animation animation={Animation3} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0 mirror-horizontal'  />
+                <Animation animation={elephant5} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0 mirror-horizontal' />
             </Card>
             <Card styles='bg-offBlack flex flex-col justify-start min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10 text-white'>
                     <p>Message Queue Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>SQS Replacement System</h2>
                 </span>
-                <Animation animation={Animation4} styles='absolute w-[215px] -bottom-[80px] -right-[100px] -z-0 mirror-horizontal'  />
+                <Animation animation={elephant5} styles='absolute w-[215px] -bottom-[80px] -right-[100px] -z-0 mirror-horizontal' />
             </Card>
             <Card styles='bg-purple flex flex-col justify-center min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10 mt-12'>
                     <p>OLAP Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>Data Warehouse for Analytics</h2>
                 </span>
-                <Animation animation={Animation5} styles='absolute w-[215px] -top-[70px] -right-[120px] -z-0' />
+                <Animation animation={elephant10} styles='absolute w-[215px] -top-[70px] -right-[120px] -z-0' />
             </Card>
         </ul>
     );
@@ -98,7 +97,7 @@ const StackSlider = () => {
             <div className='absolute left-0 top-0 bottom-0 w-[150px] z-10' />
             <div className='absolute right-0 top-0 bottom-0 w-[150px] z-10' />
             <FirstStackCards />
-            <FirstStackCards aria-hidden={true}  />
+            <FirstStackCards aria-hidden={true} />
             <FirstStackCards aria-hidden={true} />
         </div>
         <div className='mt-4 w-full gap-4 inline-flex flex-nowrap overflow-hidden fade-x-md'>
