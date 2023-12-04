@@ -39,6 +39,9 @@ In short, Twitter-scale.
 
 ![22bytes](./22bytes.png "22bytes")
 
+*large batch, micro message size throughput*
+
+
 ## How Did We Build It?
 
 Using the Tembo Cloud Message Queue stack, we were able to write up to **161k messages per second**, 20 concurrent writers each publishing batches of 100 messages. On a single Postgres instance running 16vCPU and 32GB of memory, and sustain **reading up to 30k messages per second**, by running 10 concurrent consumers each reading 100 messages per batch.
@@ -69,6 +72,7 @@ What about the non-batch use case? Most user applications start by consuming and
 With 50 producers each sending 1 message at a time and 100 consumers each reading 1 message at a time, Postgres will be able to clear the queue at a rate of over 7k messages per second (even on a relatively small compute node 16vCPU and 32GB RAM), which is still higher than the average volume seen by Twitter in 2023. 7k messages per second is higher than most use cases/
 
 ![single](./single.png "single")
+
 *single message throughput for 1kb messages per second*
 
 ## Resource constrained
@@ -78,6 +82,7 @@ But what if you’re resource constrained? Turns out we can go even smaller.
 For a similar benchmark on a Tembo MQ instance running on 1vCPU and 4GB of memory, with messages sizes of about 1KB, 10 x producers and 10 x consumers each processes messages in batches of 5. Even with these constraints, Postgres is still able to process thousands of messages per second.
 
 ![micro](./micro.png "micro")
+
 *micro batches on 1vCPU and 4GB memory*
 
 ## Your Turn
