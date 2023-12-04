@@ -1,6 +1,6 @@
 ---
 slug: mq-stack-benchmarking
-title: "Yeeting over 50k messages per second on Postgres with Tembo MQ"
+title: "Yeeting over 30k messages per second on Postgres with Tembo MQ"
 authors: [eric, adam]
 tags: [postgres, queues, pgmq]
 ---
