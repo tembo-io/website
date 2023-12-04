@@ -17,7 +17,7 @@ So what would that look like? Let’s take a look.
 
 **[VIDEO HERE]**
 
-Before we get into the rest of that story, it’s worth calling out what’s in v1.0:
+Before we get into the rest of that story, it’s worth calling out what’s in [PGMQ v1.0](https://github.com/tembo-io/pgmq):
 
 * **Stable API**: Main API functions have matured to support backwards compatibility.
 * **Object Membership Model**: All PGMQ objects now live in the PGMQ schema.
