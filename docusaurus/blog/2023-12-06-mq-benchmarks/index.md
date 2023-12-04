@@ -9,7 +9,7 @@ tags: [postgres, queues, pgmq]
 
 _“Could we build a message queue that can scale to Twitter...on Postgres?”_
 
-At Tembo, we want to do _everything_ on Postgres. And to us, the message queue workload is an OLTP workload in disguise. Let’s be honest—nobody gets all _that_ excited about a message queue...which got us wondering: “What _could_ you do to make it interesting?” The overwhelming answer?
+At Tembo, we want to do _everything_ on Postgres. And to us, the message queue workload is an OLTP workload in disguise. And while we're excited about our recent release of PGMQ v1.0, we're not getting ahead of ourselves. We know the truth—nobody gets all _that_ excited about a message queue...which got us wondering: “What _could_ you do to make it interesting?” The overwhelming answer?
 
 Make it fast. Like...Twitter-scale. (Sorry, X.)
 
