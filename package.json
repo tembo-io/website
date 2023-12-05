@@ -11,7 +11,7 @@
 		"landing": "cd ./landing && npm run dev",
 		"build-landing": "npm run build -w landing",
 		"build-docs": "npm run build -w docs",
-		"move-docs": "cp -r docusaurus2/build/ landing/dist/ && rm -rf landing/dist/sitemap.xml",
+		"move-docs": "cp -r docusaurus/build/ landing/dist/ && rm -rf landing/dist/sitemap.xml",
 		"preview": "npm run preview -w landing"
 	},
 	"license": "PostgreSQL",
