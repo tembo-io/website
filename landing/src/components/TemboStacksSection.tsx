@@ -22,7 +22,7 @@ const TemboStacksSection = () => {
                         <DetailSequence header='Transparent Pricing' text='No hidden costs or surprise up-charges. You only pay for what you actually use. Store as much as you need, query as much as you want. ' iconPath='/priceColorIcon.svg' />
                         <Button variant='gradient' size='lg' styles='w-max mt-10'>Deploy now</Button>
                     </div>
-                    <img src={'/appScreenshot.svg'} alt='Tembo Cloud Dashboard' className='w-[1000px] fade-x-md-always -z-1' />
+                    <img src={'/appScreenshot.svg'} alt='Tembo Cloud Dashboard' className='w-[900px] fade-x-md-always -z-1' />
                 </div>
             </Container>
         </section>

@@ -10,7 +10,9 @@
 		"docs": "cd ./docusaurus && npm run start",
 		"landing": "cd ./landing && npm run dev",
 		"build-landing": "npm run build -w landing",
-		"build-docs": "npm run build -w docs"
+		"build-docs": "npm run build -w docs",
+		"move-docs": "rsync -av --exclude='favicon.ico' --exclude='sitemap.xml' docusaurus/build/ landing/dist/",
+		"preview": "npm run preview -w landing"
 	},
 	"license": "PostgreSQL",
 	"devDependencies": {

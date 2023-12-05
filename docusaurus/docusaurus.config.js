@@ -8,20 +8,19 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Tembo',
   tagline: 'The developer platform for building any data service',
-  favicon: 'img/favicon.ico',
+  favicon: 'favicon.ico',
   // Set the production url of your site here
   url: 'https://tembo.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
-
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'tembo-io', // Usually your GitHub org/user name.
   projectName: 'website', // Usually your repo name.
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'ignore',
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -64,7 +63,6 @@ const config = {
       },
     }),
   ],
-
   presets: [
     [
       'classic',
@@ -82,12 +80,13 @@ const config = {
           showReadingTime: true,
           blogSidebarTitle: 'All posts',
           blogSidebarCount: 'ALL',
+          routeBasePath: '/blog',
           readingTime: ({content, frontMatter, defaultReadingTime}) =>
             frontMatter.hide_reading_time
               ? undefined
               : defaultReadingTime({content}),
           editUrl:
-            'https://github.com/tembo-io/website/blob/main/',
+            'https://github.com/tembo-io/website/blob/main/docusaurus',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -122,6 +121,8 @@ const config = {
         logo: {
           alt: 'Tembo Logo',
           src: 'img/title-logo.svg',
+          href: '/',
+          target: '_parent'
         },
         items: [
           {

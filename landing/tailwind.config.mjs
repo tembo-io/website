@@ -16,6 +16,7 @@ export default {
 				lightBlue: '#45DEF2',
 				blue: '#432F94',
 				purple: '#DB39CB',
+				lightPurple: '#CA6FE5',
 				pink: '#FA467B',
 				salmon: '#FF7D7F',
 				mwasi: '#1C1C1C',

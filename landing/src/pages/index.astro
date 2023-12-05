@@ -14,6 +14,7 @@ import Showcase from '../components/Showcase.astro';
 import { navigate } from 'astro/transitions/router';
 import Section3Confetti from '../components/Section3Confetti.astro';
 import TemboStacksSection from '../components/TemboStacksSection';
+import Extension from '../components/Extension.astro';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -22,7 +23,7 @@ const currentPath = Astro.url.pathname;
 		<NavBar currentPage={currentPath} client:load />
 		<div class='w-full h-[150px]' />
 		<Container styles='relative'>
-			<div class='light-gradient absolute -top-[700px] -right-[900px]' />
+			<div class='light-gradient absolute -top-[700px] right-9' />
 			<section class='tembo-hero-section mt-[144px]'>
 				<div class='flex flex-col items-center justify-center z-10 pb-[100px] relative slide-enter-content'>
 					<header class='text-center mb-6'>
@@ -51,7 +52,7 @@ const currentPath = Astro.url.pathname;
 		</section>
 		<section class='tembo-postgres-section'>
 			<Container styles='relative py-28'>
-				<div class='light-gradient absolute -top-[200px] -right-[900px]' />
+				<div class='light-gradient absolute -top-[200px] right-[-100px]' />
 				<div class='flex flex-col gap-6 mb-6'>
 					<h1 class='text-neon font-extrabold text-6xl z-10'>100% Postgres,</h1>
 					<h2 class='text-white font-light text-3xl z-10'>the most beloved database on earth</h2>
@@ -69,8 +70,15 @@ const currentPath = Astro.url.pathname;
 			<Section3Confetti />
 		</Container>
 		<TemboStacksSection client:load />
-		<section class='tembo-extensions-section'>
-
+		<section class='tembo-extensions-section pt-28 bg-offBlack'>
+			<Container>
+				<div class='flex flex-col items-center justify-center'>
+					<h1 class='text-white font-bold text-[50px] max-w-5xl text-center leading-normal w-full'>Packed with <span class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text'>200+</span> Extensions</h1>
+					<div>
+						<Extension extensionTitle='pg_vector' />
+					</div>
+				</div>
+			</Container>
 		</section>
 	</div>
 </Layout>
@@ -83,11 +91,26 @@ const currentPath = Astro.url.pathname;
 		height: 100%;
 	}
 	.light-gradient {
-		width: 2500px;
-		height: 800px;
-		background: radial-gradient(#ffffff 0px, transparent 20%);
+		width: 45%;
+		height: 1200px;
+		background: radial-gradient(#ffffff 0px, transparent 35%);
+		-ms-filter: blur(300px) saturate(150%);
+		-webkit-filter: blur(300px) saturate(150%);
 		filter: blur(300px) saturate(150%);
 	}
+
+	@-moz-document url-prefix() {
+		.light-gradient {
+			width: 2500px;
+			height: 1000px;
+			background: radial-gradient(#ffffff 0px, transparent 40%);
+			-ms-filter: blur(300px) saturate(150%);
+			-webkit-filter: blur(300px) saturate(150%);
+			filter: blur(300px) saturate(150%);
+			opacity: 0.1;
+		}
+	}
+
 	.tembo-postgres-section {
   		background-image: linear-gradient(-30deg, transparent 50%, #1C1C1C 50%);
 	}
