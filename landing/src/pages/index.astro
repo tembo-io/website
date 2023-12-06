@@ -112,7 +112,7 @@ const currentPath = Astro.url.pathname;
 						<Extension extensionTitle='pg_vector' />
 					</div>
 				</div>
-				<Button variant='gradient' size='lg'. styles='' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
+				<Button variant='gradient' size='lg' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
 			</div>
 		</section>
 		<section class='tembo-footer-section pt-28 bg-offBlack'>
@@ -120,13 +120,28 @@ const currentPath = Astro.url.pathname;
 				<div class='flex flex-col'>
 					<h2 class='text-7xl text-lightNeon font-bold'>Why Tembo?</h2>
 					<div class='mt-16'>
-						<div class='flex'>
-							<DetailSequence header='Reduce Sprawl' text='Consolidate your data stack without cost or lock-in worries.' />
-							<DetailSequence header='Fully Extensible' text='Consolidate your data stack without cost or lock-in worries.' />
-							<DetailSequence header='External App Support' text='Consolidate your data stack without cost or lock-in worries.' />
+						<div class='flex flex-col gap-12'>
+							<div class='flex justify-between w-full gap-16'>
+								<DetailSequence header='Reduce Sprawl' text='Consolidate your data stack without cost or lock-in worries.' styles='w-full' />
+								<DetailSequence header='Fully Extensible' text='200+ extensions and counting means Tembo can be whatever you need it to be.' styles='w-full' />
+								<DetailSequence header='External App Support' text='You’re not limited to just extensions—we also enable a growing library of extensions that can be deployed alongside your instance.' styles='w-full' />
+							</div>
+							<div class='flex justify-between w-full gap-16'>
+								<DetailSequence header='Developer Friendly' text='Intuitive interface lets you build data services like you build applications.' styles='w-full' />
+								<DetailSequence header='Postgres, not "Postgres-Compatible"' text='If you can do it on Postgres, you can do it on Tembo.' styles='w-full' />
+								<DetailSequence header='One Vendor, Fully Managed' text='A zero-headache, end-to-end data service right from day one. We give you solutions, not just tools.' styles='w-full' />
+							</div>
+							<div class='flex justify-between w-full gap-16'>
+								<DetailSequence header='Open Source' text='We’re committed to helping build the future of Postgres.' styles='w-full' />
+								<DetailSequence header='Develop Locally, Unleash Anywhere' text='Develop and deploy your application in a local environment, and easily run it on the cloud.' styles='w-full' />
+								<DetailSequence header='Use-case Optimized' text='Stacks are pre-made, customized “flavors” of Postgres + extensions designed for common application needs.' styles='w-full' />
+							</div>
 						</div>
 					</div>
 				</div>
+				<footer>
+
+				</footer>
 			</Container>
 		</section>
 	</div>
