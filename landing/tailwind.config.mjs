@@ -13,6 +13,7 @@ export default {
 			},
 			colors: {
 				neon: '#E9FC87',
+				lightNeon: '#F3FFB6',
 				lightBlue: '#45DEF2',
 				blue: '#432F94',
 				purple: '#DB39CB',
@@ -20,7 +21,7 @@ export default {
 				pink: '#FA467B',
 				salmon: '#FF7D7F',
 				mwasi: '#1C1C1C',
-				darkGrey: '#414141',
+				customDarkGrey: '#414141',
 				semiGrey: '#3E4243',
 				grey: '#9EA2A6',
 				lightGrey: '#BBBBBB',

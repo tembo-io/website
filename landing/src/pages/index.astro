@@ -15,6 +15,7 @@ import { navigate } from 'astro/transitions/router';
 import Section3Confetti from '../components/Section3Confetti.astro';
 import TemboStacksSection from '../components/TemboStacksSection';
 import Extension from '../components/Extension.astro';
+import DetailSequence from '../components/DetailSequence';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -73,9 +74,57 @@ const currentPath = Astro.url.pathname;
 		<section class='tembo-extensions-section pt-28 bg-offBlack'>
 			<Container>
 				<div class='flex flex-col items-center justify-center'>
-					<h1 class='text-white font-bold text-[50px] max-w-5xl text-center leading-normal w-full'>Packed with <span class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text'>200+</span> Extensions</h1>
-					<div>
+					<h2 class='text-white font-bold text-[50px] max-w-5xl text-center leading-normal w-full'>Packed with <span class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text text-[72px]'>200+</span> Extensions</h2>
+				</div>
+			</Container>
+			<div class='mt-12 container max-w-stackSlider mx-auto flex flex-col items-center justify-center fade-x-md-both-sides'>
+				<div class='flex gap-6'>
+					<div class='flex flex-col gap-6'>
 						<Extension extensionTitle='pg_vector' />
+						<Extension extensionTitle='postgresml' wrapperStyles='bg-pink' titleStyles='text-neon' />
+					</div>
+					<div class='flex flex-col gap-6 mt-[200px]'>
+						<Extension extensionTitle='pg_vector' wrapperStyles='bg-pink' titleStyles='text-neon' />
+						<Extension extensionTitle='postgresml' wrapperStyles='bg-white' titleStyles='text-black' />
+					</div>
+					<div class='flex flex-col gap-6 mt-[100px]'>
+						<Extension extensionTitle='pg_vector' wrapperStyles='bg-customDarkGrey' titleStyles='text-white' />
+						<Extension extensionTitle='postgresml' wrapperStyles='bg-neon' />
+					</div>
+					<div class='flex flex-col gap-6 mt-[130px]'>
+						<Extension extensionTitle='pg_vector' />
+						<Extension extensionTitle='postgresml' wrapperStyles='bg-pink' titleStyles='text-neon' />
+					</div>
+					<div class='flex flex-col gap-6 mt-[80px]'>
+						<Extension extensionTitle='pg_vector' wrapperStyles='bg-white' titleStyles='text-black' />
+						<Extension extensionTitle='postgresml' wrapperStyles='bg-neon' />
+					</div>
+					<div class='flex flex-col gap-6 mt-[250px]'>
+						<Extension extensionTitle='pg_vector' wrapperStyles='bg-pink' titleStyles='text-neon' />
+						<Extension extensionTitle='postgresml' wrapperStyles='bg-white' titleStyles='text-black' />
+					</div>
+					<div class='flex flex-col gap-6 mt-[200px]'>
+						<Extension extensionTitle='pg_vector' />
+						<Extension extensionTitle='postgresml' wrapperStyles='bg-customDarkGrey' titleStyles='text-white' />
+					</div>
+					<div class='flex flex-col gap-6 mt-[260px]'>
+						<Extension extensionTitle='postgresml' wrapperStyles='bg-customDarkGrey' titleStyles='text-white' />
+						<Extension extensionTitle='pg_vector' />
+					</div>
+				</div>
+				<Button variant='gradient' size='lg'. styles='' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
+			</div>
+		</section>
+		<section class='tembo-footer-section pt-28 bg-offBlack'>
+			<Container>
+				<div class='flex flex-col'>
+					<h2 class='text-7xl text-lightNeon font-bold'>Why Tembo?</h2>
+					<div class='mt-16'>
+						<div class='flex'>
+							<DetailSequence header='Reduce Sprawl' text='Consolidate your data stack without cost or lock-in worries.' />
+							<DetailSequence header='Fully Extensible' text='Consolidate your data stack without cost or lock-in worries.' />
+							<DetailSequence header='External App Support' text='Consolidate your data stack without cost or lock-in worries.' />
+						</div>
 					</div>
 				</div>
 			</Container>
