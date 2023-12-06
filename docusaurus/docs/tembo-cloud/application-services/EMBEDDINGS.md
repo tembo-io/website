@@ -12,6 +12,12 @@ tags:
 **Powered by [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2)**
 :::
 
+The Embeddings API allows you to generate vector embeddings from your text. It is similar in functionality to [OpenAI's embeddings API](https://platform.openai.com/docs/guides/embeddings), except it is private. Every Tembo account gets its own service and all data passed to the Tembo Embedding API is not retained by the service.
+
+One of the most common use cases for embeddings is to perform vector similarity search on your data. Currently this supports one sentence to embeddings transformer; [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2). In the future, this will support many more state of the art sentence transformers and embedding models. Additional use cases include clustering, classification, and recommendation engines.
+
+In this guide, we will walk through a simple example of how to use the embeddings API to perform vector similarity search.
+
 ## Enabling Embeddings on Tembo Cloud
 
 :::info
@@ -73,23 +79,28 @@ curl -X PATCH \
 
 ## Using the Embeddings API for vector similarity search
 
-If you already have a table, you can start with that. You could also start with an example dataset.
-
+Connect to your Tembo Postgres instance.
 
 ```bash
 psql postgres://$yourUser:$yourPassword@${TEMBO_DATA_DOMAIN}:5432/postgres
+```
 
+If you already have a table, you can start with that. You could also start with an example dataset, which is what we will use for this example.
+
+```sql
 CREATE TABLE products AS 
 SELECT * FROM vectorize.example_products;
 ```
 
 ### Configure pg_vectorize to consume the Embeddings API
 
-TEMBO_ORG_NAME is  the name of your organization, and TEMBO_INSTANCE_NAME is the name of your Postgres instance.
+`TEMBO_ORG_NAME` is  the name of your organization, and `TEMBO_INSTANCE_NAME` is the name of your Postgres instance.
 
 ```sql
 ALTER SYSTEM SET vectorize.embedding_service_url to 'org-${TEMBO_ORG_NAME}-inst-${TEMBO_INSTANCE_NAME}-embeddings.${TEMBO_ORG_NAME}-inst-${TEMBO_INSTANCE_NAME}.svc.cluster.local:3000/v1/embeddings';
 ```
+
+This configures pg_vectorize to call the embeddings API hosted in your Tembo account.
 
 ## Initialize a table for automated vector search
 
@@ -126,4 +137,12 @@ SELECT * FROM vectorize.search(
     return_columns => ARRAY['product_id', 'product_name'],
     num_results => 3
 );
+```
+
+```console
+                                         search_results                                         
+------------------------------------------------------------------------------------------------
+ {"product_id": 13, "product_name": "Phone Charger", "similarity_score": 0.8564774308489237}
+ {"product_id": 24, "product_name": "Tablet Holder", "similarity_score": 0.8295404213393001}
+ {"product_id": 4, "product_name": "Bluetooth Speaker", "similarity_score": 0.8248579643539758}
 ```
