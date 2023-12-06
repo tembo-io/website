@@ -23,7 +23,7 @@ const currentPath = Astro.url.pathname;
 		<NavBar currentPage={currentPath} client:load />
 		<div class='w-full h-[150px]' />
 		<Container styles='relative'>
-			<div class='light-gradient absolute -top-[700px] right-9' />
+			<div class='light-gradient absolute -top-[700px] -right-[100px]' />
 			<section class='tembo-hero-section mt-[144px]'>
 				<div class='flex flex-col items-center justify-center z-10 pb-[100px] relative slide-enter-content'>
 					<header class='text-center mb-6'>
@@ -101,9 +101,9 @@ const currentPath = Astro.url.pathname;
 
 	@-moz-document url-prefix() {
 		.light-gradient {
-			width: 2500px;
-			height: 1000px;
-			background: radial-gradient(#ffffff 0px, transparent 40%);
+			width: 45%;
+			height: 1200px;
+			background: radial-gradient(#ffffff 0px, transparent 55%);
 			-ms-filter: blur(300px) saturate(150%);
 			-webkit-filter: blur(300px) saturate(150%);
 			filter: blur(300px) saturate(150%);
