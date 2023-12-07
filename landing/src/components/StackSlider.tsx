@@ -1,5 +1,5 @@
 import Card from './Card';
-import  Animation from '../components/Animation';
+import Animation from '../components/Animation';
 import elephant4 from '../animations/elephant4.json';
 import elephant8 from '../animations/elephant8.json';
 import elephant5 from '../animations/elephant5.json';

@@ -35,7 +35,6 @@ const Animation: React.FC<Props> = ({ animation, styles, isFullWidth = true, loo
 				loop={loop}
 				autoPlay={false}
 				className={styles}
-
 				style={{
 					position: 'absolute',
 					width: isFullWidth ? '100%' : undefined,
@@ -45,7 +44,6 @@ const Animation: React.FC<Props> = ({ animation, styles, isFullWidth = true, loo
 					margin: 0,
 				}}
 			/>}
-
 		</div>
 	)
 }

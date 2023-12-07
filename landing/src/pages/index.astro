@@ -16,6 +16,10 @@ import Section3Confetti from '../components/Section3Confetti.astro';
 import TemboStacksSection from '../components/TemboStacksSection';
 import Extension from '../components/Extension.astro';
 import DetailSequence from '../components/DetailSequence';
+import ArrowButton from '../components/ArrowButton.astro';
+import Animation from '../components/Animation';
+import CrossingWalk1 from '../animations/CrossingWalk1.json';
+import CrossingWalk2 from '../animations/CrossingWalk2.json';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -115,8 +119,8 @@ const currentPath = Astro.url.pathname;
 				<Button variant='gradient' size='lg' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
 			</div>
 		</section>
-		<section class='tembo-footer-section pt-28 bg-offBlack'>
-			<Container>
+		<section class='why-tembo-section pt-28 bg-offBlack'>
+			<Container styles='relative'>
 				<div class='flex flex-col'>
 					<h2 class='text-7xl text-lightNeon font-bold'>Why Tembo?</h2>
 					<div class='mt-16'>
@@ -139,10 +143,20 @@ const currentPath = Astro.url.pathname;
 						</div>
 					</div>
 				</div>
-				<footer class='tembo-footer'>
-
-				</footer>
 			</Container>
+		</section>
+		<section class='tembo-footer-section pt-28 relative bg-offBlack'>
+			<div class='container max-w-stackSlider mx-auto relative'>
+				<footer class='tembo-footer relative'>
+					<div class='flex flex-col items-center justify-center pb-[200px] z-10'>
+						<h2 class='text-white font-bold text-[50px] max-w-5xl text-center leading-normal w-full z-10 mt-28'>Join The Herd</h2>
+						<div class='flex items-center mt-10 gap-4'>
+							<Button variant='gradient' size='lg' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
+							<ArrowButton title='Join the team' link='/' />
+						</div>
+					</div>
+				</footer>
+			</div>
 		</section>
 	</div>
 </Layout>

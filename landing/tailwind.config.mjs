@@ -19,6 +19,7 @@ export default {
 				purple: '#DB39CB',
 				lightPurple: '#CA6FE5',
 				pink: '#FA467B',
+				lightPink: '#FFC9EA',
 				salmon: '#FF7D7F',
 				mwasi: '#1C1C1C',
 				customDarkGrey: '#414141',
@@ -44,6 +45,7 @@ export default {
 					to: { transform: 'translateX(-100%)' },
 				}
 			}
+
 		}
 	},
 	plugins: []

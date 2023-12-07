@@ -1,0 +1,16 @@
+---
+interface Props {
+    title: string;
+    link: string;
+}
+const { title, link } = Astro.props;
+import ArrowImage from '../images/whiteArrow.svg';
+import { Image } from 'astro:assets';
+---
+
+<a href={link}>
+    <div class='flex items-center gap-6 border border-lightPink rounded-full p-2'>
+        <div class='bg-gradient-button h-[40px] w-[40px] rounded-full flex justify-center items-center'><Image src={ArrowImage} alt='Arrow' class='h-[20px] w-[20px]' /></div>
+        <p class='text-white font-semibold text-xl pr-6'>{title}</p>
+    </div>
+</a>
