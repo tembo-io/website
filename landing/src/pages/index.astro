@@ -92,7 +92,7 @@ const currentPath = Astro.url.pathname;
 						<Extension extensionTitle='postgresml' wrapperStyles='bg-white' titleStyles='text-black' />
 					</div>
 					<div class='flex flex-col gap-6 mt-[100px]'>
-						<Extension extensionTitle='pg_vector' wrapperStyles='bg-customDarkGrey' titleStyles='text-white' />
+						<Extension extensionTitle='pg_vector' wrapperStyles='bg-[#414141]' titleStyles='text-white' />
 						<Extension extensionTitle='postgresml' wrapperStyles='bg-neon' />
 					</div>
 					<div class='flex flex-col gap-6 mt-[130px]'>
@@ -109,17 +109,17 @@ const currentPath = Astro.url.pathname;
 					</div>
 					<div class='flex flex-col gap-6 mt-[200px]'>
 						<Extension extensionTitle='pg_vector' />
-						<Extension extensionTitle='postgresml' wrapperStyles='bg-customDarkGrey' titleStyles='text-white' />
+						<Extension extensionTitle='postgresml' wrapperStyles='bg-[#414141]' titleStyles='text-white' />
 					</div>
 					<div class='flex flex-col gap-6 mt-[260px]'>
-						<Extension extensionTitle='postgresml' wrapperStyles='bg-customDarkGrey' titleStyles='text-white' />
+						<Extension extensionTitle='postgresml' wrapperStyles='bg-[#414141]' titleStyles='text-white' />
 						<Extension extensionTitle='pg_vector' />
 					</div>
 				</div>
 				<Button variant='gradient' size='lg' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
 			</div>
 		</section>
-		<section class='why-tembo-section pt-28 bg-offBlack'>
+		<section class='why-tembo-section pt-28 bg-offBlack pb-[170px]'>
 			<Container styles='relative'>
 				<div class='flex flex-col'>
 					<h2 class='text-7xl text-lightNeon font-bold'>Why Tembo?</h2>
@@ -148,9 +148,10 @@ const currentPath = Astro.url.pathname;
 		<section class='tembo-footer-section pt-28 relative bg-offBlack'>
 			<div class='container max-w-stackSlider mx-auto relative'>
 				<footer class='tembo-footer relative'>
-					<div class='flex flex-col items-center justify-center pb-[200px] z-10'>
-						<h2 class='text-white font-bold text-[50px] max-w-5xl text-center leading-normal w-full z-10 mt-28'>Join The Herd</h2>
-						<div class='flex items-center justify-center mt-10 gap-4'>
+					<Animation client:only="react" animation={CrossingWalk1} styles='-z-1 -top-[600px]' />
+					<div class='flex flex-col items-center justify-center pb-[200px]'>
+						<h2 class='text-white font-bold text-[50px] max-w-5xl text-center leading-normal w-full z-50 mt-28'>Join The Herd</h2>
+						<div class='flex items-center justify-center mt-10 gap-4 z-50'>
 							<Button variant='gradient' size='lg' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
 							<ArrowButton title='Join the team' link='/' />
 						</div>

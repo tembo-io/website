@@ -31,9 +31,9 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
           <a href="/" className='focus:outline-none transition hover:scale-105 duration-300 ease-in-out delay-70'><img src='/logoWithText.svg' alt='tembo log' width={124} /></a>
           <div className='flex items-center gap-12'>
             <a href="/" className={cx('font-secondary font-medium z-10', currentPage == '/' ? 'text-neon' : 'text-white opacity-70')}>Home</a>
-            <a href="/product" className={cx('font-secondary font-medium z-10', currentPage == '/product' ? 'text-neon' : 'text-white opacity-70')}>Product</a>
-            <a href="/pricing" className={cx('font-secondary font-medium z-10', currentPage == '/pricing' ? 'text-neon' : 'text-white opacity-70')}>Pricing</a>
-            <a href="/blog" className={cx('font-secondary font-medium z-10', currentPage == '/blog' ? 'text-neon' : 'text-white opacity-70')}>Blog</a>
+            <a href="/product" className={cx('font-secondary font-medium z-10', currentPage == '/product' || currentPage == '/product/' ? 'text-neon' : 'text-white opacity-70')}>Product</a>
+            <a href="/pricing" className={cx('font-secondary font-medium z-10', currentPage == '/pricing' || currentPage == '/pricing/' ? 'text-neon' : 'text-white opacity-70')}>Pricing</a>
+            <a href="/blog" className={cx('font-secondary font-medium z-10', currentPage == '/blog' || currentPage == '/blog/' ? 'text-neon' : 'text-white opacity-70')}>Blog</a>
           </div>
          <Button variant='neon' styles='z-100' onClick={() => navigate('https://cloud.tembo.io')}>Try Free</Button>
         </nav>
