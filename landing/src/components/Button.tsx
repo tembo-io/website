@@ -26,7 +26,7 @@ const Button: React.FC<Props> = ({ children, variant, styles, size, ...rest }) =
     }
     return (
         <button
-            className={cx('transition-all duration-150 ease-in font-semibold rounded-full font-secondary hover:opacity-80', variant == 'neon' ? 'bg-neon' : 'bg-gradient-button text-white', getSizeStyles(), styles)}
+            className={cx('transition-all duration-150 ease-in font-semibold rounded-full font-secondary', variant == 'neon' ? 'bg-neon hover:bg-[#D1E278]' : 'bg-gradient-button text-white', getSizeStyles(), styles)}
             {...rest}
         >
             {children}
