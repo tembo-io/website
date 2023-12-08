@@ -9,14 +9,12 @@ tags:
 # Embeddings
 
 :::info
-**Powered by [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2)**
+**Powered by [HuggingFace](https://huggingface.co/sentence-transformers/) sentence transformers**
 :::
 
 The Embeddings API allows you to generate vector embeddings from your text. It is similar in functionality to [OpenAI's embeddings API](https://platform.openai.com/docs/guides/embeddings), except it is private. Every Tembo account gets its own service and all data passed to the Tembo Embedding API is not retained by the service.
 
-One of the most common use cases for embeddings is to perform vector similarity search on your data. Currently this supports one sentence to embeddings transformer; [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2). In the future, this will support many more state of the art sentence transformers and embedding models. Additional use cases include clustering, classification, and recommendation engines.
-
-In this guide, we will walk through a simple example of how to use the embeddings API to perform vector similarity search.
+One of the most common use cases for embeddings is to perform vector similarity search on your data. Currently this supports one sentence to embeddings transformer; In this guide we will walk through using [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) as an alternative to OpenAI's embeddings API, to perform vector similarity search on text data in your Postgres instance.
 
 ## Enabling Embeddings on Tembo Cloud
 
@@ -109,7 +107,6 @@ parameter specifies the specific columns within that table that you want to sear
 
 The `schedule` parameter specifies how often you want to update the embeddings. In our example, we'll update the embeddings every minute.
 
-
 ```sql
 SELECT vectorize.table(
     job_name => 'product_search',
@@ -120,6 +117,7 @@ SELECT vectorize.table(
     schedule => "* * * * *"
 );
 ```
+
 We can start the initial load of embeddings immediately by running the following command:
 
 ```sql
