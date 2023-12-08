@@ -125,7 +125,7 @@ using the link to the version you installed:
 kubectl delete -f https://raw.githubusercontent.com/tembo-io/tembo/main/charts/tembo-operator/templates/crd.yaml
 ```
 
-*Note:* If you used `helm` to install the CRDs with the `controller.crds.enable=true`
+*Note:* If you used `helm` to install the CRDs with the `controller.crds.create=true`
 value for the chart, then the CRDs will **NOT** have been removed and
 you will need to run this final `kubectl` command to purge them from the cluster.
 
@@ -155,7 +155,7 @@ Drawbacks:
 tembo-operator bundles the CRDs along with the other templates
 in the Helm chart. This means that Helm manages these resources so they are
 upgraded with your tembo-operator release when you use 
-`controller.crds.enable: true` in your values file or CLI command. We also set 
+`controller.crds.create: true` in your values file or CLI command. We also set 
 a helm annotation of `helm.sh/resource-policy: keep` which will not delete the
 CRD from the cluster when you delete the helm deployment.
 
