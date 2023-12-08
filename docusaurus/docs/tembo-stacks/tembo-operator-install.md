@@ -2,6 +2,8 @@
 sidebar_position: 8
 ---
 
+# Tembo Operator Install
+
 ## Installing with Helm
 
 Tembo provides Helm charts as a first-class method of installation on Kubernetes
