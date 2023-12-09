@@ -77,7 +77,7 @@ const SecondStackCards = () => {
                     <p>Message Queue Stack</p>
                     <h2 className='font-bold text-2xl mt-2'>SQS Replacement System</h2>
                 </span>
-                <Animation animation={elephant5} styles='absolute w-[215px] -bottom-[80px] -right-[100px] -z-0 mirror-horizontal' />
+                <Animation animation={elephant6} styles='absolute w-[215px] -bottom-[80px] -right-[100px] -z-0 mirror-horizontal' />
             </Card>
             <Card styles='bg-purple flex flex-col justify-center min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
                 <span className='z-10 mt-12'>
