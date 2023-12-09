@@ -20,7 +20,7 @@ import ArrowButton from '../components/ArrowButton.astro';
 import Animation from '../components/Animation';
 import Footer from '../components/Footer.astro';
 import CrossingWalk1 from '../animations/CrossingWalk1.json';
-import CrossingWalk2 from '../animations/CrossingWalk2.json';
+import CrossingWalk3 from '../animations/CrossingWalk3.json';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -56,7 +56,10 @@ const currentPath = Astro.url.pathname;
 				<StackSlider client:only="react" />
 			</div>
 		</section>
-		<section class='tembo-postgres-section'>
+		<section class='tembo-postgres-section relative h-[850px] overflow-hidden'>
+			<div class='container max-w-stackSlider mx-auto relative'>
+				<Animation client:only="react" animation={CrossingWalk3} isFullWidth={true} styles='-z-1 w-full top-0' />
+			</div>
 			<Container styles='relative py-28'>
 				<div class='light-gradient absolute -top-[200px] right-[-100px]' />
 				<div class='flex flex-col gap-6 mb-6'>
@@ -64,10 +67,7 @@ const currentPath = Astro.url.pathname;
 					<h2 class='text-white font-light text-3xl z-10'>the most beloved database on earth</h2>
 					<Button variant='gradient' size='lg' styles='w-max z-10' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
 				</div>
-				<Image src={ElephantScene} alt='Three elephants' class='w-[850px]' />
-				<Image src={Elephant11} alt='Three elephants' class='absolute top-[50px] right-[150px] w-[200px]' />
-				<Image src={Elephant12} alt='Three elephants' class='absolute top-[150px] right-[500px] w-[150px]' />
-				<div class='absolute right-0 top-1/2 px-4'>
+				<div class='absolute right-0 top-2/4 px-4 z-10'>
 					<Showcase />
 				</div>
 			</Container>
