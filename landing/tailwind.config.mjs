@@ -37,8 +37,8 @@ export default {
 				'gradient-button-darker': 'linear-gradient(68.42deg, #F06B6D 0%, #C927A7 79.07%, #BA61D1 170.36%)'
 			},
 			animation: {
-				'infinite-scroll': 'infinite-scroll 25s linear infinite',
-				'infinite-scroll-fast': 'infinite-scroll 15s linear infinite'
+				'infinite-scroll': 'infinite-scroll 30s linear infinite',
+				'infinite-scroll-fast': 'infinite-scroll 20s linear infinite'
 			},
 			keyframes: {
 				'infinite-scroll': {
