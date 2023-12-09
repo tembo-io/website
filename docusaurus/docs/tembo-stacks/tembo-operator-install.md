@@ -42,6 +42,8 @@ section below for details on each method.
 
 > Recommended for production installations
 
+> This is the default method in the Helm chart
+
 To automatically install and manage the CRDs as part of your Helm release, you
 must add the `--set controller.crds.create=true` flag to your Helm installation command.
 
@@ -78,6 +80,9 @@ helm install \
   --version v0.2.0 \
   --set controller.crds.create=true \ # Example: enable installation of the CRDs
   --set controller.monitoring.prometheusRule=true \  # Example: enable prometheus rules for CNPG using a Helm parameter
+  --set controller.extraEnv[0].name=USE_SHARED_CA,controller.extraEnv[0].value="1" \ # Example: enable the shared CA for instance connections
+  --set controller.extraEnv[1].name=DATA_PLANE_BASEDOMAIN,controller.extraEnv[1].value=localhost \ # Example: enable domain name for ingress.
+  --set controller.extraEnv[2].name=ENABLE_BACKUP,controller.extraEnv[2].value="false" \ # Example: disable backups (for local use)
   --set pod-init.logLevel=debug # Example: set pod-init log level to debug
 ```
 
@@ -97,6 +102,36 @@ tembo-pod-init-77c456888b-l64sr         1/1     Running   0          4m24s
 
 You should see the `controller`, `pod-init`, and
 `cloudnative-pg` pods in a `Running` state.
+
+#### 6. Deploy test instance
+
+To deploy a test instance we will need to enable the deployment via a namespace
+label.  You will need to apply this label to all namespaces you wish to deploy 
+an instance in.
+
+```bash
+$ kubectl label namespace default "tembo-pod-init.tembo.io/watch"="true"
+```
+
+Apply the following sample `CoreDB` configuration.  This will use all defaults
+and will deploy a Tembo instance to your cluster.
+
+```bash
+cat <<EOF | kubectl apply -f -
+apiVersion: coredb.io/v1alpha1
+kind: CoreDB
+metadata:
+  name: test-db
+spec: {}
+EOF
+```
+
+```bash
+$ kubectl get pods -n default
+NAME                               READY   STATUS    RESTARTS   AGE
+test-db-1                          1/1     Running   0          68s
+test-db-metrics-58cf9ccf7d-wpc52   1/1     Running   0          88s
+```
 
 ### Uninstalling with Helm
 
