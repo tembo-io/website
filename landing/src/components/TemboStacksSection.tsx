@@ -13,7 +13,7 @@ const TemboStacksSection = () => {
                     <h1 className='text-7xl text-white font-semibold tracking-[0.24px]'>TEMBO + STACKS</h1>
                 </div>
                 <div className='flex w-full justify-between items-start mt-20 gap-16'>
-                    <div className='flex flex-col z-10 gap-10'>
+                    <div className='flex flex-col z-10 gap-10 min-w-[600px]'>
                         <DetailSequence header='100% Open Source & Cloud Native' text='The best of both worlds. Enjoy unmodified open source community Postgres and all the benefits of cloud native architecture, such as high availability, rolling updates, resource management, and more.' iconPath='/cloudColorIcon.svg' />
                         <DetailSequence header='Fully Managed' text='Deployment, configuration, management, and optimization are complicated. We handle them so you can focus on your application.' iconPath='/boardColorIcon.svg' />
                         <DetailSequence header='Customizable Security' text='No two organizations are alike. Run securely in the cloud with with tools like user tiers, ip allow lists, and encrypted at-rest, or deploy in your own environment.' iconPath='/cpuColorIcon.svg' />
@@ -22,7 +22,7 @@ const TemboStacksSection = () => {
                         <DetailSequence header='Transparent Pricing' text='No hidden costs or surprise up-charges. You only pay for what you actually use. Store as much as you need, query as much as you want. ' iconPath='/priceColorIcon.svg' />
                         <Button variant='gradient' size='lg' styles='w-max mt-10'>Deploy now</Button>
                     </div>
-                    <img src={'/appScreenshot.svg'} alt='Tembo Cloud Dashboard' className='w-[900px] fade-x-md-always -z-1' />
+                    <img src={'/appScreenshot.svg'} alt='Tembo Cloud Dashboard' className='h-[700px] absolute min-[1000px]:-right-[300px] 2xl:-right-[100px] fade-x-md-always -z-1' />
                 </div>
             </Container>
         </section>

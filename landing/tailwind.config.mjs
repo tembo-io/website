@@ -8,7 +8,7 @@ export default {
 				secondary: ['Inter']
 			},
 			maxWidth: {
-				container: '100rem',
+				container: '90rem',
 				stackSlider: '130rem'
 			},
 			colors: {
