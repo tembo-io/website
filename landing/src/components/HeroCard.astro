@@ -1,0 +1,25 @@
+---
+interface Props {
+    description: string;
+    wrapperStyles?: string;
+    title?: string;
+    subTitle?: string;
+    descriptionStyles?: string;
+}
+import cx from 'classnames';
+import { Image } from 'astro:assets';
+import HeroStar from '../images/HeroStar.svg';
+const { description, wrapperStyles, title, subTitle, descriptionStyles } = Astro.props;
+---
+
+<div class={cx('flex flex-col rounded-[22px] w-[220px] pt-[20px] px-[12px] pb-[12px]', !wrapperStyles ? 'bg-neon' : '', wrapperStyles)}>
+    <div class='flex items-center gap-2 mb-4'>
+        <Image src={HeroStar} alt='Blue Star' />
+        <p class={cx('text-center text-[10px] font-normal text-blue', descriptionStyles)}>{description}</p>
+    </div>
+    <div class='flex flex-col gap-2'>
+        <slot />
+        {title && <h2 class={cx('text-[22px] font-bold text-black')}>{title}</h2>}
+        {subTitle &&  <p class='text-sm font-semibold text-black mb-[25px]'>{subTitle}</p>}
+    </div>
+</div>
