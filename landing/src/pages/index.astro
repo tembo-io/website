@@ -5,7 +5,6 @@ import Container from '../components/Container';
 import Button from '../components/Button';
 import Confetti from '../components/Confetti.astro';
 import { Image } from 'astro:assets';
-import StackHero from '../images/stackHero.svg';
 import StackSlider from '../components/StackSlider';
 import ElephantScene from '../images/elephantScene.svg';
 import Elephant11 from '../images/elephant11.svg';
@@ -72,7 +71,7 @@ const currentPath = Astro.url.pathname;
 						</HeroCard>
 					</div>
 					<div class='flex flex-col justify-center items-center gap-4 mt-[65px]'>
-						<HeroCard title='Enterprise LLM' description='Real-time inference service' subTitle='Built on Stack' wrapperStyles='bg-purple'>
+						<HeroCard title='Enterprise LLM' description='Real-time inference service' subTitle='Built on Stack' starFill={'#ffffff'} wrapperStyles='bg-purple' descriptionStyles='text-white' titleStyles='text-white' subTitleStyles='text-white'>
 							<div class='w-full h-[150px] bg-black rounded-xl' />
 						</HeroCard>
 						<HeroCard description='Real-time inference service' wrapperStyles='bg-lightBlue w-[195px]' descriptionStyles='text-[10px]'>
@@ -83,7 +82,7 @@ const currentPath = Astro.url.pathname;
 						<HeroCard description='Real-time inference service' wrapperStyles='bg-lightBlue w-[195px]' descriptionStyles='text-[10px]'>
 							<div class='w-full h-[100px] bg-black rounded-xl' />
 						</HeroCard>
-						<HeroCard title='Enterprise LLM' description='Real-time inference service' subTitle='Built on Stack' wrapperStyles='bg-blue'>
+						<HeroCard title='Enterprise LLM' description='Real-time inference service' subTitle='Built on Stack' wrapperStyles='bg-blue' starFill={'#ffffff'} descriptionStyles='text-white' titleStyles='text-white' subTitleStyles='text-white'>
 							<div class='w-full h-[150px] bg-black rounded-xl' />
 						</HeroCard>
 					</div>
