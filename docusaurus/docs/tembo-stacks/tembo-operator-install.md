@@ -245,4 +245,5 @@ helm compatible installs, for a standardized approach to managing CRD
 resources. If you have an approach that tembo-operator does not currently
 support, then please 
 [raise an issue](https://github.com/tembo-io/tembo/issues) to
-discuss.
+discuss or join us on our [Slack community](https://tembocommunity.slack.com) to ask
+questions.
