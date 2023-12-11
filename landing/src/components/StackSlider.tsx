@@ -9,40 +9,40 @@ import elephant10 from '../animations/elephant10.json';
 const FirstStackCards = () => {
     return (
         <ul className='flex gap-4 items-center justify-center animate-infinite-scroll'>
-            <Card styles='bg-salmon flex flex-col justify-center min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
+            <Card styles='bg-salmon flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
                 <span className='z-10 mt-12'>
                     <p>Stack</p>
-                    <h2 className='font-bold text-2xl mt-2'>Real-time inference service</h2>
+                    <h2 className='font-semibold text-2xl mt-2'>Real-time inference service</h2>
                 </span>
-                <Animation animation={elephant4} styles='absolute w-[215px] -top-[80px] -right-[100px] -z-0' />
+                <Animation animation={elephant4} styles='absolute w-[215px] -top-[80px] -right-[80px] -z-0' />
             </Card>
-            <Card styles='bg-neon flex flex-col justify-start min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
+            <Card styles='bg-neon flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
                 <span className='z-10'>
                     <p>Document Stack</p>
-                    <h2 className='font-bold text-2xl mt-2'>Mobile app backend</h2>
+                    <h2 className='font-semibold text-2xl mt-2'>Mobile app backend</h2>
                 </span>
-                <Animation animation={elephant8} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0' />
+                <Animation animation={elephant8} styles='absolute w-[215px] -bottom-[50px] -right-[80px] -z-0' />
             </Card>
-            <Card styles='bg-semiGrey flex flex-col justify-start min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
+            <Card styles='bg-semiGrey flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
                 <span className='z-10 text-white'>
                     <p>Machine Learning Stack</p>
-                    <h2 className='font-bold text-2xl mt-2'>ML Training Stack</h2>
+                    <h2 className='font-semibold text-2xl mt-2'>ML Training Stack</h2>
                 </span>
-                <Animation animation={elephant5} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0 mirror-horizontal' />
+                <Animation animation={elephant5} styles='absolute w-[215px] -bottom-[50px] -right-[80px] -z-0 mirror-horizontal' />
             </Card>
-            <Card styles='bg-offBlack flex flex-col justify-start min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
+            <Card styles='bg-offBlack flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
                 <span className='z-10 text-white'>
                     <p>Message Queue Stack</p>
-                    <h2 className='font-bold text-2xl mt-2'>SQS Replacement System</h2>
+                    <h2 className='font-semibold text-2xl mt-2'>SQS Replacement System</h2>
                 </span>
-                <Animation animation={elephant6} styles='absolute w-[215px] -bottom-[80px] -right-[100px] -z-0 mirror-horizontal' />
+                <Animation animation={elephant6} styles='absolute w-[215px] -bottom-[80px] -right-[80px] -z-0 mirror-horizontal' />
             </Card>
-            <Card styles='bg-purple flex flex-col justify-center min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
+            <Card styles='bg-purple flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
                 <span className='z-10 mt-12'>
                     <p>OLAP Stack</p>
-                    <h2 className='font-bold text-2xl mt-2'>Data Warehouse for Analytics</h2>
+                    <h2 className='font-semibold text-2xl mt-2'>Data Warehouse for Analytics</h2>
                 </span>
-                <Animation animation={elephant10} styles='absolute w-[215px] -top-[70px] -right-[120px] -z-0' />
+                <Animation animation={elephant10} styles='absolute w-[215px] -top-[70px] -right-[100px] -z-0' />
             </Card>
         </ul>
     )
@@ -51,40 +51,40 @@ const FirstStackCards = () => {
 const SecondStackCards = () => {
     return (
         <ul className='flex gap-4 items-center justify-center animate-infinite-scroll-fast'>
-            <Card styles='bg-salmon flex flex-col justify-center min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
+            <Card styles='bg-salmon flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
                 <span className='z-10 mt-12'>
                     <p>Stack</p>
-                    <h2 className='font-bold text-2xl mt-2'>Real-time inference service</h2>
+                    <h2 className='font-semibold text-2xl mt-2'>Real-time inference service</h2>
                 </span>
-                <Animation animation={elephant4} styles='absolute w-[215px] -top-[80px] -right-[100px] -z-0' />
+                <Animation animation={elephant4} styles='absolute w-[215px] -top-[80px] -right-[80px] -z-0' />
             </Card>
-            <Card styles='bg-neon flex flex-col justify-start min-w-[320px] h-[320px]  rounded-2xl relative overflow-hidden'>
+            <Card styles='bg-neon flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
                 <span className='z-10'>
                     <p>Document Stack</p>
-                    <h2 className='font-bold text-2xl mt-2'>Mobile app backend</h2>
+                    <h2 className='font-semibold text-2xl mt-2'>Mobile app backend</h2>
                 </span>
-                <Animation animation={elephant8} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0' />
+                <Animation animation={elephant8} styles='absolute w-[215px] -bottom-[50px] -right-[80px] -z-0' />
             </Card>
-            <Card styles='bg-semiGrey flex flex-col justify-start min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
+            <Card styles='bg-semiGrey flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
                 <span className='z-10 text-white'>
                     <p>Machine Learning Stack</p>
-                    <h2 className='font-bold text-2xl mt-2'>ML Training Stack</h2>
+                    <h2 className='font-semibold text-2xl mt-2'>ML Training Stack</h2>
                 </span>
-                <Animation animation={elephant5} styles='absolute w-[215px] -bottom-[50px] -right-[100px] -z-0 mirror-horizontal' />
+                <Animation animation={elephant5} styles='absolute w-[215px] -bottom-[50px] -right-[80px] -z-0 mirror-horizontal' />
             </Card>
-            <Card styles='bg-offBlack flex flex-col justify-start min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
+            <Card styles='bg-offBlack flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
                 <span className='z-10 text-white'>
                     <p>Message Queue Stack</p>
-                    <h2 className='font-bold text-2xl mt-2'>SQS Replacement System</h2>
+                    <h2 className='font-semibold text-2xl mt-2'>SQS Replacement System</h2>
                 </span>
-                <Animation animation={elephant6} styles='absolute w-[215px] -bottom-[80px] -right-[100px] -z-0 mirror-horizontal' />
+                <Animation animation={elephant6} styles='absolute w-[215px] -bottom-[80px] -right-[80px] -z-0 mirror-horizontal' />
             </Card>
-            <Card styles='bg-purple flex flex-col justify-center min-w-[320px] h-[320px] rounded-2xl relative overflow-hidden'>
+            <Card styles='bg-purple flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
                 <span className='z-10 mt-12'>
                     <p>OLAP Stack</p>
-                    <h2 className='font-bold text-2xl mt-2'>Data Warehouse for Analytics</h2>
+                    <h2 className='font-semibold text-2xl mt-2'>Data Warehouse for Analytics</h2>
                 </span>
-                <Animation animation={elephant10} styles='absolute w-[215px] -top-[70px] -right-[120px] -z-0' />
+                <Animation animation={elephant10} styles='absolute w-[215px] -top-[70px] -right-[100px] -z-0' />
             </Card>
         </ul>
     );

@@ -19,14 +19,14 @@ const Button: React.FC<Props> = ({ children, variant, styles, size, ...rest }) =
             case 'md':
                 return 'py-2 px-8';
             case 'lg':
-                return 'py-4 px-12';
+                return 'py-3 px-10';
             default:
                 return 'py-2 px-6'
         }
     }
     return (
         <button
-            className={cx('transition-all duration-150 ease-in font-medium rounded-full font-secondary', variant == 'neon' ? 'bg-neon hover:bg-[#D1E278]' : 'bg-gradient-button text-white', getSizeStyles(), styles)}
+            className={cx('transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base', variant == 'neon' ? 'bg-neon hover:bg-[#D1E278]' : 'bg-gradient-button text-white', getSizeStyles(), styles)}
             {...rest}
         >
             {children}
