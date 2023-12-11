@@ -133,6 +133,34 @@ test-db-1                          1/1     Running   0          68s
 test-db-metrics-58cf9ccf7d-wpc52   1/1     Running   0          88s
 ```
 
+##### Storage Class Configuration
+
+Depending on your cluster setup and cloud environment you are running the tembo-operator
+in you will need to define a `storageClass` when configuring your Tembo instance.
+
+By default the tembo-operator will use your `default` storage class in your cluster.
+If you do not wish to use this storage class you will need to define it in the
+`CoreDB` configuration.
+
+In this example we want to use the `storageClass` named `gp3enc` to provision the
+PVC's with.
+
+```bash
+$ kubectl get storageclass
+NAME               PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+gp2 (default)      kubernetes.io/aws-ebs   Delete          WaitForFirstConsumer   false                  278d
+gp3enc             ebs.csi.aws.com         Delete          WaitForFirstConsumer   true                   254d
+```
+
+```yaml
+apiVersion: coredb.io/v1alpha1
+kind: CoreDB
+metadata:
+  name: test-db
+spec:
+  storageClass: gp3enc
+```
+ 
 ### Uninstalling with Helm
 
 Uninstalling tembo-operator from a `helm` installation is a case of running the
