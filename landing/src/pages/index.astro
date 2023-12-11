@@ -20,7 +20,8 @@ import ArrowButton from '../components/ArrowButton.astro';
 import Animation from '../components/Animation';
 import Footer from '../components/Footer.astro';
 import CrossingWalk1 from '../animations/CrossingWalk1.json';
-import CrossingWalk3 from '../animations/CrossingWalk3.json';
+import AdminPack from '../images/AdminPack.svg';
+
 const currentPath = Astro.url.pathname;
 ---
 
@@ -87,36 +88,68 @@ const currentPath = Astro.url.pathname;
 			<div class='mt-8 container max-w-stackSlider mx-auto flex flex-col items-center justify-center fade-x-md-both-sides'>
 				<div class='flex gap-6'>
 					<div class='flex flex-col gap-6'>
-						<Extension extensionTitle='pg_vector' />
-						<Extension extensionTitle='postgresml' wrapperStyles='bg-pink' titleStyles='text-neon' />
+						<Extension extensionTitle='pg_vector'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
+						<Extension extensionTitle='postgresml' wrapperStyles='bg-pink' titleStyles='text-neon'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[200px]'>
-						<Extension extensionTitle='pg_vector' wrapperStyles='bg-pink' titleStyles='text-neon' />
-						<Extension extensionTitle='postgresml' wrapperStyles='bg-white' titleStyles='text-black' />
+						<Extension extensionTitle='pg_cron' wrapperStyles='bg-pink' titleStyles='text-neon'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
+						<Extension extensionTitle='AdminPack' wrapperStyles='bg-white' titleStyles='text-black'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[100px]'>
-						<Extension extensionTitle='pg_vector' wrapperStyles='bg-customDarkGrey' titleStyles='text-white' />
-						<Extension extensionTitle='postgresml' wrapperStyles='bg-neon' />
+						<Extension extensionTitle='PGMQ' wrapperStyles='bg-customDarkGrey' titleStyles='text-white'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
+						<Extension extensionTitle='pg_vectorize' wrapperStyles='bg-neon'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[130px]'>
-						<Extension extensionTitle='pg_vector' />
-						<Extension extensionTitle='postgresml' wrapperStyles='bg-pink' titleStyles='text-neon' />
+						<Extension extensionTitle='pg_later'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
+						<Extension extensionTitle='pg_stat_statements' wrapperStyles='bg-pink' titleStyles='text-neon'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[80px]'>
-						<Extension extensionTitle='pg_vector' wrapperStyles='bg-white' titleStyles='text-black' />
-						<Extension extensionTitle='postgresml' wrapperStyles='bg-neon' />
+						<Extension extensionTitle='autoinc' wrapperStyles='bg-white' titleStyles='text-black'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
+						<Extension extensionTitle='aggs_for_vecs' wrapperStyles='bg-neon'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[250px]'>
-						<Extension extensionTitle='pg_vector' wrapperStyles='bg-pink' titleStyles='text-neon' />
-						<Extension extensionTitle='postgresml' wrapperStyles='bg-white' titleStyles='text-black' />
+						<Extension extensionTitle='bloom' wrapperStyles='bg-pink' titleStyles='text-neon'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
+						<Extension extensionTitle='bool_plperl' wrapperStyles='bg-white' titleStyles='text-black'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[200px]'>
-						<Extension extensionTitle='pg_vector' />
-						<Extension extensionTitle='postgresml' wrapperStyles='bg-customDarkGrey' titleStyles='text-white' />
+						<Extension extensionTitle='pg_vector'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
+						<Extension extensionTitle='postgresml' wrapperStyles='bg-customDarkGrey' titleStyles='text-white'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[260px]'>
-						<Extension extensionTitle='postgresml' wrapperStyles='bg-customDarkGrey' titleStyles='text-white' />
-						<Extension extensionTitle='pg_vector' />
+						<Extension extensionTitle='amcheck' wrapperStyles='bg-customDarkGrey' titleStyles='text-white'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
+						<Extension extensionTitle='pg_vectorize'>
+							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						</Extension>
 					</div>
 				</div>
 				<Button variant='gradient' size='lg' styles='mb-2' onClick={() => navigate('https://cloud.tembo.io')}>Deploy Now</Button>
