@@ -7,13 +7,13 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang='en'>
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
+		<meta charset='UTF-8' />
+		<meta name='description' content='Astro description' />
+		<meta name='viewport' content='width=device-width' />
+		<link rel='icon' type='image/svg+xml' href='/favicon.ico' />
+		<meta name='generator' content={Astro.generator} />
 		<title>{title}</title>
 	</head>
 	<body>
@@ -28,96 +28,141 @@ const { title } = Astro.props;
 		font-family: 'Bai Jamjuree';
 		font-style: normal;
 		font-weight: 200;
-		src: local('Bai Jamjuree ExtraLight'), local('BaiJamjuree-ExtraLight'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-200-normal.woff') format('woff');
+		src:
+			local('Bai Jamjuree ExtraLight'),
+			local('BaiJamjuree-ExtraLight'),
+			url('/fonts/bai-jamjuree/bai-jamjuree-latin-200-normal.woff')
+				format('woff');
 	}
 
 	@font-face {
 		font-family: 'Bai Jamjuree';
 		font-style: normal;
 		font-weight: 300;
-		src: local('Bai Jamjuree Light'), local('BaiJamjuree-Light'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-300-normal.woff') format('woff');
+		src:
+			local('Bai Jamjuree Light'),
+			local('BaiJamjuree-Light'),
+			url('/fonts/bai-jamjuree/bai-jamjuree-latin-300-normal.woff')
+				format('woff');
 	}
 
 	@font-face {
 		font-family: 'Bai Jamjuree';
 		font-style: normal;
 		font-weight: 400;
-		src: local('Bai Jamjuree Regular'), local('BaiJamjuree-Regular'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-400-normal.woff') format('woff');
+		src:
+			local('Bai Jamjuree Regular'),
+			local('BaiJamjuree-Regular'),
+			url('/fonts/bai-jamjuree/bai-jamjuree-latin-400-normal.woff')
+				format('woff');
 	}
 
 	@font-face {
 		font-family: 'Bai Jamjuree';
 		font-style: normal;
 		font-weight: 500;
-		src: local('Bai Jamjuree Medium'), local('BaiJamjuree-Medium'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-500-normal.woff') format('woff');
+		src:
+			local('Bai Jamjuree Medium'),
+			local('BaiJamjuree-Medium'),
+			url('/fonts/bai-jamjuree/bai-jamjuree-latin-500-normal.woff')
+				format('woff');
 	}
 
 	@font-face {
 		font-family: 'Bai Jamjuree';
 		font-style: normal;
 		font-weight: 600;
-		src: local('Bai Jamjuree SemiBold'), local('BaiJamjuree-SemiBold'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-600-normal.woff') format('woff');
+		src:
+			local('Bai Jamjuree SemiBold'),
+			local('BaiJamjuree-SemiBold'),
+			url('/fonts/bai-jamjuree/bai-jamjuree-latin-600-normal.woff')
+				format('woff');
 	}
 
 	@font-face {
 		font-family: 'Bai Jamjuree';
 		font-style: normal;
 		font-weight: 700;
-		src: local('Bai Jamjuree Bold'), local('BaiJamjuree-Bold'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-700-normal.woff') format('woff');
+		src:
+			local('Bai Jamjuree Bold'),
+			local('BaiJamjuree-Bold'),
+			url('/fonts/bai-jamjuree/bai-jamjuree-latin-700-normal.woff')
+				format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 200;
-		src: local('Inter ExtraLight'), local('Inter-ExtraLight'), url('/fonts/inter/inter-latin-200-normal.woff') format('woff');
+		src:
+			local('Inter ExtraLight'),
+			local('Inter-ExtraLight'),
+			url('/fonts/inter/inter-latin-200-normal.woff') format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 300;
-		src: local('Inter Light'), local('Inter-Light'), url('/fonts/inter/inter-latin-300-normal.woff') format('woff');
+		src:
+			local('Inter Light'),
+			local('Inter-Light'),
+			url('/fonts/inter/inter-latin-300-normal.woff') format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 400;
-		src: local('Inter Regular'), local('Inter-Regular'), url('/fonts/inter/inter-latin-400-normal.woff') format('woff');
+		src:
+			local('Inter Regular'),
+			local('Inter-Regular'),
+			url('/fonts/inter/inter-latin-400-normal.woff') format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 500;
-		src: local('Inter Medium'), local('Inter-Medium'), url('/fonts/inter/inter-latin-500-normal.woff') format('woff');
+		src:
+			local('Inter Medium'),
+			local('Inter-Medium'),
+			url('/fonts/inter/inter-latin-500-normal.woff') format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 600;
-		src: local('Inter SemiBold'), local('Inter-SemiBold'), url('/fonts/inter/inter-latin-600-normal.woff') format('woff');
+		src:
+			local('Inter SemiBold'),
+			local('Inter-SemiBold'),
+			url('/fonts/inter/inter-latin-600-normal.woff') format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 700;
-		src: local('Inter Bold'), local('Inter-Bold'), url('/fonts/inter/inter-latin-700-normal.woff') format('woff');
+		src:
+			local('Inter Bold'),
+			local('Inter-Bold'),
+			url('/fonts/inter/inter-latin-700-normal.woff') format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 800;
-		src: local('Inter ExtraBold'), local('Inter-ExtraBold'), url('/fonts/inter/inter-latin-800-normal.woff') format('woff');
+		src:
+			local('Inter ExtraBold'),
+			local('Inter-ExtraBold'),
+			url('/fonts/inter/inter-latin-800-normal.woff') format('woff');
 	}
 
 	body {
-  		font-family: 'Bai Jamjuree';
-		background: #120F0E;
+		font-family: 'Bai Jamjuree';
+		background: #120f0e;
 		overflow-x: hidden;
 	}
 	img {
@@ -129,47 +174,65 @@ const { title } = Astro.props;
 		-ms-user-select: none;
 	}
 	.safari-blur {
-    	-webkit-backdrop-filter: blur(10px)
+		-webkit-backdrop-filter: blur(10px);
 	}
 	.shine {
 		background: linear-gradient(
 			90deg,
 			#131313 0%,
 			#242424 10%,
-			#242424 80%, /* Center color is most bright */
-			#242424 10%,
+			#242424 80%,
+			/* Center color is most bright */ #242424 10%,
 			#131313 100%
 		);
 	}
 	.mirror-horizontal {
-      transform: scaleX(-1);
-    }
+		transform: scaleX(-1);
+	}
 	*:focus-visible {
-		outline: 2px solid #F77577;
+		outline: 2px solid #f77577;
 		outline-offset: 4px;
 	}
 
 	::selection {
-		background-color: rgba(255, 125, 127, 0.7);;
+		background-color: rgba(255, 125, 127, 0.7);
 		opacity: 60%;
 	}
 
 	.fade-x-md {
-    	-webkit-mask: none;
+		-webkit-mask: none;
 	}
 
 	@media screen and (min-width: 2100px) {
 		.fade-x-md {
-			-webkit-mask: linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+			-webkit-mask: linear-gradient(
+				90deg,
+				transparent,
+				#000 10%,
+				#000 90%,
+				transparent
+			);
 		}
 	}
 
 	.fade-x-md-always {
-		-webkit-mask: linear-gradient(90deg,transparent,#000 0%,#000 90%,transparent);
+		-webkit-mask: linear-gradient(
+			90deg,
+			transparent,
+			#000 0%,
+			#000 90%,
+			transparent
+		);
 	}
 
 	.fade-x-md-both-sides {
-		-webkit-mask: linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+		-webkit-mask: linear-gradient(
+			90deg,
+			transparent,
+			#000 10%,
+			#000 90%,
+			transparent
+		);
 	}
 
 	.background-img-transition {

@@ -37,61 +37,155 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
-	<div class="main-content">
+	<div class='main-content'>
 		<NavBar currentPage={currentPath} client:load />
-		<div class='w-full h-[150px]' />
+		<div class='w-full h-[150px]'></div>
 		<Container styles='relative'>
-			<div class='light-gradient absolute -top-[700px] -right-[100px]' />
-			<section class='tembo-hero-section mt-[25px] customXs:mt-[40px] md:mt-[80px]'>
-				<div class='flex flex-col items-center justify-center z-10 pb-[100px] relative slide-enter-content'>
+			<div class='light-gradient absolute -top-[700px] -right-[100px]'>
+			</div>
+			<section
+				class='tembo-hero-section mt-[25px] customXs:mt-[40px] md:mt-[80px]'
+			>
+				<div
+					class='flex flex-col items-center justify-center z-10 pb-[100px] relative slide-enter-content'
+				>
 					<header class='text-center mb-6'>
-						<h2 class='text-white font-light text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'>Goodbye Database Sprawl,</h2>
-						<h1 class='text-neon font-extrabold text-[54.4px] customXxs:text-[68px] customXs:text-[84px] customSm:text-[92px] z-10'>Hello Postgres.</h1>
+						<h2
+							class='text-white font-light text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
+						>
+							Goodbye Database Sprawl,
+						</h2>
+						<h1
+							class='text-neon font-extrabold text-[54.4px] customXxs:text-[68px] customXs:text-[84px] customSm:text-[92px] z-10'
+						>
+							Hello Postgres.
+						</h1>
 					</header>
-					<Button variant='gradient' size='lg' onClick={() => navigate('https://cloud.tembo.io')}>Try Free</Button>
+					<Button
+						variant='gradient'
+						size='lg'
+						onClick={() => navigate('https://cloud.tembo.io')}
+					>
+						Try Free
+					</Button>
 				</div>
 				<Confetti />
 			</section>
-			<section class='tembo-card-stack-section flex items-center justify-center z-10'>
+			<section
+				class='tembo-card-stack-section flex items-center justify-center z-10'
+			>
 				<div class='flex items-start gap-8 z-10'>
-					<div class='flex flex-col justify-center items-center gap-4 mt-[65px]'>
-						<HeroCard title='Enterprise LLM' description='Real-time inference service' subTitle='Built on Stack' wrapperStyles='bg-lightBlue w-[170px] customXs:w-[220px]'>
-							<div class='w-full h-[150px] bg-black rounded-xl' />
+					<div
+						class='flex flex-col justify-center items-center gap-4 mt-[65px]'
+					>
+						<HeroCard
+							title='Enterprise LLM'
+							description='Real-time inference service'
+							subTitle='Built on Stack'
+							wrapperStyles='bg-lightBlue w-[170px] customXs:w-[220px]'
+						>
+							<div class='w-full h-[150px] bg-black rounded-xl'>
+							</div>
 						</HeroCard>
-						<HeroCard description='Real-time inference service' wrapperStyles='bg-neon w-[153px] customXs:w-[195px]' descriptionStyles='text-[10px]'>
-							<div class='w-full h-[110px] bg-black rounded-xl' />
-						</HeroCard>
-					</div>
-					<div class='flex flex-col justify-center items-center gap-4'>
-						<HeroCard description='Real-time inference service' wrapperStyles='bg-neon w-[153px] customXs:w-[195px]' descriptionStyles='text-[10px]'>
-							<div class='w-full h-[110px] bg-black rounded-xl' />
-						</HeroCard>
-						<HeroCard title='Enterprise LLM' description='Real-time inference service' subTitle='Built on Stack' wrapperStyles='bg-salmon w-[170px] customXs:w-[220px]'>
-							<div class='w-full h-[150px] bg-black rounded-xl' />
-						</HeroCard>
-					</div>
-					<div class='flex flex-col justify-center items-center gap-4 mt-[65px]'>
-						<HeroCard title='Enterprise LLM' description='Real-time inference service' subTitle='Built on Stack' starFill={'#ffffff'} wrapperStyles='bg-purple w-[170px] customXs:w-[220px]' descriptionStyles='text-white' titleStyles='text-white' subTitleStyles='text-white'>
-							<div class='w-full h-[150px] bg-black rounded-xl' />
-						</HeroCard>
-						<HeroCard description='Real-time inference service' wrapperStyles='bg-lightBlue w-[153px] customXs:w-[195px]' descriptionStyles='text-[10px]'>
-							<div class='w-full h-[110px] bg-black rounded-xl' />
+						<HeroCard
+							description='Real-time inference service'
+							wrapperStyles='bg-neon w-[153px] customXs:w-[195px]'
+							descriptionStyles='text-[10px]'
+						>
+							<div class='w-full h-[110px] bg-black rounded-xl'>
+							</div>
 						</HeroCard>
 					</div>
-					<div class='flex flex-col justify-center items-center gap-4'>
-						<HeroCard description='Real-time inference service' wrapperStyles='bg-lightBlue w-[153px] customXs:w-[195px]' descriptionStyles='text-[10px]'>
-							<div class='w-full h-[110px] bg-black rounded-xl' />
+					<div
+						class='flex flex-col justify-center items-center gap-4'
+					>
+						<HeroCard
+							description='Real-time inference service'
+							wrapperStyles='bg-neon w-[153px] customXs:w-[195px]'
+							descriptionStyles='text-[10px]'
+						>
+							<div class='w-full h-[110px] bg-black rounded-xl'>
+							</div>
 						</HeroCard>
-						<HeroCard title='Enterprise LLM' description='Real-time inference service' subTitle='Built on Stack' wrapperStyles='bg-blue w-[170px] customXs:w-[220px]' starFill={'#ffffff'} descriptionStyles='text-white' titleStyles='text-white' subTitleStyles='text-white'>
-							<div class='w-full h-[150px] bg-black rounded-xl' />
+						<HeroCard
+							title='Enterprise LLM'
+							description='Real-time inference service'
+							subTitle='Built on Stack'
+							wrapperStyles='bg-salmon w-[170px] customXs:w-[220px]'
+						>
+							<div class='w-full h-[150px] bg-black rounded-xl'>
+							</div>
 						</HeroCard>
 					</div>
-					<div class='flex flex-col justify-center items-center gap-4 mt-[65px]'>
-						<HeroCard title='Enterprise LLM' description='Real-time inference service' subTitle='Built on Stack' wrapperStyles='bg-lightBlue w-[170px] customXs:w-[220px]'>
-							<div class='w-full h-[150px] bg-black rounded-xl' />
+					<div
+						class='flex flex-col justify-center items-center gap-4 mt-[65px]'
+					>
+						<HeroCard
+							title='Enterprise LLM'
+							description='Real-time inference service'
+							subTitle='Built on Stack'
+							starFill={'#ffffff'}
+							wrapperStyles='bg-purple w-[170px] customXs:w-[220px]'
+							descriptionStyles='text-white'
+							titleStyles='text-white'
+							subTitleStyles='text-white'
+						>
+							<div class='w-full h-[150px] bg-black rounded-xl'>
+							</div>
 						</HeroCard>
-						<HeroCard description='Real-time inference service' wrapperStyles='bg-neon w-[153px] customXs:w-[195px]' descriptionStyles='text-[10px]'>
-							<div class='w-full h-[110px] bg-black rounded-xl' />
+						<HeroCard
+							description='Real-time inference service'
+							wrapperStyles='bg-lightBlue w-[153px] customXs:w-[195px]'
+							descriptionStyles='text-[10px]'
+						>
+							<div class='w-full h-[110px] bg-black rounded-xl'>
+							</div>
+						</HeroCard>
+					</div>
+					<div
+						class='flex flex-col justify-center items-center gap-4'
+					>
+						<HeroCard
+							description='Real-time inference service'
+							wrapperStyles='bg-lightBlue w-[153px] customXs:w-[195px]'
+							descriptionStyles='text-[10px]'
+						>
+							<div class='w-full h-[110px] bg-black rounded-xl'>
+							</div>
+						</HeroCard>
+						<HeroCard
+							title='Enterprise LLM'
+							description='Real-time inference service'
+							subTitle='Built on Stack'
+							wrapperStyles='bg-blue w-[170px] customXs:w-[220px]'
+							starFill={'#ffffff'}
+							descriptionStyles='text-white'
+							titleStyles='text-white'
+							subTitleStyles='text-white'
+						>
+							<div class='w-full h-[150px] bg-black rounded-xl'>
+							</div>
+						</HeroCard>
+					</div>
+					<div
+						class='flex flex-col justify-center items-center gap-4 mt-[65px]'
+					>
+						<HeroCard
+							title='Enterprise LLM'
+							description='Real-time inference service'
+							subTitle='Built on Stack'
+							wrapperStyles='bg-lightBlue w-[170px] customXs:w-[220px]'
+						>
+							<div class='w-full h-[150px] bg-black rounded-xl'>
+							</div>
+						</HeroCard>
+						<HeroCard
+							description='Real-time inference service'
+							wrapperStyles='bg-neon w-[153px] customXs:w-[195px]'
+							descriptionStyles='text-[10px]'
+						>
+							<div class='w-full h-[110px] bg-black rounded-xl'>
+							</div>
 						</HeroCard>
 					</div>
 				</div>
@@ -99,33 +193,78 @@ const currentPath = Astro.url.pathname;
 		</Container>
 		<section class='tembo-build-any-application-section pb-[150px]'>
 			<Container>
-				<div class='flex flex-col items-center justify-center mt-36 gap-6'>
+				<div
+					class='flex flex-col items-center justify-center mt-36 gap-6'
+				>
 					<h3 class='text-neon font-secondary'>BUILT TO SCALE</h3>
-					<h1 class='text-white font-bold text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] max-w-5xl text-center leading-normal'>
-						Build any application on Postgres, the everything database
+					<h1
+						class='text-white font-bold text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] max-w-5xl text-center leading-normal'
+					>
+						Build any application on Postgres, the everything
+						database
 					</h1>
-					<Button variant='gradient' size='lg' onClick={() => navigate('https://cloud.tembo.io')}>Try Free</Button>
+					<Button
+						variant='gradient'
+						size='lg'
+						onClick={() => navigate('https://cloud.tembo.io')}
+					>
+						Try Free
+					</Button>
 				</div>
 			</Container>
 			<div class='container max-w-stackSlider mx-auto'>
-				<StackSlider client:only="react" />
+				<StackSlider client:only='react' />
 			</div>
 		</section>
 		<section class='tembo-postgres-section'>
 			<Container styles='relative py-28'>
-				<div class='light-gradient absolute -top-[200px] right-[-100px]' />
+				<div
+					class='light-gradient absolute -top-[200px] right-[-100px]'
+				>
+				</div>
 				<div class='flex flex-col items-center customSm:items-start'>
-					<div class='flex flex-col items-center customSm:items-start gap-6 mb-12 customSm:mb-0'>
-						<h1 class='text-neon font-bold text-4xl customXs:text-5xl customMd:text-6xl z-10 text-center'>100% Postgres,</h1>
-						<h2 class='text-white font-light text-2xl customXs:text-3xl z-10 text-center'>the most beloved database on earth</h2>
-						<Button variant='gradient' size='lg' styles='w-max z-10' onClick={() => navigate('https://cloud.tembo.io')}>Try Free</Button>
+					<div
+						class='flex flex-col items-center customSm:items-start gap-6 mb-12 customSm:mb-0'
+					>
+						<h1
+							class='text-neon font-bold text-4xl customXs:text-5xl customMd:text-6xl z-10 text-center'
+						>
+							100% Postgres,
+						</h1>
+						<h2
+							class='text-white font-light text-2xl customXs:text-3xl z-10 text-center'
+						>
+							the most beloved database on earth
+						</h2>
+						<Button
+							variant='gradient'
+							size='lg'
+							styles='w-max z-10'
+							onClick={() => navigate('https://cloud.tembo.io')}
+						>
+							Try Free
+						</Button>
 					</div>
-					<div class='customSm:absolute customSm:right-0 customSm:top-1/3 customSm:px-[80px] z-10 w-full customSm:w-max'>
+					<div
+						class='customSm:absolute customSm:right-0 customSm:top-1/3 customSm:px-[80px] z-10 w-full customSm:w-max'
+					>
 						<Showcase />
 					</div>
-					<Image src={ElephantScene} alt='Three elephants' class='w-[675px]' />
-					<Image src={Elephant11} alt='Three elephants' class='absolute right-[120px] top-[400px] customSm:top-[50px] customSm:right-[150px] w-[200px]' />
-					<Image src={Elephant12} alt='Three elephants' class='hidden customXs:block absolute right-[50px] top-[650px] customSm:top-[150px] customSm:right-[500px] w-[150px]' />
+					<Image
+						src={ElephantScene}
+						alt='Three elephants'
+						class='w-[675px]'
+					/>
+					<Image
+						src={Elephant11}
+						alt='Three elephants'
+						class='absolute right-[120px] top-[400px] customSm:top-[50px] customSm:right-[150px] w-[200px]'
+					/>
+					<Image
+						src={Elephant12}
+						alt='Three elephants'
+						class='hidden customXs:block absolute right-[50px] top-[650px] customSm:top-[150px] customSm:right-[500px] w-[150px]'
+					/>
 				</div>
 			</Container>
 		</section>
@@ -136,101 +275,277 @@ const currentPath = Astro.url.pathname;
 		<section class='tembo-extensions-section pt-28 bg-offBlack'>
 			<Container>
 				<div class='flex flex-col items-center justify-center'>
-					<h2 class='text-white font-bold text-[50px] max-w-5xl text-center leading-normal w-full'>Packed with <span class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text text-[72px]'>200+</span> Extensions</h2>
+					<h2
+						class='text-white font-bold text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] max-w-5xl text-center leading-normal w-full'
+					>
+						Packed with <span
+							class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text text-[72px]'
+							>200+</span
+						> Extensions
+					</h2>
 				</div>
 			</Container>
-			<div class='mt-8 container max-w-stackSlider mx-auto flex flex-col items-center justify-center fade-x-md-both-sides'>
+			<div
+				class='mt-8 container max-w-stackSlider mx-auto flex flex-col items-center justify-center fade-x-md-both-sides'
+			>
 				<div class='flex gap-6'>
 					<div class='flex flex-col gap-6'>
 						<Extension extensionTitle='pg_vector'>
-							<Image src={PgVector} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+							<Image
+								src={PgVector}
+								alt='Admin Pack'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
-						<Extension extensionTitle='postgresml' wrapperStyles='bg-pink' titleStyles='text-neon'>
-							<Image src={AdminPack} alt='postgresml' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='postgresml'
+							wrapperStyles='bg-pink'
+							titleStyles='text-neon'
+						>
+							<Image
+								src={AdminPack}
+								alt='postgresml'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[200px]'>
-						<Extension extensionTitle='pg_cron' wrapperStyles='bg-pink' titleStyles='text-neon'>
-							<Image src={PgCron} alt='pg_cron' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='pg_cron'
+							wrapperStyles='bg-pink'
+							titleStyles='text-neon'
+						>
+							<Image
+								src={PgCron}
+								alt='pg_cron'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
-						<Extension extensionTitle='AdminPack' wrapperStyles='bg-white' titleStyles='text-black'>
-							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='AdminPack'
+							wrapperStyles='bg-white'
+							titleStyles='text-black'
+						>
+							<Image
+								src={AdminPack}
+								alt='Admin Pack'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[100px]'>
-						<Extension extensionTitle='PGMQ' wrapperStyles='bg-customDarkGrey' titleStyles='text-white'>
-							<Image src={PgMQ} alt='pgmq' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='PGMQ'
+							wrapperStyles='bg-customDarkGrey'
+							titleStyles='text-white'
+						>
+							<Image
+								src={PgMQ}
+								alt='pgmq'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
-						<Extension extensionTitle='pg_vectorize' wrapperStyles='bg-neon'>
-							<Image src={Vectorize} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='pg_vectorize'
+							wrapperStyles='bg-neon'
+						>
+							<Image
+								src={Vectorize}
+								alt='Admin Pack'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[130px]'>
 						<Extension extensionTitle='argm'>
-							<Image src={Argm} alt='Argm' class='rounded-[20px] w-full h-full' />
+							<Image
+								src={Argm}
+								alt='Argm'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
-						<Extension extensionTitle='pg_stat_statements' wrapperStyles='bg-pink' titleStyles='text-neon'>
-							<Image src={PgStats} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='pg_stat_statements'
+							wrapperStyles='bg-pink'
+							titleStyles='text-neon'
+						>
+							<Image
+								src={PgStats}
+								alt='Admin Pack'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[80px]'>
-						<Extension extensionTitle='autoinc' wrapperStyles='bg-white' titleStyles='text-black'>
-							<Image src={Autoinc} alt='Autoinc' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='autoinc'
+							wrapperStyles='bg-white'
+							titleStyles='text-black'
+						>
+							<Image
+								src={Autoinc}
+								alt='Autoinc'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
-						<Extension extensionTitle='aggs_for_vecs' wrapperStyles='bg-neon'>
-							<Image src={Aggs_for_vecs} alt='Aggs_for_vecs' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='aggs_for_vecs'
+							wrapperStyles='bg-neon'
+						>
+							<Image
+								src={Aggs_for_vecs}
+								alt='Aggs_for_vecs'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[250px]'>
-						<Extension extensionTitle='bloom' wrapperStyles='bg-pink' titleStyles='text-neon'>
-							<Image src={Bloom} alt='Bloom' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='bloom'
+							wrapperStyles='bg-pink'
+							titleStyles='text-neon'
+						>
+							<Image
+								src={Bloom}
+								alt='Bloom'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
-						<Extension extensionTitle='bool_plperl' wrapperStyles='bg-white' titleStyles='text-black'>
-							<Image src={Bool_plperl} alt='bool_plperl' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='bool_plperl'
+							wrapperStyles='bg-white'
+							titleStyles='text-black'
+						>
+							<Image
+								src={Bool_plperl}
+								alt='bool_plperl'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[200px]'>
 						<Extension extensionTitle='pg_vector'>
-							<Image src={PgVector} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+							<Image
+								src={PgVector}
+								alt='Admin Pack'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
-						<Extension extensionTitle='postgresml' wrapperStyles='bg-customDarkGrey' titleStyles='text-white'>
-							<Image src={AdminPack} alt='Admin Pack' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='postgresml'
+							wrapperStyles='bg-customDarkGrey'
+							titleStyles='text-white'
+						>
+							<Image
+								src={AdminPack}
+								alt='Admin Pack'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[260px]'>
-						<Extension extensionTitle='amcheck' wrapperStyles='bg-neon' titleStyles='text-blue'>
-							<Image src={Amcheck} alt='Amcheck' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='amcheck'
+							wrapperStyles='bg-neon'
+							titleStyles='text-blue'
+						>
+							<Image
+								src={Amcheck}
+								alt='Amcheck'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
-						<Extension extensionTitle='pg_vectorize' wrapperStyles='bg-pink' titleStyles='text-neon'>
-							<Image src={Vectorize} alt='Pg_vectorize' class='rounded-[20px] w-full h-full' />
+						<Extension
+							extensionTitle='pg_vectorize'
+							wrapperStyles='bg-pink'
+							titleStyles='text-neon'
+						>
+							<Image
+								src={Vectorize}
+								alt='Pg_vectorize'
+								class='rounded-[20px] w-full h-full'
+							/>
 						</Extension>
 					</div>
 				</div>
-				<Button variant='gradient' size='lg' styles='mb-2' onClick={() => navigate('https://cloud.tembo.io')}>Try Free</Button>
+				<Button
+					variant='gradient'
+					size='lg'
+					styles='mb-2'
+					onClick={() => navigate('https://cloud.tembo.io')}
+				>
+					Try Free
+				</Button>
 			</div>
 		</section>
 		<section class='why-tembo-section pt-28 bg-offBlack pb-[170px]'>
 			<Container styles='relative'>
 				<div class='flex flex-col'>
-					<h2 class='text-7xl text-lightNeon font-bold'>Why Tembo?</h2>
+					<h2 class='text-7xl text-lightNeon font-bold'>
+						Why Tembo?
+					</h2>
 					<div class='mt-16 z-10'>
-						<div class='flex flex-col customXs:flex-row customMd:flex-col gap-12 w-fill'>
+						<div
+							class='flex flex-col customXs:flex-row customMd:flex-col gap-12 w-fill'
+						>
 							<div class='flex flex-col gap-12 w-full'>
-								<div class='flex flex-col customMd:flex-row justify-between w-full gap-16'>
-									<DetailSequence header='Reduce Sprawl' text='Consolidate your data stack without cost or lock-in worries.' styles='w-full max-w-none mobile:max-w-[530px]' />
-									<DetailSequence header='Fully Extensible' text='200+ extensions and counting means Tembo can be whatever you need it to be.' styles='w-full max-w-none mobile:max-w-[530px]' />
-									<DetailSequence header='External App Support' text='You’re not limited to just extensions—we also enable a growing library of extensions that can be deployed alongside your instance.' styles='w-full max-w-none mobile:max-w-[530px]' />
+								<div
+									class='flex flex-col customMd:flex-row justify-between w-full gap-16'
+								>
+									<DetailSequence
+										header='Reduce Sprawl'
+										text='Consolidate your data stack without cost or lock-in worries.'
+										styles='w-full max-w-none mobile:max-w-[530px]'
+									/>
+									<DetailSequence
+										header='Fully Extensible'
+										text='200+ extensions and counting means Tembo can be whatever you need it to be.'
+										styles='w-full max-w-none mobile:max-w-[530px]'
+									/>
+									<DetailSequence
+										header='External App Support'
+										text='You’re not limited to just extensions—we also enable a growing library of extensions that can be deployed alongside your instance.'
+										styles='w-full max-w-none mobile:max-w-[530px]'
+									/>
 								</div>
-								<div class='flex flex-col customMd:flex-row justify-between w-full gap-16'>
-									<DetailSequence header='Developer Friendly' text='Intuitive interface lets you build data services like you build applications.' styles='w-full max-w-none mobile:max-w-[530px]' />
-									<DetailSequence header='Postgres, not "Postgres-Compatible"' text='If you can do it on Postgres, you can do it on Tembo.' styles='w-full max-w-none mobile:max-w-[530px]' />
-									<DetailSequence header='One Vendor, Fully Managed' text='A zero-headache, end-to-end data service right from day one. We give you solutions, not just tools.' styles='w-full max-w-none mobile:max-w-[530px]' />
+								<div
+									class='flex flex-col customMd:flex-row justify-between w-full gap-16'
+								>
+									<DetailSequence
+										header='Developer Friendly'
+										text='Intuitive interface lets you build data services like you build applications.'
+										styles='w-full max-w-none mobile:max-w-[530px]'
+									/>
+									<DetailSequence
+										header='Postgres, not "Postgres-Compatible"'
+										text='If you can do it on Postgres, you can do it on Tembo.'
+										styles='w-full max-w-none mobile:max-w-[530px]'
+									/>
+									<DetailSequence
+										header='One Vendor, Fully Managed'
+										text='A zero-headache, end-to-end data service right from day one. We give you solutions, not just tools.'
+										styles='w-full max-w-none mobile:max-w-[530px]'
+									/>
 								</div>
 							</div>
-							<div class='flex flex-col customMd:flex-row customMd:justify-between w-full gap-16'>
-								<DetailSequence header='Open Source' text='We’re committed to helping build the future of Postgres.' styles='w-full max-w-none mobile:max-w-[530px]' />
-								<DetailSequence header='Develop Locally, Unleash Anywhere' text='Develop and deploy your application in a local environment, and easily run it on the cloud.' styles='w-full max-w-none mobile:max-w-[530px]' />
-								<DetailSequence header='Use-case Optimized' text='Stacks are pre-made, customized “flavors” of Postgres + extensions designed for common application needs.' styles='w-full max-w-none mobile:max-w-[530px]' />
+							<div
+								class='flex flex-col customMd:flex-row customMd:justify-between w-full gap-16'
+							>
+								<DetailSequence
+									header='Open Source'
+									text='We’re committed to helping build the future of Postgres.'
+									styles='w-full max-w-none mobile:max-w-[530px]'
+								/>
+								<DetailSequence
+									header='Develop Locally, Unleash Anywhere'
+									text='Develop and deploy your application in a local environment, and easily run it on the cloud.'
+									styles='w-full max-w-none mobile:max-w-[530px]'
+								/>
+								<DetailSequence
+									header='Use-case Optimized'
+									text='Stacks are pre-made, customized “flavors” of Postgres + extensions designed for common application needs.'
+									styles='w-full max-w-none mobile:max-w-[530px]'
+								/>
 							</div>
 						</div>
 					</div>
@@ -240,12 +555,35 @@ const currentPath = Astro.url.pathname;
 		<section class='tembo-footer-section pt-28 relative bg-offBlack'>
 			<footer class='tembo-footer relative'>
 				<div class='container max-w-stackSlider mx-auto relative'>
-					<Animation client:only="react" animation={CrossingWalk1} styles='-z-1 -top-[100px] md:-top-[300px] lg:-top-[600px]' />
-					<div class='flex flex-col items-center justify-center pb-[200px]'>
-						<h2 class='text-white font-bold text-[50px] max-w-5xl text-center leading-normal w-full z-50 mt-28'>Join The Herd</h2>
-						<div class='flex items-center justify-center mt-10 gap-4 z-50'>
-							<Button variant='gradient' size='lg' onClick={() => navigate('https://cloud.tembo.io')} styles='h-[60px] w-[182px] font-semibold font-primary'>Try Free</Button>
-							<ArrowButton title='Join the team' link='https://tembo.breezy.hr/' />
+					<Animation
+						client:only='react'
+						animation={CrossingWalk1}
+						styles='-z-1 -top-[100px] md:-top-[300px] lg:-top-[600px]'
+					/>
+					<div
+						class='flex flex-col items-center justify-center pb-[200px]'
+					>
+						<h2
+							class='text-white font-bold text-[50px] max-w-5xl text-center leading-normal w-full z-50 mt-28'
+						>
+							Join The Herd
+						</h2>
+						<div
+							class='flex items-center justify-center mt-10 gap-4 z-50'
+						>
+							<Button
+								variant='gradient'
+								size='lg'
+								onClick={() =>
+									navigate('https://cloud.tembo.io')}
+								styles='h-[60px] w-[182px] font-semibold font-primary'
+							>
+								Try Free
+							</Button>
+							<ArrowButton
+								title='Join the team'
+								link='https://tembo.breezy.hr/'
+							/>
 						</div>
 					</div>
 				</div>
@@ -287,6 +625,6 @@ const currentPath = Astro.url.pathname;
 	}
 
 	.tembo-postgres-section {
-  		background-image: linear-gradient(-30deg, transparent 50%, #1C1C1C 50%);
+		background-image: linear-gradient(-30deg, transparent 50%, #1c1c1c 50%);
 	}
 </style>
