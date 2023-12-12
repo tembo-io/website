@@ -45,6 +45,13 @@ export default {
 					from: { transform: 'translateX(0)' },
 					to: { transform: 'translateX(-100%)' },
 				}
+			},
+			screens: {
+				customLg: '1440px',
+				customMd: '1280px',
+				customSm: '1024px',
+				customXs: '680px',
+				customXxs: '375px'
 			}
 
 		}
