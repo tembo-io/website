@@ -10,7 +10,7 @@ const TemboStacksSection = () => {
             <Container styles='relative'>
                 <Animation animation={ConfettiAnimationJson} loop={false} animateOnInView={true} isFullWidth={true} />
                 <div className='pt-28 z-10 relative'>
-                    <h2 className='text-5xl customXs:text-6xl customMd:text-7xl text-white font-semibold tracking-[0.24px]'>TEMBO + STACKS</h2>
+                    <h2 className='text-4xl customXxs:text-5xl customXs:text-6xl customMd:text-7xl text-white font-semibold tracking-[0.24px]'>TEMBO + STACKS</h2>
                 </div>
                 <div className='flex flex-col-reverse mobile:flex-row justify-between items-start mt-20 gap-16 relative w-full'>
                     <div className='flex flex-col z-10 gap-10 w-full mobile:w-1/2'>
