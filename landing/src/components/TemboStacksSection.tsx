@@ -20,7 +20,7 @@ const TemboStacksSection = () => {
                         <DetailSequence header='Intuitive Interface' text='Clear, elegant, delightful UI, because developers deserve nice things too. What’s more, our CLI-first system puts the power of Postgres in your hands. ' iconPath='/codeColorIcon.svg' />
                         <DetailSequence header='Performance Powered by Stacks' text='Focus on your product, not your database. We optimize your whole environment—hardware, Postgres configs, and relevant extensions—to give you the best performance for your workload.' iconPath='/mqColorIcon.svg' />
                         <DetailSequence header='Transparent Pricing' text='No hidden costs or surprise up-charges. You only pay for what you actually use. Store as much as you need, query as much as you want. ' iconPath='/priceColorIcon.svg' />
-                        <Button variant='gradient' size='lg' styles='w-max mt-10'>Deploy now</Button>
+                        <Button variant='gradient' size='lg' styles='w-max mt-10'>Try Free</Button>
                     </div>
                     <img src={'/appScreenshot.svg'} alt='Tembo Cloud Dashboard' className='h-[700px] absolute min-[1200px]:-right-[400px] 2xl:-right-[300px] fade-x-md-always -z-1' />
                 </div>
