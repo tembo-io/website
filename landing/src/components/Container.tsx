@@ -8,7 +8,7 @@ interface Props {
 
 const Container: React.FC<Props> = ({ children, styles }) => {
   return (
-    <div className={cx('container px-[20px] min-[900px]:px-[80px] max-w-container mx-auto', styles)}>
+    <div className={cx('container px-[20px] mobile:px-[80px] max-w-container mx-auto', styles)}>
         {children}
     </div>
   )
