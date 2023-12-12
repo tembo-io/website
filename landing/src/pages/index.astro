@@ -115,17 +115,17 @@ const currentPath = Astro.url.pathname;
 			<Container styles='relative py-28'>
 				<div class='light-gradient absolute -top-[200px] right-[-100px]' />
 				<div class='flex flex-col items-center customSm:items-start'>
-					<div class='flex flex-col items-center customXs:items-start gap-6 mb-12 customSm:mb-0'>
-						<h1 class='text-neon font-bold text-4xl customSm:text-5xl customMd:text-6xl z-10 text-center'>100% Postgres,</h1>
-						<h2 class='text-white font-light text-2xl customSm:text-3xl z-10 text-center'>the most beloved database on earth</h2>
+					<div class='flex flex-col items-center customSm:items-start gap-6 mb-12 customSm:mb-0'>
+						<h1 class='text-neon font-bold text-4xl customXs:text-5xl customMd:text-6xl z-10 text-center'>100% Postgres,</h1>
+						<h2 class='text-white font-light text-2xl customXs:text-3xl z-10 text-center'>the most beloved database on earth</h2>
 						<Button variant='gradient' size='lg' styles='w-max z-10' onClick={() => navigate('https://cloud.tembo.io')}>Try Free</Button>
 					</div>
-					<div class='relative customSm:absolute right-0 top-1/3 customSm:px-[80px] z-10'>
+					<div class='customSm:absolute customSm:right-0 customSm:top-1/3 customSm:px-[80px] z-10 w-full customSm:w-max'>
 						<Showcase />
 					</div>
 					<Image src={ElephantScene} alt='Three elephants' class='w-[675px]' />
 					<Image src={Elephant11} alt='Three elephants' class='absolute right-[120px] top-[400px] customSm:top-[50px] customSm:right-[150px] w-[200px]' />
-					<Image src={Elephant12} alt='Three elephants' class='absolute right-[50px] top-[700px] customSm:top-[150px] customSm:right-[500px] w-[150px]' />
+					<Image src={Elephant12} alt='Three elephants' class='hidden customXs:block absolute right-[50px] top-[650px] customSm:top-[150px] customSm:right-[500px] w-[150px]' />
 				</div>
 			</Container>
 		</section>
