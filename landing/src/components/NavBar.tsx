@@ -132,11 +132,22 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 								: 'scroll';
 							setIsMenuOpen(!isMenuOpen);
 						}}
-						className='mobile:hidden flex flex-col gap-[2.5px] items-center justify-center bg-neon hover:bg-[#D1E278 rounded-full w-[32.57px] h-[32.57px] p-2.5 z-50'
+						className={cx(
+							'mobile:hidden flex flex-col gap-[2.5px] items-center justify-center bg-neon hover:bg-[#D1E278] rounded-full w-[32.57px] h-[32.57px] z-50',
+							isMenuOpen ? 'p-2' : 'p-2.5',
+						)}
 					>
-						<div className='bg-[#292D32] rounded-full w-full h-[1.5px]' />
-						<div className='bg-[#292D32] rounded-full w-full h-[1.5px]' />
-						<div className='bg-[#292D32] rounded-full w-full h-[1.5px]' />
+						{isMenuOpen ? (
+							<>
+								<img src={'/x.svg'} alt='Three elephants' />
+							</>
+						) : (
+							<>
+								<div className='bg-[#292D32] rounded-full w-full h-[1.5px]' />
+								<div className='bg-[#292D32] rounded-full w-full h-[1.5px]' />
+								<div className='bg-[#292D32] rounded-full w-full h-[1.5px]' />
+							</>
+						)}
 					</button>
 				</nav>
 			</Container>
