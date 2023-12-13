@@ -11,9 +11,9 @@ const FirstStackCards = () => {
 		<ul className='flex gap-4 items-center justify-center animate-infinite-scroll'>
 			<Card styles='bg-salmon flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
 				<span className='z-10 mt-12 text-black'>
-					<p>Stack</p>
-					<h2 className='font-medium text-2xl mt-2 leading-6'>
-						Real-time inference service
+					<p>Geospatial Stack</p>
+					<h2 className='font-medium text-2xl mt-2 leading-8'>
+						Route Optimization & Planning
 					</h2>
 				</span>
 				<Animation
@@ -23,9 +23,9 @@ const FirstStackCards = () => {
 			</Card>
 			<Card styles='bg-neon flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
 				<span className='z-10 text-black pt-4'>
-					<p>Document Stack</p>
-					<h2 className='font-medium text-2xl mt-2 leading-6'>
-						Mobile app backend
+					<p>Time Series Stack</p>
+					<h2 className='font-medium text-2xl mt-2 leading-8'>
+						IOT Machine Data Store
 					</h2>
 				</span>
 				<Animation
@@ -36,8 +36,8 @@ const FirstStackCards = () => {
 			<Card styles='bg-semiGrey flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
 				<span className='z-10 text-white pt-4'>
 					<p>Machine Learning Stack</p>
-					<h2 className='font-medium text-2xl mt-2 leading-6'>
-						ML Training Stack
+					<h2 className='font-medium text-2xl mt-2 leading-8'>
+						Recommendations Model Training
 					</h2>
 				</span>
 				<Animation
@@ -48,8 +48,8 @@ const FirstStackCards = () => {
 			<Card styles='bg-offBlack flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
 				<span className='z-10 text-white pt-4'>
 					<p>Message Queue Stack</p>
-					<h2 className='font-medium text-2xl mt-2 leading-6'>
-						SQS Replacement System
+					<h2 className='font-medium text-2xl mt-2 leading-8'>
+						SQS Replacement
 					</h2>
 				</span>
 				<Animation
@@ -67,7 +67,7 @@ const SecondStackCards = () => {
 			<Card styles='bg-purple flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
 				<span className='z-10 mt-12 text-black'>
 					<p>OLAP Stack</p>
-					<h2 className='font-medium text-2xl mt-2 leading-6'>
+					<h2 className='font-medium text-2xl mt-2 leading-8'>
 						Data Warehouse for Analytics
 					</h2>
 				</span>
@@ -78,9 +78,9 @@ const SecondStackCards = () => {
 			</Card>
 			<Card styles='bg-offBlack flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
 				<span className='z-10 text-white pt-4'>
-					<p>Message Queue Stack</p>
-					<h2 className='font-medium text-2xl mt-2 leading-6'>
-						SQS Replacement System
+					<p>Search Stack</p>
+					<h2 className='font-medium text-2xl mt-2 leading-8'>
+						Product Search & Filtering
 					</h2>
 				</span>
 				<Animation
@@ -90,8 +90,8 @@ const SecondStackCards = () => {
 			</Card>
 			<Card styles='bg-neon flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
 				<span className='z-10 text-black pt-4'>
-					<p>Document Stack</p>
-					<h2 className='font-medium text-2xl mt-2 leading-6'>
+					<p>Mongo Alternative Stack</p>
+					<h2 className='font-medium text-2xl mt-2 leading-8'>
 						Mobile app backend
 					</h2>
 				</span>
@@ -102,9 +102,9 @@ const SecondStackCards = () => {
 			</Card>
 			<Card styles='bg-salmon flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
 				<span className='z-10 mt-12 text-black'>
-					<p>Stack</p>
-					<h2 className='font-medium text-2xl mt-2 leading-6'>
-						Real-time inference service
+					<p>Vector Stack</p>
+					<h2 className='font-medium text-2xl mt-2 leading-8'>
+						Auto Embeddings Generation
 					</h2>
 				</span>
 				<Animation
@@ -114,9 +114,9 @@ const SecondStackCards = () => {
 			</Card>
 			<Card styles='bg-semiGrey flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
 				<span className='z-10 text-white pt-4'>
-					<p>Machine Learning Stack</p>
-					<h2 className='font-medium text-2xl mt-2 leading-6'>
-						ML Training Stack
+					<p>Time Series Stack</p>
+					<h2 className='font-medium text-2xl mt-2 leading-8'>
+						Hosted Prometheus Add-On
 					</h2>
 				</span>
 				<Animation

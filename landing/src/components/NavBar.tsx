@@ -4,6 +4,7 @@ import Button from './Button';
 import cx from 'classnames';
 import { navigate } from 'astro/transitions/router';
 import MobileMenu from './MobileMenu';
+import { motion } from 'framer-motion';
 
 interface Props {
 	currentPage: string;
@@ -16,6 +17,17 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 		isScreenGreaterThanOrEqualTo900px,
 		setIsScreenGreaterThanOrEqualTo900px,
 	] = useState(false);
+
+	const variants = {
+		open: {
+			opacity: 1,
+			transition: {
+				ease: 'linear',
+				duration: 0.15,
+			},
+		},
+		closed: { opacity: 0 },
+	};
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -172,7 +184,12 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 					scrollY > 20 ? 'flex' : 'hidden',
 				)}
 			/>
-			{isMenuOpen && <MobileMenu />}
+			<motion.div
+				animate={isMenuOpen ? 'open' : 'closed'}
+				variants={variants}
+			>
+				{isMenuOpen && <MobileMenu />}
+			</motion.div>
 		</div>
 	);
 };

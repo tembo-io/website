@@ -7,7 +7,7 @@ const MobileMenu = () => {
 	return (
 		<div className='bg-offBlack mobile:hidden fixed z-10 w-full h-screen overflow-hidden inset-0'>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
-			<Container styles=''>
+			<Container>
 				<nav className='flex flex-col gap-[32px] mt-28'>
 					<a
 						href='/'
