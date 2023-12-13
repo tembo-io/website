@@ -179,7 +179,28 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 			{isMenuOpen && (
 				<div className='bg-offBlack mobile:hidden fixed z-10 w-full h-screen overflow-hidden inset-0'>
 					<div className='bg-gradient-rainbow h-[4px] w-full' />
-					<nav></nav>
+					<Container styles=''>
+						<nav className='flex flex-col'>
+							<a
+								href='/'
+								className='font-secondary font-medium z-10 text-white'
+							>
+								Home
+							</a>
+							<a
+								href='/'
+								className='font-secondary font-medium z-10 text-white'
+							>
+								Docs
+							</a>
+							<a
+								href='/'
+								className='font-secondary font-medium z-10 text-white'
+							>
+								Blog
+							</a>
+						</nav>
+					</Container>
 				</div>
 			)}
 		</div>
