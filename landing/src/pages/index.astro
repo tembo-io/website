@@ -32,6 +32,16 @@ import Aggs_for_vecs from '../images/aggs_for_vecs.svg';
 import Autoinc from '../images/autoinc.svg';
 import Argm from '../images/argm.svg';
 import HeroCard from '../components/HeroCard.astro';
+import VectorStore from '../images/vectorStore.png';
+import BringApps from '../images/bringApps.png';
+import MessageQue from '../images/messageQue.png';
+import GeoSpatial from '../images/geoSpatial.png';
+import DataWarehouse from '../images/dataWarehouse.png';
+import PrivateData from '../images/privateData.png';
+import LowerTCO from '../images/lowerPlatformTco.png';
+import AutoApi from '../images/autoApi.png';
+import MachineLearning from '../images/ml.png';
+import AnyExtension from '../images/anyExtension.png';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -78,113 +88,143 @@ const currentPath = Astro.url.pathname;
 						class='flex flex-col justify-center items-center gap-4 mt-[65px]'
 					>
 						<HeroCard
-							title='Enterprise LLM'
-							description='Real-time inference service'
-							subTitle='Built on Stack'
+							title='Embeddings Store'
+							description='Vector Search'
+							subTitle='Built on Tembo Stacks'
 							wrapperStyles='bg-lightBlue w-[170px] customXs:w-[220px]'
 						>
-							<div class='w-full h-[150px] bg-black rounded-xl'>
-							</div>
+							<Image
+								src={VectorStore}
+								alt='Vector Store'
+								class='h-[150px] w-full rounded-xl'
+							/>
 						</HeroCard>
 						<HeroCard
-							description='Real-time inference service'
+							description='Bring your own apps'
 							wrapperStyles='bg-neon w-[153px] customXs:w-[195px]'
 							descriptionStyles='text-[10px]'
 						>
-							<div class='w-full h-[110px] bg-black rounded-xl'>
-							</div>
+							<Image
+								src={BringApps}
+								alt='Vector Store'
+								class='h-[150px] w-full rounded-xl'
+							/>
 						</HeroCard>
 					</div>
 					<div
 						class='flex flex-col justify-center items-center gap-4'
 					>
 						<HeroCard
-							description='Real-time inference service'
+							description='Blazingly fast Message Queue'
 							wrapperStyles='bg-neon w-[153px] customXs:w-[195px]'
 							descriptionStyles='text-[10px]'
 						>
-							<div class='w-full h-[110px] bg-black rounded-xl'>
-							</div>
+							<Image
+								src={MessageQue}
+								alt='Vector Store'
+								class='h-[150px] w-full rounded-xl'
+							/>
 						</HeroCard>
 						<HeroCard
-							title='Enterprise LLM'
-							description='Real-time inference service'
-							subTitle='Built on Stack'
+							title='GeoSpatial'
+							description='Analyze spatial data'
+							subTitle='Built on Tembo Stacks'
 							wrapperStyles='bg-salmon w-[170px] customXs:w-[220px]'
 						>
-							<div class='w-full h-[150px] bg-black rounded-xl'>
-							</div>
+							<Image
+								src={GeoSpatial}
+								alt='Vector Store'
+								class='h-[150px] w-full rounded-xl'
+							/>
 						</HeroCard>
 					</div>
 					<div
 						class='flex flex-col justify-center items-center gap-4 mt-[65px]'
 					>
 						<HeroCard
-							title='Enterprise LLM'
-							description='Real-time inference service'
-							subTitle='Built on Stack'
+							title='Data Warehouse'
+							description='Aggregate large datasets'
+							subTitle='Built on Tembo Stacks'
 							starFill={'#ffffff'}
 							wrapperStyles='bg-purple w-[170px] customXs:w-[220px]'
 							descriptionStyles='text-white'
 							titleStyles='text-white'
 							subTitleStyles='text-white'
 						>
-							<div class='w-full h-[150px] bg-black rounded-xl'>
-							</div>
+							<Image
+								src={DataWarehouse}
+								alt='Vector Store'
+								class='h-[150px] w-full rounded-xl'
+							/>
 						</HeroCard>
 						<HeroCard
-							description='Real-time inference service'
+							description='Private Data Plane (Enterprise)'
 							wrapperStyles='bg-lightBlue w-[153px] customXs:w-[195px]'
 							descriptionStyles='text-[10px]'
 						>
-							<div class='w-full h-[110px] bg-black rounded-xl'>
-							</div>
+							<Image
+								src={PrivateData}
+								alt='Vector Store'
+								class='h-[150px] w-full rounded-xl'
+							/>
 						</HeroCard>
 					</div>
 					<div
 						class='flex flex-col justify-center items-center gap-4'
 					>
 						<HeroCard
-							description='Real-time inference service'
+							description='Lower your Platform TCO'
 							wrapperStyles='bg-neon w-[153px] customXs:w-[195px]'
 							descriptionStyles='text-[10px]'
 						>
-							<div class='w-full h-[110px] bg-black rounded-xl'>
-							</div>
+							<Image
+								src={LowerTCO}
+								alt='Vector Store'
+								class='h-[150px] w-full rounded-xl'
+							/>
 						</HeroCard>
 						<HeroCard
-							title='Enterprise LLM'
-							description='Real-time inference service'
-							subTitle='Built on Stack'
+							title='Auto API'
+							description='Autogenerate REST & GraphQL'
+							subTitle='Built on Tembo Stacks'
 							wrapperStyles='bg-blue w-[170px] customXs:w-[220px]'
 							starFill={'#ffffff'}
 							descriptionStyles='text-white'
 							titleStyles='text-white'
 							subTitleStyles='text-white'
 						>
-							<div class='w-full h-[150px] bg-black rounded-xl'>
-							</div>
+							<Image
+								src={AutoApi}
+								alt='Vector Store'
+								class='h-[150px] w-full rounded-xl'
+							/>
 						</HeroCard>
 					</div>
 					<div
 						class='flex flex-col justify-center items-center gap-4 mt-[65px]'
 					>
 						<HeroCard
-							title='Enterprise LLM'
-							description='Real-time inference service'
-							subTitle='Built on Stack'
+							title='Machine Learning'
+							description='ML Model Serving'
+							subTitle='Built on Tembo Stacks'
 							wrapperStyles='bg-lightBlue w-[170px] customXs:w-[220px]'
 						>
-							<div class='w-full h-[150px] bg-black rounded-xl'>
-							</div>
+							<Image
+								src={MachineLearning}
+								alt='Vector Store'
+								class='h-[150px] w-full rounded-xl'
+							/>
 						</HeroCard>
 						<HeroCard
-							description='Real-time inference service'
+							description='Use any Extension'
 							wrapperStyles='bg-neon w-[153px] customXs:w-[195px]'
 							descriptionStyles='text-[10px]'
 						>
-							<div class='w-full h-[110px] bg-black rounded-xl'>
-							</div>
+							<Image
+								src={AnyExtension}
+								alt='Vector Store'
+								class='h-[150px] w-full rounded-xl'
+							/>
 						</HeroCard>
 					</div>
 				</div>
