@@ -3,6 +3,7 @@ import Container from '../components/Container';
 import Button from './Button';
 import cx from 'classnames';
 import { navigate } from 'astro/transitions/router';
+import MobileMenu from './MobileMenu';
 
 interface Props {
 	currentPage: string;
@@ -158,7 +159,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 					>
 						{isMenuOpen ? (
 							<>
-								<img src={'/x.svg'} alt='Three elephants' />
+								<img src={'/x.svg'} alt='close icon' />
 							</>
 						) : (
 							<>
@@ -176,33 +177,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 					scrollY > 20 ? 'flex' : 'hidden',
 				)}
 			/>
-			{isMenuOpen && (
-				<div className='bg-offBlack mobile:hidden fixed z-10 w-full h-screen overflow-hidden inset-0'>
-					<div className='bg-gradient-rainbow h-[4px] w-full' />
-					<Container styles=''>
-						<nav className='flex flex-col'>
-							<a
-								href='/'
-								className='font-secondary font-medium z-10 text-white'
-							>
-								Home
-							</a>
-							<a
-								href='/'
-								className='font-secondary font-medium z-10 text-white'
-							>
-								Docs
-							</a>
-							<a
-								href='/'
-								className='font-secondary font-medium z-10 text-white'
-							>
-								Blog
-							</a>
-						</nav>
-					</Container>
-				</div>
-			)}
+			{isMenuOpen && <MobileMenu />}
 		</div>
 	);
 };

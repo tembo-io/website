@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-type Variant = 'neon' | 'gradient';
+type Variant = 'neon' | 'gradient' | 'outline';
 type Size = 'sm' | 'md' | 'lg';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -30,13 +30,21 @@ const Button: React.FC<Props> = ({
 				return 'py-2 px-6';
 		}
 	};
+	const getVariantStyles = () => {
+		switch (variant) {
+			case 'neon':
+				return 'bg-neon hover:bg-[#D1E278] text-black';
+			case 'gradient':
+				return 'bg-gradient-button text-white';
+			case 'outline':
+				return 'bg-transparent text-white border-2 border-white';
+		}
+	};
 	return (
 		<button
 			className={cx(
 				'transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base',
-				variant == 'neon'
-					? 'bg-neon hover:bg-[#D1E278] text-black'
-					: 'bg-gradient-button text-white',
+				getVariantStyles(),
 				getSizeStyles(),
 				styles,
 			)}
