@@ -60,7 +60,14 @@ SELECT * FROM vectorize.search(
 
 Then we get our results, along with the cosine similarity score for each records. 
 
-NEED RESULTS IMAGE HERE
+```
+                                         search_results                                         
+------------------------------------------------------------------------------------------------
+ {"product_id": 13, "product_name": "Phone Charger", "similarity_score": 0.8564774308489237}
+ {"product_id": 24, "product_name": "Tablet Holder", "similarity_score": 0.8295404213393001}
+ {"product_id": 4, "product_name": "Bluetooth Speaker", "similarity_score": 0.8248579643539758}
+);
+```
 
 No management, no migrating data, no extra services or teams to hire. You can add vector search right now, with none of the hassle. 
 
