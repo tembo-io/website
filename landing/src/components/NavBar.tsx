@@ -8,11 +8,13 @@ interface Props {
 	currentPage: string;
 }
 
-const shouldAddNavPadding = () => {};
-
 const NavBar: React.FC<Props> = ({ currentPage }) => {
 	const [scrollY, setScrollY] = useState(0);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [
+		isScreenGreaterThanOrEqualTo900px,
+		setIsScreenGreaterThanOrEqualTo900px,
+	] = useState(false);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -21,7 +23,21 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 
 		handleScroll();
 		window.addEventListener('scroll', handleScroll);
+
+		const handleResize = () => {
+			const isScreenGreaterThanOrEqualTo900px = window.innerWidth >= 900;
+			setIsScreenGreaterThanOrEqualTo900px(
+				isScreenGreaterThanOrEqualTo900px,
+			);
+			if (isScreenGreaterThanOrEqualTo900px) {
+				document.body.style.overflow = 'scroll';
+			}
+		};
+
+		window.addEventListener('resize', handleResize);
+
 		return () => {
+			window.removeEventListener('resize', handleResize);
 			window.removeEventListener('scroll', handleScroll);
 		};
 	}, []);
@@ -29,6 +45,9 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 	useEffect(() => {
 		const handleResize = () => {
 			const isScreenGreaterThanOrEqualTo900px = window.innerWidth >= 900;
+			setIsScreenGreaterThanOrEqualTo900px(
+				isScreenGreaterThanOrEqualTo900px,
+			);
 			if (isScreenGreaterThanOrEqualTo900px) {
 				document.body.style.overflow = 'scroll';
 			}
@@ -54,7 +73,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 					className={cx(
 						'flex justify-between items-center transition-all duration-100',
 						scrollY > 20 &&
-							(!isMenuOpen || window.innerWidth >= 900)
+							(!isMenuOpen || isScreenGreaterThanOrEqualTo900px)
 							? 'py-3 mobile:py-4'
 							: 'py-8',
 					)}
@@ -120,7 +139,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 					</div>
 					<Button
 						variant='neon'
-						styles='mobile:flex hidden z-100'
+						styles='hidden mobile:flex z-100'
 						onClick={() => navigate('https://cloud.tembo.io')}
 					>
 						Try Free
@@ -158,7 +177,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 				)}
 			/>
 			{isMenuOpen && (
-				<div className='bg-red-500 mobile:hidden fixed z-10 w-full h-screen overflow-hidden inset-0'>
+				<div className='bg-offBlack mobile:hidden fixed z-10 w-full h-screen overflow-hidden inset-0'>
 					<div className='bg-gradient-rainbow h-[4px] w-full' />
 					<nav></nav>
 				</div>
