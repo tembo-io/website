@@ -32,11 +32,16 @@ const Animation: React.FC<Props> = ({
 		transition: 'opacity 1000ms ease-in-out',
 	};
 	useEffect(() => {
-		setIsMounted(isVisible);
 		if (isVisible && animateOnInView) {
 			setTimeout(() => {
+				setIsMounted(true);
+			}, 1500);
+
+			setTimeout(() => {
 				setIsMounted(false);
-			}, 2200);
+			}, 3000);
+		} else {
+			setIsMounted(isVisible);
 		}
 	}, [isVisible]);
 	return (
@@ -50,8 +55,7 @@ const Animation: React.FC<Props> = ({
 					: undefined
 			}
 		>
-			{(!isVisible && animateOnInView) ||
-			(!isMounted && animateOnInView && !shouldRenderChild) ? (
+			{!isMounted && animateOnInView && !shouldRenderChild ? (
 				<></>
 			) : (
 				<Lottie
