@@ -37,7 +37,7 @@ const Button: React.FC<Props> = ({
 			case 'gradient':
 				return 'bg-gradient-button text-white';
 			case 'outline':
-				return 'bg-transparent text-white border-2 border-white';
+				return 'bg-transparent text-white border border-white';
 		}
 	};
 	return (
