@@ -102,28 +102,15 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 							Home
 						</a>
 						<a
-							href='/product'
+							href='/docs'
 							className={cx(
 								'font-secondary font-medium z-10',
-								currentPage == '/product' ||
-									currentPage == '/product/'
+								currentPage == '/docs' || currentPage == '/dos/'
 									? 'text-neon'
 									: 'text-white opacity-70',
 							)}
 						>
-							Product
-						</a>
-						<a
-							href='/pricing'
-							className={cx(
-								'font-secondary font-medium z-10',
-								currentPage == '/pricing' ||
-									currentPage == '/pricing/'
-									? 'text-neon'
-									: 'text-white opacity-70',
-							)}
-						>
-							Pricing
+							Docs
 						</a>
 						<a
 							href='/blog'
@@ -136,6 +123,12 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 							)}
 						>
 							Blog
+						</a>
+						<a
+							href='https://github.com/tembo-io'
+							className='font-secondary font-medium z-10 text-white opacity-70'
+						>
+							Github
 						</a>
 					</div>
 					<Button
