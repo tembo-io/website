@@ -126,6 +126,8 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 						</a>
 						<a
 							href='https://github.com/tembo-io'
+							target='_blank'
+							rel='noreferrer'
 							className='font-secondary font-medium z-10 text-white opacity-70'
 						>
 							Github

@@ -29,6 +29,23 @@ const MobileMenu = () => {
 					>
 						Blog
 					</a>
+					<img src={'/line.svg'} alt='line' />
+					<a
+						href='https://github.com/tembo-io'
+						target='_blank'
+						rel='noreferrer'
+						className='font-secondary font-normal z-10 text-white text-[20px]'
+					>
+						<div className='flex gap-2 items-center'>
+							<img
+								src={'/github.svg'}
+								alt='line'
+								width={23}
+								height={23}
+							/>
+							Github
+						</div>
+					</a>
 					<div className='flex flex-col gap-4'>
 						<Button
 							variant='gradient'
