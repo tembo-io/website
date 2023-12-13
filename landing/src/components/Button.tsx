@@ -35,7 +35,7 @@ const Button: React.FC<Props> = ({
 			className={cx(
 				'transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base',
 				variant == 'neon'
-					? 'bg-neon hover:bg-[#D1E278]'
+					? 'bg-neon hover:bg-[#D1E278] text-black'
 					: 'bg-gradient-button text-white',
 				getSizeStyles(),
 				styles,

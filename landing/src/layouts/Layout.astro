@@ -165,6 +165,17 @@ const { title } = Astro.props;
 		background: #120f0e;
 		overflow-x: hidden;
 	}
+
+	@media screen and (min-width: 900px) {
+		body {
+			overflow: scroll;
+		}
+	}
+
+	:root {
+		color-scheme: dark;
+	}
+
 	img {
 		user-drag: none;
 		-webkit-user-drag: none;

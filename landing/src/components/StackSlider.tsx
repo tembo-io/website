@@ -10,7 +10,7 @@ const FirstStackCards = () => {
 	return (
 		<ul className='flex gap-4 items-center justify-center animate-infinite-scroll'>
 			<Card styles='bg-salmon flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
-				<span className='z-10 mt-12'>
+				<span className='z-10 mt-12 text-black'>
 					<p>Stack</p>
 					<h2 className='font-semibold text-2xl mt-2'>
 						Real-time inference service
@@ -22,7 +22,7 @@ const FirstStackCards = () => {
 				/>
 			</Card>
 			<Card styles='bg-neon flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
-				<span className='z-10'>
+				<span className='z-10 text-black'>
 					<p>Document Stack</p>
 					<h2 className='font-semibold text-2xl mt-2'>
 						Mobile app backend
@@ -58,7 +58,7 @@ const FirstStackCards = () => {
 				/>
 			</Card>
 			<Card styles='bg-purple flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
-				<span className='z-10 mt-12'>
+				<span className='z-10 mt-12 text-black'>
 					<p>OLAP Stack</p>
 					<h2 className='font-semibold text-2xl mt-2'>
 						Data Warehouse for Analytics
@@ -77,7 +77,7 @@ const SecondStackCards = () => {
 	return (
 		<ul className='flex gap-4 items-center justify-center animate-infinite-scroll-fast'>
 			<Card styles='bg-purple flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
-				<span className='z-10 mt-12'>
+				<span className='z-10 mt-12 text-black'>
 					<p>OLAP Stack</p>
 					<h2 className='font-semibold text-2xl mt-2'>
 						Data Warehouse for Analytics
@@ -101,7 +101,7 @@ const SecondStackCards = () => {
 				/>
 			</Card>
 			<Card styles='bg-neon flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
-				<span className='z-10'>
+				<span className='z-10 text-black'>
 					<p>Document Stack</p>
 					<h2 className='font-semibold text-2xl mt-2'>
 						Mobile app backend
@@ -113,7 +113,7 @@ const SecondStackCards = () => {
 				/>
 			</Card>
 			<Card styles='bg-salmon flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
-				<span className='z-10 mt-12'>
+				<span className='z-10 mt-12 text-black'>
 					<p>Stack</p>
 					<h2 className='font-semibold text-2xl mt-2'>
 						Real-time inference service

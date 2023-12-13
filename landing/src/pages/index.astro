@@ -37,7 +37,7 @@ const currentPath = Astro.url.pathname;
 
 <Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
 	<div class='main-content'>
-		<NavBar currentPage={currentPath} client:load />
+		<NavBar client:only currentPage={currentPath} />
 		<div class='w-full h-[150px]'></div>
 		<Container styles='relative'>
 			<div class='light-gradient absolute -top-[700px] -right-[100px]'>
@@ -270,7 +270,7 @@ const currentPath = Astro.url.pathname;
 		<Container styles='relative'>
 			<Section3Confetti />
 		</Container>
-		<TemboStacksSection client:load />
+		<TemboStacksSection client:only='react' />
 		<section class='tembo-extensions-section pt-28 bg-offBlack'>
 			<Container>
 				<div class='flex flex-col items-center justify-center'>

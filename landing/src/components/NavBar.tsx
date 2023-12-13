@@ -8,8 +8,11 @@ interface Props {
 	currentPage: string;
 }
 
+const shouldAddNavPadding = () => {};
+
 const NavBar: React.FC<Props> = ({ currentPage }) => {
 	const [scrollY, setScrollY] = useState(0);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -20,6 +23,21 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 		window.addEventListener('scroll', handleScroll);
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
+
+	useEffect(() => {
+		const handleResize = () => {
+			const isScreenGreaterThanOrEqualTo900px = window.innerWidth >= 900;
+			if (isScreenGreaterThanOrEqualTo900px) {
+				document.body.style.overflow = 'scroll';
+			}
+		};
+
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
 		};
 	}, []);
 
@@ -35,12 +53,15 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 				<nav
 					className={cx(
 						'flex justify-between items-center transition-all duration-100',
-						scrollY > 20 ? 'py-3 mobile:py-4' : 'py-8',
+						scrollY > 20 &&
+							(!isMenuOpen || window.innerWidth >= 900)
+							? 'py-3 mobile:py-4'
+							: 'py-8',
 					)}
 				>
 					<a
 						href='/'
-						className='focus:outline-none transition hover:scale-105 duration-300 ease-in-out delay-70'
+						className='focus:outline-none transition hover:scale-105 duration-300 ease-in-out delay-70 z-50'
 					>
 						<img
 							src='/logoWithText.svg'
@@ -105,8 +126,13 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 						Try Free
 					</Button>
 					<button
-						onClick={() => console.log('MENU CLICKED!')}
-						className='mobile:hidden flex flex-col gap-[2.5px] items-center justify-center bg-neon rounded-full w-[32.57px] h-[32.57px] p-2.5'
+						onClick={() => {
+							document.body.style.overflow = !isMenuOpen
+								? 'hidden'
+								: 'scroll';
+							setIsMenuOpen(!isMenuOpen);
+						}}
+						className='mobile:hidden flex flex-col gap-[2.5px] items-center justify-center bg-neon hover:bg-[#D1E278 rounded-full w-[32.57px] h-[32.57px] p-2.5 z-50'
 					>
 						<div className='bg-[#292D32] rounded-full w-full h-[1.5px]' />
 						<div className='bg-[#292D32] rounded-full w-full h-[1.5px]' />
@@ -120,6 +146,12 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 					scrollY > 20 ? 'flex' : 'hidden',
 				)}
 			/>
+			{isMenuOpen && (
+				<div className='bg-red-500 mobile:hidden fixed z-10 w-full h-screen overflow-hidden inset-0'>
+					<div className='bg-gradient-rainbow h-[4px] w-full' />
+					<nav></nav>
+				</div>
+			)}
 		</div>
 	);
 };
