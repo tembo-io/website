@@ -12,16 +12,18 @@ import { Image } from 'astro:assets';
 	href={link}
 	target='_blank'
 	rel='noreferrer'
-	class='transition-all duration-150 ease-in'
+	class='transition-all duration-150 ease-in z-10 w-full min-[500px]:w-max'
 >
 	<div
-		class='flex items-center gap-6 border-2 border-lightPink rounded-full p-2 h-[60px]'
+		class='flex items-center gap-6 border-2 border-lightPink rounded-full p-2 h-[60px] z-10'
 	>
 		<div
-			class='bg-gradient-button p-3 rounded-full flex justify-center items-center'
+			class='bg-gradient-button p-3 rounded-full flex justify-center items-center z-10'
 		>
 			<Image src={ArrowImage} alt='Arrow' class='h-[15px] w-[15px]' />
 		</div>
-		<p class='text-white font-semibold text-xl pr-6'>{title}</p>
+		<p class='text-white font-semibold text-xl pr-6 whitespace-nowrap'>
+			{title}
+		</p>
 	</div>
 </a>
