@@ -12,7 +12,7 @@ const FirstStackCards = () => {
 			<Card styles='bg-salmon flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
 				<span className='z-10 mt-12 text-black'>
 					<p>Stack</p>
-					<h2 className='font-semibold text-2xl mt-2'>
+					<h2 className='font-medium text-2xl mt-2 leading-6'>
 						Real-time inference service
 					</h2>
 				</span>
@@ -24,7 +24,7 @@ const FirstStackCards = () => {
 			<Card styles='bg-neon flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
 				<span className='z-10 text-black'>
 					<p>Document Stack</p>
-					<h2 className='font-semibold text-2xl mt-2'>
+					<h2 className='font-medium text-2xl mt-2 leading-6'>
 						Mobile app backend
 					</h2>
 				</span>
@@ -36,7 +36,7 @@ const FirstStackCards = () => {
 			<Card styles='bg-semiGrey flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
 				<span className='z-10 text-white'>
 					<p>Machine Learning Stack</p>
-					<h2 className='font-semibold text-2xl mt-2'>
+					<h2 className='font-medium text-2xl mt-2 leading-6'>
 						ML Training Stack
 					</h2>
 				</span>
@@ -48,7 +48,7 @@ const FirstStackCards = () => {
 			<Card styles='bg-offBlack flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
 				<span className='z-10 text-white'>
 					<p>Message Queue Stack</p>
-					<h2 className='font-semibold text-2xl mt-2'>
+					<h2 className='font-medium text-2xl mt-2 leading-6'>
 						SQS Replacement System
 					</h2>
 				</span>
@@ -60,7 +60,7 @@ const FirstStackCards = () => {
 			<Card styles='bg-purple flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
 				<span className='z-10 mt-12 text-black'>
 					<p>OLAP Stack</p>
-					<h2 className='font-semibold text-2xl mt-2'>
+					<h2 className='font-medium text-2xl mt-2 leading-6'>
 						Data Warehouse for Analytics
 					</h2>
 				</span>
@@ -79,7 +79,7 @@ const SecondStackCards = () => {
 			<Card styles='bg-purple flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
 				<span className='z-10 mt-12 text-black'>
 					<p>OLAP Stack</p>
-					<h2 className='font-semibold text-2xl mt-2'>
+					<h2 className='font-medium text-2xl mt-2 leading-6'>
 						Data Warehouse for Analytics
 					</h2>
 				</span>
@@ -91,7 +91,7 @@ const SecondStackCards = () => {
 			<Card styles='bg-offBlack flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
 				<span className='z-10 text-white'>
 					<p>Message Queue Stack</p>
-					<h2 className='font-semibold text-2xl mt-2'>
+					<h2 className='font-medium text-2xl mt-2 leading-6'>
 						SQS Replacement System
 					</h2>
 				</span>
@@ -103,7 +103,7 @@ const SecondStackCards = () => {
 			<Card styles='bg-neon flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
 				<span className='z-10 text-black'>
 					<p>Document Stack</p>
-					<h2 className='font-semibold text-2xl mt-2'>
+					<h2 className='font-medium text-2xl mt-2 leading-6'>
 						Mobile app backend
 					</h2>
 				</span>
@@ -115,7 +115,7 @@ const SecondStackCards = () => {
 			<Card styles='bg-salmon flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
 				<span className='z-10 mt-12 text-black'>
 					<p>Stack</p>
-					<h2 className='font-semibold text-2xl mt-2'>
+					<h2 className='font-medium text-2xl mt-2 leading-6'>
 						Real-time inference service
 					</h2>
 				</span>
@@ -127,7 +127,7 @@ const SecondStackCards = () => {
 			<Card styles='bg-semiGrey flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden'>
 				<span className='z-10 text-white'>
 					<p>Machine Learning Stack</p>
-					<h2 className='font-semibold text-2xl mt-2'>
+					<h2 className='font-medium text-2xl mt-2 leading-6'>
 						ML Training Stack
 					</h2>
 				</span>
