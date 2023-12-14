@@ -1,7 +1,7 @@
 ---
 slug: modern-data-stack-mess
 title: 'The Modern Data Stack is a Mess'
-authors: [ry]
+authors: [ryw]
 tags: [postgres, data stack]
 ---
 
