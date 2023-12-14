@@ -10,7 +10,6 @@ Every area of the modern data landscape is absolutely flooded with VC-funded dat
 Good luck finding it though. You’re stuck digging through the chaotic sprawl of the modern data stack, which looks something like this, right?
 
 ![map1](./map1.png)
-
 _Source: [LakeFS, "The State of Data Engineering 2022"](https://lakefs.io/blog/the-state-of-data-engineering-2022/)_
 
 Well, that’s one way to look at it. The reality is actually something more like this:
