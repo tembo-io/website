@@ -18,7 +18,7 @@ const FirstStackCards = () => {
 				</span>
 				<Animation
 					animation={elephant4}
-					styles='absolute w-[215px] -top-[80px] -right-[80px] -z-0'
+					styles='absolute w-[220px] h-[220px] -top-[70px] -right-[70px] -z-0'
 				/>
 			</Card>
 			<Card styles='bg-neon flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
@@ -30,7 +30,7 @@ const FirstStackCards = () => {
 				</span>
 				<Animation
 					animation={elephant8}
-					styles='absolute w-[215px] -bottom-[50px] -right-[80px] -z-0'
+					styles='absolute w-[220px] h-[220px] -bottom-[50px] -right-[80px] -z-0'
 				/>
 			</Card>
 			<Card styles='bg-semiGrey flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
@@ -42,7 +42,7 @@ const FirstStackCards = () => {
 				</span>
 				<Animation
 					animation={elephant5}
-					styles='absolute w-[215px] -bottom-[50px] -right-[80px] -z-0 mirror-horizontal'
+					styles='absolute w-[220px] h-[220px] -bottom-[50px] -right-[80px] -z-0 mirror-horizontal'
 				/>
 			</Card>
 			<Card styles='bg-offBlack flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
@@ -54,7 +54,7 @@ const FirstStackCards = () => {
 				</span>
 				<Animation
 					animation={elephant6}
-					styles='absolute w-[215px] -bottom-[80px] -right-[80px] -z-0 mirror-horizontal'
+					styles='absolute w-[220px] h-[220px] -bottom-[50px] -right-[80px] -z-0 mirror-horizontal'
 				/>
 			</Card>
 		</ul>
@@ -73,7 +73,7 @@ const SecondStackCards = () => {
 				</span>
 				<Animation
 					animation={elephant10}
-					styles='absolute w-[215px] -top-[70px] -right-[100px] -z-0'
+					styles='absolute w-[220px] h-[220px] -top-[70px] -right-[100px] -z-0'
 				/>
 			</Card>
 			<Card styles='bg-offBlack flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
@@ -85,7 +85,7 @@ const SecondStackCards = () => {
 				</span>
 				<Animation
 					animation={elephant6}
-					styles='absolute w-[215px] -bottom-[80px] -right-[80px] -z-0 mirror-horizontal'
+					styles='absolute w-[220px] h-[220px] -bottom-[50px] -right-[80px] -z-0 mirror-horizontal'
 				/>
 			</Card>
 			<Card styles='bg-neon flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
@@ -97,7 +97,7 @@ const SecondStackCards = () => {
 				</span>
 				<Animation
 					animation={elephant8}
-					styles='absolute w-[215px] -bottom-[50px] -right-[80px] -z-0'
+					styles='absolute w-[220px] h-[220px] -bottom-[50px] -right-[80px] -z-0'
 				/>
 			</Card>
 			<Card styles='bg-salmon flex flex-col justify-center min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
@@ -109,7 +109,7 @@ const SecondStackCards = () => {
 				</span>
 				<Animation
 					animation={elephant4}
-					styles='absolute w-[215px] -top-[80px] -right-[80px] -z-0'
+					styles='absolute w-[220px] h-[220px] -top-[70px] -right-[70px] -z-0'
 				/>
 			</Card>
 			<Card styles='bg-semiGrey flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
@@ -121,7 +121,7 @@ const SecondStackCards = () => {
 				</span>
 				<Animation
 					animation={elephant5}
-					styles='absolute w-[215px] -bottom-[50px] -right-[80px] -z-0 mirror-horizontal'
+					styles='absolute w-[220px] h-[220px] -bottom-[50px] -right-[80px] -z-0 mirror-horizontal'
 				/>
 			</Card>
 		</ul>
