@@ -9,20 +9,16 @@ Every area of the modern data landscape is absolutely flooded with VC-funded dat
 
 Good luck finding it though. You’re stuck digging through the chaotic sprawl of the modern data stack, which looks something like this, right?
 
- ![map1](https://github.com/tembo-io/website/assets/147629855/672d6544-2f43-4793-84e4-e500a2e73972)
+![map1](https://github.com/tembo-io/website/assets/147629855/4b982e1a-7d06-48cd-80d1-31657a3aaa70)
+
 *Source: [LakeFS, "The State of Data Engineering 2022"](https://lakefs.io/blog/the-state-of-data-engineering-2022/)*
 
 
-Well, that’s one way to look at it. There’s also this, in case you’re thinking about adding AI into the mix:
+Well, that’s one way to look at it. The reality is actually something more like this:
 
-![map2](https://github.com/tembo-io/website/assets/147629855/f65673b7-b370-4720-a077-64c8a03cbf54)
-*Source: [Matt Turck, "Red Hot: The 2021 Machine Learning, AI, and Data (MAD) Landscape"](https://mattturck.com/data2021/)*
+![mad2023](https://github.com/tembo-io/website/assets/147629855/2481280f-5df0-4dc4-8680-ae3e9991ebaa)
+*Source: [Matt Turck, "The 2023 Machine Learning, AI, and Data (MAD) Landscape"](https://mattturck.com/landscape/mad2023.pdf)*
  
-
-The big picture? It’s actually something like this…or worse: 
-
-![map3](https://github.com/tembo-io/website/assets/147629855/1cd6462c-7a50-4089-9c54-f3da312b7383)
-*Source: [ChiefMartec, "Marketing Technology Landscape Supergraphic"](https://chiefmartec.com/2020/04/marketing-technology-landscape-2020-martech-5000/)*
 
 Put simply, the modern data stack looks less like a plan and more like a Jackson Pollock painting. 
 
