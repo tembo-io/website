@@ -70,11 +70,7 @@ const currentPath = Astro.url.pathname;
 							Hello Postgres.
 						</h1>
 					</header>
-					<Button
-						variant='gradient'
-						size='lg'
-						onClick={() => navigate('https://cloud.tembo.io')}
-					>
+					<Button variant='gradient' size='lg' client:load>
 						Try Free
 					</Button>
 				</div>
@@ -242,11 +238,7 @@ const currentPath = Astro.url.pathname;
 						Build any application on Postgres, the everything
 						database
 					</h1>
-					<Button
-						variant='gradient'
-						size='lg'
-						onClick={() => navigate('https://cloud.tembo.io')}
-					>
+					<Button variant='gradient' size='lg' client:load>
 						Try Free
 					</Button>
 				</div>
@@ -507,12 +499,7 @@ const currentPath = Astro.url.pathname;
 						</Extension>
 					</div>
 				</div>
-				<Button
-					variant='gradient'
-					size='lg'
-					styles='mb-2'
-					onClick={() => navigate('https://cloud.tembo.io')}
-				>
+				<Button variant='gradient' size='lg' styles='mb-2' client:load>
 					Try Free
 				</Button>
 			</div>
@@ -616,8 +603,7 @@ const currentPath = Astro.url.pathname;
 								<Button
 									variant='gradient'
 									size='lg'
-									onClick={() =>
-										navigate('https://cloud.tembo.io')}
+									client:load
 									styles='h-[60px] w-full min-[500px]:w-[182px] font-semibold font-primary z-10'
 								>
 									Try Free

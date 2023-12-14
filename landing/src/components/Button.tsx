@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import { navigate } from 'astro/transitions/router';
 
 type Variant = 'neon' | 'gradient' | 'outline';
 type Size = 'sm' | 'md' | 'lg';
@@ -48,6 +49,11 @@ const Button: React.FC<Props> = ({
 				getSizeStyles(),
 				styles,
 			)}
+			onClick={
+				variant === 'gradient'
+					? () => navigate('https://cloud.tembo.io')
+					: undefined
+			}
 			{...rest}
 		>
 			{children}
