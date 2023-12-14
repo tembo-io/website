@@ -131,53 +131,80 @@ const config = {
 		({
 			image: 'img/social-card.png',
 
-  presets: [
-    [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
-        docs: {
-          routeBasePath: '/docs',
-          sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/tembo-io/website/blob/main/docusaurus',
-        },
-        blog: {
-          showReadingTime: true,
-          blogSidebarTitle: 'All posts',
-          blogSidebarCount: 'ALL',
-          readingTime: ({content, frontMatter, defaultReadingTime}) =>
-            frontMatter.hide_reading_time
-              ? undefined
-              : defaultReadingTime({content}),
-          editUrl:
-            'https://github.com/tembo-io/website/blob/main/docusaurus',
-        },
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-      }),
-    ],
-  [
-    'redocusaurus',
-    {
-      // Plugin Options for loading OpenAPI files
-      specs: [
-        {
-          spec: 'https://api.tembo.io/api-docs/openapi.json',
-          route: '/docs/tembo-cloud/openapi',
-        },
-      ],
-      // Theme Options for modifying how redoc renders them
-      theme: {
-        // Change with your site colors
-        primaryColor: '#1890ff',
-      },
-    },
-  ],
-  ],
+			navbar: {
+				logo: {
+					alt: 'Tembo Logo',
+					src: 'img/title-logo.svg',
+					href: '/',
+					target: '_parent',
+				},
+				items: [
+					{
+						href: '/docs',
+						label: 'Docs',
+						target: '_blank',
+						position: 'right',
+					},
+					{
+						href: '/blog',
+						label: 'Blog',
+						target: '_blank',
+						position: 'right',
+					},
+					{
+						href: 'https://cloud.tembo.io',
+						label: 'Tembo Cloud',
+						position: 'right',
+					},
+					{
+						href: 'https://github.com/tembo-io/tembo-stacks',
+						label: 'GitHub',
+						target: '_blank',
+						position: 'right',
+						className: 'header-github-link',
+					},
+				],
+			},
+			footer: {
+				style: 'dark',
+				links: [
+					{
+						label: 'Careers',
+						href: 'https://tembo.breezy.hr/',
+					},
+					{
+						label: 'Trunk',
+						href: 'https://pgt.dev/',
+					},
+					{
+						label: 'Docs',
+						href: '/docs',
+					},
+					{
+						label: 'Twitter',
+						href: 'https://twitter.com/tembo_io',
+					},
+					{
+						label: 'LinkedIn',
+						href: 'https://www.linkedin.com/company/tembo-inc/',
+					},
+				],
+				copyright: `Copyright © ${new Date().getFullYear()} Tembo. All Rights Reserved`,
+			},
+			colorMode: {
+				disableSwitch: true,
+			},
+			prism: {
+				theme: lightCodeTheme,
+				darkTheme: darkCodeTheme,
+			},
+			hubspot: {
+				accountId: 23590420,
+			},
+			segment: {
+				apiKey: 'YT4AfD2TuYaN7DiGR20tAnstYP1ujjyE',
+			},
+		}),
 
 	customFields: {
 		homeFooter: [
