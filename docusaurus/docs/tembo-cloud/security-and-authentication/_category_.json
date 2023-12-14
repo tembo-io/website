@@ -1,8 +1,8 @@
 {
-    "position": 5,
-    "label": "Security and Authentication",
-    "link": {
-      "type": "generated-index",
-      "description": "Keeping your data secure matters, but thankfully, Tembo Cloud makes it easy to do. Find out more in these guides, or contact us at support@tembo.io."
-    }
-  }
+	"position": 5,
+	"label": "Security and Authentication",
+	"link": {
+		"type": "generated-index",
+		"description": "Keeping your data secure matters, but thankfully, Tembo Cloud makes it easy to do. Find out more in these guides, or contact us at support@tembo.io."
+	}
+}
