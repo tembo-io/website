@@ -53,21 +53,21 @@ const currentPath = Astro.url.pathname;
 				<div
 					class='flex flex-col items-center justify-center z-10 pb-[100px] relative slide-enter-content'
 				>
-					<header class='text-center mb-6'>
+					<header class='text-center'>
 						<h2
 							class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
 						>
 							Goodbye Database Sprawl,
 						</h2>
 						<h1
-							class='text-neon font-extrabold text-[43.52px] min-[500px]:text-[54.4px] min-[600px]:text-[68px] customXs:text-[84px] customSm:text-[92px] z-10'
+							class='text-neon font-extrabold text-[43.52px] min-[500px]:text-[54.4px] min-[600px]:text-[68px] customXs:text-[84px] customSm:text-[92px] z-10 mb-6'
 						>
 							Hello Postgres.
 						</h1>
+						<Button variant='gradient' size='lg' client:load>
+							Try Free
+						</Button>
 					</header>
-					<Button variant='gradient' size='lg' client:load>
-						Try Free
-					</Button>
 				</div>
 				<Confetti />
 			</section>
