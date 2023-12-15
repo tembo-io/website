@@ -42,7 +42,6 @@ helm install \
   tembo tembo/tembo-operator \
   --namespace tembo-system \
   --create-namespace \
-  --version v0.2.0 \
   --set controller.crds.create=true
 ```
 
@@ -55,7 +54,6 @@ helm install \
   tembo tembo/tembo-operator \
   --namespace tembo-system \
   --create-namespace \
-  --version v0.2.0 \
   --set controller.crds.create=true \ # Example: enable installation of the CRDs
   --set controller.monitoring.prometheusRule=true \  # Example: enable prometheus rules for CNPG using a Helm parameter
   --set controller.extraEnv[0].name=USE_SHARED_CA,controller.extraEnv[0].value="1" \ # Example: enable the shared CA for instance connections
