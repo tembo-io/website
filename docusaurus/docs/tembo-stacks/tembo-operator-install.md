@@ -13,6 +13,7 @@ Tembo provides Helm charts as a first-class method of installation on Kubernetes
 - [Install Helm version 3 or later](https://helm.sh/docs/intro/install/).
 - Install a supported version of Kubernetes (currently only 1.25 is supported, but newer versions should work).
 - Install cert-manager [with Helm](https://cert-manager.io/docs/installation/helm/)
+- Install Traefik Ingress Controller [with Helm]()
 - **extra**: For monitoring, you can install the prometheus-operator using the 
 [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
 Helm chart.
@@ -68,7 +69,7 @@ Once you've installed tembo-operator, you can verify it is deployed correctly by
 checking the `tembo-system` namespace for running pods:
 
 ```bash
-$ kubectl get pods --namespace tembo-system
+kubectl get pods --namespace tembo-system
 
 NAME                                    READY   STATUS    RESTARTS   AGE
 tembo-cloudnative-pg-55966ffbc4-x58wb   1/1     Running   0          4m24s
@@ -86,7 +87,7 @@ label.  You will need to apply this label to all namespaces you wish to deploy
 an instance in.
 
 ```bash
-$ kubectl label namespace default "tembo-pod-init.tembo.io/watch"="true"
+kubectl label namespace default "tembo-pod-init.tembo.io/watch"="true"
 ```
 
 Apply the following sample `CoreDB` configuration.  This will use all defaults
@@ -103,7 +104,7 @@ EOF
 ```
 
 ```bash
-$ kubectl get pods -n default
+kubectl get pods -n default
 NAME                               READY   STATUS    RESTARTS   AGE
 test-db-1                          1/1     Running   0          68s
 test-db-metrics-58cf9ccf7d-wpc52   1/1     Running   0          88s
@@ -122,7 +123,7 @@ In this example we want to use the `storageClass` named `gp3enc` to provision th
 PVC's with.
 
 ```bash
-$ kubectl get storageclass
+kubectl get storageclass
 NAME               PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
 gp2 (default)      kubernetes.io/aws-ebs   Delete          WaitForFirstConsumer   false                  278d
 gp3enc             ebs.csi.aws.com         Delete          WaitForFirstConsumer   true                   254d
