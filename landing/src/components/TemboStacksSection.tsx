@@ -20,7 +20,7 @@ const TemboStacksSection = () => {
 					</h2>
 				</div>
 				<div className='flex flex-col-reverse mobile:flex-row justify-between items-start mt-20 gap-16 relative w-full'>
-					<div className='flex flex-col z-10 gap-10 w-full mobile:w-1/2'>
+					<div className='flex flex-col z-10 gap-10 w-full mobile:w-1/2 items-center mobile:items-start'>
 						<DetailSequence
 							header='100% Open Source & Cloud Native'
 							text='The best of both worlds. Enjoy unmodified open source community Postgres and all the benefits of cloud native architecture, such as high availability, rolling updates, resource management, and more.'
@@ -80,7 +80,7 @@ const TemboStacksSection = () => {
 					<img
 						src={'/appScreenshot.svg'}
 						alt='Tembo Cloud Dashboard'
-						className='mobile:h-[700px] relative mobile:absolute -right-[50px] mobile:-right-[500px] min-[1200px]:-right-[400px] 2xl:-right-[300px] fade-x-md-always -z-1'
+						className='mobile:h-[700px] relative mobile:absolute -right-[50px] mobile:-right-[480px] min-[1300px]:-right-[370px] 2xl:-right-[300px] fade-x-md-always -z-1'
 					/>
 				</div>
 			</Container>
