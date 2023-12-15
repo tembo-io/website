@@ -25,6 +25,6 @@ In larger organizations, the bloat becomes outright contagious. Different data t
 
 No single person or company is really to blame for the overabundance of data tools. It’s not your CTO or engineering manager’s fault that the database is sprawling, or that you’re struggling to figure out how to manage your relational, NoSQL, MapReduce, cloud, columnar, wide column, object-oriented, key value, hierarchical, document/JSON, text search engine, message queue, graph, vector, and time series databases all at once. On top of it all, vendors are perpetually on the hunt for new territory (and they’re very good at selling/upselling their stuff), so Frankenstacks are somewhat inevitable. And it’s not all bad news - competition in the database solutions space has driven major sophistication. But the inevitable consequence that we all now face is major complexity.
 
-So what do we do about it? At Tembo, we want to offer [a different solution](https://tembo.io/blog/tembo-manifesto). But for now, I want us to recognize that simply doing the same thing—adding more vendors to the sprawl—isn’t solving _anything_.
+So what do we do about it? At Tembo, we want to offer [a different solution](https://tembo.io/blog/tembo-manifesto). Simply doing the same thing—adding more vendors to the sprawl—isn’t solving _anything_.
 
 We believe the solution—Postgres as a data platform rather than just a database—has been right in front of us all along. It’s time to take an entirely new approach.
