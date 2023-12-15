@@ -13,7 +13,6 @@ Tembo provides Helm charts as a first-class method of installation on Kubernetes
 - [Install Helm version 3 or later](https://helm.sh/docs/intro/install/).
 - Install a supported version of Kubernetes (currently only 1.25 is supported, but newer versions should work).
 - Install cert-manager [with Helm](https://cert-manager.io/docs/installation/helm/)
-- Install Traefik Ingress Controller [with Helm]()
 - **extra**: For monitoring, you can install the prometheus-operator using the 
 [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
 Helm chart.
