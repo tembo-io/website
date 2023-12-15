@@ -63,7 +63,7 @@ const TemboStacksSection = () => {
 						/>
 						<DetailSequence
 							header='Transparent Pricing'
-							text='No hidden costs or surprise up-charges. You only pay for what you actually use. Store as much as you need, query as much as you want. '
+							text='No hidden costs or surprise up-charges. You only pay for what you actually use. Store as much as you need, query as much as you want.'
 							iconPath='/priceColorIcon.svg'
 							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start'
 							headerStyles='text-center mobile:text-start'
