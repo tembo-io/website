@@ -45,7 +45,7 @@ So what happened here? Remember that ultimately, vectors are just arrays of floa
 
 It’s as simple—actually simple—as that. One call, and we’re ready to search. 
 
-We can do that search with one more SQL function call. We reference the job name we set up in the last step, provide the raw text query, and specify which columns we want returned and the number of rows. Think of this as a “select product_id, product_name from products where product_name and product_description are similar to query”.
+See, Postgres lets us create our own indexes via extensions, which enables us to do that search with one more SQL function call. We reference the job name we set up in the last step, provide the raw text query, and specify which columns we want returned and the number of rows. Think of this as a “select product_id, product_name from products where product_name and product_description are similar to query”.
 
 
 ```
