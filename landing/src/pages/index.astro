@@ -97,7 +97,7 @@ const currentPath = Astro.url.pathname;
 						<HeroCard
 							description='Build any workload on Postgres'
 							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px]'
+							descriptionStyles='text-[10px] text-blue'
 						/>
 					</div>
 					<div
@@ -106,7 +106,7 @@ const currentPath = Astro.url.pathname;
 						<HeroCard
 							description='Deploy on our cloud or yours'
 							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px]'
+							descriptionStyles='text-[10px] text-blue'
 						/>
 						<HeroCard
 							title='Local Search & Recommendations'
@@ -144,8 +144,8 @@ const currentPath = Astro.url.pathname;
 						</HeroCard>
 						<HeroCard
 							description='Ship faster with a lower TCO'
-							wrapperStyles='bg-lightBlue w-[195px]'
-							descriptionStyles='text-[10px]'
+							wrapperStyles='bg-neon w-[195px]'
+							descriptionStyles='text-[10px] text-blue'
 						/>
 					</div>
 					<div
@@ -154,7 +154,7 @@ const currentPath = Astro.url.pathname;
 						<HeroCard
 							description='Deploy sidecar apps & services'
 							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px]'
+							descriptionStyles='text-[10px] text-blue'
 						/>
 						<HeroCard
 							title='Vector Search & RAG'
@@ -193,7 +193,7 @@ const currentPath = Astro.url.pathname;
 						<HeroCard
 							description='200+ Stacks & Extensions'
 							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px]'
+							descriptionStyles='text-[10px] text-blue'
 						/>
 					</div>
 				</div>
@@ -294,7 +294,10 @@ const currentPath = Astro.url.pathname;
 			>
 				<div class='flex gap-6'>
 					<div class='flex flex-col gap-6'>
-						<Extension extensionTitle='pg_vector'>
+						<Extension
+							extensionTitle='pg_vector'
+							href='https://pgt.dev/extensions/pgvector'
+						>
 							<Image
 								src={PgVector}
 								alt='Admin Pack'
@@ -305,6 +308,7 @@ const currentPath = Astro.url.pathname;
 							extensionTitle='postgresml'
 							wrapperStyles='bg-pink'
 							titleStyles='text-neon'
+							href='https://pgt.dev/extensions/postgresml'
 						>
 							<Image
 								src={AdminPack}
