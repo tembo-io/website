@@ -41,7 +41,7 @@ SELECT vectorize.table(
 ```
 
 
-So what happened here? We created a job, called it “product_search”, on an existing table called “products”. We want our user search queries to look at “product_name” and “description”. Tembo’s platform handles transforming these two columns into embeddings (via OpenAI embeddings endpoint) for you, and continues to monitor the table for changes. When there’s changes, embeddings are updated. The data is stored using pg vector’s vector data type, and indexed using pg vector HNSW index.
+So what happened here? Remember that ultimately, vectors are just arrays of floats that we're going to do linear algebra on. So we created a job, called it “product_search”, on an existing table called “products”. We want our user search queries to look at “product_name” and “description”. Tembo’s platform handles transforming these two columns into embeddings (via OpenAI embeddings endpoint) for you, and continues to monitor the table for changes. When there’s changes, embeddings are updated. The data is stored using pg vector’s vector data type, and indexed using pg vector HNSW index.
 
 It’s as simple—actually simple—as that. One call, and we’re ready to search. 
 
