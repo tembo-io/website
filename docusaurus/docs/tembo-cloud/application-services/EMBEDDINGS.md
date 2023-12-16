@@ -90,16 +90,6 @@ CREATE TABLE products AS
 SELECT * FROM vectorize.example_products;
 ```
 
-### Configure pg_vectorize to consume the Embeddings API
-
-`TEMBO_ORG_NAME` is  the name of your organization, and `TEMBO_INSTANCE_NAME` is the name of your Postgres instance.
-
-```sql
-ALTER SYSTEM SET vectorize.embedding_service_url to 'org-${TEMBO_ORG_NAME}-inst-${TEMBO_INSTANCE_NAME}-embeddings.${TEMBO_ORG_NAME}-inst-${TEMBO_INSTANCE_NAME}.svc.cluster.local:3000/v1/embeddings';
-```
-
-This configures pg_vectorize to call the embeddings API hosted in your Tembo account.
-
 ## Initialize a table for automated vector search
 
 We need to specify a `job_name`. There can be more than one job per table, but generally people will have just one job. It must be unique though. Specify the `table` name, `primary_key` for the table that you want to search. The `columns`
@@ -127,6 +117,13 @@ SELECT vectorize.job_execute('product_search');
 Or we can simply wait for the cron job to complete.
 
 ## Search the table with raw text
+
+To search that table's job, use the same `job_name` that we specified in the previous step.
+ Provide a raw text search `query`, and specify which `num_results` you want to receive from the request.
+ Finally, specify the `num_results` to return. This amounts to effectively a `limit` statement.
+
+`vectorize.search` will automatically use the same embedding model that was used during the `vectorize.table` call.
+
 
 ```sql
 SELECT * FROM vectorize.search(
