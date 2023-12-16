@@ -51,9 +51,9 @@ const currentPath = Astro.url.pathname;
 				class='tembo-hero-section mt-[25px] customXs:mt-[40px] md:mt-[80px]'
 			>
 				<div
-					class='flex flex-col items-center justify-center z-10 pb-[100px] relative slide-enter-content'
+					class='flex flex-col items-center justify-center z-10 pb-[100px] relative'
 				>
-					<header class='text-center'>
+					<header class='text-center slide-enter-content'>
 						<h2
 							class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
 						>
@@ -64,9 +64,11 @@ const currentPath = Astro.url.pathname;
 						>
 							Hello Postgres.
 						</h1>
-						<Button variant='gradient' size='lg' client:load>
-							Try Free
-						</Button>
+						<div>
+							<Button variant='gradient' size='lg' client:load>
+								Try Free
+							</Button>
+						</div>
 					</header>
 				</div>
 				<Confetti />
