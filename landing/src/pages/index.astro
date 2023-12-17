@@ -10,7 +10,6 @@ import ElephantScene from '../images/elephantScene.svg';
 import Elephant11 from '../images/elephant11.svg';
 import Elephant12 from '../images/elephant12.svg';
 import Showcase from '../components/Showcase.astro';
-import { navigate } from 'astro/transitions/router';
 import Section3Confetti from '../components/Section3Confetti.astro';
 import TemboStacksSection from '../components/TemboStacksSection';
 import Extension from '../components/Extension.astro';
@@ -18,7 +17,7 @@ import DetailSequence from '../components/DetailSequence';
 import ArrowButton from '../components/ArrowButton.astro';
 import Animation from '../components/Animation';
 import Footer from '../components/Footer.astro';
-import CrossingWalk1 from '../animations/CrossingWalk1.json';
+import FooterCrossingWalk from '../animations/CrossingWalk1.json';
 import AdminPack from '../images/adminPack.svg';
 import Vectorize from '../images/vectorize.svg';
 import PgVector from '../images/pg_vector.svg';
@@ -582,10 +581,12 @@ const currentPath = Astro.url.pathname;
 				<div class='container max-w-stackSlider mx-auto relative'>
 					<Animation
 						client:only='react'
-						animation={CrossingWalk1}
-						styles='-z-1 top-[200px] xs:top-[100px] sm:top-[50px] md:-top-[200px] xl:-top-[600px]'
+						animation={FooterCrossingWalk}
+						styles='-z-1 top-[300px] xs:top-[100px] sm:top-[50px] md:-top-[200px] xl:-top-[600px]'
 					/>
-					<div class='flex flex-col justify-center pb-[200px] z-10'>
+					<div
+						class='flex flex-col justify-center pb-[100px] min-[400px]:pb-[200px] z-10'
+					>
 						<Container styles='z-10'>
 							<h2
 								class='text-white font-bold text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] text-center leading-normal w-full z-50 mt-28'
