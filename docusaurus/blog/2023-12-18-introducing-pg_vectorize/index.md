@@ -69,7 +69,9 @@ Then we get our results, along with the cosine similarity score for each records
 );
 ```
 
-No management, no migrating data, no extra services or teams to hire. You can add vector search right now, with none of the hassle. 
+No management, no migrating data, no extra services or teams to hire. You can add vector search right now, with none of the hassle.
+
+And if you don't like the defaults that have been supplied by pg_vectorize, you can override just about everything. You can transform your search query data manually via `vectorize.transform_embeddings()`, change the index on the table, and craft your own similarity search using pg vector directly. It's all open source, and you can use it the way that fits best for you.
 
 
 ## What Else Can It Do?
