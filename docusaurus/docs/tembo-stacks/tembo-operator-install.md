@@ -12,7 +12,10 @@ Tembo provides Helm charts as a first-class method of installation on Kubernetes
 
 - [Install Helm version 3 or later](https://helm.sh/docs/intro/install/).
 - Install a supported version of Kubernetes (currently only 1.25 is supported, but newer versions should work).
-- Install cert-manager [with Helm](https://cert-manager.io/docs/installation/helm/)
+- Install cert-manager [with Helm](https://cert-manager.io/docs/installation/helm/#4-install-cert-manager)
+- **extra**: For monitoring, you can install the prometheus-operator using the 
+[kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
+Helm chart.
 
 ### Steps
 
@@ -30,42 +33,16 @@ helm repo add tembo https://tembo-io.github.io/tembo
 helm repo update
 ```
 
-#### 3. Install `CustomResourceDefinitions`
-
-tembo-operator requires a number of CRD resources, which can be installed manually using `kubectl`,
-or using the `controller.crds.create` option when installing the Helm chart. Both options
-are described below and will achieve the same result but with varying
-consequences. You should consult the [CRD Considerations](#crd-considerations)
-section below for details on each method.
-
-##### Option 1: install CRDs as part of the Helm release
-
-> Recommended for production installations
-
-> This is the default method in the Helm chart
-
-To automatically install and manage the CRDs as part of your Helm release, you
-must add the `--set controller.crds.create=true` flag to your Helm installation command.
-
-Uncomment the relevant line in the next steps to enable this.
-
-##### Option 2: installing CRDs with `kubectl`
-
-```bash
-kubectl apply -f https://raw.githubusercontent.com/tembo-io/tembo/main/charts/tembo-operator/templates/crd.yaml
-```
-
-#### 4. Install tembo-operator
+#### 3. Install tembo-operator
 
 To install the tembo-operator Helm chart, use the [Helm install command](https://helm.sh/docs/helm/helm_install/) as described below.
 
 ```bash
 helm install \
-  tembo-operator tembo \
+  tembo tembo/tembo-operator \
   --namespace tembo-system \
   --create-namespace \
-  --version v0.2.0 \
-  # --set controller.crds.create=true
+  --set controller.crds.create=true
 ```
 
 A full list of available Helm values is on [tembo-operator's chart github page](https://github.com/tembo-io/tembo/blob/main/charts/tembo-operator/README.md).
@@ -74,10 +51,9 @@ The example below shows how to tune the tembo-operator installation by overwriti
 
 ```bash
 helm install \
-  tembo-operator tembo \
+  tembo tembo/tembo-operator \
   --namespace tembo-system \
   --create-namespace \
-  --version v0.2.0 \
   --set controller.crds.create=true \ # Example: enable installation of the CRDs
   --set controller.monitoring.prometheusRule=true \  # Example: enable prometheus rules for CNPG using a Helm parameter
   --set controller.extraEnv[0].name=USE_SHARED_CA,controller.extraEnv[0].value="1" \ # Example: enable the shared CA for instance connections
@@ -86,13 +62,13 @@ helm install \
   --set pod-init.logLevel=debug # Example: set pod-init log level to debug
 ```
 
-#### 5. Verify Installation
+#### 4. Verify Installation
 
 Once you've installed tembo-operator, you can verify it is deployed correctly by
 checking the `tembo-system` namespace for running pods:
 
 ```bash
-$ kubectl get pods --namespace tembo-system
+kubectl get pods --namespace tembo-system
 
 NAME                                    READY   STATUS    RESTARTS   AGE
 tembo-cloudnative-pg-55966ffbc4-x58wb   1/1     Running   0          4m24s
@@ -103,14 +79,14 @@ tembo-pod-init-77c456888b-l64sr         1/1     Running   0          4m24s
 You should see the `controller`, `pod-init`, and
 `cloudnative-pg` pods in a `Running` state.
 
-#### 6. Deploy test instance
+#### 5. Deploy test instance
 
 To deploy a test instance we will need to enable the deployment via a namespace
 label.  You will need to apply this label to all namespaces you wish to deploy 
 an instance in.
 
 ```bash
-$ kubectl label namespace default "tembo-pod-init.tembo.io/watch"="true"
+kubectl label namespace default "tembo-pod-init.tembo.io/watch"="true"
 ```
 
 Apply the following sample `CoreDB` configuration.  This will use all defaults
@@ -127,7 +103,7 @@ EOF
 ```
 
 ```bash
-$ kubectl get pods -n default
+kubectl get pods -n default
 NAME                               READY   STATUS    RESTARTS   AGE
 test-db-1                          1/1     Running   0          68s
 test-db-metrics-58cf9ccf7d-wpc52   1/1     Running   0          88s
@@ -146,7 +122,7 @@ In this example we want to use the `storageClass` named `gp3enc` to provision th
 PVC's with.
 
 ```bash
-$ kubectl get storageclass
+kubectl get storageclass
 NAME               PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
 gp2 (default)      kubernetes.io/aws-ebs   Delete          WaitForFirstConsumer   false                  278d
 gp3enc             ebs.csi.aws.com         Delete          WaitForFirstConsumer   true                   254d
@@ -191,27 +167,6 @@ kubectl delete -f https://raw.githubusercontent.com/tembo-io/tembo/main/charts/t
 *Note:* If you used `helm` to install the CRDs with the `controller.crds.create=true`
 value for the chart, then the CRDs will **NOT** have been removed and
 you will need to run this final `kubectl` command to purge them from the cluster.
-
-## CRD considerations
-
-### kubectl installation
-
-When installing CRDs with `kubectl`, you will need to upgrade these in tandem
-with your tembo-operator installation upgrades. This approach may be useful when
-you do not have the ability to install CRDs all the time in your environment.
-If you do not upgrade these as you upgrade tembo-operator itself, you may miss
-out on new features for tembo-operator.
-
-Benefits:
-
-- CRDs will not change once applied
-
-Drawbacks:
-
-- CRDs are not automatically updated and need to be reapplied before
-  upgrading tembo-operator
-- You may have different installation processes for CRDs compared to
-  the other resources.
 
 ### helm installation
 

@@ -7,14 +7,39 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang='en'>
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
+		<meta charset='UTF-8' />
+		<meta
+			name='description'
+			content='Tembo is the Postgres developer platform for building every application and data service. Collapse the database sprawl of the modern data stack with a unified developer platform.'
+		/>
+		<meta name='viewport' content='width=device-width' />
+		<link rel='icon' type='image/svg+xml' href='/favicon.ico' />
+		<meta name='generator' content={Astro.generator} />
 		<title>{title}</title>
+		<meta name='twitter:card' content='summary_large_image' />
+		<meta
+			name='twitter:description'
+			content='Tembo is the Postgres developer platform for building every application and data service. Collapse the database sprawl of the modern data stack with a unified developer platform.'
+		/>
+		<meta name='twitter:site' content='https://tembo.io' />
+		<meta name='twitter:title' content='Postgres for everything | Tembo' />
+		<meta name='twitter:image' content='https://tembo.io/og-image.png' />
+		<meta property='og:image' content='https://tembo.io/og-image.png' />
+		<meta property='og:title' content='Postgres for everything | Tembo' />
+		<meta
+			property='og:description'
+			content='Tembo is the Postgres developer platform for building every application and data service. Collapse the database sprawl of the modern data stack with a unified developer platform..'
+		/>
+		<meta property='og:type' content='website' />
+		<script
+			defer
+			data-domain='tembo.io'
+			src='https://plausible.io/js/script.js'></script>
+		<script
+			src='https://tag.clearbitscripts.com/v1/pk_46db31c05ac5fad3ee1f5c9122b8da26/tags.js'
+			referrerpolicy='strict-origin-when-cross-origin'></script>
 	</head>
 	<body>
 		<main class='overflow-hidden'>
@@ -23,101 +48,159 @@ const { title } = Astro.props;
 	</body>
 </html>
 <style is:global>
+	@tailwind utilities;
 	@font-face {
 		font-family: 'Bai Jamjuree';
 		font-style: normal;
 		font-weight: 200;
-		src: local('Bai Jamjuree ExtraLight'), local('BaiJamjuree-ExtraLight'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-200-normal.woff') format('woff');
+		src:
+			local('Bai Jamjuree ExtraLight'),
+			local('BaiJamjuree-ExtraLight'),
+			url('/fonts/bai-jamjuree/bai-jamjuree-latin-200-normal.woff')
+				format('woff');
 	}
 
 	@font-face {
 		font-family: 'Bai Jamjuree';
 		font-style: normal;
 		font-weight: 300;
-		src: local('Bai Jamjuree Light'), local('BaiJamjuree-Light'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-300-normal.woff') format('woff');
+		src:
+			local('Bai Jamjuree Light'),
+			local('BaiJamjuree-Light'),
+			url('/fonts/bai-jamjuree/bai-jamjuree-latin-300-normal.woff')
+				format('woff');
 	}
 
 	@font-face {
 		font-family: 'Bai Jamjuree';
 		font-style: normal;
 		font-weight: 400;
-		src: local('Bai Jamjuree Regular'), local('BaiJamjuree-Regular'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-400-normal.woff') format('woff');
+		src:
+			local('Bai Jamjuree Regular'),
+			local('BaiJamjuree-Regular'),
+			url('/fonts/bai-jamjuree/bai-jamjuree-latin-400-normal.woff')
+				format('woff');
 	}
 
 	@font-face {
 		font-family: 'Bai Jamjuree';
 		font-style: normal;
 		font-weight: 500;
-		src: local('Bai Jamjuree Medium'), local('BaiJamjuree-Medium'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-500-normal.woff') format('woff');
+		src:
+			local('Bai Jamjuree Medium'),
+			local('BaiJamjuree-Medium'),
+			url('/fonts/bai-jamjuree/bai-jamjuree-latin-500-normal.woff')
+				format('woff');
 	}
 
 	@font-face {
 		font-family: 'Bai Jamjuree';
 		font-style: normal;
 		font-weight: 600;
-		src: local('Bai Jamjuree SemiBold'), local('BaiJamjuree-SemiBold'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-600-normal.woff') format('woff');
+		src:
+			local('Bai Jamjuree SemiBold'),
+			local('BaiJamjuree-SemiBold'),
+			url('/fonts/bai-jamjuree/bai-jamjuree-latin-600-normal.woff')
+				format('woff');
 	}
 
 	@font-face {
 		font-family: 'Bai Jamjuree';
 		font-style: normal;
 		font-weight: 700;
-		src: local('Bai Jamjuree Bold'), local('BaiJamjuree-Bold'), url('/fonts/bai-jamjuree/bai-jamjuree-latin-700-normal.woff') format('woff');
+		src:
+			local('Bai Jamjuree Bold'),
+			local('BaiJamjuree-Bold'),
+			url('/fonts/bai-jamjuree/bai-jamjuree-latin-700-normal.woff')
+				format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 200;
-		src: local('Inter ExtraLight'), local('Inter-ExtraLight'), url('/fonts/inter/inter-latin-200-normal.woff') format('woff');
+		src:
+			local('Inter ExtraLight'),
+			local('Inter-ExtraLight'),
+			url('/fonts/inter/inter-latin-200-normal.woff') format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 300;
-		src: local('Inter Light'), local('Inter-Light'), url('/fonts/inter/inter-latin-300-normal.woff') format('woff');
+		src:
+			local('Inter Light'),
+			local('Inter-Light'),
+			url('/fonts/inter/inter-latin-300-normal.woff') format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 400;
-		src: local('Inter Regular'), local('Inter-Regular'), url('/fonts/inter/inter-latin-400-normal.woff') format('woff');
+		src:
+			local('Inter Regular'),
+			local('Inter-Regular'),
+			url('/fonts/inter/inter-latin-400-normal.woff') format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 500;
-		src: local('Inter Medium'), local('Inter-Medium'), url('/fonts/inter/inter-latin-500-normal.woff') format('woff');
+		src:
+			local('Inter Medium'),
+			local('Inter-Medium'),
+			url('/fonts/inter/inter-latin-500-normal.woff') format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 600;
-		src: local('Inter SemiBold'), local('Inter-SemiBold'), url('/fonts/inter/inter-latin-600-normal.woff') format('woff');
+		src:
+			local('Inter SemiBold'),
+			local('Inter-SemiBold'),
+			url('/fonts/inter/inter-latin-600-normal.woff') format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 700;
-		src: local('Inter Bold'), local('Inter-Bold'), url('/fonts/inter/inter-latin-700-normal.woff') format('woff');
+		src:
+			local('Inter Bold'),
+			local('Inter-Bold'),
+			url('/fonts/inter/inter-latin-700-normal.woff') format('woff');
 	}
 
 	@font-face {
 		font-family: 'Inter';
 		font-style: normal;
 		font-weight: 800;
-		src: local('Inter ExtraBold'), local('Inter-ExtraBold'), url('/fonts/inter/inter-latin-800-normal.woff') format('woff');
+		src:
+			local('Inter ExtraBold'),
+			local('Inter-ExtraBold'),
+			url('/fonts/inter/inter-latin-800-normal.woff') format('woff');
 	}
 
 	body {
-  		font-family: 'Bai Jamjuree';
-		background: #120F0E;
+		font-family: 'Bai Jamjuree';
+		background: #120f0e;
+		overflow-x: hidden;
 	}
+
+	@media screen and (min-width: 900px) {
+		body {
+			overflow: scroll;
+		}
+	}
+
+	:root {
+		color-scheme: dark;
+	}
+
 	img {
 		user-drag: none;
 		-webkit-user-drag: none;
@@ -127,32 +210,171 @@ const { title } = Astro.props;
 		-ms-user-select: none;
 	}
 	.safari-blur {
-    	-webkit-backdrop-filter: blur(10px)
-	}
-	:root {
-		--gray5: hsl(0, 0%, 90.9%);
-		--gray9: hsl(0, 0%, 56.1%);
+		-webkit-backdrop-filter: blur(10px);
 	}
 	.shine {
 		background: linear-gradient(
 			90deg,
 			#131313 0%,
 			#242424 10%,
-			#242424 80%, /* Center color is most bright */
-			#242424 10%,
+			#242424 80%,
+			/* Center color is most bright */ #242424 10%,
 			#131313 100%
 		);
 	}
 	.mirror-horizontal {
-      transform: scaleX(-1);
-    }
+		transform: scaleX(-1);
+	}
+
 	*:focus-visible {
-		outline: 2px solid #F77577;
+		outline: 2px solid #f77577;
 		outline-offset: 4px;
 	}
 
 	::selection {
-		background-color: rgba(255, 125, 127, 0.7);;
+		background-color: rgba(255, 125, 127, 0.7);
 		opacity: 60%;
+	}
+
+	.fade-x-md {
+		-webkit-mask: none;
+	}
+
+	@media screen and (min-width: 2100px) {
+		.fade-x-md {
+			-webkit-mask: linear-gradient(
+				90deg,
+				transparent,
+				#000 10%,
+				#000 90%,
+				transparent
+			);
+		}
+	}
+
+	.fade-x-md-always {
+		-webkit-mask: linear-gradient(
+			90deg,
+			transparent,
+			#000 0%,
+			#000 90%,
+			transparent
+		);
+	}
+
+	.fade-x-md-both-sides {
+		-webkit-mask: linear-gradient(
+			90deg,
+			transparent,
+			#000 10%,
+			#000 90%,
+			transparent
+		);
+	}
+
+	.background-img-transition {
+		-webkit-transition: background-image 0.2s ease-in-out;
+		transition: background-image 0.2s ease-in-out;
+	}
+
+	[data-animate] {
+		--stagger: 0;
+		--delay: 500ms;
+		--start: 0ms;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		[data-animate] {
+			animation: enter 0.6s both;
+			animation-delay: calc(var(--stagger) * var(--delay) + var(--start));
+		}
+	}
+
+	[data-animation-controller='false'] [data-animate] {
+		animation: none;
+	}
+
+	.slide-enter-content > * {
+		--stagger: 0;
+		--delay: 0ms;
+		--start: 0ms;
+		animation: enter 1s both 1;
+		animation-delay: calc(var(--start) + var(--stagger) * var(--delay));
+	}
+
+	.slide-enter-content > *:nth-child(1) {
+		--stagger: 1;
+		--delay: 50ms;
+	}
+	.slide-enter-content > *:nth-child(2) {
+		--stagger: 2;
+		--delay: 100ms;
+	}
+	.slide-enter-content > *:nth-child(3) {
+		--stagger: 3;
+		--delay: 200ms;
+	}
+	.slide-enter-content > *:nth-child(4) {
+		--stagger: 4;
+	}
+	.slide-enter-content > *:nth-child(5) {
+		--stagger: 5;
+	}
+	.slide-enter-content > *:nth-child(6) {
+		--stagger: 6;
+	}
+	.slide-enter-content > *:nth-child(7) {
+		--stagger: 7;
+	}
+	.slide-enter-content > *:nth-child(8) {
+		--stagger: 8;
+	}
+	.slide-enter-content > *:nth-child(9) {
+		--stagger: 9;
+	}
+	.slide-enter-content > *:nth-child(10) {
+		--stagger: 10;
+	}
+	.slide-enter-content > *:nth-child(11) {
+		--stagger: 11;
+	}
+	.slide-enter-content > *:nth-child(12) {
+		--stagger: 12;
+	}
+	.slide-enter-content > *:nth-child(13) {
+		--stagger: 13;
+	}
+	.slide-enter-content > *:nth-child(14) {
+		--stagger: 14;
+	}
+	.slide-enter-content > *:nth-child(15) {
+		--stagger: 15;
+	}
+	.slide-enter-content > *:nth-child(16) {
+		--stagger: 16;
+	}
+	.slide-enter-content > *:nth-child(17) {
+		--stagger: 17;
+	}
+	.slide-enter-content > *:nth-child(18) {
+		--stagger: 18;
+	}
+	.slide-enter-content > *:nth-child(19) {
+		--stagger: 19;
+	}
+	.slide-enter-content > *:nth-child(20) {
+		--stagger: 20;
+	}
+
+	@keyframes enter {
+		0% {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+
+		to {
+			opacity: 1;
+			transform: none;
+		}
 	}
 </style>

@@ -1,0 +1,36 @@
+---
+interface Props {
+	extensionTitle: string;
+	wrapperStyles?: string;
+	titleStyles?: string;
+	href?: string;
+}
+import cx from 'classnames';
+const { extensionTitle, titleStyles, wrapperStyles, href } = Astro.props;
+---
+
+<a
+	href={href}
+	target='_blank'
+	rel='noreferrer'
+	class='transition-all duration-150 ease-linear hover:scale-[102%]'
+>
+	<div
+		class={cx(
+			'flex flex-col items-center justify-between rounded-[20px] w-[230px] h-[205px] p-3.5',
+			!wrapperStyles ? 'bg-neon' : '',
+			wrapperStyles,
+		)}
+	>
+		<h2
+			class={cx(
+				'text-center text-xl font-bold mb-2',
+				!titleStyles ? 'text-blue' : '',
+				titleStyles,
+			)}
+		>
+			{extensionTitle}
+		</h2>
+		<slot />
+	</div>
+</a>
