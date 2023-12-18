@@ -43,7 +43,8 @@ const {
 		</svg>
 		<p
 			class={cx(
-				'text-start text-[7.8px] customXs:text-[13px] font-medium text-blue',
+				'text-start text-[7.8px] customXs:text-[13px] font-medium',
+				!descriptionStyles ? 'text-blue' : '',
 				descriptionStyles,
 			)}
 		>

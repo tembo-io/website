@@ -10,7 +10,6 @@ import ElephantScene from '../images/elephantScene.svg';
 import Elephant11 from '../images/elephant11.svg';
 import Elephant12 from '../images/elephant12.svg';
 import Showcase from '../components/Showcase.astro';
-import { navigate } from 'astro/transitions/router';
 import Section3Confetti from '../components/Section3Confetti.astro';
 import TemboStacksSection from '../components/TemboStacksSection';
 import Extension from '../components/Extension.astro';
@@ -18,7 +17,7 @@ import DetailSequence from '../components/DetailSequence';
 import ArrowButton from '../components/ArrowButton.astro';
 import Animation from '../components/Animation';
 import Footer from '../components/Footer.astro';
-import CrossingWalk1 from '../animations/CrossingWalk1.json';
+import FooterCrossingWalk from '../animations/CrossingWalk1.json';
 import AdminPack from '../images/adminPack.svg';
 import Vectorize from '../images/vectorize.svg';
 import PgVector from '../images/pg_vector.svg';
@@ -97,7 +96,7 @@ const currentPath = Astro.url.pathname;
 						<HeroCard
 							description='Build any workload on Postgres'
 							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px]'
+							descriptionStyles='text-[10px] text-blue'
 						/>
 					</div>
 					<div
@@ -106,7 +105,7 @@ const currentPath = Astro.url.pathname;
 						<HeroCard
 							description='Deploy on our cloud or yours'
 							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px]'
+							descriptionStyles='text-[10px] text-blue'
 						/>
 						<HeroCard
 							title='Local Search & Recommendations'
@@ -144,8 +143,8 @@ const currentPath = Astro.url.pathname;
 						</HeroCard>
 						<HeroCard
 							description='Ship faster with a lower TCO'
-							wrapperStyles='bg-lightBlue w-[195px]'
-							descriptionStyles='text-[10px]'
+							wrapperStyles='bg-neon w-[195px]'
+							descriptionStyles='text-[10px] text-blue'
 						/>
 					</div>
 					<div
@@ -154,7 +153,7 @@ const currentPath = Astro.url.pathname;
 						<HeroCard
 							description='Deploy sidecar apps & services'
 							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px]'
+							descriptionStyles='text-[10px] text-blue'
 						/>
 						<HeroCard
 							title='Vector Search & RAG'
@@ -193,7 +192,7 @@ const currentPath = Astro.url.pathname;
 						<HeroCard
 							description='200+ Stacks & Extensions'
 							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px]'
+							descriptionStyles='text-[10px] text-blue'
 						/>
 					</div>
 				</div>
@@ -294,7 +293,10 @@ const currentPath = Astro.url.pathname;
 			>
 				<div class='flex gap-6'>
 					<div class='flex flex-col gap-6'>
-						<Extension extensionTitle='pg_vector'>
+						<Extension
+							extensionTitle='pg_vector'
+							href='https://pgt.dev/extensions/pgvector'
+						>
 							<Image
 								src={PgVector}
 								alt='Admin Pack'
@@ -305,6 +307,7 @@ const currentPath = Astro.url.pathname;
 							extensionTitle='postgresml'
 							wrapperStyles='bg-pink'
 							titleStyles='text-neon'
+							href='https://pgt.dev/extensions/postgresml'
 						>
 							<Image
 								src={AdminPack}
@@ -318,6 +321,7 @@ const currentPath = Astro.url.pathname;
 							extensionTitle='pg_cron'
 							wrapperStyles='bg-pink'
 							titleStyles='text-neon'
+							href='https://pgt.dev/extensions/pg_cron'
 						>
 							<Image
 								src={PgCron}
@@ -329,6 +333,7 @@ const currentPath = Astro.url.pathname;
 							extensionTitle='AdminPack'
 							wrapperStyles='bg-white'
 							titleStyles='text-black'
+							href='https://pgt.dev/extensions/adminpack'
 						>
 							<Image
 								src={AdminPack}
@@ -342,6 +347,7 @@ const currentPath = Astro.url.pathname;
 							extensionTitle='PGMQ'
 							wrapperStyles='bg-customDarkGrey'
 							titleStyles='text-white'
+							href='https://pgt.dev/extensions/pgmq'
 						>
 							<Image
 								src={PgMQ}
@@ -352,6 +358,7 @@ const currentPath = Astro.url.pathname;
 						<Extension
 							extensionTitle='pg_vectorize'
 							wrapperStyles='bg-neon'
+							href='https://pgt.dev/extensions/vectorize'
 						>
 							<Image
 								src={Vectorize}
@@ -361,7 +368,10 @@ const currentPath = Astro.url.pathname;
 						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[130px]'>
-						<Extension extensionTitle='argm'>
+						<Extension
+							extensionTitle='argm'
+							href='https://pgt.dev/extensions/argm'
+						>
 							<Image
 								src={Argm}
 								alt='Argm'
@@ -372,6 +382,7 @@ const currentPath = Astro.url.pathname;
 							extensionTitle='pg_stat_statements'
 							wrapperStyles='bg-pink'
 							titleStyles='text-neon'
+							href='https://pgt.dev/extensions/pg_stat_statements'
 						>
 							<Image
 								src={PgStats}
@@ -385,6 +396,7 @@ const currentPath = Astro.url.pathname;
 							extensionTitle='autoinc'
 							wrapperStyles='bg-white'
 							titleStyles='text-black'
+							href='https://pgt.dev/extensions/autoinc'
 						>
 							<Image
 								src={Autoinc}
@@ -395,6 +407,7 @@ const currentPath = Astro.url.pathname;
 						<Extension
 							extensionTitle='aggs_for_vecs'
 							wrapperStyles='bg-neon'
+							href='https://pgt.dev/extensions/aggs_for_vecs'
 						>
 							<Image
 								src={Aggs_for_vecs}
@@ -408,6 +421,7 @@ const currentPath = Astro.url.pathname;
 							extensionTitle='bloom'
 							wrapperStyles='bg-pink'
 							titleStyles='text-neon'
+							href='https://pgt.dev/extensions/bloom'
 						>
 							<Image
 								src={Bloom}
@@ -419,6 +433,7 @@ const currentPath = Astro.url.pathname;
 							extensionTitle='bool_plperl'
 							wrapperStyles='bg-white'
 							titleStyles='text-black'
+							href='https://pgt.dev/extensions/bool_plperl'
 						>
 							<Image
 								src={Bool_plperl}
@@ -428,7 +443,10 @@ const currentPath = Astro.url.pathname;
 						</Extension>
 					</div>
 					<div class='flex flex-col gap-6 mt-[200px]'>
-						<Extension extensionTitle='pg_vector'>
+						<Extension
+							extensionTitle='pg_vector'
+							href='https://pgt.dev/extensions/pgvector'
+						>
 							<Image
 								src={PgVector}
 								alt='Admin Pack'
@@ -439,6 +457,7 @@ const currentPath = Astro.url.pathname;
 							extensionTitle='postgresml'
 							wrapperStyles='bg-customDarkGrey'
 							titleStyles='text-white'
+							href='https://pgt.dev/extensions/postgresml'
 						>
 							<Image
 								src={AdminPack}
@@ -452,6 +471,7 @@ const currentPath = Astro.url.pathname;
 							extensionTitle='amcheck'
 							wrapperStyles='bg-neon'
 							titleStyles='text-blue'
+							href='https://pgt.dev/extensions/amcheck'
 						>
 							<Image
 								src={Amcheck}
@@ -463,6 +483,7 @@ const currentPath = Astro.url.pathname;
 							extensionTitle='pg_vectorize'
 							wrapperStyles='bg-pink'
 							titleStyles='text-neon'
+							href='https://pgt.dev/extensions/vectorize'
 						>
 							<Image
 								src={Vectorize}
@@ -560,10 +581,12 @@ const currentPath = Astro.url.pathname;
 				<div class='container max-w-stackSlider mx-auto relative'>
 					<Animation
 						client:only='react'
-						animation={CrossingWalk1}
-						styles='-z-1 top-[200px] xs:top-[100px] sm:top-[50px] md:-top-[200px] xl:-top-[600px]'
+						animation={FooterCrossingWalk}
+						styles='-z-1 top-[300px] xs:top-[100px] sm:top-[50px] md:-top-[200px] xl:-top-[600px]'
 					/>
-					<div class='flex flex-col justify-center pb-[200px] z-10'>
+					<div
+						class='flex flex-col justify-center pb-[100px] min-[400px]:pb-[200px] z-10'
+					>
 						<Container styles='z-10'>
 							<h2
 								class='text-white font-bold text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] text-center leading-normal w-full z-50 mt-28'
