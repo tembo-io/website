@@ -17,14 +17,14 @@ const { extensionTitle, titleStyles, wrapperStyles, href } = Astro.props;
 >
 	<div
 		class={cx(
-			'flex flex-col items-center justify-between rounded-[20px] w-[230px] h-[205px] p-3.5',
+			'flex flex-col items-center justify-between rounded-[14px] customXs:rounded-[20px] w-[161px] h-[143.5px] customXs:w-[230px] customXs:h-[205px] p-[10px] customXs:p-3.5',
 			!wrapperStyles ? 'bg-neon' : '',
 			wrapperStyles,
 		)}
 	>
 		<h2
 			class={cx(
-				'text-center text-xl font-bold mb-2',
+				'text-center text-[14px] customXs:text-xl font-bold mb-2',
 				!titleStyles ? 'text-blue' : '',
 				titleStyles,
 			)}
