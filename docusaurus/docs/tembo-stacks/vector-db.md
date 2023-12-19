@@ -54,7 +54,10 @@ SELECT * FROM products limit 2;
 ALTER SYSTEM SET vectorize.openai_key TO '<your api key>';
 ```
 
-Restart postgres so that the parameter takes effect.
+Then reload postgres configs so that the parameter takes effect.
+```sql
+select pg_reload_conf();
+```
 
 ### Create a vectorize job
 
