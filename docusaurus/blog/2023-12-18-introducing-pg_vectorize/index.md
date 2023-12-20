@@ -2,13 +2,13 @@
 slug: introducing-pg_vectorize
 title: "Introducing pg_vectorize: Vector Search in 60 Seconds"
 authors: [eric, adam]
-tags: [postgres, vector, pg_vectorize]
+tags: [postgres, vector, pg_vectorize, tembo-only]
 ---
 
 
 That’s right. You could have vector searches running on your existing Postgres database in less time than it takes to read this blog. Let’s see how it works:
 
-[INSERT VIDEO HERE]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TgtINeeucy8?si=7jBlRi59mSnlnH0i" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Intrigued? Let’s take a look at the bigger story. 
 
@@ -28,7 +28,7 @@ So are all these providers and “solutions” actually making things easier? It
 
 ## Introducing pg_vectorize: Only Two Calls 
 
-Remember at the beginning how we said you could set up vector searches on Tembo Cloud in 60 seconds? No way you’re doing that with the long, convoluted process we just described—so we automated it. On Tembo cloud, the whole process of setting up and managing vectors for a given table is done with an open source extension we built named pg_vectorize, using a single Postgres function call: 
+Remember at the beginning how we said you could set up vector searches on Tembo Cloud in 60 seconds? No way you’re doing that with the long, convoluted process we just described—so we automated it. On Tembo Cloud, the whole process of setting up and managing vectors for a given table is done with an open source extension we built named pg_vectorize, using a single Postgres function call: 
 
 
 ```
