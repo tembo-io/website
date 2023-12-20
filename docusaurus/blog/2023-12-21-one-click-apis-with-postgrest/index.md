@@ -70,6 +70,6 @@ curl -X GET \
 ]
 ```
 
-In the same way, we can also use PostgREST to handle any other object of the database schema, which opens the door for a wide range of controls, but still without the need for complex add ons or additional services.
+In the same way, we can also use PostgREST to handle any other table/object in the database schema, which opens the door for a wide range of controls, but still without the need for complex add ons or additional services.
 
 It’s as simple as that, and it’s thanks to the PostgREST team—check out the repo and give them a star, then enable it on your next project at cloud.tembo.io!
