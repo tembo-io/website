@@ -80,5 +80,6 @@ As you can imagine, quite a bit. The platform is powered by open source Postgres
 
 In other words…60 seconds. That’s all it takes to try it out for yourself.
 
-Come to [cloud.tembo.io](https://cloud.tembo.io) and create a vector db or install pg_vectorize on any instance in Tembo for yourself—and while you're at it, visit the github repos of the extensions that power this project a star!
+Come to [cloud.tembo.io](https://cloud.tembo.io) and create a vector db or install pg_vectorize on any instance in Tembo for yourself—and while you're at it, visit the [pg_vectorize repo](https://github.com/tembo-io/pg_vectorize) and give it a star!
+
 Want to use an open source model instead of using OpenAI to generate your embeddings? We have something coming up for you—stay tuned! 
