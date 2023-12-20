@@ -38,10 +38,6 @@ Now that it’s up and running, let’s see how it actually works. This instance
 [image]
 
 
-Now we patch the instance to actually enable PostgREST: 
-
-[image]
-
 The endpoints created are dependent on the structure of the database tables and views, so for this one, for example, we can use a simple GET request to select the products table, which gives us these results: 
 
 
