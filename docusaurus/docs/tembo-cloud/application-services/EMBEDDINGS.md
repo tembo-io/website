@@ -143,3 +143,54 @@ SELECT * FROM vectorize.search(
 ```
 
 Get started now at [cloud.tembo.io](https://cloud.tembo.io)!
+
+## Using the embeddings API directly
+
+The embeddings service can also be used directly via your Tembo instance's API. For example, to generate embeddings for a single sentence, use the following:
+
+Export your Tembo host domain into an environment variable.
+
+```bash
+export TEMBO_DATA_DOMAIN=org-yourOrg-inst-yourInst.prd.data-1.use1.tembo.io
+```
+
+<Tabs>
+<TabItem value="py" label="Python">
+
+```py
+import requests
+
+TEMBO_TOKEN = os.environ["TEMBO_TOKEN"]
+TEMBO_DATA_DOMAIN = os.environ["TEMBO_DATA_DOMAIN"]
+
+resp = requests.post(
+    url=f"https://{TEMBO_DATA_DOMAIN}/embeddings/v1/embeddings",
+    headers={"Authorization": f"Bearer {TEMBO_TOKEN}"},
+    json={
+        "input": [
+            "I enjoy taking long walks along the beach with my dog.",
+            "I enjoy playing video games."
+        ],
+        "model": "all-MiniLM-L12-v2"
+    }
+)
+```
+
+</TabItem>
+<TabItem value="curl" label="Curl">
+
+```bash
+curl -X POST "https://${TEMBO_DATA_DOMAIN}/embeddings/v1/embeddings" \
+     -H "Authorization: Bearer ${TEMBO_TOKEN}" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "input": [
+             "I enjoy taking long walks along the beach with my dog.",
+             "I enjoy playing video games."
+           ],
+           "model": "all-MiniLM-L12-v2"
+         }'
+```
+
+</TabItem>
+</Tabs>
