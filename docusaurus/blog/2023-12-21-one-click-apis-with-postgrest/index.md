@@ -1,6 +1,6 @@
 ---
 slug: one-click-apis-with-postgrest
-title: 'One-Click APIs with PostgREST'
+title: 'One-Click RESTful APIs in Postgres'
 authors: [darren, eric]
 tags: [postgres, apps]
 ---
