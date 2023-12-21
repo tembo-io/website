@@ -18,10 +18,15 @@ A tembo stack is a pre-built, use case specific Postgres deployment which enable
 
 |Name|Replacement for|
 |----|---------------|
-|[Tembo OLTP](oltp.md)| Amazon RDS |
-|[Tembo Enterprise LLM](enterprise-llm.md)| Pinecone, ChromaDB |
-|[Tembo Message Queue](message-queue.md)| Amazon SQS, RabbitMQ, Redis |
-|[Tembo Data Warehouse](olap.md)| Snowflake, Bigquery |
+|[OLTP](oltp.md)| Amazon RDS |
+|[OLAP](olap.md)| Snowflake, Bigquery |
+|[Machine Learning](enterprise-llm.md)| Pinecone, ChromaDB |
+|[Message Queue](message-queue.md)| Amazon SQS, RabbitMQ, Redis |
+|[Data Warehouse](olap.md)| Snowflake, Bigquery |
+|Mongo Alternative on Postgres| MongoDB | 
+|Geospatial|  | 
+|[Vector DB](vector-db.md)| Pinecone, Weaviate |
+|[Standard](standard.md)| Amazon RDS |
 
 ## Anatomy of a Stack
 
