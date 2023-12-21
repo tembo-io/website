@@ -9,7 +9,7 @@ At Tembo, we support the things we believe in.
 
 It’s why we’re committed to the OSS movement—it’s not just that we like Postgres (we do), but that we genuinely believe that the open-source approach is _better_. We believe it creates a better ecosystem for us all to work in, it creates a better framework for innovation, and most of all, it just creates better projects.
 
-Projects like PostgREST.
+Projects like [PostgREST](https://github.com/PostgREST/postgrest).
 
 For those that aren’t familiar, PostgREST is a fantastic open source project for generating a RESTful API from any existing Postgres database. Like most developers and teams, we quickly ran into a situation where we had applications that we needed to be able to talk to one another. As a company, we needed a stable, flexible API solution—and immediately had to wrestle with how to handle it. Do we build our own? If we did, we could ensure it was stable and safe, but we’d be reinventing the wheel. If we used someone else’s, it would save on work, but introduce more risk.
 
@@ -21,7 +21,7 @@ Want to see an example? No problem — Darren walks us through how it works:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YuXaJreVyrw?si=0EQ07nNFhz-9qSww" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-For more, keep reading or check out our [docs](https://tembo.io/docs/tembo-cloud/application-services/REST-API)
+For more, keep reading or check out our [docs](https://tembo.io/docs/tembo-cloud/application-services/REST-API).
 
 ## No SaaS, Just One Step
 
