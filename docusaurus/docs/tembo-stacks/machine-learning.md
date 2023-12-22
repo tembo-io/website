@@ -119,7 +119,25 @@ ALTER TABLE titles ADD COLUMN last_updated_at TIMESTAMP DEFAULT NOW();
 
 Machine learning algorithms work with numbers, not text. So let's transform that text into some numbers using a sentence transformer.
 
-Tembo provides your ML deployment with pre-trained sentence transformers from Hugging Face, and we can use pg_vectorize to generate embeddings from text with ease.
+Let's add the embeddings service to our Tembo instance
+
+```python
+```python
+resp = requests.patch(
+    url=f"{tembo_url}/orgs/{org_id}/instances/{inst_id}",
+    headers={"Authorization": f"Bearer {token}"},
+    json={
+        "app_services": [
+            {"embeddings": None},
+        ]
+    }
+
+)
+print(resp.status_code)
+resp.json()
+```
+
+Now that we have a pre-trained sentence transformers from Hugging Face, and we can use pg_vectorize to generate embeddings from text with ease.
 
 ```sql
 select vectorize.table(
@@ -237,5 +255,56 @@ SELECT pgml.predict('clickbait_classifier',
 
 There we go, a click bait classifier.
 
-
 ## Expose model w/ a REST api using PostgREST
+
+Let's add a RestAPI to our instance
+
+```python
+resp = requests.patch(
+    url=f"{tembo_url}/orgs/{org_id}/instances/{inst_id}",
+    headers={"Authorization": f"Bearer {token}"},
+    json={
+        "app_services": [
+            {"embeddings": None}, # we want to keep the embeddings service
+            {"http": None}  # restapi
+        ]
+    }
+
+)
+print(resp.status_code)
+resp.json()
+```
+
+Let's create a convenience function
+
+```sql
+CREATE OR REPLACE FUNCTION predict_clickbait(input_string text)
+RETURNS TABLE(is_clickbait REAL)
+AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT pgml.predict(
+        'clickbait_classifier',
+        (SELECT vectorize.transform_embeddings(
+            input => input_string,
+            model_name => 'all_MiniLM_L12_v2'
+        ))
+    ) AS is_clickbait;
+END;
+$$ LANGUAGE plpgsql;
+
+```
+
+```bash
+export TEMBO_DATA_DOMAIN=youTemboHost
+```
+
+```bash
+curl -X POST \
+    -H "Authorization: Bearer ${TEMBO_TOKEN}" \
+    -H "Content-Type: application/json" \
+    https://${TEMBO_DATA_DOMAIN}/rest/v1/rpc/predict_clickbait \
+    -d '{"input_string": "the clickiest bait of them all"}'
+
+[{"is_clickbait":1}]
+```
