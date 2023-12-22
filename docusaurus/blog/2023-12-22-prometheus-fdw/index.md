@@ -5,9 +5,7 @@ authors: [abby, eric]
 tags: [postgres, extensions]
 ---
 
-What you have: all your monitoring data and analytics stored over _there_ in Prometheus.
-<br />
-What you’d _like_ to have: all of that data over _here_ in your Postgres database.
+What you have: all your monitoring data and analytics stored over _there_ in Prometheus.<br /> What you’d _like_ to have: all of that data over _here_ in your Postgres database.
 
 Having it all in Postgres would be simpler, easier to keep an eye on, and easier to do something with. But up until now, you couldn’t. At Tembo, we ran into this exact same problem ourselves—we wanted to be able to bring our own monitoring data back into our systems to allow for advanced time-series data queries and management.
 
