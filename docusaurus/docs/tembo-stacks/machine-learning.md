@@ -292,7 +292,12 @@ BEGIN
     ) AS is_clickbait;
 END;
 $$ LANGUAGE plpgsql;
+```
 
+Then tell PostgREST to reload the schema so that our function can be discovered.
+
+```sql
+NOTIFY pgrst, 'reload schema';
 ```
 
 ```bash
