@@ -236,3 +236,6 @@ SELECT pgml.predict('clickbait_classifier',
 ```
 
 There we go, a click bait classifier.
+
+
+## Expose model w/ a REST api using PostgREST
