@@ -50,7 +50,7 @@ const currentPath = Astro.url.pathname;
 				class='tembo-hero-section mt-[25px] customXs:mt-[40px] md:mt-[80px]'
 			>
 				<div
-					class='flex flex-col items-center justify-center z-10 pb-[100px] relative'
+					class='flex flex-col items-center justify-center z-10 pb-[50px] customXs:pb-[100px] relative'
 				>
 					<header class='text-center slide-enter-content'>
 						<h2
@@ -75,7 +75,9 @@ const currentPath = Astro.url.pathname;
 			<section
 				class='tembo-card-stack-section flex items-center justify-center z-10'
 			>
-				<div class='flex items-start gap-4 z-10'>
+				<div
+					class='flex items-start gap-4 z-10 scale-75 customXs:scale-100'
+				>
 					<div
 						class='flex flex-col justify-center items-center gap-4 mt-[65px]'
 					>
@@ -90,7 +92,7 @@ const currentPath = Astro.url.pathname;
 							<Image
 								src={AutoApi}
 								alt='Auto Api'
-								class='h-[150px] w-full rounded-xl'
+								class='w-full rounded-xl'
 							/>
 						</HeroCard>
 						<HeroCard
@@ -118,7 +120,7 @@ const currentPath = Astro.url.pathname;
 							<Image
 								src={LocalSearch}
 								alt='Vector Store'
-								class='h-[150px] w-full rounded-xl'
+								class='w-full rounded-xl'
 							/>
 						</HeroCard>
 					</div>
@@ -138,7 +140,7 @@ const currentPath = Astro.url.pathname;
 							<Image
 								src={DataWarehouse}
 								alt='Vector Store'
-								class='h-[150px] w-full rounded-xl'
+								class='w-full rounded-xl'
 							/>
 						</HeroCard>
 						<HeroCard
@@ -168,7 +170,7 @@ const currentPath = Astro.url.pathname;
 							<Image
 								src={VectorStore}
 								alt='Vector Store'
-								class='h-[150px] w-full rounded-xl'
+								class='w-full rounded-xl'
 							/>
 						</HeroCard>
 					</div>
@@ -186,7 +188,7 @@ const currentPath = Astro.url.pathname;
 							<Image
 								src={Realtime}
 								alt='Vector Store'
-								class='h-[150px] w-full rounded-xl'
+								class='w-full rounded-xl'
 							/>
 						</HeroCard>
 						<HeroCard
@@ -198,10 +200,12 @@ const currentPath = Astro.url.pathname;
 				</div>
 			</section>
 		</Container>
-		<section class='tembo-build-any-application-section pt-14 pb-[150px]'>
+		<section
+			class='tembo-build-any-application-section pt-4 customXs:pt-14 pb-[150px]'
+		>
 			<Container>
 				<div
-					class='flex flex-col items-center justify-center mt-36 gap-6'
+					class='flex flex-col items-center justify-center mt-9 customXs:mt-36 gap-6'
 				>
 					<h3 class='text-neon font-secondary'>BUILT TO SCALE</h3>
 					<h1
