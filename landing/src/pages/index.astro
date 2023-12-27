@@ -17,7 +17,6 @@ import DetailSequence from '../components/DetailSequence';
 import ArrowButton from '../components/ArrowButton.astro';
 import Animation from '../components/Animation';
 import Footer from '../components/Footer.astro';
-import FooterCrossingWalk from '../animations/CrossingWalk1.json';
 import AdminPack from '../images/adminPack.svg';
 import Vectorize from '../images/vectorize.svg';
 import PgVector from '../images/pg_vector.svg';
@@ -599,7 +598,7 @@ const currentPath = Astro.url.pathname;
 				<div class='container max-w-stackSlider mx-auto relative'>
 					<Animation
 						client:only='react'
-						animation={FooterCrossingWalk}
+						isFooter={true}
 						styles='-z-1 top-[300px] xs:top-[100px] sm:top-[50px] md:-top-[200px] xl:-top-[600px]'
 					/>
 					<div
