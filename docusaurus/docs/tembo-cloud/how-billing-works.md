@@ -1,6 +1,6 @@
 # How billing works
 
-Welcome to Tembo's pricing documentation. We believe in transparency and simplicity in our billing, ensuring you only pay for what you need. Our usage-based model is designed to scale with your growth, offering both hobby (free) and production (paid) instances.
+Let's make it simple: you only use what you need, so you should only pay for what you need. Our usage-based model is designed to scale with your growth, offering both hobby (free) and production (paid) instances.
 
 ## Billing Structure
 
@@ -9,7 +9,7 @@ Welcome to Tembo's pricing documentation. We believe in transparency and simplic
 - **Hobby Instances:** Enjoy free usage with limited resources - perfect for development and testing. 
 - **Production Instances:** Charged based on resource consumption. Below are the detailed costs:
 
-  You can install and enable as many extensions and apps as you like in both hobby and production instances
+ Note: You can install and enable as many extensions and apps as you like in both hobby and production instances.
 
 ## Pricing Details
 
@@ -21,7 +21,7 @@ Welcome to Tembo's pricing documentation. We believe in transparency and simplic
 
 - **High Availability (HA):** Enabling HA for your instances doubles the resources allocated for redundancy, effectively doubling the cost. HA ensures higher uptime and reliability, particularly beneficial for critical applications.
 
-- **Extensions and Apps** You can add as many users as you need to your organization without additional costs.
+- **Extensions and Apps** You can add as many users as needed to your organization without additional costs.
 
 ## Billing Cycle and Charges
 
@@ -39,7 +39,7 @@ Welcome to Tembo's pricing documentation. We believe in transparency and simplic
 
 <details>
 <summary><b>Can I try it for free?</b></summary>
-Our developer plan is totally free to use for as long as you want. You will have full access to apps and extensions, however the hobby tier is limited to 0.25vCPU and 1Gi Memory. We also offer a 14-day free trial (up to $300 usage) on paid tiers for new accounts.
+Our developer plan is free to use for as long as you want, with full access to apps and extensions. However, the hobby tier is limited to 0.25vCPU and 1Gi Memory. We also offer a 14-day free trial (up to $300 usage) on paid tiers for new accounts.
 </details>
 
 <details>
