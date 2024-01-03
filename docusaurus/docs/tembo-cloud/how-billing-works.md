@@ -49,7 +49,7 @@ There are multiple ways to get support from our team. You can join our slack com
 
 <details>
 <summary><b>How is pricing for Tembo cloud calculated?</b></summary>
-You can see the pricing in the pricing details section. Pricing is calculated based on instance size (compute, memory, and storage). If you have both hobby and subscription instances, you will only be charged for the subscription instances.
+You can see the pricing in the pricing details section. Pricing is calculated based on instance size (compute, memory, and storage) and HA (if enabled). If you have both hobby and subscription instances, you will only be charged for the subscription instances.
 </details>
 
 <details>
