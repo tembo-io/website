@@ -1,6 +1,8 @@
-# How billing works
+# Tembo Cloud Billing
 
-Let's make it simple: you only use what you need, so you should only pay for what you need. Our usage-based model is designed to scale with your growth, offering both hobby (free) and production (paid) instances.
+You only use what you need, so you should only pay for what you need.
+
+Our usage-based model is designed to scale with your growth, offering both hobby (free) and production (paid) instances.
 
 ## Billing Structure
 
@@ -9,31 +11,29 @@ Let's make it simple: you only use what you need, so you should only pay for wha
 - **Hobby Instances:** Enjoy free usage with limited resources - perfect for development and testing. 
 - **Production Instances:** Charged based on resource consumption. Below are the detailed costs:
 
- Note: You can install and enable as many extensions and apps as you like in both hobby and production instances.
+Note: You can install and enable as many extensions and apps as you like in both hobby and production instances.
 
 ## Pricing Details
 
-| Resource  | Cost per Hour | Cost per Month |
-|-----------|---------------|----------------|
-| 1 vCPU    | $0.07391      | $53.95         |
-| 1Gi Memory| $0.00549      | $4.01          |
-| 1Gi Storage| $0.00014     | $0.1           |
+| Resource    | Cost per Hour | Cost per Month |
+|-------------|---------------|----------------|
+| 1 vCPU      | $0.07391      | $53.95         |
+| 1Gi Memory  | $0.00549      | $4.01          |
+| 1Gi Storage | $0.00014      | $0.1           |
 
 - **High Availability (HA):** Enabling HA for your instances doubles the resources allocated for redundancy, effectively doubling the cost. HA ensures higher uptime and reliability, particularly beneficial for critical applications.
 
-- **Extensions and Apps** You can add as many users as needed to your organization without additional costs.
+- **Users** You can add as many users as needed to your organization, without additional costs.
 
 ## Billing Cycle and Charges
 
-- **No Immediate Upfront Charges:** Changes in compute resources are billed at the start of the next billing cycle based on resource hours.
-- **Multiple Instances:** Additional instances are combined into your final invoice.
-- **14-Day Free Trial:** New production instances come with a 14-day free trial (up to $300 usage).
-- **Special Charter Discounts:** Users who signed up before January 2nd receive a first-year discount of 50% and a 25% evergreen discount.
+- **No Immediate Upfront Charges:** Changes in compute resources are billed at the start of the next billing cycle based on the previous period's resource hours.
+- **Multiple Instances:** All instances are aggregated into one invoice, broken down by instance.
+- **14-Day Free Trial:** New production instances come with a 14-day free trial (or up to $300 usage).
 
 ## Monitoring and Managing Your Billing
 
 - **Usage and Invoices:** Check your usage and view draft invoices on the Usage page in your profile.
-
 
 ## Frequently Asked Questions (FAQs)
 
