@@ -19,7 +19,9 @@ Welcome to Tembo's pricing documentation. We believe in transparency and simplic
 | 1Gi Memory| $0.00549      | $4.01          |
 | 1Gi Storage| $0.00014     | $0.1           |
 
-**Note:** You can add as many users as you need to your organization without additional costs.
+- **High Availability (HA):** Enabling HA for your instances doubles the resources allocated for redundancy, effectively doubling the cost. HA ensures higher uptime and reliability, particularly beneficial for critical applications.
+
+- **Extensions and Apps** You can add as many users as you need to your organization without additional costs.
 
 ## Billing Cycle and Charges
 
@@ -47,7 +49,7 @@ There are multiple ways to get support from our team. You can join our slack com
 
 <details>
 <summary><b>How is pricing for Tembo cloud calculated?</b></summary>
-You can see the pricing the pricind details section. Pricing is calculated based on instance size (compute, memory, and storage). If you have both hobby and subscription instances, you will only be charged for the subscription instances.
+You can see the pricing in the pricing details section. Pricing is calculated based on instance size (compute, memory, and storage). If you have both hobby and subscription instances, you will only be charged for the subscription instances.
 </details>
 
 <details>
@@ -62,7 +64,7 @@ Upgrading from free to paid is easy, just select your desired instance size in t
 
 <details>
 <summary><b>What payment methods do you accept?</b></summary>
-We partner with Stripe to process payments. Stripe accepts all major credit cards internationally.
+We partner with Stripe to process payments. Stripe accepts all major credit cards.
 </details>
 
 <details>
@@ -77,7 +79,7 @@ Yes, we bill on size of instance, but we provide metrics so that you can monitor
 
 <details>
 <summary><b>How do I drop my instance?</b></summary>
-You can delete your instance in settings>server settings; note that deleted instances cannot be recovered.
+You can delete your instance in <b>Settings > Server settings</b>; note that deleted instances cannot be recovered.
 </details>
 
 <details>
@@ -87,5 +89,5 @@ All current accounts (as of January 3, 2024) will be given a lifetime pricing di
 
 <details>
 <summary><b>Do you offer discounts for startups or non-profits?</b></summary>
-At this point, we do not have a formal program of discounts for startups or nonprofit organizations. However, we sometimes provide discounts depending on the specific project or use case. Send us a description of your project and use case to [support@tembo.io](mailto:support@tembo.io) and we’ll get back to as quickly as possible.
+At this point, we do not have a formal program of discounts for startups or nonprofit organizations. However, we sometimes provide discounts depending on the specific project or use case. Send us a description of your project and use case to [support@tembo.io](mailto:support@tembo.io) and we’ll get back to you as quickly as possible.
 </details>
