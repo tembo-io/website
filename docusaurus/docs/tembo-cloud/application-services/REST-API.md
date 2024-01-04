@@ -27,10 +27,6 @@ Main Features:
 
 ## Enabling PostgREST on Tembo Cloud
 
-:::info
-Coming soon: enable PostgREST via the [Tembo Cloud UI](https://cloud.tembo.io)
-:::
-
 First, you will need to generate an API token so that you can communicate with your Tembo instance. Navigate to cloud.tembo.io/generate-jwt and follow the instructions to generate a token. Alternatively, you can follow the instructions [here](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication).
 
 Set your Tembo token as an environment variable, along with your organization id and the Tembo instance id. Fetch the `TEMBO_DATA_DOMAIN` from the "Host" parameter of your Tembo instance.
