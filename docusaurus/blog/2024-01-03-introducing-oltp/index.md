@@ -13,7 +13,7 @@ The problem…is all the _other_ stuff required in order for that database to so
 
 Want to see how it works? Check it out here as Darren gives us the tour:
 
-[video]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ys7l7WhlV6Y?si=9lkAlIuMd240kluY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 So what does that mean for you today? Simple. There are 3 key components that can make or break your OLTP database, and Tembo provides all three.
 
