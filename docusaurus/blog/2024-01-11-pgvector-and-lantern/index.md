@@ -118,7 +118,7 @@ Increasing the m parameter to 24, we get similar conclusions:
 
 ![Throughput](./016-qps-m24.png)
 
-These results were consistent with my observations when using Gist-960 and Glove-200. You can see more results here.
+These results were consistent with my observations when using Gist-960 and Glove-200. You can see more results [here](https://github.com/binidxaba/lantern-pgvector-comparison/tree/main).
 
 
 ## Conclusions
@@ -148,3 +148,5 @@ The experiments in this post were carried out using a machine with the following
 | **Postgres**         | 14                                            |
 | **Lantern**          | 0.0.9                                         |
 | **PGVector**         | 0.5.1                                         |
+
+For information about other results, please see [here](https://github.com/binidxaba/lantern-pgvector-comparison/tree/main).
