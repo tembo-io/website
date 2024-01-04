@@ -44,7 +44,7 @@ Our developer plan is free to use for as long as you want, with full access to a
 
 <details>
 <summary><b>Do you offer support?</b></summary>
-There are multiple ways to get support from our team. You can join our slack community, email us at [support@tembo.io](mailto:support@tembo.io), or use the Intercom “message us” feature on our website. We respond to most messages within 24 hours (and often faster!).
+There are multiple ways to get support from our team. You can join our slack community, email us at <a href="mailto:support@tembo.io">support@tembo.io</a>, or use the Intercom “message us” feature on our website. We respond to most messages within 24 hours (and often faster!).
 </details>
 
 <details>
@@ -54,12 +54,12 @@ You can see the pricing in the pricing details section. Pricing is calculated ba
 
 <details>
 <summary><b>What is my billing cycle?</b></summary>
-We bill for usage on the first of each month, but if you’re interested in pre-payment or other payment schemes, email us at [support@tembo.io](mailto:support@tembo.io)
+We bill for usage on the first of each month, but if you’re interested in pre-payment or other payment schemes, email us at <a href="mailto:support@tembo.io">support@tembo.io</a>
 </details>
 
 <details>
 <summary><b>Can I change my subscription level?</b></summary>
-Upgrading from free to paid is easy, just select your desired instance size in the settings, then follow the prompts to add a credit card (if you don’t already have one on file). If your current storage is 10Gi, then you can downgrade by reducing your compute and memory to the hobby tier (0.25vCPU, 1Gi). If your current storage is greater than 10Gi, then your instance cannot be downgraded. We recommend just creating a new instance on the hobby tier, or contact us at [support@tembo.io](mailto:support@tembo.io) for more detailed guidance.
+Upgrading from free to paid is easy, just select your desired instance size in the settings, then follow the prompts to add a credit card (if you don’t already have one on file). If your current storage is 10Gi, then you can downgrade by reducing your compute and memory to the hobby tier (0.25vCPU, 1Gi). If your current storage is greater than 10Gi, then your instance cannot be downgraded. We recommend just creating a new instance on the hobby tier, or contact us at <a href="mailto:support@tembo.io">support@tembo.io</a> for more detailed guidance.
 </details>
 
 <details>
@@ -84,10 +84,10 @@ You can delete your instance in <b>Settings > Server settings</b>; note that del
 
 <details>
 <summary><b>Are there any commitment-based discounts?</b></summary>
-All current accounts (as of January 3, 2024) will be given a lifetime pricing discount. We also offer discounts based on volume and commitment level. For more information on discounts at Tembo, contact us at [support@tembo.io](mailto:support@tembo.io)
+All current accounts (as of January 3, 2024) will be given a lifetime pricing discount. We also offer discounts based on volume and commitment level. For more information on discounts at Tembo, contact us at <a href="mailto:support@tembo.io">support@tembo.io</a>
 </details>
 
 <details>
 <summary><b>Do you offer discounts for startups or non-profits?</b></summary>
-At this point, we do not have a formal program of discounts for startups or nonprofit organizations. However, we sometimes provide discounts depending on the specific project or use case. Send us a description of your project and use case to [support@tembo.io](mailto:support@tembo.io) and we’ll get back to you as quickly as possible.
+At this point, we do not have a formal program of discounts for startups or nonprofit organizations. However, we sometimes provide discounts depending on the specific project or use case. Send us a description of your project and use case to <a href="mailto:support@tembo.io">support@tembo.io</a> and we’ll get back to you as quickly as possible.
 </details>
