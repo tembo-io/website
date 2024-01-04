@@ -237,15 +237,8 @@ def flatten(conn_str: str, relation_name: str, column_name: str, embedding_dim: 
         index=data.index
     )
     expanded_df.columns = column_names
-
     expanded_df["is_clickbait"] = data["is_clickbait"]
-
-    expanded_df.to_sql(
-        f"{relation_name}_flattened",
-        eng,
-        if_exists='append',
-        index=False
-    )
+    expanded_df.to_csv(f"{relation_name}_flattened.csv", index=False)
 
 if __name__ == '__main__':
     conn_str = parser.parse_args().connection_str
@@ -255,13 +248,15 @@ if __name__ == '__main__':
     flatten(conn_str, relation_name, column_name, embedding_dim)    
 ```
 
-Execute the python script. This could take several minutes depending on your compute resources.
+
+Execute the python script. This will write the expanded data to a csv named `titles_flattened.csv`.
+ This could take several minutes depending on your compute resources.
 
 ```bash
 python flatten.py --connection_str $TEMBO_CONN --relation_name titles --column_name clickbait_embeddings --embedding_dim 384  
 ```
 
-This writes the data to a csv. For speed, we will use psql and \copy again to insert this back into postgres.
+Load the flattened data into Postgres using `psql`. First, connect to your Tembo instance, then execute the `\copy` command below.
 
 ```bash
 psql $TEMBO_CONN
@@ -269,7 +264,7 @@ psql $TEMBO_CONN
 \copy titles_flattened FROM './expanded_df.csv' DELIMITER ',' CSV HEADER;
 ```
 
-Now we can train a classification model using XGBoost on this data using `pgml`.
+Train a classification model using XGBoost on this data using the `pgml` extension.
 
 ```sql
 SELECT * FROM pgml.train(
@@ -280,6 +275,12 @@ SELECT * FROM pgml.train(
     y_column_name => 'is_clickbait'
 );
 ```
+
+This should take only a few minutes. Check that the model exists in the local model registry.
+
+
+The model is trained. We can pass new titles in to the model to get them classified as clickbait or not clickbait. But first, we need to transform the new title into an embedding using the exact same transformer that we used to train the model.
+ For that, we will call `vectorize.transform_embeddings()` and pass the result into `pgml.predict()`
 
 ```sql
 SELECT pgml.predict('clickbait_classifier',
@@ -298,11 +299,11 @@ There we go, a click bait classifier.
 
 ## Expose model w/ a REST api using PostgREST
 
-Let's add a RestAPI to our instance
+Let's add a RestAPI to our instance. This can be done either using the Tembo Cloud UI, or via the API with the PATCH request given below.
 
 ```python
 resp = requests.patch(
-    url=f"{tembo_url}/orgs/{org_id}/instances/{inst_id}",
+    url=f"https://api.tembo.io/orgs/{org_id}/instances/{inst_id}",
     headers={"Authorization": f"Bearer {token}"},
     json={
         "app_services": [
@@ -315,7 +316,7 @@ print(resp.status_code)
 resp.json()
 ```
 
-Let's create a convenience function
+Let's create a helper function that we can call via PostgREST. This function will take in a string, then call `vectorize.transform_embeddings()` and pass the result into `pgml.predict()` the same as we previously demonstrated.
 
 ```sql
 CREATE OR REPLACE FUNCTION predict_clickbait(input_string text)
@@ -334,11 +335,13 @@ END;
 $$ LANGUAGE plpgsql;
 ```
 
-Then tell PostgREST to reload the schema so that our function can be discovered.
+We're almost done. Tell PostgREST to reload the schema so that our function can be discovered by invoking a NOTIFY command:
 
 ```sql
 NOTIFY pgrst, 'reload schema';
 ```
+
+Finally, we can make an HTTP request to our Tembo instance to classify our text:
 
 ```bash
 export TEMBO_DATA_DOMAIN=youTemboHost
@@ -353,6 +356,8 @@ curl -X POST \
 
 [{"is_clickbait":1}]
 ```
+
+It returned a 1, so we think this is clickbait!
 
 Now we should have a machine learning model which classifies text as clickbait or not clickbait, and a REST API that we can use to make predictions.
 
