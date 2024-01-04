@@ -18,6 +18,21 @@ The extensions listed above are all very flexible and support many use cases. Vi
 
 ## Getting started
 
+# Text Classification on Tembo ML
+
+## Introduction
+
+The Tembo Machine Learning Stack has several important Postgres extensions that make it easy to train and deploy machine learning models in Postgres.
+
+This tutorial will walk you through the process of training a text classification model and then deploying that model behind a REST API.
+
+- [postgresml](https://pgt.dev/extensions/postgresml) - `pgml` allows you to train and run machine learning models in Postgres. It supports a variety of models and algorithms, including linear regression, logistic regression, decision tree, random forest, and k-means clustering. It also provides hooks into HuggingFace for downloading and consuming pre-trained models and transformers.
+- [pg_vectorize](https://pgt.dev/extensions/vectorize) - an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
+
+The extensions listed above are all very flexible and support many use cases. Visit their documentation pages for additional details.
+
+## Getting started
+
 ### Train a supervised model on a dataset
 
 In this example, we are going to build a click-bait detector. We want to have a service that can take in a block of text and then determine a probability that the text is click-bait.
@@ -25,7 +40,6 @@ In this example, we are going to build a click-bait detector. We want to have a 
 We are going to structure this as a supervised machine learning problem, so we will need example of text that are both click-bait, and not click-bait. We will use the [clickbait dataset](https://github.com/bhargaviparanjape/clickbait/tree/master/dataset) for this example.
 
 Download the datasets.
-
 
 ```bash
 wget https://github.com/bhargaviparanjape/clickbait/raw/master/dataset/clickbait_data.gz
@@ -38,7 +52,6 @@ Extract them.
 gzip -d clickbait_data.gz
 gzip -d non_clickbait_data.gz
 ```
-
 
 Now, let's re-format that data to make it easier to insert into Postgres.
 
@@ -66,10 +79,28 @@ with open('training_data.csv', mode='w', newline='') as file:
         writer.writerow(item)
 ```
 
-Run it!
+Run it! This will create a file called `training_data.csv` with two columns; the text and a 1 or 0 indicating whether or not it is clickbait.
+
+```bash
+title,is_clickbait
+Should I Get Bings,1
+Which TV Female Friend Group Do You Belong In,1
+```
 
 ```bash
 python prep.py
+```
+
+Load the data into Postgres using `psql`. First, connect to your Tembo instance.
+
+Let's set our postgres connection string in an environment variable so we can re-use it a bunch of times.
+
+```bash
+export TEMBO_CONN='postgresql://postgres:yourPassword@yourHost:5432/postgres'
+```
+
+```bash
+psql $TEMBO_CONN
 ```
 
 Create a table to store the data.
@@ -78,20 +109,7 @@ Create a table to store the data.
 CREATE TABLE titles (
     title TEXT,
     is_clickbait INTEGER
-)
-```
-
-Load the data into Postgres using `psql`. First, connect your Tembo instance.
-
-Let's set our postgres connection string in an environment variable so we can re-use it a bunch of times.
-
-```bash
-export TEMBO_CONN='postgresql://postgres:yourPassword@yourHost:5432/postgres'
-```
-
-
-```bash
-psql $TEMBO_CONN
+);
 ```
 
 Load the data into the Postgres table using the `\copy` command.
@@ -110,6 +128,17 @@ select * from titles limit 2;
  Which TV Female Friend Group Do You Belong In |            1
 ```
 
+The dataset is approximately balanced.
+
+```sql
+select count(*) from titles group by is_clickbait;
+ count 
+-------
+ 16001
+ 15999
+(2 rows)
+```
+
 Now lets add a primary key to that table so we can easily reference these rows later.
 
 ```sql
@@ -117,24 +146,16 @@ ALTER TABLE titles ADD COLUMN record_id BIGSERIAL PRIMARY KEY;
 ALTER TABLE titles ADD COLUMN last_updated_at TIMESTAMP DEFAULT NOW();
 ```
 
-Machine learning algorithms work with numbers, not text. So let's transform that text into some numbers using a sentence transformer.
+Machine learning algorithms work with numbers, not text. So, order to train a model on our text, we need to we need to transform that text into some numbers using a sentence transformer.
 
-Let's add the embeddings service to our Tembo instance
+Let's add the embeddings service to our Tembo instance.
 
-```python
-```python
-resp = requests.patch(
-    url=f"{tembo_url}/orgs/{org_id}/instances/{inst_id}",
-    headers={"Authorization": f"Bearer {token}"},
-    json={
-        "app_services": [
-            {"embeddings": None},
-        ]
-    }
-
-)
-print(resp.status_code)
-resp.json()
+```bash
+curl -X PATCH \
+     -H "Authorization: Bearer ${TEMBO_TOKEN}" \
+     -H "Content-Type: application/json" \
+     -d '{"app_services": [{"embeddings": null}]}' \
+     "https://api.tembo.io/orgs/${ORG_ID}/instances/${INSTANCE_ID}"
 ```
 
 Now that we have a pre-trained sentence transformers from Hugging Face, and we can use pg_vectorize to generate embeddings from text with ease.
@@ -155,6 +176,10 @@ Now we have a table with embeddings for each title.
 
 ```sql
 \x
+select * from titles limit 1;
+```
+
+```console
 title                | Kyoto Treaty becomes legally binding on February 16
 is_clickbait         | 0
 record_id            | 25371
@@ -198,7 +223,6 @@ def flatten(conn_str: str, relation_name: str, column_name: str, embedding_dim: 
             text(f"SELECT is_clickbait, {column_name}::vector FROM {relation_name}"),
             conn
         )
-        print(data)
     
     data[column_name] = data[column_name].apply(json.loads)        
     expanded_df = pd.DataFrame(
@@ -228,12 +252,18 @@ if __name__ == '__main__':
 python flatten.py --connection_str $TEMBO_CONN --relation_name titles --column_name clickbait_embeddings --embedding_dim 384  
 ```
 
-Now we can train a model on this data using `pgml`.
+This writes the data to a csv. For speed, we will use psql and \copy again to insert this back into postgres.
+
+```bash
+\copy titles_flattened FROM './expanded_df.csv' DELIMITER ',' CSV HEADER;
+```
+
+Now we can train a classification model using XGBoost on this data using `pgml`.
 
 ```sql
 SELECT * FROM pgml.train(
     project_name => 'clickbait_classifier',
-    algorithm => 'linear',
+    algorithm => 'xgboost',
     task => 'classification',
     relation_name => 'titles_flattened',
     y_column_name => 'is_clickbait'
