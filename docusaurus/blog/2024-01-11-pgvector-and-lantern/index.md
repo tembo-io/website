@@ -3,6 +3,7 @@ slug: postgres-vector-search-pgvector-and-lantern
 title: 'Comparing Postgres Vector Search approaches: Pgvector vs Lantern'
 authors: [rjzv]
 tags: [postgres, extensions, vector, lantern, pgvector]
+image: ./elephant-with-lantern.jpeg
 ---
 
 ![An elephant holding a lantern](./elephant-with-lantern.jpeg)
@@ -19,11 +20,11 @@ Today, let's talk about Vector Search in Postgres from yet another perspective. 
 
 ## Vector Search in PostgreSQL
 
-Vector search is a space that has seen very active development this year. A big part of that has to do with the emergence of powerful embedding models and their use in AI. You have probably witnessed how many people, startups, and big companies are exploring how to take advantage of vectors and incorporate them into [their products](https://hn.algolia.com/?dateRange=all&page=0&prefix=false&query=vector%20search&sort=byDate&type=story).
+Vector search is a space that has seen very active development in the last several months. A big part of that has to do with the emergence of powerful embedding models and their use in AI. You have probably witnessed how many people, startups, and big companies are exploring how to take advantage of vectors and incorporate them into [their products](https://hn.algolia.com/?dateRange=all&page=0&prefix=false&query=vector%20search&sort=byDate&type=story).
 
-Such enthusiasm has also attracted the Postgres community. Pgvector arose with the ability to create [IVVFlat indexes](https://tembo.io/blog/vector-indexes-in-pgvector) on existing tables with a simple DDL statement. And so, people were given the ability to easily perform similarity queries. 
+Such enthusiasm has also attracted the Postgres community. [Pgvector](https://github.com/pgvector/pgvector) arose with the ability to create [IVVFlat indexes](https://tembo.io/blog/vector-indexes-in-pgvector) on existing tables with a simple DDL statement. And so, people were given the ability to easily perform similarity queries. 
 
-But Pgvector is not the only one in this space. The community has come up with other alternatives as well. One such example was [pg_embedding](https://github.com/neondatabase/pg_embedding). In July, Neon published a [post](https://neon.tech/blog/pg-embedding-extension-for-vector-search) where they showed how its extension was 20x faster than Pgvector by using HNSW indexes . However, Pgvector quickly caught up and introduced the HNSW index as well. Around that time, on September 29th, Neon stopped supporting `pg_embedding` and suggested migrating to Pgvector.
+But Pgvector is not the only one in this space. The community has come up with other alternatives as well. One such example was [pg_embedding](https://github.com/neondatabase/pg_embedding). In July, [Neon](https://neon.tech/) published a [post](https://neon.tech/blog/pg-embedding-extension-for-vector-search) where they showed how its extension was 20x faster than Pgvector by using HNSW indexes . However, Pgvector quickly caught up and introduced the HNSW index as well. Around that time, on September 29th, Neon stopped supporting `pg_embedding` and suggested migrating to Pgvector.
 
 Another Postgres extension in the vector search domain is [Lantern](https://github.com/lanterndata/lantern), developed by a [company of the same name](https://lantern.dev/). In October, a post on their blog claimed that their extension could outperform Pgvector by 90x in index creation time. That was an outstanding achievement!
 
@@ -69,7 +70,7 @@ As for the HNSW parameters, I used the following:
 |||
 |---------------------|----------------------------------------|
 | **ef_construction** | 200                                    |
-| **m**               | {[8,] 16, 24}                          |
+| **m**               | {[8, 16,] 24}                          |
 | **ef_search**       | {10, 20, 40, 80, 120, [128,] 200, 400} |
 
 
