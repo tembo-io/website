@@ -212,7 +212,7 @@ return embeddings
 $$ LANGUAGE 'plpython3u';
 ```
 
-Now that we have that function created, we can craft a SQL statement to apply it to our table. Execute this statement.
+Now that we have that function created, we can craft a SQL statement and apply it to our table. Execute this statement.
 
 ```sql
 WITH embedding_results as (
@@ -234,7 +234,7 @@ WHERE titles_training.record_id = table_rows.record_id
 AND table_rows.rn = embedding_results.rn;
 ```
 
-Tada, we have a table with embeddings for each title.
+Tada! Now we have a table with embeddings for each title.
 
 ```sql
 \x
