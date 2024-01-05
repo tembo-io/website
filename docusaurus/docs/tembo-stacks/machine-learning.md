@@ -25,7 +25,8 @@ First, create a Tembo Cloud instance with the Machine Learning Stack. We recomme
 
 Let's build a click-bait detector, a service that can take in a block of text and then determine whether that the text is likely to be click-bait.
 
-We are going to structure this as a supervised machine learning problem, so we will need example of text that are both click-bait, and not click-bait. We will use the [clickbait dataset](https://github.com/bhargaviparanjape/clickbait/tree/master/dataset) for this example.
+We are going to structure this as a supervised machine learning problem, so we will need example of text that are both click-bait, and not click-bait [1]. We will use the [clickbait dataset](https://github.com/bhargaviparanjape/clickbait/tree/master/dataset) for this example.
+
 
 We'll use an open source sentence transformer from Hugging Face and the PostgresML extension to train an XGBoost model to classify text as click-bait or not click-bait.
 
@@ -444,3 +445,7 @@ It returned a 1, so we think this is clickbait!
 Now we should have a machine learning model which classifies text as clickbait or not clickbait, and a REST API that we can use to make predictions.
 
 Try it now at [cloud.tembo.io](https://cloud.tembo.io).
+
+Sources:
+
+[1] Chakraborty, A., Paranjape, B., Kakarla, S., & Ganguly, N. (2016). Stop Clickbait: Detecting and preventing clickbaits in online news media. In *Advances in Social Networks Analysis and Mining (ASONAM), 2016 IEEE/ACM International Conference on* (pp. 9-16). IEEE.
