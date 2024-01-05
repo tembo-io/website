@@ -4,13 +4,12 @@ sidebar_position: 7
 
 # Tembo Machine Learning
 
-The Machine Learning stack is equiped with tools to help you and your team manage the complete lifecycle of machine learning. With PostgresML, pg_vector, pg_vectorize, pg_cron, and pgmq built in, you’ll have everything you need for compute-heavy predictive analytics applications or a production-ready AI pipeline.
+The Tembo Machine Learning Stack has several important Postgres extensions that make it easy to train and deploy machine learning models in Postgres.
 
 ## Extensions
 
-- [postgresml](https://pgt.dev/extensions/postgresml) - `pgml` allows you to train and run machine learning models in Postgres. It supports a variety of models and algorithms, including linear regression, logistic regression, decision tree, random forest, and k-means clustering. It also provides hooks into HuggingFace for downloading and consuming pre-trained models and transformers.
-- [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embeddings and then conducting vector search on that data.
-- [pg_embedding](https://pgt.dev/extensions/pg_embedding) - an alternative to `pgvector` that provides similar functionality.
+- [postgresml](https://pgt.dev/extensions/postgresml) - `pgml` allows you to train and run machine learning models in Postgres. It supports a variety of models and algorithms, including linear regression, logistic regression, decision tree, random forest, and k-means clustering. It also provides hooks into HuggingFace for downloading and consuming pre-trained models and transformers. Visit [PostgresML](https://github.com/postgresml/postgresml) for more details.
+- [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embeddings and then conducting vector search on that data. Visit pgvector's [Github repo](https://github.com/pgvector/pgvector) for more information.
 - [pg_vectorize](https://pgt.dev/extensions/vectorize) - an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
 - [pg_later] (https://pgt.dev/extensions/pg_later) - Enables asynchronous query execution, which helps better manage resources and frees users up for other tasks. 
 
@@ -18,28 +17,19 @@ The extensions listed above are all very flexible and support many use cases. Vi
 
 ## Getting started
 
+This tutorial will walk you through the process of training a text classification model and then deploying that model behind a REST API on Tembo Cloud.
+
+First, create a Tembo Cloud instance with the Machine Learning Stack. We recommend 8 vCPU and 32GB RAM for this example.
+
 # Text Classification on Tembo ML
 
-## Introduction
-
-The Tembo Machine Learning Stack has several important Postgres extensions that make it easy to train and deploy machine learning models in Postgres.
-
-This tutorial will walk you through the process of training a text classification model and then deploying that model behind a REST API.
-
-- [postgresml](https://pgt.dev/extensions/postgresml) - `pgml` allows you to train and run machine learning models in Postgres. It supports a variety of models and algorithms, including linear regression, logistic regression, decision tree, random forest, and k-means clustering. It also provides hooks into HuggingFace for downloading and consuming pre-trained models and transformers.
-- [pg_vectorize](https://pgt.dev/extensions/vectorize) - an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
-
-The extensions listed above are all very flexible and support many use cases. Visit their documentation pages for additional details.
-
-## Getting started
-
-### Train a supervised model on a dataset
-
-In this example, we are going to build a click-bait detector. We want to have a service that can take in a block of text and then determine a probability that the text is click-bait.
+Let's build a click-bait detector, a service that can take in a block of text and then determine whether that the text is likely to be click-bait.
 
 We are going to structure this as a supervised machine learning problem, so we will need example of text that are both click-bait, and not click-bait. We will use the [clickbait dataset](https://github.com/bhargaviparanjape/clickbait/tree/master/dataset) for this example.
 
-Download the datasets.
+We'll use an open source sentence transformer from Hugging Face and the PostgresML extension to train an XGBoost model to classify text as click-bait or not click-bait.
+
+First, download those datasets. We will use `wget` to download them, but any tool will do.
 
 ```bash
 wget https://github.com/bhargaviparanjape/clickbait/raw/master/dataset/clickbait_data.gz
@@ -53,9 +43,7 @@ gzip -d clickbait_data.gz
 gzip -d non_clickbait_data.gz
 ```
 
-Now, let's re-format that data to make it easier to insert into Postgres.
-
-We'll use a small python script to handle this for us. This will give us a csv file with two columns, `text` and `is_clickbait`.
+Transform those two data files to make it easier to insert into Postgres. We'll use a small python script to handle this for us. This will give us a csv file with two columns, `text` and `is_clickbait`.
 
 ```python
 # prep.py
@@ -82,16 +70,20 @@ with open('training_data.csv', mode='w', newline='') as file:
 Run it! This will create a file called `training_data.csv` with two columns; the text and a 1 or 0 indicating whether or not it is clickbait.
 
 ```bash
+python prep.py
+```
+
+Inspecting that csv, it should look something like this:
+
+```bash
+head -3 training_data.csv
+
 title,is_clickbait
 Should I Get Bings,1
 Which TV Female Friend Group Do You Belong In,1
 ```
 
-```bash
-python prep.py
-```
-
-Load the data into Postgres using `psql`. First, connect to your Tembo instance.
+## Load training data into Postgres using `psql`
 
 Let's set our postgres connection string in an environment variable so we can re-use it a bunch of times.
 
@@ -103,10 +95,10 @@ export TEMBO_CONN='postgresql://postgres:yourPassword@yourHost:5432/postgres'
 psql $TEMBO_CONN
 ```
 
-Create a table to store the data.
+Create a table to store the training data.
 
 ```sql
-CREATE TABLE titles (
+CREATE TABLE titles_training (
     title TEXT,
     is_clickbait INTEGER
 );
@@ -115,23 +107,25 @@ CREATE TABLE titles (
 Load the data into the Postgres table using the `\copy` command.
 
 ```bash
-\copy titles FROM './training_data.csv' DELIMITER ',' CSV HEADER;
+\copy titles_training FROM './training_data.csv' DELIMITER ',' CSV HEADER;
+
+COPY 32000
 ```
 
 Take a look at the data.
 
 ```sql
-select * from titles limit 2;
+select * from titles_training limit 2;
                      title                     | is_clickbait 
 -----------------------------------------------+--------------
  Should I Get Bings                            |            1
  Which TV Female Friend Group Do You Belong In |            1
 ```
 
-The dataset is approximately balanced.
+The dataset is approximately balanced, having about the same number of clickbait and non-clickbait titles.
 
 ```sql
-select count(*) from titles group by is_clickbait;
+select count(*) from titles_training group by is_clickbait;
  count 
 -------
  16001
@@ -139,12 +133,7 @@ select count(*) from titles group by is_clickbait;
 (2 rows)
 ```
 
-Now lets add a primary key to that table so we can easily reference these rows later.
-
-```sql
-ALTER TABLE titles ADD COLUMN record_id BIGSERIAL PRIMARY KEY;
-ALTER TABLE titles ADD COLUMN last_updated_at TIMESTAMP DEFAULT NOW();
-```
+## Transform text to embeddings
 
 Machine learning algorithms work with numbers, not text. So, order to train a model on our text, we need to we need to transform that text into some numbers using a sentence transformer.
 
@@ -158,126 +147,175 @@ curl -X PATCH \
      "https://api.tembo.io/orgs/${ORG_ID}/instances/${INSTANCE_ID}"
 ```
 
-Now that we have a pre-trained sentence transformers from Hugging Face, and we can use pg_vectorize to generate embeddings from text with ease.
+Add a new column to the table where we will store the embeddings for each row of text.
 
 ```sql
-select vectorize.table(
-    job_name => 'clickbait',
-    "table" => 'titles',
-    primary_key => 'record_id',
-    columns => ARRAY['title'],
-    transformer => 'all_MiniLM_L12_v2'
-);
--- execute now
-select vectorize.job_execute('clickbait');
+ALTER TABLE titles_training ADD COLUMN record_id BIGSERIAL PRIMARY KEY;
+ALTER TABLE titles_training ADD COLUMN embedding double precision[];
 ```
 
-Now we have a table with embeddings for each title.
+We'll use the [all_MiniLM_L12_v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2), which is hosted in your Tembo instance. This model will transform our text into a 384 dimensional vector. We'll save the vectors in the `embedding` column.
+
+
+First, create a function using `pl/python` to handle this transformation:
+
+```sql
+CREATE OR REPLACE FUNCTION sentence_transform(relation text, col_name text, project_name text)
+RETURNS TABLE (embeddings double precision[]) AS
+$$
+import pandas as pd
+import requests
+
+
+res = plpy.execute(f'SELECT {col_name} FROM {relation}')
+rv = []
+for r in res:
+    rv.append(r)
+plpy.notice(f"Total rows: {len(rv)}")
+batch_size = 5000
+batches = []
+for i in range(0, len(rv), batch_size):
+    b = rv[i : i + batch_size]
+    batches.append([i[col_name] for i in b])
+
+embeddings_url = f"http://{project_name}-embeddings.{project_name}.svc.cluster.local:3000/v1/embeddings"
+
+embeddings = []
+total_batches = len(batches)
+for i, batch in enumerate(batches):
+    plpy.notice(f"Processing batch {i} / {total_batches}")
+
+    resp = requests.post(embeddings_url, json={"input": batch})
+    if resp.status_code == 200:
+        req_embeddings = resp.json()["data"]
+        for emb in req_embeddings:
+            embeddings.append(emb["embedding"])
+    else:
+        plpy.error(f"Error: {resp.status_code}, {resp.text}")
+return embeddings
+
+$$ LANGUAGE 'plpython3u';
+```
+
+Now that we have that function created, we can craft a SQL statement to apply it to our table:
+
+```sql
+WITH embedding_results as (
+    SELECT 
+        ROW_NUMBER() OVER () AS rn,
+        sentence_transform
+    FROM sentence_transform('titles_training', 'title', 'org-test-inst-ml-demo')
+),
+table_rows AS (
+    SELECT 
+        ROW_NUMBER() OVER () AS rn,
+        record_id
+    FROM titles_training
+)
+UPDATE titles_training
+SET embedding = embedding_results.sentence_transform
+FROM embedding_results, table_rows
+WHERE titles_training.record_id = table_rows.record_id
+AND table_rows.rn = embedding_results.rn;
+```
+
+Tada, we have a table with embeddings for each title.
 
 ```sql
 \x
-select * from titles limit 1;
+select * from titles_training limit 1;
 ```
 
 ```console
-title                | Kyoto Treaty becomes legally binding on February 16
-is_clickbait         | 0
-record_id            | 25371
-last_updated_at      | 2023-12-22 18:53:36.462492
-clickbait_embeddings | [-0.058323003,0.056333832,-0.0038603533,0.013325908,-0.011109264,0.010492517,-0.052566845,-0.027296204,0.047804408,0.06442312,0.039435994,-0.019316772,0.020162422,0.039854486,-0.0015520975,0.02531284,-0.06524969,-0.05538848,-0.023060005,0.0066169654,0.035967965,0.047866415,-0.05493321,-0.0033718573,-0.017675877,0.0050533246,-0.066565424,0.007516786,0.1062944,0.043667007,-0.078659415,-0.066382155,-0.0974421,0.14953314,-0.008974811,-0.046380926,0.056557525,-0.050913405,0.07219889,-0.026177727,-0.026813423,-0.024904946,-0.030696737,0.0596905,0.0069343126,0.05261133,0.01682677,0.028517837,-0.13426387,-0.0076862997,0.017102452,-0.06326257,-0.0034633286,0.057555377,0.0025229498,-0.0245171,0.0018767425,0.022280844,0.13649009,-0.06795578,0.002331664,-0.030881247,-0.05710915,-0.019142598,0.056000363,0.006210302,0.033121906,-0.06986101,0.0053541185,0.0022922107,-0.023773909,-0.016029889,0.003032488,-0.10161338,-0.004613021,-0.03648713,-0.0008599769,0.032408558,-0.018994464,-0.059149444,-0.031894125,0.014270951,0.05692849,0.006299161,-0.001959868,0.0075378157,0.025272857,-0.03879528,0.049434464,0.08017796,-0.07127319,-0.013389913,0.042767826,0.014403912,-0.027272377,0.0061531086,0.074253924,0.06169741,0.017082456,0.0036015601,-0.032929562,0.009529873,-0.10287347,-0.044819526,0.005821062,0.019935193,-0.009213438,-0.015773851,0.056187235,-0.009097783,-0.09098749,-0.03131999,0.008298577,-0.0349469,-0.035731964,0.13938737,0.06263442,0.021498635,0.030761061,-0.048678745,-0.06952543,0.009334161,0.0048434664,0.0792383,0.025489027,0.08081476,-0.0015146967,-0.0033181922,-0.010224394,-0.0581685,-0.030536288,-0.04244264,0.0082079815,-0.0014451788,-0.046140056,0.0025231028,-0.05227404,0.025592213,-0.012421529,-0.0049001444,-0.061728038,-0.0043455213,-0.056350026,-0.10649932,0.026374912,0.09459809,0.075361095,0.066348836,0.08389456,-0.03673743,0.076092206,0.022332042,-0.0029558504,-0.053310547,0.0042319247,-0.13988078,0.0086377775,0.002202777,0.0815318,0.03767454,-0.055081654,-0.024684371,0.013421579,-0.108331844,-0.0054123565,-0.060586803,-0.036669802,0.0055406187,0.029250214,0.054775365,-0.047669377,-0.031586774,0.11630385,-0.0015755807,0.029411664,-0.06875308,0.14298901,-0.0069527365,-0.07865524,0.003973616,-0.021514947,-0.055141997,-0.045962997,-0.014572593,-0.02257412,-0.012096626,-0.035054434,-0.050175462,-0.049129575,0.00075050193,-0.06143659,0.04420916,-0.03601588,0.12782551,0.0034956646,-0.05719936,-0.014841186,-0.08547803,0.022391114,-0.06580024,0.026399026,-0.03423396,-0.008375255,0.04737191,0.03613243,-0.12805253,0.014772816,0.04081545,-0.09421183,-0.0012017005,0.0816309,0.028559009,-0.008321249,-0.07851789,0.025430482,0.06344359,0.08726261,-0.025034584,-0.02195596,-0.07367842,0.010734694,0.017557902,0.08767401,-6.8125966e-33,0.048279524,-0.032719526,-0.06640266,0.016316585,0.046425533,-0.09175111,-0.10157652,0.08938732,0.078136735,0.011294263,0.06793161,-0.027102685,0.009283981,0.04505685,-0.06830146,0.06218492,-0.08274111,0.0668413,-0.03501399,-0.03932527,-0.019597877,-0.07798013,-0.0050762016,0.0763867,-0.04480684,-0.054619297,0.011105705,-0.0061384696,0.05854574,0.044343997,-0.03186539,0.06062889,-0.1281511,0.064455815,-0.08162396,-0.077357434,0.017158104,-0.013476392,-0.06632697,0.053424496,0.060418747,0.011727643,0.024813874,0.032096278,-0.03089842,0.0379675,0.09656183,0.0054825195,-0.04213503,-0.05572661,0.061696887,0.082163185,0.044632707,0.006358529,0.08357622,0.036564488,0.038837414,0.014229493,0.0494845,0.004864638,0.032733183,0.034670062,0.05577703,-0.012948649,0.017047545,-0.036515806,0.03399955,-0.011476246,0.09972862,0.020226596,-0.050777,-0.04955579,0.001091302,-0.011613292,0.07176656,-0.05339713,0.011790994,-0.059765816,0.06175529,0.039072223,-0.08459761,0.064320624,0.03268151,-0.011582075,0.059960086,-0.00046249028,-0.049256224,-0.021245403,0.052772377,0.09091808,-0.06664734,0.03003811,0.013914128,-0.013043058,-0.06545466,2.5646924e-32,-0.020471536,0.040614903,0.013942915,0.064812265,-0.010511781,0.019615723,0.018787997,-0.043926634,-0.0025283284,0.0087330155,-0.0024966446,0.03235226,0.03871786,-0.034328975,0.0020813234,-0.011104036,-0.004925143,0.0019763699,0.0044270065,-0.03296877,-0.034099925,-0.008809724,-0.014488834,-0.043869372,-0.03334987,0.018309196,-0.099868506,0.11828973,0.007699046,0.08291148,0.02640259,-0.036686577,0.012626571,-0.0065624607,-0.07775091,-0.13005526,0.002981511,0.009105528,-0.017209068,-0.069837995,-0.04481329,0.071698,0.07381045,0.017337335,0.015142549,-0.014537166,-0.023021867,-0.009104607,0.023105036,0.01271074,-0.024151757,-0.10144878,0.060199752,-0.05578722,0.022148283,0.07031317,-0.018748315,0.010023229,-0.057293613,0.02356632,-0.023348015,-0.035052363,0.040445056,-0.019527128]
+title                | Do You Have ESP
+is_clickbait         | 1
+record_id            | 110
+embedding | {-0.058323003,0.056333832,-0.0038603533,0.013325908,-0.011109264,0.010492517,-0.052566845,-0.027296204,0.047804408,0.06442312,0.039435994,-0.019316772,0.020162422,0.039854486,-0.0015520975,0.02531284,-0.06524969,-0.05538848,-0.023060005,0.0066169654,0.035967965,0.047866415,-0.05493321,-0.0033718573,-0.017675877,0.0050533246,-0.066565424,0.007516786,0.1062944,0.043667007,-0.078659415,-0.066382155,-0.0974421,0.14953314,-0.008974811,-0.046380926,0.056557525,-0.050913405,0.07219889,-0.026177727,-0.026813423,-0.024904946,-0.030696737,0.0596905,0.0069343126,0.05261133,0.01682677,0.028517837,-0.13426387,-0.0076862997,0.017102452,-0.06326257,-0.0034633286,0.057555377,0.0025229498,-0.0245171,0.0018767425,0.022280844,0.13649009,-0.06795578,0.002331664,-0.030881247,-0.05710915,-0.019142598,0.056000363,0.006210302,0.033121906,-0.06986101,0.0053541185,0.0022922107,-0.023773909,-0.016029889,0.003032488,-0.10161338,-0.004613021,-0.03648713,-0.0008599769,0.032408558,-0.018994464,-0.059149444,-0.031894125,0.014270951,0.05692849,0.006299161,-0.001959868,0.0075378157,0.025272857,-0.03879528,0.049434464,0.08017796,-0.07127319,-0.013389913,0.042767826,0.014403912,-0.027272377,0.0061531086,0.074253924,0.06169741,0.017082456,0.0036015601,-0.032929562,0.009529873,-0.10287347,-0.044819526,0.005821062,0.019935193,-0.009213438,-0.015773851,0.056187235,-0.009097783,-0.09098749,-0.03131999,0.008298577,-0.0349469,-0.035731964,0.13938737,0.06263442,0.021498635,0.030761061,-0.048678745,-0.06952543,0.009334161,0.0048434664,0.0792383,0.025489027,0.08081476,-0.0015146967,-0.0033181922,-0.010224394,-0.0581685,-0.030536288,-0.04244264,0.0082079815,-0.0014451788,-0.046140056,0.0025231028,-0.05227404,0.025592213,-0.012421529,-0.0049001444,-0.061728038,-0.0043455213,-0.056350026,-0.10649932,0.026374912,0.09459809,0.075361095,0.066348836,0.08389456,-0.03673743,0.076092206,0.022332042,-0.0029558504,-0.053310547,0.0042319247,-0.13988078,0.0086377775,0.002202777,0.0815318,0.03767454,-0.055081654,-0.024684371,0.013421579,-0.108331844,-0.0054123565,-0.060586803,-0.036669802,0.0055406187,0.029250214,0.054775365,-0.047669377,-0.031586774,0.11630385,-0.0015755807,0.029411664,-0.06875308,0.14298901,-0.0069527365,-0.07865524,0.003973616,-0.021514947,-0.055141997,-0.045962997,-0.014572593,-0.02257412,-0.012096626,-0.035054434,-0.050175462,-0.049129575,0.00075050193,-0.06143659,0.04420916,-0.03601588,0.12782551,0.0034956646,-0.05719936,-0.014841186,-0.08547803,0.022391114,-0.06580024,0.026399026,-0.03423396,-0.008375255,0.04737191,0.03613243,-0.12805253,0.014772816,0.04081545,-0.09421183,-0.0012017005,0.0816309,0.028559009,-0.008321249,-0.07851789,0.025430482,0.06344359,0.08726261,-0.025034584,-0.02195596,-0.07367842,0.010734694,0.017557902,0.08767401,-6.8125966e-33,0.048279524,-0.032719526,-0.06640266,0.016316585,0.046425533,-0.09175111,-0.10157652,0.08938732,0.078136735,0.011294263,0.06793161,-0.027102685,0.009283981,0.04505685,-0.06830146,0.06218492,-0.08274111,0.0668413,-0.03501399,-0.03932527,-0.019597877,-0.07798013,-0.0050762016,0.0763867,-0.04480684,-0.054619297,0.011105705,-0.0061384696,0.05854574,0.044343997,-0.03186539,0.06062889,-0.1281511,0.064455815,-0.08162396,-0.077357434,0.017158104,-0.013476392,-0.06632697,0.053424496,0.060418747,0.011727643,0.024813874,0.032096278,-0.03089842,0.0379675,0.09656183,0.0054825195,-0.04213503,-0.05572661,0.061696887,0.082163185,0.044632707,0.006358529,0.08357622,0.036564488,0.038837414,0.014229493,0.0494845,0.004864638,0.032733183,0.034670062,0.05577703,-0.012948649,0.017047545,-0.036515806,0.03399955,-0.011476246,0.09972862,0.020226596,-0.050777,-0.04955579,0.001091302,-0.011613292,0.07176656,-0.05339713,0.011790994,-0.059765816,0.06175529,0.039072223,-0.08459761,0.064320624,0.03268151,-0.011582075,0.059960086,-0.00046249028,-0.049256224,-0.021245403,0.052772377,0.09091808,-0.06664734,0.03003811,0.013914128,-0.013043058,-0.06545466,2.5646924e-32,-0.020471536,0.040614903,0.013942915,0.064812265,-0.010511781,0.019615723,0.018787997,-0.043926634,-0.0025283284,0.0087330155,-0.0024966446,0.03235226,0.03871786,-0.034328975,0.0020813234,-0.011104036,-0.004925143,0.0019763699,0.0044270065,-0.03296877,-0.034099925,-0.008809724,-0.014488834,-0.043869372,-0.03334987,0.018309196,-0.099868506,0.11828973,0.007699046,0.08291148,0.02640259,-0.036686577,0.012626571,-0.0065624607,-0.07775091,-0.13005526,0.002981511,0.009105528,-0.017209068,-0.069837995,-0.04481329,0.071698,0.07381045,0.017337335,0.015142549,-0.014537166,-0.023021867,-0.009104607,0.023105036,0.01271074,-0.024151757,-0.10144878,0.060199752,-0.05578722,0.022148283,0.07031317,-0.018748315,0.010023229,-0.057293613,0.02356632,-0.023348015,-0.035052363,0.040445056,-0.019527128}
 ```
 
-Now, we have a column that contains our embeddings and we need to flatten it so that we can train a model. You likely need to install pandas as sqlalchemy to run this script.
+Now, we have a column that contains our embeddings and we need to flatten it so that we can train a model. We'll transform this table into a new table where each element in our embedding vector becomes its own column. Once again, we will use `pl/python3u` to conduct this operation.
 
-```bash
-pip install pandas sqlalchemy
-```
-
-Now create a file named flatten.py with the following code.
-
-```python
-# flatten.py
-import sqlalchemy
-from sqlalchemy import text
+```sql
+CREATE OR REPLACE FUNCTION transform_unnest(
+    relation text,
+    target_column text,
+    embedding_column text
+)
+RETURNS VOID AS
+$$
 import pandas as pd
 import json
-import argparse
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--connection_str', type=str, required=True)
-parser.add_argument('--relation_name', type=str, required=True)
-parser.add_argument('--column_name', type=str, required=True)
-parser.add_argument('--embedding_dim', type=int, required=True)
+flat_table=f"{relation}_flattened"
 
-def flatten(conn_str: str, relation_name: str, column_name: str, embedding_dim: int):
-    eng = sqlalchemy.create_engine(conn_str)
+plpy.notice('reading raw')
+rv = plpy.execute(f'SELECT {target_column}, {embedding_column} FROM {relation}')
+df = pd.DataFrame(rv[0:])
+   
+embedding_dim = len(df[embedding_column][0])
+column_names = [f'embedd_{i}' for i in range(embedding_dim)]
 
-    # Create a new table with columns for each vector element
-    column_names = [f'embedd_{i}' for i in range(embedding_dim)]
-    column_defs = [f"{col} numeric" for col in column_names]
-    created_table_query = text(f"""
-        CREATE TABLE IF NOT EXISTS {relation_name}_flattened (
-            is_clickbait integer,
-            {', '.join(column_defs)}
-        );
-    """)
-    with eng.connect() as conn:
-        conn.execute(created_table_query)
-        conn.commit()
+plpy.notice(f'creating table: {flat_table}, dim: {embedding_dim}')
+all_col_names = ", ".join(column_names)
+column_defs = [f"{col} float" for col in column_names]
+all_col_defs =  ', '.join(column_defs)
 
-    with eng.connect() as conn:
-        data = pd.read_sql(
-            text(f"SELECT is_clickbait, {column_name}::vector FROM {relation_name}"),
-            conn
-        )
-    
-    data[column_name] = data[column_name].apply(json.loads)        
-    expanded_df = pd.DataFrame(
-        data[column_name].to_list(),
-        index=data.index
-    )
-    expanded_df.columns = column_names
-    expanded_df["is_clickbait"] = data["is_clickbait"]
-    expanded_df.to_csv(f"{relation_name}_flattened.csv", index=False)
+create_stmt = f'CREATE TABLE IF NOT EXISTS {flat_table} ({target_column} integer, {all_col_defs})'
+plpy.execute(create_stmt)
 
-if __name__ == '__main__':
-    conn_str = parser.parse_args().connection_str
-    relation_name = parser.parse_args().relation_name
-    column_name = parser.parse_args().column_name
-    embedding_dim = parser.parse_args().embedding_dim
-    flatten(conn_str, relation_name, column_name, embedding_dim)    
+all_value_ph = [f"${x}" for x in range(1, embedding_dim+1)]
+all_value_ph = ", ".join(all_value_ph)
+insert_stmt = f'INSERT INTO {flat_table} ({all_col_names}) VALUES ({all_value_ph})'
+
+num_rows = df.shape[0]
+row_embedding_types = ['float' for _ in range(embedding_dim)]
+
+try:
+    plpy.notice('starting insert')
+
+    for idx, row in df.iterrows():
+        if idx % 1000 == 0:
+            plpy.notice(f'inserting row {idx} / {num_rows}')
+        plan = plpy.prepare(insert_stmt, row_embedding_types)
+        plpy.execute(plan, row[embedding_column])
+except Exception as e:
+    plpy.error(f'Error: {e}')
+
+$$ LANGUAGE 'plpython3u';
 ```
 
+Let's execute that function.
 
-Execute the python script. This will write the expanded data to a csv named `titles_flattened.csv`.
- This could take several minutes depending on your compute resources.
+```sql
+select transform_unnest(
+    relation => 'titles_training',
+    target_column => 'is_clickbait',
+    embedding_column => 'embedding'
+);  
 
-```bash
-python flatten.py --connection_str $TEMBO_CONN --relation_name titles --column_name clickbait_embeddings --embedding_dim 384  
+
+NOTICE:  reading raw
+NOTICE:  creating table: titles_training_flattened, dim: 384
+NOTICE:  starting insert
+NOTICE:  inserting row 0 / 32000
+NOTICE:  inserting row 1000 / 32000
+NOTICE:  inserting row 2000 / 32000
+....
 ```
 
-Load the flattened data into Postgres using `psql`. First, connect to your Tembo instance, then execute the `\copy` command below.
-
-```bash
-psql $TEMBO_CONN
-
-\copy titles_flattened FROM './expanded_df.csv' DELIMITER ',' CSV HEADER;
-```
-
-Train a classification model using XGBoost on this data using the `pgml` extension.
+Now have a data table, `titles_training_flattened`, that is prepared for model training. Now we can train a classification model using XGBoost on this data using the `pgml` extension.
 
 ```sql
 SELECT * FROM pgml.train(
     project_name => 'clickbait_classifier',
     algorithm => 'xgboost',
     task => 'classification',
-    relation_name => 'titles_flattened',
+    relation_name => 'titles_training_flattened',
     y_column_name => 'is_clickbait'
 );
 ```
 
 This should take only a few minutes. Check that the model exists in the local model registry.
-
 
 The model is trained. We can pass new titles in to the model to get them classified as clickbait or not clickbait. But first, we need to transform the new title into an embedding using the exact same transformer that we used to train the model.
  For that, we will call `vectorize.transform_embeddings()` and pass the result into `pgml.predict()`
