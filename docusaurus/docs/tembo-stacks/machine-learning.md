@@ -423,8 +423,10 @@ NOTIFY pgrst, 'reload schema';
 
 Finally, we can make an HTTP request to our Tembo instance to classify our text:
 
+`TEMBO_DATA_DOMAIN` is the same value as the host on your Postgres connection string.
+
 ```bash
-export TEMBO_DATA_DOMAIN=youTemboHost
+export TEMBO_DATA_DOMAIN=yourTemboHost
 ```
 
 ```bash
