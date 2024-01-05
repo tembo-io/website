@@ -43,7 +43,7 @@ const {
 		</svg>
 		<p
 			class={cx(
-				'text-start text-[7.8px] customXs:text-[13px] font-medium',
+				'text-start text-[13px] font-medium',
 				!descriptionStyles ? 'text-blue' : '',
 				descriptionStyles,
 			)}
@@ -55,12 +55,7 @@ const {
 		<slot />
 		{
 			title && (
-				<h2
-					class={cx(
-						'text-[17.16px] customXs:text-[18px] font-bold text-black',
-						titleStyles,
-					)}
-				>
+				<h2 class={cx('text-[18px] font-bold text-black', titleStyles)}>
 					{title}
 				</h2>
 			)
@@ -69,7 +64,7 @@ const {
 			subTitle && (
 				<p
 					class={cx(
-						'text-[11px] customXs:text-sm font-semibold text-black mb-[25px]',
+						'text-sm font-semibold text-black mb-[25px]',
 						subTitleStyles,
 					)}
 				>

@@ -1,14 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Lottie from 'lottie-react';
 import { useIntersection, useDelayUnmount } from '../util';
+import FooterCrossingWalk from '../animations/CrossingWalk1.json';
 
 interface Props {
-	animation: unknown;
+	animation?: unknown;
 	styles?: string;
 	isFullWidth?: boolean;
 	loop?: boolean;
 	animateOnInView?: boolean;
 	autoPlay?: boolean;
+	isFooter?: boolean;
 }
 
 const Animation: React.FC<Props> = ({
@@ -17,6 +19,7 @@ const Animation: React.FC<Props> = ({
 	isFullWidth = true,
 	loop = true,
 	animateOnInView = false,
+	isFooter,
 }) => {
 	const triggerRef = useRef(null);
 	const lottieRef = useRef(null);
@@ -60,7 +63,7 @@ const Animation: React.FC<Props> = ({
 			) : (
 				<Lottie
 					lottieRef={lottieRef}
-					animationData={animation}
+					animationData={isFooter ? FooterCrossingWalk : animation}
 					loop={loop}
 					autoPlay={false}
 					className={styles}
