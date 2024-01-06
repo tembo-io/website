@@ -149,7 +149,8 @@ select count(*) from titles_training group by is_clickbait;
 
 ## Transform text to embeddings
 
-Machine learning algorithms work with numbers, not text. So, order to train a model on our text, we need to we need to transform that text into some numbers using a sentence transformer.
+Machine learning algorithms work with numbers, not text. So in order to train a model on our text, we need to we need to transform that text into some numbers.
+ There are many ways to transform text into numbers, such as [Bag of Words](https://en.wikipedia.org/wiki/Bag-of-words_model), [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf), [any many others](https://medium.com/analytics-vidhya/a-beginners-guide-to-convert-text-data-to-numeric-data-part-1-e0e15666d9e5). The natural language processing domain is rather large and for this example, we will use the [all_MiniLM_L12_v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) sentence transformer from Hugging Face.
 
 Let's add the embeddings service to our Tembo instance.
 
