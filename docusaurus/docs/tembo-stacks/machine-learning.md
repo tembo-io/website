@@ -76,7 +76,7 @@ Run it! This will create a file called `training_data.csv` with two columns; the
 python3 prep.py
 ```
 
-Inspecting that csv, it should look something like this:
+Inspecting that csv, it should look something like below. The first record is likely from the [BuzzFeed article 'Should I get Bings'](https://www.buzzfeed.com/mollieshafer/should-i-get-bings).
 
 ```bash
 head -3 training_data.csv
