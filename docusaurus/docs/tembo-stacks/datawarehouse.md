@@ -76,8 +76,8 @@ Create a server on top of wrapper.
 create server s3_server
   foreign data wrapper s3_wrapper
   options (
-	aws_access_key_id 'AKIAROBVQXRRAMPFO2X6',
-	aws_secret_access_key '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',
+	aws_access_key_id 'INSERT_ACCESS_KEY_ID',
+	aws_secret_access_key 'INSERT_SECRET_ACCESS_KEY',
 	aws_region 'us-east-1'
   );
 ```
