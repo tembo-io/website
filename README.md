@@ -8,6 +8,7 @@
 
 <br />
 
+
 The Tembo website is built using [Astro](https://astro.build) + [React](https://react.dev) and [Docusaurus 2](https://docusaurus.io/), both are modern static website and docs generators.
 
 ### Installation
