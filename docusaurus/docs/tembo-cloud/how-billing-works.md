@@ -19,7 +19,7 @@ Note: You can install and enable as many extensions and apps as you like in both
 |-------------|---------------|----------------|
 | 1 vCPU      | $0.07391      | $53.95         |
 | 1Gi Memory  | $0.00549      | $4.01          |
-| 1Gi Storage | $0.00014      | $0.1           |
+| 1Gi Storage | $0.0002      | $0.1           |
 
 - **High Availability (HA):** Enabling HA for your instances doubles the resources allocated for redundancy, effectively doubling the cost. HA ensures higher uptime and reliability, particularly beneficial for critical applications.
 
