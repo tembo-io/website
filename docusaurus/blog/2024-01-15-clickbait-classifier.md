@@ -364,8 +364,6 @@ The model is trained. We can pass new titles in to the model to get them classif
 ## Make predictions using the model
 
 ```sql
-
-```sql
 SELECT pgml.predict('clickbait_classifier',
     (select vectorize.transform_embeddings(
         input => 'the clickiest bait you have ever seen',
