@@ -33,7 +33,7 @@ securityContext:
   runAsNonRoot: true
 ```
 
-Network isolation is handled with Kubernetes network policies, which are handled by [Calico](https://docs.tigera.io/calico/latest/reference/installation/api). Each server is in an isolated namespace, with a default deny-all network policy. Network access is permitted on a case-by-case basis, and the configurations are open source in [this file](https://github.com/tembo-io/tembo-stacks/blob/main/tembo-operator/src/network_policies.rs).
+Network isolation is handled with Kubernetes network policies, which are handled by [Calico](https://docs.tigera.io/calico/latest/reference/installation/api). Each server is in an isolated namespace, with a default deny-all network policy. Network access is permitted on a case-by-case basis, and the configurations are open source in [this file](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/network_policies.rs).
 
 ## Data storage
 
@@ -138,7 +138,7 @@ spec:
   secretName: ...
 ```
 
-The code to issue certificates is open source in [this GitHub repository](https://github.com/tembo-io/tembo-stacks).
+The code to issue certificates is open source in [this GitHub repository](https://github.com/tembo-io/tembo).
 
 ## Need stronger isolation?
 
