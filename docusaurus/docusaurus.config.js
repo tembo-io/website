@@ -157,7 +157,7 @@ const config = {
 						position: 'right',
 					},
 					{
-						href: 'https://github.com/tembo-io/tembo-stacks',
+						href: 'https://github.com/tembo-io',
 						label: 'GitHub',
 						target: '_blank',
 						position: 'right',
