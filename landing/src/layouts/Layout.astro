@@ -42,7 +42,7 @@ const { title } = Astro.props;
 			referrerpolicy='strict-origin-when-cross-origin'></script>
 	</head>
 	<body>
-		<main class='overflow-hidden'>
+		<main class=''>
 			<slot />
 		</main>
 	</body>
@@ -188,12 +188,12 @@ const { title } = Astro.props;
 	body {
 		font-family: 'Bai Jamjuree';
 		background: #120f0e;
-		overflow-x: hidden;
+
 	}
 
 	@media screen and (min-width: 900px) {
 		body {
-			overflow: scroll;
+
 		}
 	}
 
