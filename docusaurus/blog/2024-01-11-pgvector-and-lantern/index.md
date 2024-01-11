@@ -1,8 +1,8 @@
 ---
 slug: postgres-vector-search-pgvector-and-lantern
-title: 'Comparing Postgres Vector Search approaches: Pgvector vs Lantern'
+title: 'Benchmarking Postgres Vector Search approaches: Pgvector vs Lantern'
 authors: [rjzv]
-tags: [postgres, extensions, vector, lantern, pgvector]
+tags: [postgres, extensions, vector, lantern, pgvector, hnsw]
 image: ./elephant-with-lantern.jpeg
 ---
 
@@ -62,6 +62,7 @@ Along the way, the benchmark collects several metrics, such as:
 - Index Size
 - Recall
 - Throughput
+- Latencies (p50, p95, p99 and p999)
 
 So, we can compare the two extensions along these axes.
 
@@ -74,7 +75,7 @@ As for the HNSW parameters, I used the following:
 | **ef_search**       | {10, 20, 40, 80, 120, [128,] 200, 400} |
 
 
-## Comparing Index Creation, Recall and Throughput
+## Comparing Index Creation, Recall, Latency and Throughput
 
 Although I tried different datasets, for brevity, let us only discuss the results of the SIFT 128 dataset, which was also used in one of [Lantern’s posts](https://lantern.dev/blog/hnsw-index-creation).
 
@@ -86,13 +87,15 @@ Pgvector takes between 1.6x and 1.8x to build the same index with the same param
 
 ![Baseline index size](./002-baseline-index-size.png)
 
-That’s cool… And what about the resulting throughput and recall? Here are the results:
+That’s cool… And what about the resulting throughput, latency and recall? Here are the results:
 
 ![Baseline recall](./003-baseline-recall.png)
 
 ![Baseline throughput](./004-baseline-qps.png)
 
-Ok, the recall is similar, however the resulting QPS for Lantern is worse when compared to Pgvector. Pgvector can process between 72% and 81% more queries per second.
+![Baseline p95](./005-baseline-p95.png)
+
+Ok, the recall is similar, however Pgvector outperforms Lantern in QPS. Specifically, Pgvector can process between 72% and 81% more queries per second.
 
 So, it seems that Lantern sacrifices throughput in exchange of index creation time and index space.
 
@@ -109,15 +112,21 @@ Also, as before, the recall is similar when `ef_search` varies (although Pgvecto
 ![Recall](./013-recall-m16.png)
 
 
-And again, Pgvector has better throughput.
+And again, Pgvector has better throughput and latencies.
 
 ![Throughput](./014-qps-m16.png)
+
+![Latency](./017-p95-m16.png)
 
 Increasing the m parameter to 24, we get similar conclusions:
 
 ![Recall](./015-recall-m24.png)
 
+And once again, Pgvector has higher throughput (and better latencies) for all values of `ef_search`:
+
 ![Throughput](./016-qps-m24.png)
+
+![Latency](./018-p95-m24.png)
 
 These results were consistent with my observations when using Gist-960 and Glove-200. You can see more results [here](https://github.com/binidxaba/lantern-pgvector-comparison/tree/main).
 
