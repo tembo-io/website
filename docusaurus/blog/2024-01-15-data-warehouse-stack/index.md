@@ -120,4 +120,6 @@ Apache Superset is a an open source technology that we use to create dashboards 
 
 ## Wrapping up
 
+[insert final architecture diagram here]
+
 Tembo Cloud makes it easy to build a data warehouse. We provide a pre-configured stack that includes all the tools you need to build a data warehouse. We use this stack to build our own data warehouse, and we use it to power our dashboards and reporting.
