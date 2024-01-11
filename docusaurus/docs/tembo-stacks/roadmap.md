@@ -4,7 +4,7 @@ sidebar_position: 7
 
 # Tembo Stacks Roadmap
 
-Tembo building Tembo Stacks for Postgres use cases.
+Tembo Stacks make it easier to use Postgres for non-typical workloads such as vector search, ML, data warehousing, message queue, geospatial and more.
 
 ## Current Stacks
 
