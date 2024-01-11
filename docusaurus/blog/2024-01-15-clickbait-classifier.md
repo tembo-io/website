@@ -1,6 +1,6 @@
 ---
 slug: text-classification
-title: 'Build a clickbait classifier machine learning on Postgres'
+title: 'Build a machine-learning clickbait on Postgres'
 authors: [adam]
 tags: [postgres, machine-learning, text-classification]
 ---
