@@ -107,20 +107,6 @@ const config = {
 				},
 			}),
 		],
-		[
-			'redocusaurus',
-			{
-				specs: [
-					{
-						spec: 'https://api.tembo.io/api-docs/openapi.json',
-						route: '/docs/tembo-cloud/openapi',
-					},
-				],
-				theme: {
-					primaryColor: '#1890ff',
-				},
-			},
-		],
 	],
 
 	themeConfig:
