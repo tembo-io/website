@@ -106,3 +106,18 @@ FROM information_schema.foreign_tables
 
 New users are signing up for Tembo and using our product every day, so we need a way to keep the data in our data warehouse up to date -- "there's an extension for that!".
 
+## Partitioning is trivial with pg_partman
+
+Larger tables benefit from partitioning for query performance. pg_partman makes it trivial to partition tables in Postgres.
+
+## DB Objects as code with SQL Migrations
+
+We define all our objects using SQLx migrations in Rust. This makes is easy for us to recreate the datawarehouse in any environment.
+
+## Dashboarding with Apache Superset
+
+Apache Superset is a an open source technology that we use to create dashboards for reporting for stakeholder and decision makers.
+
+## Wrapping up
+
+Tembo Cloud makes it easy to build a data warehouse. We provide a pre-configured stack that includes all the tools you need to build a data warehouse. We use this stack to build our own data warehouse, and we use it to power our dashboards and reporting.
