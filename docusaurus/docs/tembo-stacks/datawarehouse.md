@@ -18,7 +18,6 @@ Tembo's DataWarehouse is tuned and configured for datawarehouse workloads. Extra
 - [multicorn](https://pgt.dev/extensions/multicorn) - `multicorn2` Foreign Data Wrapper allows you to fetch foreign data in Python in your PostgreSQL server.
 - Extensions from [Trunk](https://pgt.dev) can be installed on-demand.
 
-
 ## Getting started
 
 Let's say you are wearing a data engineer hat and working on a click through rate (CTR) project and you have got a bunch of CTR data dumped in S3.
@@ -52,7 +51,7 @@ For this demo, Data is preloaded in the compressed CSV file format having 1 mill
 
 First, connect to your Tembo cluster:
 
-```sql
+```bash
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 ```
 
