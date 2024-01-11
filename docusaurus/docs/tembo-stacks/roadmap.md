@@ -4,19 +4,29 @@ sidebar_position: 7
 
 # Tembo Stacks Roadmap
 
-Tembo is working hard to build a useful set of "Tembo Stacks" for a number of Postgres use cases.
+Tembo building Tembo Stacks for Postgres use cases.
 
-Initial Stacks include:
+## Current Stacks
 
-- Standard - Postgres with infrastructure and configuration tuned for general purpose computing and storage needs
-- OLTP - Online Transaction Processing — for transactional data use case
-- Enterprise LLM - build, train, deploy machine learning models and build a vector database for LLM and search use cases
-- Message Queue — build applications like job or task queues, event-driven architectures, and more
+| Stack                           | Competitive Products |
+|---------------------------------|----------------------|
+| Geospatial                      |                      |
+| Machine Learning                | Pinecone, Weviate    |
+| Message Queue                   | Amazon SQS, Redis    |
+| OLTP                            | Amazon RDS           |
+| Standard                        | Amazon RDS           |
+| VectorDB                        | Pinecone, Weviate    |
 
-Stacks in development:
+## Stacks in development
 
-- OLAP / Data warehouse (Snowflake)
-- Time series data (Timescale)
-- Full-text search (Elastic)
-- Real-time analytics (Couchbase)
-- GraphQL layer (Hasura)
+| Stack                           | Competitive Products |
+|---------------------------------|----------------------|
+| API                             | Hasura               |
+| DataWarehouse                   | Snowflake, BigQuery  |
+| MongoDB Alternative on Postgres | MongoDB Atlas        |
+| OLAP                            | Snowflake, BigQuery  |
+| Real-time Analytics             | Couchbase            |
+| Search                          | Elastic              |
+| Time Series                     | InfluxDB             |
+
+More info may be available on [our public roadmap](https://roadmap.tembo.io).
