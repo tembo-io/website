@@ -1,25 +1,21 @@
 ---
 slug: text-classification
-title: 'Build a machine-learning clickbait on Postgres'
+title: 'Build a machine-learning clickbait classifier on Postgres'
 authors: [adam]
 tags: [postgres, machine-learning, text-classification]
 ---
 
-You want to train a supervised machine learning model on your data and integrate that with the rest of your team. A common workflow is to:
+With the help of a few Postgres extensions, we can build an end-to-end machine learning AP on Postgres.
 
-- prepare your data into features and target variable
-- train a model, and save it into a model registry
-- deploy the model to a prediction service, perhaps with a REST API
-- transform your data into features and send it to the prediction service
-
-This can be a lot of work, especially for teams that do not have support by large engineering teams.
+Normally, this might involved setting up a bunch of infrastructure, resolving dependency conflicts, and building webservers.
+ This is a lot of work, especially for teams that do not have support by large engineering teams.
  Luckily, there are several Postgres extensions and community tools that make this a lot easier.
 
 - [postgresML](https://github.com/postgresml/postgresml) - provides postgres with hooks into most of the popular Python machine learning libraries.
 - [pg_vectorize](https://github.com/tembo-io/pg_vectorize) - gives you a clean abstraction over vector transformations. And on Tembo cloud, gives you a hook into additional sentence transformers.
 - [PostgREST](https://postgrest.org/) - provides a REST API for your Postgres database. Lets you call functions in your database via HTTP requests
 
-We will piece these tools together to provide you with an end-to-end machine learning experience, all within Postgres.
+We will piece these tools together with SQL to build an end-to-end machine learning experience, all within Postgres.
 
 First, create a Tembo Cloud instance with the Machine Learning Stack. We recommend at least 8 vCPU and 32GB RAM instance for this example.
 
