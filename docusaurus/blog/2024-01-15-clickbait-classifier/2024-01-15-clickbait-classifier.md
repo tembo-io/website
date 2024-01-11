@@ -5,7 +5,7 @@ authors: [adam]
 tags: [postgres, machine-learning, text-classification]
 ---
 
-With the help of a few Postgres extensions, we can build an end-to-end machine learning project on Postgres.
+We just release the [Tembo ML Stack](htt[s://cloud.tembo.io]), which is an end-to-end solution for building machine learning applications on Postgres.
 
 Normally, this might involved setting up a bunch of infrastructure, resolving dependency conflicts, and building webservers.
  This is a lot of work, especially for teams that do not have support by large engineering teams.
