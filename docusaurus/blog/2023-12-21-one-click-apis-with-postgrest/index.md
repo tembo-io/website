@@ -19,7 +19,18 @@ In fact, we loved it so much that we became a sponsor—like we said at the begi
 
 Want to see an example? No problem — Darren walks us through how it works:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YuXaJreVyrw?si=0EQ07nNFhz-9qSww" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
+  <iframe 
+    style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
+    width="900" 
+    height="315" 
+    src="https://www.youtube.com/embed/YuXaJreVyrw?si=0EQ07nNFhz-9qSww" 
+    title="YouTube video player" 
+    frameBorder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowFullScreen>
+  </iframe>
+</div>
 
 For more, keep reading or check out our [docs](https://tembo.io/docs/tembo-cloud/application-services/REST-API).
 
