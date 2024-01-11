@@ -29,7 +29,6 @@ const config = {
 		defaultLocale: 'en',
 		locales: ['en'],
 	},
-
 	plugins: [
 		'@stackql/docusaurus-plugin-hubspot',
 		'docusaurus-plugin-segment',
