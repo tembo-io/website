@@ -11,6 +11,8 @@ Normally, this might involved setting up a bunch of infrastructure, resolving de
  This is a lot of work, especially for teams that do not have support by large engineering teams.
  Luckily, there are several Postgres extensions and community tools that make this a lot easier.
 
+![arch](./arch.png 'ml-service')
+
 - [postgresML](https://github.com/postgresml/postgresml) - SQL hooks into most of the popular Python machine learning libraries.
 - [pg_vectorize](https://github.com/tembo-io/pg_vectorize) - a simple abstraction over vector transformations. And on Tembo cloud, gives you a hook into additional sentence transformers.
 - [PostgREST](https://postgrest.org/) - lets you call functions in your database via external HTTP requests
