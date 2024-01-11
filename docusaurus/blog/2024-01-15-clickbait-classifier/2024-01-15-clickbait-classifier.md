@@ -7,9 +7,9 @@ tags: [postgres, machine-learning, text-classification]
 
 We just released the [Tembo ML Stack](htt[s://cloud.tembo.io]), which is an end-to-end solution for building machine learning applications on Postgres.
 
-Normally, this might involved setting up a bunch of infrastructure, resolving dependency conflicts, and building webservers.
+Building and serving an ML model is a complicated process involving up infrastructure, resolving dependency conflicts, and building webservers, in addition to training the model itself.
  This is a lot of work, especially for teams that do not have support by large engineering teams.
- Luckily, there are several Postgres extensions and community tools that make this a lot easier.
+ We wrapped all of this into the Tembo ML Stack so that you can go from training to deployment in minutes, all in Postgres.
 
 ![arch](./arch.png 'ml-service')
 
