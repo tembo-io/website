@@ -204,7 +204,7 @@ return embeddings
 $$ LANGUAGE 'plpython3u';
 ```
 
-Now that we have that function created, we can craft a SQL statement and apply it to our table. Execute this statement.
+Now that we have that function created, we can craft a SQL statement and apply it to our table.
 
 ```sql
 WITH embedding_results as (
