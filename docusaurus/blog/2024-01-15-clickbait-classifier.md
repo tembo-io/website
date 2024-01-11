@@ -1,23 +1,21 @@
 ---
 slug: text-classification
-title: 'Build a machine-learning clickbait classifier on Postgres'
+title: 'Build a clickbait detector using machine-learning on Postgres'
 authors: [adam]
 tags: [postgres, machine-learning, text-classification]
 ---
 
-With the help of a few Postgres extensions, we can build an end-to-end machine learning AP on Postgres.
+With the help of a few Postgres extensions, we can build an end-to-end machine learning project on Postgres.
 
 Normally, this might involved setting up a bunch of infrastructure, resolving dependency conflicts, and building webservers.
  This is a lot of work, especially for teams that do not have support by large engineering teams.
  Luckily, there are several Postgres extensions and community tools that make this a lot easier.
 
-- [postgresML](https://github.com/postgresml/postgresml) - provides postgres with hooks into most of the popular Python machine learning libraries.
-- [pg_vectorize](https://github.com/tembo-io/pg_vectorize) - gives you a clean abstraction over vector transformations. And on Tembo cloud, gives you a hook into additional sentence transformers.
-- [PostgREST](https://postgrest.org/) - provides a REST API for your Postgres database. Lets you call functions in your database via HTTP requests
+- [postgresML](https://github.com/postgresml/postgresml) - SQL hooks into most of the popular Python machine learning libraries.
+- [pg_vectorize](https://github.com/tembo-io/pg_vectorize) - a simple abstraction over vector transformations. And on Tembo cloud, gives you a hook into additional sentence transformers.
+- [PostgREST](https://postgrest.org/) - lets you call functions in your database via external HTTP requests
 
 We will piece these tools together with SQL to build an end-to-end machine learning experience, all within Postgres.
-
-First, create a Tembo Cloud instance with the Machine Learning Stack. We recommend at least 8 vCPU and 32GB RAM instance for this example.
 
 ## Acquire examples of click-bait and non-click-bait text
 
@@ -79,7 +77,9 @@ Which TV Female Friend Group Do You Belong In,1
 
 ## Load training data into Postgres using `psql`
 
-Let's set our postgres connection string in an environment variable so we can re-use it a bunch of times. You can find the Tembo org and the instance ID in the Tembo Cloud UI in the URL.
+You will need a Tembo with the Machine Learning Stack. We recommend at least 8 vCPU and 32GB RAM instance for this example.
+ Let's set our postgres connection string in an environment variable so we can re-use it throughout this guide.
+ You can find the Tembo org and the instance ID in the Tembo Cloud UI in the URL.
 
 `https://cloud.tembo.io/orgs/{TEMBO_ORG}/clusters/{TEMBO_INST}`
 
