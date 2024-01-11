@@ -29,7 +29,6 @@ const config = {
 		defaultLocale: 'en',
 		locales: ['en'],
 	},
-
 	plugins: [
 		'@stackql/docusaurus-plugin-hubspot',
 		'docusaurus-plugin-segment',
@@ -107,25 +106,7 @@ const config = {
 				},
 			}),
 		],
-		[
-			'redocusaurus',
-			{
-				// Plugin Options for loading OpenAPI files
-				specs: [
-					{
-						spec: 'https://api.tembo.io/api-docs/openapi.json',
-						route: '/docs/tembo-cloud/openapi',
-					},
-				],
-				// Theme Options for modifying how redoc renders them
-				theme: {
-					// Change with your site colors
-					primaryColor: '#1890ff',
-				},
-			},
-		],
 	],
-
 	themeConfig:
 		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
