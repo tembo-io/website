@@ -76,7 +76,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 	return (
 		<div
 			className={cx(
-				'fixed top-0 w-full z-50 transition duration-100',
+				'fixed top-0 w-full z-50 transition duration-100 overflow-hidden',
 				scrollY > 20 ? 'backdrop-blur-lg safari-blur' : '',
 			)}
 		>

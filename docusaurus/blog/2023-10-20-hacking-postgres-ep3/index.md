@@ -7,7 +7,19 @@ tags: [postgres, hacking_postgres]
 
 In this episode, Ry and Eric talk about ZomboDB, the complicated road that led to the development of pgrx, and what it means for the future of extensions within Postgres. You can watch it below or listen to it on Apple/Spotify (or your podcast platform of choice). Special thanks to Eric for joining us today!
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/tD9e6KXnB20?si=sjZJEGyxhqE7x9U-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
+  <iframe 
+    style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
+    width="900" 
+    height="315" 
+    src="https://www.youtube.com/embed/tD9e6KXnB20?si=sjZJEGyxhqE7x9U-" 
+    title="YouTube video player" 
+    frameBorder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowFullScreen>
+  </iframe>
+</div>
+
 
 Want to know more about something they mentioned? Here’s a starting point:
 

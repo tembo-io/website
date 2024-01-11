@@ -15,7 +15,18 @@ Make it fast. Like...Twitter-scale. (Sorry, X.)
 
 So what would that look like? Let’s take a look.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4vK0JqCNuok?si=60cxZCsfiYEiIiNm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
+  <iframe 
+    style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
+    width="900" 
+    height="315" 
+    src="https://www.youtube.com/embed/4vK0JqCNuok?si=60cxZCsfiYEiIiNm" 
+    title="YouTube video player" 
+    frameBorder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowFullScreen>
+  </iframe>
+</div>
 
 Before we get into the rest of that story, it’s worth calling out what’s in [PGMQ v1.0](https://github.com/tembo-io/pgmq):
 
