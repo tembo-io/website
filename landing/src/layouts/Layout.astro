@@ -42,7 +42,7 @@ const { title } = Astro.props;
 			referrerpolicy='strict-origin-when-cross-origin'></script>
 	</head>
 	<body>
-		<main class=''>
+		<main class='overflow-clip'>
 			<slot />
 		</main>
 	</body>
@@ -189,12 +189,6 @@ const { title } = Astro.props;
 		font-family: 'Bai Jamjuree';
 		background: #120f0e;
 
-	}
-
-	@media screen and (min-width: 900px) {
-		body {
-
-		}
 	}
 
 	:root {
