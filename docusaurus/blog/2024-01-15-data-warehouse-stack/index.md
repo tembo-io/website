@@ -184,7 +184,7 @@ Partitioning is a [native feature](https://www.postgresql.org/docs/current/ddl-p
 
 The majority of our dashboard queries aggregate data over time, and most commonly on a daily interval. So, we can partition our tables by day, and only query the partitions we need to answer our questions. This provides a substantial improvement to the performance of those queries which makes our dashboards very snappy.
 
-Our stakeholders do not require visualization for the entirety of our metric data, in fact they are typically only concerned with a 30 days at most. Therefore, we only need to retail 30 days in our data warehouse storage. By setting up a retention policy, we can automatically drop partitions that are older than 30 days, and reclaim that storage. Dropping a partition is much faster than deleting rows from a table. As we'll see in a moment, it is trivial to configure partitioning on Postgres if you use [pg_partman](https://github.com/pgpartman/pg_partman) (which is my personal favorite Postgres extensions).
+Our stakeholders do not require visualization for the entirety of our metric data, in fact they are typically only concerned with a 30 days at most. Therefore, we only need to retail 30 days in our data warehouse storage. By setting up a retention policy, we can automatically drop partitions that are older than 30 days, and reclaim that storage. Dropping a partition is much faster than deleting rows from a table. As we'll see in a moment, it is trivial to configure partitioning on Postgres if you use [pg_partman](https://github.com/pgpartman/pg_partman) (which is my personal favorite Postgres extensions). Without pg_partman, it is up to you to handle the creation and deletion of partitions.
 
 ```sql
 CREATE EXTENSION pg_partman
@@ -218,6 +218,7 @@ UPDATE part_config
     WHERE parent_table = 'public.metric_values';
 ```
 
+We use partitioning in other places at Tembo as well, and we wrote a bit about those use-cases earlier this year in [another blog](https://tembo.io/blog/table-version-history).
 
 
 ## DB Objects as code with SQL Migrations
