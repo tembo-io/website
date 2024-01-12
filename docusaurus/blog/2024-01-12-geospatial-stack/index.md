@@ -13,7 +13,7 @@ Geospatial data and dealing with that data can be complex, but yield exciting in
 
 We wanted to showcase some interesting content, so please join us on a journey to Africa! Stick around to the end, where we will share insights that might be applicable to your personal use case.
 
-Check out the source code<SOURCE CODE PATH> and follow along interactively!
+Check out the source code and follow along interactively!
 
 ## 1. The Data
 
