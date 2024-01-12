@@ -5,21 +5,21 @@ authors: [adam]
 tags: [postgres, extensions, stacks, data-warehouse]
 ---
 
-Building a data warehouse is a complex task. There are many different tools and technologies that need to be integrated together to make a data warehouse work. Tembo Cloud makes it easy to build a data warehouse by providing a pre-configured stack that includes all the tools you need to build a data warehouse.
+Building a data warehouse is a complex task. There are many different tools and technologies that need to be integrated together to make a data warehouse work. Tembo Cloud makes it easy to build a data warehouse by providing a pre-configured Stack that includes all the tools you need to build a data warehouse without running additional infrastructure.
 
-In fact, Tembo build it's very own data warehouse using this Stack. We have data spread across several different vendors and systems, but want a single place to query, analyze, and visualize all of our data.
+In fact, we built our internal data warehouse at Tembo using this Stack. We have data spread across several different vendors and systems, but want a single place to query, analyze, and visualize all of our data. Tembo has operational data in a few different locations, and we used foreign data wrappers to connect Postgres to multiple external sources, partitioning to improve performance and set retention policies, and a built-in scheduler to keep our data up to date.
 
-Tembo has operational data in a few different locations:
+## Loading data from several sources
+
+![task](./task.png 'task')
+
+To build our data warehouse at Tembo, we needed to pull our operational data into Postgres from several external sources, including other Postgres instances:
 
 - Postgres - we run a dedicated Postgres cluster for the Tembo Cloud backend. We refer to this as our "control-plane". This is where we maintain all the metadata for customer;'s Tembo instances. For example, what cpu, memory, storage, when their instance was created, what its name and the organization it belongs to, etc. We also run a message queue in Postgres, which contains an archive of historical events from the system.
 - Prometheus - usage metrics are exported from various systems, including Kubernetes, across our infrastructure into Prometheus.
 - Clerk.dev - we partner with Clerk to provide authentication and authorization for all our customers, as well as management of our user's organizations.
 
 Our task was to bring all this data into a single place so that we could join the data together, analyze it, and present it in our dashboards.
-
-![task](./task.png 'task')
-
-## Loading data from several sources
 
 Moving data from several different sources into a single place is a common task for data engineers. There are lots of tools in the ecosystem to help with this task. Many organizations bring in external tools, and vendors to handle this orchestration. Tools like Airflow, dbt, Fivetran, Dagster are very popular, and outstanding projects, but using them comes at a huge cost. Every time we bring in a new technology into the ecosystem it expands the cognitive load on the engineering and analytics teams. Many software systems today consist of far too many tools and technologies for any human to keep in their head. Some engineers at Uber spoke briefly about this [recently](https://youtu.be/zQ5e3B5I-U0?t=81).
 
