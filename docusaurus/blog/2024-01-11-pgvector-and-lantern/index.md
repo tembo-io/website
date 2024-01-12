@@ -11,16 +11,16 @@ image: ./elephant-with-lantern.jpeg
 Image credit: Generated with Bing Image Creator
 </em></p>
 
-Today, let's talk about Vector Search in Postgres from yet another perspective. In this blog post, we'll cover:
+Vector search in Postgres is a space that has seen very active development in the last few months. While Pgvector is known to most people, a few weeks ago we came across Lantern, which also builds a Postgres-based vector database. So, we thought about benchmarking both to compare the two approaches. In this post, we'll cover:
 
 - Quick background on doing vector search in PostgreSQL.
-- Comparing Pgvector and Lantern in terms of their syntax and ease of use.
-- Benchmarks comparing index creation time, size, throughput and recall.
+- Comparing Pgvector and Lantern in terms of syntax and ease of use.
+- Benchmarks comparing index creation time, size, throughput, and recall.
 - Summary of the results
 
-## Vector Search in PostgreSQL
+## Intro to Vector Search in PostgreSQL
 
-Vector search is a space that has seen very active development in the last several months. A big part of that has to do with the emergence of powerful embedding models and their use in AI. You have probably witnessed how many people, startups, and big companies are exploring how to take advantage of vectors and incorporate them into [their products](https://hn.algolia.com/?dateRange=all&page=0&prefix=false&query=vector%20search&sort=byDate&type=story).
+One of the reasons for the popularity of Vector Search these days has to do with the emergence of powerful embedding models and their use in AI. You have probably witnessed how many people, startups, and big companies are exploring how to take advantage of vectors and incorporate them into [their products](https://hn.algolia.com/?dateRange=all&page=0&prefix=false&query=vector%20search&sort=byDate&type=story).
 
 Such enthusiasm has also attracted the Postgres community. [Pgvector](https://github.com/pgvector/pgvector) arose with the ability to create [IVVFlat indexes](https://tembo.io/blog/vector-indexes-in-pgvector) on existing tables with a simple DDL statement. And so, people were given the ability to easily perform similarity queries. 
 
@@ -95,7 +95,7 @@ That’s cool… And what about the resulting throughput, latency and recall? He
 
 ![Baseline p95](./005-baseline-p95.png)
 
-Ok, the recall is similar, however Pgvector outperforms Lantern in QPS. Specifically, Pgvector can process between 72% and 81% more queries per second.
+Ok, the recall is similar, however Pgvector outperforms Lantern in QPS. Specifically, Pgvector can process between 72% and 81% more queries per second, and it's latencies are between 40% and 44% smaller.
 
 So, it seems that Lantern sacrifices throughput in exchange of index creation time and index space.
 
@@ -112,7 +112,7 @@ Also, as before, the recall is similar when `ef_search` varies (although Pgvecto
 ![Recall](./013-recall-m16.png)
 
 
-And again, Pgvector has better throughput and latencies.
+Pgvector has 38-62% better throughput and 29-39% better latencies:
 
 ![Throughput](./014-qps-m16.png)
 
@@ -122,7 +122,7 @@ Increasing the m parameter to 24, we get similar conclusions:
 
 ![Recall](./015-recall-m24.png)
 
-And once again, Pgvector has higher throughput (and better latencies) for all values of `ef_search`:
+And once again, Pgvector has 29-57% higher throughput and 23-38% better latencies for all values of `ef_search`:
 
 ![Throughput](./016-qps-m24.png)
 
@@ -133,7 +133,7 @@ These results were consistent with my observations when using Gist-960 and Glove
 
 ## Conclusions
 
-Pgvector is the most popular Postgres extension for vector search. At the time of this writing, the github repository counts 7.2K stars and is actively being discussed on the web. It is also supported on most managed Postgres providers (including [Tembo Cloud](https://tembo.io/)) so is easier for you to access.
+Pgvector is the most popular Postgres extension for vector search. At the time of this writing, the github repository counts 7.2K stars and is actively being discussed on the web. It is also supported on most managed Postgres providers (including [Tembo Cloud](https://cloud.tembo.io/)) so is easier for you to access.
 
 Lantern is a young project that leverages the popular [USearch engine](https://github.com/unum-cloud/usearch/). As of today, the extension has been starred around 400 times in github and is in very active development. 
 
