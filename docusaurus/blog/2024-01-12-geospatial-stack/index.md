@@ -74,7 +74,7 @@ wkb_geometry
 
 ## 2. PostGIS
 
-Already we see some interesting fields corresponding to coordinates and timestamps. With relative ease, we can leverage PostGIS to apply functions to further analyze the data. Some of the queries can be a bit lengthly, so in lieu of brevity we’ve listed key functions, paired with a study-related question it can help answer, as well as a potential business use case with a marketing focus. As mentioned above the source code can be found here<PATH TO SOURCE CODE REPO>.
+Already we see some interesting fields corresponding to coordinates and timestamps. With relative ease, we can leverage PostGIS to apply functions to further analyze the data. Some of the queries can be a bit lengthly, so in lieu of brevity we’ve listed key functions, paired with a study-related question it can help answer, as well as a potential business use case with a marketing focus. As mentioned above the source code can be found here (insert here).
 
 ### `ST_Distance`
 
