@@ -104,22 +104,90 @@ FROM information_schema.foreign_tables
 
 ## Scheduling Updates with pg_cron
 
-New users are signing up for Tembo and using our product every day, so we need a way to keep the data in our data warehouse up to date -- "there's an extension for that!".
+New users are signing up for Tembo and using our product every day, so we need make sure that the data in our data warehouse stays up to date...There's an extension for that, [pg_cron](https://github.com/citusdata/pg_cron).
+
+If you're familiar with the unix utility "cron", then pg_cron is exactly what you'd expect.
+
+We create a function in Postgres to refresh our data sources, then we tell pg_cron to call that function on a schedule. If you've worked with Apache Airflow or Dagster before, this is a lot like creating a job to execute some code you wrote.
+
+Below is the function we wrote to update the clusters that existing across our data-planes. It is simply a replacement of the `ingested_clusters` table with the latest data from the `instance_vw` view in our control-plane, not a ton different for how someone might update a Hive table.
+
+```sql
+CREATE OR REPLACE FUNCTION public.refresh_clusters()
+ RETURNS void
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+
+RAISE NOTICE 'Refreshing clusters from instance_vw to ingested_clusters';
+
+delete from ingested_clusters;
+insert into ingested_clusters
+  (select
+    now(),
+    organization_id,
+    instance_id,
+    instance_name,
+    entity_type,
+    created_at,
+    desired_spec,
+    state,
+    environment
+  from instance_vw
+  );
+END;
+$function$
+```
+
+Then, we set up the pg_cron job to call this function as frequently as we need:
+
+```sql
+SELECT cron.schedule('update-clusters', '5 seconds', 'CALL refresh_clusters()');
+```
+
+We can easily check and see what jobs we've scheduled in our data warehouse by peeking at he `cron.job` table, and its easy to interpret.
+ We can see that we have two jobs that each run every 5 minutes; each is a simple function call.
+
+```sql
+select jobid, jobname, schedule, command from cron.job limit where jobname = 'refresh-clusters';
+
+ jobid |     jobname      |  schedule   |         command         
+-------+------------------+-------------+-------------------------
+     1 | refresh-clusters | */5 * * * * | CALL refresh_clusters()
+
+```
+
+We can also check on the status of these jobs by querying the `cron.job_run_details` table. This table contains a log of every time a job was run, and how long it took to complete.
+
+```sql
+select status, start_time, end_time
+from cron.job_run_details
+where jobid = 1
+order by runid
+desc limit 1;
+
+  status   |          start_time           |           end_time            
+-----------+-------------------------------+-------------------------------
+ succeeded | 2024-01-12 19:45:00.014907+00 | 2024-01-12 19:45:00.485323+00
+```
 
 ## Partitioning is trivial with pg_partman
+
+https://github.com/pgpartman/pg_partman
 
 Larger tables benefit from partitioning for query performance. pg_partman makes it trivial to partition tables in Postgres.
 
 ## DB Objects as code with SQL Migrations
 
-We define all our objects using SQLx migrations in Rust. This makes is easy for us to recreate the datawarehouse in any environment.
-
-## Dashboarding with Apache Superset
-
-Apache Superset is a an open source technology that we use to create dashboards for reporting for stakeholder and decision makers.
+The [Tembo-CLI](https://github.com/tembo-io/tembo/tree/main/tembo-cli) is currently under development and will be the preferred method of managing objects such as FDWs and pg_cron jobs in your Tembo Cloud instance.
+ In the interim, we use [SQLx](https://github.com/launchbadge/sqlx) to keep track of our migrations, and apply them in our CI/CD pipelines.
 
 ## Wrapping up
 
-[insert final architecture diagram here]
+We build Tembo's internal datawarehouse using the Tembo Datawarehouse Stack. Using a handful of Postgres extensions saved us the effort of setting up infrastructure, and most importaly, it helped us keep the complexity of our data ecosystem low. We were able to build a data warehouse that is easy to maintain, and easy to reason about, and quick to onboard new engineers. 
 
-Tembo Cloud makes it easy to build a data warehouse. We provide a pre-configured stack that includes all the tools you need to build a data warehouse. We use this stack to build our own data warehouse, and we use it to power our dashboards and reporting.
+![tembo-dw-stack](./fin.png 'final')
+
+The Tembo Datawarehouse Stack is [open source](https://github.com/tembo-io/tembo-stacks/blob/main/tembo-operator/src/stacks/templates/data_warehouse.yaml), and is available to deploy with a single click on [Tembo Cloud](https://cloud.tembo.io).
+
+Join the conversation about the Tembo Datawarehouse Stack in our [Slack Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw.)
