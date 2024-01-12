@@ -7,7 +7,19 @@ tags: [postgres, hacking_postgres]
 
 In this episode, Ry and Eric talk about ZomboDB, the complicated road that led to the development of pgrx, and what it means for the future of extensions within Postgres. You can watch it below or listen to it on Apple/Spotify (or your podcast platform of choice). Special thanks to Eric for joining us today!
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/tD9e6KXnB20?si=sjZJEGyxhqE7x9U-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
+  <iframe 
+    style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
+    width="900" 
+    height="315" 
+    src="https://www.youtube.com/embed/tD9e6KXnB20?si=sjZJEGyxhqE7x9U-" 
+    title="YouTube video player" 
+    frameBorder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowFullScreen>
+  </iframe>
+</div>
+
 
 Want to know more about something they mentioned? Here’s a starting point:
 
@@ -85,7 +97,7 @@ If only there was, that would be a great thing for someone to build.
 
 ##### _[00:01:33] - Eric_
 
-Yeah, it would. I wish somebody would get on that. Right. Yeah, that's a good question. There's some bigger names using Pgrx, and the Timescale is one. Supabase is one. We recently released plrust, and that's found its way out on RDS. So that's exciting for us. What we see popping up are small extensions that are written in Pgrx, and we see a lot of people writing I don't want to call them one off extensions, but one off extensions that are just, like, specific to their business use case and solve some interesting data domain problem that only they would have. But now they have the ability to build that business logic or data manipulation or what have you into their database and into the database itself.
+Yeah, it would. I wish somebody would get on that. Right. Yeah, that's a good question. There's some bigger names using Pgrx, and the TimescaleDB is one. Supabase is one. We recently released plrust, and that's found its way out on RDS. So that's exciting for us. What we see popping up are small extensions that are written in Pgrx, and we see a lot of people writing I don't want to call them one off extensions, but one off extensions that are just, like, specific to their business use case and solve some interesting data domain problem that only they would have. But now they have the ability to build that business logic or data manipulation or what have you into their database and into the database itself.
 
 
 ##### _[00:02:27] - Ry_

@@ -13,7 +13,18 @@ So we built the thing that we needed—a one-of-a-kind integration of Prometheus
 
 Want to see how it works? Darren shows us the ropes:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/LVuH4RtNQss?si=N95sY1J1fyM7oFbp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
+  <iframe 
+    style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
+    width="900" 
+    height="315" 
+    src="https://www.youtube.com/embed/LVuH4RtNQss?si=N95sY1J1fyM7oFbp" 
+    title="YouTube video player" 
+    frameBorder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowFullScreen>
+  </iframe>
+</div>
 
 <br /> What sets this integration apart? It's the only current, fully supported solution of its kind. It enables querying for Prometheus metrics directly within Postgres, bridging the gap between Prometheus monitoring and Postgres's robust database capabilities.
 

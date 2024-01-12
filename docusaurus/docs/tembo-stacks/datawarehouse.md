@@ -18,7 +18,6 @@ Tembo's DataWarehouse is tuned and configured for datawarehouse workloads. Extra
 - [multicorn](https://pgt.dev/extensions/multicorn) - `multicorn2` Foreign Data Wrapper allows you to fetch foreign data in Python in your PostgreSQL server.
 - Extensions from [Trunk](https://pgt.dev) can be installed on-demand.
 
-
 ## Getting started
 
 Let's say you are wearing a data engineer hat and working on a click through rate (CTR) project and you have got a bunch of CTR data dumped in S3.
@@ -26,7 +25,20 @@ Data can be in CSV, Parquet or JSON format. Motivation is to get insights from S
 
 ### About Data in S3
 
-For this demo, Data is preloaded in the compressed CSV file format having 1 million CTR records.
+The data we will use for the example is available in a publicly available S3 bucket. You can download the data using the [aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) from the bucket using the following command. Please note that you will need to have the [aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) installed and configured with your AWS credentials.
+
+```bash
+aws s3api get-object --bucket tembo-demo-bucket --key CTR1M.csv.gz ./CTR1M.csv.gz --no-sign-request
+```
+
+And then create a new bucket and upload the data using the following command.
+
+```bash
+aws s3api create-bucket --bucket tembo-demo-bucket
+aws s3api put-object --bucket tembo-demo-bucket --key CTR1M.csv.gz --body CTR1M.csv.gz
+```
+
+Please see the AWS S3 documentation on [downloading](https://docs.aws.amazon.com/AmazonS3/latest/userguide/download-objects.html) and [uploading](https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html) objects for more details.
 
 #### Data fields
 
@@ -52,7 +64,7 @@ For this demo, Data is preloaded in the compressed CSV file format having 1 mill
 
 First, connect to your Tembo cluster:
 
-```sql
+```bash
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 ```
 

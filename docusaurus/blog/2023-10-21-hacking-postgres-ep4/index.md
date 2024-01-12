@@ -7,7 +7,18 @@ tags: [postgres, hacking_postgres]
 
 In this episode, Ry and Pavlo talk about pg_timetable, about the value and place of risk in the ecosystem, and about building for the Postgres core. If you haven’t seen or listened to it yet, you can watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Pavlo for joining us today!
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/uDfUxtZK8_Q?si=wrmh4_2l5-LpNOlY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
+  <iframe 
+    style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
+    width="900" 
+    height="315" 
+    src="https://www.youtube.com/embed/uDfUxtZK8_Q?si=wrmh4_2l5-LpNOlY" 
+    title="YouTube video player" 
+    frameBorder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowFullScreen>
+  </iframe>
+</div>
 
 Want to know more about something they mentioned? Here’s a starting point:
 
