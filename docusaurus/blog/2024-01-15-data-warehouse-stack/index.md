@@ -171,12 +171,6 @@ desc limit 1;
  succeeded | 2024-01-12 19:45:00.014907+00 | 2024-01-12 19:45:00.485323+00
 ```
 
-## Partitioning is trivial with pg_partman
-
-https://github.com/pgpartman/pg_partman
-
-Larger tables benefit from partitioning for query performance. pg_partman makes it trivial to partition tables in Postgres.
-
 ## DB Objects as code with SQL Migrations
 
 The [Tembo-CLI](https://github.com/tembo-io/tembo/tree/main/tembo-cli) is currently under development and will be the preferred method of managing objects such as FDWs and pg_cron jobs in your Tembo Cloud instance.
@@ -184,7 +178,7 @@ The [Tembo-CLI](https://github.com/tembo-io/tembo/tree/main/tembo-cli) is curren
 
 ## Wrapping up
 
-We build Tembo's internal datawarehouse using the Tembo Datawarehouse Stack. Using a handful of Postgres extensions saved us the effort of setting up infrastructure, and most importaly, it helped us keep the complexity of our data ecosystem low. We were able to build a data warehouse that is easy to maintain, and easy to reason about, and quick to onboard new engineers. 
+We build Tembo's internal datawarehouse using the Tembo Datawarehouse Stack. Using a handful of Postgres extensions saved us the effort of setting up infrastructure, and most importaly, it helped us keep the complexity of our data ecosystem low. We were able to build a data warehouse that is easy to maintain, and easy to reason about, and quick to onboard new engineers.
 
 ![tembo-dw-stack](./fin.png 'final')
 
