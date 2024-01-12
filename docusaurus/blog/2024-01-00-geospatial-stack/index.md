@@ -25,6 +25,7 @@ Forest elephant populations in the West African country of Côte d'Ivoire have b
 
 The first step is to download the data, load it into a Postgres instance, and explore the dataset. A link to the provided study is provided here<https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566>. To access the ogr2ogr tool, please download it from GDAL.
 
+```
 ogr2ogr -f "PostgreSQL" \
 PG:"dbname<YOUR DATABASE NAME> \
 user=<YOUR USER NAME> \
@@ -33,13 +34,17 @@ host=<YOUR HOST>" \
 -nln elephant5990 \
 -lco PRECISION=NO \
 points.shp 
+```
 
+```
 SELECT COUNT(*) FROM elephant5990;
 count
 -----
 9280
 (1 row)
+```
 
+```
 SELECT column_name
 FROM information_schema.columns
 WHERE table_name = 'elephant5990'
@@ -64,7 +69,7 @@ date
 time
 wkb_geometry
 (18 rows)
-
+```
 ![map_data_points](./map_data_points.png 'map_data_points')
 
 ## 2. PostGIS
