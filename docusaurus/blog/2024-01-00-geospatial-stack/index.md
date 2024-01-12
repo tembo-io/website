@@ -9,11 +9,11 @@ While today’s data is ubiquitous, there remain many cases whereby, only after 
 
 Geospatial data and dealing with that data can be complex, but yield exciting insights. We at Tembo recently launched a Stack celebrate geospatial workloads! This comes pre-packaged with PostGIS and related extensions, and as always only a couple clicks away from any extension hosted in Trunk (pgt.dev).
 
+![extensions](./extensions.png 'extensions')
+
 We wanted to showcase some interesting content, so please join us on a journey to Africa! Stick around to the end, where we lay out transferrable workflows to the human condition.
 
 Check out the source code<SOURCE CODE PATH> and follow along interactively!
-
-![extensions](./extensions.png 'extensions')
 
 ## 1. The Data
 
