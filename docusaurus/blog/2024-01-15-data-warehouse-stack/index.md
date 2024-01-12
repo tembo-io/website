@@ -35,7 +35,7 @@ But what about getting out data from Prometheus and Clerk? Writing a foreign dat
 
 The [Wrappers](https://github.com/supabase/wrappers) project comes with a collection of FDWs built-in, such as [S3](https://github.com/supabase/wrappers/tree/main/wrappers/src/fdw/s3_fdw) and [Stripe](https://github.com/supabase/wrappers/tree/main/wrappers/src/fdw/stripe_fdw), and it is also a framework for authoring new FDWs. Wrappers enabled us to quickly develop two more FDWs; [clerk_fdw](https://github.com/tembo-io/clerk_fdw) and [prometheus_fdw](https://github.com/tembo-io/prometheus_fdw). These two FDWs are written in Rust, and take care of connecting Postgres to the Clerk and Prometheus APIs, and transforming that data into a format that can be written to Postgres storage. We wrote about both of these FDWs in more detail in previous blog posts ([clerk_fdw blog](https://tembo.io/blog/clerk-fdw) | [prometheus_fdw blog](https://tembo.io/blog/monitoring-with-prometheus-fdw)).
 
-Developing a foreign data wrapper with Wrappers is straight-forward. You simply implement the [ForeignDataWrapper](https://github.com/supabase/wrappers/blob/main/supabase-wrappers/src/interface.rs) trait in your Rust extension. This tells postgres how to scan and modify with these data sources.
+Developing a foreign data wrapper with Wrappers is straight-forward. You simply implement the [ForeignDataWrapper](https://github.com/supabase/wrappers/blob/main/supabase-wrappers/src/interface.rs) [trait](https://doc.rust-lang.org/book/ch10-02-traits.html) in your Rust extension. Implementing a trait in Rust is a lot like implementing an abstract base class in Python or an interface in Java, and ultimately, the the functions in the trait are what map your SQL query into the requests that get sent to the foreign data server. In the case of clerk_fdw, we need to map a query like `select * from users` into a request to the Clerk API, and that is exactly what happens in the trait functions.
 
 ## Connecting Postgres to sources
 
@@ -219,7 +219,6 @@ UPDATE part_config
 ```
 
 We use partitioning in other places at Tembo as well, and we wrote a bit about those use-cases earlier this year in [another blog](https://tembo.io/blog/table-version-history).
-
 
 ## DB Objects as code with SQL Migrations
 
