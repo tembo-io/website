@@ -113,6 +113,13 @@ We create a function in Postgres to refresh our data sources, then we tell pg_cr
 Below is the function we wrote to update the clusters that existing across our data-planes. It is simply a replacement of the `ingested_clusters` table with the latest data from the `instance_vw` view in our control-plane, not a ton different for how someone might update a Hive table.
 
 ```sql
+CREATE EXTENSION pg_cron
+```
+
+We'll need to make sure that the `shared_preload_libraries` config is set to include `pg_cron` as well. Both the `CREATE EXTENSION` and `shared_preload_libraries` steps are handled for you automatically on [Tembo Cloud](https://cloud.tembo.io)!
+
+
+```sql
 CREATE OR REPLACE FUNCTION public.refresh_clusters()
  RETURNS void
  LANGUAGE plpgsql
@@ -170,6 +177,48 @@ desc limit 1;
 -----------+-------------------------------+-------------------------------
  succeeded | 2024-01-12 19:45:00.014907+00 | 2024-01-12 19:45:00.485323+00
 ```
+
+## Partitioning is trivial with pg_partman
+
+Partitioning is a [native feature](https://www.postgresql.org/docs/current/ddl-partitioning.html) in Postgres, and it is the logical splitting of one table into smaller physical tables. Some, but not all of the tables in our data warehouse have grown quite large. Largest being our metrics, and this presents two problems that must be addressed; performance and storage.
+
+The majority of our dashboard queries aggregate data over time, and most commonly on a daily interval. So, we can partition our tables by day, and only query the partitions we need to answer our questions. This provides a substantial improvement to the performance of those queries which makes our dashboards very snappy.
+
+Our stakeholders do not require visualization for the entirety of our metric data, in fact they are typically only concerned with a 30 days at most. Therefore, we only need to retail 30 days in our data warehouse storage. By setting up a retention policy, we can automatically drop partitions that are older than 30 days, and reclaim that storage. Dropping a partition is much faster than deleting rows from a table. As we'll see in a moment, it is trivial to configure partitioning on Postgres if you use [pg_partman](https://github.com/pgpartman/pg_partman) (which is my personal favorite Postgres extensions).
+
+```sql
+CREATE EXTENSION pg_partman
+```
+
+We'll need to make sure that the `shared_preload_libraries` config is set to include `pg_partman_bgw` as well. Both the `CREATE EXTENSION` and `shared_preload_libraries` steps are handled for you automatically on [Tembo Cloud](https://cloud.tembo.io)!
+
+Creating a partitioned table is like creating an extra table, with extra steps. One caveat, is that we must create an index on the column that we want to partition by. In our case, we want a new partition for every day, so we partition by the `time` column, then create an index there as well.
+
+```sql
+CREATE TABLE public.metric_values (
+    id int8 NOT NULL,
+    "time" int8 NULL,
+    value float8 NOT NULL,
+    CONSTRAINT metric_values_unique UNIQUE (id, "time")
+)
+PARTITION BY RANGE ("time");
+CREATE INDEX metric_values_time_idx ON ONLY public.metric_values USING btree ("time" DESC);
+```
+
+Next, we set up pg_partman. We pass our partitioned table into `create_parent()`, then update the `part_config` table to set our retention policy.
+
+```sql
+SELECT create_parent('public.metric_values', 'time', 'native', 'daily');
+
+UPDATE part_config
+    SET retention = '30 days',
+        retention_keep_table = false,
+        retention_keep_index = false,
+        infinite_time_partitions = true
+    WHERE parent_table = 'public.metric_values';
+```
+
+
 
 ## DB Objects as code with SQL Migrations
 
