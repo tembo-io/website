@@ -16,5 +16,8 @@
 	"license": "PostgreSQL",
 	"devDependencies": {
 		"prettier": "^3.1.1"
+	},
+	"dependencies": {
+		"astro": "^4.1.2"
 	}
 }
