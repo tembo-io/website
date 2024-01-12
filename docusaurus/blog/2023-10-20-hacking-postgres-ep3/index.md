@@ -97,7 +97,7 @@ If only there was, that would be a great thing for someone to build.
 
 ##### _[00:01:33] - Eric_
 
-Yeah, it would. I wish somebody would get on that. Right. Yeah, that's a good question. There's some bigger names using Pgrx, and the Timescale is one. Supabase is one. We recently released plrust, and that's found its way out on RDS. So that's exciting for us. What we see popping up are small extensions that are written in Pgrx, and we see a lot of people writing I don't want to call them one off extensions, but one off extensions that are just, like, specific to their business use case and solve some interesting data domain problem that only they would have. But now they have the ability to build that business logic or data manipulation or what have you into their database and into the database itself.
+Yeah, it would. I wish somebody would get on that. Right. Yeah, that's a good question. There's some bigger names using Pgrx, and the TimescaleDB is one. Supabase is one. We recently released plrust, and that's found its way out on RDS. So that's exciting for us. What we see popping up are small extensions that are written in Pgrx, and we see a lot of people writing I don't want to call them one off extensions, but one off extensions that are just, like, specific to their business use case and solve some interesting data domain problem that only they would have. But now they have the ability to build that business logic or data manipulation or what have you into their database and into the database itself.
 
 
 ##### _[00:02:27] - Ry_
