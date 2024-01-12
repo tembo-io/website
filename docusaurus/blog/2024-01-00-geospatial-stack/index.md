@@ -7,7 +7,7 @@ tags: [postgres, geospatial, stacks, database]
 
 While today’s data is ubiquitous, there remain many cases whereby, only after providing additional contexts, can a collection of points graduate to valuable information. This is especially true when dealing with geospatial datasets.
 
-Geospatial data and dealing with that data can be complex, but yield exciting insights. We at Tembo recently launched a Stack celebrate geospatial workloads! This comes pre-packaged with PostGIS and related extensions, and as always only a couple clicks away from any extension hosted in Trunk (pgt.dev).
+Geospatial data and dealing with that data can be complex, but yield exciting insights. We at Tembo recently launched a Stack celebrate geospatial workloads! This comes pre-packaged with PostGIS and related extensions, and as always only a couple clicks away from any extension hosted in [Trunk](https://pgt.dev).
 
 ![extensions](./extensions.png 'extensions')
 
@@ -23,7 +23,7 @@ Forest elephant populations in the West African country of Côte d'Ivoire have b
 - Timeframe: 2018 - 2021
 - Sample size: 1
 
-The first step is to download the data, load it into a Postgres instance, and explore the dataset. A link to the provided study is provided here<https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566>. To access the ogr2ogr tool, please download it from GDAL.
+The first step is to download the data, load it into a Postgres instance, and explore the dataset. A link to the provided study is provided here<https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566>. To access the ogr2ogr tool comes bundled when downloading [GDAL](https://gdal.org/index.html).
 
 ```
 ogr2ogr -f "PostgreSQL" \
