@@ -15,7 +15,7 @@ In fact, we built our internal data warehouse at Tembo using this Stack. We have
 
 To build our data warehouse at Tembo, we needed to pull our operational data into Postgres from several external sources, including other Postgres instances:
 
-- Postgres - we run a dedicated Postgres cluster for the Tembo Cloud backend. We refer to this as our "control-plane". This is where we maintain all the metadata for customer;'s Tembo instances. For example, what cpu, memory, storage, when their instance was created, what its name and the organization it belongs to, etc. We also run a message queue in Postgres, which contains an archive of historical events from the system.
+- Postgres - we run a dedicated Postgres cluster for the Tembo Cloud backend. We refer to this as our "control-plane". This is where we maintain all the metadata for customers Tembo instances. For example, what cpu, memory, storage, when their instance was created, what its name and the organization it belongs to, etc. We also run a message queue in Postgres, which contains an archive of historical events from the system.
 - Prometheus - usage metrics are exported from various systems, including Kubernetes, across our infrastructure into Prometheus.
 - Clerk.dev - we partner with Clerk to provide authentication and authorization for all our customers, as well as management of our user's organizations.
 
