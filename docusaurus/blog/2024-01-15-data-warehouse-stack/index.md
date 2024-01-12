@@ -149,7 +149,7 @@ $function$
 Then, we set up the pg_cron job to call this function as frequently as we need:
 
 ```sql
-SELECT cron.schedule('update-clusters', '5 seconds', 'CALL refresh_clusters()');
+SELECT cron.schedule('update-clusters', '5 minutes', 'CALL refresh_clusters()');
 ```
 
 We can easily check and see what jobs we've scheduled in our data warehouse by peeking at he `cron.job` table, and its easy to interpret.
