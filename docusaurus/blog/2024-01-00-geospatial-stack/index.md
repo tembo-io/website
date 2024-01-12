@@ -11,7 +11,7 @@ Geospatial data and dealing with that data can be complex, but yield exciting in
 
 ![extensions](./extensions.png 'extensions')
 
-We wanted to showcase some interesting content, so please join us on a journey to Africa! Stick around to the end, where we lay out transferrable workflows to the human condition.
+We wanted to showcase some interesting content, so please join us on a journey to Africa! Stick around to the end, where we will share insights that might be applicable to your personal use case.
 
 Check out the source code<SOURCE CODE PATH> and follow along interactively!
 
@@ -23,7 +23,7 @@ Forest elephant populations in the West African country of Côte d'Ivoire have b
 - Timeframe: 2018 - 2021
 - Sample size: 1
 
-The first step is to download the data, load it into a Postgres instance, and explore the dataset. A link to the provided study is provided here<https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566>. To access the ogr2ogr tool comes bundled when downloading [GDAL](https://gdal.org/index.html).
+The first step is to download [the dataset](https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566), load it into a Postgres instance, and explore. A link to the provided study is provided here<https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566>. To access the ogr2ogr tool comes bundled when downloading [GDAL](https://gdal.org/index.html).
 
 ```
 ogr2ogr -f "PostgreSQL" \
@@ -80,7 +80,7 @@ Already we see some interesting fields corresponding to coordinates and timestam
 
 ST_Distance can be used to find the minimum distance between two points. This approach can be extended in a recursive manner to many points.
 
-- Elephant: Hour of the day with the highest average distance traveled (meters) per year?
+- Which hour of the day (24hr format) with the highest average distance traveled (meters) per year?
 
 | year | hour |       avg_distance        |
 |------|------|---------------------------|
