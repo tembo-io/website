@@ -1,7 +1,7 @@
 ---
 slug: geospatial-on-postgres
 title: 'Geospatial Workloads on Postgres: An Elephant of a Story'
-authors: [Evan, ]
+authors: [evan]
 tags: [postgres, geospatial, stacks, database]
 ---
 
