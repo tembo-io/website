@@ -26,7 +26,7 @@ Such enthusiasm has also attracted the Postgres community. [Pgvector](https://gi
 
 But Pgvector is not the only one in this space. The community has come up with other alternatives as well. One such example was [pg_embedding](https://github.com/neondatabase/pg_embedding). In July, [Neon](https://neon.tech/) published a [post](https://neon.tech/blog/pg-embedding-extension-for-vector-search) where they showed how its extension was 20x faster than Pgvector by using HNSW indexes . However, Pgvector quickly caught up and introduced the HNSW index as well. Around that time, on September 29th, Neon stopped supporting `pg_embedding` and suggested migrating to Pgvector.
 
-Another Postgres extension in the vector search domain is [Lantern](https://github.com/lanterndata/lantern), developed by a [company of the same name](https://lantern.dev/). In October, a post on their blog claimed that their extension could outperform Pgvector by 90x in index creation time. That was an outstanding achievement!
+Another Postgres extension in the vector search domain is [Lantern](https://github.com/lanterndata/lantern), developed by a [company of the same name](https://lantern.dev/). In October, a [post](https://lantern.dev/blog/hnsw-index-creation) on their blog claimed that their extension could outperform Pgvector by 90x in index creation time. That was an outstanding achievement!
 
 So, I spent some time playing with Lantern, and I'd like to share some of my findings in this blog post. I divided it into two parts: the first one is a quick qualitative comparison, and the second one is a quantitative comparison using a popular benchmark. 
 
