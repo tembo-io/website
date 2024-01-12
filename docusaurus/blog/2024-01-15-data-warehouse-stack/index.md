@@ -35,7 +35,7 @@ But what about getting out data from Prometheus and Clerk? Writing a foreign dat
 
 The [Wrappers](https://github.com/supabase/wrappers) project comes with a collection of FDWs built-in, such as [S3](https://github.com/supabase/wrappers/tree/main/wrappers/src/fdw/s3_fdw) and [Stripe](https://github.com/supabase/wrappers/tree/main/wrappers/src/fdw/stripe_fdw), and it is also a framework for authoring new FDWs. Wrappers enabled us to quickly develop two more FDWs; [clerk_fdw](https://github.com/tembo-io/clerk_fdw) and [prometheus_fdw](https://github.com/tembo-io/prometheus_fdw). These two FDWs are written in Rust, and take care of connecting Postgres to the Clerk and Prometheus APIs, and transforming that data into a format that can be written to Postgres storage. We wrote about both of these FDWs in more detail in previous blog posts ([clerk_fdw blog](https://tembo.io/blog/clerk-fdw) | [prometheus_fdw blog](https://tembo.io/blog/monitoring-with-prometheus-fdw)).
 
-Developing a foreign data wrapper with Wrappers is straight-forward. You simply implement the [ForeignDataWrapper](https://github.com/supabase/wrappers/blob/main/supabase-wrappers/src/interface.rs) [trait](https://doc.rust-lang.org/book/ch10-02-traits.html) in your Rust extension. Implementing a trait in Rust is a lot like implementing an abstract base class in Python or an interface in Java, and ultimately, the the functions in the trait are what map your SQL query into the requests that get sent to the foreign data server. In the case of clerk_fdw, we need to map a query like `select * from users` into a request to the Clerk API, and that is exactly what happens in the trait functions.
+Developing a foreign data wrapper with Wrappers is straight-forward. You simply implement the [ForeignDataWrapper](https://github.com/supabase/wrappers/blob/main/supabase-wrappers/src/interface.rs) [trait](https://doc.rust-lang.org/book/ch10-02-traits.html) in your Rust extension. Implementing a trait in Rust is a lot like implementing an abstract base class in Python or an interface in Java, and ultimately, the functions in the trait are what map your SQL query into the requests that get sent to the foreign data server. In the case of clerk_fdw, we need to map a query like `select * from users` into a request to the Clerk API, and that is exactly what happens in the trait functions.
 
 ## Connecting Postgres to sources
 
@@ -152,7 +152,7 @@ Then, we set up the pg_cron job to call this function as frequently as we need:
 SELECT cron.schedule('update-clusters', '5 minutes', 'CALL refresh_clusters()');
 ```
 
-We can easily check and see what jobs we've scheduled in our data warehouse by peeking at he `cron.job` table, and its easy to interpret.
+We can easily check and see what jobs we've scheduled in our data warehouse by peeking at the `cron.job` table, and its easy to interpret.
  We can see that we have two jobs that each run every 5 minutes; each is a simple function call.
 
 ```sql
@@ -184,7 +184,7 @@ Partitioning is a [native feature](https://www.postgresql.org/docs/current/ddl-p
 
 The majority of our dashboard queries aggregate data over time, and most commonly on a daily interval. So, we can partition our tables by day, and only query the partitions we need to answer our questions. This provides a substantial improvement to the performance of those queries which makes our dashboards very snappy.
 
-Our stakeholders do not require visualization for the entirety of our metric data, in fact they are typically only concerned with a 30 days at most. Therefore, we only need to retail 30 days in our data warehouse storage. By setting up a retention policy, we can automatically drop partitions that are older than 30 days, and reclaim that storage. Dropping a partition is much faster than deleting rows from a table. As we'll see in a moment, it is trivial to configure partitioning on Postgres if you use [pg_partman](https://github.com/pgpartman/pg_partman) (which is my personal favorite Postgres extensions). Without pg_partman, it is up to you to handle the creation and deletion of partitions.
+Our stakeholders do not require visualization for the entirety of our metric data, in fact they are typically only concerned with a 30 days at most. Therefore, we only need to retain 30 days in our data warehouse storage. By setting up a retention policy, we can automatically drop partitions that are older than 30 days, and reclaim that storage. Dropping a partition is much faster than deleting rows from a table. As we'll see in a moment, it is trivial to configure partitioning on Postgres if you use [pg_partman](https://github.com/pgpartman/pg_partman) (which is my personal favorite Postgres extensions). Without pg_partman, it is up to you to handle the creation and deletion of partitions.
 
 ```sql
 CREATE EXTENSION pg_partman
