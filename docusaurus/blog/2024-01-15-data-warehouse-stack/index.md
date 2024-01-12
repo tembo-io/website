@@ -5,7 +5,7 @@ authors: [adam]
 tags: [postgres, extensions, stacks, data-warehouse]
 ---
 
-Building a data warehouse is a complex task. There are many different tools and technologies that need to be integrated together to make a data warehouse work. Tembo Cloud makes it easy to build a data warehouse by providing a pre-configured Stack that includes all the tools you need to build a data warehouse without running additional infrastructure.
+Building a data warehouse is a complex task. Typically, a data engineering team would need to integrate several different tools and technologies to bring data into a central location from various data sources. Tembo reduces the complexity associated with building a data warehouse by providing a pre-configured Stack that includes all the tools you need to build a data warehouse without running additional infrastructure, all accessible to you from within Postgres.
 
 In fact, we built our internal data warehouse at Tembo using this Stack. We have data spread across several different vendors and systems, but want a single place to query, analyze, and visualize all of our data. Tembo has operational data in a few different locations, and we used foreign data wrappers to connect Postgres to multiple external sources, partitioning to improve performance and set retention policies, and a built-in scheduler to keep our data up to date.
 
