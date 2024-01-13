@@ -1,13 +1,13 @@
 ---
 slug: data-warehouse-stack
 title: 'Data Warehouse Stack on Tembo Cloud'
-authors: [adam]
+authors: [jay, adam]
 tags: [postgres, extensions, stacks, data-warehouse]
 ---
 
-Building a data warehouse is a complex task. Typically, a data engineering team would need to integrate several different tools and technologies to bring data into a central location from various data sources. Tembo reduces the complexity associated with building a data warehouse by providing a pre-configured Stack that includes all the tools you need to build a data warehouse without running additional infrastructure, all accessible to you from within Postgres.
-
-In fact, we built our internal data warehouse at Tembo using this Stack. We have data spread across several different vendors and systems, but want a single place to query, analyze, and visualize all of our data. Tembo has operational data in a few different locations, and we used foreign data wrappers to connect Postgres to multiple external sources, partitioning to improve performance and set retention policies, and a built-in scheduler to keep our data up to date.
+The engineering team at Tembo needed to bring data from several different data sources into a single location in order to build the dashboards needed for business decision making and report.
+ Typically, this process requires several orchestration tools and technologies and the end result is a highly complex data ecosystem.
+ However, by developing the Data Warehouse Stack with foreign data wrappers and other Postgres extensions, we streamlined the architecture, enhancing efficiency and simplifying the process.
 
 ## Loading data from several sources
 
