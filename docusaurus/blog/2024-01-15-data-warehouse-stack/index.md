@@ -31,13 +31,7 @@ Every time we add a tool to the ecosystem, it becomes piece of software that nee
 
 Foreign data wrappers (FDW) are a class of Postgres extensions provide you with a simple interface that connects Postgres to another data source. If you've worked with Kafka, this are similar to 'Connectors'. There are many different foreign data wrappers available, and you can even write your own. To build our data warehouse, we knew right away that we could use the [postgres_fdw](https://www.postgresql.org/docs/current/postgres-fdw.html) to connect our data warehouse and control-plane Postgres instances.
 
-But what about getting out data from Prometheus and Clerk? Writing a foreign data wrapper sounded like a lot of work at first, until we came across the [Wrappers](https://github.com/supabase/wrappers) project.
-
-## Building FDWs in Rust
-
-The [Wrappers](https://github.com/supabase/wrappers) project comes with a collection of FDWs built-in, such as [S3](https://github.com/supabase/wrappers/tree/main/wrappers/src/fdw/s3_fdw) and [Stripe](https://github.com/supabase/wrappers/tree/main/wrappers/src/fdw/stripe_fdw), and it is also a framework for authoring new FDWs. Wrappers enabled us to quickly develop two more FDWs; [clerk_fdw](https://github.com/tembo-io/clerk_fdw) and [prometheus_fdw](https://github.com/tembo-io/prometheus_fdw). These two FDWs are written in Rust, and take care of connecting Postgres to the Clerk and Prometheus APIs, and transforming that data into a format that can be written to Postgres storage. We wrote about both of these FDWs in more detail in previous blog posts ([clerk_fdw blog](https://tembo.io/blog/clerk-fdw) | [prometheus_fdw blog](https://tembo.io/blog/monitoring-with-prometheus-fdw)).
-
-Developing a foreign data wrapper with Wrappers is straight-forward. You simply implement the [ForeignDataWrapper](https://github.com/supabase/wrappers/blob/main/supabase-wrappers/src/interface.rs) [trait](https://doc.rust-lang.org/book/ch10-02-traits.html) in your Rust extension. Implementing a trait in Rust is a lot like implementing an abstract base class in Python or an interface in Java, and ultimately, the functions in the trait are what map your SQL query into the requests that get sent to the foreign data server. In the case of clerk_fdw, we need to map a query like `select * from users` into a request to the Clerk API, and that is exactly what happens in the trait functions.
+But what about accessing data from our Prometheus database and Clerk? We build two new FDWs so that we could connect to those sources; [clerk_fdw](https://github.com/tembo-io/clerk_fdw) and [prometheus_fdw](https://github.com/tembo-io/prometheus_fdw). Both of these FDW projects were built using the [Wrappers](https://github.com/supabase/wrappers) framework.
 
 ## Connecting Postgres to sources
 
@@ -51,7 +45,6 @@ CREATE EXTENSION clerk_fdw;
 CREATE FOREIGN DATA WRAPPER clerk_wrapper
   handler clerk_fdw_handler
   validator clerk_fdw_validator;
-
 ```
 
 Next, create a server object. This is where we configure the connection to the source data system. In the case of Clerk.dev, we need to provide our API key. The server object also needs to know which FDW to use, so we direct it to the clerk_wrapper we created above.
