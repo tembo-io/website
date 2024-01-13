@@ -23,7 +23,9 @@ Our task was to bring all this data into a single place so that we could join th
 
 Moving data from several different sources into a single place is a common task for data engineers. There are lots of tools in the ecosystem to help with this task. Many organizations bring in external tools, and vendors to handle this orchestration. Tools like [Airflow](https://airflow.apache.org/), [dbt](https://github.com/dbt-labs/dbt-core), [Fivetran](https://www.fivetran.com/blog/modern-data-warehouse), [Dagster](https://dagster.io/) are very popular, and outstanding projects, but using them comes at a huge cost. Every time we bring in a new technology into the ecosystem it expands the cognitive load on the engineering and analytics teams. Many software systems today consist of far too many tools and technologies for any human to keep in their head. Some engineers at Uber spoke briefly about this [recently](https://youtu.be/zQ5e3B5I-U0?t=81).
 
-So, rather than bring in new tools, we can use Postgres extensions to do the work for us. As a developer, extensions feel natural, like installing and importing a module or package from your favorite repository, which is much lighter and easier to manage than a completely new tool.
+## Why all-in Postgres?
+
+Every time we add a tool to the ecosystem, it becomes piece of software that needs to be mastered and maintained separately. This becomes a huge cost in the form of cognitive overhead for the team in addition the time it takes to set up and manage the external orchestration tools. So, rather than bring in new tools, we can use Postgres extensions to do the work for us. As a developer, extensions feel natural, like installing and importing a module or package from your favorite repository, which is much lighter and easier to manage than a completely new tool.
 
 ## Foreign Data Wrappers
 
