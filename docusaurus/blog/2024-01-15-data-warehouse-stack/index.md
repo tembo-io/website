@@ -217,7 +217,7 @@ We use partitioning in other places at Tembo as well, and we wrote a bit about t
 
 ## Wrapping up
 
-We build Tembo's internal datawarehouse using the Tembo Datawarehouse Stack. Using a handful of Postgres extensions saved us the effort of setting up infrastructure, and most importaly, it helped us keep the complexity of our data ecosystem low. We were able to build a data warehouse that is easy to maintain, and easy to reason about, and quick to onboard new engineers.
+We built Tembo's internal datawarehouse using the Tembo Datawarehouse Stack. We used foreign data wrappers to connect Postgres to external sources, the pg_cron as a scheduler to keep out data up-to-date, and pg_partman to improve performance and automate our retention policy. We were able to build our data warehouse that is easy to maintain, and easy to reason about, and quick to onboard new engineers. In the end, our stakeholders get the dashboards they need to make business decisions.
 
 ![tembo-dw-stack](./fin.png 'final')
 
