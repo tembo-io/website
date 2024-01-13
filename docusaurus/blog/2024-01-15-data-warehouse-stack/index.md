@@ -222,11 +222,6 @@ UPDATE part_config
 
 We use partitioning in other places at Tembo as well, and we wrote a bit about those use-cases earlier this year in [another blog](https://tembo.io/blog/table-version-history).
 
-## DB Objects as code with SQL Migrations
-
-The [Tembo-CLI](https://github.com/tembo-io/tembo/tree/main/tembo-cli) is currently under development and will be the preferred method of managing objects such as FDWs and pg_cron jobs in your Tembo Cloud instance.
- In the interim, we use [SQLx](https://github.com/launchbadge/sqlx) to keep track of our migrations, and apply them in our CI/CD pipelines.
-
 ## Wrapping up
 
 We build Tembo's internal datawarehouse using the Tembo Datawarehouse Stack. Using a handful of Postgres extensions saved us the effort of setting up infrastructure, and most importaly, it helped us keep the complexity of our data ecosystem low. We were able to build a data warehouse that is easy to maintain, and easy to reason about, and quick to onboard new engineers.
