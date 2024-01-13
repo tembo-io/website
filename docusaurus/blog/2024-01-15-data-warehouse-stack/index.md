@@ -1,7 +1,7 @@
 ---
 slug: data-warehouse-stack
 title: 'Simplify your data stack with Tembo Data Warehouse'
-authors: [jay, steven]
+authors: [jay, steven, adam]
 tags: [postgres, extensions, stacks, data-warehouse]
 ---
 
