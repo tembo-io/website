@@ -25,7 +25,7 @@ Moving data from several different sources into a single place is a common task 
 
 ## Why all-in Postgres?
 
-Every time we add a tool to the ecosystem, it becomes piece of software that needs to be mastered and maintained separately. This becomes a huge cost in the form of cognitive overhead for the team in addition the time it takes to set up and manage the external orchestration tools. So, rather than bring in new tools, we can use Postgres extensions to do the work for us. As a developer, extensions feel natural, like installing and importing a module or package from your favorite repository, which is much lighter and easier to manage than a completely new tool.
+Every time we add a tool to the ecosystem, it becomes piece of software that needs to be mastered and maintained separately. This becomes a huge cost in the form of cognitive overhead for the team in addition the time it takes to set up and manage the ongoing maintenance. So, rather than bring in new tools, we can use Postgres extensions to do the work for us. As a developer, extensions feel natural, like installing and importing a module or package from your favorite repository, which is much lighter and easier to manage than a completely new tool.
 
 ## Foreign Data Wrappers
 
