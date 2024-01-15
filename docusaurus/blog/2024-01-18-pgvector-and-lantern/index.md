@@ -99,7 +99,7 @@ So, it seems that Lantern sacrifices throughput in exchange of index creation ti
 
 Hold on… but is this true for other data points as well? Let’s see.
 
-With the construction parameters `m = {16, 24}` and `ef_construction = {200}`, the creation time is still better with Lantern: between 1.7X and 2X. And the resulting index is bigger in Pgvector: between 1.13X and 1.20X compared to Latern’s index.
+With the construction parameters `m = {16, 24}` and `ef_construction = {200}`, the creation time is still better with Lantern: between 1.9X and 2.3X. And the resulting index is bigger in Pgvector: between 1.13X and 1.20X compared to Latern’s index.
 
 ![Build time](./011-sift-build-time.png)
 ![Index Size](./012-sift-index-size.png)
@@ -122,7 +122,7 @@ And once again, Pgvector has 42-58% higher throughput and 30-39% better latencie
 ![Throughput](./017-sift-qps-m24.png)
 ![Latency](./017-sift-latency-m24.png)
 
-These results were consistent with my observations when using Gist-960 and Glove-200. You can see more results [here](https://github.com/binidxaba/lantern-pgvector-comparison/tree/main).
+These trends were consistent with my observations when using Gist-960 and Glove-200. You can see more results [here](https://github.com/binidxaba/lantern-pgvector-comparison/tree/main).
 
 
 ## Conclusions
@@ -150,6 +150,7 @@ The experiments in this post were carried out using a machine with the following
 | **Storage**          | 100GB                                         |
 | **Operating System** | Debian 11.8                                   |
 | **Postgres**         | 15                                            |
+| **Postgres Config ** | `maintenance_work_mem=5GB; work_mem=2GB; shared_buffers=12GB` |
 | **Lantern**          | 0.0.11                                        |
 | **PGVector**         | 0.5.1                                         |
 
