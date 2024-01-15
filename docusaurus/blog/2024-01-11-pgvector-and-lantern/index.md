@@ -40,7 +40,7 @@ The following table summarizes some aspects of both extensions:
 |                                  | **Pgvector**                                                                                    | **Lantern**                                                                                                |
 |----------------------------------|-------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
 | **Current Version (date)**       | v0.5.1 (Oct 10, 2023)                                                                           | v0.0.11 (Dec 16, 2023)                                                                                     |
-| **Repo popularity (# of stars)** | 7.2K                                                                                            | 388                                                                                                        |
+| **Repo popularity (# of stars)** | 7.6K                                                                                            | 435                                                                                                        |
 | **Index Type**                   | IVVFlat, HNSW                                                                                   | HNSW                                                                                                       |
 | **Distance Metrics**             | L2, Inner, Cosine                                                                               | L2, Cosine, Hamming                                                                                        |
 | **Sample Index Creation**        | `CREATE INDEX ON items USING hnsw (embedding vector_l2_ops) WITH (m = 16, ef_construction = 64);` | `CREATE INDEX ON small_world USING hnsw (vector dist_l2sq_ops) WITH (M=2, ef_construction=10, ef=4, dim=3);` |
@@ -79,65 +79,59 @@ As for the HNSW parameters, I used the following:
 
 Although I tried different datasets, for brevity, let us only discuss the results of the SIFT 128 dataset, which was also used in one of [Lantern’s posts](https://lantern.dev/blog/hnsw-index-creation).
 
-These are the numbers I got by following the instructions in the blog post, using similar construction and search parameters (`m={8, 16}`, `ef_construction=128` and `ef_search=128`). Here I used Lantern’s external indexer. First, let us see the build time:
+These are the numbers I got by following the instructions in the blog post, using similar construction and search parameters (e.g. `m={8, 16}`, `ef_construction=128` and `ef_search=128`). Here I used Lantern’s external indexer. First, let us see the build time:
 
 ![Baseline build time](./001-baseline-build-time.png)
 
-Pgvector takes between 1.6x and 1.8x to build the same index with the same parameters. The resulting index is between 13% and 15% bigger in Pgvector:
+Pgvector takes between 1.71x and 1.73x to build the same index with the same parameters. The resulting index is between 13% and 15% bigger in Pgvector:
 
 ![Baseline index size](./002-baseline-index-size.png)
 
 That’s cool… And what about the resulting throughput, latency and recall? Here are the results:
 
 ![Baseline recall](./003-baseline-recall.png)
-
 ![Baseline throughput](./004-baseline-qps.png)
-
 ![Baseline p95](./005-baseline-p95.png)
 
-Ok, the recall is similar, however Pgvector outperforms Lantern in QPS. Specifically, Pgvector can process between 72% and 81% more queries per second, and it's latencies are between 40% and 44% smaller.
+Ok, the recall is similar, however Pgvector outperforms Lantern in QPS and latencies. Specifically, Pgvector can process between 44% and 53% more queries per second, and it's latencies are between 29% and 35% smaller.
 
 So, it seems that Lantern sacrifices throughput in exchange of index creation time and index space.
 
 Hold on… but is this true for other data points as well? Let’s see.
 
-With the construction parameters `m = {16, 24}` and `ef_construction = {200}`, the creation time is still better with Lantern: between 1.7X and 2X. And the resulting index is bigger in Pgvector: between 1.1X and 1.2X compared to Latern’s index.
+With the construction parameters `m = {16, 24}` and `ef_construction = {200}`, the creation time is still better with Lantern: between 1.7X and 2X. And the resulting index is bigger in Pgvector: between 1.13X and 1.20X compared to Latern’s index.
 
-![Build time](./011-build-time.png)
-
-![Index Size](./012-index-size.png)
+![Build time](./011-sift-build-time.png)
+![Index Size](./012-sift-index-size.png)
 
 Also, as before, the recall is similar when `ef_search` varies (although Pgvector’s is a bit better). This is the graph for construction parameters `ef_construction=200` and `m=16`. As the `ef_search` is increased, the recall of both indexes get closer.
 
-![Recall](./013-recall-m16.png)
+![Recall](./013-sift-recall-m16.png)
 
+Pgvector has 62-84% better throughput and 38-45% better latencies:
 
-Pgvector has 38-62% better throughput and 29-39% better latencies:
-
-![Throughput](./014-qps-m16.png)
-
-![Latency](./017-p95-m16.png)
+![Throughput](./014-sift-qps-m16.png)
+![Latency](./015-sift-latency-m16.png)
 
 Increasing the m parameter to 24, we get similar conclusions:
 
-![Recall](./015-recall-m24.png)
+![Recall](./017-sift-latency-m24.png)
 
-And once again, Pgvector has 29-57% higher throughput and 23-38% better latencies for all values of `ef_search`:
+And once again, Pgvector has 42-58% higher throughput and 30-39% better latencies for all values of `ef_search`:
 
-![Throughput](./016-qps-m24.png)
-
-![Latency](./018-p95-m24.png)
+![Throughput](./017-sift-qps-m24.png)
+![Latency](./017-sift-latency-m24.png)
 
 These results were consistent with my observations when using Gist-960 and Glove-200. You can see more results [here](https://github.com/binidxaba/lantern-pgvector-comparison/tree/main).
 
 
 ## Conclusions
 
-Pgvector is the most popular Postgres extension for vector search. At the time of this writing, the github repository counts 7.2K stars and is actively being discussed on the web. It is also supported on most managed Postgres providers (including [Tembo Cloud](https://cloud.tembo.io/)) so is easier for you to access.
+Pgvector is the most popular Postgres extension for vector search. At the time of this writing, the github repository counts 7.6K stars and is actively being discussed on the web. It is also supported on most managed Postgres providers (including [Tembo Cloud](https://cloud.tembo.io/)) so is easier for you to access.
 
-Lantern is a young project that leverages the popular [USearch engine](https://github.com/unum-cloud/usearch/). As of today, the extension has been starred around 400 times in github and is in very active development. 
+Lantern is a young project that leverages the popular [USearch engine](https://github.com/unum-cloud/usearch/). As of today, the extension has been starred more than 400 times in github and is in very active development. 
 
-Both extensions offer similar API and support the HNSW index. According to my experiments (Pgvector 0.5.1 and Lantern 0.0.9), Lantern's index creation is faster and produces smaller indexes. However, Pgvector provides better recall and throughput.
+Both extensions offer similar API and support the HNSW index. According to my experiments (Pgvector 0.5.1 and Lantern 0.0.11), Lantern's index creation is faster and produces smaller indexes. However, Pgvector provides better recall and throughput.
 
 We should keep an eye on both projects and see how they evolve. I am confident that we'll see several improvements in the following months.
 
@@ -155,8 +149,8 @@ The experiments in this post were carried out using a machine with the following
 | **VM**               | E2-standard-8 (8 vCPUs, 4 cores, 32GB memory) |
 | **Storage**          | 100GB                                         |
 | **Operating System** | Debian 11.8                                   |
-| **Postgres**         | 14                                            |
-| **Lantern**          | 0.0.9                                         |
+| **Postgres**         | 15                                            |
+| **Lantern**          | 0.0.11                                        |
 | **PGVector**         | 0.5.1                                         |
 
 For information about other results, please see [here](https://github.com/binidxaba/lantern-pgvector-comparison/tree/main).
