@@ -122,7 +122,7 @@ And once again, Pgvector has 42-58% higher throughput and 30-39% better latencie
 ![Throughput](./017-sift-qps-m24.png)
 ![Latency](./017-sift-latency-m24.png)
 
-These trends were consistent with my observations when using Gist-960 and Glove-200. You can see more results [here](https://github.com/binidxaba/lantern-pgvector-comparison/tree/main).
+The general trends were consistent with my observations when using Gist-960 and Glove-200. You can see more results [here](https://github.com/binidxaba/lantern-pgvector-comparison/tree/main).
 
 
 ## Conclusions
