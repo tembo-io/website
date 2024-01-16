@@ -26,6 +26,8 @@ A tembo stack is a pre-built, use case specific Postgres deployment which enable
 |[Vector DB](vector-db.md)| Pinecone, Weaviate |
 |[Standard](standard.md)| Amazon RDS |
 
+We are actively working on additional Stacks. Check out the [Tembo Roadmap](https://roadmap.tembo.io/roadmap) and upvote your favorites and Stack you'd like to see next.
+
 ## Anatomy of a Stack
 
 A stack consists of a number of components that are optimized for a particular use case. A stack includes:
