@@ -10,6 +10,7 @@ While today’s data is ubiquitous, there remain many cases whereby, only after 
 Performing operations on, and gathering insights from geospatial datasets can be complex, but very rewarding. We at Tembo recently launched a Stack celebrating geospatial workloads! This comes pre-packaged with PostGIS and related extensions, and as always only a few clicks away from any extension hosted in [Trunk](https://pgt.dev).
 
 ![extensions](./extensions.png 'extensions')
+Figure 1. Snapshot of Tembo's Geospatial Stack extension overview.
 
 We wanted to share our excitement by showcasing some interesting content, so please join us on a journey to Africa! Stick around to the end, where we will share insights that might be applicable to your personal use case.
 
@@ -31,8 +32,7 @@ To begin, you can [download the dataset here](https://www.movebank.org/cms/webap
 
 Please be mindful that this dataset's license places it within the public domain, but other datasets hosted on Movebank might have a differnt license.
 
-Once you've navigated to the target local directory with the downloaded data, 
-
+Once you've navigated to the local directory containing the dataset, fill in the appropriate information and run the following command:
 
 ```
 ogr2ogr -f "PostgreSQL" \
@@ -45,8 +45,11 @@ host=<YOUR HOST>" \
 points.shp 
 ```
 
+You can then conduct a quick data exploration by running the following queries:
+
 ```
 SELECT COUNT(*) FROM elephant5990;
+
 count
 -----
 9280
@@ -58,6 +61,7 @@ SELECT column_name
 FROM information_schema.columns
 WHERE table_name = 'elephant5990'
 ORDER BY ordinal_position;
+
 column_name
 ogc_fid
 timestamp
@@ -80,6 +84,7 @@ wkb_geometry
 (18 rows)
 ```
 ![map_data_points](./map_data_points.png 'map_data_points')
+Figure 2. Elephant tracking data visualized using QGIS
 
 ## 2. PostGIS
 
