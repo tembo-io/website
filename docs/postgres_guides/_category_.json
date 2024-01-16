@@ -1,9 +1,0 @@
-{
-  "position": 3,
-  "label": "Postgres Guides",
-  "collapsible": true,
-  "link": {
-    "type": "generated-index",
-    "description": "These Postgres guides will help you to perform some basic operations like displaying tables, connecting to database, exiting from database, and much more"
-  }
-}

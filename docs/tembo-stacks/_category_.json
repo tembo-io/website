@@ -1,8 +1,0 @@
-{
-  "label": "Tembo Stacks",
-  "position": 2,
-  "link": {
-    "type": "generated-index",
-    "description": "Stacks are pre-built, use case optimized Postgres deployments, enabling you to quickly deploy specialized data services that can replace external, non-Postgres data services. They allow you to leverage Postgres for most of your data needs without having to figure out all the details required to tune Postgres for each use case."
-  }
-}

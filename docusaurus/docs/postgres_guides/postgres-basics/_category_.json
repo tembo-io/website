@@ -1,0 +1,9 @@
+{
+	"position": 3,
+	"label": "Postgres Basics",
+	"collapsible": true,
+	"link": {
+		"type": "generated-index",
+		"description": "Postgres, as a relational database management system, uses SQL to define and manipulate data. In these guides, you will learn the basics to start using Postgres."
+	}
+}

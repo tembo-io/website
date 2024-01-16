@@ -1,0 +1,9 @@
+{
+	"position": 3,
+	"label": "Postgres Guides",
+	"collapsible": true,
+	"link": {
+		"type": "generated-index",
+		"description": "Stuck? Looking for help on specific Postgres operations? Look no further - we're here to help."
+	}
+}

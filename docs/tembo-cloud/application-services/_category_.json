@@ -1,9 +1,0 @@
-{
-    "position": 1,
-    "label": "Application Services",
-    "link": {
-      "type": "generated-index",
-      "description": "You can significantly extend the functionality of your Tembo Postgres instance by running tools and software built by the Postgres open source community. Application services run on dedicated compute resources and are managed by Tembo Cloud. Tembo runs on Kubernetes, which means all Application Services are run in their own Pods, and is important if you want to isolate their compute from your Postgres database. These applications come configured with defaults that let you get up and running quickly, but you can change the configurations at will."
-    }
-  }
-  

@@ -1,0 +1,9 @@
+{
+	"position": 100,
+	"label": "Connection Examples",
+	"collapsible": true,
+	"link": {
+		"type": "generated-index",
+		"description": "Don't see an example for your language? Tembo support will make one for you! Please reach out in the community Slack or with the Support button in Tembo Cloud."
+	}
+}

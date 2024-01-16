@@ -1,0 +1,76 @@
+---
+slug: ga
+title: 'Announcing Tembo Cloud'
+authors: [ryw]
+tags: [postgres, tembo-cloud]
+image: './tembo-ga.png'
+---
+
+![tembo brand](./tembo-ga.png)
+
+After a year of hard work by our 🔥amazing team🔥, we're proud to announce the general availability (GA) 
+of [Tembo Cloud](https://cloud.tembo.io), 
+a managed Postgres service that unlocks the full power of the Postgres ecosystem.
+
+Tembo Cloud currently provides 194 Postgres extensions and 9 Tembo Stacks which make it easier to use Postgres for non-typical workloads such as vector search, ML, data warehousing, message queue, geospatial and more.
+
+## Our motivation
+
+As we outline in the [Tembo Manifesto](https://tembo.io/blog/tembo-manifesto/), the modern data stack has become a sprawling landscape of tools. Each promises a solution to a data problem, yet collectively, they contribute to ever-growing complexity.
+
+<iframe
+	border={0}
+	frameborder={0}
+	height={650}
+	width={400}
+	src='https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Ftembo_io%2Fstatus%2F1736767394054365500%3Fs%3D20'
+></iframe>
+
+A number of memes have emerged in recent years like **just use postgres** and **postgres for everything** — but the truth is that it's very hard to use Postgres for anything other than it's “vanilla” OLTP use case.
+
+You get stuck at finding what extensions to use, how to install and put them together and how to configure Postgres appropriately for that use case. And even if you figure it all out, it's a big challenge to sell internally vs. using the “best of breed” tool from the modern data stack.
+
+## What is Tembo Cloud?
+
+Our objective is to make it easy for developers to access **THE WHOLE POSTGRES ECOSYSTEM**, not just a thin sliver that's easy for us to support.
+
+To that end, we've built:
+
+-   A beautiful **UX** @ [cloud.tembo.io](https://cloud.tembo.io). Create an account to see the UI goodness :)
+-   A powerful **CLI** @ [github.com/tembo-io/tembo/tree/main/tembo-cli](https://github.com/tembo-io/tembo/tree/main/tembo-cli) which allows you to develop locally, and deploy to the cloud
+-   A full-featured **API** @ [api.tembo.io/swagger-ui](https://api.tembo.io/swagger-ui/)
+
+To support Tembo Cloud, we also have shipped a number of open source building blocks:
+
+-   Trunk @ [pgt.dev](https://pgt.dev) - An open source extension registry and installer
+-   The first 9 Tembo Stacks @ [tembo.io/docs/tembo-stacks](https://tembo.io/docs/tembo-stacks)
+-   Add-on apps that you can run next to your database - GraphQL, Rest API and even an embeddings model from [Huggingface](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2)
+-   A Kubernetes Operator, Terraform Provider, and Helm Chart @ [tembo.io/docs/tembo-stacks/tembo-operator-install](https://tembo.io/docs/tembo-stacks/tembo-operator-install)
+
+We even created a few open source Postgres extensions that we needed:
+
+-   [pgmq](https://github.com/tembo-io/pgmq) - A SQS like message queue implementation based on Postgres
+-   [pg_vectorize](https://github.com/tembo-io/pg_vectorize) - Automatically generate vectors and search on them
+-   [pg_later](https://github.com/tembo-io/pg_later) - Schedule async queries on Postgres
+-   [prometheus_fdw](https://github.com/tembo-io/prometheus_fdw) - Import metrics data from [Prometheus](https://prometheus.io/) into Postgres
+-   [clerk_fdw](https://github.com/tembo-io/clerk_fdw) - Import user information from [Clerk](https://clerk.com/) into Postgres
+
+## What does GA mean?
+
+Our GA release is both a milestone and a commitment to our users and the broader development community. We've listened, adapted, and refined our platform to deliver a solution that's not only powerful but also intuitive and user-friendly.
+
+We've introduced a transparent, flexible pricing model as well as free options.
+We now provide a higher level of customer support and uptime commitment!
+
+And good news, our roadmap is public - see [roadmap.tembo.io](https://roadmap.tembo.io) to upvote your favorite ideas and add your own suggestions :)
+
+## Next step — try it for free
+
+Every account includes:
+
+-   A 14-day trial (or $300 spending limit), and
+-   Unlimited quantity of free hobby-tier instances
+
+Sign up at [cloud.tembo.io](https://cloud.tembo.io) - we'd love to help you go deeper into Postgres. And send us feedback at support [at] tembo [dot] io.
+
+-The Tembonauts
