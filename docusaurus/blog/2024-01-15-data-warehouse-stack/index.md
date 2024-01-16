@@ -5,7 +5,7 @@ authors: [jay, steven, adam]
 tags: [postgres, extensions, stacks, data-warehouse]
 ---
 
-The engineering team at Tembo needed to bring data from several different data sources into a single location in order to build the dashboards needed for business decision making and report.
+Early on at Tembo, we wanted to be able to quickly answer questions like "How many Postgres instances have we deployed?" and "Who is our most active customer?". In order to do this, we needed to bring data from several different sources into a single location so that we could build the dashboards.
  Typically, this process requires several orchestration tools and technologies and the end result is a highly complex data ecosystem.
  However, by developing the Data Warehouse Stack with foreign data wrappers and other Postgres extensions, we streamlined the architecture, enhancing efficiency and simplifying the process.
 
