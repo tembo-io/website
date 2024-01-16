@@ -111,7 +111,11 @@ const config = {
 		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
 			image: 'img/social-card.png',
-
+			algolia: {
+				appId: 'JVQ9GG9K5Q',
+				apiKey: '76354a5ef690ae48a0377f8302cc3583',
+				indexName: 'tembo'
+			},
 			navbar: {
 				logo: {
 					alt: 'Tembo Logo',
