@@ -15,6 +15,10 @@ We wanted to share our excitement by showcasing some interesting content, so ple
 
 Check out the source code and follow along interactively!
 
+## 0. Prerequisites 
+- Free [Tembo instance](https://tembo.io/) 
+- Data to PostgreSQL tool, ogr2ogr (bundled with [GDAL](https://gdal.org/index.html)).
+
 ## 1. The Data
 
 Forest elephant populations in the West African country of Côte d'Ivoire have been dwindling and are commonly relocated to nature preserves. One difficulty involved in monitoring their health and wellness is tied closely to the thick tropical forests where the elephants feel at home. To address this, select elephants are outfitted with tracking collars, which collects GPS (Global Positioning System) data for future analysis. The following dataset was gathered from Movebank, a repository for animal tracking data:
@@ -23,7 +27,12 @@ Forest elephant populations in the West African country of Côte d'Ivoire have b
 - Timeframe: 2018 - 2021
 - Sample size: 1
 
-The first step is to download [the dataset](https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566), load it into a Postgres instance, and explore. A link to the provided study is provided here<https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566>. To access the ogr2ogr tool comes bundled when downloading [GDAL](https://gdal.org/index.html).
+To begin, you can [download the dataset here](https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566).
+
+Please be mindful that this dataset's license places it within the public domain, but other datasets hosted on Movebank might have a differnt license.
+
+Once you've navigated to the target local directory with the downloaded data, 
+
 
 ```
 ogr2ogr -f "PostgreSQL" \
