@@ -85,7 +85,7 @@ wkb_geometry
 (18 rows)
 ```
 ![map_data_points](./map_data_points.png 'map_data_points')
-Figure 2. Elephant tracking data visualized using QGIS.
+Figure 2. QGIS-renedered OpenStreetMap visualization containing elephant tracking data.
 
 ## 2. PostGIS
 
@@ -130,7 +130,7 @@ count | 47
 ```
 
 ![map_area_village](./map_area_village.png 'map_area_village')
-Figure 3. QGIS-rendered visualization containing an overlay geometry representing Dassioko Village.
+Figure 3. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing Dassioko Village.
 
 ### `ST_ConcaveHull`, `ST_InteriorRingN`
 
@@ -139,7 +139,7 @@ ST_ConcaveHull can be used to establish a boundary around a set of points, while
 - On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
 
 ![map_area_avoidance](./map_area_avoidance.png 'map_area_avoidance')
-Figure 4. QGIS-rendered visualization containing overlay geometry representing a generated potential area of avoidance.
+Figure 4. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing a generated potential area of avoidance.
 
 ## 3. Summary
 
