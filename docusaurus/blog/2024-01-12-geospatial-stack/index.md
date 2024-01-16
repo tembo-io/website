@@ -17,6 +17,7 @@ We wanted to share our excitement by showcasing some interesting content, so ple
 Check out the source code and follow along interactively!
 
 ## 0. Prerequisites 
+
 - Free [Tembo instance](https://tembo.io/) 
 - Data to PostgreSQL tool, ogr2ogr (bundled with [GDAL](https://gdal.org/index.html)).
 
@@ -84,17 +85,23 @@ wkb_geometry
 (18 rows)
 ```
 ![map_data_points](./map_data_points.png 'map_data_points')
-Figure 2. Elephant tracking data visualized using QGIS
+Figure 2. Elephant tracking data visualized using QGIS.
 
 ## 2. PostGIS
 
-Already we see some interesting fields corresponding to coordinates and timestamps. With relative ease, we can leverage PostGIS to apply functions to further analyze the data. Some of the queries can be a bit lengthly, so in lieu of brevity we’ve listed key functions, paired with a study-related question it can help answer, as well as a potential business use case with a marketing focus. As mentioned above the source code can be found here (insert here).
+Already we see some interesting fields corresponding to coordinates and timestamps. 
+
+With relative ease, we can leverage PostGIS to apply functions to further analyze the data.
+
+Some of the queries can be a bit lengthly, so in lieu of brevity we’ve listed key functions, paired with a study-related question it can help answer.
+
+As mentioned above the source code can be found here (insert here).
 
 ### `ST_Distance`
 
 ST_Distance can be used to find the minimum distance between two points. This approach can be extended in a recursive manner to many points.
 
-- Which hour of the day (24hr format) with the highest average distance traveled (meters) per year?
+- Which hour of the day (24hr format) had the highest average distance traveled (meters) per year?
 
 | year | hour |       avg_distance        |
 |------|------|---------------------------|
@@ -105,11 +112,25 @@ ST_Distance can be used to find the minimum distance between two points. This ap
 
 ### `ST_Contains`
 
-ST_Contains checks whether a given geometry A contains another geometry B.
+ST_Contains checks whether a given geometry "A" contains another geometry "B".
 
-- Throughout the study, how many times did the elephant enter Dassioko Village? Is there a particular year, month, day, time of day, where this was most frequent?
+- Throughout the study, how many times did the elephant enter Dassioko Village?
+
+```
+SELECT
+COUNT(e.*)
+FROM
+elephant5990 e,
+village v
+WHERE
+ST_Contains(v.wkb_geometry, e.wkb_geometry);
+
+-[ RECORD 1 ]
+count | 47
+```
 
 ![map_area_village](./map_area_village.png 'map_area_village')
+Figure 3. QGIS-rendered visualization containing an overlay geometry representing Dassioko Village.
 
 ### `ST_ConcaveHull`, `ST_InteriorRingN`
 
@@ -118,7 +139,7 @@ ST_ConcaveHull can be used to establish a boundary around a set of points, while
 - On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
 
 ![map_area_avoidance](./map_area_avoidance.png 'map_area_avoidance')
-
+Figure 4. QGIS-rendered visualization containing overlay geometry representing a generated potential area of avoidance.
 
 ## 3. Summary
 Using Tembo’s Geospatial Stack, we were able to explore a GPS tracking dataset. Though this demonstration focused on the movements of a single elephant, it should be noted that the showcased PostGIS functions have numerous applications to other, business-centric projects:
