@@ -142,12 +142,14 @@ ST_ConcaveHull can be used to establish a boundary around a set of points, while
 Figure 4. QGIS-rendered visualization containing overlay geometry representing a generated potential area of avoidance.
 
 ## 3. Summary
+
 Using Tembo’s Geospatial Stack, we were able to explore a GPS tracking dataset. Though this demonstration focused on the movements of a single elephant, it should be noted that the showcased PostGIS functions have numerous applications to other, business-centric projects:
 - Loading and exploring geospatial datasets
 - Insights on time-of-day activity
 - Insights on avoidance behavior
 - Insights on behavior related to pre-determined areas (zones)
 
+Interested in a more comprehensive guide? Checkout (INSERT TEMBO GPS DATA GUIDE)
 
 ## 4. Acknowledgements
 We would like to thank Mark MacAllister et al. for their efforts in acquiring this interesting data and for sharing it with the public under the CC0 license. And for the Max Planck Institute, as well as affiliate groups, for maintaining Movebank.
