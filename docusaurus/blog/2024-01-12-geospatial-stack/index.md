@@ -7,11 +7,11 @@ tags: [postgres, geospatial, stacks, database]
 
 While today’s data is ubiquitous, there remain many cases whereby, only after providing additional contexts, can a collection of points graduate to valuable information. This is especially true when dealing with geospatial datasets.
 
-Geospatial data and dealing with that data can be complex, but yield exciting insights. We at Tembo recently launched a Stack celebrate geospatial workloads! This comes pre-packaged with PostGIS and related extensions, and as always only a couple clicks away from any extension hosted in [Trunk](https://pgt.dev).
+Performing operations on, and gathering insights from geospatial datasets can be complex, but very rewarding. We at Tembo recently launched a Stack celebrating geospatial workloads! This comes pre-packaged with PostGIS and related extensions, and as always only a few clicks away from any extension hosted in [Trunk](https://pgt.dev).
 
 ![extensions](./extensions.png 'extensions')
 
-We wanted to showcase some interesting content, so please join us on a journey to Africa! Stick around to the end, where we will share insights that might be applicable to your personal use case.
+We wanted to share our excitement by showcasing some interesting content, so please join us on a journey to Africa! Stick around to the end, where we will share insights that might be applicable to your personal use case.
 
 Check out the source code and follow along interactively!
 
