@@ -3,13 +3,10 @@ slug: postgres-vector-search-pgvector-and-lantern
 title: 'Benchmarking Postgres Vector Search approaches: Pgvector vs Lantern'
 authors: [rjzv]
 tags: [postgres, extensions, vector, lantern, pgvector, hnsw]
-image: ./elephant-with-lantern.jpeg
+image: ./Lantern.png
 ---
 
-![An elephant holding a lantern](./elephant-with-lantern.jpeg)
-<p align="right" style={{color: 'grey'}}><em>
-Image credit: Generated with Bing Image Creator
-</em></p>
+![An elephant holding a lantern](./Lantern.png)
 
 Vector search in Postgres is a space that has seen very active development in the last few months. While Pgvector is known to most people, a few weeks ago we came across Lantern, which also builds a Postgres-based vector database. So, we thought about benchmarking both to compare the two approaches. In this post, we'll cover:
 
