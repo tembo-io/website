@@ -104,7 +104,7 @@ SELECT vectorize.table(
     primary_key => 'product_id',
     columns => ARRAY['product_name', 'description'],
     transformer => 'all_MiniLM_L12_v2',
-    schedule => "* * * * *"
+    schedule => '* * * * *'
 );
 ```
 
