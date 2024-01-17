@@ -22,7 +22,7 @@ A tembo stack is a pre-built, use case specific Postgres deployment which enable
 |[Message Queue](message-queue.md)| Amazon SQS, RabbitMQ, Redis |
 |[Data Warehouse](datawarehouse.md)| Snowflake, Bigquery |
 |Mongo Alternative on Postgres| MongoDB | 
-|Geospatial| Estri, Oracle | 
+|Geospatial| ESRI, Oracle | 
 |[Vector DB](vector-db.md)| Pinecone, Weaviate |
 |[Standard](standard.md)| Amazon RDS |
 
