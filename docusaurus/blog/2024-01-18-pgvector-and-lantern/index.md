@@ -15,12 +15,12 @@ Vector search in Postgres is a space that has seen very active development in th
 
 - Quick background on doing vector search in PostgreSQL.
 - Comparing Pgvector and Lantern in terms of syntax and ease of use.
-- Benchmarks comparing index creation time, size, throughput, and recall.
+- Benchmarks comparing index creation time, size, latency, throughput, and recall.
 - Summary of the results
 
 ## Intro to Vector Search in PostgreSQL
 
-One of the reasons for the popularity of Vector Search these days has to do with the emergence of powerful embedding models and their use in AI. You have probably witnessed how many people, startups, and big companies are exploring how to take advantage of vectors and incorporate them into [their products](https://hn.algolia.com/?dateRange=all&page=0&prefix=false&query=vector%20search&sort=byDate&type=story).
+One of the reasons for the popularity of Vector Search these days has to do with the emergence of powerful [embedding models](https://tembo.io/blog/pgvector-and-embedding-solutions-with-postgres/) and their use in AI. You have probably witnessed how many people, startups, and big companies are [exploring](https://tembo.io/blog/secure-embeddings-in-postgres/) how to take advantage of vectors and incorporate them into [their products](https://hn.algolia.com/?dateRange=all&page=0&prefix=false&query=vector%20search&sort=byDate&type=story).
 
 Such enthusiasm has also attracted the Postgres community. [Pgvector](https://github.com/pgvector/pgvector) arose with the ability to create [IVVFlat indexes](https://tembo.io/blog/vector-indexes-in-pgvector) on existing tables with a simple DDL statement. And so, people were given the ability to easily perform similarity queries. 
 
@@ -54,7 +54,7 @@ My takeaway is that if you are familiar with one of the extensions, you can easi
 
 For a quantitative comparison, I took the [ANN-Benchmarks](https://github.com/erikbern/ann-benchmarks) and [extended it](https://github.com/binidxaba/ann-benchmarks) to support the Lantern extension. It was just a matter of creating a copy of the Pgvector directory, naming it Lantern and making a few adjustments to use the corresponding API.
 
-The benchmark starts a container that has Postgres 14 installed and then it enables the corresponding extension. Then, it inserts a dataset into a table and builds a vector index (in both cases an HNSW index). After that, it executes a bunch of queries and evaluates the recall.
+The benchmark starts a container that has Postgres 15 installed and then it enables the corresponding extension. Then, it inserts a dataset into a table and builds a vector index (in both cases an HNSW index). After that, it executes a bunch of queries and evaluates the recall.
 
 Along the way, the benchmark collects several metrics, such as:
 
@@ -70,7 +70,7 @@ As for the HNSW parameters, I used the following:
 
 |||
 |---------------------|----------------------------------------|
-| **ef_construction** | 200                                    |
+| **ef_construction** | {[128], 200}                           |
 | **m**               | {[8, 16,] 24}                          |
 | **ef_search**       | {10, 20, 40, 80, 120, [128,] 200, 400} |
 
@@ -115,7 +115,7 @@ Pgvector has 62-84% better throughput and 38-45% better latencies:
 
 Increasing the m parameter to 24, we get similar conclusions:
 
-![Recall](./017-sift-latency-m24.png)
+![Recall](./016-sift-recall-m24.png)
 
 And once again, Pgvector has 42-58% higher throughput and 30-39% better latencies for all values of `ef_search`:
 
@@ -127,11 +127,21 @@ The general trends were consistent with my observations when using Gist-960 and 
 
 ## Conclusions
 
+For convenience, the following table summarizes the above results using relative numbers (i.e. `pgvector/lantern`):
+
+|                | **m={8,16};  ef_construction=128;  ef_search=128** | **m={16,24};  ef_construction=200;  ef_search=[10-400]** | **Notes**                                      |
+|----------------|----------------------------------------------------|----------------------------------------------------------|------------------------------------------------|
+| **Build Time** | 1.71X-1.73X                                        | 1.92X-2.35X                                              | Lantern yields better results                  |
+| **Index Size** | 1.13X-1.15X                                        | 1.13X-1.20X                                              | Lantern yields better results                  |
+| **Latency**    | 0.64X-0.70X                                        | 0.54X-0.69X                                              | Pgvector yields better results                 |
+| **Throughput** | 1.44X-1.53X                                        | 1.42X-1.84X                                              | Pgvector yields better results                 |
+| **Recall**     | 1.00X-1.01X                                        | 1.00X-1.09X                                              | Recall is similar, Pgvector is slightly better |
+
 Pgvector is the most popular Postgres extension for vector search. At the time of this writing, the github repository counts 7.6K stars and is actively being discussed on the web. It is also supported on most managed Postgres providers (including [Tembo Cloud](https://cloud.tembo.io/)) so is easier for you to access.
 
 Lantern is a young project that leverages the popular [USearch engine](https://github.com/unum-cloud/usearch/). As of today, the extension has been starred more than 400 times in github and is in very active development. 
 
-Both extensions offer similar API and support the HNSW index. According to my experiments (Pgvector 0.5.1 and Lantern 0.0.11), Lantern's index creation is faster and produces smaller indexes. However, Pgvector provides better recall and throughput.
+Both extensions offer similar API and support the HNSW index. According to my experiments (Pgvector 0.5.1 and Lantern 0.0.11), Lantern's index creation is faster and produces smaller indexes. However, Pgvector provides better recall, latency and throughput.
 
 We should keep an eye on both projects and see how they evolve. I am confident that we'll see several improvements in the following months.
 
