@@ -1,6 +1,6 @@
 ---
-slug: data-warehouse-stack
-title: 'Simplify your data stack with Tembo Data Warehouse'
+slug: tembo-data-warehouse
+title: 'Building a noETL data warehouse on Postgres'
 authors: [jay, steven, adam]
 tags: [postgres, extensions, stacks, data-warehouse]
 ---
@@ -27,13 +27,13 @@ Moving data from several different sources into a single place is a common task 
 
 Every time we add a tool to the ecosystem, it becomes piece of software that needs to be mastered and maintained separately. This becomes a huge cost in the form of cognitive overhead for the team in addition the time it takes to set up and manage the ongoing maintenance. So, rather than bring in new tools, we can use Postgres extensions to do the work for us. As a developer, extensions feel natural, like installing and importing a module or package from your favorite repository, which is much lighter and easier to manage than a completely new tool.
 
-## Foreign Data Wrappers
-
-Foreign data wrappers (FDW) are a class of Postgres extensions provide you with a simple interface that connects Postgres to another data source. If you've worked with Kafka, this are similar to 'Connectors'. There are many different foreign data wrappers available, and you can even write your own. To build our data warehouse, we knew right away that we could use the [postgres_fdw](https://www.postgresql.org/docs/current/postgres-fdw.html) to connect our data warehouse and control-plane Postgres instances.
-
-But what about accessing data from our Prometheus database and Clerk? We build two new FDWs so that we could connect to those sources; [clerk_fdw](https://github.com/tembo-io/clerk_fdw) and [prometheus_fdw](https://github.com/tembo-io/prometheus_fdw). Both of these FDW projects were built using the [Wrappers](https://github.com/supabase/wrappers) framework.
-
 ## Connecting Postgres to sources
+
+The first problem we faced was bringing in data from the sources external to our data warehouse. When we started building our data warehouse we already knew we could use the [postgres_fdw](https://www.postgresql.org/docs/current/postgres-fdw.html) extension to connect our data warehouse and control-plane Postgres instances. But, we were not certain how we could do the same for our data in Prometheus and Clerk. Prometheus had [several projects already available](https://tembo.io/blog/monitoring-with-prometheus-fdw), but none of them were a good fit for our use-case. Clerk.dev did not have any existing extensions for Postgres, so we decided to [build our own](https://tembo.io/blog/clerk-fdw). Both of these FDW projects were built using the [Wrappers](https://github.com/supabase/wrappers) framework.
+
+### An into to Foreign Data Wrappers
+
+Foreign data wrappers (FDW) are a class of Postgres extensions provide you with a simple interface that connects Postgres to another data source. If you've worked with Kafka, this are similar to 'Connectors'. There are many different foreign data wrappers available, and you can even write your own. We build two new FDWs so that we could connect to those sources; [clerk_fdw](https://github.com/tembo-io/clerk_fdw) and [prometheus_fdw](https://github.com/tembo-io/prometheus_fdw).
 
 Working with FDWs is a fairly consistent experience. We'll walk through the process for how we set up clerk_fdw, but it is similar for `prometheus_fdw` and `postgres_fdw`.
 
@@ -100,19 +100,10 @@ FROM information_schema.foreign_tables
 ## Scheduling Updates with pg_cron
 
 New users are signing up for Tembo and using our product every day, so we need make sure that the data in our data warehouse stays up to date...There's an extension for that, [pg_cron](https://github.com/citusdata/pg_cron).
+ If you're familiar with the unix utility "cron", then pg_cron is exactly what you'd expect.
+ We create a function in Postgres to refresh our data sources, then we tell pg_cron to call that function on a schedule. If you've worked with Apache Airflow or Dagster before, this is a lot like creating a job to execute some code you wrote.
 
-If you're familiar with the unix utility "cron", then pg_cron is exactly what you'd expect.
-
-We create a function in Postgres to refresh our data sources, then we tell pg_cron to call that function on a schedule. If you've worked with Apache Airflow or Dagster before, this is a lot like creating a job to execute some code you wrote.
-
-Below is the function we wrote to update the clusters that existing across our data-planes. It is simply a replacement of the `ingested_clusters` table with the latest data from the `instance_vw` view in our control-plane, not a ton different for how someone might update a Hive table.
-
-```sql
-CREATE EXTENSION pg_cron
-```
-
-We'll need to make sure that the `shared_preload_libraries` config is set to include `pg_cron` as well. Both the `CREATE EXTENSION` and `shared_preload_libraries` steps are handled for you automatically on [Tembo Cloud](https://cloud.tembo.io)!
-
+Working with pg_cron is very intuitive, we simply provide a name for the job, a schedule, and the command to execute. For example, we can simply create a function to refresh our clusters from the control-plane, then schedule it to run every 5 minutes.
 
 ```sql
 CREATE OR REPLACE FUNCTION public.refresh_clusters()
@@ -141,53 +132,19 @@ END;
 $function$
 ```
 
-Then, we set up the pg_cron job to call this function as frequently as we need:
-
 ```sql
 SELECT cron.schedule('update-clusters', '5 minutes', 'CALL refresh_clusters()');
 ```
 
-We can easily check and see what jobs we've scheduled in our data warehouse by peeking at the `cron.job` table, and its easy to interpret.
- We can see that we have two jobs that each run every 5 minutes; each is a simple function call.
-
-```sql
-select jobid, jobname, schedule, command from cron.job limit where jobname = 'refresh-clusters';
-
- jobid |     jobname      |  schedule   |         command         
--------+------------------+-------------+-------------------------
-     1 | refresh-clusters | */5 * * * * | CALL refresh_clusters()
-
-```
-
-We can also check on the status of these jobs by querying the `cron.job_run_details` table. This table contains a log of every time a job was run, and how long it took to complete.
-
-```sql
-select status, start_time, end_time
-from cron.job_run_details
-where jobid = 1
-order by runid
-desc limit 1;
-
-  status   |          start_time           |           end_time            
------------+-------------------------------+-------------------------------
- succeeded | 2024-01-12 19:45:00.014907+00 | 2024-01-12 19:45:00.485323+00
-```
-
 ## Partitioning is trivial with pg_partman
 
-Partitioning is a [native feature](https://www.postgresql.org/docs/current/ddl-partitioning.html) in Postgres, and it is the logical splitting of one table into smaller physical tables. Some, but not all of the tables in our data warehouse have grown quite large. Largest being our metrics, and this presents two problems that must be addressed; performance and storage.
+Partitioning is a [native feature](https://www.postgresql.org/docs/current/ddl-partitioning.html) in Postgres, and it is the logical splitting of one table into smaller physical tables. Some, but not all of the tables in our data warehouse have grown quite large. Largest being our metrics, and this presents two problems that must be addressed; performance and storage. The majority of our dashboard queries aggregate data over time, and most commonly on a daily interval. So, we can partition our tables by day, and only query the partitions we need to answer our questions. This provides a substantial improvement to the performance of those queries which makes our dashboards very snappy.
 
-The majority of our dashboard queries aggregate data over time, and most commonly on a daily interval. So, we can partition our tables by day, and only query the partitions we need to answer our questions. This provides a substantial improvement to the performance of those queries which makes our dashboards very snappy.
+ Partitioning in Postgres is a batteries-not-included experience, which means you need to handle the creating, updating, and deleting of partitions yourself. That is, unless you use the [pg_partman](https://github.com/pgpartman/pg_partman) extension.
 
-Our stakeholders do not require visualization for the entirety of our metric data, in fact they are typically only concerned with a 30 days at most. Therefore, we only need to retain 30 days in our data warehouse storage. By setting up a retention policy, we can automatically drop partitions that are older than 30 days, and reclaim that storage. Dropping a partition is much faster than deleting rows from a table. As we'll see in a moment, it is trivial to configure partitioning on Postgres if you use [pg_partman](https://github.com/pgpartman/pg_partman) (which is my personal favorite Postgres extensions). Without pg_partman, it is up to you to handle the creation and deletion of partitions.
+Our stakeholders do not require visualization for the entirety of our metric data, in fact they are typically only concerned with a 30 days at most. Therefore, we only need to retain 30 days in our data warehouse storage. By setting up a retention policy, we can automatically drop partitions that are older than 30 days, and reclaim that storage. Dropping a partition is much faster than deleting rows from a table. As we'll see in a moment, it is trivial to configure partitioning on Postgres if you use (which is my personal favorite Postgres extensions). Without pg_partman, it is up to you to handle the creation and deletion of partitions.
 
-```sql
-CREATE EXTENSION pg_partman
-```
-
-We'll need to make sure that the `shared_preload_libraries` config is set to include `pg_partman_bgw` as well. Both the `CREATE EXTENSION` and `shared_preload_libraries` steps are handled for you automatically on [Tembo Cloud](https://cloud.tembo.io)!
-
-Creating a partitioned table is like creating an extra table, with extra steps. One caveat, is that we must create an index on the column that we want to partition by. In our case, we want a new partition for every day, so we partition by the `time` column, then create an index there as well.
+Creating a partitioned table is like creating an extra table, with extra steps. One caveat, is that we must create an index on the column that we want to partition by. In our case, we want a new partition for every day, so we partition by the `time` column, then create an index there as well. We use partitioning in other places at Tembo as well, and we wrote a bit about those use-cases earlier this year in [another blog](https://tembo.io/blog/table-version-history).
 
 ```sql
 CREATE TABLE public.metric_values (
@@ -200,20 +157,11 @@ PARTITION BY RANGE ("time");
 CREATE INDEX metric_values_time_idx ON ONLY public.metric_values USING btree ("time" DESC);
 ```
 
-Next, we set up pg_partman. We pass our partitioned table into `create_parent()`, then update the `part_config` table to set our retention policy.
+Next, we set up pg_partman. We pass our partitioned table into `create_parent()`.
 
 ```sql
 SELECT create_parent('public.metric_values', 'time', 'native', 'daily');
-
-UPDATE part_config
-    SET retention = '30 days',
-        retention_keep_table = false,
-        retention_keep_index = false,
-        infinite_time_partitions = true
-    WHERE parent_table = 'public.metric_values';
 ```
-
-We use partitioning in other places at Tembo as well, and we wrote a bit about those use-cases earlier this year in [another blog](https://tembo.io/blog/table-version-history).
 
 ## Wrapping up
 
