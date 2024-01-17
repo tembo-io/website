@@ -327,7 +327,8 @@ SELECT * FROM pgml.train(
     algorithm => 'xgboost',
     task => 'classification',
     relation_name => 'titles_training_flattened',
-    y_column_name => 'is_clickbait'
+    y_column_name => 'is_clickbait',
+    test_sampling => 'random'
 );
 
 ...
