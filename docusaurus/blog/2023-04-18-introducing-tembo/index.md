@@ -7,7 +7,11 @@ tags: [postgres, announcement]
 
 ![pink nodes](./db_pink_nodes.png)
 
-> Jan 2024 update: After a year of hard work by our 🔥amazing team🔥, we [announced the general availability](https://tembo.io/blog/ga/) (GA) of [Tembo Cloud](https://cloud.tembo.io), a managed Postgres service that unlocks the full power of the Postgres ecosystem.
+:::info
+
+Jan 2024 update: After a year of hard work by our 🔥amazing team🔥, we [announced the general availability](https://tembo.io/blog/ga/) (GA) of [Tembo Cloud](https://cloud.tembo.io), a managed Postgres service that unlocks the full power of the Postgres ecosystem.
+
+:::
 
 Hello, world :) We are thrilled to announce the launch of our new startup, Tembo, and our mission to build a game-changing managed Postgres service.
 
