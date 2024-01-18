@@ -1,6 +1,6 @@
 ---
 slug: simplified-ml-ops
-title: 'Building your ML Ops platform on Postgres'
+title: 'Build your ML Ops platform on Postgres with Tembo ML'
 authors: [adam]
 tags: [postgres, machine-learning, ml-ops]
 ---
@@ -23,7 +23,7 @@ _Source: [Mihail Eric, “MLOps Is a Mess But That's to be Expected](https://www
 
 ## Frictionless ML Development with Postgres
 
-ML workflows are generally split into three phases; exploration, model training, model serving. Exploring data within Postgres is a familiar process to many scientists, developers, and engineers. But training and serving models is often done outside of Postgres, requiring additional infrastructure and engineering work. Serving is typically done outside Postgres, whether it’s hosting a model HTTP server or the dreaded 'rewrite' of the model training from Python into another language. This often results in the people doing exploration and model training being different from the people who are responsible for serving the model, which leads to a lot of friction and inefficiency in the ML workflow.
+ML workflows are generally split into three phases; exploration, model training, model serving. Exploring data within Postgres is a familiar process to many scientists, developers, and engineers. But model training and serving models is often done outside of Postgres, requiring additional infrastructure and engineering work. Serving is typically done outside Postgres, whether it’s hosting a model HTTP server or the dreaded 'rewrite' of the model training from Python into another language. This often results in the people doing exploration and model training being different from the people who are responsible for serving the model, which leads to a lot of friction and inefficiency in the ML workflow.
 
 The Tembo ML Stack brings the entire ML workflow into Postgres, making it easier to build and deploy ML models. It puts operations and model serving in the hands of the model developer. And with pl/python, you can write your Python transformations directly in Postgres.
 
@@ -35,13 +35,13 @@ The [Tembo ML Stack](https://cloud.tembo.io) ships with several extensions which
 
 - [PostgREST](https://postgrest.org/) - call functions in your database via external HTTP requests
 
-- [pl/python3u]([https://www.postgresql.org/docs/current/plpython.html](https://www.postgresql.org/docs/current/plpython.html)) - write functions in Python and execute them directly from Postgres
+- [pl/python3u](https://www.postgresql.org/docs/current/plpython.html) - write functions in Python and execute them directly from Postgres
 
 ## Model training with `pgml`
 
 Tembo Cloud comes pre-configured with the most popular open-source machine learning extension for Postgres: [PostgresML](https://github.com/postgresml/postgresml).
 
-. You can use this extension to train both supervised and unsupervised models with SQL, while still using a workflow that feels comfortable to most scientists. Rather than building a data frame in R or Python, build a Postgres table with your training data. Then, pass that data into the train function from `pgml`. If you've worked with pytorch, xgboost, or scikit-learn, this is akin to `.train()` or `.fit()`. Training the model on Postgres uses the compute already provisioned for your database. There is no additional setup needed.
+You can use this extension to train both supervised and unsupervised models with SQL, while still using a workflow that feels comfortable to most scientists. Rather than building a data frame in R or Python, build a Postgres table with your training data. Then, pass that data into the train function from `pgml`. If you've worked with pytorch, xgboost, or scikit-learn, this is akin to `.train()` or `.fit()`. Training the model on Postgres uses the compute already provisioned for your database. There is no additional setup needed.
 
 ```sql
 SELECT * FROM pgml.train(
@@ -154,7 +154,7 @@ On Tembo Cloud, a REST API for your database is available with a single click. W
 
 Configuring it is simple, we just need to create a function and make it available to PostgREST.
 
-We'll set up a function using SQL function that takes our potentially clickbait title as an input, and returns a prediction.
+We'll set up a function using a SQL function that takes our potentially clickbait title as an input, and returns a prediction.
 
 ```sql
 CREATE OR REPLACE FUNCTION predict_clickbait(
@@ -190,4 +190,4 @@ curl -X POST \
 
 ## Try it now on Tembo Cloud
 
-The Tembo ML Stack is available on Tembo Cloud. You can try it out for free by signing up at [Tembo]([https://cloud.tembo.io](https://cloud.tembo.io)). Stay tuned for a step-by-step guide on training this clickbait classifier on Postgres!
+The Tembo ML Stack is available on Tembo Cloud. You can try it out for free by signing up at [Tembo](https://cloud.tembo.io). Stay tuned for a step-by-step guide on training this clickbait classifier on Postgres!
