@@ -7,6 +7,8 @@ tags: [postgres, announcement]
 
 ![pink nodes](./db_pink_nodes.png)
 
+> Jan 2024 update: After a year of hard work by our 🔥amazing team🔥, we [announced the general availability](https://tembo.io/blog/ga/) (GA) of [Tembo Cloud](https://cloud.tembo.io), a managed Postgres service that unlocks the full power of the Postgres ecosystem.
+
 Hello, world :) We are thrilled to announce the launch of our new startup, Tembo, and our mission to build a game-changing managed Postgres service.
 
 ## Background
@@ -17,7 +19,7 @@ The vast majority of developers and companies primarily use "Vanilla" Postgres. 
 
 ## We've started a company
 
-Tembo’s mission is to empower developers and businesses worldwide with the full power of Postgres and its extensions ecosystem, enabling users to use Postgres for a growing number of use cases. Postgres is the most loved database by a long shot, and all Postgres users (including me) owe a huge debt of gratitude to all the companies and people who have invested in the project over the past 26 years. 
+Tembo's mission is to empower developers and businesses worldwide with the full power of Postgres and its extensions ecosystem, enabling users to use Postgres for a growing number of use cases. Postgres is the most loved database by a long shot, and all Postgres users (including me) owe a huge debt of gratitude to all the companies and people who have invested in the project over the past 26 years. 
 
 ## We've raised some money
 
@@ -26,7 +28,7 @@ We have raised a $6.5M seed round led by Venrock, with participation from CincyT
 * Use any extension, including custom or private extensions
 * Provide UI for popular extensions, and a framework to include the community in those efforts
 * **Stacks** make it easy to get started using Postgres for specific new use cases by packaging up extensions, tools and configurations.
-* An intelligent advisor that helps you to better use the features that you’re already using in Postgres
+* An intelligent advisor that helps you to better use the features that you're already using in Postgres
 
 ![create cluster](./create_cluster.jpg)
 
