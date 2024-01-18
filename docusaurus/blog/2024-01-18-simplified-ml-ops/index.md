@@ -154,7 +154,7 @@ On Tembo Cloud, a REST API for your database is available with a single click. W
 
 Configuring it is simple, we just need to create a function and make it available to PostgREST.
 
-We'll set up a function using `pl/pgsql` that takes our potentially clickbait title as an input, and returns a prediction.
+We'll set up a function using SQL function that takes our potentially clickbait title as an input, and returns a prediction.
 
 ```sql
 CREATE OR REPLACE FUNCTION predict_clickbait(
