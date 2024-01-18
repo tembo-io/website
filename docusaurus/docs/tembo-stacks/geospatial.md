@@ -17,3 +17,30 @@ The Tembo Geospatial Stack is designed to bring spatial database capabilities to
 - [address_standardizer_data_us](https://postgis.net/docs/Extras.html#Address_Standardizer) - `address_standardizer_data_us` provides the necessary data for the address_standardizer extension, specifically tailored for US addresses.
 - [fuzzystrmatch](https://www.postgresql.org/docs/current/fuzzystrmatch.html) - `fuzzystrmatch` is an additional supplied module that helps with string matching, including approximate or "fuzzy" matches. Useful in tasks like deduplication or linking different data sets where string data may not be exactly the same.
 - Extensions from [Trunk](https://pgt.dev/) can be installed on-demand.
+
+## Getting started
+
+Let's walkthrough a secenario that would involve loading geospatial data into Postgres.
+For the purposes of this demonstration we will utilize the common shapefile.
+
+### Download GDAL library
+
+If you haven't already, please [download the GDAL library](https://gdal.org/index.html), which includes the tool ogr2ogr.
+
+### Download sample dataset
+
+
+
+## Setup
+
+Once you establish a Tembo Geospatial Stack instance, cconnect to your Tembo.
+Alternatively, you can fill in the following psql command:
+
+```bash
+psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
+```
+
+### Define a database
+
+While the Postgres default database is `postgres`, you may desire to create a separate database for your geospatial workload.
+
