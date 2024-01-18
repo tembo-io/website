@@ -48,8 +48,29 @@ If you'd like to learn more, check out our guide: [How to select database in Pos
 
 ### Load the data
 
-Navigate to the 
-Loading files from If you want to load all of the shape files in one 
+Navigate to the
+
+```bash
+ogr2ogr \
+  -nln nyc_census_blocks_2000 \
+  -nlt PROMOTE_TO_MULTI \
+  -lco GEOMETRY_NAME=geom \
+  -lco FID=gid \
+  -lco PRECISION=NO \
+  Pg:"dbname=nyc host=localhost user=pramsey port=5432" \
+  nyc_census_blocks_2000.shp
+```
+
+Loading files individually may take some time, so an alternative may be to create a script that iterates across target files and loads them from one executable.
+PLEASE NOTE: The following is strictly for demonstration purposes and we strongly advise against hardcoding sensitive information in a script like the one below.
+
+Start by creating a file.
+
+```bash
+touch <your-file-name>.sh
+```
+
+Then, with your preferred text editor or IDE (integrated development environment), introduce the following script to your file:
 
 ```
 #!/bin/bash
@@ -77,10 +98,15 @@ done
 You can then load the data by running the following command within the local, target file-containing directory:
 
 ```bash
-
+./<your-file-name>.sh
 ```
 
 ### Confirm successful data upload
+
+If you're not already, connect to your database following the same instructions as laid out in the Setup section above.
+Then, simply confirm you are in the correct database and run `\t` to list the current tables.
+You should see something similar to the following:
+
 
 
 ### Sample queries
