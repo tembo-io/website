@@ -15,7 +15,7 @@ An ML platform consists of all the tools and systems to manage the lifecycle of 
 
 Building an ML Platform can quickly go off the rails with creeping scope. Today, a lot of companies make the decision on whether to go with an all-in-one tool or bootstrap with best-in-class component solutions. If you’re new to ML, Google has some [great reference architectures](https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning), and for each component in Google’s architecture, there is a start-up or framework that specializes in it.
 
-The landscape for ML Ops overlaps with and is just as complicated as the [overall data ecosystem](https://tembo.io/blog/modern-data-stack-mess). The hyperscaler cloud providers offer all-in-one solutions but typically have a high learning curve, poor developer experience, and lock you in to the cloud provider. Bootstrapping a solution with best-in-class components has the benefit of allowing you to iterate the growth of the platform, but comes at the cost of high complexity. 
+The landscape for ML Ops overlaps with and is just as complicated as the [overall data ecosystem](https://tembo.io/blog/modern-data-stack-mess). The hyperscaler cloud providers offer all-in-one solutions but typically have a high learning curve, poor developer experience, and lock you in to the cloud provider. Bootstrapping a solution with best-in-class components has the benefit of allowing you to iterate the growth of the platform, but comes at the cost of high complexity.
 
 ![ml-tools](./ml_tools.png "ml-tools")
 
@@ -43,7 +43,7 @@ Tembo Cloud comes pre-configured with the most popular open-source machine learn
 
 . You can use this extension to train both supervised and unsupervised models with SQL, while still using a workflow that feels comfortable to most scientists. Rather than building a data frame in R or Python, build a Postgres table with your training data. Then, pass that data into the train function from `pgml`. If you've worked with pytorch, xgboost, or scikit-learn, this is akin to `.train()` or `.fit()`. Training the model on Postgres uses the compute already provisioned for your database. There is no additional setup needed.
 
-```
+```sql
 SELECT * FROM pgml.train(
     project_name => 'clickbait_classifier',
     algorithm => 'xgboost',
@@ -62,7 +62,6 @@ With the ML Stack, every model you train with the `pgml` extension is saved to P
 
 View those models by simply querying the `pgml.trained_models` table.
 
-
 ```sql
 select id, name, algorithm from pgml.trained_models;
 
@@ -76,7 +75,6 @@ select id, name, algorithm from pgml.trained_models;
 A model's performance can decay over time, which means it needs to be retrained as the business evolves and data changes. For example, many teams retrain their forecasting models nightly, weekly, or monthly as new data rolls in. Similarly, recommendation models are often retrained as customers and market preferences change, and as new products are released. Model developers can use the pg_cron extension to schedule training jobs. This is a simple way to orchestrate training jobs without having to implement and maintain a separate scheduler — and is intuitive to set up.
 
 First, create a function that cron can call.
-
 
 ```sql
 CREATE OR REPLACE FUNCTION model_train()
