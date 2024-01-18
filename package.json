@@ -1,7 +1,6 @@
 {
 	"name": "tembo-website-workspace",
 	"workspaces": [
-		"./landing",
 		"./docusaurus"
 	],
 	"private": true,
@@ -9,7 +8,7 @@
 		"pretty": "prettier --write \"./**/*.{ts,js,tsx,json,astro}\" --config ./.prettierrc.mjs",
 		"docs": "cd ./docusaurus && npm run start",
 		"landing": "cd ./landing && npm run dev",
-		"build-landing": "npm run build -w landing",
+		"build-landing": "cd ./landing && npm run build",
 		"build-docs": "npm run build -w docs",
 		"move-docs": "cp -r docusaurus/build/* landing/dist/ && rm -rf landing/dist/sitemap.xml",
 		"preview": "npm run preview -w landing"
