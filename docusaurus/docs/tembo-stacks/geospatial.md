@@ -30,6 +30,7 @@ If you haven't already, please [download the GDAL library](https://gdal.org/inde
 
 For the purposes of this demonstration, we will utilize the PostGIS-supplied New York City data bundle.
 You can learn more about the PostGIS tutorial [here](https://postgis.net/workshops/postgis-intro/) or download the data direcly from this [link](https://s3.amazonaws.com/s3.cleverelephant.ca/postgis-workshop-2020.zip).
+Once downloaded, move the .zip file to your target directory and unzip.
 
 ## Setup
 
@@ -48,7 +49,16 @@ If you'd like to learn more, check out our guide: [How to select database in Pos
 
 ### Load the data
 
-Navigate to your local directory where the data is stored and run the following for each file you would like to load into your Postgres database.
+Navigate to your local directory where the data is stored; the path will look similar to <path-to-your-target-directory>/postgis-workship/data/.
+For this simple exercise, we'll focus excusively on shapefiles, but bear in mind that they alone do not represent the entire dataset.
+Consider the following files:
+- nyc_cencus_blocks.shp
+- nyc_homicides.shp
+- nyc_neighborhoods.shp
+- nyc_streets.shp
+- nyc_subway_stations.shp
+
+Once you've run the following for each file you would like to load into your Postgres database.
 PostGIS does a great job in their free workshop explaining select flags that can enhance your ogr2ogr execution.
 Their explaination can be found [here](https://postgis.net/workshops/postgis-intro/loading_data.html).
 
