@@ -9,7 +9,18 @@ tags: [postgres, hacking_postgres]
 
 In this episode, Ry and Marco talk about the early days of Citus and its development, creating pg_cron (on a plane!), and the new possibilities on the horizon for extensions in the Postgres landscape. If you haven’t seen or listened to it yet, you can play the video below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Marco for joining us today!
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/UxUrn6bKDfU?si=JMm_cMMPToh1K2KK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
+  <iframe 
+    style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
+    width="900" 
+    height="315" 
+    src="https://www.youtube.com/embed/UxUrn6bKDfU?si=JMm_cMMPToh1K2KK" 
+    title="YouTube video player" 
+    frameBorder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowFullScreen>
+  </iframe>
+</div>
 
 Want to know more about something they mentioned? Here’s a starting point:
 
@@ -173,7 +184,7 @@ Are there known extensions that aren't compatible with Citus that you're aware o
 
 ##### _[00:10:56] - Marco_
 
-Yeah, I mean, Citus is a little bit of a paradigm shift because now you have many servers and some extensions just don't make sense if you're on many servers because they keep their state on one of them and then they're not aware of others. But most things just work. But I kind of feel like there's this notion of a deep extension, if you will, like timescaleDB or Citus. They kind of go really deep into planner hooks and change behavioral characteristics. Whereas something like PostGIS and a lot of extensions that just introduce new types and functions. They're sitting on top of this much more clean interface and usually the interoperability of those things is pretty good. But Timescale has this notion of a hyper table inside as a distributed table and you cannot really make a distributed hyper table. But yeah, compatibility, it comes down to sometimes also the individual features. It's not like if you install one, then the other doesn't work anymore. I mean, that happens for some extensions, but for Citus, most other things just kind of work with it. Yeah.
+Yeah, I mean, Citus is a little bit of a paradigm shift because now you have many servers and some extensions just don't make sense if you're on many servers because they keep their state on one of them and then they're not aware of others. But most things just work. But I kind of feel like there's this notion of a deep extension, if you will, like TimescaleDB or Citus. They kind of go really deep into planner hooks and change behavioral characteristics. Whereas something like PostGIS and a lot of extensions that just introduce new types and functions. They're sitting on top of this much more clean interface and usually the interoperability of those things is pretty good. But Timescale has this notion of a hyper table inside as a distributed table and you cannot really make a distributed hyper table. But yeah, compatibility, it comes down to sometimes also the individual features. It's not like if you install one, then the other doesn't work anymore. I mean, that happens for some extensions, but for Citus, most other things just kind of work with it. Yeah.
 
 
 ##### _[00:12:08] - Ry_
