@@ -7,7 +7,7 @@ tags: [postgres, machine-learning, ml-ops]
 
 At [Tembo](https://tembo.io), we're building a platform that gives developers a Postgres experience optimized for their application. Today's applications are growing in complexity, especially with the rise of large language models (LLMs), but also due to classical supervised and unsupervised machine learning (ML). For those who have been working in the ML space for a while, you know that the ML lifecycle is a complex process. Today we are launching the Tembo Machine Learning Stack to fight back at some of that complexity!
 
-An ML platform consists of all the tools and systems to manage the lifecycle of data science and machine learning projects. That lifecycle is a continuous and iterative process, from defining a business problem through ML model development, deploying for inference, and continuous monitoring and analysis. This incredibly complex process can become a barrier to entry for many teams. That’s why we built the [Tembo ML Stack](https://tembo.io/docs/tembo-stacks/machine-learning), which offers a Postgres configuration equipped with the tools to make ML lifecycle efficient and easy, all from Postgres. You can try it out today by signing up for [Tembo Cloud] (cloud.tembo.io)
+An ML platform consists of all the tools and systems to manage the lifecycle of data science and machine learning projects. That lifecycle is a continuous and iterative process, from defining a business problem through ML model development, deploying for inference, and continuous monitoring and analysis. This incredibly complex process can become a barrier to entry for many teams. That’s why we built the [Tembo ML Stack](https://tembo.io/docs/tembo-stacks/machine-learning), which offers a Postgres configuration equipped with the tools to make ML lifecycle efficient and easy, all from Postgres. You can try it out today by signing up for [Tembo Cloud](cloud.tembo.io).
 
 ![ml-ops](./arch.png "ml-ops")
 
@@ -27,7 +27,7 @@ ML workflows are generally split into three phases; exploration, model training,
 
 The Tembo ML Stack brings the entire ML workflow into Postgres, making it easier to build and deploy ML models. It puts operations and model serving in the hands of the model developer. And with pl/python, you can write your Python transformations directly in Postgres.
 
-The [Tembo ML Stack](https://cloud.tembo.io) ships with several extensions which enable you to build an end-to-end solution for building machine learning applications:
+The [Tembo ML Stack](https://cloud.tembo.io) ships with several extensions which enable you to build an end-to-end solution for machine learning applications:
 
 - [PostgresML](https://github.com/postgresml/postgresml) - a SQL API with hooks into the most popular Python machine learning libraries, and management of the trained model artifacts
 
@@ -105,8 +105,8 @@ We can see all of our scheduled jobs in the `cron.job` table.
 SELECT jobid, schedule, command, jobname FROM cron.job;
 
 
- jobid | schedule  |      command       |    jobname     
--------+-----------+--------------------+----------------
+ jobid | schedule  |      command         |    jobname     
+-------+-----------+----------------------+----------------
      1 | 0 0 * * 0 | SELECT model_train() | weekly-retrain
 ```
 
