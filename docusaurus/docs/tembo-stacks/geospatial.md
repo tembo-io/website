@@ -21,7 +21,6 @@ The Tembo Geospatial Stack is designed to bring spatial database capabilities to
 ## Getting started
 
 Let's walkthrough a secenario that would involve loading geospatial data into Postgres.
-For the purposes of this demonstration we will utilize the common shapefile.
 
 ### Download GDAL library
 
@@ -29,7 +28,7 @@ If you haven't already, please [download the GDAL library](https://gdal.org/inde
 
 ### Download sample dataset
 
-For the purposes of this demonstration, we will utilize the PostGIS-supplied data bundle
+For the purposes of this demonstration, we will utilize the PostGIS-supplied New York City data bundle.
 You can learn more about the PostGIS tutorial [here](https://postgis.net/workshops/postgis-intro/) or download the data direcly from this [link](https://s3.amazonaws.com/s3.cleverelephant.ca/postgis-workshop-2020.zip).
 
 ## Setup
@@ -43,13 +42,13 @@ psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 
 ### Define a database
 
-While the Postgres default database is `postgres`, you may desire to create a separate database for your geospatial workload.
-This can be achieved by running `CREATE DATABASE <your-database>` once you've connected to Tembo.
+While the default database is `postgres`, you may desire to create a separate database for your geospatial workload.
+This can be achieved by running `CREATE DATABASE <your-database>` once you've connected to Tembo and navigated to by running `\c <your-database>`.
 If you'd like to learn more, check out our guide: [How to select database in Postgres](https://tembo.io/docs/postgres_guides/how-to-select-database-in-postgres/).
 
 ### Load the data
 
-
+Navigate to the 
 Loading files from If you want to load all of the shape files in one 
 
 ```
@@ -80,3 +79,18 @@ You can then load the data by running the following command within the local, ta
 ```bash
 
 ```
+
+### Confirm successful data upload
+
+
+### Sample queries
+
+#### Query 1
+
+#### Query 2
+
+#### Query 3
+
+#### Query 4
+
+#### Query 5
