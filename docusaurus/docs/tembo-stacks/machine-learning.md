@@ -146,14 +146,14 @@ select count(*) from titles_training group by is_clickbait;
 Machine learning algorithms work with numbers, not text. So in order to train a model on our text, we need to we need to transform that text into some numbers.
  There are many ways to transform text into numbers, such as [Bag of Words](https://en.wikipedia.org/wiki/Bag-of-words_model), [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf), [any many others](https://medium.com/analytics-vidhya/a-beginners-guide-to-convert-text-data-to-numeric-data-part-1-e0e15666d9e5). The natural language processing domain is rather large and for this example, we will use the [all_MiniLM_L12_v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) sentence transformer from Hugging Face.
 
-Let's add the embeddings service to our Tembo instance.
+Let's add the embeddings service to our Tembo instance. You can add it via the API like this, or you can do it in the browser on the "Apps" tab, selecting the "embeddings" app.
 
 ```bash
 curl -X PATCH \
      -H "Authorization: Bearer ${TEMBO_TOKEN}" \
      -H "Content-Type: application/json" \
      -d '{"app_services": [{"embeddings": null}]}' \
-     "https://api.tembo.io/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
+     "https://api.tembo.io/api/v1/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
 ```
 
 Add a new column to the table where we will store the embeddings for each row of text.
@@ -208,7 +208,7 @@ return embeddings
 $$ LANGUAGE 'plpython3u';
 ```
 
-Now that we have that function created, we can craft a SQL statement and apply it to our table.
+Now that we have that function created, we can craft a SQL statement and apply it to our table. You will need to replace the name of the database by your database name, which is the same subdomain prefix you can find in your connection string.
 
 ```sql
 WITH embedding_results as (
@@ -388,7 +388,7 @@ curl -X PATCH \
      -H "Authorization: Bearer ${TEMBO_TOKEN}" \
      -H "Content-Type: application/json" \
      -d '{"app_services": [{"embeddings": null},{"http": null}]}' \
-     "https://api.tembo.io/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
+     "https://api.tembo.io/api/v1/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
 ```
 
 Let's create a helper function that we can call via PostgREST. This function will take in a string, then call `vectorize.transform_embeddings()` and pass the result into `pgml.predict()` the same as we previously demonstrated.
