@@ -4,7 +4,8 @@ sidebar_position: 9
 
 # Tembo Geospatial
 
-The Tembo Geospatial Stack is designed to bring spatial database capabilities to Postgres. Whether dealing with spatial objects or location queries, or GIS (geographic information systems)-facing workloads, this stack is prepackaged to help.
+The Tembo Geospatial Stack is designed to bring spatial database capabilities to Postgres.
+Whether dealing with spatial objects, location queries, or GIS (geographic information systems)-facing workloads in general, this stack is pre-packaged to help.
 
 ## Extensions
 
@@ -64,13 +65,13 @@ With the following command, we can load files (individually) into Postgres:
 
 ```bash
 ogr2ogr \
-  -nln nyc_census_blocks_2000 \
+  -nln nyc_streets \
   -nlt PROMOTE_TO_MULTI \
   -lco GEOMETRY_NAME=geom \
   -lco FID=gid \
   -lco PRECISION=NO \
   Pg:"dbname=<your-database> host=<your-host> user=postgres" \
-  nyc_census_blocks_2000.shp
+  nyc_streets.shp
 ```
 
 Loading files individually may take some time, so an alternative may be to create a script that iterates across target files and loads them from one executable.
@@ -124,7 +125,6 @@ You can then load the data by running the following command within the local, ta
 If you're not already, connect to your database following the same instructions as laid out in the Setup section above.
 Then, simply confirm you are in the correct database and run `\t` to list the current tables.
 You should see something similar to the following:
-
 
 ### Sample queries
 
