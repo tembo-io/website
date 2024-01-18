@@ -39,7 +39,7 @@ The [Tembo ML Stack](https://cloud.tembo.io) ships with several extensions which
 
 ## Model training with `pgml`
 
-Tembo Cloud comes pre-configured with the most popular open-source machine learning extension for Postgres: [PostgresML]([https://github.com/postgresml/postgresml](https://github.com/postgresml/postgresml)).
+Tembo Cloud comes pre-configured with the most popular open-source machine learning extension for Postgres: [PostgresML](https://github.com/postgresml/postgresml).
 
 . You can use this extension to train both supervised and unsupervised models with SQL, while still using a workflow that feels comfortable to most scientists. Rather than building a data frame in R or Python, build a Postgres table with your training data. Then, pass that data into the train function from `pgml`. If you've worked with pytorch, xgboost, or scikit-learn, this is akin to `.train()` or `.fit()`. Training the model on Postgres uses the compute already provisioned for your database. There is no additional setup needed.
 
