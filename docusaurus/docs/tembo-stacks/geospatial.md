@@ -49,7 +49,7 @@ If you'd like to learn more, check out our guide: [How to select database in Pos
 
 ### Load the data
 
-Navigate to your local directory where the data is stored; the path will look similar to <path-to-your-target-directory>/postgis-workship/data/.
+Navigate to your local directory where the data is stored; the path will look similar to path/to/target/directory/postgis-workship/data/.
 For this simple exercise, we'll focus excusively on shapefiles, but bear in mind that they alone do not represent the entire dataset.
 Consider the following files:
 - nyc_cencus_blocks.shp
@@ -58,9 +58,9 @@ Consider the following files:
 - nyc_streets.shp
 - nyc_subway_stations.shp
 
-Once you've run the following for each file you would like to load into your Postgres database.
-PostGIS does a great job in their free workshop explaining select flags that can enhance your ogr2ogr execution.
+PostGIS does a great job in their free workshop how to use ogr2ogr with select flags to load data into Postgres.
 Their explaination can be found [here](https://postgis.net/workshops/postgis-intro/loading_data.html).
+With the following command, we can load files (individually) into Postgres:
 
 ```bash
 ogr2ogr \
@@ -107,6 +107,12 @@ do
 done
 ```
 
+Make the file executable by running the following:
+
+```bash
+chmod +x <your-file-name>.sh
+```
+
 You can then load the data by running the following command within the local, target file-containing directory:
 
 ```bash
@@ -118,7 +124,6 @@ You can then load the data by running the following command within the local, ta
 If you're not already, connect to your database following the same instructions as laid out in the Setup section above.
 Then, simply confirm you are in the correct database and run `\t` to list the current tables.
 You should see something similar to the following:
-
 
 
 ### Sample queries
