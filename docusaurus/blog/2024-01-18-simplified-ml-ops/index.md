@@ -3,7 +3,7 @@ slug: simplified-ml-ops
 title: 'Build your ML Ops platform on Postgres with Tembo ML'
 authors: [adam]
 tags: [postgres, machine-learning, ml-ops]
-image: ./social.png
+image: ./tembo_ml.png
 ---
 
 At [Tembo](https://tembo.io), we're building a platform that gives developers a Postgres experience optimized for their application. Today's applications are growing in complexity, especially with the rise of large language models (LLMs), but also due to classical supervised and unsupervised machine learning (ML). For those who have been working in the ML space for a while, you know that the ML lifecycle is a complex process. Today we are launching the Tembo Machine Learning Stack to fight back at some of that complexity!
