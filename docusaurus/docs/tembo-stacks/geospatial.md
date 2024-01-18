@@ -142,10 +142,16 @@ Result:
 
 #### Query 2
 
-describe
+Which fields (columns) are represented in the nyc_streets table?
 
 ```sql
-
+SELECT 
+    column_name, 
+    data_type 
+FROM 
+    information_schema.columns 
+WHERE 
+    table_name = 'nyc_streets';
 ```
 Result:
 ```text
@@ -154,10 +160,10 @@ Result:
 
 #### Query 3
 
-describe
+What are all the streets in the nyc_streets table that have the Ave suffix?
 
 ```sql
-
+SELECT * FROM nyc_streets WHERE street_type = 'Ave';
 ```
 Result:
 ```text
@@ -169,7 +175,10 @@ Result:
 describe
 
 ```sql
-
+SELECT a.street_name
+FROM nyc_streets AS a, nyc_streets AS b
+WHERE b.street_name = 'Lexington Ave'
+AND ST_Intersects(a.geom, b.geom);
 ```
 Result:
 ```text
@@ -193,4 +202,8 @@ ALTER TABLE nyc_streets
 ALTER COLUMN geom
 TYPE geometry(Geometry, 4326)
 USING ST_Transform(ST_SetSRID(geom, 26918), 4326);
+```
+Result:
+```text
+
 ```
