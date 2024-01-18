@@ -130,10 +130,67 @@ You should see something similar to the following:
 
 #### Query 1
 
+How many rows are there in the nyc_streets table?
+
+```sql
+SELECT COUNT(*) FROM nyc_streets;
+```
+Result:
+```text
+
+```
+
 #### Query 2
+
+describe
+
+```sql
+
+```
+Result:
+```text
+
+```
 
 #### Query 3
 
+describe
+
+```sql
+
+```
+Result:
+```text
+
+```
+
 #### Query 4
 
+describe
+
+```sql
+
+```
+Result:
+```text
+
+```
+
 #### Query 5
+
+What is the SRID (Spatial Reference Identifier) of the data in this table, and if possible, how can I change it?
+
+```sql
+SELECT ST_SRID(geom) FROM nyc_streets as srid;
+```
+Result:
+```text
+
+```
+
+```sql
+ALTER TABLE nyc_streets
+ALTER COLUMN geom
+TYPE geometry(Geometry, 4326)
+USING ST_Transform(ST_SetSRID(geom, 26918), 4326);
+```
