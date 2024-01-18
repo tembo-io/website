@@ -29,12 +29,13 @@ If you haven't already, please [download the GDAL library](https://gdal.org/inde
 
 ### Download sample dataset
 
-
+For the purposes of this demonstration, we will utilize the PostGIS-supplied data bundle
+You can learn more about the PostGIS tutorial [here](https://postgis.net/workshops/postgis-intro/) or download the data direcly from this [link](https://s3.amazonaws.com/s3.cleverelephant.ca/postgis-workshop-2020.zip).
 
 ## Setup
 
-Once you establish a Tembo Geospatial Stack instance, cconnect to your Tembo.
-Alternatively, you can fill in the following psql command:
+Once you establish a Tembo Geospatial Stack instance, you can copy the connect string from the UI and execute it in your terminal.
+Alternatively, you can fill in and execute the following psql command:
 
 ```bash
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
@@ -43,4 +44,39 @@ psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 ### Define a database
 
 While the Postgres default database is `postgres`, you may desire to create a separate database for your geospatial workload.
+This can be achieved by running `CREATE DATABASE <your-database>` once you've connected to Tembo.
+If you'd like to learn more, check out our guide: [How to select database in Postgres](https://tembo.io/docs/postgres_guides/how-to-select-database-in-postgres/).
 
+### Load the data
+
+
+Loading files from If you want to load all of the shape files in one 
+
+```
+#!/bin/bash
+
+DATABASE="dbname=<your-database> \
+host=<your-host> \
+user=postgres \
+password=<your-password>"
+
+for f in *.shp
+do
+  echo "Processing $f file..."
+  TABLE_NAME=$(basename "$f" .shp)
+  ogr2ogr \
+    -nln "$TABLE_NAME" \
+    -nlt PROMOTE_TO_MULTI \
+    -lco GEOMETRY_NAME=geom \
+    -lco FID=gid \
+    -lco PRECISION=NO \
+    Pg:"$DATABASE" \
+    "$f"
+done
+```
+
+You can then load the data by running the following command within the local, target file-containing directory:
+
+```bash
+
+```
