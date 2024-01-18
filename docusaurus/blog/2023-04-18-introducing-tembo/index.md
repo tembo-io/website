@@ -3,9 +3,11 @@ slug: introducing-tembo
 title: "Introducing Tembo"
 authors: [ryw]
 tags: [postgres, announcement]
+image: './tembonauts.png'
+
 ---
 
-![pink nodes](./db_pink_nodes.png)
+![tembonauts](./tembonauts.png)
 
 :::tip[Jan 2024 update]
 
