@@ -33,8 +33,8 @@ You can learn more about the PostGIS tutorial [here](https://postgis.net/worksho
 
 ## Setup
 
-Once you establish a Tembo Geospatial Stack instance, you can copy the connect string from the UI and execute it in your terminal.
-Alternatively, you can fill in and execute the following psql command:
+Once you've established a Tembo Geospatial Stack instance, you can copy the connection string from the UI and execute it in your terminal.
+Alternatively, you can fill in and run the following psql command:
 
 ```bash
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
@@ -48,7 +48,9 @@ If you'd like to learn more, check out our guide: [How to select database in Pos
 
 ### Load the data
 
-Navigate to the
+Navigate to your local directory where the data is stored and run the following for each file you would like to load into your Postgres database.
+PostGIS does a great job in their free workshop explaining select flags that can enhance your ogr2ogr execution.
+Their explaination can be found [here](https://postgis.net/workshops/postgis-intro/loading_data.html).
 
 ```bash
 ogr2ogr \
@@ -57,14 +59,14 @@ ogr2ogr \
   -lco GEOMETRY_NAME=geom \
   -lco FID=gid \
   -lco PRECISION=NO \
-  Pg:"dbname=nyc host=localhost user=pramsey port=5432" \
+  Pg:"dbname=<your-database> host=<your-host> user=postgres" \
   nyc_census_blocks_2000.shp
 ```
 
 Loading files individually may take some time, so an alternative may be to create a script that iterates across target files and loads them from one executable.
 PLEASE NOTE: The following is strictly for demonstration purposes and we strongly advise against hardcoding sensitive information in a script like the one below.
 
-Start by creating a file.
+Start by creating a file:
 
 ```bash
 touch <your-file-name>.sh
