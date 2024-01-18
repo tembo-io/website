@@ -11,7 +11,7 @@ The Tembo Machine Learning Stack has several important Postgres extensions that 
 - [postgresml](https://pgt.dev/extensions/postgresml) - `pgml` allows you to train and run machine learning models in Postgres. It supports a variety of models and algorithms, including linear regression, logistic regression, decision tree, random forest, and k-means clustering. It also provides hooks into HuggingFace for downloading and consuming pre-trained models and transformers. Visit [PostgresML](https://github.com/postgresml/postgresml) for more details.
 - [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embeddings and then conducting vector search on that data. Visit pgvector's [Github repo](https://github.com/pgvector/pgvector) for more information.
 - [pg_vectorize](https://pgt.dev/extensions/vectorize) - an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
-- [pg_later] (https://pgt.dev/extensions/pg_later) - Enables asynchronous query execution, which helps better manage resources and frees users up for other tasks. 
+- [pg_later](https://pgt.dev/extensions/pg_later) - Enables asynchronous query execution, which helps better manage resources and frees users up for other tasks. 
 
 The extensions listed above are all very flexible and support many use cases. Visit their documentation pages for additional details.
 
@@ -368,8 +368,6 @@ The model is trained. We can pass new titles in to the model to get them classif
  For that, we will call `vectorize.transform_embeddings()` and pass the result into `pgml.predict()`. Let's try it out, a 1 response means it is clickbait, a 0 means it is not clickbait.
 
 ## Make predictions using the model
-
-```sql
 
 ```sql
 SELECT pgml.predict('clickbait_classifier',
