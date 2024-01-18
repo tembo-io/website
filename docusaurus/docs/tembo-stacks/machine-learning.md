@@ -21,32 +21,25 @@ This tutorial will walk you through the process of training a text classificatio
 
 First, create a Tembo Cloud instance with the Machine Learning Stack. We recommend 8 vCPU and 32GB RAM for this example.
 
-# Text Classification on Tembo ML
+## Acquire examples of click-bait and non-click-bait text
 
-Let's build a click-bait detector, a service that can take in a block of text and then determine whether that the text is likely to be click-bait.
-
-We are going to structure this as a supervised machine learning problem, so we will need example of text that are both click-bait, and not click-bait [1]. We will use the [clickbait dataset](https://github.com/bhargaviparanjape/clickbait/tree/master/dataset) for this example.
-
-
-We'll use an open source sentence transformer from Hugging Face and the PostgresML extension to train an XGBoost model to classify text as click-bait or not click-bait.
-
-## Data acquisition
-
-First, download those datasets. We will use `wget` to download them, but any tool will do.
+We will use the [clickbait dataset](https://github.com/bhargaviparanjape/clickbait/tree/master/dataset) for this example, which contains text that are both click-bait, and not click-bait [1]. First, download those datasets. We will use `wget` to download them, but any tool will do.
 
 ```bash
 wget https://github.com/bhargaviparanjape/clickbait/raw/master/dataset/clickbait_data.gz
 wget https://github.com/bhargaviparanjape/clickbait/raw/master/dataset/non_clickbait_data.gz
 ```
 
-Extract them.
+and extract them.
 
 ```bash
 gzip -d clickbait_data.gz
 gzip -d non_clickbait_data.gz
 ```
 
-Transform those two data files to make it easier to insert into Postgres. We'll use a small python script to handle this for us. This will give us a csv file with two columns, `text` and `is_clickbait`.
+## Preparing data to load into Postgres
+
+We will transform those two data files to make it easier to insert into Postgres. We'll use a small python script to handle this for us. This will give us a csv file with two columns, `text` and `is_clickbait`.
 
 ```python
 # prep.py
@@ -88,12 +81,13 @@ Which TV Female Friend Group Do You Belong In,1
 
 ## Load training data into Postgres using `psql`
 
-Let's set our postgres connection string in an environment variable so we can re-use it a bunch of times. You can find the Tembo org and the instance ID in the Tembo Cloud UI in the URL.
+You will need a Tembo with the Machine Learning Stack. We recommend at least 8 vCPU and 32GB RAM instance for this example.
+ Let's set our postgres connection string in an environment variable so we can re-use it throughout this guide.
+ You can find the Tembo org and the instance ID in the Tembo Cloud UI in the URL.
 
 `https://cloud.tembo.io/orgs/{TEMBO_ORG}/clusters/{TEMBO_INST}`
 
 You can get the `TEMBO_TOKEN` from the Tembo Cloud UI by navigating to [https://cloud.tembo.io/generate-jwt](https://cloud.tembo.io/generate-jwt)
-
 
 ```bash
 export TEMBO_CONN='postgresql://postgres:yourPassword@yourHost:5432/postgres'
@@ -214,7 +208,7 @@ return embeddings
 $$ LANGUAGE 'plpython3u';
 ```
 
-Now that we have that function created, we can craft a SQL statement and apply it to our table. Execute this statement.
+Now that we have that function created, we can craft a SQL statement and apply it to our table.
 
 ```sql
 WITH embedding_results as (
@@ -333,7 +327,8 @@ SELECT * FROM pgml.train(
     algorithm => 'xgboost',
     task => 'classification',
     relation_name => 'titles_training_flattened',
-    y_column_name => 'is_clickbait'
+    y_column_name => 'is_clickbait',
+    test_sampling => 'random'
 );
 
 ...
