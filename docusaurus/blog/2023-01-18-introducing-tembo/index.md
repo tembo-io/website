@@ -1,0 +1,45 @@
+---
+slug: introducing-tembo
+title: "Introducing Tembo"
+authors: [ryw]
+tags: [postgres, announcement]
+image: './tembonauts.png'
+
+---
+
+![tembonauts](./tembonauts.png)
+
+:::tip[January 10, 2024]
+
+After a year of hard work by our amazing team, we [announced the general availability](https://tembo.io/blog/ga/) (GA) of [Tembo Cloud](https://cloud.tembo.io), a managed Postgres service that unlocks the full power of the Postgres ecosystem. Please [give it a try](https://cloud.tembo.io)!
+
+:::
+
+Hello, world :) We are thrilled to announce the launch of our new startup, Tembo, and our mission to build a game-changing managed Postgres service.
+
+## Background
+
+While wrapping up my involvement in my previous company, I learned about the rich Postgres extension ecosystem, and was drawn to the idea that these extensions represent a big opportunity to collapse the modern data stack into a Postgres-centric platform, and eliminate a lot of unnecessary and expensive data movement. 
+
+The vast majority of developers and companies primarily use "Vanilla" Postgres. This is partly because the current user experience of discovering, installing, and gaining proficiency in Postgres extensions is subpar—especially compared to other ecosystems. This has been voiced by many community members. As such, most existing managed services offer only a sliver of the potential value that extensions could provide.
+
+## We've started a company
+
+Tembo's mission is to empower developers and businesses worldwide with the full power of Postgres and its extensions ecosystem, enabling users to use Postgres for a growing number of use cases. Postgres is the most loved database by a long shot, and all Postgres users (including me) owe a huge debt of gratitude to all the companies and people who have invested in the project over the past 26 years. 
+
+## We've raised some money
+
+We have raised a $6.5M seed round led by Venrock, with participation from CincyTech and Wireframe Ventures, and other influential tech angel investors, and we've already got a team of 10 working on our SaaS product and related open-source projects. We are building what we hope will be a world-class managed Postgres service:
+
+* Use any extension, including custom or private extensions
+* Provide UI for popular extensions, and a framework to include the community in those efforts
+* **Stacks** make it easy to get started using Postgres for specific new use cases by packaging up extensions, tools and configurations.
+* An intelligent advisor that helps you to better use the features that you're already using in Postgres
+
+![create cluster](./create_cluster.jpg)
+
+![org home](./org_home.jpg)
+
+The Tembo team is incredibly excited to share our platform with you as we enter our closed beta period, and support your journey towards data-driven success.
+
+We invite you to try [Tembo Cloud](https://cloud.tembo.io), to access the future of database management.
