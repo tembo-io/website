@@ -137,7 +137,10 @@ SELECT COUNT(*) FROM nyc_streets;
 ```
 Result:
 ```text
-
+ count
+-------
+ 19091
+(1 row)
 ```
 
 #### Query 2
@@ -155,47 +158,75 @@ WHERE
 ```
 Result:
 ```text
-
+ column_name |     data_type
+-------------+-------------------
+ gid         | integer
+ id          | bigint
+ geom        | USER-DEFINED
+ name        | character varying
+ oneway      | character varying
+ type        | character varying
+(6 rows)
 ```
 
 #### Query 3
 
-What are all the streets in the nyc_streets table that have the Ave suffix?
+What are all the streets in the nyc_streets table that have the Ave suffix (limit to 10 rows)?
 
 ```sql
-SELECT * FROM nyc_streets WHERE street_type = 'Ave';
+SELECT name FROM nyc_streets WHERE name LIKE '%Ave%' LIMIT 10;
 ```
 Result:
 ```text
-
+      name
+----------------
+ Avenue O
+ Avenue Z
+ Avenue Y
+ Avenue N
+ Carlton Ave
+ Ryder Ave
+ Willoughby Ave
+ Gee Ave
+ Myrtle Ave
+ 7th Ave
+(10 rows)
 ```
 
 #### Query 4
 
-describe
+Say Lexington Avenue is your favorite street, but you want to know how many there are in this dataset.
 
 ```sql
-SELECT a.street_name
-FROM nyc_streets AS a, nyc_streets AS b
-WHERE b.street_name = 'Lexington Ave'
-AND ST_Intersects(a.geom, b.geom);
+SELECT COUNT(*) 
+FROM nyc_streets 
+WHERE name = 'Lexington Ave';
 ```
 Result:
 ```text
-
+ count
+-------
+     5
+(1 row)
 ```
 
 #### Query 5
 
-What is the SRID (Spatial Reference Identifier) of the data in this table, and if possible, how can I change it?
+What is the SRID (Spatial Reference Identifier) of the data in this table.
+and if possible, how can I change it?
 
 ```sql
-SELECT ST_SRID(geom) FROM nyc_streets as srid;
+SELECT DISTINCT ST_SRID(geom) FROM nyc_streets;
 ```
 Result:
 ```text
-
+ st_srid
+---------
+    4326
+(1 row)
 ```
+
+Say the srid was actually 26918. How can I change it to 4326?
 
 ```sql
 ALTER TABLE nyc_streets
@@ -205,5 +236,5 @@ USING ST_Transform(ST_SetSRID(geom, 26918), 4326);
 ```
 Result:
 ```text
-
+ALTER TABLE
 ```
