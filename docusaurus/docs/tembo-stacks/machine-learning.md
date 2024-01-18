@@ -264,24 +264,29 @@ flat_table=f"{relation}_flattened"
 plpy.notice('reading raw')
 rv = plpy.execute(f'SELECT {target_column}, {embedding_column} FROM {relation}')
 df = pd.DataFrame(rv[0:])
-   
+
 embedding_dim = len(df[embedding_column][0])
 column_names = [f'embedd_{i}' for i in range(embedding_dim)]
 
 plpy.notice(f'creating table: {flat_table}, dim: {embedding_dim}')
-all_col_names = ", ".join(column_names)
+all_col_names = ", ".join([target_column] + column_names)
 column_defs = [f"{col} float" for col in column_names]
 all_col_defs =  ', '.join(column_defs)
 
 create_stmt = f'CREATE TABLE IF NOT EXISTS {flat_table} ({target_column} integer, {all_col_defs})'
 plpy.execute(create_stmt)
 
-all_value_ph = [f"${x}" for x in range(1, embedding_dim+1)]
+# Adjust the placeholder to account for the target column
+all_value_ph = [f"${x}" for x in range(1, embedding_dim+2)]
 all_value_ph = ", ".join(all_value_ph)
+
+# Include the target column in the INSERT statement
 insert_stmt = f'INSERT INTO {flat_table} ({all_col_names}) VALUES ({all_value_ph})'
 
 num_rows = df.shape[0]
-row_embedding_types = ['float' for _ in range(embedding_dim)]
+
+# Adjust the row_embedding_types to include the type of the target column
+row_embedding_types = ['integer'] + ['float' for _ in range(embedding_dim)]
 
 try:
     plpy.notice('starting insert')
@@ -290,7 +295,9 @@ try:
         if idx % 1000 == 0:
             plpy.notice(f'inserting row {idx} / {num_rows}')
         plan = plpy.prepare(insert_stmt, row_embedding_types)
-        plpy.execute(plan, row[embedding_column])
+
+        # Include the target column value in the execute call
+        plpy.execute(plan, [row[target_column]] + row[embedding_column])
 except Exception as e:
     plpy.error(f'Error: {e}')
 
