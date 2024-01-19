@@ -49,7 +49,7 @@ PGMQ provides exactly-once delivery semantics within a visibility timeout. Simil
 To get started, check out our [README](https://github.com/tembo-io/pgmq/blob/main/README.md#installation) to install the extension.
 
 
-### Create Queue
+### Creating a Queue
 
 You can create a new queue by simply calling
 
@@ -57,7 +57,7 @@ You can create a new queue by simply calling
 SELECT pgmq_create('my_queue');
 ```
 
-### Send Messages to Queue
+### Sending Messages to Queue
 
 Then, pgmq_send() a couple messages to the queue. The message id is returned from the send() function.
 
@@ -78,7 +78,7 @@ SELECT * from pgmq_send('my_queue', '{"foo": "bar2"}');
 (1 row)
 ```
 
-### Read from Queue
+### Reading from Queue
 
 Read `2` messages from the queue. Make them invisible for `30` seconds. If the messages are not deleted or archived within 30 seconds, they will become visible again and can be read by another consumer.
 
@@ -104,7 +104,7 @@ SELECT * from pgmq_read('my_queue', 30, 1);
 --------+---------+----+-------------+---------
 ```
 
-### Archiving Messages
+### Archiving from Queue
 
 `Archiving` removes the message from the queue and inserts it to the queue’s archive table. This provides you with an opt-in retention mechanism for messages, and is an excellent way to debug applications.
 
