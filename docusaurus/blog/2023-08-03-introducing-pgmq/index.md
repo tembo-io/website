@@ -8,9 +8,13 @@ image: './tembo-launch.png'
 
 ![tembo brand](./tembo-launch.png)
 
-We’ve released [PGMQ](https://github.com/tembo-io/pgmq): a packaged extension for message queues on Postgres. Developers have been implementing queues on Postgres in many different ways and we’re excited to combine lessons learned from those projects into a simple, feature-rich extension. 
+We’ve released [PGMQ](https://github.com/tembo-io/pgmq): a packaged extension for message queues on Postgres. Developers have been implementing queues on Postgres in many different ways and we’re excited to combine lessons learned from those projects into a simple, feature-rich extension. You can try PGMQ on [Tembo Cloud](https://tembo.io/) as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
 
-You can try PGMQ on [Tembo Cloud](https://tembo.io/) as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). Tembo Cloud’s Message Queue Stack is powered by PGMQ, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
+:::note Message Queue Stack on Tembo Cloud
+
+Tembo Cloud Message Queue Stack is powered by PGMQ, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
+
+:::
 
 Some exciting features of the project include:
 
