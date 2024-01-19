@@ -39,7 +39,7 @@ We have raised a $6.5M seed round led by Venrock, with participation from CincyT
 
 ![org home](./org_home.jpg)
 
-The Tembo team is incredibly excited to share our platform with you as we enter our closed beta period, and support your journey towards data-driven success.
+The Tembo team is incredibly excited to share our platform with you, and support your journey towards data-driven success.
 
 :::tip Try it out
 
