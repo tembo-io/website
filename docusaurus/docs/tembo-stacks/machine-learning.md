@@ -216,7 +216,7 @@ WITH embedding_results as (
     SELECT 
         ROW_NUMBER() OVER () AS rn,
         sentence_transform
-    FROM sentence_transform(relation => 'titles_training', col_name => 'title', proejct_name => 'org-test-inst-ml-demo')
+    FROM sentence_transform(relation => 'titles_training', col_name => 'title', project_name => 'org-test-inst-ml-demo')
 ),
 table_rows AS (
     SELECT 
