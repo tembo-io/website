@@ -4,7 +4,6 @@ title: "Introducing Tembo"
 authors: [ryw]
 tags: [postgres, announcement]
 image: './tembonauts.png'
-
 ---
 
 ![tembonauts](./tembonauts.png)
