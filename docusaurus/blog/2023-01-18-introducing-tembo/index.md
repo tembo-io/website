@@ -4,12 +4,11 @@ title: "Introducing Tembo"
 authors: [ryw]
 tags: [postgres, announcement]
 image: './tembonauts.png'
-
 ---
 
 ![tembonauts](./tembonauts.png)
 
-:::tip[January 10, 2024]
+:::tip January 10, 2024
 
 After a year of hard work by our amazing team, we [announced the general availability](https://tembo.io/blog/ga/) (GA) of [Tembo Cloud](https://cloud.tembo.io), a managed Postgres service that unlocks the full power of the Postgres ecosystem. Please [give it a try](https://cloud.tembo.io)!
 
@@ -40,6 +39,11 @@ We have raised a $6.5M seed round led by Venrock, with participation from CincyT
 
 ![org home](./org_home.jpg)
 
-The Tembo team is incredibly excited to share our platform with you as we enter our closed beta period, and support your journey towards data-driven success.
+The Tembo team is incredibly excited to share our platform with you, and support your journey towards data-driven success.
 
-We invite you to try [Tembo Cloud](https://cloud.tembo.io), to access the future of database management.
+:::tip Try it out
+
+We invite you to sign up for [Tembo Cloud](https://cloud.tembo.io), and unlock the full power of the 
+Postgres ecosystem.
+
+:::
