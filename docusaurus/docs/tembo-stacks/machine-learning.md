@@ -208,14 +208,15 @@ return embeddings
 $$ LANGUAGE 'plpython3u';
 ```
 
-Now that we have that function created, we can craft a SQL statement and apply it to our table. You will need to replace the name of the database by your database name, which is the same subdomain prefix you can find in your connection string.
+Now that we have that function created, we can craft a SQL statement and apply it to our table. You will need to replace the `project_name` parameter, which is the same subdomain prefix you can find in your connection string. For example, `org-test-inst-ml-demo` from the connection string `postgresql://user:password@org-test-inst-ml-demo.data-1.use1.tembo.io:5432/postgres`.
+
 
 ```sql
 WITH embedding_results as (
     SELECT 
         ROW_NUMBER() OVER () AS rn,
         sentence_transform
-    FROM sentence_transform('titles_training', 'title', 'org-test-inst-ml-demo')
+    FROM sentence_transform(relation => 'titles_training', col_name => 'title', proejct_name => 'org-test-inst-ml-demo')
 ),
 table_rows AS (
     SELECT 
@@ -246,7 +247,7 @@ embedding | {-0.058323003,0.056333832,-0.0038603533,0.013325908,-0.011109264,0.0
 
 ## Prepare data for model training
 
-We dont want to train our model on the `record_id` column and we can't train it on the raw text in the `title` column, so let's create a new table with just the columns that we will use for training, which is the `embedding` column and the `is_clickbait` column.
+We don't want to train our model on the `record_id` column and we can't train it on the raw text in the `title` column, so let's create a new table with just the columns that we will use for training, which is the `embedding` column and the `is_clickbait` column.
 
 
 ```sql
@@ -349,10 +350,10 @@ CREATE OR REPLACE FUNCTION predict_clickbait(
 ) RETURNS TABLE(is_clickbait REAL) LANGUAGE sql AS $$ 
     SELECT pgml.predict(
         project_name => 'clickbait_classifier',
-        features => (select pgml.embed(
-            'all-MiniLM-L12-v2',
-            input_string
-        ))
+        features => (select vectorize.transform_embeddings(
+            input => 'warmest weather on record',
+            model_name => 'all_MiniLM_L12_v2')
+        )
     )
 $$;
 ```
