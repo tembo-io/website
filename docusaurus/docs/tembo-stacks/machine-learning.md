@@ -246,83 +246,13 @@ embedding | {-0.058323003,0.056333832,-0.0038603533,0.013325908,-0.011109264,0.0
 
 ## Prepare data for model training
 
-Now that we have a column that contains our embeddings, we need to flatten it so that we can train a model using the [pgml](https://pgt.dev/extensions/postgresml) extension. We'll transform this table into a new table where each element in our embedding vector becomes its own column. Once again, we will use `pl/python3u` to conduct this operation.
+We dont want to train our model on the `record_id` column and we can't train it on the raw text in the `title` column, so let's create a new table with just the columns that we will use for training, which is the `embedding` column and the `is_clickbait` column.
+
 
 ```sql
-CREATE OR REPLACE FUNCTION transform_unnest(
-    relation text,
-    target_column text,
-    embedding_column text
-)
-RETURNS VOID AS
-$$
-import pandas as pd
-import json
-
-flat_table=f"{relation}_flattened"
-
-plpy.notice('reading raw')
-rv = plpy.execute(f'SELECT {target_column}, {embedding_column} FROM {relation}')
-df = pd.DataFrame(rv[0:])
-
-embedding_dim = len(df[embedding_column][0])
-column_names = [f'embedd_{i}' for i in range(embedding_dim)]
-
-plpy.notice(f'creating table: {flat_table}, dim: {embedding_dim}')
-all_col_names = ", ".join([target_column] + column_names)
-column_defs = [f"{col} float" for col in column_names]
-all_col_defs =  ', '.join(column_defs)
-
-create_stmt = f'CREATE TABLE IF NOT EXISTS {flat_table} ({target_column} integer, {all_col_defs})'
-plpy.execute(create_stmt)
-
-# Adjust the placeholder to account for the target column
-all_value_ph = [f"${x}" for x in range(1, embedding_dim+2)]
-all_value_ph = ", ".join(all_value_ph)
-
-# Include the target column in the INSERT statement
-insert_stmt = f'INSERT INTO {flat_table} ({all_col_names}) VALUES ({all_value_ph})'
-
-num_rows = df.shape[0]
-
-# Adjust the row_embedding_types to include the type of the target column
-row_embedding_types = ['integer'] + ['float' for _ in range(embedding_dim)]
-
-try:
-    plpy.notice('starting insert')
-
-    for idx, row in df.iterrows():
-        if idx % 1000 == 0:
-            plpy.notice(f'inserting row {idx} / {num_rows}')
-        plan = plpy.prepare(insert_stmt, row_embedding_types)
-
-        # Include the target column value in the execute call
-        plpy.execute(plan, [row[target_column]] + row[embedding_column])
-except Exception as e:
-    plpy.error(f'Error: {e}')
-
-$$ LANGUAGE 'plpython3u';
+CREATE TABLE title_tng as (select is_clickbait, embedding from titles_training);
 ```
 
-Let's execute that function.
-
-```sql
-select transform_unnest(
-    relation => 'titles_training',
-    target_column => 'is_clickbait',
-    embedding_column => 'embedding'
-);
-```
-
-```console
-NOTICE:  reading raw
-NOTICE:  creating table: titles_training_flattened, dim: 384
-NOTICE:  starting insert
-NOTICE:  inserting row 0 / 32000
-NOTICE:  inserting row 1000 / 32000
-NOTICE:  inserting row 2000 / 32000
-....
-```
 
 ## Train a classification model using XGBoost and `pgml`
 
@@ -333,7 +263,7 @@ SELECT * FROM pgml.train(
     project_name => 'clickbait_classifier',
     algorithm => 'xgboost',
     task => 'classification',
-    relation_name => 'titles_training_flattened',
+    relation_name => 'title_tng',
     y_column_name => 'is_clickbait',
     test_sampling => 'random'
 );
@@ -347,7 +277,7 @@ INFO:  Deploying model id: 1
 (1 row)
 ```
 
-This should take only a few minutes. Check that the model exists in the local model registry.
+This should take only a few minutes or less. Check that the model exists in the local model registry.
 
 ```sql
 \x
@@ -384,6 +314,19 @@ SELECT pgml.predict('clickbait_classifier',
 (1 row)
 ```
 
+```sql
+SELECT pgml.predict('clickbait_classifier',
+    (select vectorize.transform_embeddings(
+        input => 'warmest weather on record',
+        model_name => 'all_MiniLM_L12_v2')
+    )
+);
+ predict 
+---------
+       0
+(1 row)
+```
+
 There we go, a click bait classifier in Postgres!
 
 ## Serve the model w/ a REST api using PostgREST
@@ -401,20 +344,17 @@ curl -X PATCH \
 Let's create a helper function that we can call via PostgREST. This function will take in a string, then call `vectorize.transform_embeddings()` and pass the result into `pgml.predict()` the same as we previously demonstrated.
 
 ```sql
-CREATE OR REPLACE FUNCTION predict_clickbait(input_string text)
-RETURNS TABLE(is_clickbait REAL)
-AS $$
-BEGIN
-    RETURN QUERY 
+CREATE OR REPLACE FUNCTION predict_clickbait(
+    input_string text
+) RETURNS TABLE(is_clickbait REAL) LANGUAGE sql AS $$ 
     SELECT pgml.predict(
-        'clickbait_classifier',
-        (SELECT vectorize.transform_embeddings(
-            input => input_string,
-            model_name => 'all_MiniLM_L12_v2'
+        project_name => 'clickbait_classifier',
+        features => (select pgml.embed(
+            'all-MiniLM-L12-v2',
+            input_string
         ))
-    ) AS is_clickbait;
-END;
-$$ LANGUAGE plpgsql;
+    )
+$$;
 ```
 
 We're almost done. Tell PostgREST to reload the schema so that our function can be discovered by invoking a NOTIFY command:
