@@ -8,11 +8,11 @@ image: './tembo-launch.png'
 
 ![tembo brand](./tembo-launch.png)
 
-We’ve released [PGMQ](https://github.com/tembo-io/pgmq): a packaged extension for message queues on Postgres. Developers have been implementing queues on Postgres in many different ways and we’re excited to combine lessons learned from those projects into a simple, feature-rich extension. You can try PGMQ on [Tembo Cloud](https://tembo.io/) as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
+We’ve released [PGMQ](https://github.com/tembo-io/pgmq): a packaged extension for message queues on Postgres. Developers have been implementing queues on Postgres in many different ways and we’re excited to combine lessons learned from those projects into a simple, feature-rich extension. You can try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
 
-:::note Message Queue Stack on Tembo Cloud
+:::note Message Queue Stack
 
-Tembo Cloud Message Queue Stack is powered by PGMQ, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
+Tembo Cloud's Message Queue Stack is powered by PGMQ, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
 
 :::
 
@@ -159,4 +159,4 @@ Give us a [star](https://github.com/tembo-io/pgmq) and try out PGMQ by cloning t
 
 Check out our post on [pg_later](https://github.com/tembo-io/pg_later), an extension we built on top of PGMQ as well as benchmarks comparing PGMQ to [SQS](https://aws.amazon.com/sqs/) and [Redis](https://redis.com/).
 
-And you can try PGMQ on [Tembo Cloud](https://tembo.io/) as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
+You can also try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) for free as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
