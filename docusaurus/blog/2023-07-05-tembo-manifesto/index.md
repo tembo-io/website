@@ -8,13 +8,11 @@ image: './tembo_brand.png'
 
 ![tembo brand](./tembo_brand.png)
 
-:::tip[January 10, 2024]
-
+:::tip January 10, 2024
 After a year of hard work by our amazing team, we [announced the general availability](https://tembo.io/blog/ga/) (GA) of [Tembo Cloud](https://cloud.tembo.io), a managed Postgres service that unlocks the full power of the Postgres ecosystem. Please [give it a try](https://cloud.tembo.io)!
-
 :::
 
-## The data platform status quo is **vendor sprawl** and **data islands**
+## Vendor sprawl and data islands
 
 Organizations typically store their data across various databases, generally grouped into transactional and analytical systems. There's roughly 10x more transactional than analytical data, mostly in Oracle, MySQL, and Postgres, and there have been some sizable shifts to this landscape in recent years:
 
@@ -82,8 +80,6 @@ No matter who you are or what you're trying to build, three things are true abou
 
 That's the expected size of the global database market in 2023 and 2027. The amount of data being generated, stored, and leveraged is growing exponentially, as is the need for applications to operate at a global scale. We're producing more data, we need it faster, and the uses for it are more and more complex by the day. 
 
-:::tip[Try it out]
-
-We invite you to sign up for [Tembo Cloud](https://cloud.tembo.io), and access the future of database management.
-
+:::tip Try it out
+We invite you to sign up for [Tembo Cloud](https://cloud.tembo.io), and unlock the full power of the Postgres ecosystem.
 :::
