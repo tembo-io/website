@@ -8,11 +8,11 @@ image: './tembo-launch.png'
 
 ![tembo brand](./tembo-launch.png)
 
-We’ve released [PGMQ](https://github.com/tembo-io/pgmq): a packaged extension for message queues on Postgres. Developers have been implementing queues on Postgres in many different ways and we’re excited to combine lessons learned from those projects into a simple, feature-rich extension. You can try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
+We've released [PGMQ](https://github.com/tembo-io/pgmq): a packaged extension for message queues on Postgres. Developers have been implementing queues on Postgres in many different ways and we're excited to combine lessons learned from those projects into a simple, feature-rich extension. You can try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
 
 :::note Message Queue Stack
 
-Tembo Cloud's Message Queue Stack is powered by PGMQ, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
+[Tembo Cloud](https://cloud.tembo.io/)'s Message Queue Stack is powered by PGMQ, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
 
 :::
 
@@ -38,9 +38,9 @@ We are the first, however, to wrap it all up in a Postgres extension and share t
 
 ## Queues Implemented with best practices
 
-PGMQ was implemented on Postgres and follows industry best practices. One of the most important practices is the use of Postgres’s [SKIP LOCKED](https://www.2ndquadrant.com/en/blog/what-is-select-skip-locked-for-in-postgresql-9-5/), which is similar to `NOWAIT` in other databases. `SKIP LOCKED` helps ensure that consumers don't hang. This is generally paired with `FOR UPDATE`, which locks the message and ensure it is not read twice. PGMQ also supports partitioning, which is particularly beneficial for large queues and can be used to efficiently archive / expire old messages.
+PGMQ was implemented on Postgres and follows industry best practices. One of the most important practices is the use of Postgres's [SKIP LOCKED](https://www.2ndquadrant.com/en/blog/what-is-select-skip-locked-for-in-postgresql-9-5/), which is similar to `NOWAIT` in other databases. `SKIP LOCKED` helps ensure that consumers don't hang. This is generally paired with `FOR UPDATE`, which locks the message and ensure it is not read twice. PGMQ also supports partitioning, which is particularly beneficial for large queues and can be used to efficiently archive / expire old messages.
 
-PGMQ provides exactly-once delivery semantics within a visibility timeout. Similar to Amazon’s SQS and RSMQ, PGMQ consumers set the period of time during which Postgres will prevent all consumers from receiving and processing a message. This is done by the consumer on read, and once the visibility timeout expires the message becomes available for consumption once again. That way, if a consumer crashes, there is no data loss. This effectively means at-least-once delivery semantics once the first visibility timeout has expired.
+PGMQ provides exactly-once delivery semantics within a visibility timeout. Similar to Amazon's SQS and RSMQ, PGMQ consumers set the period of time during which Postgres will prevent all consumers from receiving and processing a message. This is done by the consumer on read, and once the visibility timeout expires the message becomes available for consumption once again. That way, if a consumer crashes, there is no data loss. This effectively means at-least-once delivery semantics once the first visibility timeout has expired.
 
 ![vt](vt.png "VisibilityTimeout")
 
@@ -106,7 +106,7 @@ SELECT * from pgmq_read('my_queue', 30, 1);
 
 ### Archiving from Queue
 
-`Archiving` removes the message from the queue and inserts it to the queue’s archive table. This provides you with an opt-in retention mechanism for messages, and is an excellent way to debug applications.
+`Archiving` removes the message from the queue and inserts it to the queue's archive table. This provides you with an opt-in retention mechanism for messages, and is an excellent way to debug applications.
 
 Archive the message with id 2.
 
@@ -153,7 +153,7 @@ SELECT pgmq_delete('my_queue', 3);
 
 ## Getting involved
 
-Give us a [star](https://github.com/tembo-io/pgmq) and try out PGMQ by cloning the [repo](https://github.com/tembo-io/pgmq) and following the example in the README. Please use Github issues if you run into any issues or have any feedback. We’ve also built client side libraries in [Rust](https://github.com/tembo-io/pgmq/tree/main/core) and [Python](https://github.com/tembo-io/pgmq/tree/main/tembo-pgmq-python), which will give you an ORM-like experience.
+Give us a [star](https://github.com/tembo-io/pgmq) and try out PGMQ by cloning the [repo](https://github.com/tembo-io/pgmq) and following the example in the README. Please use Github issues if you run into any issues or have any feedback. We've also built client side libraries in [Rust](https://github.com/tembo-io/pgmq/tree/main/core) and [Python](https://github.com/tembo-io/pgmq/tree/main/tembo-pgmq-python), which will give you an ORM-like experience.
 
 ## Interested in learning more? 
 
