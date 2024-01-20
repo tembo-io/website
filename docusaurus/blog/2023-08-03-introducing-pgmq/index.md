@@ -157,6 +157,6 @@ Give us a [star](https://github.com/tembo-io/pgmq) and try out PGMQ by cloning t
 
 ## Interested in learning more? 
 
-Check out our post on [pg_later](https://github.com/tembo-io/pg_later), an extension we built on top of PGMQ as well as benchmarks comparing PGMQ to [SQS](https://aws.amazon.com/sqs/) and [Redis](https://redis.com/).
+Check out [our post on pg_later](https://tembo.io/blog/introducing-pg-later), an extension we built on top of PGMQ as well as benchmarks comparing PGMQ to [SQS](https://aws.amazon.com/sqs/) and [Redis](https://redis.com/).
 
 You can also try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) for free as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
