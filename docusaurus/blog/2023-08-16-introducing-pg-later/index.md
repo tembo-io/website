@@ -8,19 +8,19 @@ image: './tembo-launch.png'
 
 ![tembo brand](./tembo-launch.png)
 
-We’ve released a new Postgres extension called [pg_later](https://github.com/tembo-io/pg_later), which enables asynchronous query execution in Postgres. If you’ve used [Snowflake’s asynchronous queries](https://docs.snowflake.com/developer-guide/python-connector/python-connector-example#examples-of-asynchronous-queries), you might already be familiar with this capability. Submit your queries to Postgres now, and come back later and get the query’s results.
+We've released a new Postgres extension called [pg_later](https://github.com/tembo-io/pg_later), which enables asynchronous query execution in Postgres. If you've used [Snowflake's asynchronous queries](https://docs.snowflake.com/developer-guide/python-connector/python-connector-example#examples-of-asynchronous-queries), you might already be familiar with this capability. Submit your queries to Postgres now, and come back later and get the query's results.
 
-You can try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
+You can try pg_later on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Machine Learning Stack](https://tembo.io/docs/tembo-stacks/machine-learning). 
 
 :::note Message Queue Stack
 
-[Tembo Cloud](https://cloud.tembo.io/)'s Message Queue Stack is powered by PGMQ, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
+[Tembo Cloud](https://cloud.tembo.io/)'s Machine Learning Stack is powered by pg_later, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
 
 :::
 
 ## Why async queries?
 
-Imagine that you’ve initiated a long-running maintenance job. You step away while it is executing, only to come back and discover it was interrupted hours ago due to your laptop shutting down. You don’t want this to happen again, so you spend some time googling or asking your favorite LLM how to run the command in the background with screen or tmux. Having asynchronous query support from the beginning would have saved you a bunch of time and headache!
+Imagine that you've initiated a long-running maintenance job. You step away while it is executing, only to come back and discover it was interrupted hours ago due to your laptop shutting down. You don't want this to happen again, so you spend some time googling or asking your favorite LLM how to run the command in the background with screen or tmux. Having asynchronous query support from the beginning would have saved you a bunch of time and headache!
 
 Asynchronous processing is a useful development pattern in software engineering. It has advantages such as improved resource utilization, and unblocking of the main execution thread.
 
@@ -46,7 +46,7 @@ A [Postgres background worker](https://www.postgresql.org/docs/current/bgworker.
 
 ## Using pg_later
 
-To get started, check out our project’s [README](https://github.com/tembo-io/pg_later/blob/main/README.md) for a guide on installing the extension.
+To get started, check out our project's [README](https://github.com/tembo-io/pg_later/blob/main/README.md) for a guide on installing the extension.
 
 ### Initializing the Extension
 
@@ -58,7 +58,7 @@ select pglater.init();
 
 ### Dispatch queries
 
-You're now set to dispatch your queries. Submit the query using pglater.exec, and be sure to take note of the `job_id` that is returned. In this case, it’s the first job so the `job_id` is 1.
+You're now set to dispatch your queries. Submit the query using pglater.exec, and be sure to take note of the `job_id` that is returned. In this case, it's the first job so the `job_id` is 1.
 
 ```sql
 select pglater.exec(
@@ -120,4 +120,4 @@ A few features that we are excited to build:
 
 Give us a [star](https://github.com/tembo-io/pg_later) and try out pg_later by running the example in the README. If you run into issues, please create an [issue](https://github.com/tembo-io/pg_later/issues). We would greatly welcome contributions to the project as well.
 
-You can also try pg_later on [Tembo Cloud](https://cloud.tembo.io/) for free as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
+You can also try pg_later on [Tembo Cloud](https://cloud.tembo.io/) for free as part of our [Machine Learning Stack](https://tembo.io/docs/tembo-stacks/machine-learning). 
