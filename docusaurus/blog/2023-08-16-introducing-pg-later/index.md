@@ -16,6 +16,8 @@ You can try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Messa
 
 [Tembo Cloud](https://cloud.tembo.io/)'s Message Queue Stack is powered by PGMQ, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
 
+:::
+
 ## Why async queries?
 
 Imagine that you’ve initiated a long-running maintenance job. You step away while it is executing, only to come back and discover it was interrupted hours ago due to your laptop shutting down. You don’t want this to happen again, so you spend some time googling or asking your favorite LLM how to run the command in the background with screen or tmux. Having asynchronous query support from the beginning would have saved you a bunch of time and headache!
