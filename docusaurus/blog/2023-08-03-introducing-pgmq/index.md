@@ -12,7 +12,7 @@ We've released [PGMQ](https://github.com/tembo-io/pgmq): a packaged extension fo
 
 :::note Message Queue Stack
 
-[Tembo Cloud](https://cloud.tembo.io/)'s Message Queue Stack is powered by PGMQ, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
+[Tembo Cloud](https://cloud.tembo.io/)'s Message Queue Stack is powered by pg_later, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
 
 :::
 
