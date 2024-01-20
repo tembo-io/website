@@ -3,13 +3,18 @@ slug: introducing-pg-later
 title: "Introducing pg_later: Asynchronous Queries for Postgres, Inspired by Snowflake"
 authors: [adam]
 tags: [postgres, announcement, async]
+image: './tembo-launch.png'
 ---
 
-We’re working on asynchronous query execution in Postgres and have packaged the work up in an extension we’re calling [pg_later](https://github.com/tembo-io/pg_later). If you’ve used [Snowflake’s asynchronous queries](https://docs.snowflake.com/developer-guide/python-connector/python-connector-example#examples-of-asynchronous-queries), then you might already be familiar with this type of feature. Submit your queries to Postgres now, and come back later and get the query’s results.
+![tembo brand](./tembo-launch.png)
 
-Visit [pg_later](https://github.com/tembo-io/pg_later)’s Github repository and give it a star!
+We’ve released a new Postgres extension called [pg_later](https://github.com/tembo-io/pg_later), which enables asynchronous query execution in Postgres. If you’ve used [Snowflake’s asynchronous queries](https://docs.snowflake.com/developer-guide/python-connector/python-connector-example#examples-of-asynchronous-queries), you might already be familiar with this capability. Submit your queries to Postgres now, and come back later and get the query’s results.
 
-![elephant-tasker](elephant.png "elephant-tasker")
+You can try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
+
+:::note Message Queue Stack
+
+[Tembo Cloud](https://cloud.tembo.io/)'s Message Queue Stack is powered by PGMQ, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
 
 ## Why async queries?
 
@@ -19,21 +24,21 @@ Asynchronous processing is a useful development pattern in software engineering.
 
 Some examples where async querying can be useful are:
 
-* For a DBA running ad-hoc maintenance.
-* Developing in interactive environments such as a Jupyter notebook. Rather than submit a long-running query only to have your notebook hang idly and then crash, you can use asynchronous tasks to avoid blocking your Notebook, or simply come back later to check on your task.
-* Having a long-running analytical query, for example fulfilling an ad-hoc request like seeing how many new users signed up each day for the past month. You can submit that query and have it run in the background while you continue other work.
+* DBAs running ad-hoc maintenance.
+* Development in interactive environments such as a Jupyter notebook. Rather than submit a long-running query only to have your notebook hang idly and then crash, you can use asynchronous tasks to avoid blocking your notebook, or simply come back later to check on your task.
+* Long-running analytical queries. For example, fulfilling an ad-hoc request like seeing how many new users signed up each day overthe past month. You can submit that query and have it run in the background while you continue other work.
 
 ## Extending Postgres with async features
 
-At Tembo, we’ve built a similar feature for Postgres and published it as an extension called **pg_later**. With **pg_later**, you can dispatch a query to your Postgres database and, rather than waiting for the results, your program can return and retrieve the results at your convenience.
+pg_later is similar, you can dispatch a query to your Postgres database and rather than waiting for the results, your program can return and retrieve the results at your convenience.
 
-A common example is manually executing VACUUM on a table. Typically one might execute VACUUM in one session, and then use another session to check the status of the VACUUM job via `pg_stat_progress_vacuum`. pg_later gives you the power to do that in a single session. You can use it to queue up any long-running analytical or administrative task on your Postgres database.
+A common example is manually executing `VACUUM` on a table. Typically, one might execute VACUUM in one session and then use another session to check the status of the VACUUM job via `pg_stat_progress_vacuum`. pg_later gives you the power to do that in a single session. You can use it to queue up any long-running analytical or administrative task on your Postgres database.
 
 ## Stacking Postgres Extensions
 
-**pg_later** is built on top of [PGMQ](https://tembo.io/blog/introducing-pgmq), another one of Tembo's open source extensions. Once a user submits a query, **pg_later** seamlessly enqueues the request in a Postgres-managed message queue. This mechanism then processes the query asynchronously, ensuring no unnecessary wait times or hold-ups.
+pg_later is built on top of [PGMQ](https://tembo.io/blog/introducing-pgmq), another one of Tembo's open source extensions. Once a user submits a query, pg_later seamlessly enqueues the request in a Postgres-managed message queue. This mechanism then processes the query asynchronously, ensuring no unnecessary wait times or hold-ups.
 
-The **pg_later** [background worker](https://www.postgresql.org/docs/current/bgworker.html) picks up the query from the queue and executes it. The results are persisted by being written to a table as [JSONB](https://www.postgresql.org/docs/current/functions-json.html) and can be easily retrieved using the **pg_later** API. You can simply reference the unique job id given upon query submission, and retrieve the result set, or query the table directly. By default, the results are retained forever, however we are building retention policies as a feature into **pg_later**.
+A [Postgres background worker](https://www.postgresql.org/docs/current/bgworker.html) picks up the query from the queue and executes it. The results are persisted by being written to a table as [JSONB](https://www.postgresql.org/docs/current/functions-json.html) and can be easily retrieved using the pg_later API. You can simply reference the unique job id given upon query submission and retrieve the result set, or query the table directly. By default, the results are retained forever. However, we are building retention policies as a feature into pg_later.
 
 ![diagram](diagram.png "diagram")
 
@@ -41,13 +46,17 @@ The **pg_later** [background worker](https://www.postgresql.org/docs/current/bgw
 
 To get started, check out our project’s [README](https://github.com/tembo-io/pg_later/blob/main/README.md) for a guide on installing the extension.
 
+### Initializing the Extension
+
 First, you need to initialize the extension. This handles the management of PGMQ objects like a job queue and some metadata tables.
 
 ```sql
 select pglater.init();
 ```
 
-You're now set to dispatch your queries. Submit the query using pglater.exec, and be sure to take note of the **job_id** that is returned. In this case, it’s the first job so the **job_id** **is 1**.
+### Dispatch queries
+
+You're now set to dispatch your queries. Submit the query using pglater.exec, and be sure to take note of the `job_id` that is returned. In this case, it’s the first job so the `job_id` is 1.
 
 ```sql
 select pglater.exec(
@@ -61,6 +70,8 @@ select pglater.exec(
      1
 (1 row)
 ```
+
+### Retrieving results
 
 And whenever you're ready, your results are a query away:
 
@@ -92,7 +103,9 @@ select pglater.fetch_results(1);
 
 ## Up next
 
-`pg_later` is a new project and still under development. A few features that we are excited to build:
+`pg_later` is a new project and still under development. 
+
+A few features that we are excited to build:
 
 * Status and progress of in-flight queries
 * Security and permission models for submitted queries
@@ -105,4 +118,4 @@ select pglater.fetch_results(1);
 
 Give us a [star](https://github.com/tembo-io/pg_later) and try out pg_later by running the example in the README. If you run into issues, please create an [issue](https://github.com/tembo-io/pg_later/issues). We would greatly welcome contributions to the project as well.
 
-Please stay tuned for a follow up post on benchmarking PGMQ vs leading open source message queues.
+You can also try pg_later on [Tembo Cloud](https://cloud.tembo.io/) for free as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
