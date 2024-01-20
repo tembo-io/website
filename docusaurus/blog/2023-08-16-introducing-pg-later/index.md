@@ -12,9 +12,9 @@ We've released a new Postgres extension called [pg_later](https://github.com/tem
 
 You can try pg_later on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Machine Learning Stack](https://tembo.io/docs/tembo-stacks/machine-learning). 
 
-:::note Message Queue Stack
+:::note Machine Learning Stack
 
-[Tembo Cloud](https://cloud.tembo.io/)'s Machine Learning Stack is powered by pg_later, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
+[Tembo Cloud](https://cloud.tembo.io/)'s Machine Learning Stack is powered by [postgresml](https://github.com/postgresml/postgresml) and pg_later, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
 
 :::
 
