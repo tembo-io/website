@@ -19,8 +19,8 @@ Extensions are arguably the most powerful capability of Postgres.
 <iframe
 	border={0}
 	frameborder={0}
-	height={650}
-	width={400}
+	height={300}
+	width={600}
 	src='https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Fadamhendel%2Fstatus%2F1734877766334456052'
 ></iframe>
 
