@@ -48,11 +48,12 @@ $ npm run build-landing
 $ npm run build-docs
 ```
 
+
 This commands will generate static content into the associated `build` directory and can be served using any static contents hosting service.
 
 ### Deployment
 
-- `main` is auto-deployed to https://tembo.io
+- `main` is auto-deployed to https://tembo.io via AWS Amplify
 - Open PRs (draft or regular) have preview environments deployed, comment including link will be posted in the PR
 
 ### Recommended Workflow
