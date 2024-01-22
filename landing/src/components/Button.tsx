@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import { navigate } from 'astro/transitions/router';
 
-type Variant = 'neon' | 'gradient' | 'outline';
+type Variant = 'primary' | 'neon' | 'gradient' | 'outline';
 type Size = 'sm' | 'md' | 'lg';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -37,6 +37,8 @@ const Button: React.FC<Props> = ({
 				return 'bg-neon hover:bg-[#D1E278] text-black';
 			case 'gradient':
 				return 'bg-gradient-button text-white';
+			case 'primary':
+				return 'bg-semiGrey2 hover:opacity-[80%] text-white';
 			case 'outline':
 				return 'bg-transparent text-white border border-white';
 		}
