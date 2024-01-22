@@ -3,6 +3,7 @@ slug: welcoming-david-wheeler
 title: 'PGXN creator David Wheeler joins Tembo to strengthen PostgreSQL extension ecosystem'
 authors: [samay]
 tags: [postgres, extensions]
+image: ./welcome-tembonaut.png
 ---
 
 # PGXN creator David Wheeler joins Tembo to strengthen PostgreSQL extension ecosystem
