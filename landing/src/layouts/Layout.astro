@@ -1,9 +1,15 @@
 ---
 interface Props {
 	title: string;
+	description?: string;
+	image?: string;
+	author?: string;
+	keywords?: string[];
 }
-
-const { title } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const DEFAULT_DESCRIPTION = 'Tembo is the Postgres developer platform for building every application and data service. Collapse the database sprawl of the modern data stack with a unified developer platform.';
+const DEFAULT_OG_IMAGE = '/og-image.png';
+const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, author, keywords } = Astro.props;
 ---
 
 <!doctype html>
@@ -12,12 +18,19 @@ const { title } = Astro.props;
 		<meta charset='UTF-8' />
 		<meta
 			name='description'
-			content='Tembo is the Postgres developer platform for building every application and data service. Collapse the database sprawl of the modern data stack with a unified developer platform.'
+			content={description}
 		/>
 		<meta name='viewport' content='width=device-width' />
 		<link rel='icon' type='image/svg+xml' href='/favicon.ico' />
 		<meta name='generator' content={Astro.generator} />
 		<title>{title}</title>
+		{author && (
+			<meta name="author" content={author}>
+		)}
+		{keywords && (
+			<meta name="keywords" content={keywords.join(',')}>
+		)}
+		<link rel="canonical" href={canonicalURL} />
 		<meta name='twitter:card' content='summary_large_image' />
 		<meta
 			name='twitter:description'
@@ -25,12 +38,12 @@ const { title } = Astro.props;
 		/>
 		<meta name='twitter:site' content='https://tembo.io' />
 		<meta name='twitter:title' content='Postgres for everything | Tembo' />
-		<meta name='twitter:image' content='https://tembo.io/og-image.png' />
-		<meta property='og:image' content='https://tembo.io/og-image.png' />
-		<meta property='og:title' content='Postgres for everything | Tembo' />
+		<meta name='twitter:image' content={`https://tembo.io/${image}`}/>
+		<meta property='og:image' content={`https://tembo.io/${image}`} />
+		<meta property='og:title' content={title} />
 		<meta
 			property='og:description'
-			content='Tembo is the Postgres developer platform for building every application and data service. Collapse the database sprawl of the modern data stack with a unified developer platform..'
+			content={description}
 		/>
 		<meta property='og:type' content='website' />
 		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/bai-jamjuree/bai-jamjuree-latin-200-normal.woff" />
