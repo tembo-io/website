@@ -10,6 +10,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	children: React.ReactNode;
 	styles?: string;
 	size?: Size;
+	link?: string
 }
 
 const Button: React.FC<Props> = ({
@@ -17,6 +18,7 @@ const Button: React.FC<Props> = ({
 	variant,
 	styles,
 	size,
+	link,
 	...rest
 }) => {
 	const getSizeStyles = () => {
@@ -54,7 +56,7 @@ const Button: React.FC<Props> = ({
 			onClick={
 				variant === 'gradient'
 					? () => navigate('https://cloud.tembo.io')
-					: undefined
+					: link ? () => navigate(link) : undefined
 			}
 			{...rest}
 		>

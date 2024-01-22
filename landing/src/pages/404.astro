@@ -17,7 +17,7 @@ const currentPath = Astro.url.pathname;
                 <h1 class='text-white text-2xl font-semibold max-w-[500px] flex flex-col'>This page seems to have <span>slipped through a time portal.</span></h1>
                 <div class='flex flex-col md:flex-row justify-between w-full'>
                     <p class='max-w-[450px]'>We apologize for any disruption to the space-time continuum. Feel free to journey back to our homepage.</p>
-                    <Button variant='primary' styles='w-max mt-6 md:mt-0 py-3'>Go back home</Button>
+                    <Button variant='primary' styles='w-max mt-6 md:mt-0 py-3' link='/' client:load>Go back home</Button>
                 </div>
                 <Image
                     src={NotFound}
