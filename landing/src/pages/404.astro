@@ -9,9 +9,9 @@ import { Image } from 'astro:assets';
 const currentPath = Astro.url.pathname;
 ---
 
-<Layout title='404'>
+<Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
     <NavBar client:load currentPage={currentPath} />
-    <Container styles='h-full customSm:h-[600px]'>
+    <Container styles='h-full customSm:h-[700px]'>
         <div class='flex flex-col mt-[120px] mobile:mt-[180px] relative'>
             <div class='flex flex-col gap-3'>
                 <h1 class='text-white text-2xl font-semibold max-w-[500px] flex flex-col'>This page seems to have <span>slipped through a time portal.</span></h1>
@@ -28,7 +28,7 @@ const currentPath = Astro.url.pathname;
             <Image
                 src={NotFoundHero}
                 alt='404'
-                class='mt-24 customSm:mt-0 customSm:absolute top-[60%] customLg:top-[40%] -right-[300px] w-full z-1'
+                class='mt-24 customSm:mt-0 customSm:absolute top-[60%] customLg:top-[40%] -right-[300px] customSm:w-full z-1'
             />
         </div>
     </Container>
