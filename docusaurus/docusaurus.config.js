@@ -18,7 +18,6 @@ const config = {
 	// If you aren't using GitHub pages, you don't need these.
 	organizationName: 'tembo-io', // Usually your GitHub org/user name.
 	projectName: 'website', // Usually your repo name.
-	trailingSlash: true,
 	onBrokenLinks: 'ignore',
 	onBrokenMarkdownLinks: 'ignore',
 	// Even if you don't use internalization, you can use this field to set useful
