@@ -1,7 +1,28 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar';
+import Container from '../../components/Container';
+import Tag from '../../components/Tag.astro';
+const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Blog | Tembo'>
-
+    <NavBar client:load currentPage={currentPath} />
+    <Container styles='pb-4'>
+        <div class='mt-[120px] mobile:mt-[180px]'>
+            <header>
+                <h1 class='text-neon font-extrabold text-6xl z-10 mb-6'>Tembo's Blog</h1>
+            </header>
+            <div class='mt-16'>
+                <div class='flex items-center gap-2'>
+                    <Tag title='All' />
+                    <Tag title='Postgres' />
+                    <Tag title='Engineering' />
+                    <Tag title='Developers' />
+                    <Tag title='Company' />
+                    <Tag title='Extensions' />
+                </div>
+            </div>
+        </div>
+    </Container>
 </Layout>
