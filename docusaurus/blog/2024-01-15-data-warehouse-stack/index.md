@@ -1,41 +1,48 @@
 ---
 slug: tembo-data-warehouse
-title: 'Building a noETL data warehouse on Postgres'
+title: 'How we built our customer data warehouse all on Postgres'
 authors: [jay, steven, adam]
 tags: [postgres, extensions, stacks, data-warehouse]
 ---
 
-Early on at Tembo, we wanted to be able to quickly answer questions like "How many Postgres instances have we deployed?" and "Who is our most active customer?". In order to do this, we needed to bring data from several different sources into a single location so that we could build the dashboards.
- Typically, this process requires several orchestration tools and technologies and the end result is a highly complex data ecosystem.
- However, by developing the Data Warehouse Stack with foreign data wrappers and other Postgres extensions, we streamlined the architecture, enhancing efficiency and simplifying the process.
+At Tembo (like every aaS provider), we wanted to have a customer data warehouse to track and understand customer usage and behavior. We wanted to quickly answer questions like "How many Postgres instances have we deployed?", "Who is our most active customer?" and "How many signups do we have by time". In order to do this, we needed to bring data from several sources into a single location and keep it up-to-date so we could build the dashboards.
+
+Typically, this process requires several orchestration tools and technologies and the end result is a highly complex data ecosystem. However, we built our customer data warehouse completely on Postgres by using foreign data wrappers and other Postgres extensions, enhancing efficiency and simplifying the process. We released all the tools we've built as open source projects and also made it straightforward for anybody to build such a data warehouse on [Tembo Cloud](https://cloud.tembo.io/) by using the [Tembo Data Warehouse](https://tembo.io/docs/tembo-stacks/datawarehouse/) stack.
 
 ## Loading data from several sources
 
 ![task](./task.png 'task')
 
-To build our data warehouse at Tembo, we needed to pull our operational data into Postgres from several external sources, including other Postgres instances:
+To build our data warehouse at Tembo, we first needed to pull our operational data into Postgres from several external sources, namely:
 
-- [Postgres](https://www.postgresql.org/) - we run a dedicated Postgres cluster for the Tembo Cloud backend. We refer to this as our "control-plane". This is where we maintain all the metadata for customer;'s Tembo instances. For example, what cpu, memory, storage, when their instance was created, what its name and the organization it belongs to, etc. We also run a message queue in Postgres, which contains an archive of historical events from the system.
-- [Prometheus](https://prometheus.io/) - usage metrics are exported from various systems, including Kubernetes, across our infrastructure into Prometheus.
-- [Clerk.dev](https://clerk.com/) - we partner with Clerk to provide authentication and authorization for all our customers, as well as management of our user's organizations.
+- [Postgres](https://www.postgresql.org/) - We run a dedicated Postgres cluster (called "control-plane") to store all metadata for our customer's Tembo instances. This database contains information like cpu, memory and storage specs of instances, when the instances were created, their names, the organization it belongs to etc. We also run a message queue in Postgres using [pgmq](https://github.com/tembo-io/pgmq), which contains an archive of historical events from the system.
+- [Prometheus](https://prometheus.io/) - Prometheus stores our usage metrics such as cpu and memory usage which are exported from across our infrastructure including Postgres and Kubernetes.
+- [Clerk.dev](https://clerk.com/) - We partner with Clerk to provide authentication and authorization for all our customers, as well as management of our users' organizations. So, Clerk has all our user metadata and organization information.
 
-Our task was to bring all this data into a single place so that we could join the data together, analyze it, and present it in our dashboards.
-
-Moving data from several different sources into a single place is a common task for data engineers. There are lots of tools in the ecosystem to help with this task. Many organizations bring in external tools, and vendors to handle this orchestration. Tools like [Airflow](https://airflow.apache.org/), [dbt](https://github.com/dbt-labs/dbt-core), [Fivetran](https://www.fivetran.com/blog/modern-data-warehouse), [Dagster](https://dagster.io/) are very popular, and outstanding projects, but using them comes at a huge cost. Every time we bring in a new technology into the ecosystem it expands the cognitive load on the engineering and analytics teams. Many software systems today consist of far too many tools and technologies for any human to keep in their head. Some engineers at Uber spoke briefly about this [recently](https://youtu.be/zQ5e3B5I-U0?t=81).
+The first task was to bring all this data into a single place so that we could join the data together, analyze it, and present it in our dashboards.
 
 ## Why all-in Postgres?
 
-Every time we add a tool to the ecosystem, it becomes piece of software that needs to be mastered and maintained separately. This becomes a huge cost in the form of cognitive overhead for the team in addition the time it takes to set up and manage the ongoing maintenance. So, rather than bring in new tools, we can use Postgres extensions to do the work for us. As a developer, extensions feel natural, like installing and importing a module or package from your favorite repository, which is much lighter and easier to manage than a completely new tool.
+Moving data from different sources into a single place is a common task for data engineers. There are lots of tools in the ecosystem to help with this task. Many organizations bring in external tools, and vendors to handle this complexity. Tools like [Airflow](https://airflow.apache.org/), [dbt](https://github.com/dbt-labs/dbt-core), [Fivetran](https://www.fivetran.com/blog/modern-data-warehouse), [Dagster](https://dagster.io/) are very popular, and outstanding projects, but using them comes at a huge cost.
+
+Every time we bring in a new technology into the ecosystem, it becomes a piece of software that needs to be learned, mastered and maintained. This becomes a huge cost in the form of cognitive overhead for the team in addition to the time and resources it takes to set up, manage and maintain it. The system also gets expensive and much harder to debug due to the sheer number of tools involved. Many software systems today consist of far too many tools and technologies for any human to keep in their head. Some engineers at Uber spoke briefly about this [recently](https://youtu.be/zQ5e3B5I-U0?t=81).
+
+So, rather than bring in new tools, we decided to use Postgres extensions to do the work for us. As a developer, extensions feel natural, like installing and importing a module or package from your favorite repository, which is much lighter and easier to manage than a completely new tool.
 
 ## Connecting Postgres to sources
 
-The first problem we faced was bringing in data from the sources external to our data warehouse. When we started building our data warehouse we already knew we could use the [postgres_fdw](https://www.postgresql.org/docs/current/postgres-fdw.html) extension to connect our data warehouse and control-plane Postgres instances. But, we were not certain how we could do the same for our data in Prometheus and Clerk. Prometheus had [several projects already available](https://tembo.io/blog/monitoring-with-prometheus-fdw), but none of them were a good fit for our use-case. Clerk.dev did not have any existing extensions for Postgres, so we decided to [build our own](https://tembo.io/blog/clerk-fdw). Both of these FDW projects were built using the [Wrappers](https://github.com/supabase/wrappers) framework.
+Now, how do we get the data from all these sources into Postgres? We already knew we could use [postgres_fdw](https://www.postgresql.org/docs/current/postgres-fdw.html) to connect our data warehouse and control-plane Postgres instances. But, we were not certain how we could do the same for our data in Prometheus and Clerk. Prometheus had [several projects already available](https://tembo.io/blog/monitoring-with-prometheus-fdw), but none of them were a good fit for our use-case. Clerk.dev did not have any existing extensions for Postgres, so we decided to [build our own](https://tembo.io/blog/clerk-fdw).
 
-### An into to Foreign Data Wrappers
 
-Foreign data wrappers (FDW) are a class of Postgres extensions provide you with a simple interface that connects Postgres to another data source. If you've worked with Kafka, this are similar to 'Connectors'. There are many different foreign data wrappers available, and you can even write your own. We build two new FDWs so that we could connect to those sources; [clerk_fdw](https://github.com/tembo-io/clerk_fdw) and [prometheus_fdw](https://github.com/tembo-io/prometheus_fdw).
+### An intro to Foreign Data Wrappers
 
-Working with FDWs is a fairly consistent experience. We'll walk through the process for how we set up clerk_fdw, but it is similar for `prometheus_fdw` and `postgres_fdw`.
+Foreign data wrappers (FDW) are a class of Postgres extensions which provide you with a simple interface that connects Postgres to another data source. If you've worked with Kafka, this is similar to 'Connectors'. There are many different foreign data wrappers available, and you can even write your own. Additionally, the [Wrappers](https://github.com/supabase/wrappers) framework makes it very easy to develop FDWs in Rust.
+
+So, we built two new FDWs using the Wrappers framework to connect to those sources; [clerk_fdw](https://github.com/tembo-io/clerk_fdw) and [prometheus_fdw](https://github.com/tembo-io/prometheus_fdw).
+
+Working with FDWs is a fairly consistent experience. We'll walk through the process for how we set up `clerk_fdw`, but it is similar for `prometheus_fdw` and `postgres_fdw`.
+
+### Setting up clerk_fdw
 
 First - run the create extension command. For developers, this might feel a lot like importing a module, and I think that is a good analogy. We also need to create the foreign data wrapper object itself.
 
@@ -47,7 +54,7 @@ CREATE FOREIGN DATA WRAPPER clerk_wrapper
   validator clerk_fdw_validator;
 ```
 
-Next, create a server object. This is where we configure the connection to the source data system. In the case of Clerk.dev, we need to provide our API key. The server object also needs to know which FDW to use, so we direct it to the clerk_wrapper we created above.
+Next, we create a server object. This is where we configure the connection to the source data system. In the case of Clerk.dev, we need to provide our API key. The server object also needs to know which FDW to use, so we direct it to the clerk_wrapper we created above.
 
 ```sql
 CREATE SERVER clerk_server
@@ -77,7 +84,9 @@ CREATE FOREIGN TABLE clerk_users (
   );
 ```
 
-We can view all the foreign tables in our database in `psql` with the `\dE` command, or by executing the following statement:
+We did similar processes to map our metrics data from prometheus and instance information from Postgres.
+
+We can view all the foreign tables we created in our database in `psql` with the `\dE` command, or by executing the following statement:
 
 ```sql
 SELECT *
@@ -99,11 +108,12 @@ FROM information_schema.foreign_tables
 
 ## Scheduling Updates with pg_cron
 
-New users are signing up for Tembo and using our product every day, so we need make sure that the data in our data warehouse stays up to date...There's an extension for that, [pg_cron](https://github.com/citusdata/pg_cron).
- If you're familiar with the unix utility "cron", then pg_cron is exactly what you'd expect.
- We create a function in Postgres to refresh our data sources, then we tell pg_cron to call that function on a schedule. If you've worked with Apache Airflow or Dagster before, this is a lot like creating a job to execute some code you wrote.
+New users are signing up for Tembo and creating new instances every day, so we need make sure that the data in our data warehouse stays up to date. To do that, we use a popular job scheduling extension [pg_cron](https://github.com/citusdata/pg_cron). If you're familiar with the unix utility "cron", then pg_cron is exactly like that but all within Postgres. 
 
-Working with pg_cron is very intuitive, we simply provide a name for the job, a schedule, and the command to execute. For example, we can simply create a function to refresh our clusters from the control-plane, then schedule it to run every 5 minutes.
+We create a function to refresh our data sources, then we tell pg_cron to call that function on a schedule. Working with pg_cron is very intuitive: we simply provide a name for the job, a schedule, and the command to execute. This is a lot like creating a job to execute some code you wrote using Apache Airflow or Dagster.
+
+For example, we can simply create a function to delete and re-populate our cluster metadata from the control-plane, then schedule it to run every 5 minutes. Note that this is just an example but can be easily modified to UPSERT only newer or updated clusters.
+
 
 ```sql
 CREATE OR REPLACE FUNCTION public.refresh_clusters()
@@ -140,11 +150,11 @@ SELECT cron.schedule('update-clusters', '5 minutes', 'CALL refresh_clusters()');
 
 Partitioning is a [native feature](https://www.postgresql.org/docs/current/ddl-partitioning.html) in Postgres, and it is the logical splitting of one table into smaller physical tables. Some, but not all of the tables in our data warehouse have grown quite large. Largest being our metrics, and this presents two problems that must be addressed; performance and storage. The majority of our dashboard queries aggregate data over time, and most commonly on a daily interval. So, we can partition our tables by day, and only query the partitions we need to answer our questions. This provides a substantial improvement to the performance of those queries which makes our dashboards very snappy.
 
- Partitioning in Postgres is a batteries-not-included experience, which means you need to handle the creating, updating, and deleting of partitions yourself. That is, unless you use the [pg_partman](https://github.com/pgpartman/pg_partman) extension.
+Partitioning in Postgres is a batteries-not-included experience, which means you need to handle the creating, updating, and deleting of partitions yourself. That is, unless you use the [pg_partman](https://github.com/pgpartman/pg_partman) extension.
 
-Our stakeholders do not require visualization for the entirety of our metric data, in fact they are typically only concerned with a 30 days at most. Therefore, we only need to retain 30 days in our data warehouse storage. By setting up a retention policy, we can automatically drop partitions that are older than 30 days, and reclaim that storage. Dropping a partition is much faster than deleting rows from a table. As we'll see in a moment, it is trivial to configure partitioning on Postgres if you use (which is my personal favorite Postgres extensions). Without pg_partman, it is up to you to handle the creation and deletion of partitions.
+Our stakeholders do not require visualization for the entirety of our metric data, in fact they are typically only concerned with a 30 days at most. So, we can automatically drop partitions that are older than 30 days by setting up a retention policy and reclaiming that storage. Dropping a partition is much faster than deleting rows from a table and also skips having to deal with bloat. As we'll see in a moment, it is trivial to configure partitioning on Postgres if you use pg_partman (which is my personal favorite Postgres extension). 
 
-Creating a partitioned table is like creating an extra table, with extra steps. One caveat, is that we must create an index on the column that we want to partition by. In our case, we want a new partition for every day, so we partition by the `time` column, then create an index there as well. We use partitioning in other places at Tembo as well, and we wrote a bit about those use-cases earlier this year in [another blog](https://tembo.io/blog/table-version-history).
+Creating a partitioned table just like creating a regular table but you have to specify a partition column. One caveat, is that we must create an index on the column that we want to partition by. In our case, we want a new partition for every day, so we partition by the `time` column, then create an index there as well. We use partitioning in other places at Tembo as well, and we wrote a bit about those use-cases earlier this year in [another blog](https://tembo.io/blog/table-version-history).
 
 ```sql
 CREATE TABLE public.metric_values (
@@ -165,7 +175,7 @@ SELECT create_parent('public.metric_values', 'time', 'native', 'daily');
 
 ## Wrapping up
 
-We built Tembo's internal datawarehouse using the Tembo Datawarehouse Stack. We used foreign data wrappers to connect Postgres to external sources, the pg_cron as a scheduler to keep out data up-to-date, and pg_partman to improve performance and automate our retention policy. We were able to build our data warehouse that is easy to maintain, and easy to reason about, and quick to onboard new engineers. In the end, our stakeholders get the dashboards they need to make business decisions.
+We built Tembo's internal datawarehouse all on Postgres. We used foreign data wrappers to connect Postgres to external sources, pg_cron as a scheduler to keep out data up-to-date, and pg_partman to improve performance and automate our retention policy. You can use any visualization tool to create dashboards as most tools have Postgres support. We picked Preset. We were able to build our data warehouse that is easy to maintain, and easy to reason about, and quick to onboard new engineers. In the end, our stakeholders get the dashboards they need to make business decisions.
 
 ![tembo-dw-stack](./fin.png 'final')
 
