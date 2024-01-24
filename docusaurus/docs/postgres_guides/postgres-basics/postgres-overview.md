@@ -4,9 +4,9 @@ tags:
   - Postgres Basics
 ---
 
-## Overview of PostgreSQL
+# Overview of PostgreSQL
 
-### History of PostgreSQL
+## History of PostgreSQL
 
 PostgreSQL, commonly known as Postgres, is an open-source, object-relational database management system (ORDBMS). It originated from the POSTGRES project at the University of California, Berkeley. With more than 30 years of active development, PostgreSQL has earned a strong reputation for its proven architecture, reliability, data integrity, robust feature set, and extensibility.
 
@@ -16,7 +16,7 @@ PostgreSQL, commonly known as Postgres, is an open-source, object-relational dat
 - **1995**: POSTGRES was renamed to PostgreSQL to reflect its support for the SQL language.
 - **1996**: PostgreSQL 6.0, the first version labeled as PostgreSQL, was released.
 
-### Features of PostgreSQL
+## Features of PostgreSQL
 
 PostgreSQL stands out with its unique features, making it a preferred choice for a wide range of applications and developers:
 
@@ -30,7 +30,7 @@ PostgreSQL stands out with its unique features, making it a preferred choice for
 8. **Extensive Indexing**: Variety of indexing methods like B-tree, hash, GiST, SP-GiST, and GIN.
 9. **Security**: Robust access-control system, SSL support, and column-level encryption.
 
-### Advantages Over Other Database Systems
+## Advantages Over Other Database Systems
 
 PostgreSQL distinguishes itself from other database systems through several key advantages:
 
@@ -43,7 +43,7 @@ PostgreSQL distinguishes itself from other database systems through several key 
 7. **Strong Ecosystem**: Wide range of third-party tools, extensions, interfaces, and libraries available.
 8. **Flexibility for Complex Applications**: Ideal for complex databases and heavy-load applications.
 
-### PostgreSQL with Tembo
+## PostgreSQL with Tembo
 
 At Tembo, we provide a highly optimized PostgreSQL platform, ensuring you get the best performance, scalability, and reliability for your PostgreSQL databases. Our platform offers additional tools and services specifically tailored to enhance PostgreSQL's capabilities, making it an even more powerful choice for developers and enterprises.
 
