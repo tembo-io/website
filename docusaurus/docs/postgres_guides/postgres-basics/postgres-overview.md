@@ -30,7 +30,7 @@ PostgreSQL stands out with its unique features, making it a preferred choice for
 8. **Extensive Indexing**: Variety of indexing methods like B-tree, hash, GiST, SP-GiST, and GIN.
 9. **Security**: Robust access-control system, SSL support, and column-level encryption.
 
-## Advantages Over Other Database Systems
+## Advantages Over Other Databases
 
 PostgreSQL distinguishes itself from other database systems through several key advantages:
 
