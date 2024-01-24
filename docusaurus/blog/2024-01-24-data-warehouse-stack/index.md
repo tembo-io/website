@@ -1,9 +1,13 @@
 ---
 slug: tembo-data-warehouse
 title: 'How we built our customer data warehouse all on Postgres'
-authors: [jay, steven, adam]
+authors: [adam]
 tags: [postgres, extensions, stacks, data-warehouse]
+image: ./tembo-dw-stack.png
+date: 2024-01-24T23:00
 ---
+
+![tembo-dashboard](./tembo_metrics.png 'tembo-dashboard')
 
 At Tembo (like every aaS provider), we wanted to have a customer data warehouse to track and understand customer usage and behavior. We wanted to quickly answer questions like "How many Postgres instances have we deployed?", "Who is our most active customer?" and "How many signups do we have by time". In order to do this, we needed to bring data from several sources into a single location and keep it up-to-date so we could build the dashboards.
 
@@ -175,7 +179,7 @@ SELECT create_parent('public.metric_values', 'time', 'native', 'daily');
 
 ## Wrapping up
 
-We built Tembo's internal datawarehouse all on Postgres. We used foreign data wrappers to connect Postgres to external sources, pg_cron as a scheduler to keep out data up-to-date, and pg_partman to improve performance and automate our retention policy. You can use any visualization tool to create dashboards as most tools have Postgres support. We picked Preset. We were able to build our data warehouse that is easy to maintain, and easy to reason about, and quick to onboard new engineers. In the end, our stakeholders get the dashboards they need to make business decisions.
+Tembo's data warehouse was made possible by the hard work from [Jay Kothari](https://github.com/Jayko001) and [Steven Miller](https://github.com/sjmiller609), who paved the path for building it all on Postgres. They used foreign data wrappers to connect Postgres to external sources, pg_cron as a scheduler to keep out data up-to-date, and pg_partman to improve performance and automate our retention policy. You can use any visualization tool to create dashboards as most tools have Postgres support. We picked Preset. We were able to build our data warehouse that is easy to maintain, and easy to reason about, and quick to onboard new engineers. In the end, our stakeholders get the dashboards they need to make business decisions.
 
 ![tembo-dw-stack](./fin.png 'final')
 
