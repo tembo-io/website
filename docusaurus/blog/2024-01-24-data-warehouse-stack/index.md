@@ -12,7 +12,7 @@ description: Tembo data warehouse
 
 At Tembo (like every aaS provider), we wanted to have a customer data warehouse to track and understand customer usage and behavior. We wanted to quickly answer questions like "How many Postgres instances have we deployed?", "Who is our most active customer?" and "How many signups do we have by time?". In order to do this, we needed to bring data from several sources into a single location and keep it up-to-date so we could build the dashboards.
 
-Typically, this process requires several orchestration tools and technologies and the end result is a highly complex data ecosystem. However, we built our customer data warehouse completely on Postgres by using foreign data wrappers and other Postgres extensions, enhancing efficiency and simplifying the process. We released all the tools we've built as open source projects and also made it straightforward for anybody to build such a data warehouse on [Tembo Cloud](https://cloud.tembo.io/) by using the [Tembo Data Warehouse](https://tembo.io/docs/tembo-stacks/datawarehouse/) stack.
+Typically, this process requires several orchestration tools and technologies and the end result is a highly complex data ecosystem. However, we built our customer data warehouse completely on Postgres by using foreign data wrappers and other Postgres extensions, enhancing efficiency and simplifying the process. We released all the tools we've built as open source projects which you can host on your own using our [Kubernetes Operator](https://github.com/tembo-io/tembo/tree/main/tembo-operator). We also made it straightforward for anybody to build such a data warehouse on [Tembo Cloud](https://cloud.tembo.io/) by using the [Tembo Data Warehouse](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/data_warehouse.yaml/) stack.
 
 ## Loading data from several sources
 
@@ -118,7 +118,6 @@ We create a function to refresh our data sources, then we tell pg_cron to call t
 
 For example, we can simply create a function to delete and re-populate our cluster metadata from the control-plane, then schedule it to run every 5 minutes. Note that this is just an example but can be easily modified to UPSERT only newer or updated clusters.
 
-
 ```sql
 CREATE OR REPLACE FUNCTION public.refresh_clusters()
  RETURNS void
@@ -185,4 +184,4 @@ Tembo's data warehouse was made possible by the hard work from [Jay Kothari](htt
 
 The Tembo Datawarehouse Stack is [open source](https://github.com/tembo-io/tembo-stacks/blob/main/tembo-operator/src/stacks/templates/data_warehouse.yaml), and is available to deploy with a single click on [Tembo Cloud](https://cloud.tembo.io).
 
-Join the conversation about the Tembo Datawarehouse Stack in our [Slack Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw.)
+Join the conversation about the Tembo Data Warehouse Stack in our [Slack Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw.)
