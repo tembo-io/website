@@ -24,6 +24,7 @@ export default {
 				mwasi: '#1C1C1C',
 				customDarkGrey: '#414141',
 				semiGrey: '#3E4243',
+				semiGrey2: '#292929',
 				grey: '#9EA2A6',
 				lightGrey: '#BBBBBB',
 				otherGrey: '#EAEAEA',
