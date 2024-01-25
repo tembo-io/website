@@ -3,7 +3,8 @@ slug: tembo-data-warehouse
 title: 'How we built our customer data warehouse all on Postgres'
 authors: [adam]
 tags: [postgres, extensions, stacks, data-warehouse]
-image: './tembo-dw-stack.png'
+image: '../2024-01-18-simplified-ml-ops/social.png'
+# image: './tembo-dw-stack.png'
 date: 2024-01-24T23:00
 ---
 
