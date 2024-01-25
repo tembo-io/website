@@ -4,7 +4,7 @@ title: 'How we built our customer data warehouse all on Postgres'
 authors: [adam]
 tags: [postgres, extensions, stacks, data-warehouse]
 image: './dw_social.png'
-date: 2024-01-24T23:00
+date: 2024-01-25T12:00
 description: Tembo data warehouse
 ---
 
@@ -149,7 +149,7 @@ $function$
 SELECT cron.schedule('update-clusters', '5 minutes', 'CALL refresh_clusters()');
 ```
 
-## Partitioning is trivial with pg_partman
+## Partitioning with pg_partman for performance and easy expiry
 
 Partitioning is a [native feature](https://www.postgresql.org/docs/current/ddl-partitioning.html) in Postgres, and it is the logical splitting of one table into smaller physical tables. Some, but not all of the tables in our data warehouse have grown quite large. Largest being our metrics, and this presents two problems that must be addressed; performance and storage. The majority of our dashboard queries aggregate data over time, and most commonly on a daily interval. So, we can partition our tables by day, and only query the partitions we need to answer our questions. This provides a substantial improvement to the performance of those queries which makes our dashboards very snappy.
 
