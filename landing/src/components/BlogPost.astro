@@ -1,0 +1,13 @@
+---
+interface Props {
+    title: string;
+    slug: string;
+    heroImage?: string;
+}
+const { title, heroImage, slug } = Astro.props;
+---
+
+<a href={`/blog/${slug}`}>
+    <h2>{title}</h2>
+    <img src={heroImage || '/blogFallbackImage.svg'} alt={`${title} thumbnail`} class='rounded-lg' />
+</a>
