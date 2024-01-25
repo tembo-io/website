@@ -8,9 +8,11 @@ date: 2024-01-25T12:00
 description: Tembo data warehouse
 ---
 
-![tembo-dashboard](./tembo_metrics.png 'tembo-dashboard')
+![tembo-dwh-stack](./dw_social.png 'tembo-dwh-stacl')
 
 At Tembo (like every aaS provider), we wanted to have a customer data warehouse to track and understand customer usage and behavior. We wanted to quickly answer questions like "How many Postgres instances have we deployed?", "Who is our most active customer?" and "How many signups do we have by time?". In order to do this, we needed to bring data from several sources into a single location and keep it up-to-date so we could build the dashboards.
+
+![tembo-dashboard](./tembo_metrics.png 'tembo-dashboard')
 
 Typically, this process requires several orchestration tools and technologies and the end result is a highly complex data ecosystem. However, we built our customer data warehouse completely on Postgres by using foreign data wrappers and other Postgres extensions, enhancing efficiency and simplifying the process. We released all the tools we've built as open source projects which you can host on your own using our [Kubernetes Operator](https://github.com/tembo-io/tembo/tree/main/tembo-operator). We also made it straightforward for anybody to build such a data warehouse on [Tembo Cloud](https://cloud.tembo.io/) by using the [Tembo Data Warehouse](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/data_warehouse.yaml/) stack.
 
