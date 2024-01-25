@@ -3,14 +3,13 @@ slug: tembo-data-warehouse
 title: 'How we built our customer data warehouse all on Postgres'
 authors: [adam]
 tags: [postgres, extensions, stacks, data-warehouse]
-image: './tembo_ml.png'
-# image: './tembo-dw-stack.png'
+image: './tembo-dw-stack.png'
 date: 2024-01-24T23:00
 ---
 
 ![tembo-dashboard](./tembo_metrics.png 'tembo-dashboard')
 
-At Tembo (like every aaS provider), we wanted to have a customer data warehouse to track and understand customer usage and behavior. We wanted to quickly answer questions like "How many Postgres instances have we deployed?", "Who is our most active customer?" and "How many signups do we have by time". In order to do this, we needed to bring data from several sources into a single location and keep it up-to-date so we could build the dashboards.
+At Tembo (like every aaS provider), we wanted to have a customer data warehouse to track and understand customer usage and behavior. We wanted to quickly answer questions like "How many Postgres instances have we deployed?", "Who is our most active customer?" and "How many signups do we have by time?". In order to do this, we needed to bring data from several sources into a single location and keep it up-to-date so we could build the dashboards.
 
 Typically, this process requires several orchestration tools and technologies and the end result is a highly complex data ecosystem. However, we built our customer data warehouse completely on Postgres by using foreign data wrappers and other Postgres extensions, enhancing efficiency and simplifying the process. We released all the tools we've built as open source projects and also made it straightforward for anybody to build such a data warehouse on [Tembo Cloud](https://cloud.tembo.io/) by using the [Tembo Data Warehouse](https://tembo.io/docs/tembo-stacks/datawarehouse/) stack.
 
@@ -37,7 +36,6 @@ So, rather than bring in new tools, we decided to use Postgres extensions to do 
 ## Connecting Postgres to sources
 
 Now, how do we get the data from all these sources into Postgres? We already knew we could use [postgres_fdw](https://www.postgresql.org/docs/current/postgres-fdw.html) to connect our data warehouse and control-plane Postgres instances. But, we were not certain how we could do the same for our data in Prometheus and Clerk. Prometheus had [several projects already available](https://tembo.io/blog/monitoring-with-prometheus-fdw), but none of them were a good fit for our use-case. Clerk.dev did not have any existing extensions for Postgres, so we decided to [build our own](https://tembo.io/blog/clerk-fdw).
-
 
 ### An intro to Foreign Data Wrappers
 
@@ -180,7 +178,7 @@ SELECT create_parent('public.metric_values', 'time', 'native', 'daily');
 
 ## Wrapping up
 
-Tembo's data warehouse was made possible by the hard work from [Jay Kothari](https://github.com/Jayko001) and [Steven Miller](https://github.com/sjmiller609), who paved the path for building it all on Postgres. They used foreign data wrappers to connect Postgres to external sources, pg_cron as a scheduler to keep out data up-to-date, and pg_partman to improve performance and automate our retention policy. You can use any visualization tool to create dashboards as most tools have Postgres support. We picked Preset. We were able to build our data warehouse that is easy to maintain, and easy to reason about, and quick to onboard new engineers. In the end, our stakeholders get the dashboards they need to make business decisions.
+Tembo's data warehouse was made possible by the hard work from [Jay Kothari](https://github.com/Jayko001) and [Steven Miller](https://github.com/sjmiller609), who paved the path for building it all on Postgres. They used foreign data wrappers to connect Postgres to external sources, pg_cron as a scheduler to keep out data up-to-date, and pg_partman to improve performance and automate our retention policy. You can use any visualization tool to create dashboards as most tools have Postgres support. We picked [Preset](https://preset.io/). We were able to build a data warehouse that is easy to maintain, and easy to reason about, and quick to onboard new engineers. In the end, our stakeholders get the dashboards they need to make business decisions.
 
 ![tembo-dw-stack](./fin.png 'final')
 
