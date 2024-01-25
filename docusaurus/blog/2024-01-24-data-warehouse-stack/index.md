@@ -8,6 +8,8 @@ date: 2024-01-24T23:00
 description: Tembo data warehouse
 ---
 
+![tembo-dashboard](./dw_social.png 'tembo-dashboard')
+
 ![tembo-dashboard](./tembo_metrics.png 'tembo-dashboard')
 
 At Tembo (like every aaS provider), we wanted to have a customer data warehouse to track and understand customer usage and behavior. We wanted to quickly answer questions like "How many Postgres instances have we deployed?", "Who is our most active customer?" and "How many signups do we have by time?". In order to do this, we needed to bring data from several sources into a single location and keep it up-to-date so we could build the dashboards.
@@ -98,7 +100,7 @@ FROM information_schema.foreign_tables
 ```
 
 ```console
- foreign_table_catalog | foreign_table_schema |       foreign_table_name       | foreign_server_catalog | foreign_server_name  
+ foreign_table_catalog | foreign_table_schema |       foreign_table_name       | foreign_server_catalog | foreign_server_name
 -----------------------+----------------------+--------------------------------+------------------------+----------------------
  postgres              | public               | pgmq_saas_queue_archive        | postgres               | control_plane_server
  postgres              | public               | clerk_users                    | postgres               | clerk_server
@@ -112,7 +114,7 @@ FROM information_schema.foreign_tables
 
 ## Scheduling Updates with pg_cron
 
-New users are signing up for Tembo and creating new instances every day, so we need make sure that the data in our data warehouse stays up to date. To do that, we use a popular job scheduling extension [pg_cron](https://github.com/citusdata/pg_cron). If you're familiar with the unix utility "cron", then pg_cron is exactly like that but all within Postgres. 
+New users are signing up for Tembo and creating new instances every day, so we need make sure that the data in our data warehouse stays up to date. To do that, we use a popular job scheduling extension [pg_cron](https://github.com/citusdata/pg_cron). If you're familiar with the unix utility "cron", then pg_cron is exactly like that but all within Postgres.
 
 We create a function to refresh our data sources, then we tell pg_cron to call that function on a schedule. Working with pg_cron is very intuitive: we simply provide a name for the job, a schedule, and the command to execute. This is a lot like creating a job to execute some code you wrote using Apache Airflow or Dagster.
 
@@ -156,7 +158,7 @@ Partitioning is a [native feature](https://www.postgresql.org/docs/current/ddl-p
 
 Partitioning in Postgres is a batteries-not-included experience, which means you need to handle the creating, updating, and deleting of partitions yourself. That is, unless you use the [pg_partman](https://github.com/pgpartman/pg_partman) extension.
 
-Our stakeholders do not require visualization for the entirety of our metric data, in fact they are typically only concerned with a 30 days at most. So, we can automatically drop partitions that are older than 30 days by setting up a retention policy and reclaiming that storage. Dropping a partition is much faster than deleting rows from a table and also skips having to deal with bloat. As we'll see in a moment, it is trivial to configure partitioning on Postgres if you use pg_partman (which is my personal favorite Postgres extension). 
+Our stakeholders do not require visualization for the entirety of our metric data, in fact they are typically only concerned with a 30 days at most. So, we can automatically drop partitions that are older than 30 days by setting up a retention policy and reclaiming that storage. Dropping a partition is much faster than deleting rows from a table and also skips having to deal with bloat. As we'll see in a moment, it is trivial to configure partitioning on Postgres if you use pg_partman (which is my personal favorite Postgres extension).
 
 Creating a partitioned table just like creating a regular table but you have to specify a partition column. One caveat, is that we must create an index on the column that we want to partition by. In our case, we want a new partition for every day, so we partition by the `time` column, then create an index there as well. We use partitioning in other places at Tembo as well, and we wrote a bit about those use-cases earlier this year in [another blog](https://tembo.io/blog/table-version-history).
 
