@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import NavBar from '../../components/NavBar';
 import Container from '../../components/Container';
 import Tag from '../../components/Tag.astro';
+import BlogPost from '../../components/BlogPost.astro';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -23,6 +24,9 @@ const currentPath = Astro.url.pathname;
                         <Tag title='Company' />
                         <Tag title='Extensions' />
                     </div>
+                </div>
+                <div class='mt-10'>
+                    <BlogPost title='Unlocking value from your Clerk User Management platform with Postgres' slug="test" />
                 </div>
             </div>
         </div>

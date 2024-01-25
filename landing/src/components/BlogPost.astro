@@ -7,7 +7,7 @@ interface Props {
 const { title, heroImage, slug } = Astro.props;
 ---
 
-<a href={`/blog/${slug}`}>
+<a class='flex flex-col items-start bg-mwasi rounded-xl p-4 w-[350px] gap-6' href={`/blog/${slug}`}>
+    <img src={heroImage || '/blogFallbackImage.svg'} alt={`${title} thumbnail`} class='rounded-xl w-full' />
     <h2>{title}</h2>
-    <img src={heroImage || '/blogFallbackImage.svg'} alt={`${title} thumbnail`} class='rounded-lg' />
 </a>
