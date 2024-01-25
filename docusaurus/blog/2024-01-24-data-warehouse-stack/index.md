@@ -5,6 +5,7 @@ authors: [adam]
 tags: [postgres, extensions, stacks, data-warehouse]
 image: './dw_social.png'
 date: 2024-01-24T23:00
+description: Tembo data warehouse
 ---
 
 ![tembo-dashboard](./tembo_metrics.png 'tembo-dashboard')
