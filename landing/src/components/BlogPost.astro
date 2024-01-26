@@ -15,7 +15,7 @@ const { title, heroImage, slug, readingTime, date } = Astro.props;
 
 <a class='flex flex-col items-start bg-mwasi rounded-xl p-4 w-[320px] gap-6 transition-all duration-300 ease-in-out hover:scale-[101.5%]' href={`/blog/${slug}`}>
     <img src={heroImage || '/blogFallbackImage.svg'} alt={`${title} thumbnail`} class='rounded-xl w-full' />
-    <Author name='Jay Kothari' title='Software Engineering Intern' profilePicture='https://github.com/Jayko001.png' />
+    <Author name='Jay Kothari' title='Software Engineering Intern' avatar='https://github.com/Jayko001.png' />
     <h2>{title}</h2>
     <div class='flex items-center justify-between w-full'>
         <div class='flex gap-2'>
