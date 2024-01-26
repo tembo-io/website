@@ -10,7 +10,7 @@ description: Tembo data warehouse
 
 ![tembo-dwh-stack](./dw_social.png 'tembo-dwh-stacl')
 
-At Tembo (like every aaS provider), we wanted to have a customer data warehouse to track and understand customer usage and behavior. We wanted to quickly answer questions like "How many Postgres instances have we deployed?", "Who is our most active customer?" and "How many signups do we have by time?". In order to do this, we needed to bring data from several sources into a single location and keep it up-to-date so we could build the dashboards.
+At Tembo (like every as-a-service provider), we wanted to have a customer data warehouse to track and understand customer usage and behavior. We wanted to quickly answer questions like "How many Postgres instances have we deployed?", "Who is our most active customer?" and "How many signups do we have by time?". In order to do this, we needed to bring data from several sources into a single location and keep it up-to-date so we could build the dashboards.
 
 ![tembo-dashboard](./tembo_metrics.png 'tembo-dashboard')
 
