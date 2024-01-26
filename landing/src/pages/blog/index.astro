@@ -4,6 +4,13 @@ import NavBar from '../../components/NavBar';
 import Container from '../../components/Container';
 import Tag from '../../components/Tag.astro';
 import BlogPost from '../../components/BlogPost.astro';
+import { getCollection } from 'astro:content';
+import type { BlogCollection } from '../../content/config';
+
+const posts = (await getCollection('blog')).sort(
+	(a: any, b: any) => a.data.date.valueOf() - b.data.pubDate.valueOf()
+);
+
 const currentPath = Astro.url.pathname;
 ---
 
