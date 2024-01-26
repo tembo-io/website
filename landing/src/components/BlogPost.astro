@@ -1,13 +1,25 @@
 ---
+import { Image } from 'astro:assets';
+import BookIcon from '../images/book.svg';
 interface Props {
     title: string;
     slug: string;
     heroImage?: string;
+    readingTime: string;
+    date: string;
+
 }
-const { title, heroImage, slug } = Astro.props;
+const { title, heroImage, slug, readingTime, date } = Astro.props;
 ---
 
-<a class='flex flex-col items-start bg-mwasi rounded-xl p-4 w-[350px] gap-6' href={`/blog/${slug}`}>
+<a class='flex flex-col items-start bg-mwasi rounded-xl p-4 w-[320px] gap-6 transition-all duration-300 ease-in-out hover:scale-[101.5%]' href={`/blog/${slug}`}>
     <img src={heroImage || '/blogFallbackImage.svg'} alt={`${title} thumbnail`} class='rounded-xl w-full' />
     <h2>{title}</h2>
+    <div class='flex items-center justify-between w-full'>
+        <div class='flex gap-2'>
+            <Image src={BookIcon} alt='book' width={24} height={24} />
+            <p class='text-otherGrey'>{readingTime}</p>
+        </div>
+        <p class='text-otherGrey'>{date}</p>
+    </div>
 </a>
