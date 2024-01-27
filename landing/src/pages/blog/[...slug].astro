@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar';
+import { type CollectionEntry, getCollection } from 'astro:content';
+
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title=''>
+    <NavBar client:load currentPage={currentPath} />
+</Layout>

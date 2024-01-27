@@ -76,8 +76,9 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 	return (
 		<div
 			className={cx(
-				'fixed top-0 w-full z-50 transition duration-100 overflow-hidden',
+				'fixed top-0 w-full z-50 transition duration-100',
 				scrollY > 20 ? 'backdrop-blur-lg safari-blur' : '',
+				isMenuOpen && !isScreenGreaterThanOrEqualTo900px && 'h-screen'
 			)}
 		>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
