@@ -5,10 +5,10 @@ import Container from '../../components/Container';
 import Tag from '../../components/Tag.astro';
 import BlogPost from '../../components/BlogPost.astro';
 import { getCollection } from 'astro:content';
-import type { BlogCollection } from '../../content/config';
 
+const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 const posts = (await getCollection('blog')).sort(
-	(a: any, b: any) => a.data.date.valueOf() - b.data.pubDate.valueOf()
+	(a, b) => a.data.date.valueOf() - b.data.date.valueOf()
 );
 
 const currentPath = Astro.url.pathname;
@@ -32,8 +32,15 @@ const currentPath = Astro.url.pathname;
                         <Tag title='Extensions' />
                     </div>
                 </div>
-                <div class='mt-10'>
-                    <BlogPost title='Unlocking value from your Clerk User Management platform with Postgres' slug="test" readingTime='5 min Read' date='Mar 16, 2024' />
+                <div class='mt-10 pb-10'>
+                    <div class='flex flex-wrap w-full gap-6'>
+                        <!-- {posts.map((post) => (
+                            <BlogPost title={post.data.title} slug={post.slug} readingTime='5 min Read' date={post.data.date.toLocaleDateString('en-US', dateOptions as any)} />
+                        ))} -->
+                        <BlogPost title='Unlocking value from your Clerk User Management platform with Postgres' slug="test" readingTime='5 min Read' date='Mar 16, 2024' />
+                        <BlogPost title='Unlocking value from your Clerk User Management platform with Postgres' slug="test" readingTime='5 min Read' date='Mar 16, 2024' />
+                        <BlogPost title='Unlocking value from your Clerk User Management platform with Postgres' slug="test" readingTime='5 min Read' date='Mar 16, 2024' />
+                    </div>
                 </div>
             </div>
         </div>
