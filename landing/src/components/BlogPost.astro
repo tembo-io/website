@@ -13,7 +13,7 @@ interface Props {
 const { title, heroImage, slug, readingTime, date } = Astro.props;
 ---
 
-<a class='flex flex-col items-start bg-mwasi rounded-xl p-4 w-full lg:w-[380px] gap-6 transition-all duration-300 ease-in-out hover:scale-[101.5%]' href={`/blog/${slug}`}>
+<a class='col-span-12 mb-8 md:col-span-12 lg:col-span-6 xl:col-span-4 flex flex-col items-start bg-mwasi rounded-xl p-4 min-w-full gap-6 transition-all duration-300 ease-in-out hover:scale-[101.5%]' href={`/blog/${slug}`}>
     <img src={heroImage || '/blogFallbackImage.svg'} alt={`${title} thumbnail`} class='rounded-xl w-full' />
     <Author name='Jay Kothari' title='Software Engineering Intern' avatar='https://github.com/Jayko001.png' />
     <h2>{title}</h2>
