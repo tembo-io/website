@@ -1,6 +1,6 @@
 import Container from './Container';
 import Button from './Button';
-import { navigate } from 'astro/transitions/router';
+import { navigate } from 'astro:transitions/client';
 
 const MobileMenu = () => {
 	return (

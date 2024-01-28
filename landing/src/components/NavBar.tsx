@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Container from '../components/Container';
 import Button from './Button';
 import cx from 'classnames';
-import { navigate } from 'astro/transitions/router';
+import { navigate } from 'astro:transitions/client';
 import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 

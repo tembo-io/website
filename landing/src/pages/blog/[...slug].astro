@@ -1,11 +1,30 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import NavBar from '../../components/NavBar';
+import Container from '../../components/Container';
+import Markdown from '../../components/Markdown.astro';
 import { type CollectionEntry, getCollection } from 'astro:content';
 
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+
 const currentPath = Astro.url.pathname;
+const post = Astro.props;
+const { Content } = await post.render();
 ---
 
 <Layout title=''>
     <NavBar client:load currentPage={currentPath} />
+    <Container>
+        <div class='mt-[120px] mobile:mt-[180px] w-full'>
+            <Markdown>
+                <Content />
+            </Markdown>
+        </div>
+    </Container>
 </Layout>
