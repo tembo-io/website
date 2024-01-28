@@ -12,17 +12,30 @@ tags:
 **Powered by [HuggingFace](https://huggingface.co/sentence-transformers/) sentence transformers**
 :::
 
-The Embeddings API allows you to generate vector embeddings from your text. It is similar in functionality to [OpenAI's embeddings API](https://platform.openai.com/docs/guides/embeddings), except it is private. Every Tembo account gets its own service and all data passed to the Tembo Embedding API is not retained by the service.
+The Embeddings API allows you to generate vector embeddings from your text. It is similar in functionality to [OpenAI's embeddings API](https://platform.openai.com/docs/guides/embeddings), except it is private. Every Tembo instance gets its own service and all data passed to the Tembo Embedding API is not retained by the service.
 
-One of the most common use cases for embeddings is to perform vector similarity search on your data. Currently this supports one sentence to embeddings transformer; In this guide we will walk through using [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) as an alternative to OpenAI's embeddings API, to perform vector similarity search on text data in your Postgres instance.
+One of the most common use cases for embeddings is to perform vector similarity search on your data. In this guide we will walk through using [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) as an alternative to OpenAI's embeddings API, to perform vector similarity search on text data in your Postgres instance. The embedding service supports all of the [HuggingFace sentence-transformers](https://huggingface.co/sentence-transformers/).
+
+You can call the embeddings app directly from your Postgres instance by using the [pg_vectorize](https://github.com/tembo-io/pg_vectorize) extension.
+
+```sql
+select * from vectorize.transform_embeddings(
+    input => 'the quick brown fox jumped over the lazy dog',
+    model_name => 'paraphrase-MiniLM-L6-v2'
+);
+
+{0.5988337993621826,-0.12069590389728546, .... -0.11859191209077836}
+```
 
 ## Enabling Embeddings on Tembo Cloud
 
-:::info
-Coming soon: enable the embeddings service via the [Tembo Cloud UI](https://cloud.tembo.io)
-:::
+### Via UI
 
-First, you will need to generate an API token so that you can communicate with the Tembo platform API. Navigate to cloud.tembo.io/generate-jwt and follow the instructions to generate a token. Alternatively, you can follow the instructions [here](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication).
+You can enable the embeddings app on your Tembo Cloud instance by navigating to "Apps", then "Embeddings". Click "Activate" to enable the embeddings app. This runs a container next to your Tembo Postgres instance that is pre-configured to communicate with Postgres.
+
+### Via API
+
+You can also enable the embeddings app by using the Tembo Platform API. First, you will need to generate an API token so that you can communicate with the Tembo platform API. Navigate to cloud.tembo.io/generate-jwt and follow the instructions to generate a token. Alternatively, you can follow the instructions [here](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication).
 
 Set your Tembo token as an environment variable, along with your organization id and the Tembo instance id. Fetch the `TEMBO_DATA_DOMAIN` from the "Host" parameter of your Tembo instance.
 
