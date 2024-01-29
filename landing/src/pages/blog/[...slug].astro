@@ -3,7 +3,9 @@ import Layout from '../../layouts/Layout.astro';
 import NavBar from '../../components/NavBar';
 import Container from '../../components/Container';
 import Markdown from '../../components/Markdown.astro';
-import { type CollectionEntry, getCollection } from 'astro:content';
+import Author from '../../components/Author.astro';
+import { getCollection } from 'astro:content';
+import { AUTHORS } from '../../content/config';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -12,19 +14,29 @@ export async function getStaticPaths() {
 		props: post,
 	}));
 }
-
+const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 const currentPath = Astro.url.pathname;
 const post = Astro.props;
+const author = AUTHORS[post.data.authors[0] as string | 'ryw'];
 const { Content } = await post.render();
 ---
 
 <Layout title=''>
     <NavBar client:load currentPage={currentPath} />
-    <Container>
+    <Container styles='pb-10'>
         <div class='mt-[120px] mobile:mt-[180px] w-full'>
-            <Markdown>
-                <Content />
-            </Markdown>
+            <header class='flex flex-col gap-6'>
+                <div>
+                    <h1 class='text-neon font-extrabold text-[40px] z-10'>{post.data.title}</h1>
+                    <p class='text-white mt-4'>{post.data.date.toLocaleDateString('en-US', dateOptions as any)} • 5 min read</p>
+                </div>
+                <Author name={author.name} title={author.title || 'Tembonaut'} avatar={author.image_url} />
+            </header>
+            <div class='mt-36'>
+                <Markdown>
+                    <Content />
+                </Markdown>
+            </div>
         </div>
     </Container>
 </Layout>
