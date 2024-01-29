@@ -34,9 +34,10 @@ const currentPath = Astro.url.pathname;
                 </div>
                 <div class='mt-10 pb-2'>
                     <div class='grid grid-cols-12 lg:gap-6'>
-                        {posts.map((post) => (
-                            <BlogPost title={post.data.title} slug={post.slug} readingTime='5 min Read' date={post.data.date.toLocaleDateString('en-US', dateOptions as any)} author={post.data.authors[0]} heroImage={post.data.image} />
-                        ))}
+                        {posts.map(async (post) => {
+                            const { Content, remarkPluginFrontmatter } = await post.render();
+                            return <BlogPost title={post.data.title} slug={post.slug} readingTime={remarkPluginFrontmatter.minutesRead} date={post.data.date.toLocaleDateString('en-US', dateOptions as any)} author={post.data.authors[0]} heroImage={post.data.image} />
+                        })}
                     </div>
                 </div>
             </div>

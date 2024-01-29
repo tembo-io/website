@@ -3,6 +3,7 @@ slug: hacking-postgres-ep9
 title: "Hacking Postgres, Ep. 9: Bertrand Drouvot"
 authors: [eric]
 tags: [postgres, hacking_postgres]
+image: './ep9.png'
 ---
 
 

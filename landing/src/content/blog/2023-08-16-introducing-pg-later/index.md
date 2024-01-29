@@ -10,7 +10,7 @@ image: './tembo-launch.png'
 
 We've released a new Postgres extension called [pg_later](https://github.com/tembo-io/pg_later), which enables asynchronous query execution in Postgres. If you've used [Snowflake's asynchronous queries](https://docs.snowflake.com/developer-guide/python-connector/python-connector-example#examples-of-asynchronous-queries), you might already be familiar with this capability. Submit your queries to Postgres now, and come back later and get the query's results.
 
-You can try pg_later on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Machine Learning Stack](https://tembo.io/docs/tembo-stacks/machine-learning). 
+You can try pg_later on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Machine Learning Stack](https://tembo.io/docs/tembo-stacks/machine-learning).
 
 :::note Machine Learning Stack
 
@@ -42,7 +42,7 @@ pg_later is built on top of [PGMQ](https://tembo.io/blog/introducing-pgmq), anot
 
 A [Postgres background worker](https://www.postgresql.org/docs/current/bgworker.html) picks up the query from the queue and executes it. The results are persisted by being written to a table as [JSONB](https://www.postgresql.org/docs/current/functions-json.html) and can be easily retrieved using the pg_later API. You can simply reference the unique job id given upon query submission and retrieve the result set, or query the table directly. By default, the results are retained forever. However, we are building retention policies as a feature into pg_later.
 
-![diagram](diagram.png "diagram")
+![diagram](./diagram.png "diagram")
 
 ## Using pg_later
 
@@ -105,7 +105,7 @@ select pglater.fetch_results(1);
 
 ## Up next
 
-`pg_later` is a new project and still under development. 
+`pg_later` is a new project and still under development.
 
 A few features that we are excited to build:
 
@@ -120,4 +120,4 @@ A few features that we are excited to build:
 
 Give us a [star](https://github.com/tembo-io/pg_later) and try out pg_later by running the example in the README. If you run into issues, please create an [issue](https://github.com/tembo-io/pg_later/issues). We would greatly welcome contributions to the project as well.
 
-You can also try pg_later on [Tembo Cloud](https://cloud.tembo.io/) for free as part of our [Machine Learning Stack](https://tembo.io/docs/tembo-stacks/machine-learning). 
+You can also try pg_later on [Tembo Cloud](https://cloud.tembo.io/) for free as part of our [Machine Learning Stack](https://tembo.io/docs/tembo-stacks/machine-learning).

@@ -3,6 +3,7 @@ slug: modern-data-stack-mess
 title: 'The Modern Data Stack is a Mess'
 authors: [ryw]
 tags: [postgres, data stack]
+image: './mad2023.png'
 ---
 
 Every area of the modern data landscape is absolutely flooded with VC-funded data tools. Your inbox is crammed full of marketing emails from reps offering to demo great new software. You _already_ have more tools at your disposal than you need. And worst of all, you probably have a gnawing suspicion that there are better tools—maybe even a better _way_—out there somewhere.

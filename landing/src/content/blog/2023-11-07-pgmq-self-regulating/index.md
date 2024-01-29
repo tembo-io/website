@@ -3,6 +3,7 @@ slug: pgmq-self-regulating-queue
 title: "PGMQ: Lightweight Message Queue on Postgres with No Background Worker"
 authors: [adam]
 tags: [postgres, message-queue, pgmq]
+image: './tembo-queue.png'
 ---
 
 <div style={{width: '75%'}}>

@@ -8,7 +8,7 @@ image: './tembo-launch.png'
 
 ![tembo brand](./tembo-launch.png)
 
-We've released [PGMQ](https://github.com/tembo-io/pgmq): a packaged extension for message queues on Postgres. Developers have been implementing queues on Postgres in many different ways and we're excited to combine lessons learned from those projects into a simple, feature-rich extension. You can try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Message Queue Stack](https://tembo.io/docs/tembo-stacks/message-queue). 
+We've released [PGMQ](https://github.com/tembo-io/pgmq): a packaged extension for message queues on Postgres. Developers have been implementing queues on Postgres in many different ways and we're excited to combine lessons learned from those projects into a simple, feature-rich extension. You can try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Message Queue Stack](https://tembo.io/docs/tembo-stacks/message-queue).
 
 :::note Message Queue Stack
 
@@ -30,7 +30,7 @@ Message queues are a very common architectural feature used to manage operationa
 
 ## Building your queues on Postgres
 
-While building our own infrastructure, we ran into a need for a job queue to manage tasks between our control-plane and data-plane in our managed cloud offering. Our control-plane publishes tasks like `create postgres cluster`, and `update postgres cluster`. 
+While building our own infrastructure, we ran into a need for a job queue to manage tasks between our control-plane and data-plane in our managed cloud offering. Our control-plane publishes tasks like `create postgres cluster`, and `update postgres cluster`.
 
 Since we are a Postgres startup, we decided to build the queue on Postgres. Note that we are not the first to do this! Companies like [Dagster](https://dagster.io/blog/skip-kafka-use-postgres-message-queue) and [CrunchyData](https://www.crunchydata.com/blog/message-queuing-using-native-postgresql) have also implemented queues on Postgres and written about it; PostgresFM even dedicated [an entire podcast episode](https://postgres.fm/episodes/queues-in-postgres) to queues.
 
@@ -42,7 +42,7 @@ PGMQ was implemented on Postgres and follows industry best practices. One of the
 
 PGMQ provides exactly-once delivery semantics within a visibility timeout. Similar to Amazon's SQS and RSMQ, PGMQ consumers set the period of time during which Postgres will prevent all consumers from receiving and processing a message. This is done by the consumer on read, and once the visibility timeout expires the message becomes available for consumption once again. That way, if a consumer crashes, there is no data loss. This effectively means at-least-once delivery semantics once the first visibility timeout has expired.
 
-![vt](vt.png "VisibilityTimeout")
+![vt](./vt.png "VisibilityTimeout")
 
 ## Using PGMQ
 
@@ -121,7 +121,7 @@ SELECT * from pgmq_my_queue_archive;
 ```
 
 ```text
- msg_id | read_ct |         enqueued_at          |          deleted_at           |              vt               |     message     
+ msg_id | read_ct |         enqueued_at          |          deleted_at           |              vt               |     message
 --------+---------+------------------------------+-------------------------------+-------------------------------+-----------------
       2 |       1 | 2023-04-25 00:55:40.68417-05 | 2023-04-25 00:56:35.937594-05 | 2023-04-25 00:56:20.532012-05 | {"foo": "bar2"}```
 ```
@@ -155,8 +155,8 @@ SELECT pgmq_delete('my_queue', 3);
 
 Give us a [star](https://github.com/tembo-io/pgmq) and try out PGMQ by cloning the [repo](https://github.com/tembo-io/pgmq) and following the example in the README. Please use Github issues if you run into any issues or have any feedback. We've also built client side libraries in [Rust](https://github.com/tembo-io/pgmq/tree/main/core) and [Python](https://github.com/tembo-io/pgmq/tree/main/tembo-pgmq-python), which will give you an ORM-like experience.
 
-## Interested in learning more? 
+## Interested in learning more?
 
 Check out [our post on pg_later](https://tembo.io/blog/introducing-pg-later), an extension we built on top of PGMQ as well as benchmarks comparing PGMQ to [SQS](https://aws.amazon.com/sqs/) and [Redis](https://redis.com/).
 
-You can also try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) for free as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue). 
+You can also try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) for free as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue).

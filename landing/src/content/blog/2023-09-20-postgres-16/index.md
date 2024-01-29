@@ -3,18 +3,19 @@ slug: postgres-16
 title: "Postgres 16: The exciting and the unnoticed"
 authors: [samay]
 tags: [postgres]
+image: './postgres-16.png'
 ---
 
 In case you missed it, Postgres 16 came out last week - and this year it arrived earlier than the last few years. There are many features that I’ve been looking forward to for the last few months and I’m excited to see them get into the hands of users. Before we dive into the specific features of this release, let’s discuss what a Postgres major release actually means.
 
-![postgres-16](postgres-16.png "PG16")
+![postgres-16](./postgres-16.png "PG16")
 
 
 ## Postgres Releases
 
-The PostgreSQL Global Development Group releases a new _major_ [version](https://www.postgresql.org/support/versioning/) every year with new features. 
+The PostgreSQL Global Development Group releases a new _major_ [version](https://www.postgresql.org/support/versioning/) every year with new features.
 
-In addition, Postgres releases minor versions of each major release every 3 months or so with bug fixes and security fixes. No new features are released in minor versions, and that’s what makes major version releases so exciting as it’s the culmination of about a year’s worth of development work on the project. 
+In addition, Postgres releases minor versions of each major release every 3 months or so with bug fixes and security fixes. No new features are released in minor versions, and that’s what makes major version releases so exciting as it’s the culmination of about a year’s worth of development work on the project.
 
 While there's a case to be made for faster release of features, Postgres prides itself on stability and this release cadence provides enough time for features to be proposed, reviewed, committed and tested before they get shipped.
 
@@ -23,7 +24,7 @@ While there's a case to be made for faster release of features, Postgres prides 
 
 If you are building a new application, yes, I would recommend that you start with the latest major version of Postgres. This will guarantee the latest and greatest features, and a continuous flow of minor releases that fix bugs and improve the security of your database.
 
-If you are upgrading an existing system, there are more factors to consider. The general advice is to **upgrade minor versions** always - because they contain security and bug fixes and the risk of not upgrading is higher. 
+If you are upgrading an existing system, there are more factors to consider. The general advice is to **upgrade minor versions** always - because they contain security and bug fixes and the risk of not upgrading is higher.
 
 However, for major versions, you will need to consider the tradeoffs as the major versions usually change the internal format of system tables and data files. That means, you can’t just use previous versions of the data directory — you’ll need to use `pg_dump` / `pg_restore` or [pg_upgrade](https://www.postgresql.org/docs/current/pgupgrade.html) to upgrade. In addition, depending on the features you are using and the Postgres release, manual changes to your code or queries may also be required.
 
@@ -32,7 +33,7 @@ Obviously, another important factor if you are using a managed service provider 
 
 ## What’s most exciting about Postgres 16?
 
-Postgres 16 delivers exciting features in all aspects of the database ranging from performance improvements, monitoring enhancements, better security and privilege handling, replication improvements, new server features and commands and a lot more. 
+Postgres 16 delivers exciting features in all aspects of the database ranging from performance improvements, monitoring enhancements, better security and privilege handling, replication improvements, new server features and commands and a lot more.
 
 If you’re interested in the complete list of features, you can read the detailed [release notes](https://www.postgresql.org/docs/16/release-16.html). Below, I’ll talk about the aspects of this release which excite me the most and we will talk about a few not-so-talked about features which lay the groundwork for more exciting features in Postgres 17.
 

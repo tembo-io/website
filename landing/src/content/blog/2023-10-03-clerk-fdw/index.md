@@ -31,7 +31,7 @@ In fact, we built `clerk_fdw` at Tembo to address needs in our internal analytic
 - Understand user interaction patterns with our product.
 - Identify and engage with top users.
 
-![clerk](clerk-flowchart.png "clerk_fdw structure")
+![clerk](./clerk-flowchart.png "clerk_fdw structure")
 
 ## Setting up `clerk_fdw`
 
@@ -125,8 +125,8 @@ Now you can query through your database and get useful information like:
 
 Here are some of the charts we were able to make from the clerk foreign data wrapper using some synthetic data.
 
-![chart1](chart1.png "Daily New Signups")
-![chart2](chart2.png "Total Organizations")
+![chart1](./chart1.png "Daily New Signups")
+![chart2](./chart2.png "Total Organizations")
 
 ## Conclusion
 

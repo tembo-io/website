@@ -3,6 +3,7 @@ slug: four-types-of-extensions
 title: "Enter the matrix: the four types of Postgres extensions"
 authors: [steven]
 tags: [postgres, extensions, trunk]
+image: './images/one-does-not-simply.png'
 ---
 
 Before working for a Postgres company, I had never used extensions.

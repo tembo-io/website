@@ -3,6 +3,7 @@ slug: tembo-operator-apps
 title: "Application Services: Helping Postgres Do More, Faster"
 authors: [adam]
 tags: [postgres, kubernetes, rust]
+image: './tembo_ele.png'
 ---
 
 ![alt_text](./tembo_ele.png "Tembo the Operator")

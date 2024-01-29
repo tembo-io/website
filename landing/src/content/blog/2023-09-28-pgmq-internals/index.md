@@ -61,7 +61,7 @@ src
 
 ## Installing the pgmq extension
 
-:::note 
+:::note
 This section assumes that you have successfully installed the pre-requisites as described in [CONTRIBUTING.md](https://github.com/tembo-io/pgmq/blob/main/CONTRIBUTING.md)
 :::
 
@@ -138,7 +138,7 @@ We can also list the available functions:
 ```
 pgmq=# \df pgmq.*
                                                                          List of functions
- Schema |          Name          |                                                                         Result data type                                                                         |                                                 Argument data types                                                  | Type 
+ Schema |          Name          |                                                                         Result data type                                                                         |                                                 Argument data types                                                  | Type
 --------+------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+------
  pgmq   | archive                | boolean                                                                                                                                                          | queue_name text, msg_id bigint                                                                                       | func
  pgmq   | archive                | TABLE(archive boolean)                                                                                                                                           | queue_name text, msg_ids bigint[]                                                                                    | func
@@ -192,7 +192,7 @@ use pgmq_core::{
 };
 ```
 
-So, at this point we know that we can find the source code in two places: `src/` and `core/`. 
+So, at this point we know that we can find the source code in two places: `src/` and `core/`.
 
 If we continue exploring `lib.rs`, we can see that a sql file (`sql_src.sql`) is executed when the extension is enabled:
 
@@ -230,7 +230,7 @@ pgmq=# select * from pgmq.meta;
 
 The following diagram shows what the pgmq schema looks like right after `CREATE EXTENSION` is executed:
 
-![after-create-extension](after-create-extension.png "after create extension")
+![after-create-extension](./after-create-extension.png "after create extension")
 
 From this point, we can suspect that every time we create a queue, a new row is inserted into this table.
 
@@ -312,7 +312,7 @@ pgmq=# \di pgmq.*
 (5 rows)
 
 pgmq=# select * from pgmq.meta;
- queue_name | is_partitioned |          created_at           
+ queue_name | is_partitioned |          created_at
  ------------+----------------+-------------------------------
   my_queue   | f              | 2023-09-18 23:35:38.163096-06
   (1 row)
@@ -320,7 +320,7 @@ pgmq=# select * from pgmq.meta;
 
 The following diagram shows what the pgmq schema looks like at this point:
 
-![complete](complete.png "after create queue")
+![complete](./complete.png "after create queue")
 
 For the queue `my_queue`, we can see the underlying table and the corresponding archive table. Each table has an index associated with the primary key. The `pgmq.q_my_queue` table also has an index on the `vt` column, and `pgmq.a_my_queue` has an index on the `archived_at` column.
 
@@ -334,14 +334,14 @@ We can explore the send operation in a similar way. The relevant SQL is straight
 ```sql
 INSERT INTO {PGMQ_SCHEMA}.{QUEUE_PREFIX}_{name} (vt, message)
 VALUES {values}
-RETURNING msg_id; 
+RETURNING msg_id;
 ```
 
-![pgmq-send](pgmq-send.png "what send does")
+![pgmq-send](./pgmq-send.png "what send does")
 
-:::note 
-At this point, we can see the following pattern in the pgmq project: 
-  - the exposed SQL functions are defined in `src/api.rs`, and 
+:::note
+At this point, we can see the following pattern in the pgmq project:
+  - the exposed SQL functions are defined in `src/api.rs`, and
   - the underlying SQL statements are defined in `core/src/query.rs`
 :::
 
@@ -353,13 +353,13 @@ So, let's see. If I were the one programming `pgmq.read()`, I would perhaps do s
 
 ```sql
 update pgmq.q_my_queue
-SET      
-    vt = clock_timestamp() + interval '10 seconds',                                            
-    read_ct = read_ct + 1                                                                      
-WHERE  
-    msg_id in (select msg_id from pgmq.q_my_queue where vt <= clock_timestamp()                                                      
-        ORDER BY msg_id ASC                                                                            
-        LIMIT 1);  
+SET
+    vt = clock_timestamp() + interval '10 seconds',
+    read_ct = read_ct + 1
+WHERE
+    msg_id in (select msg_id from pgmq.q_my_queue where vt <= clock_timestamp()
+        ORDER BY msg_id ASC
+        LIMIT 1);
 ```
 
 In reality, `pgmq.read` is more interesting than that :sweat_smile:. It performs the following DML:
@@ -383,13 +383,13 @@ WHERE t.msg_id=cte.msg_id
 RETURNING *;
 ```
 
-![pgmq-read](pgmq-read.png "what read does")
+![pgmq-read](./pgmq-read.png "what read does")
 
 Firstly, in pgmq's version, there is a CTE (Common Table Expression) to obtain the first `{limit}` message IDs whose `vt` has expired. (It would be interesting to discuss why pgmq developers used a CTE, but we can explore that in another post.)
 
-There are two crucial things to notice in the CTE. One is the `order by` clause that ensures the FIFO ordering. The other one is the `FOR UPDATE SKIP LOCKED` clause, claiming the rows no one else has claimed. This part is essential because it ensures correctness in the case of concurrent  `pgmq.read()` operations. 
+There are two crucial things to notice in the CTE. One is the `order by` clause that ensures the FIFO ordering. The other one is the `FOR UPDATE SKIP LOCKED` clause, claiming the rows no one else has claimed. This part is essential because it ensures correctness in the case of concurrent  `pgmq.read()` operations.
 
-The next step in the DML is to update the corresponding rows with a new vt value by adding the supplied `{vt}` to the current timestamp. Additionally, the `read_ct` value is incremented by 1. What is the use of this counter? In general, we can suspect that there is a problem processing a given message if it has a high `read_ct` value because users usually archive the message after successfully processing it. So, ideally, a message is only read once. 
+The next step in the DML is to update the corresponding rows with a new vt value by adding the supplied `{vt}` to the current timestamp. Additionally, the `read_ct` value is incremented by 1. What is the use of this counter? In general, we can suspect that there is a problem processing a given message if it has a high `read_ct` value because users usually archive the message after successfully processing it. So, ideally, a message is only read once.
 
 
 
@@ -411,7 +411,7 @@ RETURNING msg_id;
 
 Essentially, it deletes the message with the provided `msg_id` from the queue table, and then the message is placed in the corresponding archive table.
 
-![pgmq-archive](pgmq-archive.png "what archive does")
+![pgmq-archive](./pgmq-archive.png "what archive does")
 
 One interesting thing to notice is that `pgmq.archive()` can be used to archive a batch of messages too:
 
