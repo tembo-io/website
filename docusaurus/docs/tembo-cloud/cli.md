@@ -14,14 +14,14 @@ managing, and running Postgres in a local environment.
 
 ### Installing CLI
 
-Using homebrew
+Using homebrew:
 
 ```
 brew tap tembo-io/tembo
 brew install tembo-cli
 ```
 
-Using cargo
+Using cargo:
 
 ```
 cargo install tembo-cli
