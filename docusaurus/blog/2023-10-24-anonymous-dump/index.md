@@ -3,6 +3,7 @@ slug: anon-dump
 title: "Anonymized dump of your Postgres data"
 authors: [steven]
 tags: [postgres, extensions, postgresql_anonymizer]
+image: './trunk-install.png'
 ---
 
 Someone on X wanted to know how to get an anonymous dump of Postgres data, but doesn't want to install an extension in their production DB. I want to show how you can start a local database, dump the production data there, then do an anonymized dump from that without too much hassle.

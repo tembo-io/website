@@ -3,6 +3,7 @@ slug: introducing-pg_vectorize
 title: "Introducing pg_vectorize: Vector Search in 60 Seconds on Postgres"
 authors: [eric, adam]
 tags: [postgres, vector, pg_vectorize, tembo-only]
+image: './intro-pg_vectorize.png'
 ---
 
 

@@ -19,6 +19,13 @@ adam:
     image_url: https://github.com/chuckhend.png
     email: noreply@tembo.io
 
+chuck:
+    name: Chuck Hendel
+    title: Founding Engineer
+    url: https://github.com/ChuckHend
+    image_url: https://github.com/chuckhend.png
+    email: noreply@tembo.io
+
 rjzv:
     name: Binidxaba
     title: Community contributor
