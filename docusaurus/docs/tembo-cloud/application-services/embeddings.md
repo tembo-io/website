@@ -12,11 +12,9 @@ tags:
 **Powered by [HuggingFace](https://huggingface.co/sentence-transformers/) sentence transformers**
 :::
 
-The Embeddings API allows you to generate vector embeddings from your text. It is similar in functionality to [OpenAI's embeddings API](https://platform.openai.com/docs/guides/embeddings), except it is private. Every Tembo instance gets its own service and all data passed to the Tembo Embedding API is not retained by the service.
+The Embeddings API allows you to generate embeddings from your text. It is similar in functionality to [OpenAI's embeddings API](https://platform.openai.com/docs/guides/embeddings), except it is hosted privately, and powered by HuggingFace. Every Tembo instance gets its own service and all data passed to the Tembo Embedding API is not retained by the service.
 
-One of the most common use cases for embeddings is to perform vector similarity search on your data. In this guide we will walk through using [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) as an alternative to OpenAI's embeddings API, to perform vector similarity search on text data in your Postgres instance. The embedding service supports all of the [HuggingFace sentence-transformers](https://huggingface.co/sentence-transformers/).
-
-You can call the embeddings app directly from your Postgres instance by using the [pg_vectorize](https://github.com/tembo-io/pg_vectorize) extension.
+You can call the embeddings app directly from your Postgres instance by using the [pg_vectorize](https://github.com/tembo-io/pg_vectorize) extension. The embedding service supports all of the [HuggingFace sentence-transformers](https://huggingface.co/sentence-transformers/), simply replace `model_name` with the sentence-transformer of your choice.
 
 ```sql
 select * from vectorize.transform_embeddings(
@@ -26,6 +24,8 @@ select * from vectorize.transform_embeddings(
 
 {0.5988337993621826,-0.12069590389728546, .... -0.11859191209077836}
 ```
+
+One of the most common use cases for embeddings is to perform vector similarity search on your data. In this guide we will walk through using [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) as an alternative to OpenAI's embeddings API, to perform vector similarity search on text data in your Postgres instance.
 
 ## Enabling Embeddings on Tembo Cloud
 
