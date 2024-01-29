@@ -3,6 +3,8 @@ slug: tembo-stacks-intro
 title: "Tembo Stacks: Making Postgres the Everything Database"
 authors: [samay]
 tags: [postgres, tembo]
+image: './image.png'
+
 ---
 
 # Evolution of Postgres

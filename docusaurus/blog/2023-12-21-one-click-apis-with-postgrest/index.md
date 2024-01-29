@@ -3,6 +3,7 @@ slug: one-click-apis-with-postgrest
 title: 'One-Click RESTful APIs in Postgres'
 authors: [darren, eric]
 tags: [postgres, apps]
+image: './enableApp.png'
 ---
 
 At Tembo, we support the things we believe in.

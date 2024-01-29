@@ -3,7 +3,7 @@
 <h1 align='center'>Tembo Website</h1>
 <h4 align='center'>Goodbye Database Sprawl, Hello Postgres</h4>
 <div align='center'>
-<a href='https:tembo.io' target='_blank'>tembo.io</a>
+<a href='https://tembo.io' target='_blank'>https://tembo.io</a>
 </div>
 
 <br />

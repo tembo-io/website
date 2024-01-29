@@ -3,6 +3,7 @@ slug: hacking-postgres-ep1
 title: "Hacking Postgres Ep. 1: Marco Slot"
 authors: [eric]
 tags: [postgres, hacking_postgres]
+image: './ep1.png'
 ---
 
 ## Episode Notes
@@ -14,7 +15,7 @@ In this episode, Ry and Marco talk about the early days of Citus and its develop
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
     width="900" 
     height="315" 
-    src="https://www.youtube.com/embed/UxUrn6bKDfU?si=JMm_cMMPToh1K2KK" 
+      src="https://www.youtube.com/embed/UxUrn6bKDfU?si=JMm_cMMPToh1K2KK" 
     title="YouTube video player" 
     frameBorder="0" 
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
