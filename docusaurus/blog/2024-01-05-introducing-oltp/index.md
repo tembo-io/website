@@ -3,6 +3,7 @@ slug: introducing-oltp-on-postgres
 title: 'OLTP on Postgres: 3 Ways the Tembo OLTP Stack Makes Things Simple'
 authors: [darren, eric]
 tags: [postgres, oltp, stacks, database]
+image: './apps.png'
 ---
 
 Let’s cut right to the chase: the problem with your OLTP database _actually_ doesn’t have anything to do with the database.

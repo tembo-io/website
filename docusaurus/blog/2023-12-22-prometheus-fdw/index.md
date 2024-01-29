@@ -3,6 +3,7 @@ slug: monitoring-with-prometheus-fdw
 title: 'Introducing prometheus_fdw: Seamless Monitoring in Postgres'
 authors: [abby, eric]
 tags: [postgres, extensions]
+image: './installImage.png'
 ---
 
 What you have: all your monitoring data and analytics stored over _there_ in Prometheus.<br /> What you’d _like_ to have: all of that data over _here_ in your Postgres database.
