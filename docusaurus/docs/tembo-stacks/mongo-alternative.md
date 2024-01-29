@@ -29,15 +29,20 @@ For more information, refer to our guide on migrating from MongoDB to Postgres w
 
 ### Setup
 
-Once you've established a Tembo MongoAlternative Stack instance, you can copy the connection string from the UI and execute it in your terminal.
-Alternatively, you can fill in and run the following mongosh command:
-
-```bash
-psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
-```
+Once you've established a Tembo MongoAlternative Stack instance, you will need to download a root SSL certificate.
+You can then copy the connection string from the UI and execute it within the terminal having navigated to the directory containing the freshly-downloaded SSL certificate.
+As an alternative to copying from the UI, you can fill in and run the following mongosh command:
 
 ```bash
 mongosh "mongodb://postgres:<your-password>@<your-host>:27018/ferretdb?authMechanism=PLAIN&tls=true&tlsCaFile=$(pwd)/ca.crt"
+```
+
+Note that the end of the connection string, `tlsCaFile=$(pwd)/ca.crt`, is pointing to the directory in which your terminal is in when executing the connection string.
+This can be changed if you have a specific directory you would like to store your SSL certificate in.
+
+
+```bash
+psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 ```
 
 ### Sample queries
