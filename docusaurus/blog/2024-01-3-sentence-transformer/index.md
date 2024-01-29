@@ -3,6 +3,7 @@ slug: secure-embeddings-in-postgres
 title: 'Secure Embeddings in Postgres without the OpenAI Risk'
 authors: [darren, eric]
 tags: [postgres, extensions]
+image: './internalData.png'
 ---
 
 Generating external embeddings—using OpenAI, for example—is a risk.
