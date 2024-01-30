@@ -14,5 +14,8 @@ export default defineConfig({
 	},
 	markdown: {
 		remarkPlugins: [remarkReadingTime],
+		shikiConfig: {
+			wrap: true,
+		}
 	},
 });

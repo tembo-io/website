@@ -46,14 +46,14 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
                     </header>
                     <img src={`/${post.data.image || 'blogFallbackImage.svg'}`} alt='blog post hero image' class='hidden min-[1200px]:flex rounded-2xl w-[650px]' />
                 </div>
-                <div class='mt-36 flex justify-between w-full'>
+                <div class='mt-12 mobile:mt-36 flex justify-between w-full'>
                     <div class='mobile:mr-12'>
                         <Markdown>
                             <Content />
                         </Markdown>
                     </div>
                     <div class='hidden mobile:flex flex-col gap-12'>
-                        <div class='flex flex-col gap-4 items-start'>
+                        <div class='flex flex-wrap gap-4 items-start max-w-[180px]'>
                             {post.data.tags.map((tag: string) => <Tag title={tag} classNames='px-2.5 py-[0.4rem] text-center text-[12px] h-max border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10' />)}
                         </div>
                         <div class='flex flex-col gap-4 w-max items-end mobile:sticky mobile:top-[100px]'>
