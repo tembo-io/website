@@ -8,7 +8,6 @@ import BackButton from '../../components/BackButton.astro';
 import Author from '../../components/Author.astro';
 import { getCollection } from 'astro:content';
 import { AUTHORS } from '../../content/config';
-import cx from 'classnames';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -18,7 +17,6 @@ export async function getStaticPaths() {
 	}));
 }
 const currentPath = Astro.url.pathname;
-console.log(Astro.url)
 const url = Astro.request.url;
 const post = Astro.props;
 const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
