@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import cx from 'classnames';
+import { twMerge } from 'tailwind-merge'
 
 export const useIntersection = (
 	element: React.MutableRefObject<any>,
@@ -36,3 +38,7 @@ export const useDelayUnmount = (isMounted: boolean, delayTime: number) => {
 	}, [isMounted, delayTime, shouldRender]);
 	return shouldRender;
 };
+
+export const styles = (...classNames: any[]) => {
+	return cx(twMerge(...classNames));
+}

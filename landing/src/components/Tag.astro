@@ -1,14 +1,15 @@
 ---
 import cx from 'classnames';
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from 'tailwind-merge';
+import { styles } from '../util';
 interface Props {
     title: string;
     href?: string;
-    styles?: string;
+    classNames?: string;
 }
-const { title, styles, href } = Astro.props;
+const { title, classNames, href } = Astro.props;
 ---
 
-<a href={href} class={cx(twMerge('flex items-center justify-center border border-otherGrey rounded-full px-4 py-3 h-[40px] text-otherGrey', styles))}>
+<a href={href} class={styles('flex items-center justify-center border border-otherGrey rounded-full px-4 py-3 h-[40px] text-otherGrey', classNames)}>
     <span>{title}</span>
 </a>

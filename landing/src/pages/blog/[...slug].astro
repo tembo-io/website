@@ -26,7 +26,7 @@ const author = AUTHORS[post.data.authors[0] as string || 'ryw'];
 const { Content, remarkPluginFrontmatter, headings } = await post.render();
 ---
 
-<Layout title={`${post.data.title} | Tembo`} htmlClasses='scroll-smooth' description={post.data.description || post.data.title}>
+<Layout title={`${post.data.title} | Tembo`} htmlClasses='scroll-smooth' description={post.data.description || post.data.title} keywords={post.data.tags}>
     <NavBar client:load currentPage={currentPath} />
     <Container styles='pb-10 w-full'>
         <div class='mt-[120px] mobile:mt-[180px] w-full relative'>
@@ -54,7 +54,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
                     </div>
                     <div class='hidden mobile:flex flex-col gap-12'>
                         <div class='flex flex-col gap-4 items-start'>
-                            {post.data.tags.map((tag: string) => <Tag title={tag} styles='px-2.5 py-[0.4rem] text-center text-[12px] h-max border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10' />)}
+                            {post.data.tags.map((tag: string) => <Tag title={tag} classNames='px-2.5 py-[0.4rem] text-center text-[12px] h-max border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10' />)}
                         </div>
                         <div class='flex flex-col gap-4 w-max items-end mobile:sticky mobile:top-[100px]'>
                             <BlogLinks headings={headings} client:load />
