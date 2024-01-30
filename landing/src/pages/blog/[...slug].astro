@@ -19,7 +19,6 @@ export async function getStaticPaths() {
 }
 const currentPath = Astro.url.pathname;
 const post = Astro.props;
-
 const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 const dateString = post.id.substring(0, 10);
 const parsedDate = post.data?.date || new Date(dateString);
@@ -27,7 +26,7 @@ const author = AUTHORS[post.data.authors[0] as string || 'ryw'];
 const { Content, remarkPluginFrontmatter, headings } = await post.render();
 ---
 
-<Layout title={`${post.data.title} | Tembo`} htmlClasses='scroll-smooth'>
+<Layout title={`${post.data.title} | Tembo`} htmlClasses='scroll-smooth' description={post.data.description || post.data.title}>
     <NavBar client:load currentPage={currentPath} />
     <Container styles='pb-10 w-full'>
         <div class='mt-[120px] mobile:mt-[180px] w-full relative'>
