@@ -8,11 +8,13 @@ import { motion } from 'framer-motion';
 
 interface Props {
 	currentPage: string;
+	isProgressBar?: boolean
 }
 
-const NavBar: React.FC<Props> = ({ currentPage }) => {
+const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 	const [scrollY, setScrollY] = useState(0);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [progressWidth, setProgressWidth] = useState(101);
 	const [
 		isScreenGreaterThanOrEqualTo900px,
 		setIsScreenGreaterThanOrEqualTo900px,
@@ -31,7 +33,12 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 
 	useEffect(() => {
 		const handleScroll = () => {
-			setScrollY(window.scrollY);
+			const windowHeight = window.innerHeight;
+			const documentHeight = document.documentElement.scrollHeight;
+			const scrollY = window.scrollY;
+			const scrollPercent = (scrollY / (documentHeight - windowHeight))*100;
+			setScrollY(scrollY);
+			setProgressWidth(scrollPercent);
 		};
 
 		handleScroll();
@@ -179,6 +186,12 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 					</button>
 				</nav>
 			</Container>
+			{scrollY > 50 && isProgressBar && (
+					<div className="h-[2.5px] w-full flex justify-start relative">
+						<div className="h-full top-0 bottom-0 right-0 absolute w-screen bg-salmon will-change-transform transition-opacity" style={{ transform: `translate3d(-${progressWidth >= 100 ? '0.012' : 100 - progressWidth}%, 0px, 0px)`, opacity: 1 }}></div>
+					</div>
+				)
+			}
 			<div
 				className={cx(
 					'absolute bottom-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine',

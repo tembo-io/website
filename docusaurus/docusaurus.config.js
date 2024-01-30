@@ -84,22 +84,6 @@ const config = {
 					editUrl:
 						'https://github.com/tembo-io/website/blob/main/docusaurus',
 				},
-				blog: {
-					showReadingTime: true,
-					blogSidebarTitle: 'All posts',
-					blogSidebarCount: 'ALL',
-					routeBasePath: '/blog',
-					readingTime: ({
-						content,
-						frontMatter,
-						defaultReadingTime,
-					}) =>
-						frontMatter.hide_reading_time
-							? undefined
-							: defaultReadingTime({ content }),
-					editUrl:
-						'https://github.com/tembo-io/website/blob/main/docusaurus',
-				},
 				theme: {
 					customCss: require.resolve('./src/css/custom.css'),
 				},
@@ -126,12 +110,6 @@ const config = {
 					{
 						href: '/docs',
 						label: 'Docs',
-						target: '_blank',
-						position: 'right',
-					},
-					{
-						href: '/blog',
-						label: 'Blog',
 						target: '_blank',
 						position: 'right',
 					},
