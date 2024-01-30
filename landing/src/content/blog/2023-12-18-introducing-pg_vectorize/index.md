@@ -10,25 +10,25 @@ image: './intro-pg_vectorize.png'
 That’s right. You could have vector searches running on your existing Postgres database in less time than it takes to read this blog. Let’s see how it works:
 
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
-  <iframe 
+  <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900" 
-    height="315" 
-    src="https://www.youtube.com/embed/TgtINeeucy8?si=7jBlRi59mSnlnH0i" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    width="100%"
+    height="315"
+    src="https://www.youtube.com/embed/TgtINeeucy8?si=7jBlRi59mSnlnH0i"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen>
   </iframe>
 </div>
 
 
-Intrigued? Let’s take a look at the bigger story. 
+Intrigued? Let’s take a look at the bigger story.
 
 
 ## Vector “Solutions” Aren’t Solving Anything
 
-There are many vector “solutions” just a Google search away—Chroma, Pinecone, Redis, Postgres, and more, all fighting for your attention. Lots of people have written about using Postgres in particular as the storage layer for your vector data, and we agree with them. Unfortunately, these solutions still leave you with a _lot_ to do. 
+There are many vector “solutions” just a Google search away—Chroma, Pinecone, Redis, Postgres, and more, all fighting for your attention. Lots of people have written about using Postgres in particular as the storage layer for your vector data, and we agree with them. Unfortunately, these solutions still leave you with a _lot_ to do.
 
 First, you get to figure out how to generate, store, update, and manage your embeddings. Loads of blogs out there that will coach you through the process of building an embeddings application in python, javascript, or your language of choice. You’ll be walked through the process of pulling data out of your database, transforming it in memory, orchestrating a few API calls, then inserting that data back into the database. Maybe you’ll bring in some fantastic tools like Dagster or Airflow to help run this on a schedule. Now you get to monitor that process and hope it doesn’t break, or otherwise you get to hire a team to keep it healthy. Congratulations, you now have embeddings for your data—you’re halfway there!
 
@@ -39,9 +39,9 @@ _Finally_, you can use those embeddings to search the data in the table.
 So are all these providers and “solutions” actually making things easier? It sure doesn’t seem like it. We think there’s a better way.
 
 
-## Introducing pg_vectorize: Only Two Calls 
+## Introducing pg_vectorize: Only Two Calls
 
-Remember at the beginning how we said you could set up vector searches on Tembo Cloud in 60 seconds? No way you’re doing that with the long, convoluted process we just described—so we automated it. On Tembo Cloud, the whole process of setting up and managing vectors for a given table is done with an open source extension we built named pg_vectorize, using a single Postgres function call: 
+Remember at the beginning how we said you could set up vector searches on Tembo Cloud in 60 seconds? No way you’re doing that with the long, convoluted process we just described—so we automated it. On Tembo Cloud, the whole process of setting up and managing vectors for a given table is done with an open source extension we built named pg_vectorize, using a single Postgres function call:
 
 
 ```
@@ -56,7 +56,7 @@ SELECT vectorize.table(
 
 So what happened here? Remember that ultimately, vectors are just arrays of floats that we're going to do linear algebra on. So we created a job, called it “product_search”, on an existing table called “products”. We want our user search queries to look at “product_name” and “description”. Tembo’s platform handles transforming these two columns into embeddings (via OpenAI embeddings endpoint) for you, and continues to monitor the table for changes. When there’s changes, embeddings are updated. The data is stored using pg vector’s vector data type, and indexed using pg vector HNSW index.
 
-It’s as simple—actually simple—as that. One call, and we’re ready to search. 
+It’s as simple—actually simple—as that. One call, and we’re ready to search.
 
 See, Postgres lets us create our own indexes via extensions, which enables us to do that search with one more SQL function call. We reference the job name we set up in the last step, provide the raw text query, and specify which columns we want returned and the number of rows. Think of this as a “select product_id, product_name from products where product_name and product_description are similar to 'our query'”.
 
@@ -71,10 +71,10 @@ SELECT * FROM vectorize.search(
 ```
 
 
-Then we get our results, along with the cosine similarity score for each records. 
+Then we get our results, along with the cosine similarity score for each records.
 
 ```
-                                         search_results                                         
+                                         search_results
 ------------------------------------------------------------------------------------------------
  {"product_id": 13, "product_name": "Phone Charger", "similarity_score": 0.8564774308489237}
  {"product_id": 24, "product_name": "Tablet Holder", "similarity_score": 0.8295404213393001}
@@ -95,4 +95,4 @@ In other words…60 seconds. That’s all it takes to try it out for yourself.
 
 Come to [cloud.tembo.io](https://cloud.tembo.io) and create a vector db or install pg_vectorize on any instance in Tembo for yourself—and while you're at it, visit the [pg_vectorize repo](https://github.com/tembo-io/pg_vectorize) and give it a star!
 
-Want to use an open source model instead of using OpenAI to generate your embeddings? We have something coming up for you—stay tuned! 
+Want to use an open source model instead of using OpenAI to generate your embeddings? We have something coming up for you—stay tuned!
