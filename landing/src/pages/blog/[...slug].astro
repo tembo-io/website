@@ -28,8 +28,8 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 
 <Layout title={`${post.data.title} | Tembo`} htmlClasses='scroll-smooth'>
     <NavBar client:load currentPage={currentPath} />
-    <Container styles='pb-10'>
-        <div class='mt-[120px] mobile:mt-[180px] w-full'>
+    <Container styles='pb-10 w-full'>
+        <div class='mt-[120px] mobile:mt-[180px] w-full relative'>
             <div class='flex flex-col w-full'>
                 <div class='flex items-start justify-between w-full gap-6'>
                     <header class='flex flex-col gap-8'>
@@ -44,16 +44,16 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
                             </a>
                         </div>
                     </header>
-                    <img src={`/${post.data.image || 'blogFallbackImage.svg'}`} alt='blog post hero image' class='rounded-2xl w-[650px]' />
+                    <img src={`/${post.data.image || 'blogFallbackImage.svg'}`} alt='blog post hero image' class='hidden min-[1200px]:flex rounded-2xl w-[650px]' />
                 </div>
-                <div class='mt-36 flex justify-between w-full'>
-                    <div class='mr-12'>
+                <div class='mt-36 flex justify-between w-full max-w-full'>
+                    <div class='mobile:mr-12'>
                         <Markdown>
                             <Content />
                         </Markdown>
                     </div>
-                    <div class='flex flex-col items-end'>
-                        <div class='flex flex-col gap-4 w-max'>
+                    <div class='hidden mobile:flex flex-col items-end'>
+                        <div class='flex flex-col gap-4 w-max relative mobile:sticky mobile:top-[100px]'>
                             <BlogLinks headings={headings} client:only />
                         </div>
                     </div>

@@ -7,7 +7,7 @@ export default {
 			typography: {
 				DEFAULT: {
 				  css: {
-					maxWidth: '80ch', // add required value here
+					maxWidth: '80ch'
 				  }
 				}
 			},
