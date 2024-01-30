@@ -1,4 +1,4 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z, type CollectionEntry } from "astro:content";
 
 export interface Author {
   name: string;
@@ -90,12 +90,14 @@ export const AUTHORS: Record<string, Author> = {
   }
 }
 
+
+
 const blog = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
-    date: z.coerce.date().optional().default(() => new Date()),
+    date: z.coerce.date().optional(),
     updatedDate: z.coerce.date().optional(),
     image: z.string().optional(),
     tags: z.array(z.string()),
@@ -104,5 +106,14 @@ const blog = defineCollection({
     .default('ryw'))
   }),
 })
+
+export function sortPostDates(a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) {
+  const aDateString = a.id.substring(0, 10);
+  const aParsedDate = a.data?.date || new Date(aDateString);
+  const bDateString = b.id.substring(0, 10);
+  const bParsedDate = b.data?.date || new Date(bDateString);
+
+  return bParsedDate.valueOf() - aParsedDate.valueOf();
+}
 
 export const collections = { blog }

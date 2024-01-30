@@ -1,44 +1,68 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import NavBar from '../../components/NavBar';
+import BlogLinks from '../../components/BlogLinks';
 import Container from '../../components/Container';
 import Markdown from '../../components/Markdown.astro';
+import BackButton from '../../components/BackButton.astro';
 import Author from '../../components/Author.astro';
 import { getCollection } from 'astro:content';
 import { AUTHORS } from '../../content/config';
+import cx from 'classnames';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
-    console.log(posts[0]);
 	return posts.map((post) => ({
 		params: { slug: post.slug },
 		props: post,
 	}));
 }
-const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 const currentPath = Astro.url.pathname;
+console.log(Astro.url)
+const url = Astro.request.url;
 const post = Astro.props;
-const author = AUTHORS[post.data.authors[0] as string | 'ryw'];
-const { Content, remarkPluginFrontmatter } = await post.render();
+const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+const dateString = post.id.substring(0, 10);
+const parsedDate = post.data?.date || new Date(dateString);
+const author = AUTHORS[post.data.authors[0] as string || 'ryw'];
+const { Content, remarkPluginFrontmatter, headings } = await post.render();
 ---
 
-<Layout title=''>
+<Layout title={`${post.data.title} | Tembo`} htmlClasses='scroll-smooth'>
     <NavBar client:load currentPage={currentPath} />
     <Container styles='pb-10'>
         <div class='mt-[120px] mobile:mt-[180px] w-full'>
-            <header class='flex flex-col gap-6'>
-                <div>
-                    <h1 class='text-neon font-extrabold text-[40px] z-10'>{post.data.title}</h1>
-                    <p class='text-white mt-4'>{post.data.date.toLocaleDateString('en-US', dateOptions as any)} • {remarkPluginFrontmatter.minutesRead}</p>
+            <div class='flex flex-col w-full'>
+                <div class='flex items-start justify-between w-full gap-6'>
+                    <header class='flex flex-col gap-8'>
+                        <BackButton />
+                        <div class='flex flex-col gap-6'>
+                            <div>
+                                <h1 class='text-neon font-extrabold text-5xl z-10 leading-[60px]'>{post.data.title}</h1>
+                                <p class='text-white mt-4'>{parsedDate.toLocaleDateString('en-US', dateOptions as any)} • {remarkPluginFrontmatter.minutesRead}</p>
+                            </div>
+                            <a href={author.url || '/blog'} target='_blank' class='w-max'>
+                                <Author name={author.name} title={author.title || 'Tembonaut'} avatar={author.image_url} />
+                            </a>
+                        </div>
+                    </header>
+                    <img src={`/${post.data.image || 'blogFallbackImage.svg'}`} alt='blog post hero image' class='rounded-2xl w-[650px]' />
                 </div>
-                <Author name={author.name} title={author.title || 'Tembonaut'} avatar={author.image_url} />
-            </header>
-            <div class='mt-36'>
-                <Markdown>
-                    <Content />
-                </Markdown>
+                <div class='mt-36 flex justify-between gap-12 '>
+                    <Markdown>
+                        <Content />
+                    </Markdown>
+                    <div class='flex flex-col min-w-[300px] items-end'>
+                        <div class='flex flex-col gap-4 w-max'>
+                            <BlogLinks headings={headings} client:only />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </Container>
 </Layout>
 
+<script>
+    console.log(window.location.href);
+</script>

@@ -5,10 +5,11 @@ import Container from '../../components/Container';
 import Tag from '../../components/Tag.astro';
 import BlogPost from '../../components/BlogPost.astro';
 import { getCollection } from 'astro:content';
+import { sortPostDates } from '../../content/config';
 
 const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 const posts = (await getCollection('blog')).sort(
-	(a, b) => a.data.date.valueOf() - b.data.date.valueOf()
+	(a, b) => sortPostDates(a, b)
 );
 
 const currentPath = Astro.url.pathname;
@@ -35,8 +36,10 @@ const currentPath = Astro.url.pathname;
                 <div class='mt-10 pb-2'>
                     <div class='grid grid-cols-12 lg:gap-6'>
                         {posts.map(async (post) => {
-                            const { Content, remarkPluginFrontmatter } = await post.render();
-                            return <BlogPost title={post.data.title} slug={post.slug} readingTime={remarkPluginFrontmatter.minutesRead} date={post.data.date.toLocaleDateString('en-US', dateOptions as any)} author={post.data.authors[0]} heroImage={post.data.image} />
+                            const { remarkPluginFrontmatter } = await post.render();
+                            const dateString = post.id.substring(0, 10);
+                            const parsedDate = post.data?.date || new Date(dateString);
+                            return <BlogPost title={post.data.title} slug={post.slug} readingTime={remarkPluginFrontmatter.minutesRead} date={parsedDate.toLocaleDateString('en-US', dateOptions as any)} author={post.data.authors[0]} heroImage={post.data.image} />
                         })}
                     </div>
                 </div>

@@ -5,15 +5,16 @@ interface Props {
 	image?: string;
 	author?: string;
 	keywords?: string[];
+	htmlClasses?: string;
 }
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const DEFAULT_DESCRIPTION = 'Tembo is the Postgres developer platform for building every application and data service. Collapse the database sprawl of the modern data stack with a unified developer platform.';
 const DEFAULT_OG_IMAGE = 'og-image.png';
-const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, author, keywords } = Astro.props;
+const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, author, keywords, htmlClasses } = Astro.props;
 ---
 
 <!doctype html>
-<html lang='en'>
+<html class={htmlClasses} lang='en'>
 	<head>
 		<meta charset='UTF-8' />
 		<meta
