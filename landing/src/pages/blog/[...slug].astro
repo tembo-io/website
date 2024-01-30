@@ -4,6 +4,7 @@ import NavBar from '../../components/NavBar';
 import BlogLinks from '../../components/BlogLinks';
 import Container from '../../components/Container';
 import Markdown from '../../components/Markdown.astro';
+import Tag from '../../components/Tag.astro';
 import BackButton from '../../components/BackButton.astro';
 import Author from '../../components/Author.astro';
 import { getCollection } from 'astro:content';
@@ -17,8 +18,8 @@ export async function getStaticPaths() {
 	}));
 }
 const currentPath = Astro.url.pathname;
-const url = Astro.request.url;
 const post = Astro.props;
+
 const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 const dateString = post.id.substring(0, 10);
 const parsedDate = post.data?.date || new Date(dateString);
@@ -46,15 +47,18 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
                     </header>
                     <img src={`/${post.data.image || 'blogFallbackImage.svg'}`} alt='blog post hero image' class='hidden min-[1200px]:flex rounded-2xl w-[650px]' />
                 </div>
-                <div class='mt-36 flex justify-between w-full max-w-full'>
+                <div class='mt-36 flex justify-between w-full'>
                     <div class='mobile:mr-12'>
                         <Markdown>
                             <Content />
                         </Markdown>
                     </div>
-                    <div class='hidden mobile:flex flex-col items-end'>
-                        <div class='flex flex-col gap-4 w-max relative mobile:sticky mobile:top-[100px]'>
-                            <BlogLinks headings={headings} client:only />
+                    <div class='hidden mobile:flex flex-col gap-12'>
+                        <div class='flex flex-col gap-4 items-start'>
+                            {post.data.tags.map((tag: string) => <Tag title={tag} styles='px-2.5 py-[0.4rem] text-center text-[12px] h-max border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10' />)}
+                        </div>
+                        <div class='flex flex-col gap-4 w-max items-end mobile:sticky mobile:top-[100px]'>
+                            <BlogLinks headings={headings} client:load />
                         </div>
                     </div>
                 </div>

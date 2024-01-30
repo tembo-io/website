@@ -29,6 +29,7 @@ export default {
 				pink: '#FA467B',
 				lightPink: '#FFC9EA',
 				salmon: '#FF7D7F',
+				lightSalmon: '#FF999A',
 				mwasi: '#1C1C1C',
 				customDarkGrey: '#414141',
 				semiGrey: '#3E4243',

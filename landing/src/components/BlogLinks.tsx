@@ -9,7 +9,10 @@ interface Props {
 }
 
 const BlogLinks: React.FC<Props> = ({ headings }) => {
-    const [link, setLink] = useState(window.location.hash)
+    const [link, setLink] = useState('')
+    useEffect(() => {
+        setLink(window.location.hash)
+    }, [])
     return (
         <div className='flex flex-col gap-6 max-w-[250px]'>
             <h2 className='text-lightGrey font-bold'>On this page</h2>
