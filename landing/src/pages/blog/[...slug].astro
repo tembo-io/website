@@ -48,11 +48,13 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
                     </header>
                     <img src={`/${post.data.image || 'blogFallbackImage.svg'}`} alt='blog post hero image' class='rounded-2xl w-[650px]' />
                 </div>
-                <div class='mt-36 flex justify-between gap-12 '>
-                    <Markdown>
-                        <Content />
-                    </Markdown>
-                    <div class='flex flex-col min-w-[300px] items-end'>
+                <div class='mt-36 flex justify-between w-full'>
+                    <div class='mr-12'>
+                        <Markdown>
+                            <Content />
+                        </Markdown>
+                    </div>
+                    <div class='flex flex-col items-end'>
                         <div class='flex flex-col gap-4 w-max'>
                             <BlogLinks headings={headings} client:only />
                         </div>
@@ -62,7 +64,3 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
         </div>
     </Container>
 </Layout>
-
-<script>
-    console.log(window.location.href);
-</script>
