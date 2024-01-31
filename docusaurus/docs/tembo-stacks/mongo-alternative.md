@@ -67,6 +67,25 @@ db.orbit_data.insertMany([
 ]);
 ```
 
+When you conduct these operations, you should see an automated response
+
+```
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('<your-object-id>'),
+    '1': ObjectId(''),
+    '2': ObjectId('65ba40a7acdca11e00e19ecd')
+  }
+}
+```
+
+You can also run the command `show collections` to show the following:
+```
+orbit_data
+satellites
+```
+
 ### Sample queries
 
 #### Query 1
