@@ -17,7 +17,7 @@ const author = AUTHORS[authorProp || 'ryw'];
 
 <a class='col-span-12 mb-8 md:col-span-12 lg:col-span-6 xl:col-span-4 flex flex-col items-start justify-between bg-mwasi rounded-xl p-4 min-w-full gap-6 transition-all duration-300 ease-in-out hover:scale-[101.5%]' href={`/blog/${slug}`}>
     <div class='flex flex-col gap-6'>
-        <img src={heroImage || '/blogFallbackImage.svg'} alt={`${title} thumbnail`} class='rounded-xl w-full max-h-[200px]' />
+        <img src={heroImage || '/blogFallbackImage.svg'} alt={`${title} thumbnail`} class='rounded-xl w-full lg:max-h-[200px]' />
         <Author name={author.name} title={author.title || 'Tembonaut'} avatar={author.image_url} />
         <h2 class='text-white text-[20px]'>{title}</h2>
     </div>

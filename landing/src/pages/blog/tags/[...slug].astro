@@ -22,5 +22,5 @@ const currentPath = Astro.url.pathname;
 
 <Layout title='Blog | Tembo'>
     <NavBar client:load currentPage={currentPath} />
-    <BlogList posts={Object.values(posts)} />
+    <BlogList posts={Object.values(posts) as CollectionEntry<'blog'>[]} />
 </Layout>
