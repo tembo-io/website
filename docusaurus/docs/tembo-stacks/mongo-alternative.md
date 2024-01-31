@@ -51,7 +51,6 @@ Once connected, loading and working with data is very straightforward.
 Here we've provided a sample dataset showing satellite 
 
 ```
-// Inserting all Satellite Data
 db.satellites.insertMany([
     { name: "NOAA-15", type: "NOAA", launch_date: "2010-08-18", description: "description1." },
     { name: "NOAA-18", type: "NOAA", launch_date: "2022-11-23", description: "description2." },
@@ -61,7 +60,6 @@ db.satellites.insertMany([
     { name: "GOES-18", type: "GOES", launch_date: "2016-11-03", description: "description6." }
 ]);
 
-// Inserting all Orbit Data
 db.orbit_data.insertMany([
     { satellite_name: "NOAA-15", orbit_type: "LEO", altitude_km: 35786, inclination_deg: 47, period_minutes: 1436 },
     { satellite_name: "NOAA-18", orbit_type: "LEO", altitude_km: 30000, inclination_deg: 88, period_minutes: 1020 },
@@ -72,7 +70,7 @@ db.orbit_data.insertMany([
 ]);
 ```
 
-When you conduct these operations, you should see an automated response
+When you conduct these operations, you should see the following automated response:
 
 ```text
 {
@@ -88,10 +86,13 @@ When you conduct these operations, you should see an automated response
 ### Sample queries
 
 #### Query 1
-List the collections
+List the collections (table equivalent to relational databases).
 
 ```
 show collections
+```
+Result
+```text
 orbit_data
 satellites
 ```
@@ -101,6 +102,9 @@ Find all Satellites Launched After a Certain Date:
 
 ```
 db.satellites.find({ launch_date: { $gt: "2010-01-01" } })
+```
+Result
+```text
 [
   {
     _id: ObjectId('65ba40a4acdca11e00e19ec8'),
@@ -124,6 +128,10 @@ Find Satellites in Low Earth Orbit (LEO) with Altitude Less Than 35000 km:
 
 ```
 db.orbit_data.find({ orbit_type: "LEO", altitude_km: { $lt: 35000 } })
+```
+
+Result
+```
 [
   {
     _id: ObjectId('65ba40a7acdca11e00e19ecc'),
