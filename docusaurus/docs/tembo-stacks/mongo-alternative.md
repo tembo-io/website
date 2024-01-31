@@ -49,7 +49,7 @@ psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 
 Once connected, loading and working with data is very straightforward.
 Here we've provided a sample dataset showing satellites belonging to NOAA (National Oceanic and Atmospheric Administration).
-
+Note that the data is for demonstrative purposes and might not be accurate.
 
 ```
 db.satellites.insertMany([
@@ -99,56 +99,77 @@ satellites
 ```
 
 #### Query 2
-Find all Satellites Launched After a Certain Date:
+Find all satellites launched after a certain date.
 
 ```
-db.satellites.find({ launch_date: { $gt: "2010-01-01" } })
+db.satellites.find({ launch_date: { $gt: "2006-01-01" } })
 ```
 Result
 ```text
 [
   {
-    _id: ObjectId('65ba40a4acdca11e00e19ec8'),
-    name: 'NOAA-15',
+    _id: ObjectId('65ba66d3acdca11e00e19ed0'),
+    name: 'NOAA-19',
     type: 'NOAA',
-    launch_date: '2010-08-18',
-    description: 'Agent none science nothing.'
+    launch_date: '2009-02-06',
+    description: 'description3.'
   },
   {
-    _id: ObjectId('65ba40a4acdca11e00e19ec9'),
-    name: 'NOAA-18',
-    type: 'NOAA',
-    launch_date: '2022-11-23',
-    description: 'Win might think.'
+    _id: ObjectId('65ba66d3acdca11e00e19ed1'),
+    name: 'GOES-16',
+    type: 'GOES',
+    launch_date: '2016-11-19',
+    description: 'description4.'
+  },
+  {
+    _id: ObjectId('65ba66d3acdca11e00e19ed2'),
+    name: 'GOES-17',
+    type: 'GOES',
+    launch_date: '2018-03-01',
+    description: 'description5.'
+  },
+  {
+    _id: ObjectId('65ba66d3acdca11e00e19ed3'),
+    name: 'GOES-18',
+    type: 'GOES',
+    launch_date: '2022-03-01',
+    description: 'description6.'
   }
 ]
 ```
 
 #### Query 3
-Find Satellites in Low Earth Orbit (LEO) with Altitude Less Than 35000 km:
+Find satellites with a specific perigee altitude range.
 
 ```
-db.orbit_data.find({ orbit_type: "LEO", altitude_km: { $lt: 35000 } })
+db.orbit_data.find({perigee_altitude_km: { $gte: 800, $lte: 850 }})
 ```
-
 Result
-```
+```text
 [
   {
-    _id: ObjectId('65ba40a7acdca11e00e19ecc'),
-    satellite_name: 'NOAA-18',
+    _id: ObjectId('65ba66d5acdca11e00e19ed4'),
+    satellite_name: 'NOAA-15',
     orbit_type: 'LEO',
-    altitude_km: 30000,
-    inclination_deg: 88,
-    period_minutes: 1020
+    perigee_altitude_km: 808,
+    inclination_deg: 98.7,
+    period_minutes: 101.2
   },
   {
-    _id: ObjectId('65ba40a7acdca11e00e19ecd'),
+    _id: ObjectId('65ba66d5acdca11e00e19ed5'),
+    satellite_name: 'NOAA-18',
+    orbit_type: 'LEO',
+    perigee_altitude_km: 838,
+    inclination_deg: 98.88,
+    period_minutes: 102.12
+  },
+  {
+    _id: ObjectId('65ba66d5acdca11e00e19ed6'),
     satellite_name: 'NOAA-19',
     orbit_type: 'LEO',
-    altitude_km: 28000,
-    inclination_deg: 55,
-    period_minutes: 1120
+    perigee_altitude_km: 845,
+    inclination_deg: 98.7,
+    period_minutes: 102
   }
 ]
 ```
