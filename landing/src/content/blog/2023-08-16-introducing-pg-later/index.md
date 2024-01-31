@@ -2,7 +2,7 @@
 slug: introducing-pg-later
 title: "Introducing pg_later: Asynchronous Queries for Postgres, Inspired by Snowflake"
 authors: [adam]
-tags: [postgres, announcement, async]
+tags: [postgres, announcement, async, extensions]
 image: './tembo-launch.png'
 ---
 

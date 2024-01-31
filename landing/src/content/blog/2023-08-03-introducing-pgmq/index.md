@@ -2,7 +2,7 @@
 slug: introducing-pgmq
 title: "Introducing PGMQ: Simple Message Queues built on Postgres"
 authors: [adam]
-tags: [postgres, announcement, queues]
+tags: [postgres, announcement, queues, extensions]
 image: './tembo-launch.png'
 ---
 

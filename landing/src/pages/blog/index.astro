@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import NavBar from '../../components/NavBar';
+import Container from '../../components/Container';
+import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import { sortPostDates } from '../../content/config';
 import BlogList from '../../components/BlogList.astro';
@@ -15,4 +17,7 @@ const currentPath = Astro.url.pathname;
 <Layout title='Blog | Tembo'>
     <NavBar client:load currentPage={currentPath} />
     <BlogList posts={posts} />
+    <Container>
+        <Footer />
+    </Container>
 </Layout>

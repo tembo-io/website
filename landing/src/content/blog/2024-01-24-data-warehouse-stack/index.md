@@ -2,7 +2,7 @@
 slug: tembo-data-warehouse
 title: 'How we built our customer data warehouse all on Postgres'
 authors: [adam]
-tags: [postgres, extensions, stacks, data-warehouse]
+tags: [postgres, extensions, stacks, data-warehouse, data]
 image: './dw_social.png'
 date: 2024-01-25T12:00
 description: Tembo data warehouse

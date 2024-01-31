@@ -5,6 +5,7 @@ import cx from 'classnames';
 import { navigate } from 'astro:transitions/client';
 import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
+import Logo from './Logo';
 
 interface Props {
 	currentPage: string;
@@ -99,16 +100,7 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 							: 'py-8',
 					)}
 				>
-					<a
-						href='/'
-						className='focus:outline-none transition hover:scale-105 duration-300 ease-in-out delay-70 z-50'
-					>
-						<img
-							src='/logoWithText.svg'
-							alt='tembo log'
-							className='w-[105px] mobile:w-[124px]'
-						/>
-					</a>
+					<Logo />
 					<div className='mobile:flex hidden items-center gap-12'>
 						<a
 							href='/'

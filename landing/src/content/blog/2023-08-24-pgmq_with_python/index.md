@@ -2,7 +2,7 @@
 slug: pgmq-with-python
 title: "Using pgmq with Python"
 authors: [rjzv]
-tags: [postgres, pgmq, python]
+tags: [postgres, pgmq, python, extensions]
 image: './pgmq.png'
 
 ---
@@ -54,7 +54,7 @@ To use the library, we need to instantiate a PGMQueue object and from that objec
 | pgmq\_archive(queue, msg\_id)          | archive(self, queue: str, msg\_id: int) | Archives the message with msg\_id.                                        |
 | pgmq\_pop(queue)                        | pop(self, queue: str) | Pop the next message in the queue.                                       |
 | pgmq\_delete(queue, msg\_id)           | delete(self, queue: str, msg\_id: int) | Deletes the message with msg\_id from the queue.                        |
-| pgmq\_drop\_queue(queue)                 | Not available yet | Drops the queue. | 
+| pgmq\_drop\_queue(queue)                 | Not available yet | Drops the queue. |
 
 Next, let me show you how to implement a simple producer/consumer setup using the methods above.
 
