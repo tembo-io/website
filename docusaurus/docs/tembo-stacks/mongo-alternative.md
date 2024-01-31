@@ -48,12 +48,12 @@ Here we've provided a sample dataset showing satellite
 ```
 // Inserting all Satellite Data
 db.satellites.insertMany([
-    { name: "NOAA-15", type: "NOAA", launch_date: "2010-08-18", description: "Agent none science nothing." },
-    { name: "NOAA-18", type: "NOAA", launch_date: "2022-11-23", description: "Win might think." },
-    { name: "NOAA-19", type: "NOAA", launch_date: "2009-12-08", description: "Government discuss her." },
-    { name: "GOES-16", type: "GOES", launch_date: "2010-09-05", description: "Indicate grow after talk rather former off." },
-    { name: "GOES-17", type: "GOES", launch_date: "2005-01-06", description: "Table not with someone watch risk quality." },
-    { name: "GOES-18", type: "GOES", launch_date: "2016-11-03", description: "Geostationary positioning enhances weather prediction." }
+    { name: "NOAA-15", type: "NOAA", launch_date: "2010-08-18", description: "description1." },
+    { name: "NOAA-18", type: "NOAA", launch_date: "2022-11-23", description: "description2." },
+    { name: "NOAA-19", type: "NOAA", launch_date: "2009-12-08", description: "description3." },
+    { name: "GOES-16", type: "GOES", launch_date: "2010-09-05", description: "description4." },
+    { name: "GOES-17", type: "GOES", launch_date: "2005-01-06", description: "description5." },
+    { name: "GOES-18", type: "GOES", launch_date: "2016-11-03", description: "description6." }
 ]);
 
 // Inserting all Orbit Data
@@ -69,7 +69,7 @@ db.orbit_data.insertMany([
 
 When you conduct these operations, you should see an automated response
 
-```
+```text
 {
   acknowledged: true,
   insertedIds: {
@@ -80,20 +80,61 @@ When you conduct these operations, you should see an automated response
 }
 ```
 
-You can also run the command `show collections` to show the following:
+### Sample queries
+
+#### Query 1
+List the collections
+
 ```
+show collections
 orbit_data
 satellites
 ```
 
-### Sample queries
-
-#### Query 1
-
 #### Query 2
+Find all Satellites Launched After a Certain Date:
+
+```
+db.satellites.find({ launch_date: { $gt: "2010-01-01" } })
+[
+  {
+    _id: ObjectId('65ba40a4acdca11e00e19ec8'),
+    name: 'NOAA-15',
+    type: 'NOAA',
+    launch_date: '2010-08-18',
+    description: 'Agent none science nothing.'
+  },
+  {
+    _id: ObjectId('65ba40a4acdca11e00e19ec9'),
+    name: 'NOAA-18',
+    type: 'NOAA',
+    launch_date: '2022-11-23',
+    description: 'Win might think.'
+  }
+]
+```
 
 #### Query 3
+Find Satellites in Low Earth Orbit (LEO) with Altitude Less Than 35000 km:
 
-#### Query 4
-
-#### Query 5
+```
+db.orbit_data.find({ orbit_type: "LEO", altitude_km: { $lt: 35000 } })
+[
+  {
+    _id: ObjectId('65ba40a7acdca11e00e19ecc'),
+    satellite_name: 'NOAA-18',
+    orbit_type: 'LEO',
+    altitude_km: 30000,
+    inclination_deg: 88,
+    period_minutes: 1020
+  },
+  {
+    _id: ObjectId('65ba40a7acdca11e00e19ecd'),
+    satellite_name: 'NOAA-19',
+    orbit_type: 'LEO',
+    altitude_km: 28000,
+    inclination_deg: 55,
+    period_minutes: 1120
+  }
+]
+```
