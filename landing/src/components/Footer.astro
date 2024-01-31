@@ -1,131 +1,168 @@
 ---
-import Logo from "./Logo";
-import Container from "../layouts/Container.astro";
+import Checkmark from '../images/checkmark.svg';
+import { Image } from 'astro:assets';
 ---
 
 <footer class='bg-offBlack py-24 mt-24'>
 	<div class='flex gap-56'>
-		<Logo />
-		<div class='flex gap-20'>
-			<div class='flex flex-col gap-6'>
-				<h6 class='text-white font-semibold text-xl'>Company</h6>
-				<div class='flex flex-col gap-2 font-medium text-grey font-secondary'>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Docs</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Blog</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Pricing</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Product</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Cloud</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Trunk</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Roadmap</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Changelog</a
-					>
+		<a
+			href='/'
+			class='focus:outline-none transition hover:scale-[102%] duration-300 ease-in-out delay-70 z-50'
+		>
+			<img
+				src='/logoWithText.svg'
+				alt='tembo log'
+				class='w-[105px] mobile:min-w-[124px]'
+			/>
+		</a>
+		<div class='w-full'>
+			<div class='flex gap-20'>
+				<div class='flex flex-col gap-6'>
+					<h6 class='text-white font-semibold text-xl'>Company</h6>
+					<div class='flex flex-col gap-2 font-medium text-grey font-secondary'>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Docs</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Blog</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Pricing</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Product</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Cloud</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Trunk</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Roadmap</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Changelog</a
+						>
+					</div>
+				</div>
+				<div class='flex flex-col gap-6'>
+					<h6 class='text-white font-semibold text-xl'>Connect</h6>
+					<div class='flex flex-col gap-2 font-medium text-grey font-secondary'>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Github</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Twitter</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>LinkedIn</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Youtube</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Tembo Slack</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Trunk Slack</a
+						>
+					</div>
+				</div>
+				<div class='flex flex-col gap-6'>
+					<h6 class='text-white font-semibold text-xl'>Resources</h6>
+					<div class='flex flex-col gap-2 font-medium text-grey font-secondary'>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Status page</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Careers</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Support</a
+						>
+					</div>
 				</div>
 			</div>
-			<div class='flex flex-col gap-6'>
-				<h6 class='text-white font-semibold text-xl'>Connect</h6>
-				<div class='flex flex-col gap-2 font-medium text-grey font-secondary'>
+			<div class='flex justify-between items-center mt-16 font-medium text-grey text-[13px] w-full'>
+				<div class='flex items-center gap-12'>
 					<a
 						href='https://www.youtube.com/@tembo_io'
 						target='_blank'
 						rel='noreferrer'
-						>Github</a
+						>Privacy policy</a
 					>
 					<a
 						href='https://www.youtube.com/@tembo_io'
 						target='_blank'
 						rel='noreferrer'
-						>Twitter</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>LinkedIn</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Youtube</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Tembo Slack</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Trunk Slack</a
+						>Terms of service</a
 					>
 				</div>
+				<a
+					href='https://www.youtube.com/@tembo_io'
+					target='_blank'
+					rel='noreferrer'
+					class='font-secondary'
+					>
+						<span class='inline-flex gap-2'>
+							<Image src={Checkmark} alt='checkmark' width={14} height={16} />
+							SOC2 Type 1 compliant
+						</span>
+					</a
+				>
 			</div>
-			<div class='flex flex-col gap-6'>
-				<h6 class='text-white font-semibold text-xl'>Resources</h6>
-				<div class='flex flex-col gap-2 font-medium text-grey font-secondary'>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Status page</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Careers</a
-					>
-					<a
-						href='https://www.youtube.com/@tembo_io'
-						target='_blank'
-						rel='noreferrer'
-						>Support</a
-					>
-				</div>
-			</div>
-		</div>
-		<div class='flex items-center gap-12'>
 
 		</div>
 	</div>
