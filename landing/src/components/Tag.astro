@@ -1,14 +1,13 @@
 ---
-import cx from 'classnames';
-import { twMerge } from 'tailwind-merge';
 import { styles } from '../util';
 interface Props {
     title: string;
     classNames?: string;
 }
 const { title, classNames } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
 
-<a href={`/blog/tags/${title.toLowerCase()}`} class={styles('flex items-center justify-center border border-otherGrey rounded-full px-4 py-3 h-[40px] text-otherGrey', classNames)}>
+<a href={`/blog/tags/${title.toLowerCase()}`} class={styles('flex items-center justify-center border border-otherGrey rounded-full px-4 py-3 h-[40px] text-otherGrey', classNames, currentPath.includes(title.toLowerCase()) ? 'border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10' : '')}>
     <span>{title}</span>
 </a>
