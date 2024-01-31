@@ -1,5 +1,29 @@
 ---
 import BlogList from '../../../components/BlogList.astro';
 import Layout from '../../../layouts/Layout.astro';
+import NavBar from '../../../components/NavBar';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { sortPostDates } from '../../../content/config';
+
+export async function getStaticPaths() {
+    const posts = (await getCollection('blog')).filter((post: CollectionEntry<'blog'>) => post.data.tags.includes('')).sort(
+        (a, b) => sortPostDates(a, b)
+    );
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => sortPostDates(a, b)
+);
+
+const currentPath = Astro.url.pathname;
 ---
 
+
+<Layout title='Blog | Tembo'>
+    <NavBar client:load currentPage={currentPath} />
+    <BlogList posts={posts} />
+</Layout>
