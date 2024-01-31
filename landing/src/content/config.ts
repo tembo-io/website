@@ -17,7 +17,7 @@ export interface BlogCollection {
   authors: string[]
 }
 
-export const TAGS = ['All', 'Postgres', 'Engineering', 'Developers', 'Data', 'Extensions'];
+export const TAGS = ['All', 'Postgres', 'Engineering', 'Developers', 'Data', 'Extensions', 'Stacks'];
 
 export const AUTHORS: Record<string, Author> = {
   ryw: {
