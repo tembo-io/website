@@ -14,5 +14,5 @@ const currentPath = Astro.url.pathname;
 
 <Layout title='Blog | Tembo'>
     <NavBar client:load currentPage={currentPath} />
-   <BlogList posts={posts} />
+    <BlogList posts={posts} />
 </Layout>
