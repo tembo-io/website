@@ -5,7 +5,7 @@ sidebar_position: 10
 # Tembo MongoAlternative
 
 The Tembo MongoAlternative Stack is designed to bring document-oriented database capabilities to Postgres.
-Leveraging the power of FerretDB, Tembo users can both migrate from MongoDB to Postgres, as well as interact with their data as if they never left!
+Leveraging the power of FerretDB, Tembo users can both migrate from MongoDB to Postgres, as well as interact with their data in a remarkably familiar to them!
 
 ## Apps & Extensions
 
@@ -26,7 +26,7 @@ The difference, however, is that `mongosh` is specific to MongoDB-like environme
 
 #### Connect via mongosh
 
-Once you've established a Tembo MongoAlternative Stack instance, you will need to download a root SSL certificate.
+Once you've established a Tembo MongoAlternative Stack instance, you will need to download a root SSL certificate (this can be found just above the connection string on the right-hand side).
 You can then copy the connection string from the UI and execute it within the terminal having navigated to the directory containing the freshly-downloaded SSL certificate.
 As an alternative to copying from the UI, you can fill in and run the following mongosh command:
 
@@ -39,7 +39,7 @@ To use a different directory for your SSL certificate, replace $(pwd) with the f
 
 #### Connect via psql
 
-Like the other stacks, you have access to `psql`. 
+Like the other stacks, you have access to `psql` and can connect to Postgres by copying the `psql` connection string from the UI or fill in and run the following:
 
 ```bash
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
@@ -48,25 +48,26 @@ psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 ### Load sample data
 
 Once connected, loading and working with data is very straightforward.
-Here we've provided a sample dataset showing satellite 
+Here we've provided a sample dataset showing satellites belonging to NOAA (National Oceanic and Atmospheric Administration).
+
 
 ```
 db.satellites.insertMany([
-    { name: "NOAA-15", type: "NOAA", launch_date: "2010-08-18", description: "description1." },
-    { name: "NOAA-18", type: "NOAA", launch_date: "2022-11-23", description: "description2." },
-    { name: "NOAA-19", type: "NOAA", launch_date: "2009-12-08", description: "description3." },
-    { name: "GOES-16", type: "GOES", launch_date: "2010-09-05", description: "description4." },
-    { name: "GOES-17", type: "GOES", launch_date: "2005-01-06", description: "description5." },
-    { name: "GOES-18", type: "GOES", launch_date: "2016-11-03", description: "description6." }
+    { name: "NOAA-15", type: "NOAA", launch_date: "1998-05-13", description: "description1." },
+    { name: "NOAA-18", type: "NOAA", launch_date: "2005-05-20", description: "description2." },
+    { name: "NOAA-19", type: "NOAA", launch_date: "2009-02-06", description: "description3." },
+    { name: "GOES-16", type: "GOES", launch_date: "2016-11-19", description: "description4." },
+    { name: "GOES-17", type: "GOES", launch_date: "2018-03-01", description: "description5." },
+    { name: "GOES-18", type: "GOES", launch_date: "2022-03-01", description: "description6." }
 ]);
 
 db.orbit_data.insertMany([
-    { satellite_name: "NOAA-15", orbit_type: "LEO", altitude_km: 35786, inclination_deg: 47, period_minutes: 1436 },
-    { satellite_name: "NOAA-18", orbit_type: "LEO", altitude_km: 30000, inclination_deg: 88, period_minutes: 1020 },
-    { satellite_name: "NOAA-19", orbit_type: "LEO", altitude_km: 28000, inclination_deg: 55, period_minutes: 1120 },
-    { satellite_name: "GOES-16", orbit_type: "GEO", altitude_km: 35786, inclination_deg: 0, period_minutes: 1436 },
-    { satellite_name: "GOES-17", orbit_type: "GEO", altitude_km: 35786, inclination_deg: 0, period_minutes: 1436 },
-    { satellite_name: "GOES-18", orbit_type: "GEO", altitude_km: 35786, inclination_deg: 0, period_minutes: 1436 }
+    { satellite_name: "NOAA-15", orbit_type: "LEO", perigee_altitude_km: 808.0, inclination_deg: 98.70, period_minutes: 101.20 },
+    { satellite_name: "NOAA-18", orbit_type: "LEO", perigee_altitude_km: 838.0, inclination_deg: 98.88, period_minutes: 102.12 },
+    { satellite_name: "NOAA-19", orbit_type: "LEO", perigee_altitude_km: 845.0, inclination_deg: 98.70, period_minutes: 102.00 },
+    { satellite_name: "GOES-16", orbit_type: "GEO", perigee_altitude_km: 35780.2, inclination_deg: 0.03, period_minutes: 1436.1 },
+    { satellite_name: "GOES-17", orbit_type: "GEO", perigee_altitude_km: 35786.6, inclination_deg: 0.02, period_minutes: 1436.1 },
+    { satellite_name: "GOES-18", orbit_type: "GEO", perigee_altitude_km: 35957.0, inclination_deg: 0.05, period_minutes: 1436.1 }
 ]);
 ```
 
