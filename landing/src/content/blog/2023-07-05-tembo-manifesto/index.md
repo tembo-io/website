@@ -9,7 +9,7 @@ image: './tembo_brand.png'
 ![tembo brand](./tembo_brand.png)
 
 > January 10, 2024
-> After a year of hard work by our amazing team, we [announced the general availability](https://tembo.io/blog/ga/) (GA) of [Tembo Cloud](https://cloud.tembo.io), a managed Postgres service that unlocks the full power of the Postgres ecosystem. Please [give it a try](https://cloud.tembo.io)!
+> After a year of hard work by our amazing team, we [announced the general availability](https://tembo.io/blog/ga) (GA) of [Tembo Cloud](https://cloud.tembo.io), a managed Postgres service that unlocks the full power of the Postgres ecosystem. Please [give it a try](https://cloud.tembo.io)!
 
 
 ## Vendor sprawl and data islands
