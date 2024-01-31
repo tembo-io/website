@@ -42,97 +42,29 @@ psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 
 ### Load sample data
 
-Once connected, loading and working with data is very simple.
+Once connected, loading and working with data is very straightforward.
+Here we've provided a sample dataset showing satellite 
 
 ```
-{
-    "satellites": [
-        {
-            "name": "NOAA-15",
-            "type": "NOAA",
-            "launch_date": "2010-08-18",
-            "description": "Agent none science nothing."
-        },
-        {
-            "name": "NOAA-18",
-            "type": "NOAA",
-            "launch_date": "2022-11-23",
-            "description": "Win might think."
-        },
-        {
-            "name": "NOAA-19",
-            "type": "NOAA",
-            "launch_date": "2009-12-08",
-            "description": "Government discuss her."
-        }
-    ],
-    "orbit_data": [
-        {
-            "satellite_name": "NOAA-15",
-            "orbit_type": "LEO",
-            "altitude_km": 35786,
-            "inclination_deg": 47,
-            "period_minutes": 1436
-        },
-        {
-            "satellite_name": "NOAA-18",
-            "orbit_type": "LEO",
-            "altitude_km": 30000,
-            "inclination_deg": 88,
-            "period_minutes": 1020
-        },
-        {
-            "satellite_name": "NOAA-19",
-            "orbit_type": "LEO",
-            "altitude_km": 28000,
-            "inclination_deg": 55,
-            "period_minutes": 1120
-        }
-    ],
-    "observation_data": [
-        {
-            "satellite_name": "NOAA-15",
-            "timestamp": "2019-11-11T06:59:10",
-            "temperature": -77,
-            "humidity": 97,
-            "cloud_cover": 100
-        },
-        {
-            "satellite_name": "NOAA-18",
-            "timestamp": "2020-04-15T15:20:30",
-            "temperature": 23,
-            "humidity": 45,
-            "cloud_cover": 75
-        },
-        {
-            "satellite_name": "NOAA-19",
-            "timestamp": "2021-08-21T09:10:55",
-            "temperature": 19,
-            "humidity": 65,
-            "cloud_cover": 80
-        }
-    ],
-    "mission_data": [
-        {
-            "satellite_name": "NOAA-15",
-            "objectives": "Study detailed weather patterns.",
-            "instruments": ["radiometer", "altimeter"],
-            "research_area": "meteorology"
-        },
-        {
-            "satellite_name": "NOAA-18",
-            "objectives": "Monitor global climate changes.",
-            "instruments": ["spectrometer", "camera"],
-            "research_area": "climatology"
-        },
-        {
-            "satellite_name": "NOAA-19",
-            "objectives": "Track oceanographic phenomena.",
-            "instruments": ["lidar", "thermometer"],
-            "research_area": "oceanography"
-        }
-    ]
-}
+// Inserting all Satellite Data
+db.satellites.insertMany([
+    { name: "NOAA-15", type: "NOAA", launch_date: "2010-08-18", description: "Agent none science nothing." },
+    { name: "NOAA-18", type: "NOAA", launch_date: "2022-11-23", description: "Win might think." },
+    { name: "NOAA-19", type: "NOAA", launch_date: "2009-12-08", description: "Government discuss her." },
+    { name: "GOES-16", type: "GOES", launch_date: "2010-09-05", description: "Indicate grow after talk rather former off." },
+    { name: "GOES-17", type: "GOES", launch_date: "2005-01-06", description: "Table not with someone watch risk quality." },
+    { name: "GOES-18", type: "GOES", launch_date: "2016-11-03", description: "Geostationary positioning enhances weather prediction." }
+]);
+
+// Inserting all Orbit Data
+db.orbit_data.insertMany([
+    { satellite_name: "NOAA-15", orbit_type: "LEO", altitude_km: 35786, inclination_deg: 47, period_minutes: 1436 },
+    { satellite_name: "NOAA-18", orbit_type: "LEO", altitude_km: 30000, inclination_deg: 88, period_minutes: 1020 },
+    { satellite_name: "NOAA-19", orbit_type: "LEO", altitude_km: 28000, inclination_deg: 55, period_minutes: 1120 },
+    { satellite_name: "GOES-16", orbit_type: "GEO", altitude_km: 35786, inclination_deg: 0, period_minutes: 1436 },
+    { satellite_name: "GOES-17", orbit_type: "GEO", altitude_km: 35786, inclination_deg: 0, period_minutes: 1436 },
+    { satellite_name: "GOES-18", orbit_type: "GEO", altitude_km: 35786, inclination_deg: 0, period_minutes: 1436 }
+]);
 ```
 
 ### Sample queries
