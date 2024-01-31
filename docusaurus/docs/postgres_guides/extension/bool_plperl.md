@@ -1,5 +1,5 @@
 # What is this extension?
->*Transform boolean type <> PL/Perl.*
+>*Transform boolean type to and from PL/Perl.*
 
 `bool_plperl` is a C-based transformation extension that allows conversion between PostgreSQL- and Perl-native boolean values.
 
