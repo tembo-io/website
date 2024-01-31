@@ -36,7 +36,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
                         <BackButton />
                         <div class='flex flex-col gap-6'>
                             <div>
-                                <h1 class='text-neon font-extrabold text-5xl z-10 leading-[60px]'>{post.data.title}</h1>
+                                <h1 class='text-neon font-extrabold text-3xl mobile:text-4xl lg:text-5xl z-10 lg:leading-[60px] max-w-[600px]'>{post.data.title}</h1>
                                 <p class='text-white mt-4'>{parsedDate.toLocaleDateString('en-US', dateOptions as any)} • {remarkPluginFrontmatter.minutesRead}</p>
                             </div>
                             <a href={author.url || '/blog'} target='_blank' class='w-max'>
