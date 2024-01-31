@@ -24,6 +24,8 @@ The difference, however, is that `mongosh` is specific to MongoDB-like environme
 
 ### Setup
 
+#### Connect via mongosh
+
 Once you've established a Tembo MongoAlternative Stack instance, you will need to download a root SSL certificate.
 You can then copy the connection string from the UI and execute it within the terminal having navigated to the directory containing the freshly-downloaded SSL certificate.
 As an alternative to copying from the UI, you can fill in and run the following mongosh command:
@@ -32,9 +34,12 @@ As an alternative to copying from the UI, you can fill in and run the following 
 mongosh "mongodb://postgres:<your-password>@<your-host>:27018/ferretdb?authMechanism=PLAIN&tls=true&tlsCaFile=$(pwd)/ca.crt"
 ```
 
-Note that the end of the connection string, `tlsCaFile=$(pwd)/ca.crt`, is pointing to the directory in which your terminal is in when executing the connection string.
-This can be changed if you have a specific directory you would like to store your SSL certificate in.
+The tlsCaFile=$(pwd)/ca.crt in your MongoDB connection string specifies the SSL certificate file's location using the current directory ($(pwd)).
+To use a different directory for your SSL certificate, replace $(pwd) with the full path to the certificate, like tlsCaFile=/your/certificate/path/ca.crt.
 
+#### Connect via psql
+
+Like the other stacks, you have access to `psql`. 
 
 ```bash
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
