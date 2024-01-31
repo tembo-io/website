@@ -3,8 +3,8 @@ import Checkmark from '../images/checkmark.svg';
 import { Image } from 'astro:assets';
 ---
 
-<footer class='bg-offBlack py-24 mt-24'>
-	<div class='flex gap-56'>
+<footer class='bg-offBlack py-16 mobile:py-24 mt-24'>
+	<div class='flex flex-col mobile:flex-row gap-12 mobile:gap-32 lg:gap-56'>
 		<a
 			href='/'
 			class='focus:outline-none transition hover:scale-[102%] duration-300 ease-in-out delay-70 z-50'
@@ -16,7 +16,7 @@ import { Image } from 'astro:assets';
 			/>
 		</a>
 		<div class='w-full z-50'>
-			<div class='flex gap-20'>
+			<div class='flex gap-20 flex-wrap'>
 				<div class='flex flex-col gap-6'>
 					<h6 class='text-white font-semibold text-xl'>Company</h6>
 					<div class='flex flex-col gap-2 font-medium text-grey font-secondary'>
@@ -135,8 +135,8 @@ import { Image } from 'astro:assets';
 					</div>
 				</div>
 			</div>
-			<div class='flex justify-between items-center mt-16 font-medium text-grey text-[13px] w-full'>
-				<div class='flex items-center gap-12'>
+			<div class='flex flex-col-reverse min-[470px]:flex-row justify-between min-[470px]:items-center mt-16 font-medium text-grey text-[13px] w-full'>
+				<div class='flex items-center justify-stretch gap-4'>
 					<a
 						href='https://www.youtube.com/@tembo_io'
 						target='_blank'
@@ -154,7 +154,7 @@ import { Image } from 'astro:assets';
 					href='https://www.youtube.com/@tembo_io'
 					target='_blank'
 					rel='noreferrer'
-					class='font-secondary'
+					class='font-secondary mb-2 min-[470px]:mb-0'
 					>
 						<span class='inline-flex gap-2'>
 							<Image src={Checkmark} alt='checkmark' width={14} height={16} />
