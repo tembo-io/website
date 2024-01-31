@@ -1,4 +1,4 @@
-# What is this extension?
+# chkpass
 
 > Store encrypted passwords.
 

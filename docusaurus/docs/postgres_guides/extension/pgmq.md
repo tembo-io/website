@@ -1,4 +1,4 @@
-# What is this extension?
+# pgmq
 
 > Lightweight message queue.
 

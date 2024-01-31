@@ -1,4 +1,5 @@
-# What is this extension?
+# PL/R
+
 >***R procedural language.***
 
 `PL/R` is a C-based procedural language extension that allows the user to compose R programming language scripts within Postgres.

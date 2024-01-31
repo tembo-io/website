@@ -1,4 +1,5 @@
-# What is this extension?
+# random
+
 > *Generate random data.*
 
 The `random` extension for PostgreSQL introduces a suite of functions specifically designed to generate random values across various data types.

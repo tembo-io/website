@@ -1,4 +1,4 @@
-# What is this extension?
+# btree_gin
 >*B-tree-similar GIN operator class.*
 
 `btree_gin` is an extension that provides Generalized Inverted Index (GIN) operator classes to simulate B-tree-like behavior for a wide variety of data types, such as int2, int4, int8, float4, float8, timestamp, date, oid, text, bytea, macaddr, inet, uuid, bool, bpchar, and all enum types, among others.

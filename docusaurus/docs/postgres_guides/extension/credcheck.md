@@ -1,4 +1,4 @@
-# What is this extension?
+# credcheck
 
 > Define authorization protocols.
 

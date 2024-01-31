@@ -1,4 +1,4 @@
-# What is this extension?
+# count_distinct
 
 > COUNT(DISCTINCT ...) alternative.
 

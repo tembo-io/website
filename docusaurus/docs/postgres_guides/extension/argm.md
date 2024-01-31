@@ -1,4 +1,4 @@
-# What is this extension?
+# argm
 
 >*Custom aggregate functions.*
 

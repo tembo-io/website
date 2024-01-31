@@ -1,4 +1,5 @@
-# What is this extension?
+# earthdistance
+
 > *Calculate Earth distances.*
 
 `earthdistance` is a C-based extension that provides the capability to calculate great-circle distances on the Earth's surface between two given points. It assumes that Earth is a perfect sphere.

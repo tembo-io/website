@@ -1,4 +1,4 @@
-# What is this extension?
+# aggs_for_vecs
 > *Array-specific aggregate functions.*
 
 `aggs_for_vecs` is a C-based extension that introduces arithmetic operations on arrays, as opposed to scalars. In the case of `aggs_for_vecs`, each array is treated as a vector.

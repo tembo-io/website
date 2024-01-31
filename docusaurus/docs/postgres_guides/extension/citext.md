@@ -1,4 +1,4 @@
-# What is this extension?
+# citext
 
 > *Match case-insensitive text.*
 

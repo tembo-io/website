@@ -1,4 +1,4 @@
-# What is this extension?
+# cube
 
 > Cube data type.
 

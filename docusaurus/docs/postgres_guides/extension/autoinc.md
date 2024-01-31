@@ -1,4 +1,4 @@
-# What is this extension?
+# autoinc
 >*Auto-incrementing field functions.*
 
 `autoinc` is a C-based extension that is included in the PostgreSQL additional supplied module catalog. It provides a trigger named **autoinc()**, which helps in automatically incrementing integer fields.
