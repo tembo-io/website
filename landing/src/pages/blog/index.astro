@@ -1,11 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import NavBar from '../../components/NavBar';
-import Container from '../../components/Container';
-import Tag from '../../components/Tag.astro';
-import BlogPost from '../../components/BlogPost.astro';
 import { getCollection } from 'astro:content';
 import { sortPostDates } from '../../content/config';
+import BlogList from '../../components/BlogList.astro';
 
 const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 const posts = (await getCollection('blog')).sort(
@@ -17,34 +15,5 @@ const currentPath = Astro.url.pathname;
 
 <Layout title='Blog | Tembo'>
     <NavBar client:load currentPage={currentPath} />
-    <Container styles='pb-4'>
-        <div class='mt-[120px] mobile:mt-[180px]'>
-            <header>
-                <h1 class='text-neon font-extrabold text-6xl z-10 mb-6'>Tembo's Blog</h1>
-                <p></p>
-            </header>
-            <div class='mt-16'>
-                <div class='flex items-center justify-between'>
-                    <div class='flex items-center gap-2 flex-wrap'>
-                        <Tag title='All' />
-                        <Tag title='Postgres' />
-                        <Tag title='Engineering' />
-                        <Tag title='Developers' />
-                        <Tag title='Company' />
-                        <Tag title='Extensions' />
-                    </div>
-                </div>
-                <div class='mt-10 pb-2'>
-                    <div class='grid grid-cols-12 lg:gap-6'>
-                        {posts.map(async (post) => {
-                            const { remarkPluginFrontmatter } = await post.render();
-                            const dateString = post.id.substring(0, 10);
-                            const parsedDate = post.data?.date || new Date(dateString);
-                            return <BlogPost title={post.data.title} slug={post.slug} readingTime={remarkPluginFrontmatter.minutesRead} date={parsedDate.toLocaleDateString('en-US', dateOptions as any)} author={post.data.authors[0]} heroImage={post.data.image} />
-                        })}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </Container>
+   <BlogList posts={posts} />
 </Layout>

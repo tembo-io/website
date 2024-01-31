@@ -1,0 +1,43 @@
+---
+import Container from './Container';
+import BlogPost from './BlogPost.astro';
+import Tag from './Tag.astro';
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    posts: CollectionEntry<'blog'>[];
+}
+
+const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+const { posts } = Astro.props;
+---
+
+<Container styles='pb-4'>
+    <div class='mt-[120px] mobile:mt-[180px]'>
+        <header>
+            <h1 class='text-neon font-extrabold text-6xl z-10 mb-6'>Tembo's Blog</h1>
+        </header>
+        <div class='mt-16'>
+            <div class='flex items-center justify-between'>
+                <div class='flex items-center gap-2 flex-wrap'>
+                    <Tag title='All' />
+                    <Tag title='Postgres' />
+                    <Tag title='Engineering' />
+                    <Tag title='Developers' />
+                    <Tag title='Data' />
+                    <Tag title='Extensions' />
+                </div>
+            </div>
+            <div class='mt-10 pb-2'>
+                <div class='grid grid-cols-12 lg:gap-6'>
+                    {posts.map(async (post) => {
+                        const { remarkPluginFrontmatter } = await post.render();
+                        const dateString = post.id.substring(0, 10);
+                        const parsedDate = post.data?.date || new Date(dateString);
+                        return <BlogPost title={post.data.title} slug={post.slug} readingTime={remarkPluginFrontmatter.minutesRead} date={parsedDate.toLocaleDateString('en-US', dateOptions as any)} author={post.data.authors[0]} heroImage={post.data.image} />
+                    })}
+                </div>
+            </div>
+        </div>
+    </div>
+</Container>
