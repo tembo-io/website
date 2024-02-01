@@ -19,15 +19,15 @@ In other words, users have Mongo-compatible storage without needing to change th
 
 Similar to `psql`, `mongosh` is a client used to query and interact with the data in your Mongo database and is compatible with FerretDB.
 
-- For macOS, you can run the following brew command: `brew install mongosh`
-- For Windows and Linux, please refer to the steps found within the [mongosh official documentation](https://www.mongodb.com/docs/mongodb-shell/install/)
+- For macOS, you can run the following brew command: `brew install mongosh`.
+- For Windows and Linux, please refer to the steps found within the [mongosh official documentation](https://www.mongodb.com/docs/mongodb-shell/install/).
 
 ### Setup
 
 #### Connecting via mongosh
 
 Once you've established a Tembo MongoAlternative Stack instance, you will need to download a root SSL certificate (this can be found just above the connection string on the right-hand side).
-You can then copy the connection string from the UI and execute it within the terminal having navigated to the directory containing the freshly-downloaded SSL certificate.
+You can then copy the connection string from the UI and execute it within the terminal, having first navigated to the directory containing the freshly-downloaded SSL certificate.
 As an alternative to copying from the UI, you can fill in and run the following mongosh command:
 
 ```bash
