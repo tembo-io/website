@@ -10,7 +10,7 @@ description: Automated Vector Search workflow on Postgres using Hugging Face sen
 
 ![tembo-vector](./tembo_vector.png "tembo-vector")
 
-Sentence transformers have revolutionized text processing in machine learning and AI by converting raw text into numerical vectors, enabling applications like vector similarity searches and semantic search. With [pg_vectorize](https://github.com/tembo-io/pg_vectorize), an open source extension for Postgres, you have a seamless link to do vector search using over 120 open-source HuggingFace transformers, directly from Postgres.
+Sentence transformers have revolutionized text processing in machine learning and AI by converting raw text into numerical vectors, enabling applications like vector similarity searches and semantic search. With [pg_vectorize](https://github.com/tembo-io/pg_vectorize), an open source extension for Postgres, you have a seamless link to do vector search using over 120 open-source [Sentence Transformers](https://huggingface.co/sentence-transformers) from [HuggingFace](https://huggingface.co), directly from Postgres.
 
 pg_vectorize is completely open source, and you can run it locally or in your own environment by following the project’s [quick-start guide](https://github.com/tembo-io/pg_vectorize?tab=readme-ov-file#pg_vectorize). It is also available by default on the Tembo [VectorDB Stack](https://tembo.io/docs/tembo-stacks/vector-db) in [Tembo Cloud](https://tembo.io) and can be added to any Tembo Postgres instance.
 
