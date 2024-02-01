@@ -110,7 +110,7 @@ Results are returned as rows of jsonb, including a similarity score for the sear
 
 ## Separate compute for transformer models
 
-Machine learning workloads typically have very different compute requirements than Postgres. For example, many transformers will benefit immensely from having a GPU available, or massive amounts of CPU and memory. Therefore, it makes sense to run the embedding transformers on a separate host than Postgres itself, which does not natively require a GPU to be present. So in our example, when we run “[docker compose up](https://github.com/tembo-io/pg_vectorize/blob/main/docker-compose.yml)”, we’re running the transformer models in a separate container than Postgres. This gives you the flexibility to run the transformers wherever you want, so long as postgres can establish an HTTP connection with the host of the container running the transformers.
+Machine learning workloads typically have very different compute requirements than Postgres. For example, many transformers will benefit immensely from having a GPU available, or massive amounts of CPU and memory. Therefore, it makes sense to run the embedding transformers on a separate host than Postgres itself, which does not natively require a GPU to be present. So in our example, when we run “[docker compose up](https://github.com/tembo-io/pg_vectorize/blob/main/docker-compose.yml)”, we’re running the transformer models in a separate container than Postgres. This gives you the flexibility to run the transformers wherever you want, so long as pg_vectorize is able to establish a network connection with the container running the transformers.
 
 ![containers](./containers.png "containers")
 
