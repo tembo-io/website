@@ -5,26 +5,26 @@ authors: [evan]
 tags: [postgres, geospatial, stacks, database]
 ---
 
-While today’s data is ubiquitous, there remain many cases whereby, only after providing additional contexts, can a collection of points graduate to valuable information. This is especially true when dealing with geospatial datasets.
+In today's world, geographic data stands out for its ability to apply spatial context to collections of points, transforming them into valuable insights.
+When properly analyzed, these datasets can reveal exciting patterns that explore not only the dichotomy of nature and human activity, but the balance between them as well.
+Even as a quick illustration, geospatial can help facilitate predictive modeling and spatial analytics, aiding in everything from disaster response planning to optimizing delivery routes in logistics.
 
-Performing operations on, and gathering insights from geospatial datasets can be complex, but very rewarding. We at Tembo recently launched a Stack celebrating geospatial workloads! This comes pre-packaged with PostGIS and related extensions, and as always only a few clicks away from any extension hosted in [Trunk](https://pgt.dev).
+Performing operations on, and gathering insights from geospatial datasets can be complex, but very rewarding.
+To address this, we recently launched the Geospatial Stack to make it easier for you to get started with exploring your geospatial datasets.
+
+Working with geospatial workloads is not new to Postgres.
+In fact, it’s most popular geospatial extension, and certainly one of the most popular in general, [PostGIS, has been around since 2001](https://postgis.net/workshops/postgis-intro/introduction.html#a-brief-history-of-postgis).
+The Geospatial Stack comes pre-packaged with PostGIS and related extensions, and as always only a few clicks away from any extension hosted in [Trunk](https://pgt.dev).
+These extensions add incredible capabilities, and when using them together in Postgres, you don’t need any other database!
 
 ![extensions](./extensions.png 'extensions')
 Figure 1. Snapshot of Tembo's Geospatial Stack extension overview.
 
-We wanted to share our excitement by showcasing some interesting content, so please join us on a journey to Africa! Stick around to the end, where we will share insights that might be applicable to your personal use case.
+## 1. How to load elephant tracking data (and geospatial in general) into Postgres
 
-Check out the source code and follow along interactively!
+Since we're talking about Postgres, we thought an interesting example to explore would be an elephant's journey through the forests of Cote d'Ivoire.
 
-## 0. Prerequisites 
-
-- Free [Tembo instance](https://tembo.io/) 
-- Data to PostgreSQL tool, ogr2ogr (bundled with [GDAL](https://gdal.org/index.html)).
-
-## 1. The Data
-
-Forest elephant populations in the West African country of Côte d'Ivoire have been dwindling and are commonly relocated to nature preserves. One difficulty involved in monitoring their health and wellness is tied closely to the thick tropical forests where the elephants feel at home. To address this, select elephants are outfitted with tracking collars, which collects GPS (Global Positioning System) data for future analysis. The following dataset was gathered from Movebank, a repository for animal tracking data:
-
+The following dataset was gathered by Dr. Mike Loomis and his team and published to the Movebank online database of animal tracking data under the CC0 License.
 - Location: Africa, Côte d'Ivoire, Forest Preserve near the village of Dassioko
 - Timeframe: 2018 - 2021
 - Sample size: 1
@@ -46,7 +46,7 @@ host=<YOUR HOST>" \
 points.shp 
 ```
 
-You can then conduct a quick data exploration by running the following queries:
+Once the data was loaded, we could run queries like the following:
 
 ```
 SELECT COUNT(*) FROM elephant5990;
@@ -84,10 +84,8 @@ time
 wkb_geometry
 (18 rows)
 ```
-![map_data_points](./map_data_points.png 'map_data_points')
-Figure 2. QGIS-renedered OpenStreetMap visualization containing elephant tracking data.
 
-## 2. PostGIS
+## 2. PostGIS and its power to gather insights from your data
 
 Already we see some interesting fields corresponding to coordinates and timestamps. 
 
@@ -129,19 +127,39 @@ ST_Contains(v.wkb_geometry, e.wkb_geometry);
 count | 47
 ```
 
-![map_area_village](./map_area_village.png 'map_area_village')
-Figure 3. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing Dassioko Village.
-
 ### `ST_ConcaveHull`, `ST_InteriorRingN`
 
 ST_ConcaveHull can be used to establish a boundary around a set of points, while also allowing for gaps (known as holes). ST_InteriorRingN can then be used to identify these holes.
 
 - On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
 
-![map_area_avoidance](./map_area_avoidance.png 'map_area_avoidance')
-Figure 4. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing a generated potential area of avoidance.
 
-## 3. Summary
+## 3. Visualizing this Data with QGIS
+
+In addition to running these SQL queries, we could easily overlay this data over maps using QGIS to emit visualizations.
+
+By leveraging QGIS' OpenStreetMap feature, we can offer real world context to an otherwise meaningless distribution of points (Figure 2).
+This not only helps draw territorial boundaries, but spotlights areas of cluser vs dispersion for further analysis.
+
+![map_data_points](./map_data_points.png 'map_data_points')
+Figure 2. QGIS-renedered OpenStreetMap visualization containing elephant tracking data.
+
+The OpenStreetMap layer readily shows the defined border of Dassioko Village (Figure 2).
+Using QGIS, we can create a custom geometry to both visualize, as well as analyze in Postgres.
+This layer helps us answer questions related to the elephant's behavior in relation to the village (Figure 3).
+
+![map_area_village](./map_area_village.png 'map_area_village')
+Figure 3. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing Dassioko Village. This is made possible using the PostGIS function, ST_Contains.
+
+Finally, we can implement a reverse workflow, whereby we quantify in Postgres and use the results to generate a QGIS overlay.
+In this case, showcasing a potential area of avoidance (Figure 4). 
+
+
+![map_area_avoidance](./map_area_avoidance.png 'map_area_avoidance')
+Figure 4. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing a generated potential area of avoidance. This is made possible using PostGIS functions, ST_ConcaveHull and ST_InteriorRingN.
+
+
+## 4. Summary and applications to other projects
 
 Using Tembo’s Geospatial Stack, we were able to explore a GPS tracking dataset. Though this demonstration focused on the movements of a single elephant, it should be noted that the showcased PostGIS functions have numerous applications to other, business-centric projects:
 - Loading and exploring geospatial datasets
@@ -151,6 +169,6 @@ Using Tembo’s Geospatial Stack, we were able to explore a GPS tracking dataset
 
 Interested in a more comprehensive guide? Checkout (INSERT TEMBO GPS DATA GUIDE)
 
-## 4. Acknowledgements
-We would like to thank Mark MacAllister et al. for their efforts in acquiring this interesting data and for sharing it with the public under the CC0 license. And for the Max Planck Institute, as well as affiliate groups, for maintaining Movebank.
+## 5. Acknowledgements
+We would like to thank Dr. Mike Loomis and Team for their efforts in acquiring this interesting data and for sharing it with the public under the CC0 license. And for the Max Planck Institute, as well as affiliate groups, for maintaining Movebank.
 
