@@ -86,3 +86,10 @@ evan:
     url: https://github.com/EvanHStanton
     image_url: https://github.com/EvanHStanton.png
     email: noreply@tembo.io
+
+theory:
+    name: David E. Wheeeler
+    title: Principal Architect
+    url: https://justatheory.com
+    image_url: https://github.com/theory.png
+    email: noreply@tembo.io
