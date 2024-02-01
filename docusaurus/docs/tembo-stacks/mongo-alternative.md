@@ -39,7 +39,7 @@ To use a different directory for your SSL certificate, replace $(pwd) with the f
 
 #### Connect via psql
 
-Like the other stacks, you have access to `psql` and can connect to Postgres by copying the `psql` connection string from the UI or fill in and run the following:
+Like other postgres instances you can use `psql` to connect to Postgres by copying the `psql` connection string from the UI or fill in and run the following:
 
 ```bash
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
