@@ -39,7 +39,7 @@ To use a different directory for your SSL certificate, replace $(pwd) with the f
 
 ### Load sample data
 
-Once connected vis mongosh, loading and working with data is very straightforward.
+Once connected via mongosh, loading and working with data is very straightforward.
 Here we've provided a sample dataset showing satellites belonging to NOAA (National Oceanic and Atmospheric Administration).
 Note that the data is for demonstrative purposes and might not be accurate.
 
