@@ -37,9 +37,27 @@ For user defined containers, you must specify the key `custom` in the `app_servi
 
 Below is an example deploying a python FastAPI webserver container alongside your Tembo Postgres instance. This can be applied in a PATCH request to an existing Tembo instance or used as part of any of the instance methods, to the [Tembo Platform API](https://api.tembo.io/redoc). The container image is public, and the application was designed to run on port 3000 in the container. The application is exposed publicly at `https://$YourTemboHostName/embeddings`, and those requests are mapped to the path `/v1/embeddings` and port `3000` on the container. Two environment variables are configured, along with cpu and memory requests and limits. An ephemeral storage volume is mounted at the `/models` path in the container.
 
-```json
-{
-  ...,
+
+```bash
+export TEMBO_TOKEN=<your token>
+export TEMBO_ORG_ID=<your organization id>
+export TEMBO_INST_ID=<your instance id>
+export TEMBO_INST_NAME=<your instance name>
+```
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+
+
+<TabItem value="curl" label="Curl">
+
+```bash
+curl -X PATCH "https://api.tembo.io/orgs/${TEMBO_ORG_ID}/instances/${TEMBO_INST_ID}" \
+     -H "Authorization: Bearer ${TEMBO_TOKEN}" \
+     -H "Content-Type: application/json" \
+     -d '{
   "app_services": [
     {
       "custom": {
@@ -115,8 +133,107 @@ Below is an example deploying a python FastAPI webserver container alongside you
       }
     }
   ]
-}
+}'
+
 ```
+
+</TabItem>
+
+<TabItem value="py" label="Python">
+
+```py
+import requests
+
+TEMBO_ORG = os.environ["TEMBO_ORG_ID"]
+TEMBO_INST = os.environ["TEMBO_INST_ID"]
+TEMBO_TOKEN = os.environ["TEMBO_TOKEN"]
+
+resp = requests.patch(
+    url=f"https://api.tembo.io/orgs/{TEMBO_ORG}/instances/{TEMBO_INST}",
+    headers={"Authorization": f"Bearer {TEMBO_TOKEN}"},
+    json={
+        "app_services": [
+            {
+                "custom": {
+                    "image": "quay.io/tembo/vector-serve:7dc6329",
+                    "name": "embeddings",
+                    "routing": [
+                    {
+                        "port": 3000,
+                        "ingressPath": "/embeddings",
+                        "middlewares": [
+                        "map-embeddings"
+                        ]
+                    }
+                    ],
+                    "middlewares": [
+                    {
+                        "replacePathRegex": {
+                        "name": "map-embeddings",
+                        "config": {
+                            "regex": "^\\/embeddings\\/?",
+                            "replacement": "/v1/embeddings"
+                        }
+                        }
+                    }
+                    ],
+                    "env": [
+                    {
+                        "name": "TMPDIR",
+                        "value": "/models"
+                    },
+                    {
+                        "name": "XDG_CACHE_HOME",
+                        "value": "/models/.cache"
+                    }
+                    ],
+                    "resources": {
+                    "requests": {
+                        "cpu": "500m",
+                        "memory": "1500Mi"
+                    },
+                    "limits": {
+                        "cpu": "4000m",
+                        "memory": "1500Mi"
+                    }
+                    },
+                    "storage": {
+                    "volumeMounts": [
+                        {
+                        "mountPath": "/models",
+                        "name": "hf-model-vol"
+                        }
+                    ],
+                    "volumes": [
+                        {
+                        "ephemeral": {
+                            "volumeClaimTemplate": {
+                            "spec": {
+                                "accessModes": [
+                                "ReadWriteOnce"
+                                ],
+                                "resources": {
+                                "requests": {
+                                    "storage": "2Gi"
+                                }
+                                }
+                            }
+                            }
+                        },
+                        "name": "hf-model-vol"
+                        }
+                    ]
+                    }
+                }
+            },  
+        ]
+    }
+)
+```
+
+</TabItem>
+
+</Tabs>
 
 ## Limitations
 
