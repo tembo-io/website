@@ -5,7 +5,7 @@ authors: [adam]
 tags: [postgres, extensions, stacks, vector-search]
 image: './tembo_vector.png'
 date: 2024-02-01T12:00
-description: Automated Vector Search workflow on Postgres using Hugging Face sentence-transformers and pg_vectorize
+description: Walk through using pg_vectorize to automate the vector search workflow in Postgres. Use pg_vectorize transform text to embeddings, and host Sentence Transformers in a container next to Postgres.
 ---
 
 ![tembo-vector](./tembo_vector.png "tembo-vector")
