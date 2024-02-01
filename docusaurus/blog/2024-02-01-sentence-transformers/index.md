@@ -26,7 +26,7 @@ Model selection is a large area of research, so experimenting with transformers 
 
 ## Direct SQL hooks to HuggingFace sentence transformers via pg_vectorize
 
-Pg_vectorize allows you to use any of Hugging Face’s sentence transformer models via SQL.t can be configured by simply changing the `model_name` parameter in the `transform_embeddings` function. To use this the [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) model:
+pg_vectorize allows you to use any of Hugging Face’s sentence transformer models via SQL. It can be configured by simply changing the `model_name` parameter in the `transform_embeddings` function. For example, to use this the [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) model:
 
 ```sql
 SELECT * FROM vectorize.transform_embeddings(
