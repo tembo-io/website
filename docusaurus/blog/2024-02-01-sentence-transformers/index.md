@@ -77,7 +77,7 @@ SELECT vectorize.table(
 );
 ```
 
-By default, inserts and updates trigger an immediate transform of the new data using Postgres’s built-in [triggers](https://www.postgresql.org/docs/current/sql-createtrigger.html). However, pg_vectorize provides the flexibility to schedule updates using cron syntax by changing the `schedule` parameter. For example, `schedule -> ‘* * * * *’` will trigger a batch job that checks for updates or inserts every minute. All triggers result in a job enqueued to a [pgmq](https://github.com/tembo-io/pgmq) job queue, which means the transformation of text to embeddings does not slow down your insert or update events. Embedding transformations are always decoupled from the insert or update events.
+By default, inserts and updates trigger an immediate transform of the new data using Postgres’s built-in [triggers](https://www.postgresql.org/docs/current/sql-createtrigger.html). However, pg_vectorize provides the flexibility to schedule updates using cron syntax by changing the `schedule` parameter. For example, `schedule -> ‘* * * * *’` will configure a batch job, managed by [pg_cron](https://github.com/citusdata/pg_cron), that checks for updates or inserts every minute. All triggers result in a job enqueued to a [pgmq](https://github.com/tembo-io/pgmq) job queue, which means the transformation of text to embeddings does not slow down your insert or update events. Embedding transformations are always decoupled from the insert or update events.
 
 ![vectorize-table](./vectorize-table.png "vectorize-table")
 
