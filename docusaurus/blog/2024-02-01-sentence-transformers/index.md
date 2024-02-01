@@ -116,6 +116,6 @@ Machine learning workloads typically have very different compute requirements th
 
 In Tembo Cloud, we run this workload on Kubernetes and manage it with the [tembo-operator](https://github.com/tembo-io/tembo/tree/main/tembo-operator) instead of `docker-compose`. This gives us the flexibility to assign and change the compute allocated to the transformer container.
 
-The container hosting the transformers is simple; it is a python http server built with FastAPI that runs the [SentenceTransformer](https://pypi.org/project/sentence-transformers/) library. The general-purpose all-MiniLM-L12-v2 model is saved in the container image, so when the container starts, that model is immediately loaded into memory. When you call the container for any other model, it is downloaded and cached on the fly.
+The container hosting the transformers is a simple python http server built with FastAPI running the [SentenceTransformer](https://pypi.org/project/sentence-transformers/) library. It saves general-purpose all-MiniLM-L12-v2 model in the image, so when the container starts the model is immediately loaded into memory. When you call the container for any other model, it is downloaded and cached on the fly.
 
 Clone the repo, give it a start, then run `docker-compose up` to get started. Or, try our managed service at [cloud.tembo.io](https://cloud.tembo.io) to get started.
