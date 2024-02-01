@@ -39,7 +39,7 @@ SELECT * FROM vectorize.transform_embeddings(
 {-0.0028378579299896955,0.055683549493551254,-0.025058165192604065,0.02842593938112259, ..., 0.0828385129570961}
 ```
 
-And to use the [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) model, we just change the value of the `model_name` parameter.
+To use the [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) model, just change the value of the `model_name` parameter.
 
 ```sql
 SELECT * FROM vectorize.transform_embeddings(
