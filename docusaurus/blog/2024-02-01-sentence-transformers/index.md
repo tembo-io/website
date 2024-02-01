@@ -56,7 +56,7 @@ SELECT * FROM vectorize.transform_embeddings(
 
 Generating embeddings is one thing, but conducting vector search requires many steps:
 
-* Transform, store and index existing data in a table
+* Transform, store, and index existing data in a table
 * Handle refreshes for any inserts or updates during the lifecycle of your application.
 * Transform raw text search queries into embeddings, using precisely the same transformer model.
 * And lastly, conduct a similarity search on the fly.
