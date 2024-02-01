@@ -16,7 +16,7 @@ pg_vectorize is completely open source, and you can run it locally or in your ow
 
 ## What are sentence-transformers?
 
-Machine learning and artificial intelligence models ultimately perform mathematical operations. So if you have raw text and want to build a machine learning or AI application, you need to find a way to transform text to numbers. There has been detailed [research](https://arxiv.org/abs/1908.10084) in this field. and  these transformer models are language models used for encoding the meaning behind the raw text data into an array of floats. Once you have the array of floats (also called vectors or embeddings), now you can do mathematical operations on that such as vector similarity search and other forms of machine learning. 
+Machine learning and artificial intelligence models ultimately perform mathematical operations. So if you have raw text and want to build a machine learning or AI application, you need to find a way to transform text to numbers. There has been detailed [research](https://arxiv.org/abs/1908.10084) in this field, and  the resulting transformer models encode the meaning behind the raw text data into an array of floats. Once you have the array of floats (also called vectors or embeddings), now you can perform efficient mathematical operations such as vector similarity search and other forms of machine learning. 
 
 ## Picking the right sentence transformer for your use case
 
