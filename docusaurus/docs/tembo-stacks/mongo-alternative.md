@@ -4,8 +4,9 @@ sidebar_position: 10
 
 # Tembo MongoAlternative
 
-The Tembo MongoAlternative Stack is designed to bring document-oriented database capabilities to Postgres.
-Leveraging the power of FerretDB, Tembo users can both migrate from MongoDB to Postgres, as well as interact with their data in a remarkably familiar to them!
+The Tembo MongoAlternative Stack is designed to offer Mongo protocol compatibility with Postgres. 
+Leveraging the power of FerretDB, Tembo users can both migrate from MongoDB to Postgres, as well as interact with their data in a remarkably familiar to them.
+In other words, users have Mongo-compatible storage without needing to change their application.
 
 ## Apps & Extensions
 
@@ -16,15 +17,14 @@ Leveraging the power of FerretDB, Tembo users can both migrate from MongoDB to P
 
 ### Download mongosh (MongoDB Shell)
 
-Similar to `psql`, `mongosh` is a means to connect and interact with your Tembo instance.
-The difference, however, is that `mongosh` is specific to MongoDB-like environments, such as the one that FerretDB provides.
+Similar to `psql`, `mongosh` is a client used to query and interact with the data in your Mongo database and is compatible with FerretDB.
 
 - For macOS, you can run the following brew command: `brew install mongosh`
 - For Windows and Linux, please refer to the steps found within the [mongosh official documentation](https://www.mongodb.com/docs/mongodb-shell/install/)
 
 ### Setup
 
-#### Connect via mongosh
+#### Connecting via mongosh
 
 Once you've established a Tembo MongoAlternative Stack instance, you will need to download a root SSL certificate (this can be found just above the connection string on the right-hand side).
 You can then copy the connection string from the UI and execute it within the terminal having navigated to the directory containing the freshly-downloaded SSL certificate.
@@ -37,17 +37,9 @@ mongosh "mongodb://postgres:<your-password>@<your-host>:27018/ferretdb?authMecha
 The tlsCaFile=$(pwd)/ca.crt in your MongoDB connection string specifies the SSL certificate file's location using the current directory ($(pwd)).
 To use a different directory for your SSL certificate, replace $(pwd) with the full path to the certificate, like tlsCaFile=/your/certificate/path/ca.crt.
 
-#### Connect via psql
-
-Like other postgres instances you can use `psql` to connect to Postgres by copying the `psql` connection string from the UI or fill in and run the following:
-
-```bash
-psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
-```
-
 ### Load sample data
 
-Once connected, loading and working with data is very straightforward.
+Once connected vis mongosh, loading and working with data is very straightforward.
 Here we've provided a sample dataset showing satellites belonging to NOAA (National Oceanic and Atmospheric Administration).
 Note that the data is for demonstrative purposes and might not be accurate.
 
