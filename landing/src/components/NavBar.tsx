@@ -34,12 +34,17 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 
 	useEffect(() => {
 		const handleScroll = () => {
-			const windowHeight = window.innerHeight;
-			const documentHeight = document.documentElement.scrollHeight;
-			const scrollY = window.scrollY;
-			const scrollPercent = (scrollY / (documentHeight - windowHeight))*100;
-			setScrollY(scrollY);
-			setProgressWidth(scrollPercent);
+			if (isProgressBar) {
+				const blogPost = document.getElementById('tembo-blog-post');
+				const { top, height } = (blogPost as any)?.getBoundingClientRect();
+				let scrollDistance = -top;
+				let progressPercentage =
+				  (scrollDistance / (height - document.documentElement.clientHeight)) * 100;
+				setProgressWidth(progressPercentage);
+			}
+
+			setScrollY(window.scrollY);
+
 		};
 
 		handleScroll();
@@ -63,23 +68,7 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 		};
 	}, []);
 
-	useEffect(() => {
-		const handleResize = () => {
-			const isScreenGreaterThanOrEqualTo900px = window.innerWidth >= 900;
-			setIsScreenGreaterThanOrEqualTo900px(
-				isScreenGreaterThanOrEqualTo900px,
-			);
-			if (isScreenGreaterThanOrEqualTo900px) {
-				document.body.style.overflow = 'scroll';
-			}
-		};
-
-		window.addEventListener('resize', handleResize);
-
-		return () => {
-			window.removeEventListener('resize', handleResize);
-		};
-	}, []);
+	let isActive = progressWidth <= 120
 
 	return (
 		<div
@@ -179,8 +168,8 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 				</nav>
 			</Container>
 			{scrollY > 50 && isProgressBar && (
-				<div className="h-[2.5px] w-full flex justify-start relative">
-					<div className="h-full top-0 bottom-0 right-0 absolute w-screen bg-salmon will-change-transform transition-opacity" style={{ transform: `translate3d(-${progressWidth >= 100 ? '0.012' : 100 - progressWidth}%, 0px, 0px)`, opacity: 1 }}></div>
+				<div className={cx("w-full flex justify-start relative", scrollY > 50 && 'h-[2.5px]')}>
+					<div className="h-full top-0 bottom-0 right-0 absolute w-screen bg-salmon will-change-transform transition-opacity" style={{ transform: `translate3d(${isActive ? progressWidth - 100 + '%' : '0'},0,0)`, opacity: isActive ? 1 : 0 }}></div>
 				</div>
 			)}
 			<div
