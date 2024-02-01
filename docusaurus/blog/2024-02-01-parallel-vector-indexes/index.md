@@ -61,7 +61,7 @@ I find it quite remarkable how both extensions improve the index creation time (
 
 ## Try it out!
 
-PgVector 0.6.0 is already available in Tembo’s Vector DB Stack (https://tembo.io/). You can try it for free!
+PgVector 0.6.0 is already available in Tembo’s [Vector DB Stack](https://tembo.io/). You can try it for free!
 
-And, if you are interested in running the benchmark yourself, check out the modified ann-benchmarks fork (https://github.com/binidxaba/ann-benchmarks). 
+And, if you are interested in running the benchmark yourself, check out the modified [ann-benchmarks fork](https://github.com/binidxaba/ann-benchmarks). 
 
