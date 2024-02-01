@@ -83,7 +83,7 @@ By default, inserts and updates trigger an immediate transform of the new data u
 
 ### Intuitive vector search using vectorize.search
 
-`vectorize.search()` is how you query your data given a raw text query. To search `mytable` for something like “mobile electronic accessories'', we need to transform our raw text query into embeddings, being certain to use precisely the same sentence-transformer that we used to generate the embeddings that are written to our database. Then, using those embeddings, conduct a vector similarity search via [pgvector](https://github.com/pgvector/pgvector) and return the results of the query. This orchestration is often handled within an application built by the dev team, but since this is just a feature in the database triggered by a function call, we no longer have to build it.
+`vectorize.search()` is how you query your data given a raw text query. To search `mytable` for something like “mobile electronic accessories”, we need to transform the raw query into embeddings, being certain to use precisely the same sentence-transformer that generated the embeddings written to our database. Then, using those embeddings, conduct a vector similarity search via [pgvector](https://github.com/pgvector/pgvector) and return the results of the query. This orchestration is often handled within an application built by the dev team, but since this is just a feature in the database triggered by a function call, we no longer have to build it.
 
 ![vectorize-search](./vectorize-search.png "vectorize-search")
 
