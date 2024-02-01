@@ -65,7 +65,7 @@ This logic is typically left up to application developers and requires many tool
 
 ### Simplify vector creation and refresh via vectorize.table
 
-`vectorize.table()` is how you set up a vector search job. pg_vectorize keeps track of which transformer model you are using, and continuously monitors your table for changes. We select which model we want to use for embedding transformation by changing the value of the `transformer` parameter. pg_vectorize handles creates a column on your table to store embeddings for each row.
+`vectorize.table()` is how you set up a vector search job. pg_vectorize keeps track of the transformer model you use, and continuously monitors your table for changes. We select which model we want to use for embedding transformation by changing the value of the `transformer` parameter. pg_vectorize creates a column on your table to store embeddings for each row.
 
 ```sql
 SELECT vectorize.table(
