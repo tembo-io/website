@@ -37,7 +37,6 @@ For user defined containers, you must specify the key `custom` in the `app_servi
 
 Below is an example deploying a python FastAPI webserver container alongside your Tembo Postgres instance. This can be applied in a PATCH request to an existing Tembo instance or used as part of any of the instance methods, to the [Tembo Platform API](https://api.tembo.io/redoc). The container image is public, and the application was designed to run on port 3000 in the container. The application is exposed publicly at `https://$YourTemboHostName/embeddings`, and those requests are mapped to the path `/v1/embeddings` and port `3000` on the container. Two environment variables are configured, along with cpu and memory requests and limits. An ephemeral storage volume is mounted at the `/models` path in the container.
 
-
 ```bash
 export TEMBO_TOKEN=<your token>
 export TEMBO_ORG_ID=<your organization id>
@@ -49,7 +48,6 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
-
 
 <TabItem value="curl" label="Curl">
 
