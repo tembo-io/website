@@ -68,7 +68,7 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 		};
 	}, []);
 
-	let isActive = progressWidth <= 120
+	let isActive = progressWidth <= 100
 
 	return (
 		<div
