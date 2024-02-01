@@ -1,6 +1,6 @@
 ---
 slug: sentence-transformers
-title: 'Automate Vector Search in Postgres with HuggingFace sentence-transformers and pg_vectorize'
+title: 'Automate Vector Search in Postgres with HuggingFace Sentence Transformers and pg_vectorize'
 authors: [adam]
 tags: [postgres, extensions, stacks, vector-search]
 image: './tembo_vector.png'
