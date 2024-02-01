@@ -11,7 +11,7 @@ The Tembo Machine Learning Stack has several important Postgres extensions that 
 - [postgresml](https://pgt.dev/extensions/postgresml) - `pgml` allows you to train and run machine learning models in Postgres. It supports a variety of models and algorithms, including linear regression, logistic regression, decision tree, random forest, and k-means clustering. It also provides hooks into HuggingFace for downloading and consuming pre-trained models and transformers. Visit [PostgresML](https://github.com/postgresml/postgresml) for more details.
 - [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embeddings and then conducting vector search on that data. Visit pgvector's [Github repo](https://github.com/pgvector/pgvector) for more information.
 - [pg_vectorize](https://pgt.dev/extensions/vectorize) - an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
-- [pg_later] (https://pgt.dev/extensions/pg_later) - Enables asynchronous query execution, which helps better manage resources and frees users up for other tasks. 
+- [pg_later](https://pgt.dev/extensions/pg_later) - Enables asynchronous query execution, which helps better manage resources and frees users up for other tasks. 
 
 The extensions listed above are all very flexible and support many use cases. Visit their documentation pages for additional details.
 
@@ -21,32 +21,25 @@ This tutorial will walk you through the process of training a text classificatio
 
 First, create a Tembo Cloud instance with the Machine Learning Stack. We recommend 8 vCPU and 32GB RAM for this example.
 
-# Text Classification on Tembo ML
+## Acquire examples of click-bait and non-click-bait text
 
-Let's build a click-bait detector, a service that can take in a block of text and then determine whether that the text is likely to be click-bait.
-
-We are going to structure this as a supervised machine learning problem, so we will need example of text that are both click-bait, and not click-bait [1]. We will use the [clickbait dataset](https://github.com/bhargaviparanjape/clickbait/tree/master/dataset) for this example.
-
-
-We'll use an open source sentence transformer from Hugging Face and the PostgresML extension to train an XGBoost model to classify text as click-bait or not click-bait.
-
-## Data acquisition
-
-First, download those datasets. We will use `wget` to download them, but any tool will do.
+We will use the [clickbait dataset](https://github.com/bhargaviparanjape/clickbait/tree/master/dataset) for this example, which contains text that are both click-bait, and not click-bait [1]. First, download those datasets. We will use `wget` to download them, but any tool will do.
 
 ```bash
 wget https://github.com/bhargaviparanjape/clickbait/raw/master/dataset/clickbait_data.gz
 wget https://github.com/bhargaviparanjape/clickbait/raw/master/dataset/non_clickbait_data.gz
 ```
 
-Extract them.
+and extract them.
 
 ```bash
 gzip -d clickbait_data.gz
 gzip -d non_clickbait_data.gz
 ```
 
-Transform those two data files to make it easier to insert into Postgres. We'll use a small python script to handle this for us. This will give us a csv file with two columns, `text` and `is_clickbait`.
+## Preparing data to load into Postgres
+
+We will transform those two data files to make it easier to insert into Postgres. We'll use a small python script to handle this for us. This will give us a csv file with two columns, `text` and `is_clickbait`.
 
 ```python
 # prep.py
@@ -88,12 +81,13 @@ Which TV Female Friend Group Do You Belong In,1
 
 ## Load training data into Postgres using `psql`
 
-Let's set our postgres connection string in an environment variable so we can re-use it a bunch of times. You can find the Tembo org and the instance ID in the Tembo Cloud UI in the URL.
+You will need a Tembo with the Machine Learning Stack. We recommend at least 8 vCPU and 32GB RAM instance for this example.
+ Let's set our postgres connection string in an environment variable so we can re-use it throughout this guide.
+ You can find the Tembo org and the instance ID in the Tembo Cloud UI in the URL.
 
 `https://cloud.tembo.io/orgs/{TEMBO_ORG}/clusters/{TEMBO_INST}`
 
 You can get the `TEMBO_TOKEN` from the Tembo Cloud UI by navigating to [https://cloud.tembo.io/generate-jwt](https://cloud.tembo.io/generate-jwt)
-
 
 ```bash
 export TEMBO_CONN='postgresql://postgres:yourPassword@yourHost:5432/postgres'
@@ -152,14 +146,14 @@ select count(*) from titles_training group by is_clickbait;
 Machine learning algorithms work with numbers, not text. So in order to train a model on our text, we need to we need to transform that text into some numbers.
  There are many ways to transform text into numbers, such as [Bag of Words](https://en.wikipedia.org/wiki/Bag-of-words_model), [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf), [any many others](https://medium.com/analytics-vidhya/a-beginners-guide-to-convert-text-data-to-numeric-data-part-1-e0e15666d9e5). The natural language processing domain is rather large and for this example, we will use the [all_MiniLM_L12_v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) sentence transformer from Hugging Face.
 
-Let's add the embeddings service to our Tembo instance.
+Let's add the embeddings service to our Tembo instance. You can add it via the API like this, or you can do it in the browser on the "Apps" tab, selecting the "embeddings" app.
 
 ```bash
 curl -X PATCH \
      -H "Authorization: Bearer ${TEMBO_TOKEN}" \
      -H "Content-Type: application/json" \
      -d '{"app_services": [{"embeddings": null}]}' \
-     "https://api.tembo.io/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
+     "https://api.tembo.io/api/v1/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
 ```
 
 Add a new column to the table where we will store the embeddings for each row of text.
@@ -214,14 +208,15 @@ return embeddings
 $$ LANGUAGE 'plpython3u';
 ```
 
-Now that we have that function created, we can craft a SQL statement and apply it to our table. Execute this statement.
+Now that we have that function created, we can craft a SQL statement and apply it to our table. You will need to replace the `project_name` parameter, which is the same subdomain prefix you can find in your connection string. For example, `org-test-inst-ml-demo` from the connection string `postgresql://user:password@org-test-inst-ml-demo.data-1.use1.tembo.io:5432/postgres`.
+
 
 ```sql
 WITH embedding_results as (
     SELECT 
         ROW_NUMBER() OVER () AS rn,
         sentence_transform
-    FROM sentence_transform('titles_training', 'title', 'org-test-inst-ml-demo')
+    FROM sentence_transform(relation => 'titles_training', col_name => 'title', project_name => 'org-test-inst-ml-demo')
 ),
 table_rows AS (
     SELECT 
@@ -252,76 +247,13 @@ embedding | {-0.058323003,0.056333832,-0.0038603533,0.013325908,-0.011109264,0.0
 
 ## Prepare data for model training
 
-Now that we have a column that contains our embeddings, we need to flatten it so that we can train a model using the [pgml](https://pgt.dev/extensions/postgresml) extension. We'll transform this table into a new table where each element in our embedding vector becomes its own column. Once again, we will use `pl/python3u` to conduct this operation.
+We don't want to train our model on the `record_id` column and we can't train it on the raw text in the `title` column, so let's create a new table with just the columns that we will use for training, which is the `embedding` column and the `is_clickbait` column.
+
 
 ```sql
-CREATE OR REPLACE FUNCTION transform_unnest(
-    relation text,
-    target_column text,
-    embedding_column text
-)
-RETURNS VOID AS
-$$
-import pandas as pd
-import json
-
-flat_table=f"{relation}_flattened"
-
-plpy.notice('reading raw')
-rv = plpy.execute(f'SELECT {target_column}, {embedding_column} FROM {relation}')
-df = pd.DataFrame(rv[0:])
-   
-embedding_dim = len(df[embedding_column][0])
-column_names = [f'embedd_{i}' for i in range(embedding_dim)]
-
-plpy.notice(f'creating table: {flat_table}, dim: {embedding_dim}')
-all_col_names = ", ".join(column_names)
-column_defs = [f"{col} float" for col in column_names]
-all_col_defs =  ', '.join(column_defs)
-
-create_stmt = f'CREATE TABLE IF NOT EXISTS {flat_table} ({target_column} integer, {all_col_defs})'
-plpy.execute(create_stmt)
-
-all_value_ph = [f"${x}" for x in range(1, embedding_dim+1)]
-all_value_ph = ", ".join(all_value_ph)
-insert_stmt = f'INSERT INTO {flat_table} ({all_col_names}) VALUES ({all_value_ph})'
-
-num_rows = df.shape[0]
-row_embedding_types = ['float' for _ in range(embedding_dim)]
-
-try:
-    plpy.notice('starting insert')
-
-    for idx, row in df.iterrows():
-        if idx % 1000 == 0:
-            plpy.notice(f'inserting row {idx} / {num_rows}')
-        plan = plpy.prepare(insert_stmt, row_embedding_types)
-        plpy.execute(plan, row[embedding_column])
-except Exception as e:
-    plpy.error(f'Error: {e}')
-
-$$ LANGUAGE 'plpython3u';
+CREATE TABLE title_tng as (select is_clickbait, embedding from titles_training);
 ```
 
-Let's execute that function.
-
-```sql
-select transform_unnest(
-    relation => 'titles_training',
-    target_column => 'is_clickbait',
-    embedding_column => 'embedding'
-);
-```
-
-```console
-NOTICE:  reading raw
-NOTICE:  creating table: titles_training_flattened, dim: 384
-NOTICE:  starting insert
-NOTICE:  inserting row 0 / 32000
-NOTICE:  inserting row 1000 / 32000
-NOTICE:  inserting row 2000 / 32000
-....
-```
 
 ## Train a classification model using XGBoost and `pgml`
 
@@ -332,8 +264,9 @@ SELECT * FROM pgml.train(
     project_name => 'clickbait_classifier',
     algorithm => 'xgboost',
     task => 'classification',
-    relation_name => 'titles_training_flattened',
-    y_column_name => 'is_clickbait'
+    relation_name => 'title_tng',
+    y_column_name => 'is_clickbait',
+    test_sampling => 'random'
 );
 
 ...
@@ -345,7 +278,7 @@ INFO:  Deploying model id: 1
 (1 row)
 ```
 
-This should take only a few minutes. Check that the model exists in the local model registry.
+This should take only a few minutes or less. Check that the model exists in the local model registry.
 
 ```sql
 \x
@@ -370,8 +303,6 @@ The model is trained. We can pass new titles in to the model to get them classif
 ## Make predictions using the model
 
 ```sql
-
-```sql
 SELECT pgml.predict('clickbait_classifier',
     (select vectorize.transform_embeddings(
         input => 'the clickiest bait you have ever seen',
@@ -381,6 +312,19 @@ SELECT pgml.predict('clickbait_classifier',
  predict 
 ---------
        1
+(1 row)
+```
+
+```sql
+SELECT pgml.predict('clickbait_classifier',
+    (select vectorize.transform_embeddings(
+        input => 'warmest weather on record',
+        model_name => 'all_MiniLM_L12_v2')
+    )
+);
+ predict 
+---------
+       0
 (1 row)
 ```
 
@@ -395,26 +339,23 @@ curl -X PATCH \
      -H "Authorization: Bearer ${TEMBO_TOKEN}" \
      -H "Content-Type: application/json" \
      -d '{"app_services": [{"embeddings": null},{"http": null}]}' \
-     "https://api.tembo.io/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
+     "https://api.tembo.io/api/v1/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
 ```
 
 Let's create a helper function that we can call via PostgREST. This function will take in a string, then call `vectorize.transform_embeddings()` and pass the result into `pgml.predict()` the same as we previously demonstrated.
 
 ```sql
-CREATE OR REPLACE FUNCTION predict_clickbait(input_string text)
-RETURNS TABLE(is_clickbait REAL)
-AS $$
-BEGIN
-    RETURN QUERY 
+CREATE OR REPLACE FUNCTION predict_clickbait(
+    input_string text
+) RETURNS TABLE(is_clickbait REAL) LANGUAGE sql AS $$ 
     SELECT pgml.predict(
-        'clickbait_classifier',
-        (SELECT vectorize.transform_embeddings(
-            input => input_string,
-            model_name => 'all_MiniLM_L12_v2'
-        ))
-    ) AS is_clickbait;
-END;
-$$ LANGUAGE plpgsql;
+        project_name => 'clickbait_classifier',
+        features => (select vectorize.transform_embeddings(
+            input => 'warmest weather on record',
+            model_name => 'all_MiniLM_L12_v2')
+        )
+    )
+$$;
 ```
 
 We're almost done. Tell PostgREST to reload the schema so that our function can be discovered by invoking a NOTIFY command:

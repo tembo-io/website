@@ -3,6 +3,7 @@ slug: hacking-postgres-ep6
 title: "Hacking Postgres, Ep. 6: Regina Obe and Paul Ramsey"
 authors: [eric]
 tags: [postgres, hacking_postgres]
+image: './ep6.png'
 ---
 
 

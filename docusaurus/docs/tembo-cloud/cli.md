@@ -14,14 +14,14 @@ managing, and running Postgres in a local environment.
 
 ### Installing CLI
 
-Using homebrew
+Using homebrew:
 
 ```
 brew tap tembo-io/tembo
 brew install tembo-cli
 ```
 
-Using cargo
+Using cargo:
 
 ```
 cargo install tembo-cli
@@ -57,11 +57,27 @@ Validates `tembo.toml` and other configurations files.
 
 #### `tembo apply`
 
-Validates tembo.toml (same as `tembo validate`) and applies the changes to the context selected.
+Validates tembo.toml (same as `tembo validate`) and applies the changes to the context selected. It applies changes and runs migration for all databases.
 
-* applies changes and runs migration for all dbs
-    * **local docker:** stops existing container if it exists & run docker build/run + sqlx migration
-    * **tembo-cloud:** calls the api in appropriate environment to create/update instance
+##### Environment:
+
+  * ###### Local Docker:
+    * runs `docker-compose down` to bring down all existing containers
+    * generates `Dockerfile` for each instance & builds a docker image
+    * generates `docker-compose` to provision all instances
+    * runs `docker-compose up -d` to spin up all instances
+    * runs `sqlx migration` against the instances
+
+  * ###### Tembo-Cloud: 
+    * Creates/updates instance on tembo-cloud by calling the api against the appropriate environment
+
+##### Flags: 
+  * `--merge`: Overlays Tembo.toml by another toml file for a specific context
+  *  `--set` : Specifies a single instance setting by assigning a new value
+
+#### `tembo logs`
+
+Retrieves log data from the specified Tembo instances. Depending on your current context, it will fetch logs from either local Docker containers or Tembo Cloud instances.
 
 #### `tembo delete`
 
