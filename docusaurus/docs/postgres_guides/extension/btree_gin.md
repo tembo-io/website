@@ -20,6 +20,7 @@ Using the **btree_gin** extension, the station can create a multicolumn GIN inde
 
 # Example test script.
 
+```
 -- Create example table, wifi_log, and populate with test data
 CREATE TABLE wifi_log (
     id SERIAL PRIMARY KEY,
@@ -49,3 +50,4 @@ AND device_type = 'smartphone';
 
 -- Drop table(s) and affiliate items to complete example
 DROP TABLE wifi_log CASCADE;
+```
