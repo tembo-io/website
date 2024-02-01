@@ -61,11 +61,11 @@ Generating embeddings is one thing, but conducting vector search requires many s
 * Transform raw text search queries into embeddings, using precisely the same transformer model.
 * And lastly, conduct a similarity search on the fly.
 
-This logic is typically left up to application developers and requires many tools to implement, but pg_vectorize enables it with just two function calls; `vectorize.table()` and `vectorize.search()`.
+This logic is typically left up to application developers and requires many tools to implement, but pg_vectorize enables it with just two function calls: `vectorize.table()` and `vectorize.search()`.
 
 ### Simplify vector creation and refresh via vectorize.table
 
-`vectorize.table()` is how you set up a vector search job. pg_vectorize keeps track of the transformer model you use, and continuously monitors your table for changes. We select which model we want to use for embedding transformation by changing the value of the `transformer` parameter. pg_vectorize creates a column on your table to store embeddings for each row.
+`vectorize.table()` is how you set up a vector search job. pg_vectorize keeps track of the transformer model you use, and continuously monitors your table for changes. You can select the model to use for embedding transformation by setting the `transformer` parameter. pg_vectorize, then creates a vector column on your table to store embeddings for each row.
 
 ```sql
 SELECT vectorize.table(
@@ -83,11 +83,11 @@ By default, inserts and updates trigger an immediate transform of the new data u
 
 ### Intuitive vector search using vectorize.search
 
-`vectorize.search()` is how you query your data given a raw text query. To search `mytable` for something like “mobile electronic accessories”, we need to transform the raw query into embeddings, being certain to use precisely the same sentence-transformer that generated the embeddings written to our database. Then, using those embeddings, conduct a vector similarity search via [pgvector](https://github.com/pgvector/pgvector) and return the results of the query. This orchestration is often handled within an application built by the dev team, but since this is just a feature in the database triggered by a function call, we no longer have to build it.
+`vectorize.search()` is how you query your data given a raw text query. To search `mytable` for something like “mobile electronic accessories”, you need to transform the raw query into embeddings, being certain to use precisely the same sentence-transformer that generated the embeddings written to our database. Then, using those embeddings, conduct a vector similarity search via [pgvector](https://github.com/pgvector/pgvector) and return the results of the query. This orchestration is often handled within an application built by the dev team, but since this is just a feature in the database triggered by a function call, you no longer have to build it.
 
 ![vectorize-search](./vectorize-search.png "vectorize-search")
 
-By referencing the `job_name`, pg_vectorize will know exactly which transformer model to use and which table to find the embeddings for similarity search. We tell pg_vectorize which columns we want to return in our query, because most of the time we want to return the human readable data like a product id or a product name, and not the embeddings themselves.
+By referencing the `job_name`, pg_vectorize will know exactly which transformer model to use and which table to find the embeddings for similarity search. You can also tell pg_vectorize which columns you want to return in our query, because you mostly want to return human readable data like a product id or a product name, and not the embeddings themselves.
 
 ```sql
 SELECT * FROM vectorize.search(
@@ -110,7 +110,7 @@ Results are returned as rows of jsonb, including a similarity score for the sear
 
 ## Separate compute for transformer models
 
-Machine learning workloads typically have very different compute requirements than Postgres. For example, many transformers benefit immensely from a GPU, or massive amounts of CPU and memory. Therefore, it makes sense to run the embedding transformers on a separate host from Postgres itself, which does not natively require a GPU. So in our example, when we run [`docker compose up`](https://github.com/tembo-io/pg_vectorize/blob/main/docker-compose.yml), we’re running the transformer models in a separate container than Postgres. This gives you the flexibility to run the transformers wherever you want, so long as pg_vectorize is able to establish a network connection with the container running the transformers.
+Machine learning workloads typically have very different compute requirements than Postgres. For example, many transformers benefit immensely from a GPU, or massive amounts of CPU and memory. Therefore, it makes sense to run the embedding transformers on a separate host from Postgres itself, which does not natively require a GPU. So in our example, when you run [`docker compose up`](https://github.com/tembo-io/pg_vectorize/blob/main/docker-compose.yml), the transformer models are running in a separate container than Postgres. This gives you the flexibility to run the transformers wherever you want, so long as pg_vectorize is able to establish a network connection with the container running the transformers.
 
 ![containers](./containers.png "containers")
 
