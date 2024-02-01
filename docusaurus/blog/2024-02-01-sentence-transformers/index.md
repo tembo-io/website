@@ -1,10 +1,10 @@
 ---
 slug: sentence-transformers
-title: 'Automate Vector Search in Postgres with HuggingFace Sentence Transformers and pg_vectorize'
+title: 'Automate vector search with any HuggingFace transformer in Postgres'
 authors: [adam]
 tags: [postgres, extensions, stacks, vector-search]
 image: './tembo_vector.png'
-date: 2024-02-01T12:00
+date: 2024-02-01T19:00
 description: Walk through using pg_vectorize to automate the vector search workflow in Postgres. Use pg_vectorize transform text to embeddings, and host Sentence Transformers in a container next to Postgres.
 ---
 
