@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer.astro';
 import BlogLinks from '../../components/BlogLinks';
 import Container from '../../components/Container';
 import Markdown from '../../components/Markdown.astro';
@@ -64,4 +65,14 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
             </div>
         </div>
     </Container>
+    <div class='relative'>
+        <div
+            class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+        />
+        <Container>
+            <div class='mt-24'>
+                <Footer />
+            </div>
+        </Container>
+    </div>
 </Layout>
