@@ -8,22 +8,22 @@ tags:
 
 # User Defined Applications
 
-Tembo Cloud allows you to run your own applications alongside your Postgres instance. This allows you to run custom applications that can interact with your Postgres instance, or other services.
+Tembo Cloud allows you to deploy containers next to your Postgres instance. Some of these apps are pre-configured such as [REST-API](./rest-api.md) or [Embeddings](./embeddings.md). You can also specify and configure these containers yourself. This allows you to run custom applications that can interact with your Postgres instance, or other services.
 
 As an implementation detail, Tembo Application Services consist of Kubernetes resources that are deployed in the same namespace as your Tembo Postgres instance. This consists of common Kubernetes resources such as Deployments, Services, ConfigMaps, and Ingress, etc.
 
-The Tembo Platform API provides you with an abstraction over the Kubernetes API, allowing you to manage your application services via the Tembo Platform API. Some, but not all of those resources are exposed to you via the Tembo Platform API, and this guide will walk you through what is currently available. Over time, the Tembo Platform API will mature and expose more of the underlying Kubernetes resources to you.
+The Tembo Platform API provides you with an abstraction over the Kubernetes API, allowing you to manage your application services via the Tembo Platform API. Some, but not all of those Kubernetes resources are exposed to you via the Tembo Platform API, and this guide will walk you through what is currently available. Over time, the Tembo Platform API will mature and expose more of the underlying Kubernetes resources to you.
 
 ## Creating a User Defined Application
 
-The Tembo Platform API defines applications by their `AppType`. The `AppType` is an enum, with variants such as RestAPI, Embeddings, graphQL...and `custom`, and the `custom` variant is used to define a user defined application. The `custom` variant allows the user to configure all of the attributes of the [AppService](https://docs.rs/controller/latest/controller/app_service/types/struct.AppService.html#fields) type defined in the tembo-operator.
+The Tembo Platform API defines applications by their `AppType`. The `AppType` is an enum, with variants such as [REST-API](./rest-api.md), [Embeddings](./embeddings.md)...and `custom`. The `custom` variant is used for deplyiong user defined application. The `custom` variant allows the user to configure all of the attributes of the [AppService](https://docs.rs/controller/latest/controller/app_service/types/struct.AppService.html#fields) type defined in the tembo-operator.
 
 For user defined containers, you must specify the key `custom` in the `app_services` array. e.g.:
 
 ```json
 app_services: [
     {
-        "custom": { ... }
+        "custom": { <AppService object> } 
     }
 ]
 
