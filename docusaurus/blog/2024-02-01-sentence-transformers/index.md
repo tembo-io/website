@@ -61,7 +61,7 @@ Generating embeddings is one thing, but conducting vector search requires many s
 * Transform raw text search queries into embeddings, using precisely the same transformer model.
 * And lastly, conduct a similarity search on the fly.
 
-This logic is typically left up to application developers and requires many tools to implement, but with pg_vectorize this becomes just two function calls; `vectorize.table()` and `vectorize.search()`
+This logic is typically left up to application developers and requires many tools to implement, but pg_vectorize enables it with just two function calls; `vectorize.table()` and `vectorize.search()`.
 
 ### Simplify vector creation and refresh via vectorize.table
 
