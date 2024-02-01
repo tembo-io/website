@@ -24,7 +24,7 @@ No two instances can share the same domain name
 In this example, our instance is called `custom-brand-check`, and we are in the organization `steven2`. First, we confirm that we have access to this instance.
 
 ```
-psql 'postgresql://postgres:*****@org-steven2-inst-custom-brand-check.data-1.use1.tembo.io:5432?sslmode=require'
+psql 'postgresql://postgres:*****@org-steven2-inst-custom-brand-check.data-1.use1.tembo.io:5432'
 psql (15.3 (Homebrew))
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
 Type "help" for help.
@@ -32,7 +32,7 @@ Type "help" for help.
 postgres=#
 ```
 
-We want to add an alternate domain name `steven.tembo-development.com`, so that we can connect to our instance with a connection string like this `postgresql://postgres:*****@steven.tembo-development.com:5432?sslmode=require`.
+We want to add an alternate domain name `steven.tembo-development.com`, so that we can connect to our instance with a connection string like this `postgresql://postgres:*****@steven.tembo-development.com:5432`.
 
 ### Configure TXT record
 
@@ -100,7 +100,7 @@ steven.tembo-development.com. 300 IN    CNAME   cloud.data-1.use1.tembo.io.
 Also, if you try to connect now, the DNS resolution should direct to Tembo Cloud, but you should get disconnected because there is no SNI configuration yet.
 
 ```
-psql 'postgresql://postgres:****@steven.tembo-development.com:5432?sslmode=require'
+psql 'postgresql://postgres:****@steven.tembo-development.com:5432'
 
 psql: error: connection to server at "steven.tembo-development.com" (23.23.245.52), port 5432 failed: SSL SYSCALL error: Undefined error: 0
 ```
@@ -133,7 +133,7 @@ For more information on the API, see our [API guide](https://tembo.io/docs/tembo
 Now, connecting to the instance is possible with the custom domain. Just substitute your domain into the connection string.
 
 ```
-psql 'postgresql://postgres:****@steven.tembo-development.com:5432?sslmode=require'
+psql 'postgresql://postgres:****@steven.tembo-development.com:5432'
 psql (15.3 (Homebrew))
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
 Type "help" for help.
