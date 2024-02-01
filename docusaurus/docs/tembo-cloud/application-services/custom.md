@@ -18,9 +18,18 @@ The Tembo Platform API provides you with an abstraction over the Kubernetes API,
 
 The Tembo Platform API defines applications by their `AppType`. The `AppType` is an enum, with variants such as RestAPI, Embeddings, graphQL...and `custom`, and the `custom` variant is used to define a user defined application. The `custom` variant allows the user to configure all of the attributes of the [AppService](https://docs.rs/controller/latest/controller/app_service/types/struct.AppService.html#fields) type defined in the tembo-operator.
 
-Additional notes about the attributes in the AppServices spec:
+For user defined containers, you must specify the key `custom` in the `app_services` array. e.g.:
 
-For user defined containers, you must specify the key `custom` in the `app_services` array.
+```json
+app_services: [
+    {
+        "custom": { ... }
+    }
+]
+
+```
+
+## Notes about the AppServices spec
 
 - `image`: The container image to run. This can be any container image that is publicly accessible, or a private image that is accessible to the Tembo Platform API.
 
@@ -34,6 +43,8 @@ For user defined containers, you must specify the key `custom` in the `app_servi
 - `env`: An array of environment variables that are passed to the application service. These are key-value pairs that are used to configure the application service. The Postgres connection string for your Tembo Postgres instance can be passed into an environment variable by using `valueFromPlatform: ReadWriteConnection`.
 - `resources`: The resource limits and requests for the application service. This is used to configure the amount of CPU and memory that the application service can use.
 - `storage`: The storage configuration for the application service, including volumes and volume mounts. See also the [StorageConfig](https://docs.rs/controller/latest/controller/app_service/types/struct.StorageConfig.html) spec.
+
+## Apply the spec to your Tembo Instance
 
 Below is an example deploying a python FastAPI webserver container alongside your Tembo Postgres instance. This can be applied in a PATCH request to an existing Tembo instance or used as part of any of the instance methods, to the [Tembo Platform API](https://api.tembo.io/redoc). The container image is public, and the application was designed to run on port 3000 in the container. The application is exposed publicly at `https://$YourTemboHostName/embeddings`, and those requests are mapped to the path `/v1/embeddings` and port `3000` on the container. Two environment variables are configured, along with cpu and memory requests and limits. An ephemeral storage volume is mounted at the `/models` path in the container.
 
