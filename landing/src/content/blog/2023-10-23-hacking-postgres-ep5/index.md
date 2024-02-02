@@ -3,21 +3,21 @@ slug: hacking-postgres-ep5
 title: "Hacking Postgres, Ep. 5: Alexander Korotkov"
 authors: [eric]
 tags: [postgres, hacking_postgres]
-image: './ep5.png'
+image: './hacking-postgres-ep5.png'
 ---
 
 
 In this episode, Ry and Alexander talk about OrioleDB (and the challenge of fighting bloat), fuzzy and vector search, and the challenges behind database management. Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Alexander for joining us today!
 
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
-  <iframe 
+  <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900" 
-    height="315" 
-    src="https://www.youtube.com/embed/FrOvwkmAPvg?si=9OgASSFxHfkYSfb2" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    width="900"
+    height="315"
+    src="https://www.youtube.com/embed/FrOvwkmAPvg?si=9OgASSFxHfkYSfb2"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen>
   </iframe>
 </div>
@@ -44,7 +44,7 @@ Hi, I'm Ry Walker, founder of Tembo, a managed Postgres company. And today I hav
 
 ##### _[00:00:24] - Alexander_
 
-Hello, thank you very much for inviting me. It's a pleasure to participate. 
+Hello, thank you very much for inviting me. It's a pleasure to participate.
 
 
 ##### _[00:00:32] - Ry_

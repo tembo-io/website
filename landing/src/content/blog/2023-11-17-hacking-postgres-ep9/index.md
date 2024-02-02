@@ -3,23 +3,23 @@ slug: hacking-postgres-ep9
 title: "Hacking Postgres, Ep. 9: Bertrand Drouvot"
 authors: [eric]
 tags: [postgres, hacking_postgres]
-image: './ep9.png'
+image: './hacking-postgres-ep9.png'
 ---
 
 
-Build the thing you wish you had right now. That’s the story behind Hacking Postgres, Ep 9, where Ry sits down with Bertrand Drouvot of AWS Cloud. Today they talked about the struggles of trying to build from scratch vs having a template, what should be core vs an extension, and being able to see what’s really happening inside your database. 
+Build the thing you wish you had right now. That’s the story behind Hacking Postgres, Ep 9, where Ry sits down with Bertrand Drouvot of AWS Cloud. Today they talked about the struggles of trying to build from scratch vs having a template, what should be core vs an extension, and being able to see what’s really happening inside your database.
 
 Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Bertrand for joining us today!
 
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
-  <iframe 
+  <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900" 
-    height="315" 
-    src="https://www.youtube.com/embed/Jwu8iotiZiw?si=Zya0z8YP2zmOKx9d" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    width="900"
+    height="315"
+    src="https://www.youtube.com/embed/Jwu8iotiZiw?si=Zya0z8YP2zmOKx9d"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen>
   </iframe>
 </div>

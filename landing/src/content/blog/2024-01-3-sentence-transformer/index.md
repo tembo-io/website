@@ -17,14 +17,14 @@ At Tembo, we recently released a new version of [pg_vectorize](https://github.co
 Interested? Thought so. Darren walks us through it right here:
 
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
-  <iframe 
+  <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900" 
-    height="315" 
-    src="https://www.youtube.com/embed/Sv6PPDcG25A?si=CrUwdxa12aOGODyl" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    width="900"
+    height="315"
+    src="https://www.youtube.com/embed/Sv6PPDcG25A?si=CrUwdxa12aOGODyl"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen>
   </iframe>
 </div>

@@ -3,7 +3,7 @@ slug: hacking-postgres-ep1
 title: "Hacking Postgres Ep. 1: Marco Slot"
 authors: [eric]
 tags: [postgres, hacking_postgres]
-image: './ep1.png'
+image: './hacking-postgres-ep1.png'
 ---
 
 ## Episode Notes
@@ -11,14 +11,14 @@ image: './ep1.png'
 In this episode, Ry and Marco talk about the early days of Citus and its development, creating pg_cron (on a plane!), and the new possibilities on the horizon for extensions in the Postgres landscape. If you haven’t seen or listened to it yet, you can play the video below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Marco for joining us today!
 
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
-  <iframe 
+  <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900" 
-    height="315" 
-      src="https://www.youtube.com/embed/UxUrn6bKDfU?si=JMm_cMMPToh1K2KK" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    width="900"
+    height="315"
+      src="https://www.youtube.com/embed/UxUrn6bKDfU?si=JMm_cMMPToh1K2KK"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen>
   </iframe>
 </div>
@@ -350,4 +350,4 @@ Well, great. Good to meet you. Looking forward to continuing to get to know you.
 
 ##### _[00:29:56] - Marco_
 
-Yeah, it was great. Thanks for having me. 
+Yeah, it was great. Thanks for having me.

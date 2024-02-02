@@ -3,23 +3,23 @@ slug: hacking-postgres-ep10
 title: "Hacking Postgres, Ep. 10: Tim Sehn"
 authors: [eric]
 tags: [postgres, hacking_postgres]
-image: './ep10.png'
+image: './hacking-postgres-ep10.png'
 ---
 
 
-Even describing something truly novel is challenging, let alone building it. That’s the story of our final episode from Season 1, where Ry sits down with Tim Sehn from Dolthub to talk about the journey of building Dolt, the new release of Doltgres, and the challenges of adapting to the changing ways users engage with your product. 
+Even describing something truly novel is challenging, let alone building it. That’s the story of our final episode from Season 1, where Ry sits down with Tim Sehn from Dolthub to talk about the journey of building Dolt, the new release of Doltgres, and the challenges of adapting to the changing ways users engage with your product.
 
 Watch below, or listen on [Apple](https://podcasts.apple.com/us/podcast/s1-ep10-tim-sehn-dolthub-doltgres/id1710401793?i=1000637183773)/[Spotify](https://open.spotify.com/episode/7APPC9RQr6NHX3yaXreFc8?si=bf17b96a2cc54c5f) (or your podcast platform of choice). Special thanks to Tim for joining us today!
 
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
-  <iframe 
+  <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900" 
-    height="315" 
-    src="https://www.youtube.com/embed/u1a5ovDUBsM?si=SbxITarJvj4eXzk1" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    width="900"
+    height="315"
+    src="https://www.youtube.com/embed/u1a5ovDUBsM?si=SbxITarJvj4eXzk1"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen>
   </iframe>
 </div>

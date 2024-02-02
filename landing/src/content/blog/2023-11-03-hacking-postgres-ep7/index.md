@@ -3,23 +3,22 @@ slug: hacking-postgres-ep7
 title: "Hacking Postgres Ep. 7: Burak Yucesoy"
 authors: [eric]
 tags: [postgres, hacking_postgres]
-image: './ep7.png'
+image: './hacking-postgres-ep7.png'
 ---
-
 
 Postgres for everything? How about building a new cloud provider? In episode 7 of Hacking Postgres, Ry talks with Burak Yucesoy of Ubicloud about new clouds, getting attached to extensions, and the future potential of Postgres.
 
 Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Regina and Paul for joining us today!
 
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
-  <iframe 
+  <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900" 
-    height="315" 
-    src="https://www.youtube.com/embed/_f4WZwkrXQw?si=V2H6vs_e86Aq2xJt" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    width="900"
+    height="315"
+    src="https://www.youtube.com/embed/_f4WZwkrXQw?si=V2H6vs_e86Aq2xJt"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen>
   </iframe>
 </div>
@@ -152,7 +151,7 @@ Well, so again, you were working on Citus...When you started working on it, was 
 
 ##### _[00:07:25] - Burak_
 
-Yeah, at the beginning it was a fork and just before I joined the team it become an extension. So basically Citus become an extension and become an open source at the same time. And I think I joined Citus team in like one month after that. 
+Yeah, at the beginning it was a fork and just before I joined the team it become an extension. So basically Citus become an extension and become an open source at the same time. And I think I joined Citus team in like one month after that.
 
 
 ##### _[00:07:45] - Ry_

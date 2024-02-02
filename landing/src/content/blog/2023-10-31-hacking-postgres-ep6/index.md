@@ -3,23 +3,23 @@ slug: hacking-postgres-ep6
 title: "Hacking Postgres, Ep. 6: Regina Obe and Paul Ramsey"
 authors: [eric]
 tags: [postgres, hacking_postgres]
-image: './ep6.png'
+image: './hacking-postgres-ep6.png'
 ---
 
 
-In this episode, Ry, Regina, and Paul talk about geospatial development, the challenges of creating and maintaining an extension across multiple Postgres development cycles, and what they’re hoping for in the future of Postgres. 
+In this episode, Ry, Regina, and Paul talk about geospatial development, the challenges of creating and maintaining an extension across multiple Postgres development cycles, and what they’re hoping for in the future of Postgres.
 
 Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Regina and Paul for joining us today!
 
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
-  <iframe 
+  <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900" 
-    height="315" 
-    src="https://www.youtube.com/embed/q3TXM6Nu7Aw?si=El0OVHhXKXkXAoQ1" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    width="900"
+    height="315"
+    src="https://www.youtube.com/embed/q3TXM6Nu7Aw?si=El0OVHhXKXkXAoQ1"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen>
   </iframe>
 </div>
@@ -68,7 +68,7 @@ So I think you guys have all been using Postgres for quite some time. Maybe. Pau
 
 ##### _[00:00:42] - Paul_
 
-I started using Postgres, and I'm sure I can give you a version number, I think like 6.4, which I think puts me in like the '98, '99 era. And yeah, I was using it as a consultant. My first career was in consulting and working for the provincial government. And we were doing a big data analysis project and it was a geospatial project, but all the geospatial processing was being done by an external piece of software and we used Postgres as the backing store for what was a very long, like, 20 day compute cycle to spit out all the results for the entire province. 
+I started using Postgres, and I'm sure I can give you a version number, I think like 6.4, which I think puts me in like the '98, '99 era. And yeah, I was using it as a consultant. My first career was in consulting and working for the provincial government. And we were doing a big data analysis project and it was a geospatial project, but all the geospatial processing was being done by an external piece of software and we used Postgres as the backing store for what was a very long, like, 20 day compute cycle to spit out all the results for the entire province.
 
 
 ##### _[00:01:17] - Ry_

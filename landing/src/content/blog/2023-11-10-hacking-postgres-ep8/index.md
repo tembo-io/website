@@ -3,7 +3,7 @@ slug: hacking-postgres-ep8
 title: "Hacking Postgres, Ep. 8: Philippe Noël"
 authors: [eric]
 tags: [postgres, hacking_postgres]
-image: './ep8.png'
+image: './hacking-postgres-ep8.png'
 ---
 
 Search is simple in theory. In practice? Anything but. In today’s Episode 8 of Hacking Postgres, Ry sits down with Philippe Noël of ParadeDB to talk about how search is evolving, the influence of AI, and the lessons you'd tell your younger self.
@@ -11,14 +11,14 @@ Search is simple in theory. In practice? Anything but. In today’s Episode 8 of
 Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Regina and Paul for joining us today!
 
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
-  <iframe 
+  <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900" 
-    height="315" 
-    src="https://www.youtube.com/embed/o73EMG1c3cA?si=ypM2zuSnQD-elBSB" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    width="900"
+    height="315"
+    src="https://www.youtube.com/embed/o73EMG1c3cA?si=ypM2zuSnQD-elBSB"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen>
   </iframe>
 </div>
@@ -90,7 +90,7 @@ Well, cool. Obviously as a user, you've used it for years, I'm sure. Tell me abo
 
 ##### [00:03:12] - Phil
 
-I guess I would say it's the first major thing. So we can keep it to that, what we're doing. So we're building ParadeDB. ParadeDB is like a Postgres database, essentially, or Postgres extension, where we're integrating native full text search within Postgres, which is something that some people are quick to jump to say this already exists, and some people are quick to jump to say the one that exists is very bad. And so they're excited about what we're doing. So it depends which camp you fall on. But the first thing we released is this extension is called pg_bm25, where we're essentially integrating proper full text search within Postgres and then combine this with some of the existing innovations that's come, like pgvector to build hybrid search. And our goal is to build this Postgres type database that is sort of the go to choice for companies where search is critical to the product they're building. 
+I guess I would say it's the first major thing. So we can keep it to that, what we're doing. So we're building ParadeDB. ParadeDB is like a Postgres database, essentially, or Postgres extension, where we're integrating native full text search within Postgres, which is something that some people are quick to jump to say this already exists, and some people are quick to jump to say the one that exists is very bad. And so they're excited about what we're doing. So it depends which camp you fall on. But the first thing we released is this extension is called pg_bm25, where we're essentially integrating proper full text search within Postgres and then combine this with some of the existing innovations that's come, like pgvector to build hybrid search. And our goal is to build this Postgres type database that is sort of the go to choice for companies where search is critical to the product they're building.
 
 
 ##### [00:04:08] - Ry
@@ -100,7 +100,7 @@ Nice. Why do you think you're working on this? What led you here?
 
 ##### [00:04:14] - Phil
 
-Yeah, that's a good question, actually. This is a problem we face ourselves and that's kind of why we wanted to solve it. So after my first company, my co founder and I, we were trying to decide what we're going to do next. So we started doing some contracting work sort of left and right. I was living in Paris at the time and working with a lot of French and German company. And when we were working with this German automaker, they just really needed high quality full text search within Postgres. So the promo we were building for them, and instead we had to glue Elasticsearch or some vector database on top. And it was just a nightmare. And we were very frustrated how bad it was and decided, you know what, maybe we should just fix it ourselves. And so that kind of led us to today. 
+Yeah, that's a good question, actually. This is a problem we face ourselves and that's kind of why we wanted to solve it. So after my first company, my co founder and I, we were trying to decide what we're going to do next. So we started doing some contracting work sort of left and right. I was living in Paris at the time and working with a lot of French and German company. And when we were working with this German automaker, they just really needed high quality full text search within Postgres. So the promo we were building for them, and instead we had to glue Elasticsearch or some vector database on top. And it was just a nightmare. And we were very frustrated how bad it was and decided, you know what, maybe we should just fix it ourselves. And so that kind of led us to today.
 
 
 ##### [00:05:00] - Ry

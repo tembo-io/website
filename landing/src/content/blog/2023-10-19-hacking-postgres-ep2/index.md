@@ -3,7 +3,7 @@ slug: hacking-postgres-ep2
 title: "Hacking Postgres, Ep. 2: Adam Hendel"
 authors: [eric]
 tags: [postgres, hacking_postgres]
-image: './ep2.png'
+image: './hacking-postgres-ep2.png'
 ---
 
 In this episode, Ry and Adam talk about developing extensions for Postgres, being in the trenches of the modern data stack sprawl, and the future of what’s possible with Tembo Stacks. If you haven’t seen or listened to it yet, you can do so below, or on Apple/Spotify (or your podcast platform of choice). Special thanks to Adam for joining us today!
@@ -295,7 +295,7 @@ Right?
 
 ##### _[00:20:46] - Ry_
 
-And so a postgres backed queue ought to have that same UI, that same monitoring tailored monitoring system. It makes it, I don't know how many times harder versus just configuration and curating some extensions, but I think it's all worth it to the user to be able to really defend their choice to use postgres for this use case against one of the modern data stack alternatives. 
+And so a postgres backed queue ought to have that same UI, that same monitoring tailored monitoring system. It makes it, I don't know how many times harder versus just configuration and curating some extensions, but I think it's all worth it to the user to be able to really defend their choice to use postgres for this use case against one of the modern data stack alternatives.
 
 
 ##### _[00:21:20] - Adam_
