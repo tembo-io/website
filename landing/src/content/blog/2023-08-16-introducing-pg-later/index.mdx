@@ -5,6 +5,7 @@ authors: [adam]
 tags: [postgres, announcement, async, extensions]
 image: './tembo-launch.png'
 ---
+import Callout from '../../../components/Callout.astro';
 
 ![tembo brand](./tembo-launch.png)
 
@@ -12,11 +13,9 @@ We've released a new Postgres extension called [pg_later](https://github.com/tem
 
 You can try pg_later on [Tembo Cloud](https://cloud.tembo.io/) as part of our [Machine Learning Stack](https://tembo.io/docs/tembo-stacks/machine-learning).
 
-:::note Machine Learning Stack
-
+<Callout variant='info' title='Machine Learning Stack'>
 [Tembo Cloud](https://cloud.tembo.io/)'s Machine Learning Stack is powered by [postgresml](https://github.com/postgresml/postgresml) and pg_later, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
-
-:::
+</Callout>
 
 ## Why async queries?
 

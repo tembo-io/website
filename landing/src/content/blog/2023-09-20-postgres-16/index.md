@@ -106,7 +106,6 @@ In addition to this, there are other improvements including the addition of `las
 Like I said, each release comes with many improvements - and I could not outline them all in a blog post (and if I did, nobody would read it!). But I do want to mention a few other items in Postgres 16 that I won’t be able to dive deeper into but are interesting as well.
 
 
-
 * Load balancing with multiple hosts in `libpq`: This feature allows to balance the load across Postgres read replicas directly within `libpq` (which is the foundational Postgres client library) without having to use another load balancer. You can read [this blog post](https://mydbops.wordpress.com/2023/05/07/postgresql-16-brings-load-balancing-support-in-libpq-psql/) on how this new feature is implemented and can be used.
 * Performance: I won’t repeat what’s in the release notes but there’s a long list of performance improvements in this release. There’s support for more parallelism on `FULL` and `OUTER` `JOINs` and on more aggregates, greater usage of incremental sorts, window function optimizations and even an upto 300% performance improvement in `COPY`.
 * `VACUUM` improvements: Last thing I’d mention is improvements to `VACUUM` which include freezing performance improvements, ability to increase (or decrease) shared buffer usage by `VACUUM`, and faster loading of `VACUUM` configs.

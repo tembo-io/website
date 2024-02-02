@@ -45,10 +45,10 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
                             </a>
                         </div>
                     </header>
-                    <img src={`/${post.data.image || 'blogFallbackImage.svg'}`} alt='blog post hero image' class='hidden min-[1200px]:flex rounded-2xl w-[650px]' />
+                    <img src={`/${post.data.image || 'blogFallbackImage.svg'}`} alt='blog post hero image' class='hidden min-[1200px]:flex rounded-2xl w-[650px] max-h-[]' />
                 </div>
-                <div class='mt-12 mobile:mt-36 flex justify-between w-full'>
-                    <div id='tembo-blog-post' class='mobile:mr-12'>
+                <div class='mt-12 mobile:mt-36 mobile:flex mobile:justify-between w-full'>
+                    <div id='tembo-blog-post' class='m-0 mobile:mr-12'>
                         <Markdown>
                             <Content />
                         </Markdown>

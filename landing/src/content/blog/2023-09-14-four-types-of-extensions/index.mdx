@@ -3,8 +3,9 @@ slug: four-types-of-extensions
 title: "Enter the matrix: the four types of Postgres extensions"
 authors: [steven]
 tags: [postgres, extensions, trunk]
-image: './images/one-does-not-simply.png'
+image: './one-does-not-simply.png'
 ---
+import Callout from '../../../components/Callout.astro';
 
 Before working for a Postgres company, I had never used extensions.
 
@@ -38,9 +39,10 @@ A **library** simply means compiled code, for example written in [C](https://www
 **[SQL objects](https://www.postgresql.org/docs/current/extend-extensions.html#:~:text=A%20useful%20extension%20to%20PostgreSQL,package%20to%20simplify%20database%20management.)**, let's just call it SQL, are extensions of SQL, for example new functions and data types. These are often implemented by a library, but can also be implemented in other ways, for example using a procedural language like [PL/pgSQL](https://www.postgresql.org/docs/current/plpgsql.html).
 
 **Hooks:** A Postgres feature informally called *hooks* can be used to connect into Postgres' existing functionality. Hooks allow for overwriting default Postgres functionality, or calling back into an extension's code at the appropriate time. For example, one type of hook can modify Postgres start up behavior to launch a background worker, and a different type of hook can be used to redirect queries to a different table.
-:::note
-Sometimes extensions are instead referred to as 'modules', but I like to simply refer to everything as an 'extension', but feel free to @ me on X to tell me why that's wrong ([@sjmiller609](https://twitter.com/sjmiller609)).
-:::
+<Callout variant='info'>
+        Sometimes extensions are instead referred to as 'modules', but I like to simply refer to everything as an 'extension', but feel free to @ me on X to tell me why that's wrong ([@sjmiller609](https://twitter.com/sjmiller609)).
+</Callout>
+
 
 ## Enter the matrix
 

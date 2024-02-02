@@ -5,6 +5,7 @@ authors: [rjzv]
 tags: [postgres, pgmq, rust, pgrx, extensions]
 image: ./pgmq-archive.png
 ---
+import Callout from '../../../components/Callout.astro';
 
 In my [previous submission](https://tembo.io/blog/pgmq-with-python) to this space, I described my experience with [pgmq](https://github.com/tembo-io/pgmq) while using the Python library. In this post, I'll share what I found after inspecting the code.
 
@@ -339,11 +340,11 @@ RETURNING msg_id;
 
 ![pgmq-send](./pgmq-send.png "what send does")
 
-:::note
+<Callout variant='info'>
 At this point, we can see the following pattern in the pgmq project:
   - the exposed SQL functions are defined in `src/api.rs`, and
   - the underlying SQL statements are defined in `core/src/query.rs`
-:::
+</Callout>
 
 
 ### pgmq.read()
