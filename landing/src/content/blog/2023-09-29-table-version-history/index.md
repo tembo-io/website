@@ -6,8 +6,6 @@ tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
 image: ./back-in-time.jpeg
 ---
 
-![back-in-time](./images/back-in-time.jpeg)
-
 A nice feature of AWS S3 is version history and lifecycle policies. When objects are updated or deleted, the old object version remains in the bucket, but it’s hidden. Old versions are deleted eventually by the lifecycle policy.
 
 I would like something like that for my Postgres table data. **We can use the temporal_tables extension for version history, and combine it with pg_partman to partition by time, automatically expiring old versions.**

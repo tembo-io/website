@@ -30,12 +30,17 @@ const { posts } = Astro.props;
             </div>
             <div class='mt-10 pb-2'>
                 <div class='grid grid-cols-12 lg:gap-6'>
-                    {posts.map(async (post) => {
-                        const { remarkPluginFrontmatter } = await post.render();
-                        const dateString = post.id.substring(0, 10);
-                        const parsedDate = post.data?.date || new Date(dateString);
-                        return <BlogPost title={post.data.title} slug={post.slug} readingTime={remarkPluginFrontmatter.minutesRead} date={parsedDate.toLocaleDateString('en-US', dateOptions as any)} author={post.data.authors[0]} heroImage={post.data.image} />
-                    })}
+                    {posts.length > 0 ? (
+                        posts.map(async (post) => {
+                            const { remarkPluginFrontmatter } = await post.render();
+                            const dateString = post.id.substring(0, 10);
+                            const parsedDate = post.data?.date || new Date(dateString);
+                            return <BlogPost title={post.data.title} slug={post.slug} readingTime={remarkPluginFrontmatter.minutesRead} date={parsedDate.toLocaleDateString('en-US', dateOptions as any)} author={post.data.authors[0]} heroImage={post.data.image} />
+                        })
+                    ) : (
+                        <p class='text-salmon font-semibold col-span-2'>No results.</p>
+                    )}
+
                 </div>
             </div>
         </div>

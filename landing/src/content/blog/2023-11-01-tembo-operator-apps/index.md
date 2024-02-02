@@ -6,9 +6,7 @@ tags: [postgres, kubernetes, rust]
 image: './tembo_ele.png'
 ---
 
-![alt_text](./tembo_ele.png "Tembo the Operator")
-
-So you have a database, and that database does something. (Probably several somethings, if we're honest). However, today, you need it to do something else. 
+So you have a database, and that database does something. (Probably several somethings, if we're honest). However, today, you need it to do something else.
 
 Simple enough...you just create a tool to give it that new functionality. Job done.
 
@@ -28,7 +26,7 @@ PostgreSQL is a very powerful piece of software. When running in Kubernetes, a u
 
 PostgREST is a perfect example where an application can run with this pattern. PostgREST serves as a standalone web server that turns your database directly into a RESTful API. The immediate advantage? Developers can use the auto-generated API to build robust applications without writing any code. By simplifying the process and reducing the need for middleware, PostgREST has become a popular tool in the Postgres ecosystem.
 
-However, let’s remember that  the main advantage of this method is not just resource allocation. It's about ensuring the optimal performance of Postgres without bogging it down with additional tasks. 
+However, let’s remember that  the main advantage of this method is not just resource allocation. It's about ensuring the optimal performance of Postgres without bogging it down with additional tasks.
 
 Let’s look at an example of a spec that would run the workload that we just described. This will look familiar if you’ve worked with the [Kubernetes Pod spec.](https://kubernetes.io/docs/concepts/workloads/pods/)
 

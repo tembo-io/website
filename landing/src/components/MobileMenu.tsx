@@ -31,7 +31,7 @@ const MobileMenu = () => {
 						</a>
 						<img src={'/line.svg'} alt='line' />
 						<a
-							href='https://github.com/tembo-io'
+							href='https://github.com/tembo-io/tembo'
 							target='_blank'
 							rel='noreferrer'
 							className='font-secondary font-normal z-10 text-white text-[20px]'

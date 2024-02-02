@@ -126,7 +126,7 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 							Blog
 						</a>
 						<a
-							href='https://github.com/tembo-io'
+							href='https://github.com/tembo-io/tembo'
 							target='_blank'
 							rel='noreferrer'
 							className='font-secondary font-medium z-10 text-white opacity-70'

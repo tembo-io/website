@@ -7,8 +7,6 @@ image: './pgmq.png'
 
 ---
 
-![pgmq](./pgmq.png)
-
 In my recent search for something interesting to do with Rust, I discovered that people write postgres extensions using [pgrx](https://github.com/pgcentralfoundation/pgrx).
 
 I found that very cool, and while looking for some real-world examples to study and dissect, I came across [pgmq](https://tembo.io/blog/introducing-pgmq): "A lightweight message queue. Like AWS SQS and RSMQ but on Postgres." So, I decided to give it a shot so that perhaps in the future, I can contribute to the project ;)
