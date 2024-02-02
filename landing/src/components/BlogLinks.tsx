@@ -11,7 +11,7 @@ interface Props {
 
 const useActiveAnchors = (
     firstHeadingSlug: string,
-    anchorsQuerySelector: string = 'h2',
+    anchorsQuerySelector: string = 'h2, h3, h4, h5, h6',
     tocQuerySelector: string = '.prose-toc',
     offset: number = 120
 ) => {
