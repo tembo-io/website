@@ -28,15 +28,15 @@ const BlogLinks: React.FC<Props> = ({ headings }) => {
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-            const sections = document.querySelectorAll('h2');
+            const sections = document.querySelectorAll('h1, h2, h3, h4, h5, h6') as NodeListOf<HTMLHeadingElement>;
 
             sections.forEach((section) => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.offsetHeight;
 
                 if (
-                    scrollPosition >= sectionTop - 50 &&
-                    scrollPosition < sectionTop + sectionHeight - 50
+                    scrollPosition >= sectionTop &&
+                    scrollPosition < sectionTop + sectionHeight
                 ) {
                     setLink(section.id);
                 }
@@ -53,7 +53,6 @@ const BlogLinks: React.FC<Props> = ({ headings }) => {
         const handleUrlAnchorChange = () => {
             const sectionFromUrl = window.location.hash.substring(1)
             setLink(sectionFromUrl);
-            console.log('CALLED')
         };
 
         window.addEventListener('hashchange', handleUrlAnchorChange);
@@ -63,8 +62,8 @@ const BlogLinks: React.FC<Props> = ({ headings }) => {
     }, []);
 
     useEffect(() => {
-        window.location.hash = link;
-    }, [link]);
+        window.location.hash = link
+    }, [link])
 
     return (
         <div className='flex flex-col gap-6 max-w-[250px]'>

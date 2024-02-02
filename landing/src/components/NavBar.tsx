@@ -169,7 +169,7 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 			</Container>
 			{scrollY > 50 && isProgressBar && (
 				<div className={cx("w-full flex justify-start relative", scrollY > 50 && 'h-[2.5px]')}>
-					<div className="h-full top-0 bottom-0 right-0 absolute w-screen bg-salmon will-change-transform transition-all duration-[65] ease-linear" style={{ transform: `translate3d(${isActive ? progressWidth - 100 + '%' : '0'},0,0)`, opacity: isActive ? 1 : 0 }}></div>
+					<div className="h-full top-0 bottom-0 right-0 absolute w-screen bg-salmon will-change-transform transition-all duration-[40] ease-linear" style={{ transform: `translate3d(${isActive ? progressWidth - 100 + '%' : '0'},0,0)`, opacity: isActive ? 1 : 0 }}></div>
 				</div>
 			)}
 			<div
