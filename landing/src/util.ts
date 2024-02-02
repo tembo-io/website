@@ -70,19 +70,25 @@ export const useActiveAnchors = (
         })
         if (!newActiveAnchor) {
             firstHeading?.classList.remove('border-transparent')
+            firstHeading?.classList.remove('text-grey')
             firstHeading?.classList.add('border-neon')
+            firstHeading?.classList.add('text-white')
             return;
         }
 
         toc.current?.forEach((link) => {
             link.classList.remove('border-neon')
+            link.classList.remove('text-white')
             link.classList.add('border-transparent')
+            link.classList.add('text-grey')
             const sanitizedHref = (link.getAttribute('href') ?? '').replace('#', '')
 
             const isMatch = sanitizedHref === newActiveAnchor;
 
             if (isMatch) {
                 link.classList.remove('border-transparent')
+                link.classList.remove('text-grey')
+                link.classList.add('text-white')
                 link.classList.add('border-neon')
             }
         })
