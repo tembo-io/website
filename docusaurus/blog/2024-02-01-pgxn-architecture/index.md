@@ -73,15 +73,15 @@ Links:
 *   [PDF (one page per slide)](./pgxn-architecture.pdf)
 *   [PDF (one page per stage)](./pgxn-architecture-stages.pdf)
 
-  [Tembo Stacks]: https://tembo.io/docs/category/tembo-stacks
-  [join the team]: /blog/2024-01-22-welcoming-pgxn-creator-david-wheeler/index.md
-  "PGXN creator David Wheeler joins Tembo to strengthen PostgreSQL extension ecosystem"
-  [jobs and tools]: https://gist.github.com/theory/898c8802937ad8361ccbcc313054c29d
-    "Extension Ecosystem: Jobs and Tools"
-  [David Wheeler]: https://justatheory.com "Just a Theory"
-  [PGXN]: https://pgxn.org "PGXN — PostgreSQL Extension Network"
-  [PGXN Manager]: https://manager.pgxn.org/howto "PGXN How To"
-  [root mirror]: https://master.pgxn.org/ "PGXN Root Mirror"
-  [search API]: https://github.com/pgxn/pgxn-api/wiki "PGXN API"
-  [pgxn client]: https://pgxn.github.io/pgxnclient/ "PGXN Client documentation"
-  [pgxn-tools]: https://hub.docker.com/r/pgxn/pgxn-tools "pgxn/pgxn-tools Docker image"
+[Tembo Stacks]: https://tembo.io/docs/category/tembo-stacks
+[join the team]: /blog/2024-01-22-welcoming-pgxn-creator-david-wheeler/index.md
+"PGXN creator David Wheeler joins Tembo to strengthen PostgreSQL extension ecosystem"
+[jobs and tools]: https://gist.github.com/theory/898c8802937ad8361ccbcc313054c29d
+  "Extension Ecosystem: Jobs and Tools"
+[David Wheeler]: https://justatheory.com "Just a Theory"
+[PGXN]: https://pgxn.org "PGXN — PostgreSQL Extension Network"
+[PGXN Manager]: https://manager.pgxn.org/howto "PGXN How To"
+[root mirror]: https://master.pgxn.org/ "PGXN Root Mirror"
+[search API]: https://github.com/pgxn/pgxn-api/wiki "PGXN API"
+[pgxn client]: https://pgxn.github.io/pgxnclient/ "PGXN Client documentation"
+[pgxn-tools]: https://hub.docker.com/r/pgxn/pgxn-tools "pgxn/pgxn-tools Docker image"
