@@ -124,7 +124,7 @@ const blog = defineCollection({
     image: z.string().optional(),
     tags: z.array(z.string()),
     authors: z.array(z
-    .enum(['ryw', 'samay', 'adam', 'rjzv', 'steven', 'jay', 'adarsh', 'eric', 'ian', 'darren', 'abby', 'evan'])
+    .enum(['ryw', 'samay', 'adam', 'rjzv', 'steven', 'jay', 'adarsh', 'eric', 'ian', 'darren', 'abby', 'evan', 'theory'])
     .default('ryw'))
   }),
 })
