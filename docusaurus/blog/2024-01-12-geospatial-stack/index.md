@@ -93,8 +93,6 @@ With relative ease, we can leverage PostGIS to apply functions to further analyz
 
 Some of the queries can be a bit lengthly, so in lieu of brevity we’ve listed key functions, paired with a study-related question it can help answer.
 
-As mentioned above the source code can be found here (insert here).
-
 ### `ST_Distance`
 
 ST_Distance can be used to find the minimum distance between two points. This approach can be extended in a recursive manner to many points.
@@ -167,7 +165,7 @@ Using Tembo’s Geospatial Stack, we were able to explore a GPS tracking dataset
 - Insights on avoidance behavior
 - Insights on behavior related to pre-determined areas (zones)
 
-Interested in a more comprehensive guide? Checkout (INSERT TEMBO GPS DATA GUIDE)
+Interested in a more comprehensive guide? Checkout our [Geospatial Stack getting started guide](https://tembo.io/docs/tembo-stacks/geospatial).
 
 ## 5. Acknowledgements
 We would like to thank Dr. Mike Loomis and Team for their efforts in acquiring this interesting data and for sharing it with the public under the CC0 license. And for the Max Planck Institute, as well as affiliate groups, for maintaining Movebank.
