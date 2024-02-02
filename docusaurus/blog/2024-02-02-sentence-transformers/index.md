@@ -118,4 +118,4 @@ In Tembo Cloud, we run this workload on Kubernetes and manage it with the [tembo
 
 The container hosting the transformers is a simple python http server built with FastAPI running the [SentenceTransformer](https://pypi.org/project/sentence-transformers/) library. It saves general-purpose all-MiniLM-L12-v2 model in the image, so when the container starts the model is immediately loaded into memory. When you call the container for any other model, it is downloaded and cached on the fly.
 
-Clone the repo, give it a start, then run `docker-compose up` to get started. Or, try our managed service at [cloud.tembo.io](https://cloud.tembo.io) to get started.
+Clone the [repo](https://github.com/tembo-io/pg_vectorize), give it a star, then run `docker-compose up` to get started. Or, try our managed service at [cloud.tembo.io](https://cloud.tembo.io).
