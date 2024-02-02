@@ -61,10 +61,6 @@ const BlogLinks: React.FC<Props> = ({ headings }) => {
         };
     }, []);
 
-    useEffect(() => {
-        window.location.hash = link
-    }, [link])
-
     return (
         <div className='flex flex-col gap-6 max-w-[250px]'>
             <h2 className='text-lightGrey font-bold'>On this page</h2>
