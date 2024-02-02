@@ -6,8 +6,6 @@ tags: [postgres, extensions, vector, lantern, pgvector, hnsw]
 image: ./Lantern.png
 ---
 
-![An elephant holding a lantern](./Lantern.png)
-
 Vector search in Postgres is a space that has seen very active development in the last few months. While Pgvector is known to most people, a few weeks ago we came across Lantern, which also builds a Postgres-based vector database. So, we thought about benchmarking both to compare the two approaches. In this post, we'll cover:
 
 - Quick background on doing vector search in PostgreSQL.
@@ -19,13 +17,13 @@ Vector search in Postgres is a space that has seen very active development in th
 
 One of the reasons for the popularity of Vector Search these days has to do with the emergence of powerful [embedding models](https://tembo.io/blog/pgvector-and-embedding-solutions-with-postgres/) and their use in AI. You have probably witnessed how many people, startups, and big companies are [exploring](https://tembo.io/blog/secure-embeddings-in-postgres/) how to take advantage of vectors and incorporate them into [their products](https://hn.algolia.com/?dateRange=all&page=0&prefix=false&query=vector%20search&sort=byDate&type=story).
 
-Such enthusiasm has also attracted the Postgres community. [Pgvector](https://github.com/pgvector/pgvector) arose with the ability to create [IVVFlat indexes](https://tembo.io/blog/vector-indexes-in-pgvector) on existing tables with a simple DDL statement. And so, people were given the ability to easily perform similarity queries. 
+Such enthusiasm has also attracted the Postgres community. [Pgvector](https://github.com/pgvector/pgvector) arose with the ability to create [IVVFlat indexes](https://tembo.io/blog/vector-indexes-in-pgvector) on existing tables with a simple DDL statement. And so, people were given the ability to easily perform similarity queries.
 
 But Pgvector is not the only one in this space. The community has come up with other alternatives as well. One such example was [pg_embedding](https://github.com/neondatabase/pg_embedding). In July, [Neon](https://neon.tech/) published a [post](https://neon.tech/blog/pg-embedding-extension-for-vector-search) where they showed how its extension was 20x faster than Pgvector by using HNSW indexes . However, Pgvector quickly caught up and introduced the HNSW index as well. Around that time, on September 29th, Neon stopped supporting `pg_embedding` and suggested migrating to Pgvector.
 
 Another Postgres extension in the vector search domain is [Lantern](https://github.com/lanterndata/lantern), developed by a [company of the same name](https://lantern.dev/). In October, a [post](https://lantern.dev/blog/hnsw-index-creation) on their blog claimed that their extension could outperform Pgvector by 90x in index creation time. That was an outstanding achievement!
 
-So, I spent some time playing with Lantern, and I'd like to share some of my findings in this blog post. I divided it into two parts: the first one is a quick qualitative comparison, and the second one is a quantitative comparison using a popular benchmark. 
+So, I spent some time playing with Lantern, and I'd like to share some of my findings in this blog post. I divided it into two parts: the first one is a quick qualitative comparison, and the second one is a quantitative comparison using a popular benchmark.
 
 Let's dive in.
 
@@ -136,13 +134,13 @@ For convenience, the following table summarizes the above results using relative
 
 Pgvector is the most popular Postgres extension for vector search. At the time of this writing, the github repository counts 7.6K stars and is actively being discussed on the web. It is also supported on most managed Postgres providers (including [Tembo Cloud](https://cloud.tembo.io/)) so is easier for you to access.
 
-Lantern is a young project that leverages the popular [USearch engine](https://github.com/unum-cloud/usearch/). As of today, the extension has been starred more than 400 times in github and is in very active development. 
+Lantern is a young project that leverages the popular [USearch engine](https://github.com/unum-cloud/usearch/). As of today, the extension has been starred more than 400 times in github and is in very active development.
 
 Both extensions offer similar API and support the HNSW index. According to my experiments (Pgvector 0.5.1 and Lantern 0.0.11), Lantern's index creation is faster and produces smaller indexes. However, Pgvector provides better recall, latency and throughput.
 
 We should keep an eye on both projects and see how they evolve. I am confident that we'll see several improvements in the following months.
 
-Oh, and if you are interested in quickly integrating vector searches in your app, make sure to check out [pg_vectorize](https://tembo.io/blog/introducing-pg_vectorize) to see how to do that with only two function calls in Postgres. 
+Oh, and if you are interested in quickly integrating vector searches in your app, make sure to check out [pg_vectorize](https://tembo.io/blog/introducing-pg_vectorize) to see how to do that with only two function calls in Postgres.
 
 
 
