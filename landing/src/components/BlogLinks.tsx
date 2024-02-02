@@ -10,58 +10,70 @@ interface Props {
 
 
 const useActiveAnchors = (
-  anchorsQuerySelector: string = 'h2',
-  tocQuerySelector: string = '.prose-toc',
-  offset: number = 120
+    firstHeadingSlug: string,
+    anchorsQuerySelector: string = 'h2',
+    tocQuerySelector: string = '.prose-toc',
+    offset: number = 120
 ) => {
-  const anchors = useRef<NodeListOf<HTMLHeadingElement> | null>(null)
-  const toc = useRef<NodeListOf<HTMLHeadingElement> | null>(null)
+    const anchors = useRef<NodeListOf<HTMLHeadingElement> | null>(null)
+    const toc = useRef<NodeListOf<HTMLHeadingElement> | null>(null)
 
-  const handleScroll = () => {
-    const pageYOffset = window.scrollY;
-    let newActiveAnchor: string = '';
-
-    anchors.current?.forEach((anchor) => {
-      if (pageYOffset >= anchor.offsetTop - offset) {
-        if (!!anchor.id) {
-            newActiveAnchor = anchor.id
+    const handleScroll = () => {
+        const firstHeading = document.getElementById(firstHeadingSlug);
+        const pageYOffset = window.scrollY;
+        let newActiveAnchor: string = '';
+        if (pageYOffset < 1) {
+            return;
         }
-      }
-    })
 
-    toc.current?.forEach((link) => {
-      link.classList.remove('border-neon')
-      link.classList.add('border-transparent')
-      const sanitizedHref = (link.getAttribute('href') ?? '').replace('#', '')
+        anchors.current?.forEach((anchor) => {
+            if (pageYOffset >= anchor.offsetTop - offset) {
+                if (!!anchor.id) {
+                    newActiveAnchor = anchor.id
+                }
+            }
+        })
+        if (!newActiveAnchor) {
+            firstHeading?.classList.remove('border-transparent')
+            firstHeading?.classList.add('border-neon')
+            return;
+        }
 
-      const isMatch = sanitizedHref === newActiveAnchor;
+        toc.current?.forEach((link) => {
+            link.classList.remove('border-neon')
+            link.classList.add('border-transparent')
+            const sanitizedHref = (link.getAttribute('href') ?? '').replace('#', '')
 
-      if (isMatch) {
-        link.classList.remove('border-transparent')
-        link.classList.add('border-neon')
-      }
-    })
-  }
+            const isMatch = sanitizedHref === newActiveAnchor;
 
-  useEffect(() => {
-    anchors.current = document.querySelectorAll(anchorsQuerySelector)
-    toc.current = document.querySelectorAll(tocQuerySelector)
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
+            if (isMatch) {
+                link.classList.remove('border-transparent')
+                link.classList.add('border-neon')
+            }
+        })
     }
-  }, [])
 
-  return null
+    useEffect(() => {
+        anchors.current = document.querySelectorAll(anchorsQuerySelector)
+        toc.current = document.querySelectorAll(tocQuerySelector)
+
+        window.addEventListener('scroll', handleScroll)
+
+        return () => {
+        window.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
+
+    return null
 }
 
 
 const BlogLinks: React.FC<Props> = ({ headings }) => {
     const [link, setLink] = useState('')
+    const firstHeadingSlug = headings[0].slug;
+
     useEffect(() => {
-        setLink(window.location.hash)
+        setLink(window.location.hash.substring(1))
     }, [])
 
 
@@ -71,9 +83,10 @@ const BlogLinks: React.FC<Props> = ({ headings }) => {
 
     const scrollToSection = (section: string) => {
         const element = document.getElementById(section);
-        element?.scrollIntoView({ behavior: 'smooth' });
+        element?.scrollIntoView();
     };
-    const _ = useActiveAnchors();
+
+    const _ = useActiveAnchors(firstHeadingSlug);
 
     return (
         <div className='flex flex-col gap-6 max-w-[250px]'>
