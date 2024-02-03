@@ -2,7 +2,7 @@
 slug: clerk-fdw
 title: "Unlocking value from your Clerk User Management platform with Postgres"
 authors: [jay]
-tags: [postgres, extensions]
+tags: [postgres, extensions, data, fdw]
 image: ./clerk-flowchart.png
 ---
 

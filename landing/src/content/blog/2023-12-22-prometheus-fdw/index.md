@@ -2,7 +2,7 @@
 slug: monitoring-with-prometheus-fdw
 title: 'Introducing prometheus_fdw: Seamless Monitoring in Postgres'
 authors: [abby, eric]
-tags: [postgres, extensions]
+tags: [postgres, extensions, data, fdw]
 image: './installImage.png'
 ---
 
