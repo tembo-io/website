@@ -10,7 +10,7 @@ image: ./Lantern.png
 
 Three weeks ago, we wrote a [blog comparing pg_vector and lantern](https://tembo.io/blog/postgres-vector-search-pgvector-and-lantern) on index creation and search speed, and also mentioned that this is a fast evolving space with great momentum.
 
-Just last week, we saw the release of Pgvector v0.6.0, which contains improvements in HWSW [build time](https://github.com/pgvector/pgvector/issues/409) thanks to the ability to build indexes in parallel.
+Just last week, we saw the release of Pgvector v0.6.0, which contains improvements in HWSW build time thanks to the ability to [build indexes in parallel](https://github.com/pgvector/pgvector/issues/409).
 
 <iframe
 	border={0}
@@ -30,13 +30,13 @@ So, this means that we can compare both extensions in a more fair manner.
 
 The invocation of the two indexers is different.
 
-For Lantern we have to use the [external indexer](https://github.com/lanterndata/lantern_extras). It enables parallelism by spawning `N` additional threads (where `N` is determined by using [`std::thread::available_parallelism`](https://doc.rust-lang.org/std/thread/fn.available_parallelism.html)). From a quick look at the code, we can see that the main thread queries rows from the base table in chunks of 2K rows and sends them through a [sync channel](https://doc.rust-lang.org/std/sync/mpsc/fn.sync_channel.html). At the other end of the channel, one of the `N` threads receives the rows and calls the appropriate [usearch](https://github.com/unum-cloud/usearch) API to append them to the index.
+For Lantern we have to use the [external indexer](https://lantern.dev/blog/hnsw-index-creation). It enables parallelism by spawning `N` additional threads (where `N` is determined by using [`std::thread::available_parallelism`](https://doc.rust-lang.org/std/thread/fn.available_parallelism.html)). From a quick look at the code, we can see that the main thread queries rows from the base table in chunks of 2K rows and sends them through a [sync channel](https://doc.rust-lang.org/std/sync/mpsc/fn.sync_channel.html). At the other end of the channel, one of the `N` threads receives the rows and calls the appropriate [usearch](https://github.com/unum-cloud/usearch) API to append them to the index.
 
 In contrast, PgVector uses Postgres parallel workers. To activate the parallel build, we must set a value for [`max_parallel_maintenance_workers`](https://github.com/pgvector/pgvector?tab=readme-ov-file#index-build-time). Skimming through the code, we see that a parallel context is initialized with the target function `HnswParallelBuildMain()` and a dynamic shared memory segment (DSM). A portion of this segment is used as a shared scratchpad for the parallel workers. Each parallel worker scans a portion of the base table and executes a callback function to append a new element to the index in the shared area.
 
 ## A quick benchmark
 
-We ran a quick test to see how much things changed in terms of build time. Here are the results for `m={8, 16}`, `ef_construction=128` and `ef_search=128` with the sift-128-euclidean dataset. 
+We ran a quick test with `parallelism = 8` to see how much things changed in terms of build time. Here are the results for `m={8, 16}`, `ef_construction=128` and `ef_search=128` with the sift-128-euclidean dataset. 
 
 This time I used:
 
@@ -47,7 +47,7 @@ This time I used:
 | **Lantern** | Max parallelism automatically detected by `lantern-cli` (8). |
 | **Docker Config**   | `cpu_limit=8; shm_size=9G`                                                                                                                                                                                                        |
 
-The rest of the parameters are the same as the previous post.
+The rest of the parameters are the same as the [previous post](https://tembo.io/blog/postgres-vector-search-pgvector-and-lantern).
 
 The following plot shows the new numbers along with the numbers we presented last time.
 
@@ -59,7 +59,7 @@ I find it quite remarkable how both extensions improve the index creation time (
 
 ## Try it out!
 
-PgVector 0.6.0 is already available in Tembo’s [Vector DB Stack](https://tembo.io/). You can try it for free!
+PgVector 0.6.0 is already available in [Tembo’s](https://tembo.io/) [Vector DB Stack](https://tembo.io/docs/tembo-stacks/vector-db). You can try it for free!
 
 And, if you are interested in running the benchmark yourself, check out the modified [ann-benchmarks fork](https://github.com/binidxaba/ann-benchmarks). 
 
