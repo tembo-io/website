@@ -2,7 +2,7 @@
 slug: hacking-postgres-ep2
 title: "Hacking Postgres, Ep. 2: Adam Hendel"
 authors: [eric]
-tags: [postgres, hacking_postgres]
+tags: [postgres, hacking-postgres]
 image: './hacking-postgres-ep2.png'
 ---
 
@@ -10,7 +10,8 @@ In this episode, Ry and Adam talk about developing extensions for Postgres, bein
 
 Want to know more about something they mentioned? Here’s a starting point:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/8vkhlaY7AqM?si=ttqL-LBuwgXzEvFG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe  width="100%"
+    height="400" src="https://www.youtube.com/embed/8vkhlaY7AqM?si=ttqL-LBuwgXzEvFG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
 * Pgmq - [https://github.com/tembo-io/pgmq](https://github.com/tembo-io/pgmq); also see Adam’s blog post about pgmq - [https://tembo.io/blog/introducing-pgmq](https://tembo.io/blog/introducing-pgmq)

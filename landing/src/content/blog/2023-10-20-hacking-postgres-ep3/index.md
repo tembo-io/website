@@ -2,7 +2,7 @@
 slug: hacking-postgres-ep3
 title: "Hacking Postgres, Ep. 3: Eric Ridge"
 authors: [eric]
-tags: [postgres, hacking_postgres]
+tags: [postgres, hacking-postgres]
 image: './hacking-postgres-ep3.png'
 ---
 
@@ -11,8 +11,8 @@ In this episode, Ry and Eric talk about ZomboDB, the complicated road that led t
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
   <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900"
-    height="315"
+    width="100%"
+    height="400"
     src="https://www.youtube.com/embed/tD9e6KXnB20?si=sjZJEGyxhqE7x9U-"
     title="YouTube video player"
     frameBorder="0"

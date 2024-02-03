@@ -2,7 +2,7 @@
 slug: hacking-postgres-ep10
 title: "Hacking Postgres, Ep. 10: Tim Sehn"
 authors: [eric]
-tags: [postgres, hacking_postgres]
+tags: [postgres, hacking-postgres]
 image: './hacking-postgres-ep10.png'
 ---
 
@@ -14,8 +14,8 @@ Watch below, or listen on [Apple](https://podcasts.apple.com/us/podcast/s1-ep10-
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
   <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900"
-    height="315"
+    width="100%"
+    height="400"
     src="https://www.youtube.com/embed/u1a5ovDUBsM?si=SbxITarJvj4eXzk1"
     title="YouTube video player"
     frameBorder="0"

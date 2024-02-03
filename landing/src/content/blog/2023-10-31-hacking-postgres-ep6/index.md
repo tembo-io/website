@@ -2,7 +2,7 @@
 slug: hacking-postgres-ep6
 title: "Hacking Postgres, Ep. 6: Regina Obe and Paul Ramsey"
 authors: [eric]
-tags: [postgres, hacking_postgres]
+tags: [postgres, hacking-postgres]
 image: './hacking-postgres-ep6.png'
 ---
 
@@ -14,8 +14,8 @@ Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Sp
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
   <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900"
-    height="315"
+    width="100%"
+    height="400"
     src="https://www.youtube.com/embed/q3TXM6Nu7Aw?si=El0OVHhXKXkXAoQ1"
     title="YouTube video player"
     frameBorder="0"

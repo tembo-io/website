@@ -2,7 +2,7 @@
 slug: hacking-postgres-ep8
 title: "Hacking Postgres, Ep. 8: Philippe Noël"
 authors: [eric]
-tags: [postgres, hacking_postgres]
+tags: [postgres, hacking-postgres]
 image: './hacking-postgres-ep8.png'
 ---
 
@@ -13,8 +13,8 @@ Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Sp
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
   <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900"
-    height="315"
+    width="100%"
+    height="400"
     src="https://www.youtube.com/embed/o73EMG1c3cA?si=ypM2zuSnQD-elBSB"
     title="YouTube video player"
     frameBorder="0"
