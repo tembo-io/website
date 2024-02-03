@@ -57,8 +57,23 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
                         <div class='flex flex-wrap gap-4 items-start max-w-[180px]'>
                             {post.data.tags.map((tag: string) => <Tag title={tag} classNames='px-2.5 py-[0.4rem] text-center text-[12px] h-max border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10' />)}
                         </div>
-                        <div class='flex flex-col gap-4 w-max items-end mobile:sticky mobile:top-[100px]'>
+                        <div class='flex flex-col gap-12 w-max items-end mobile:sticky mobile:top-[100px]'>
                             <BlogLinks headings={headings} client:load />
+                            <div class='flex flex-col gap-4 self-start'>
+                                <h2 class='text-lightGrey font-bold'>Share this article</h2>
+                                <a href={`https://news.ycombinator.com/submitlink?u=https://tembo.io/blog/${post.slug}&t=${encodeURIComponent(post.data.title)}`} target='_blank'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="4 4 188 188" width="25">
+                                        <path
+                                            d="m4 4h188v188h-188z"
+                                            fill="#E9FC87"
+                                        />
+                                        <path
+                                            d="m73.2521756 45.01 22.7478244 47.39130083 22.7478244-47.39130083h19.56569631l-34.32352071 64.48661468v41.49338532h-15.98v-41.49338532l-34.32352071-64.48661468z"
+                                            fill="#120F0E"
+                                        />
+                                    </svg>
+                                </a
+                            </div>
                         </div>
                     </div>
                 </div>
