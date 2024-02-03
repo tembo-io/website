@@ -8,9 +8,9 @@ image: ./Lantern.png
 
 ![An elephant holding a lantern](./Lantern.png)
 
-Two weeks ago, we wrote a [blog comparing pg_vector and lantern](https://tembo.io/blog/postgres-vector-search-pgvector-and-lantern) on index creation and search speed, and also mentioned that this is a fast evolving space with great momentum.
+Three weeks ago, we wrote a [blog comparing pg_vector and lantern](https://tembo.io/blog/postgres-vector-search-pgvector-and-lantern) on index creation and search speed, and also mentioned that this is a fast evolving space with great momentum.
 
-Just this week, we saw the release of Pgvector v0.6.0, which contains improvements in HWSW [build time](https://github.com/pgvector/pgvector/issues/409) thanks to the ability to build indexes in parallel.
+Just last week, we saw the release of Pgvector v0.6.0, which contains improvements in HWSW [build time](https://github.com/pgvector/pgvector/issues/409) thanks to the ability to build indexes in parallel.
 
 <iframe
 	border={0}
