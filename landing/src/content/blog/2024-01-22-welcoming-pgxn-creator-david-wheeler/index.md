@@ -6,8 +6,6 @@ tags: [postgres, extensions]
 image: ./welcome-tembonaut.png
 ---
 
-# PGXN creator David Wheeler joins Tembo to strengthen PostgreSQL extension ecosystem
-
 ![welcome-tembonaut](./welcome-tembonaut.png "tembonaut")
 
 We’re excited to welcome David Wheeler, a long-time PostgreSQL contributor, to Tembo. David has made significant contributions to Postgres, including [CITEXT2](https://www.postgresql.org/docs/current/citext.html), the case-insensitive data type; [pgTAP](https://pgtap.org/), a database test framework; and [Sqitch](https://sqitch.org/), a database change management system. While an Associate at [PostgreSQL Experts](https://pgexperts.com/) in 2011, he created [PGXN](https://pgxn.org/), the original extension distribution system. His most recent stint was designing and building [a searchable, encrypted data store on PostgreSQL](https://justatheory.com/2023/10/cipherdoc/) for [The New York Times](https://nytimes.com/).
