@@ -62,7 +62,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
                             <div class='flex flex-col gap-4 self-start w-max'>
                                 <h2 class='text-lightGrey font-bold'>Share this article</h2>
                                 <a href={`https://news.ycombinator.com/submitlink?u=https://tembo.io/blog/${post.slug}&t=${encodeURIComponent(post.data.title)}`} target='_blank'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="4 4 188 188" width="25">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="25px" width="25px" viewBox="4 4 188 188">
                                         <path
                                             d="m4 4h188v188h-188z"
                                             fill="#E9FC87"
@@ -72,7 +72,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
                                             fill="#120F0E"
                                         />
                                     </svg>
-                                </a
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -80,11 +80,11 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
             </div>
         </div>
     </Container>
-    <div class='relative'>
+    <div class='relative bg-offBlack z-10'>
         <div
             class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
         />
-        <Container>
+        <Container styles='z-50'>
             <div class='mt-20'>
                 <Footer />
             </div>
