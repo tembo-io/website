@@ -15,14 +15,14 @@ The problem…is all the _other_ stuff required in order for that database to so
 Want to see how it works? Check it out here as Darren gives us the tour:
 
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
-  <iframe 
+  <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900" 
-    height="315" 
-    src="https://www.youtube.com/embed/ys7l7WhlV6Y?si=9lkAlIuMd240kluY" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    width="100%"
+    height="400"
+    src="https://www.youtube.com/embed/ys7l7WhlV6Y?si=9lkAlIuMd240kluY"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen>
   </iframe>
 </div>
