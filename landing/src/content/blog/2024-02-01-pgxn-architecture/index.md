@@ -13,6 +13,9 @@ description: |
   they work together.
 ---
 
+
+## About
+
 At Tembo, we firmly believe extensions are the key to the "just use Postgres"
 future. In fact, along with workload-specific infrastructure, new extensions and
 combinations of tools power the success of [Tembo Stacks].
@@ -25,6 +28,8 @@ development, and distribution as we can.
 
 I do, too, which is why I was happy to [join the team] and work toward that
 vision.
+
+## PGXN
 
 As we start collaborating with the community and thinking through the [jobs and
 tools] required of the extension ecosystem of the future, we thought it would be
@@ -56,8 +61,8 @@ happy to share more widely:
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
   <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="1512"
-    height="944"
+    width="100%"
+    height="400px"
     src="https://www.youtube.com/embed/sjZPA3HA_q8"
     title="YouTube video player"
     frameBorder="0"
