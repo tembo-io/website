@@ -17,7 +17,7 @@ export async function GET(context) {
             const parsedDate = post.data?.date || new Date(dateString);
             return {
                 title: post.data.title,
-                pubDate: new Date(parsedDate),
+                pubDate: new Date(parsedDate).toISOString(),
                 author: AUTHORS[post.data.authors[0]].name,
                 description: post.data.description,
                 content: sanitizeHtml(parser.render(post.body)),
