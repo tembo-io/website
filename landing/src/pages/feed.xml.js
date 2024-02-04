@@ -10,7 +10,7 @@ export async function GET(context) {
 
     return rss({
         title: 'Tembo’s Blog',
-        description: 'Latest news and technical blog posts from the Tembo team!',
+        description: 'Latest news and technical blog posts from membors of the Tembo team and community!',
         site: context.site,
         items: blog.map((post) => {
             const dateString = post.id.substring(0, 10);

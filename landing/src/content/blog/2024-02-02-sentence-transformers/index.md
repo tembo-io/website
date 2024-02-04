@@ -34,7 +34,14 @@ SELECT * FROM vectorize.transform_embeddings(
 ```
 
 ```text
-{-0.0028378579299896955,0.055683549493551254,-0.025058165192604065,0.02842593938112259, ..., 0.0828385129570961}
+{
+   -0.0028378579299896955,
+   0.055683549493551254,
+   -0.025058165192604065,
+   0.02842593938112259,
+   ...,
+   0.0828385129570961
+}
 ```
 
 To use the [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) model, just change the value of the `model_name` parameter.
@@ -47,7 +54,14 @@ SELECT * FROM vectorize.transform_embeddings(
 ```
 
 ```text
-{-0.028050078079104424,-0.004174928646534681,-0.001258305972442031,-0.017915889620780945, ..., 0.011784635484218596}
+{
+   -0.028050078079104424,
+   -0.004174928646534681,
+   -0.001258305972442031,
+   -0.017915889620780945,
+   ...,
+   0.011784635484218596
+}
 ```
 
 ## Automate vector search workflow with just 2 SQL functions
