@@ -13,8 +13,8 @@ Just last week, we saw the release of Pgvector v0.6.0, which contains improvemen
 <iframe
 	border={0}
 	frameborder={0}
-	height={400}
-	width={600}
+	height='400px'
+	width='100%'
 	src='https://twitframe.com/show?url=https://twitter.com/jkatz05/status/1752060288814420168'
 ></iframe>
 
