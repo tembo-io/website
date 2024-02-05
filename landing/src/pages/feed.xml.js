@@ -22,7 +22,7 @@ export async function GET(context) {
                 author: AUTHORS[post.data.authors[0]].name,
                 description: post.data.description,
                 link: `/blog/${post.slug}/`,
-                customData: `<content type='html'>${posts[index]?.compiledContent() || parser.render(post.body)}</content>`
+                customData: `<content type='html'>${sanitizeHtml(posts[index]?.compiledContent()) || parser.render(post.body)}</content>`
             };
         }),
     });
