@@ -20,8 +20,8 @@ export async function GET(context) {
                 pubDate: new Date(parsedDate).toISOString(),
                 author: AUTHORS[post.data.authors[0]].name,
                 description: post.data.description,
-                content: parser.render(post.body),
                 link: `/blog/${post.slug}/`,
+                customData: `<content type='html'>${parser.render(post.body)}</content>`
             };
         }),
     });
