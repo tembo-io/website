@@ -1,57 +1,160 @@
-<div class='flex flex-col'>
-	<div class='flex flex-wrap items-center justify-between py-12'>
+---
+import Checkmark from '../images/checkmark.svg';
+import { Image } from 'astro:assets';
+---
+
+<footer class='bg-offBlack py-12 mobile:py-24 z-40'>
+	<div class='flex flex-col mobile:flex-row gap-12 mobile:gap-32 lg:gap-56'>
 		<a
-			href='https://www.youtube.com/@tembo_io'
-			target='_blank'
-			rel='noreferrer'
-			class='font-primary font-medium z-10 text-white'>Youtube</a
+			href='/'
+			class='focus:outline-none transition hover:scale-[102%] duration-300 ease-in-out delay-70 z-40'
 		>
-		<div class='bg-[#6C6C6C] h-[4px] w-[4px] rounded-full z-10'></div>
-		<a
-			href='https://pgt.dev'
-			target='_blank'
-			rel='noreferrer'
-			class='font-primary font-medium z-10 text-white'>Trunk</a
-		>
-		<div class='bg-[#6C6C6C] h-[4px] w-[4px] rounded-full z-10'></div>
-		<a href='/docs' class='font-primary font-medium z-10 text-white'>Docs</a
-		>
-		<div
-			class='bg-[#6C6C6C] h-[4px] w-[4px] rounded-full z-10 hidden customXs:block'
-		>
+			<img
+				src='/logoWithText.svg'
+				alt='tembo log'
+				class='w-[105px] mobile:min-w-[124px]'
+			/>
+		</a>
+		<div class='w-full z-40'>
+			<div class='flex gap-20 flex-wrap'>
+				<div class='flex flex-col gap-6'>
+					<h6 class='text-white font-semibold text-xl'>Company</h6>
+					<div class='flex flex-col gap-2 font-medium text-grey font-secondary'>
+						<a
+							href='/docs'
+							target='_blank'
+							rel='noreferrer'
+							>Docs</a
+						>
+						<a
+							href='/blog'
+							target='_blank'
+							rel='noreferrer'
+							>Blog</a
+						>
+						<a
+							href='/pricing'
+							target='_blank'
+							rel='noreferrer'
+							>Pricing</a
+						>
+						<a
+							href='/product'
+							target='_blank'
+							rel='noreferrer'
+							>Product</a
+						>
+						<a
+							href='https://cloud.tembo.io'
+							target='_blank'
+							rel='noreferrer'
+							>Cloud</a
+						>
+						<a
+							href='https://pgt.dev'
+							target='_blank'
+							rel='noreferrer'
+							>Trunk</a
+						>
+						<a
+							href='https://roadmap.tembo.io/roadmap'
+							target='_blank'
+							rel='noreferrer'
+							>Roadmap</a
+						>
+						<a
+							href='https://roadmap.tembo.io/changelog'
+							target='_blank'
+							rel='noreferrer'
+							>Changelog</a
+						>
+					</div>
+				</div>
+				<div class='flex flex-col gap-6'>
+					<h6 class='text-white font-semibold text-xl'>Connect</h6>
+					<div class='flex flex-col gap-2 font-medium text-grey font-secondary'>
+						<a
+							href='https://github.com/tembo-io/tembo'
+							target='_blank'
+							rel='noreferrer'
+							>Github</a
+						>
+						<a
+							href='https://twitter.com/tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Twitter</a
+						>
+						<a
+							href='https://www.linkedin.com/company/tembo-inc'
+							target='_blank'
+							rel='noreferrer'
+							>LinkedIn</a
+						>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Youtube</a
+						>
+						<a
+							href='https://join.slack.com/t/tembocommunity/shared_invite/zt-277pu7chi-NHtvHWvLhHwyK0Y5Y6vTPw'
+							target='_blank'
+							rel='noreferrer'
+							>Tembo Slack</a
+						>
+						<a
+							href='https://join.slack.com/t/trunk-community/shared_invite/zt-2by6a65mb-PdYrg0TORwjQq5~L78F2uw'
+							target='_blank'
+							rel='noreferrer'
+							>Trunk Slack</a
+						>
+					</div>
+				</div>
+				<div class='flex flex-col gap-6'>
+					<h6 class='text-white font-semibold text-xl'>Resources</h6>
+					<div class='flex flex-col gap-2 font-medium text-grey font-secondary'>
+						<a
+							href='https://www.youtube.com/@tembo_io'
+							target='_blank'
+							rel='noreferrer'
+							>Status page</a
+						>
+						<a
+							href='mailto:careers@tembo.io'
+							target='_blank'
+							rel='noreferrer'
+							>Careers</a
+						>
+						<a
+							href='mailto:support@tembo.io'
+							target='_blank'
+							rel='noreferrer'
+							>Support</a
+						>
+					</div>
+				</div>
+			</div>
+			<div class='flex flex-col-reverse min-[470px]:flex-row justify-between min-[470px]:items-center mt-16 font-medium text-grey text-[13px] w-full'>
+				<div class='flex items-center justify-stretch gap-6'>
+					<a
+						href='https://cloud.tembo.io/privacy-policy'
+						target='_blank'
+						rel='noreferrer'
+						>Privacy policy</a
+					>
+					<a
+						href='https://cloud.tembo.io/terms-of-service'
+						target='_blank'
+						rel='noreferrer'
+						>Terms of service</a
+					>
+				</div>
+				<span class='inline-flex gap-2 font-secondary mb-2 min-[470px]:mb-0'>
+					<Image src={Checkmark} alt='checkmark' width={14} height={16} />
+					SOC2 Type 1 compliant
+				</span>
+			</div>
 		</div>
-		<a
-			href='https://twitter.com/tembo_io'
-			target='_blank'
-			rel='noreferrer'
-			class='font-primary font-medium z-10 text-white hidden customXs:block'
-			>Twitter</a
-		>
-		<div
-			class='bg-[#6C6C6C] h-[4px] w-[4px] rounded-full z-10 hidden customXs:block'
-		>
-		</div>
-		<a
-			href='https://www.linkedin.com/company/tembo-inc'
-			target='_blank'
-			rel='noreferrer'
-			class='font-primary font-medium z-10 text-white hidden customXs:block'
-			>LinkedIn</a
-		>
 	</div>
-	<div class='flex items-center justify-evenly pb-[60px] customXs:hidden'>
-		<a
-			href='https://twitter.com/tembo_io'
-			target='_blank'
-			rel='noreferrer'
-			class='font-primary font-medium z-10 text-white'>Twitter</a
-		>
-		<div class='bg-[#6C6C6C] h-[4px] w-[4px] rounded-full z-10'></div>
-		<a
-			href='https://www.linkedin.com/company/tembo-inc'
-			target='_blank'
-			rel='noreferrer'
-			class='font-primary font-medium z-10 text-white'>LinkedIn</a
-		>
-	</div>
-</div>
+</footer>

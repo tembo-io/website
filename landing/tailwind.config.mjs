@@ -1,8 +1,16 @@
+const plugin = require('tailwindcss/plugin')
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
 		extend: {
+			typography: {
+				DEFAULT: {
+				  css: {
+					maxWidth: '80ch',
+				  }
+				}
+			},
 			fontFamily: {
 				primary: ['Bai Jamjuree'],
 				secondary: ['Inter']
@@ -19,8 +27,15 @@ export default {
 				purple: '#DB39CB',
 				lightPurple: '#CA6FE5',
 				pink: '#FA467B',
+				danger: '#FA4666',
+				lightDanger: '#FF7089',
+				warning: '#F39405',
+				lightWarning: '#fcc065',
+				good: '#84EABD',
+				lightGood: '#B0E4CE',
 				lightPink: '#FFC9EA',
 				salmon: '#FF7D7F',
+				lightSalmon: '#FF999A',
 				mwasi: '#1C1C1C',
 				customDarkGrey: '#414141',
 				semiGrey: '#3E4243',
@@ -58,7 +73,15 @@ export default {
 
 		}
 	},
-	plugins: []
+	plugins: [
+		require('@tailwindcss/typography'),
+		plugin(function ({addVariant}) {
+			addVariant(
+			  'prose-inline-code',
+			  '&.prose :where(:not(pre)>code):not(:where([class~="not-prose"] *))'
+			);
+		})
+	]
 };
 
 

@@ -11,6 +11,7 @@ interface Props {
 	animateOnInView?: boolean;
 	autoPlay?: boolean;
 	isFooter?: boolean;
+	position?: string;
 }
 
 const Animation: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const Animation: React.FC<Props> = ({
 	loop = true,
 	animateOnInView = false,
 	isFooter,
+	position = 'absolute'
 }) => {
 	const triggerRef = useRef(null);
 	const lottieRef = useRef(null);
@@ -68,7 +70,7 @@ const Animation: React.FC<Props> = ({
 					autoPlay={false}
 					className={styles}
 					style={{
-						position: 'absolute',
+						position: position as any,
 						width: isFullWidth ? '100%' : undefined,
 						overflow: 'hidden',
 						zIndex: 1,

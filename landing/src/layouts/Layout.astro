@@ -5,15 +5,16 @@ interface Props {
 	image?: string;
 	author?: string;
 	keywords?: string[];
+	htmlClasses?: string;
 }
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const DEFAULT_DESCRIPTION = 'Tembo is the Postgres developer platform for building every application and data service. Collapse the database sprawl of the modern data stack with a unified developer platform.';
 const DEFAULT_OG_IMAGE = 'og-image.png';
-const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, author, keywords } = Astro.props;
+const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, author, keywords, htmlClasses } = Astro.props;
 ---
 
 <!doctype html>
-<html lang='en'>
+<html class={htmlClasses} lang='en'>
 	<head>
 		<meta charset='UTF-8' />
 		<meta
@@ -294,6 +295,23 @@ const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, auth
 		);
 	}
 
+
+	.fade-x-md-both-sides-animation {
+		-webkit-mask: none;
+	}
+	@media screen and (min-width: 2100px) {
+		.fade-x-md-both-sides-animation {
+			-webkit-mask: linear-gradient(
+				90deg,
+				transparent,
+				#000 10%,
+				#000 90%,
+				transparent
+			);
+		}
+	}
+
+
 	.background-img-transition {
 		-webkit-transition: background-image 0.2s ease-in-out;
 		transition: background-image 0.2s ease-in-out;
@@ -398,5 +416,8 @@ const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, auth
 			opacity: 1;
 			transform: none;
 		}
+	}
+	.will-change-transform {
+    	will-change: transform;
 	}
 </style>

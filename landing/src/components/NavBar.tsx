@@ -2,17 +2,20 @@ import React, { useEffect, useState } from 'react';
 import Container from '../components/Container';
 import Button from './Button';
 import cx from 'classnames';
-import { navigate } from 'astro/transitions/router';
+import { navigate } from 'astro:transitions/client';
 import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
+import Logo from './Logo';
 
 interface Props {
 	currentPage: string;
+	isProgressBar?: boolean
 }
 
-const NavBar: React.FC<Props> = ({ currentPage }) => {
+const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 	const [scrollY, setScrollY] = useState(0);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [progressWidth, setProgressWidth] = useState(101);
 	const [
 		isScreenGreaterThanOrEqualTo900px,
 		setIsScreenGreaterThanOrEqualTo900px,
@@ -31,7 +34,17 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 
 	useEffect(() => {
 		const handleScroll = () => {
+			if (isProgressBar) {
+				const blogPost = document.getElementById('tembo-blog-post');
+				const { top, height } = (blogPost as any)?.getBoundingClientRect();
+				let scrollDistance = -top;
+				let progressPercentage =
+				  (scrollDistance / (height - document.documentElement.clientHeight)) * 100;
+				setProgressWidth(progressPercentage);
+			}
+
 			setScrollY(window.scrollY);
+
 		};
 
 		handleScroll();
@@ -55,29 +68,14 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 		};
 	}, []);
 
-	useEffect(() => {
-		const handleResize = () => {
-			const isScreenGreaterThanOrEqualTo900px = window.innerWidth >= 900;
-			setIsScreenGreaterThanOrEqualTo900px(
-				isScreenGreaterThanOrEqualTo900px,
-			);
-			if (isScreenGreaterThanOrEqualTo900px) {
-				document.body.style.overflow = 'scroll';
-			}
-		};
-
-		window.addEventListener('resize', handleResize);
-
-		return () => {
-			window.removeEventListener('resize', handleResize);
-		};
-	}, []);
+	let isActive = progressWidth <= 100
 
 	return (
 		<div
 			className={cx(
-				'fixed top-0 w-full z-50 transition duration-100 overflow-hidden',
+				'fixed top-0 w-full z-50 transition duration-100',
 				scrollY > 20 ? 'backdrop-blur-lg safari-blur' : '',
+				isMenuOpen && !isScreenGreaterThanOrEqualTo900px && 'h-screen'
 			)}
 		>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
@@ -91,16 +89,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 							: 'py-8',
 					)}
 				>
-					<a
-						href='/'
-						className='focus:outline-none transition hover:scale-105 duration-300 ease-in-out delay-70 z-50'
-					>
-						<img
-							src='/logoWithText.svg'
-							alt='tembo log'
-							className='w-[105px] mobile:w-[124px]'
-						/>
-					</a>
+					<Logo />
 					<div className='mobile:flex hidden items-center gap-12'>
 						<a
 							href='/'
@@ -117,7 +106,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 							href='/docs'
 							className={cx(
 								'font-secondary font-medium z-10',
-								currentPage == '/docs' || currentPage == '/dos/'
+								currentPage == '/docs' || currentPage == '/docs/'
 									? 'text-neon'
 									: 'text-white opacity-70',
 							)}
@@ -137,7 +126,7 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 							Blog
 						</a>
 						<a
-							href='https://github.com/tembo-io'
+							href='https://github.com/tembo-io/tembo'
 							target='_blank'
 							rel='noreferrer'
 							className='font-secondary font-medium z-10 text-white opacity-70'
@@ -178,6 +167,11 @@ const NavBar: React.FC<Props> = ({ currentPage }) => {
 					</button>
 				</nav>
 			</Container>
+			{scrollY > 50 && isProgressBar && (
+				<div className={cx("w-full flex justify-start relative", scrollY > 50 && 'h-[2.5px]')}>
+					<div className="h-full top-0 bottom-0 right-0 absolute w-screen bg-salmon will-change-transform transition-opacity duration-[40] ease-linear" style={{ transform: `translate3d(${isActive ? progressWidth - 100 + '%' : '0'},0,0)`, opacity: isActive ? 1 : 0 }}></div>
+				</div>
+			)}
 			<div
 				className={cx(
 					'absolute bottom-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine',
