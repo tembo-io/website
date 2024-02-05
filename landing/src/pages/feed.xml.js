@@ -7,13 +7,11 @@ const parser = new MarkdownIt();
 
 export async function GET(context) {
     const blog = await getCollection('blog');
-    const postImportResult = import.meta.glob('../content/blog/**/*.md', { eager: true });
-    const posts = Object.values(postImportResult);
     return rss({
         title: 'Tembo’s Blog',
         description: 'Latest news and technical blog posts from membors of the Tembo team and community!',
         site: context.site,
-        items: blog.map((post, index) => {
+        items: await Promise.all(blog.map(async (post) => {
             const dateString = post.id.substring(0, 10);
             const parsedDate = post.data?.date || new Date(dateString);
             return {
@@ -22,8 +20,8 @@ export async function GET(context) {
                 author: AUTHORS[post.data.authors[0]].name,
                 description: post.data.description,
                 link: `/blog/${post.slug}/`,
-                customData: `<content type='html'>${sanitizeHtml(posts[index]?.compiledContent()) || parser.render(post.body)}</content>`
+                customData: `<content type='html'>${await post.render()}</content>`
             };
-        }),
+        })),
     });
 }
