@@ -6,8 +6,6 @@ tags: [postgres, extensions, vector, lantern, pgvector, hnsw, parallelism]
 image: ./Lantern.png
 ---
 
-![An elephant holding a lantern](./Lantern.png)
-
 Three weeks ago, we wrote a [blog comparing pg_vector and lantern](https://tembo.io/blog/postgres-vector-search-pgvector-and-lantern) on index creation and search speed, and also mentioned that this is a fast evolving space with great momentum.
 
 Just last week, we saw the release of Pgvector v0.6.0, which contains improvements in HWSW build time thanks to the ability to [build indexes in parallel](https://github.com/pgvector/pgvector/issues/409).
@@ -24,7 +22,7 @@ And so, we had to try it out!
 
 But then, while preparing the benchmark, I learned that Lantern can also build HNSW indexes in parallel via their external tool [lantern-cli](https://github.com/lanterndata/lantern_extras).
 
-So, this means that we can compare both extensions in a more fair manner. 
+So, this means that we can compare both extensions in a more fair manner.
 
 ## How do they work?
 
@@ -36,7 +34,7 @@ In contrast, PgVector uses Postgres parallel workers. To activate the parallel b
 
 ## A quick benchmark
 
-We ran a quick test with `parallelism = 8` to see how much things changed in terms of build time. Here are the results for `m={8, 16}`, `ef_construction=128` and `ef_search=128` with the sift-128-euclidean dataset. 
+We ran a quick test with `parallelism = 8` to see how much things changed in terms of build time. Here are the results for `m={8, 16}`, `ef_construction=128` and `ef_search=128` with the sift-128-euclidean dataset.
 
 This time I used:
 
@@ -61,5 +59,5 @@ I find it quite remarkable how both extensions improve the index creation time (
 
 PgVector 0.6.0 is already available in [Tembo’s](https://tembo.io/) [Vector DB Stack](https://tembo.io/docs/tembo-stacks/vector-db). You can try it for free!
 
-And, if you are interested in running the benchmark yourself, check out the modified [ann-benchmarks fork](https://github.com/binidxaba/ann-benchmarks). 
+And, if you are interested in running the benchmark yourself, check out the modified [ann-benchmarks fork](https://github.com/binidxaba/ann-benchmarks).
 

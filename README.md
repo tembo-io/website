@@ -102,5 +102,6 @@ description: Walk through using pg_vectorize to automate the vector search workf
 
 
 #### 4. Code blocks
-
+> TODO
 #### 5. Admonitions (callouts)
+> TODO
