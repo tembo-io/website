@@ -7,6 +7,7 @@ const parser = new MarkdownIt({
     html: true,
     breaks: false,
     linkify: true,
+    typographer: true
 });
 
 export async function GET(context) {
