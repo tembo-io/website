@@ -33,7 +33,7 @@ export async function GET(context) {
                         <email>noreply@tembo.io</email>
                         <uri>${AUTHORS[post.data.authors[0]].url}</uri>
                     </author>
-                    ${post.data.tags.map(tag => `<category label='${tag}' term='${tag}' />`)}
+                    ${post.data.tags.map(tag => `<category label='${tag}' term='${tag}' />`).join(',')}
                 `
             };
         }),
