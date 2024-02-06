@@ -165,8 +165,10 @@ village v
 WHERE
 ST_Contains(v.wkb_geometry, e.wkb_geometry);
 
--[ RECORD 1 ]
-count | 47
+ count
+-------
+    47
+(1 row)
 ```
 
 ### `ST_ConcaveHull`, `ST_InteriorRingN`
@@ -175,7 +177,7 @@ ST_ConcaveHull can be used to establish a boundary around a set of points, while
 
 - On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
 
-```sql
+```
 WITH Hull AS (
     SELECT ST_ConcaveHull(ST_Collect(e.wkb_geometry), 0.50, true) AS geom
     FROM elephant5990 e
