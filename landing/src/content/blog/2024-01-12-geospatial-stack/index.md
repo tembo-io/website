@@ -9,25 +9,25 @@ In today's world, geographic data stands out for its ability to apply spatial co
 
 Working with geospatial workloads is not new to Postgres. In fact, its most popular geospatial extension, and certainly one of the most popular in general, [PostGIS, has been around since 2001](https://postgis.net/workshops/postgis-intro/introduction.html#a-brief-history-of-postgis). However, installing PostGIS, its dependencies, related extensions, and loading it up with data is hard for new users of the extension.
 
-We recently launched the Geospatial Stack to make this easier. The Geospatial Stack comes pre-packaged with PostGIS and other related extensions which allow you to do Geospatial analysis without needing to set up another database! You can try it out on your own by using our [Kubernetes Operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/gis.yaml) or deploy it with a single click on [Tembo Cloud](https://cloud.tembo.io).
+We recently launched the Geospatial Stack to make this easier. The Geospatial Stack comes pre-packaged with PostGIS and other related extensions, allowing you to perform geospatial analysis without needing to set up another database! You can try it out on your own by using our [Kubernetes Operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/gis.yaml) or deploy it with a single click on [Tembo Cloud](https://cloud.tembo.io).
 
 ![extensions](./extensions.png 'extensions')
 Figure 1. Snapshot of Tembo's Geospatial Stack extension overview.
 
 ## 1. Loading elephant tracking data (and geospatial data in general) into Postgres
 
-Since we're talking about Postgres, we thought an interesting example to explore would be an elephant's journey through the forests of Cote d'Ivoire.
+Since we're talking about Postgres, we thought an interesting example to explore would be an elephant's journey through the forests of Côte d'Ivoire.
 
 The following dataset was gathered by Dr. Mike Loomis and his team and published to the Movebank online database of animal tracking data under the CC0 License.
 - Location: Africa, Côte d'Ivoire, Forest Preserve near the village of Dassioko
 - Timeframe: 2018 - 2021
-- Sample size: 1
+- Sample Size: 1
 
 To begin, you can [download the dataset here](https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566).
 
 By navigating to the local directory containing the dataset, you can load the data into Postgres using your preferred method. 
 There exist numerous tools, such as shp2pgsql and even QGIS, but we opted for ogr2ogr (bundled with [GDAL](https://gdal.org/index.html)) and executed the command below.
-If you're interested in what the parameters mean, or the other options to include, please refer to [PostGIS' guide on loading data with ogr2ogr](https://postgis.net/workshops/postgis-intro/loading_data.html#loading-with-ogr2ogr).
+If you're interested in understanding what the parameters mean, or the other options available, please refer to [PostGIS' guide on loading data with ogr2ogr](https://postgis.net/workshops/postgis-intro/loading_data.html#loading-with-ogr2ogr).
 
 ```
 ogr2ogr -f "PostgreSQL" \
@@ -58,12 +58,12 @@ postgres=# \d
 ```
 
 Right away we see that our loaded dataset created a table and sequence (recall, we defined the name in the ogr2ogr command).
-- elephant5990
-- elephant5990_ogc_fid_seq
-When PostGIS is enabled, it introduces a table and two views by default. These ...
-- geography_columns
-- geometry_columns
-- spatial_ref_sys
+- elephant5990: A table containing our loaded dataset.
+- elephant5990_ogc_fid_seq: An automatically generated sequence in PostgreSQL, used to assign unique identifiers to each row in the elephant5990 table.
+When PostGIS is enabled, it introduces a table and two views by default.
+- geography_columns: A view listing metadata for each column with a 'GEOGRAPHY' data type, including schema, table, column names, spatial type, and SRID.
+- geometry_columns: A view detailing metadata about columns that store 'GEOMETRY' data, encompassing schema, table, column names, geometry type, and SRID.
+- spatial_ref_sys: A table containing definitions of spatial reference systems (SRS), each identified by an SRID, along with the authoritative name and the well-known text representation.
 
 We explored the data further by running a query to lay out the columns.
 
