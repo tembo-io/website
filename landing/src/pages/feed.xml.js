@@ -23,7 +23,7 @@ export async function GET(context) {
                 author: AUTHORS[post.data.authors[0]].name,
                 description: post.data.description,
                 link: `/blog/${post.slug}/`,
-                customData: `<content type='html'>${parser.render(post.body)}</content>`
+                customData: `<content type='html'>${parser.render(post.body).replace('src="/', `src="${context.site}/`)}</content>`
             };
         }),
     });
