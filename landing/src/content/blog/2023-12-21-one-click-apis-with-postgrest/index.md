@@ -21,14 +21,14 @@ In fact, we loved it so much that we became a sponsor—like we said at the begi
 Want to see an example? No problem — Darren walks us through how it works:
 
 <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
-  <iframe 
+  <iframe
     style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900" 
-    height="315" 
-    src="https://www.youtube.com/embed/YuXaJreVyrw?si=0EQ07nNFhz-9qSww" 
-    title="YouTube video player" 
-    frameBorder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    width="100%"
+    height="400px"
+    src="https://www.youtube.com/embed/YuXaJreVyrw?si=0EQ07nNFhz-9qSww"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen>
   </iframe>
 </div>
@@ -52,7 +52,7 @@ export TEMBO_DATA_DOMAIN=<you Tembo domain>
 
 The endpoints created are dependent on the structure of the database tables and schema, so for this one, for example, we can use a simple GET request to select from a table called `products`, which would look like this:
 
-> Request:
+Request:
 
 ```bash
 curl -X GET \
@@ -61,7 +61,7 @@ curl -X GET \
   https://{TEMBO_DATA_DOMAIN}/restapi/v1/products
 ```
 
-> Response:
+Response:
 
 ```json
 [

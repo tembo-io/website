@@ -70,7 +70,7 @@ This commands will generate static content into the associated `build` directory
 
 #### 1. Create a new folder inside `website/content/blog` directory
 ```bash
-$ mkdir -p website/content/blog/2024-09-20-example-post
+mkdir -p website/content/blog/2024-09-20-example-post
 ```
 
 #### 2. Make a new markdown file inside the same directory (this is where you will write your blogpost)
@@ -100,8 +100,8 @@ description: Walk through using pg_vectorize to automate the vector search workf
 
 - `tags` is an array of tags that the post is associated with. Each tag will be displayed inside of the left sidebar in each post and will also be used inside of the `keywords` meta tag.
 
-
 #### 4. Code blocks
 > TODO
 #### 5. Admonitions (callouts)
 > TODO
+#### 6. Embedding tweets and videos
