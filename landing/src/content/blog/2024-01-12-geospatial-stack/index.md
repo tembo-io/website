@@ -59,13 +59,14 @@ postgres=# \d
 
 Right away we see that our loaded dataset created a table and sequence (recall, we defined the name in the ogr2ogr command).
 - elephant5990: A table containing our loaded dataset.
-- elephant5990_ogc_fid_seq: An automatically generated sequence in PostgreSQL, used to assign unique identifiers to each row in the elephant5990 table.
+- elephant5990_ogc_fid_seq: An automatically generated sequence, used to assign unique identifiers to each row in the elephant5990 table.
+
 When PostGIS is enabled, it introduces a table and two views by default.
-- geography_columns: A view listing metadata for each column with a 'GEOGRAPHY' data type, including schema, table, column names, spatial type, and SRID.
+- geography_columns: A view listing metadata for each column with a 'GEOGRAPHY' data type, including schema, table, column names, spatial type, and spatial reference identifier (SRID).
 - geometry_columns: A view detailing metadata about columns that store 'GEOMETRY' data, encompassing schema, table, column names, geometry type, and SRID.
 - spatial_ref_sys: A table containing definitions of spatial reference systems (SRS), each identified by an SRID, along with the authoritative name and the well-known text representation.
 
-We explored the data further by running a query to lay out the columns.
+We continued by running a query to lay out the columns in the elephant5990 table.
 
 ```
 SELECT column_name
@@ -97,7 +98,7 @@ wkb_geometry
 
 ## 2. Using PostGIS to power insights from your data
 
-PostGIS provides functions, indexes and operators to analyze the geospatial attributes in the data. Let's explore of few interesting insights we could glean from the data set.
+PostGIS provides functions, indexes and operators to analyze the geospatial attributes in the data. Let's explore of few interesting insights we could gather from the data set.
 
 ### `ST_Distance`
 
@@ -138,18 +139,20 @@ SELECT
 FROM RankedDistances
 WHERE rank = 1
 ORDER BY year;
-```
 
-| year | hour |       avg_distance        |
-|------|------|---------------------------|
-| 2018 |  20  | 500.1667879009256         |
-| 2019 |  22  | 500.23505130464025        |
-| 2020 |  20  | 490.65593160356303        |
-| 2021 |  22  | 474.28919337170834        |
+ year | hour |    avg_distance
+------+------+--------------------
+ 2018 |   20 | 500.1667879009256
+ 2019 |   22 | 500.23505130464025
+ 2020 |   20 | 490.65593160356303
+ 2021 |   22 | 474.28919337170834
+(4 rows)
+```
 
 ### `ST_Contains`
 
 ST_Contains checks whether a given geometry "A" contains another geometry "B".
+Note that during this exercise we loaded a custom geometry, described in the following section.
 
 - Throughout the study, how many times did the elephant enter Dassioko Village?
 
@@ -205,11 +208,11 @@ By leveraging QGIS' OpenStreetMap feature, we can offer real world context to an
 Figure 2 illustrates just such an example.
 Here we readily see a collection of points, representing the elephant (each point representing measurement captured roughly every two hours).
 What's more is that we not only can identify major and minor roads, but the village of Dassioko as well, and what appear to be smaller settlements in its periphery (represented by grey-shaded polygons).
-Already with this simple overlay, our superficial idea about where the elephant has gone developes into more complex understandings such as:
-- Where are the terrirorial boundaries
-- Where are the areas of cluster/dispersion
-- Are there any sections of roads where the elephant feels most comfortable
-- Are there any identifiable areas of potential human interaction or avoidance
+Already with this simple overlay, our superficial idea about where the elephant has gone develops into more complex understandings such as:
+- Where are the territorial boundaries?
+- Where are the areas of clusters and dispersions?
+- Are there any sections of roads where the elephant feels most comfortable?
+- Are there any identifiable areas of potential human interaction or avoidance?
 - And so on!
 
 ![map_data_points](./map_data_points.png 'map_data_points')
@@ -222,14 +225,14 @@ To better quantify this phenomenon, we created a custom geometry and overlayed i
 This red-shaded layer helps us answer questions related to the elephant's behavior in relation to the village.
 
 ![map_area_village](./map_area_village.png 'map_area_village')
-Figure 3. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing Dassioko Village. The query that , ST_Contains.
+Figure 3. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing Dassioko Village. This data is queried above with ST_Contains function.
 
 While the last example involved creating a custom geometry in QGIS and analyzing it in Postgres, this investigative workflow can run in reverse as well.
-In other words, instead of creating a human-defined geometry and quantifying it with respect to the other datapoints, we conduct initial quantifications in Postgres and use the results to generate a QGIS overlay.
+In other words, instead of creating a human-defined geometry and quantifying it with respect to the dataset, we can conduct initial quantifications in Postgres and use the results to generate a QGIS overlay.
 While the results are not perfect, they are meant as a proof of concept that a potential area of avoidance can be identified with a single query (Figure 4).
 
 ![map_area_avoidance](./map_area_avoidance.png 'map_area_avoidance')
-Figure 4. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing a generated potential area of avoidance. This is made possible using PostGIS functions, ST_ConcaveHull and ST_InteriorRingN.
+Figure 4. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing a generated potential area of avoidance. This is made possible above with the ST_ConcaveHull and ST_InteriorRingN functions.
 
 
 ## 4. Explore Geospatial datasets today!
