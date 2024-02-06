@@ -32,7 +32,7 @@ export async function GET(context) {
                         <name>${AUTHORS[post.data.authors[0]].name}</name>
                         <email>noreply@tembo.io</email>
                         <uri>${AUTHORS[post.data.authors[0]].url}</uri>
-                    <author>
+                    </author>
                 `
             };
         }),
