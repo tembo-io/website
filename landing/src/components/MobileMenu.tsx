@@ -1,14 +1,14 @@
 import Container from './Container';
 import Button from './Button';
-import { navigate } from 'astro/transitions/router';
+import { navigate } from 'astro:transitions/client';
 
 const MobileMenu = () => {
 	return (
-		<div className='bg-offBlack mobile:hidden fixed z-10 w-full h-screen overflow-hidden inset-0'>
+		<div className='bg-offBlack mobile:hidden fixed z-10 w-screen h-screen overflow-hidden inset-0'>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
 			<Container styles='h-[100%] pb-12'>
-				<nav className='flex flex-col gap-[32px] h-full justify-between'>
-					<div className='flex flex-col gap-[32px] mt-28'>
+				<nav className='flex flex-col gap-[32px] h-full justify-between w-full'>
+					<div className='flex flex-col gap-[32px] mt-28 w-full'>
 						<a
 							href='/'
 							className='font-secondary font-normal z-10 text-white text-[20px]'
@@ -31,7 +31,7 @@ const MobileMenu = () => {
 						</a>
 						<img src={'/line.svg'} alt='line' />
 						<a
-							href='https://github.com/tembo-io'
+							href='https://github.com/tembo-io/tembo'
 							target='_blank'
 							rel='noreferrer'
 							className='font-secondary font-normal z-10 text-white text-[20px]'
@@ -47,7 +47,6 @@ const MobileMenu = () => {
 							</div>
 						</a>
 					</div>
-
 					<div className='flex flex-col gap-4'>
 						<Button
 							variant='gradient'

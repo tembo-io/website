@@ -1,0 +1,9 @@
+---
+import ArrowLeft from '../images/arrowLeft.svg';
+import { Image } from 'astro:assets';
+---
+
+<a href='/blog' class='flex items-center gap-2'>
+    <Image src={ArrowLeft} alt='arrow pointing left' width={28} height={28} />
+    <p class='text-white font-secondary text-[18px]'>Go Back</p>
+</a>

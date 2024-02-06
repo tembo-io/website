@@ -16,7 +16,7 @@ The Tembo Platform API provides you with an abstraction over the Kubernetes API,
 
 ## Creating a User Defined Application
 
-The Tembo Platform API defines applications by their `AppType`. The `AppType` is an enum, with variants such as [REST-API](./rest-api.md), [Embeddings](./embeddings.md)...and `custom`. The `custom` variant is used for deplyiong user defined application. The `custom` variant allows the user to configure all of the attributes of the [AppService](https://docs.rs/controller/latest/controller/app_service/types/struct.AppService.html#fields) type defined in the tembo-operator.
+The Tembo Platform API defines applications by their `AppType`. The `AppType` is an enum, with variants such as [restapi](./rest-api.md), [embeddings](./embeddings.md), and `custom`. The `custom` variant is used for deplyiong user defined application. The `custom` variant allows the user to configure all of the attributes of the [AppService](https://docs.rs/controller/latest/controller/app_service/types/struct.AppService.html#fields) type defined in the tembo-operator.
 
 For user defined containers, you must specify the key `custom` in the `app_services` array. e.g.:
 

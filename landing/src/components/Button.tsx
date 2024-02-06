@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import { navigate } from 'astro/transitions/router';
+import { navigate } from 'astro:transitions/client';
 
 type Variant = 'primary' | 'neon' | 'gradient' | 'outline';
 type Size = 'sm' | 'md' | 'lg';
