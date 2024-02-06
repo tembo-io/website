@@ -5,13 +5,13 @@ authors: [evan]
 tags: [postgres, geospatial, stacks, database]
 ---
 
-In today's world, geographic data stands out for its ability to apply spatial context to collections of points, transforming them into valuable insights. When properly analyzed, these datasets can reveal exciting patterns that explore not only the dichotomy of nature and human activity, but the balance between them as well. Even as a quick illustration, geospatial can help facilitate predictive modeling and spatial analytics, aiding in everything from disaster response planning to optimizing delivery routes in logistics.
+In today's world, geographic data stands out for its ability to apply spatial context to collections of points, transforming them into valuable insights. When properly analyzed, these datasets can reveal exciting patterns that explore not only the dichotomy of nature and human activity, but the balance between them as well. Even as a quick illustration, geospatial data can help facilitate predictive modeling and spatial analytics, aiding in everything from disaster response planning to optimizing delivery routes in logistics.
 
-Working with geospatial workloads is not new to Postgres. In fact, it’s most popular geospatial extension, and certainly one of the most popular in general, [PostGIS, has been around since 2001](https://postgis.net/workshops/postgis-intro/introduction.html#a-brief-history-of-postgis). However, installing PostGIS, it's dependencies, related extensions and loading it up with data is hard for new users of the extension.
+Working with geospatial workloads is not new to Postgres. In fact, its most popular geospatial extension, and certainly one of the most popular in general, [PostGIS, has been around since 2001](https://postgis.net/workshops/postgis-intro/introduction.html#a-brief-history-of-postgis). However, installing PostGIS, its dependencies, related extensions, and loading it up with data is hard for new users of the extension.
 
 We recently launched the Geospatial Stack to make this easier. The Geospatial Stack comes pre-packaged with PostGIS and other related extensions which allow you to do Geospatial analysis without needing to set up another database! You can try it out on your own by using our [Kubernetes Operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/gis.yaml) or deploy it with a single click on [Tembo Cloud](https://cloud.tembo.io).
 
--![extensions](./extensions.png 'extensions')
+![extensions](./extensions.png 'extensions')
 Figure 1. Snapshot of Tembo's Geospatial Stack extension overview.
 
 ## 1. Loading elephant tracking data (and geospatial data in general) into Postgres
@@ -27,7 +27,7 @@ To begin, you can [download the dataset here](https://www.movebank.org/cms/webap
 
 By navigating to the local directory containing the dataset, you can load the data into Postgres using your preferred method. 
 There exist numerous tools, such as shp2pgsql and even QGIS, but we opted for ogr2ogr (bundled with [GDAL](https://gdal.org/index.html)) and executed the command below.
-If you're interested in what the parameters mean, or the other options you can include, please refer to [PostGIS' guide on loading data with ogr2ogr](https://postgis.net/workshops/postgis-intro/loading_data.html#loading-with-ogr2ogr).
+If you're interested in what the parameters mean, or the other options to include, please refer to [PostGIS' guide on loading data with ogr2ogr](https://postgis.net/workshops/postgis-intro/loading_data.html#loading-with-ogr2ogr).
 
 ```
 ogr2ogr -f "PostgreSQL" \
@@ -40,7 +40,7 @@ host=<your-host>" \
 points.shp 
 ```
 
-Once loaded into our Tembo instance, we ran the following to explore the dataset:
+Having loaded the dataset into our Tembo instance, we ran the following to explore the database relations:
 
 ```
 postgres=# \d
@@ -57,15 +57,15 @@ postgres=# \d
 (7 rows)
 ```
 
-PostGIS is enabled in a database, it introduces a table and two views. These ...
+Right away we see that our loaded dataset created a table and sequence (recall, we defined the name in the ogr2ogr command).
+- elephant5990
+- elephant5990_ogc_fid_seq
+When PostGIS is enabled, it introduces a table and two views by default. These ...
 - geography_columns
 - geometry_columns
 - spatial_ref_sys
-We see our loaded data introduce a table and sequence. Recall, we defined the table in the ogr2ogr command.
-- elephant5990
-- elephant5990_ogc_fid_seq
 
-The table can be explored further by running a query to lay out the columns.
+We explored the data further by running a query to lay out the columns.
 
 ```
 SELECT column_name
