@@ -25,7 +25,8 @@ The following dataset was gathered by Dr. Mike Loomis and his team and published
 
 To begin, you can [download the dataset here](https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566).
 
-Once you've navigated to the local directory containing the dataset, fill in the appropriate information and run the following command:
+Once you've navigated to the local directory containing the dataset, you can load the data into Postgres using your preferred method. 
+There exist numerous tools, such as shp2pgsql and even via QGIS, and we opted for ogr2ogr (bundled with [GDAL](https://gdal.org/index.html)) and used the following command:
 
 ```
 ogr2ogr -f "PostgreSQL" \
@@ -38,16 +39,36 @@ host=<YOUR HOST>" \
 points.shp 
 ```
 
-Once the data was loaded, we see we have 9280 data points about the elephant in the schema described below.
+From there, you can connect to your Tembo instance with the following psql connection string and immedietly start exploring.
 
 ```
-SELECT COUNT(*) FROM elephant5990;
-
-count
------
-9280
-(1 row)
+psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 ```
+
+```
+postgres=# \d
+                    List of relations
+ Schema |           Name           |   Type   |  Owner
+--------+--------------------------+----------+----------
+ public | elephant5990             | table    | postgres
+ public | elephant5990_ogc_fid_seq | sequence | postgres
+ public | geography_columns        | view     | postgres
+ public | geometry_columns         | view     | postgres
+ public | pg_stat_statements       | view     | postgres
+ public | pg_stat_statements_info  | view     | postgres
+ public | spatial_ref_sys          | table    | postgres
+(7 rows)
+```
+
+PostGIS is enabled in a database, it introduces a table and two views. These ...
+- geography_columns
+- geometry_columns
+- spatial_ref_sys
+We see our loaded data introduce a table and sequence. Recall, we defined the table in the ogr2ogr command.
+- elephant5990
+- elephant5990_ogc_fid_seq
+
+The table can be explored further by running a query to lay out the columns.
 
 ```
 SELECT column_name
@@ -79,14 +100,48 @@ wkb_geometry
 
 ## 2. Using PostGIS to power insights from your data
 
-PostGIS provides interesting functions, indexes and operators to analyze the geospatial attributes in the data. Let's explore of few interesting insights we could glean from the data set.
-
+PostGIS provides functions, indexes and operators to analyze the geospatial attributes in the data. Let's explore of few interesting insights we could glean from the data set.
 
 ### `ST_Distance`
 
 ST_Distance can be used to find the minimum distance between two points. This approach can be extended in a recursive manner to many points.
 
 - Which hour of the day (24hr format) had the highest average distance traveled (meters) per year?
+
+```
+WITH TimeDistances AS (
+    SELECT
+        EXTRACT(YEAR FROM timestamp::timestamp) AS year,
+        EXTRACT(HOUR FROM timestamp::timestamp) AS hour,
+        LAG(wkb_geometry) OVER (ORDER BY timestamp) AS prev_geometry,
+        wkb_geometry AS current_geometry
+    FROM elephant5990
+),
+Distances AS (
+    SELECT
+        year,
+        hour,
+        ST_Distance(prev_geometry::geography, current_geometry::geography) AS distance
+    FROM TimeDistances
+    WHERE prev_geometry IS NOT NULL
+),
+RankedDistances AS (
+    SELECT
+        year,
+        hour,
+        AVG(distance) AS avg_distance,
+        RANK() OVER (PARTITION BY year ORDER BY AVG(distance) DESC) as rank
+    FROM Distances
+    GROUP BY year, hour
+)
+SELECT
+    year,
+    hour,
+    avg_distance
+FROM RankedDistances
+WHERE rank = 1
+ORDER BY year;
+```
 
 | year | hour |       avg_distance        |
 |------|------|---------------------------|
@@ -120,27 +175,58 @@ ST_ConcaveHull can be used to establish a boundary around a set of points, while
 
 - On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
 
+```sql
+WITH Hull AS (
+    SELECT ST_ConcaveHull(ST_Collect(e.wkb_geometry), 0.50, true) AS geom
+    FROM elephant5990 e
+),
+Holes AS (
+    SELECT
+        ST_InteriorRingN(geom, num) AS hole_geom
+    FROM
+        (SELECT (ST_Dump(geom)).geom, generate_series(1, ST_NumInteriorRings((ST_Dump(geom)).geom)) AS num FROM Hull) AS sub
+),
+HoleAreas AS (
+    SELECT
+        hole_geom,
+        ST_Area(ST_MakePolygon(ST_AddPoint(hole_geom, ST_StartPoint(hole_geom)))) AS area
+    FROM Holes
+)
+SELECT
+    ST_AsBinary(hole_geom) AS wkb_geometry,
+    area
+FROM HoleAreas
+ORDER BY area DESC
+LIMIT 1;
+```
 
 ## 3. Visualizing this Data with QGIS
 
 In addition to running these SQL queries, we could easily overlay this data over maps using QGIS to emit visualizations.
 
-By leveraging QGIS' OpenStreetMap feature, we can offer real world context to an otherwise meaningless distribution of points (Figure 2).
-This not only helps draw territorial boundaries, but spotlights areas of cluster vs dispersion for further analysis.
+By leveraging QGIS' OpenStreetMap feature, we can offer real world context to an otherwise meaningless distribution of points.
+Figure 2 illustrates just such an example.
+Here we readily see a collection of points, representing the elephant (each point representing a measurement captured roughly every two hours).
+We also see major and minor roads, but the relatively larger village of Dassioko as well, and what also appear to be smaller settlements in its periphery (represented by grey polygons).
+Not only does this graphic give us a superficial idea about where the elephant has gone, but offers a more layered understanding of its territorial boundaries, areas of cluster/dispersion as well.
+Not only that, but sections of road where is its more comfortable crossing human presense. village.
 
 ![map_data_points](./map_data_points.png 'map_data_points')
 Figure 2. QGIS-renedered OpenStreetMap visualization containing elephant tracking data.
 
-The OpenStreetMap layer readily shows the defined border of Dassioko Village (Figure 2).
-Using QGIS, we can then create a custom geometry to both visualize, as well as analyze in Postgres.
-This layer helps us answer questions related to the elephant's behavior in relation to the village (Figure 3).
+QGIS has built-in features that allow us to create custom geometries to both visualize and further analyze.
+As shown above, the OpenStreetMap layer reveals the defined border of Dassioko Village (Figure 2).
+Not only that, but there are clearly points within the grey-shaded area, meaning the elephant was there.
+To better quantify this phenomenon, we created just such a custom geometry and overlayed it (Figure 3).
+This layer helps us answer questions related to the elephant's behavior in relation to the village.
 
 ![map_area_village](./map_area_village.png 'map_area_village')
-Figure 3. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing Dassioko Village. This is made possible using the PostGIS function, ST_Contains.
+Figure 3. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing Dassioko Village. The query that , ST_Contains.
 
-Finally, we can implement a reverse workflow, whereby we quantify in Postgres and use the results to generate a QGIS overlay.
-In this case, showcasing a potential area of avoidance (Figure 4). 
-
+This investigative workflow can run in the opposite direction as well.
+Meaning, instead of creating a human-defined geometry and quantifying it with respect to the other datapoints, we conduct initial quantifications in Postgres and use the results to generate a QGIS overlay.
+In this case, showcasing a potential area of avoidance (Figure 4).
+While the results are not perfect, they are meant to show that an area was identified with a single query.
 
 ![map_area_avoidance](./map_area_avoidance.png 'map_area_avoidance')
 Figure 4. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing a generated potential area of avoidance. This is made possible using PostGIS functions, ST_ConcaveHull and ST_InteriorRingN.
