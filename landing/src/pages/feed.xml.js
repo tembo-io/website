@@ -3,7 +3,11 @@ import { getCollection } from 'astro:content';
 import sanitizeHtml from 'sanitize-html';
 import MarkdownIt from 'markdown-it';
 import { AUTHORS } from '../content/config';
-const parser = new MarkdownIt();
+const parser = new MarkdownIt({
+    html: true,
+    breaks: true,
+    linkify: true,
+});
 
 export async function GET(context) {
     const blog = await getCollection('blog');
