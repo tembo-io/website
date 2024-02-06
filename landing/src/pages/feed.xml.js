@@ -5,7 +5,7 @@ import MarkdownIt from 'markdown-it';
 import { AUTHORS } from '../content/config';
 const parser = new MarkdownIt({
     html: true,
-    breaks: true,
+    breaks: false,
     linkify: true,
 });
 
