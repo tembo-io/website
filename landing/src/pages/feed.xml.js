@@ -18,7 +18,7 @@ export async function GET(context) {
         title: 'Tembo’s Blog',
         description: 'Latest news and technical blog posts from membors of the Tembo team and community!',
         site: context.site,
-        items: blog.map((post, index) => {
+        items: blog.map((post) => {
             const dateString = post.id.substring(0, 10);
             const parsedDate = post.data?.date || new Date(dateString);
             return {
@@ -33,6 +33,7 @@ export async function GET(context) {
                         <email>noreply@tembo.io</email>
                         <uri>${AUTHORS[post.data.authors[0]].url}</uri>
                     </author>
+                    ${post.data.tags.map(tag => `<category label="${tag}" term="${tag}"/>`)}
                 `
             };
         }),
