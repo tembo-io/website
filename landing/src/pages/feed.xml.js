@@ -17,13 +17,14 @@ export async function GET(context) {
         items: blog.map((post, index) => {
             const dateString = post.id.substring(0, 10);
             const parsedDate = post.data?.date || new Date(dateString);
+            console.log(parser.render(post.body).replace('src="./', `src="${context.site}/./`))
             return {
                 title: post.data.title,
                 pubDate: new Date(parsedDate).toISOString(),
                 author: AUTHORS[post.data.authors[0]].name,
                 description: post.data.description,
                 link: `/blog/${post.slug}/`,
-                customData: `<content type='html'>${parser.render(post.body).replace('src="/', `src="${context.site}/`)}</content>`
+                customData: `<content type='html'>${parser.render(post.body).replace('src="./', `src="${context.site}./`)}</content>`
             };
         }),
     });
