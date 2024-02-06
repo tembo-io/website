@@ -215,19 +215,18 @@ Already with this simple overlay, our superficial idea about where the elephant 
 ![map_data_points](./map_data_points.png 'map_data_points')
 Figure 2. QGIS-renedered OpenStreetMap visualization containing elephant tracking data.
 
-QGIS has built-in features that allow us to create custom geometries to both visualize and further analyze.
-As shown above, the OpenStreetMap layer reveals the defined border of Dassioko Village (Figure 2).
-Not only that, but there are clearly points within the grey-shaded area, meaning the elephant was there.
-To better quantify this phenomenon, we created just such a custom geometry and overlayed it (Figure 3).
-This layer helps us answer questions related to the elephant's behavior in relation to the village.
+QGIS has built-in features that allow for the creation custom geometries to visualize and further analyze.
+As shown above (Figure 2), the OpenStreetMap layer reveals the defined border of Dassioko Village.
+Not only that, but there are clearly points found within the grey-shaded area, meaning the elephant traveled there.
+To better quantify this phenomenon, we created a custom geometry and overlayed it (Figure 3).
+This red-shaded layer helps us answer questions related to the elephant's behavior in relation to the village.
 
 ![map_area_village](./map_area_village.png 'map_area_village')
 Figure 3. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing Dassioko Village. The query that , ST_Contains.
 
-This investigative workflow can run in the opposite direction as well.
-Meaning, instead of creating a human-defined geometry and quantifying it with respect to the other datapoints, we conduct initial quantifications in Postgres and use the results to generate a QGIS overlay.
-In this case, showcasing a potential area of avoidance (Figure 4).
-While the results are not perfect, they are meant to show that an area was identified with a single query.
+While the last example involved creating a custom geometry in QGIS and analyzing it in Postgres, this investigative workflow can run in reverse as well.
+In other words, instead of creating a human-defined geometry and quantifying it with respect to the other datapoints, we conduct initial quantifications in Postgres and use the results to generate a QGIS overlay.
+While the results are not perfect, they are meant as a proof of concept that a potential area of avoidance can be identified with a single query (Figure 4).
 
 ![map_area_avoidance](./map_area_avoidance.png 'map_area_avoidance')
 Figure 4. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing a generated potential area of avoidance. This is made possible using PostGIS functions, ST_ConcaveHull and ST_InteriorRingN.
