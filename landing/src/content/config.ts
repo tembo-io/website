@@ -112,8 +112,6 @@ export const AUTHORS: Record<string, Author> = {
   }
 }
 
-
-
 const blog = defineCollection({
   type: "content",
   schema: z.object({

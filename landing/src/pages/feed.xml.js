@@ -24,10 +24,16 @@ export async function GET(context) {
             return {
                 title: post.data.title,
                 pubDate: new Date(parsedDate).toISOString(),
-                author: AUTHORS[post.data.authors[0]].name,
                 description: post.data.description,
                 link: `/blog/${post.slug}/`,
-                content: parser.render(post.body).replace('src="./', `src="${context.site}./`)
+                content: parser.render(post.body).replace('src="./', `src="${context.site}./`),
+                customData: `
+                    <author>
+                        <name>${AUTHORS[post.data.authors[0]].name}</name>
+                        <email>noreply@tembo.io</email>
+                        <uri>${AUTHORS[post.data.authors[0]].url}</uri>
+                    <author>
+                `
             };
         }),
     });
