@@ -35,14 +35,14 @@ export async function GET(context) {
                 pubDate: new Date(parsedDate).toISOString(),
                 description: post.data.description,
                 link: `/blog/${post.slug}`,
-                content: isMdx ? 'Could not be rendered!' : posts[index]?.compiledContent().replaceAll() || 'Could not be rendered!',
+                content: isMdx ? 'Could not be rendered!' : posts[index]?.compiledContent().replace('src="/', 'src="https://tembo.io/') || 'Could not be rendered!',
                 customData: `
                     <author>
                         <name>${AUTHORS[post.data.authors[0]].name}</name>
                         <email>noreply@tembo.io</email>
                         <uri>${AUTHORS[post.data.authors[0]].url}</uri>
                     </author>
-                    ${post.data.tags.map(tag => `<category label='${tag}' term='${tag}' />`).join(',').replace('src="/', `src="${context.site}`)}
+                    ${post.data.tags.map(tag => `<category label='${tag}' term='${tag}' />`).join(',').replaceAll(',', '')}
                 `
             };
         }),
