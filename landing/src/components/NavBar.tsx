@@ -9,7 +9,7 @@ import Logo from './Logo';
 
 interface Props {
 	currentPage: string;
-	isProgressBar?: boolean
+	isProgressBar?: boolean;
 }
 
 const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
@@ -36,15 +36,18 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 		const handleScroll = () => {
 			if (isProgressBar) {
 				const blogPost = document.getElementById('tembo-blog-post');
-				const { top, height } = (blogPost as any)?.getBoundingClientRect();
+				const { top, height } = (
+					blogPost as any
+				)?.getBoundingClientRect();
 				let scrollDistance = -top;
 				let progressPercentage =
-				  (scrollDistance / (height - document.documentElement.clientHeight)) * 100;
+					(scrollDistance /
+						(height - document.documentElement.clientHeight)) *
+					100;
 				setProgressWidth(progressPercentage);
 			}
 
 			setScrollY(window.scrollY);
-
 		};
 
 		handleScroll();
@@ -68,14 +71,14 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 		};
 	}, []);
 
-	let isActive = progressWidth <= 100
+	let isActive = progressWidth <= 100;
 
 	return (
 		<div
 			className={cx(
 				'fixed top-0 w-full z-50 transition duration-100',
 				scrollY > 20 ? 'backdrop-blur-lg safari-blur' : '',
-				isMenuOpen && !isScreenGreaterThanOrEqualTo900px && 'h-screen'
+				isMenuOpen && !isScreenGreaterThanOrEqualTo900px && 'h-screen',
 			)}
 		>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
@@ -106,7 +109,8 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 							href='/docs'
 							className={cx(
 								'font-secondary font-medium z-10',
-								currentPage == '/docs' || currentPage == '/docs/'
+								currentPage == '/docs' ||
+									currentPage == '/docs/'
 									? 'text-neon'
 									: 'text-white opacity-70',
 							)}
@@ -168,8 +172,19 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 				</nav>
 			</Container>
 			{scrollY > 50 && isProgressBar && (
-				<div className={cx("w-full flex justify-start relative", scrollY > 50 && 'h-[2.5px]')}>
-					<div className="h-full top-0 bottom-0 right-0 absolute w-screen bg-salmon will-change-transform transition-opacity duration-[40] ease-linear" style={{ transform: `translate3d(${isActive ? progressWidth - 100 + '%' : '0'},0,0)`, opacity: isActive ? 1 : 0 }}></div>
+				<div
+					className={cx(
+						'w-full flex justify-start relative',
+						scrollY > 50 && 'h-[2.5px]',
+					)}
+				>
+					<div
+						className='h-full top-0 bottom-0 right-0 absolute w-screen bg-salmon will-change-transform transition-opacity duration-[40] ease-linear'
+						style={{
+							transform: `translate3d(${isActive ? progressWidth - 100 + '%' : '0'},0,0)`,
+							opacity: isActive ? 1 : 0,
+						}}
+					></div>
 				</div>
 			)}
 			<div
