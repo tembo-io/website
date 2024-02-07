@@ -126,6 +126,7 @@ import Callout from '../../../components/Callout.astro'; // be sure to import th
 </Callout>
 ```
 > Rendered in the blog post:
+<img width="912" alt="Screenshot 2024-02-07 at 5 37 30 PM" src="https://github.com/tembo-io/website/assets/68653294/b85fef75-04ea-4e4d-a8ce-434f062d5dd9">
 
 #### 7. Embedding tweets and videos
 > TODO
