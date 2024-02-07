@@ -86,12 +86,12 @@ From there you can interact with the data using the following [FerretDB supporte
 
 ### Reading from psql
 
-Similar to other stacks you can copy the connection string from your UI or fill in and run the following psql command:
+Similar to other stacks you can copy the connection string from the Tembo UI or fill in and run the following psql command:
 ```bash
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 ```
 
-Once connected to the instance, running `dn` will list the schemas and show `ferretdb` and an option.
+Once connected to the instance, running `\dn` will list the schemas and show `ferretdb` and an option.
 Running ```SET search_path TO ferretdb;``` will allow you to interact with your data stored via FerretDB.
 At this point it's important to reemphasize that our current recommendation to treat `psql` as read only when using the MongoAlternative Stack.
 
