@@ -18,4 +18,9 @@ export default defineConfig({
 			wrap: true,
 		}
 	},
+	vite: {
+		ssr: {
+			noExternal: ['react-tweet']
+		}
+	}
 });

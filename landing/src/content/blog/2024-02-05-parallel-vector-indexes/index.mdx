@@ -5,18 +5,13 @@ authors: [rjzv]
 tags: [postgres, extensions, vector, lantern, pgvector, hnsw, parallelism]
 image: ./Lantern.png
 ---
+import Tweet from '../../../components/Tweet'
 
 Three weeks ago, we wrote a [blog comparing pg_vector and lantern](https://tembo.io/blog/postgres-vector-search-pgvector-and-lantern) on index creation and search speed, and also mentioned that this is a fast evolving space with great momentum.
 
 Just last week, we saw the release of Pgvector v0.6.0, which contains improvements in HWSW build time thanks to the ability to [build indexes in parallel](https://github.com/pgvector/pgvector/issues/409).
 
-<iframe
-	border={0}
-	frameborder={0}
-	height='400px'
-	width='100%'
-	src='https://twitframe.com/show?url=https://twitter.com/jkatz05/status/1752060288814420168'
-></iframe>
+<Tweet id="1752060288814420168" client:load />
 
 And so, we had to try it out!
 

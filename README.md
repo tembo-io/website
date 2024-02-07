@@ -66,7 +66,7 @@ This commands will generate static content into the associated `build` directory
   - Review preview environment
   - Squash and merge and get approval from Darren/Samay
 
-### Writing a blog post ✍️
+## Writing a blog post ✍️
 > Refer to this [example post](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-07-05-tembo-manifesto) as needed
 #### 1. Create a new folder inside `website/content/blog` directory
 ```bash
@@ -115,7 +115,9 @@ Code blocks can be done as you usually would in typical markdown and will be aut
 #### 5. Adding images
 Images can be added to the post by using relative paths to any image files (`.jpg`, `.png`, `.svg`, etc are all supported) that are placed inside of the `content/blog/2024-09-20-example-post` directory. An example post with images can be found [here](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-12-06-mq-benchmarks).
 #### 6. Admonitions (callouts)
-The Tembo blog supports admonitions or callouts. These are styled blocks of text that are used to highlight information. To use a callout you must first create an `index.mdx` file for your post instead of just plain markdown. There are four different types of callouts: `info`, `tip`, `warning`, and tip `danger`. Each callout can have a body with content along with a optional title. Below is an example of what a callout looks like:
+The Tembo blog supports admonitions or callouts.
+
+These are special styled blocks of text that are used to highlight information. To use a callout you must first create an `index.mdx` file for your post instead of just plain markdown. There are four different types of callouts: `info`, `tip`, `warning`, and tip `danger`. Each callout can have a body with content along with a optional title. Below is an example of what a callout looks like:
 
 > Code:
 ```mdx
@@ -129,6 +131,24 @@ import Callout from '../../../components/Callout.astro'; // be sure to import th
 <img width="912" alt="Screenshot 2024-02-07 at 5 37 30 PM" src="https://github.com/tembo-io/website/assets/68653294/b85fef75-04ea-4e4d-a8ce-434f062d5dd9">
 
 #### 7. Embedding tweets and videos
-> TODO
+- You can embed a tweet by using the `Tweet` component and specifying the tweet id that you can find inside it's URL:
+```mdx
+import Tweet from '../../../components/Tweet'
+
+<Tweet id="1752060288814420168" client:load />
+```
+- Videos can be embedded within any blog post using the iframe embed provided by youtube (please make sure that you use the `900x400` dimensions):
+```mdx
+ <iframe
+    style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
+    width="900"
+    height="400"
+    src="https://www.youtube.com/embed/4vK0JqCNuok?si=60cxZCsfiYEiIiNm"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen>
+  </iframe>
+```
 #### 8. RSS feed
 The RSS feed for the Tembo Blog gets generated on ever new merge to main and can be found at https://tembo.io/feed.xml.
