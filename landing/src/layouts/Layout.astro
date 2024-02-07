@@ -8,60 +8,139 @@ interface Props {
 	htmlClasses?: string;
 }
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const DEFAULT_DESCRIPTION = 'Tembo is the Postgres developer platform for building every application and data service. Collapse the database sprawl of the modern data stack with a unified developer platform.';
+const DEFAULT_DESCRIPTION =
+	'Tembo is the Postgres developer platform for building every application and data service. Collapse the database sprawl of the modern data stack with a unified developer platform.';
 const DEFAULT_OG_IMAGE = 'og-image.png';
-const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, author, keywords, htmlClasses } = Astro.props;
+const {
+	title,
+	description = DEFAULT_DESCRIPTION,
+	image = DEFAULT_OG_IMAGE,
+	author,
+	keywords,
+	htmlClasses,
+} = Astro.props;
 ---
 
 <!doctype html>
 <html class={htmlClasses} lang='en'>
 	<head>
 		<meta charset='UTF-8' />
-		<meta
-			name='description'
-			content={description}
-		/>
+		<meta name='description' content={description} />
 		<meta name='viewport' content='width=device-width' />
 		<link rel='icon' type='image/svg+xml' href='/favicon.ico' />
 		<meta name='generator' content={Astro.generator} />
 		<title>{title}</title>
-		{author && (
-			<meta name="author" content={author}>
-		)}
-		{keywords && (
-			<meta name="keywords" content={keywords.join(',')}>
-		)}
-		<link rel="canonical" href={canonicalURL} />
+		{author && <meta name='author' content={author} />}
+		{keywords && <meta name='keywords' content={keywords.join(',')} />}
+		<link rel='canonical' href={canonicalURL} />
 		<meta name='twitter:card' content='summary_large_image' />
-		<meta
-			name='twitter:description'
-			content={description}
-		/>
+		<meta name='twitter:description' content={description} />
 		<meta name='twitter:site' content='@tembo_io' />
 		<meta name='twitter:title' content={title} />
-		<meta name='twitter:image' content={`https://tembo.io/${image}`}/>
+		<meta name='twitter:image' content={`https://tembo.io/${image}`} />
 		<meta property='og:image' content={`https://tembo.io/${image}`} />
 		<meta property='og:title' content={title} />
-		<meta
-			property='og:description'
-			content={description}
-		/>
+		<meta property='og:description' content={description} />
 		<meta property='og:type' content='website' />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/bai-jamjuree/bai-jamjuree-latin-200-normal.woff" />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/bai-jamjuree/bai-jamjuree-latin-300-normal.woff" />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/bai-jamjuree/bai-jamjuree-latin-400-normal.woff" />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/bai-jamjuree/bai-jamjuree-latin-500-normal.woff" />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/bai-jamjuree/bai-jamjuree-latin-600-normal.woff" />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/bai-jamjuree/bai-jamjuree-latin-700-normal.woff" />
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/bai-jamjuree/bai-jamjuree-latin-200-normal.woff'
+		/>
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/bai-jamjuree/bai-jamjuree-latin-300-normal.woff'
+		/>
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/bai-jamjuree/bai-jamjuree-latin-400-normal.woff'
+		/>
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/bai-jamjuree/bai-jamjuree-latin-500-normal.woff'
+		/>
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/bai-jamjuree/bai-jamjuree-latin-600-normal.woff'
+		/>
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/bai-jamjuree/bai-jamjuree-latin-700-normal.woff'
+		/>
 
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/inter/inter-latin-200-normal.woff" />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/inter/inter-latin-300-normal.woff" />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/inter/inter-latin-400-normal.woff" />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/inter/inter-latin-500-normal.woff" />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/inter/inter-latin-600-normal.woff" />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/inter/inter-latin-700-normal.woff" />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/inter/inter-latin-800-normal.woff" />
-		<link rel="preload" as="font" type="font/woff" crossorigin="anonymous" href="/fonts/inter/inter-latin-200-normal.woff" />
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/inter/inter-latin-200-normal.woff'
+		/>
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/inter/inter-latin-300-normal.woff'
+		/>
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/inter/inter-latin-400-normal.woff'
+		/>
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/inter/inter-latin-500-normal.woff'
+		/>
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/inter/inter-latin-600-normal.woff'
+		/>
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/inter/inter-latin-700-normal.woff'
+		/>
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/inter/inter-latin-800-normal.woff'
+		/>
+		<link
+			rel='preload'
+			as='font'
+			type='font/woff'
+			crossorigin='anonymous'
+			href='/fonts/inter/inter-latin-200-normal.woff'
+		/>
 		<script
 			defer
 			data-domain='tembo.io'
@@ -217,7 +296,6 @@ const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, auth
 	body {
 		font-family: 'Bai Jamjuree';
 		background: #120f0e;
-
 	}
 
 	:root {
@@ -295,7 +373,6 @@ const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, auth
 		);
 	}
 
-
 	.fade-x-md-both-sides-animation {
 		-webkit-mask: none;
 	}
@@ -310,7 +387,6 @@ const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, auth
 			);
 		}
 	}
-
 
 	.background-img-transition {
 		-webkit-transition: background-image 0.2s ease-in-out;
@@ -418,6 +494,6 @@ const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, auth
 		}
 	}
 	.will-change-transform {
-    	will-change: transform;
+		will-change: transform;
 	}
 </style>

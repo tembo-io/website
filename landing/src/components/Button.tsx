@@ -10,7 +10,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	children: React.ReactNode;
 	styles?: string;
 	size?: Size;
-	link?: string
+	link?: string;
 }
 
 const Button: React.FC<Props> = ({
@@ -56,7 +56,9 @@ const Button: React.FC<Props> = ({
 			onClick={
 				variant === 'gradient'
 					? () => navigate('https://cloud.tembo.io')
-					: link ? () => navigate(link) : undefined
+					: link
+						? () => navigate(link)
+						: undefined
 			}
 			{...rest}
 		>

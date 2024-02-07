@@ -97,7 +97,7 @@ const config = {
 			algolia: {
 				appId: 'JVQ9GG9K5Q',
 				apiKey: '76354a5ef690ae48a0377f8302cc3583',
-				indexName: 'tembo'
+				indexName: 'tembo',
 			},
 			navbar: {
 				logo: {
@@ -159,7 +159,7 @@ const config = {
 			prism: {
 				theme: lightCodeTheme,
 				darkTheme: darkCodeTheme,
-				additionalLanguages: ['r','java'],
+				additionalLanguages: ['r', 'java'],
 			},
 			hubspot: {
 				accountId: 23590420,

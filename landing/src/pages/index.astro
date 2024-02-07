@@ -43,7 +43,9 @@ const currentPath = Astro.url.pathname;
 		<NavBar client:load currentPage={currentPath} />
 		<div class='w-full h-[150px] overflow-hidden'></div>
 		<Container styles='relative'>
-			<div class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'>
+			<div
+				class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'
+			>
 			</div>
 			<section
 				class='tembo-hero-section mt-[25px] customXs:mt-[40px] md:mt-[80px]'
@@ -278,7 +280,9 @@ const currentPath = Astro.url.pathname;
 			<Section3Confetti />
 		</Container>
 		<TemboStacksSection client:only='react' />
-		<section class='tembo-extensions-section pt-28 bg-offBlack overflow-hidden'>
+		<section
+			class='tembo-extensions-section pt-28 bg-offBlack overflow-hidden'
+		>
 			<Container>
 				<div class='flex flex-col items-center justify-center'>
 					<h2
@@ -631,7 +635,8 @@ const currentPath = Astro.url.pathname;
 			<div class='relative bg-offBlack z-10'>
 				<div
 					class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
-				/>
+				>
+				</div>
 				<Container styles='z-50'>
 					<Footer />
 				</Container>

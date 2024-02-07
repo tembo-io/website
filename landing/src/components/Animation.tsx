@@ -21,7 +21,7 @@ const Animation: React.FC<Props> = ({
 	loop = true,
 	animateOnInView = false,
 	isFooter,
-	position = 'absolute'
+	position = 'absolute',
 }) => {
 	const triggerRef = useRef(null);
 	const lottieRef = useRef(null);

@@ -7,34 +7,55 @@ import { styles } from '../util';
 import { Image } from 'astro:assets';
 
 interface Props {
-    variant?: 'info' | 'warning' | 'danger' | 'tip';
-    title?: string;
+	variant?: 'info' | 'warning' | 'danger' | 'tip';
+	title?: string;
 }
 
 const { variant = 'info', title } = Astro.props;
 const getVariant = () => {
-    switch (variant) {
-        case 'info':
-            return { styles: 'bg-neon bg-opacity-15 border-neon', icon: Information };
-        case 'warning':
-            return { styles: 'bg-lightWarning bg-opacity-15 border-warning', icon: warning };
-        case 'danger':
-            return { styles: 'bg-lightDanger bg-opacity-15 border-danger', icon: Danger };
-        case 'tip':
-            return { styles: 'bg-lightGood bg-opacity-15 border-good', icon: Flash };
-        default:
-            return { styles: 'bg-neon bg-opacity-15 border-neon', icon: Information };
-    }
+	switch (variant) {
+		case 'info':
+			return {
+				styles: 'bg-neon bg-opacity-15 border-neon',
+				icon: Information,
+			};
+		case 'warning':
+			return {
+				styles: 'bg-lightWarning bg-opacity-15 border-warning',
+				icon: warning,
+			};
+		case 'danger':
+			return {
+				styles: 'bg-lightDanger bg-opacity-15 border-danger',
+				icon: Danger,
+			};
+		case 'tip':
+			return {
+				styles: 'bg-lightGood bg-opacity-15 border-good',
+				icon: Flash,
+			};
+		default:
+			return {
+				styles: 'bg-neon bg-opacity-15 border-neon',
+				icon: Information,
+			};
+	}
 };
 const _variant = getVariant();
 ---
 
 <div class={styles('border-l-4 py-4 px-6 rounded-r-xl', _variant.styles)}>
-    <div class='inline-flex items-center gap-2 mb-4'>
-        <Image src={_variant.icon} height={24} width={24} alt={variant as string || 'icon'} class='m-0' />
-        {title && <span class='font-bold text-white'>{title}</span>}
-    </div>
-    <div class='prose'>
-        <slot />
-    </div>
+	<div class='inline-flex items-center gap-2 mb-4'>
+		<Image
+			src={_variant.icon}
+			height={24}
+			width={24}
+			alt={(variant as string) || 'icon'}
+			class='m-0'
+		/>
+		{title && <span class='font-bold text-white'>{title}</span>}
+	</div>
+	<div class='prose'>
+		<slot />
+	</div>
 </div>
