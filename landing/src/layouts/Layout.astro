@@ -35,10 +35,10 @@ const { title, description = DEFAULT_DESCRIPTION, image = DEFAULT_OG_IMAGE, auth
 		<meta name='twitter:card' content='summary_large_image' />
 		<meta
 			name='twitter:description'
-			content='Tembo is the Postgres developer platform for building every application and data service. Collapse the database sprawl of the modern data stack with a unified developer platform.'
+			content={description}
 		/>
-		<meta name='twitter:site' content='https://tembo.io' />
-		<meta name='twitter:title' content='Postgres for everything | Tembo' />
+		<meta name='twitter:site' content='@tembo_io' />
+		<meta name='twitter:title' content={title} />
 		<meta name='twitter:image' content={`https://tembo.io/${image}`}/>
 		<meta property='og:image' content={`https://tembo.io/${image}`} />
 		<meta property='og:title' content={title} />

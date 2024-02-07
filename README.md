@@ -105,3 +105,6 @@ description: Walk through using pg_vectorize to automate the vector search workf
 #### 5. Admonitions (callouts)
 > TODO
 #### 6. Embedding tweets and videos
+> TODO
+#### 7. Tags
+> TODO
