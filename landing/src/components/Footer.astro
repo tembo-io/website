@@ -129,17 +129,23 @@ import { Image } from 'astro:assets';
 						rel='noreferrer'>Terms of service</a
 					>
 				</div>
-				<span
-					class='inline-flex gap-2 font-secondary mb-2 min-[470px]:mb-0'
+				<a
+					href='/soc2.pdf'
+					target='_blank'
+					rel='noreferrer'
 				>
-					<Image
-						src={Checkmark}
-						alt='checkmark'
-						width={14}
-						height={16}
-					/>
-					SOC2 Type 1 compliant
-				</span>
+					<span
+						class='inline-flex gap-2 font-secondary mb-2 min-[470px]:mb-0'
+					>
+						<Image
+							src={Checkmark}
+							alt='checkmark'
+							width={14}
+							height={16}
+						/>
+						SOC2 Type 1 compliant
+					</span>
+				</a>
 			</div>
 		</div>
 	</div>
