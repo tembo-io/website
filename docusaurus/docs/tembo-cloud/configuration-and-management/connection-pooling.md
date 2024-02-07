@@ -90,3 +90,33 @@ Log in to the [Tembo Cloud UI](https://cloud.tembo.io/) and select the "Database
 ### Connect to your Tembo Instance's Connection Pooler
 
 On the Home page of [Tembo Cloud UI](https://cloud.tembo.io/), find the "Show connection strings" button on the right side. This button opens a modal where you can find a PSQL connection string. If you have enabled connection pooling on your instance, there will also be a tab called "Connection Pooling" where you can find the complete connection string specifically for the connection pool.
+
+### Integrate a manually created Database to the Connection Pooler
+
+If you manually create a database and wish to integrate it with the connection
+pooler you will need to run the following queries from inside your instance.
+
+For each new database you will need to grant permission for `cnpg_pooler_pgbouncer`
+to connect to it:
+
+```sql
+GRANT CONNECT ON DATABASE { database name here } TO cnpg_pooler_pgbouncer;
+```
+
+Then connect in each new database, and then create the authentication
+function inside each of the application databases:
+
+```sql
+CREATE OR REPLACE FUNCTION user_search(uname TEXT)
+  RETURNS TABLE (usename name, passwd text)
+  LANGUAGE sql SECURITY DEFINER AS
+  'SELECT usename, passwd FROM pg_shadow WHERE usename=$1;';
+
+REVOKE ALL ON FUNCTION user_search(text)
+  FROM public;
+
+GRANT EXECUTE ON FUNCTION user_search(text)
+  TO cnpg_pooler_pgbouncer;
+
+ALTER FUNCTION user_search(TEXT) OWNER TO postgres;
+```
