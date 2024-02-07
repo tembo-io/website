@@ -131,6 +131,24 @@ import Callout from '../../../components/Callout.astro'; // be sure to import th
 <img width="912" alt="Screenshot 2024-02-07 at 5 37 30 PM" src="https://github.com/tembo-io/website/assets/68653294/b85fef75-04ea-4e4d-a8ce-434f062d5dd9">
 
 #### 7. Embedding tweets and videos
-> TODO
+- You can embed a tweet by using the `Tweet` component and specifying the tweet id that you can find inside it's URL:
+```mdx
+import Tweet from '../../../components/Tweet'
+
+<Tweet id="1752060288814420168" client:load />
+```
+- Videos can be embedded within any blog post using the iframe embed provided by youtube (please make sure that you use the `900x400` dimensions):
+```mdx
+ <iframe
+    style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
+    width="900"
+    height="400"
+    src="https://www.youtube.com/embed/4vK0JqCNuok?si=60cxZCsfiYEiIiNm"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen>
+  </iframe>
+```
 #### 8. RSS feed
 The RSS feed for the Tembo Blog gets generated on ever new merge to main and can be found at https://tembo.io/feed.xml.
