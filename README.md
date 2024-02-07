@@ -66,7 +66,7 @@ This commands will generate static content into the associated `build` directory
   - Review preview environment
   - Squash and merge and get approval from Darren/Samay
 
-### Writing a blog post ✍️
+## Writing a blog post ✍️
 > Refer to this [example post](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-07-05-tembo-manifesto) as needed
 #### 1. Create a new folder inside `website/content/blog` directory
 ```bash
@@ -115,7 +115,9 @@ Code blocks can be done as you usually would in typical markdown and will be aut
 #### 5. Adding images
 Images can be added to the post by using relative paths to any image files (`.jpg`, `.png`, `.svg`, etc are all supported) that are placed inside of the `content/blog/2024-09-20-example-post` directory. An example post with images can be found [here](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-12-06-mq-benchmarks).
 #### 6. Admonitions (callouts)
-The Tembo blog supports admonitions or callouts. These are styled blocks of text that are used to highlight information. To use a callout you must first create an `index.mdx` file for your post instead of just plain markdown. There are four different types of callouts: `info`, `tip`, `warning`, and tip `danger`. Each callout can have a body with content along with a optional title. Below is an example of what a callout looks like:
+The Tembo blog supports admonitions or callouts.
+
+These are special styled blocks of text that are used to highlight information. To use a callout you must first create an `index.mdx` file for your post instead of just plain markdown. There are four different types of callouts: `info`, `tip`, `warning`, and tip `danger`. Each callout can have a body with content along with a optional title. Below is an example of what a callout looks like:
 
 > Code:
 ```mdx
