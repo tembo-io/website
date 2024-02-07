@@ -1,15 +1,7 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
-import { getImage } from "astro:assets";
-import sanitizeHtml from 'sanitize-html';
 import MarkdownIt from 'markdown-it';
 import { AUTHORS } from '../content/config';
-const parser = new MarkdownIt({
-    html: true,
-    breaks: false,
-    linkify: true,
-    typographer: true
-});
 
 export async function GET(context) {
     const blog = await getCollection('blog');
@@ -26,14 +18,14 @@ export async function GET(context) {
         items: blog.map((post, index) => {
             const dateString = post.id.substring(0, 10);
             const parsedDate = post.data?.date || new Date(dateString);
-            const renderedMarkdown = parser.render(post.body);
+            const COULD_NOT_BE_RENDERED = 'This post contained content that could not be rendered in the RSS feed. Please use the official post link on https://tembo.io.';
             const isMdx = post.id.includes('.mdx');
             return {
                 title: post.data.title,
                 pubDate: new Date(parsedDate).toISOString(),
                 description: post.data.description,
                 link: `/blog/${post.slug}`,
-                content: isMdx ? 'Could not be rendered!' : posts[index]?.compiledContent().replaceAll('src="/', 'src="https://tembo.io/') || 'Could not be rendered!',
+                content: isMdx ? COULD_NOT_BE_RENDERED : posts[index]?.compiledContent().replaceAll('src="/', 'src="https://tembo.io/') || COULD_NOT_BE_RENDERED,
                 customData: `
                     <author>
                         <name>${AUTHORS[post.data.authors[0]].name}</name>
