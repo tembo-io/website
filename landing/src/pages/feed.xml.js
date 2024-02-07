@@ -11,8 +11,6 @@ const parser = new MarkdownIt({
     typographer: true
 });
 
-// iterate over pages/slugs and get their markdown then inject in here
-
 export async function GET(context) {
     const blog = await getCollection('blog');
     const postImportResult = import.meta.glob('../content/blog/**/*.md', { eager: true });
@@ -35,7 +33,7 @@ export async function GET(context) {
                 pubDate: new Date(parsedDate).toISOString(),
                 description: post.data.description,
                 link: `/blog/${post.slug}`,
-                content: isMdx ? 'Could not be rendered!' : posts[index]?.compiledContent().replace('src="/', 'src="https://tembo.io/') || 'Could not be rendered!',
+                content: isMdx ? 'Could not be rendered!' : posts[index]?.compiledContent().replaceAll('src="/', 'src="https://tembo.io/') || 'Could not be rendered!',
                 customData: `
                     <author>
                         <name>${AUTHORS[post.data.authors[0]].name}</name>
