@@ -100,7 +100,7 @@ description: Walk through using pg_vectorize to automate the vector search workf
 
 - `tags` is an array of tags that the post is associated with. Each tag will be displayed inside of the left sidebar in each post and will also be used inside of the `keywords` meta tag. The main tags that we use are `postgres`. `extensions`, `stacks`, `engineering`, and `data`.
 
-- `image` is the path to the image that will be displayed at the top of the post. This should be placed inside of the [public folder](https://github.com/tembo-io/website/tree/main/landing/public).
+- `image` is the path to the image that will be displayed at the top of the post and in the `og:image` meta tags. This should be placed inside of the [public folder](https://github.com/tembo-io/website/tree/main/landing/public). Please contact the Tembo design team for the optimal size + branding for these images.
 
 - `date` is the date that the post was published. This will be displayed at the top of the post and used inside of the `pubDate` field in the RSS feed.
 
@@ -113,12 +113,13 @@ Code blocks can be done as you usually would in typical markdown and will be aut
 // # Your code goes here :)
 ```
 #### 5. Adding images
-Images can be added to the post by using relative paths to any image files (jpg, png, svg, etc) that are placed inside of the `content/blog/2024-09-20-example-post` directory. An example post with images can be found [here](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-12-06-mq-benchmarks).
+Images can be added to the post by using relative paths to any image files (`.jpg`, `.png`, `.svg`, etc are all supported) that are placed inside of the `content/blog/2024-09-20-example-post` directory. An example post with images can be found [here](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-12-06-mq-benchmarks).
 #### 6. Admonitions (callouts)
 The Tembo blog supports admonitions or callouts. These are styled blocks of text that are used to highlight information. To use a callout you must first create an `index.mdx` file for your post instead of just plain markdown. There are four different types of callouts: `info`, `tip`, `warning`, and tip `danger`. Each callout can have a body with content along with a optional title. Below is an example of what a callout looks like:
 
 ```mdx
 import Callout from '../../../components/Callout.astro'; // be sure to import the callout component first :)
+
 <Callout title='Your title goes here' variant='info'>
   Your body text goes here!
 </Callout>
