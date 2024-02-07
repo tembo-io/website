@@ -1,17 +1,17 @@
 ---
 interface Props {
-    name: string;
-    title: string;
-    avatar: string;
+	name: string;
+	title: string;
+	avatar: string;
 }
 
 const { name, title, avatar } = Astro.props;
 ---
 
 <div class='flex items-center gap-4'>
-    <img src={avatar} class='rounded-full w-12 h-12' alt={name} />
-    <div>
-        <h1 class='text-sm font-bold text-white'>{name}</h1>
-        <p class='text-lightGrey text-sm'>{title}</p>
-    </div>
+	<img src={avatar} class='rounded-full w-12 h-12' alt={name} />
+	<div>
+		<h1 class='text-sm font-bold text-white'>{name}</h1>
+		<p class='text-lightGrey text-sm'>{title}</p>
+	</div>
 </div>
