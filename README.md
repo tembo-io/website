@@ -117,6 +117,7 @@ Images can be added to the post by using relative paths to any image files (`.jp
 #### 6. Admonitions (callouts)
 The Tembo blog supports admonitions or callouts. These are styled blocks of text that are used to highlight information. To use a callout you must first create an `index.mdx` file for your post instead of just plain markdown. There are four different types of callouts: `info`, `tip`, `warning`, and tip `danger`. Each callout can have a body with content along with a optional title. Below is an example of what a callout looks like:
 
+> Code:
 ```mdx
 import Callout from '../../../components/Callout.astro'; // be sure to import the callout component first :)
 
@@ -124,5 +125,9 @@ import Callout from '../../../components/Callout.astro'; // be sure to import th
   Your body text goes here!
 </Callout>
 ```
+> Rendered in the blog post:
+
 #### 7. Embedding tweets and videos
 > TODO
+#### 8. RSS feed
+The RSS feed for the Tembo Blog gets generated on ever new merge to main and can be found at https://tembo.io/feed.xml.
