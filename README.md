@@ -79,7 +79,7 @@ touch website/content/blog/2024-09-20-example-post/index.md
 ```
 
 #### 3. Frontmatter
-> Note: the Tembo blog supports both [markdown](https://www.markdownguide.org/) (`.md`) and [MDX](https://mdxjs.com/) (`.mdx`) files for posts.
+> Note: the Tembo blog works with both [markdown](https://www.markdownguide.org/) (`.md`) and [MDX](https://mdxjs.com/) (`.mdx`) files for posts.
 
 Each blog post supports *frontmatter*, which is a block of `YAML` at the top of the file that contains metadata about the post. Here's an example of what frontmatter looks like:
 
@@ -98,24 +98,25 @@ description: Walk through using pg_vectorize to automate the vector search workf
 
 - `title` is the title of the blog post. This will be displayed at the top of each post, on the main card list page, and in the `title` meta tag.
 
-- `authors` is an array of the authors of the post. Each author should be a string that matches the key of an author in the `AUTHORS` object inside of `/landing/content/config.ts`.
+- `authors` is an array of the authors of the post. Each author should be a string that matches the key of an author in the `AUTHORS` object inside of [here](https://github.com/tembo-io/website/blob/31ed5fdedd11579c83dbf7e151aa42287726685f/landing/src/content/config.ts#L31).
 
 - `tags` is an array of tags that the post is associated with. Each tag will be displayed inside of the left sidebar in each post and will also be used inside of the `keywords` meta tag. The main tags that we use are `postgres`. `extensions`, `stacks`, `engineering`, and `data`.
 
-- `image` is the path to the image that will be displayed at the top of the post and in the `og:image` meta tags. This should be placed inside of the [public folder](https://github.com/tembo-io/website/tree/main/landing/public). Please contact the Tembo design team for the optimal size + branding for these images.
+- `image` is the path to the image that will be displayed at the top of the post and in the `og:image` meta tags. This MUST be placed inside of the [public folder](https://github.com/tembo-io/website/tree/main/landing/public) for it to work properly. Please contact the Tembo design team for the optimal size + branding for these images.
 
 - `date` is the date that the post was published. This will be displayed at the top of the post and used inside of the `pubDate` field in the RSS feed.
 
 - `description` (optional) is a short description of the post. This will be used inside of the `description` meta tag.
 
 #### 4. Code blocks
-Code blocks can be done as you usually would in typical markdown and will be automatically syntax highlighted + styled. Here's an example of what a code block looks like:
+Code blocks can be done as you usually would in typical markdown and will be automatically syntax highlighted + styled
 
 ```markdown
 // # Your code goes here :)
 ```
 #### 5. Adding images
-Images can be added to the post by using relative paths to any image files (`.jpg`, `.png`, `.svg`, etc are all supported) that are placed inside of the `content/blog/2024-09-20-example-post` directory. An example post with images can be found [here](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-12-06-mq-benchmarks).
+Images can be added to the post by using relative paths to any image files (`.jpg`, `.png`, `.svg`, etc are all supported) that are placed inside of the `content/blog/2024-09-20-example-post` directory (identical to how our old blog worked). An example post with images can be found [here](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-12-06-mq-benchmarks).
+
 #### 6. Admonitions (callouts)
 The Tembo blog supports admonitions or callouts.
 
