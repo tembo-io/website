@@ -66,19 +66,21 @@ This commands will generate static content into the associated `build` directory
   - Review preview environment
   - Squash and merge and get approval from Darren/Samay
 
-### Writing a blog post ✍️
-
-#### 1. Create a new folder inside `website/content/blog` directory
+## Writing a blog post ✍️
+> Refer to this [example post](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-07-05-tembo-manifesto) as needed
+#### 1. Create a new folder inside [/landing/src/content/blog](https://github.com/tembo-io/website/tree/main/landing/src/content/blog) directory
 ```bash
-mkdir -p website/content/blog/2024-09-20-example-post
+mkdir -p landing/src/content/blog/2024-09-20-example-post
 ```
 
 #### 2. Make a new markdown file inside the same directory (this is where you will write your blogpost)
 ```bash
-touch website/content/blog/2024-09-20-example-post/index.md
+touch landing/src/content/blog/2024-09-20-example-post/index.md
 ```
 
 #### 3. Frontmatter
+> Note: the Tembo blog works with both [markdown](https://www.markdownguide.org/) (`.md`) and [MDX](https://mdxjs.com/) (`.mdx`) files for posts.
+
 Each blog post supports *frontmatter*, which is a block of `YAML` at the top of the file that contains metadata about the post. Here's an example of what frontmatter looks like:
 
 ```yaml
@@ -92,19 +94,64 @@ date: 2024-02-02T09:00
 description: Walk through using pg_vectorize to automate the vector search workflow in Postgres. Use pg_vectorize transform text to embeddings, and host Sentence Transformers in a container next to Postgres.
 ---
 ```
-- `slug` is the URL of the blog post. It should be a unique identifier for the post and should (ideally) not change after the post is published. Each post will be live at a url like `https://tembo.io/blog/your-post-slug`.
+- `slug` is the URL of the blog post. It should be a **unique identifier** for the post and should (ideally) not change after the post is published. Each post will be live at a url like `https://tembo.io/blog/your-post-slug`.
 
 - `title` is the title of the blog post. This will be displayed at the top of each post, on the main card list page, and in the `title` meta tag.
 
-- `authors` is an array of the authors of the post. Each author should be a string that matches the key of an author in the `AUTHORS` object inside of `/landing/content/config.ts`.
+- `authors` is an array of the authors of the post. Each author should be a string that matches the key of an author in the `AUTHORS` object inside of [here](https://github.com/tembo-io/website/blob/31ed5fdedd11579c83dbf7e151aa42287726685f/landing/src/content/config.ts#L31).
 
-- `tags` is an array of tags that the post is associated with. Each tag will be displayed inside of the left sidebar in each post and will also be used inside of the `keywords` meta tag.
+- `tags` is an array of tags that the post is associated with. Each tag will be displayed inside of the left sidebar in each post and will also be used inside of the `keywords` meta tag. The main tags that we use are `postgres`. `extensions`, `stacks`, `engineering`, and `data`.
+
+- `image` is the path to the image that will be displayed at the top of the post and in the `og:image` meta tags. This **MUST** be placed inside of the [public folder](https://github.com/tembo-io/website/tree/main/landing/public) for it to work properly. Please contact the Tembo design team for the optimal size + branding for these images.
+
+- `date` is the date that the post was published. This will be displayed at the top of the post and used inside of the `pubDate` field in the RSS feed.
+
+- `description` (optional) is a short description of the post. This will be used inside of the `description` meta tag.
 
 #### 4. Code blocks
-> TODO
-#### 5. Admonitions (callouts)
-> TODO
-#### 6. Embedding tweets and videos
-> TODO
-#### 7. Tags
-> TODO
+Code blocks can be done as you usually would in typical markdown and will be automatically syntax highlighted + styled
+
+```markdown
+// # Your code goes here :)
+```
+#### 5. Adding images
+Images can be added to the post by using relative paths to any image files (`.jpg`, `.png`, `.svg`, etc are all supported) that are placed inside of the `content/blog/2024-09-20-example-post` directory (identical to how our old blog worked). An example post with images can be found [here](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-12-06-mq-benchmarks).
+
+#### 6. Admonitions (callouts)
+The Tembo blog supports admonitions or callouts.
+
+These are special styled blocks of text that are used to highlight information. To use a callout you must first create an `index.mdx` file for your post (instead of just plain markdown). There are four different types of callouts: `info`, `tip`, `warning`, and `danger`. Each callout can have a body with content along with a optional title. Below is an example of what a callout looks like:
+
+> Code:
+```mdx
+import Callout from '../../../components/Callout.astro'; // be sure to import the callout component first :)
+
+<Callout title='Your title goes here' variant='info'>
+  Your body text goes here! (this gets rendered + styled as markdown)
+</Callout>
+```
+> Rendered in the blog post:
+<img width="912" alt="Screenshot 2024-02-07 at 5 37 30 PM" src="https://github.com/tembo-io/website/assets/68653294/b85fef75-04ea-4e4d-a8ce-434f062d5dd9">
+
+#### 7. Embedding tweets and videos
+- You can embed a tweet by using the `Tweet` component and specifying the tweet id that you can find inside it's URL:
+```mdx
+import Tweet from '../../../components/Tweet' // the `Tweet` component must be imported first
+
+<Tweet id="1752060288814420168" client:load />
+```
+- Videos can be embedded within any blog post using the iframe embed provided by youtube (please make sure that you use the `900x400` dimensions):
+```mdx
+ <iframe
+    style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
+    width="900"
+    height="400"
+    src="https://www.youtube.com/embed/4vK0JqCNuok?si=60cxZCsfiYEiIiNm"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowFullScreen>
+  </iframe>
+```
+#### 8. RSS feed
+The RSS feed for the Tembo Blog gets generated on ever new merge to main and can be found at https://tembo.io/feed.xml.
