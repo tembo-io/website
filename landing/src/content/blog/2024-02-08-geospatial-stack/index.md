@@ -45,7 +45,7 @@ points.shp
 
 Having loaded the dataset into our Tembo instance, we ran the following to explore the database relations:
 
-```
+```sql
 \d
                     List of relations
  Schema |           Name           |   Type   |  Owner
@@ -62,7 +62,7 @@ Having loaded the dataset into our Tembo instance, we ran the following to explo
 
 Let's dive deeper into the schema of the elephant_5990 table. 
 
-```
+```sql
 \d elephant5990
                                         Table "public.elephant5990"
     Column    |         Type         | Collation | Nullable |                    Default
@@ -100,7 +100,7 @@ ST_Distance can be used to find the minimum distance between two points. This ap
 
 - As an example, let's find which hour of the day (24hr format) had the highest average distance traveled (meters) per year?
 
-```
+```sql
 WITH TimeDistances AS (
     SELECT
         EXTRACT(YEAR FROM timestamp::timestamp) AS year,
@@ -150,7 +150,7 @@ Note that during this exercise we loaded a custom geometry, described in the fol
 
 - We could ask, throughout the study, how many times did the elephant enter Dassioko Village?
 
-```
+```sql
 SELECT
 COUNT(e.*)
 FROM
@@ -171,7 +171,7 @@ ST_ConcaveHull can be used to establish a boundary around a set of points, while
 
 - On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
 
-```
+```sql
 WITH Hull AS (
     SELECT ST_ConcaveHull(ST_Collect(e.wkb_geometry), 0.50, true) AS geom
     FROM elephant5990 e
