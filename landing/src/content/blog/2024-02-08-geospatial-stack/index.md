@@ -5,20 +5,22 @@ authors: [evan]
 tags: [postgres, geospatial, stacks, database]
 ---
 
-In today's world, geographic data stands out for its ability to apply spatial context to collections of points, transforming them into valuable insights. When properly analyzed, these datasets can reveal exciting patterns that explore not only the dichotomy of nature and human activity, but the balance between them as well. Even as a quick illustration, geospatial data can help facilitate predictive modeling and spatial analytics, aiding in everything from disaster response planning to optimizing delivery routes in logistics.
+In today's world, geographic data stands out for its ability to apply spatial context to collections of points, transforming them into valuable insights. When properly analyzed, these datasets can facilitate predictive modeling and spatial analytics, aiding in everything from disaster response planning to optimizing delivery routes in logistics.
 
 Working with geospatial workloads is not new to Postgres. In fact, its most popular geospatial extension, and certainly one of the most popular in general, [PostGIS, has been around since 2001](https://postgis.net/workshops/postgis-intro/introduction.html#a-brief-history-of-postgis). However, installing PostGIS, its dependencies, related extensions, and loading it up with data is hard for new users of the extension.
 
-We recently launched the Geospatial Stack to make this easier. The Geospatial Stack comes pre-packaged with PostGIS and other related extensions, allowing you to perform geospatial analysis without needing to set up another database! You can try it out on your own by using our [Kubernetes Operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/gis.yaml) or deploy it with a single click on [Tembo Cloud](https://cloud.tembo.io).
+We recently launched the Geospatial Stack to make this easier. The Geospatial Stack is open source and comes pre-packaged with PostGIS and other related extensions, allowing you to perform geospatial analysis without needing to set up another database! You can try it out on your own by using our [Kubernetes Operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/gis.yaml) or deploy it with a single click on [Tembo Cloud](https://cloud.tembo.io).
+
+Let's look at an example of something interesting you could build with Postgres on the Geospatial Stack.
 
 ![extensions](./extensions.png 'extensions')
 Figure 1. Snapshot of Tembo's Geospatial Stack extension overview.
 
-## 1. Loading elephant tracking data (and geospatial data in general) into Postgres
+## Loading elephant tracking data (and geospatial data in general) into Postgres
 
 Since we're talking about Postgres, we thought an interesting example to explore would be an elephant's journey through the forests of Côte d'Ivoire.
 
-The following dataset was gathered by Dr. Mike Loomis and his team and published to the Movebank online database of animal tracking data under the CC0 License.
+The following dataset was gathered by Dr. Mike Loomis and his team and published to the [Movebank online database](https://www.movebank.org/cms/movebank-main) of animal tracking data under the CC0 License.
 - Location: Africa, Côte d'Ivoire, Forest Preserve near the village of Dassioko
 - Timeframe: 2018 - 2021
 - Sample Size: 1
@@ -57,16 +59,7 @@ postgres=# \d
 (7 rows)
 ```
 
-Right away we see that our loaded dataset created a table and sequence (recall, we defined the name in the ogr2ogr command).
-- elephant5990: A table containing our loaded dataset.
-- elephant5990_ogc_fid_seq: An automatically generated sequence, used to assign unique identifiers to each row in the elephant5990 table.
-
-When PostGIS is enabled, it introduces a table and two views by default.
-- geography_columns: A view listing metadata for each column with a 'GEOGRAPHY' data type, including schema, table, column names, spatial type, and spatial reference identifier (SRID).
-- geometry_columns: A view detailing metadata about columns that store 'GEOMETRY' data, encompassing schema, table, column names, geometry type, and SRID.
-- spatial_ref_sys: A table containing definitions of spatial reference systems (SRS), each identified by an SRID, along with the authoritative name and the well-known text representation.
-
-We continued by running a query to lay out the columns in the elephant5990 table.
+Let's dive deeper into the schema of the elephant_5990 table. 
 
 ```
 SELECT column_name
@@ -96,7 +89,7 @@ wkb_geometry
 (18 rows)
 ```
 
-## 2. Using PostGIS to power insights from your data
+## Using PostGIS functions to power insights
 
 PostGIS provides functions, indexes and operators to analyze the geospatial attributes in the data. Let's explore of few interesting insights we could gather from the data set.
 
@@ -104,7 +97,7 @@ PostGIS provides functions, indexes and operators to analyze the geospatial attr
 
 ST_Distance can be used to find the minimum distance between two points. This approach can be extended in a recursive manner to many points.
 
-- Which hour of the day (24hr format) had the highest average distance traveled (meters) per year?
+- As an example, let's find which hour of the day (24hr format) had the highest average distance traveled (meters) per year?
 
 ```
 WITH TimeDistances AS (
@@ -154,7 +147,7 @@ ORDER BY year;
 ST_Contains checks whether a given geometry "A" contains another geometry "B".
 Note that during this exercise we loaded a custom geometry, described in the following section.
 
-- Throughout the study, how many times did the elephant enter Dassioko Village?
+We could ask, throughout the study, how many times did the elephant enter Dassioko Village?
 
 ```
 SELECT
@@ -175,7 +168,7 @@ ST_Contains(v.wkb_geometry, e.wkb_geometry);
 
 ST_ConcaveHull can be used to establish a boundary around a set of points, while also allowing for gaps (known as holes). ST_InteriorRingN can then be used to identify these holes.
 
-- On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
+On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
 
 ```
 WITH Hull AS (
@@ -202,7 +195,7 @@ ORDER BY area DESC
 LIMIT 1;
 ```
 
-## 3. Visualizing this Data with QGIS
+## Visualizing Geospatial Data with QGIS
 
 In addition to running these SQL queries, we could easily overlay this data over maps using QGIS to emit visualizations.
 
@@ -220,7 +213,7 @@ Already with this simple overlay, our superficial idea about where the elephant 
 ![map_data_points](./map_data_points.png 'map_data_points')
 Figure 2. QGIS-renedered OpenStreetMap visualization containing elephant tracking data.
 
-QGIS has built-in features that allow for the creation custom geometries to visualize and further analyze.
+QGIS also has built-in features that allow for the creation of custom geometries to visualize and further analyze.
 As shown above (Figure 2), the OpenStreetMap layer reveals the defined border of Dassioko Village.
 Not only that, but there are clearly points found within the grey-shaded area, meaning the elephant traveled there.
 To better quantify this phenomenon, we created a custom geometry and overlayed it (Figure 3).
@@ -239,7 +232,7 @@ Figure 4. QGIS-rendered OpenStreetMap visualization containing elephant tracking
 
 ## 4. Explore Geospatial datasets today!
 
-Using [Tembo’s Geospatial Stack](https://cloud.tembo.io), we were able to explore a GPS tracking dataset. Though this demonstration focused on the movements of a single elephant, you can use the showcased PostGIS functions for numerous applications to other, business-centric projects like:
+Using [Tembo’s Geospatial Stack](https://cloud.tembo.io), we were able to explore a GPS tracking dataset in a matter of minutes. Though this demonstration focused on the movements of a single elephant, you can use the showcased PostGIS functions for numerous applications to other, business-centric projects like:
 - Loading and exploring geospatial datasets
 - Insights on time-of-day activity
 - Insights on avoidance behavior
