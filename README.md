@@ -94,7 +94,7 @@ date: 2024-02-02T09:00
 description: Walk through using pg_vectorize to automate the vector search workflow in Postgres. Use pg_vectorize transform text to embeddings, and host Sentence Transformers in a container next to Postgres.
 ---
 ```
-- `slug` is the URL of the blog post. It should be a unique identifier for the post and should (ideally) not change after the post is published. Each post will be live at a url like `https://tembo.io/blog/your-post-slug`.
+- `slug` is the URL of the blog post. It should be a *unique identifier* for the post and should (ideally) not change after the post is published. Each post will be live at a url like `https://tembo.io/blog/your-post-slug`.
 
 - `title` is the title of the blog post. This will be displayed at the top of each post, on the main card list page, and in the `title` meta tag.
 
@@ -102,7 +102,7 @@ description: Walk through using pg_vectorize to automate the vector search workf
 
 - `tags` is an array of tags that the post is associated with. Each tag will be displayed inside of the left sidebar in each post and will also be used inside of the `keywords` meta tag. The main tags that we use are `postgres`. `extensions`, `stacks`, `engineering`, and `data`.
 
-- `image` is the path to the image that will be displayed at the top of the post and in the `og:image` meta tags. This MUST be placed inside of the [public folder](https://github.com/tembo-io/website/tree/main/landing/public) for it to work properly. Please contact the Tembo design team for the optimal size + branding for these images.
+- `image` is the path to the image that will be displayed at the top of the post and in the `og:image` meta tags. This *MUST* be placed inside of the [public folder](https://github.com/tembo-io/website/tree/main/landing/public) for it to work properly. Please contact the Tembo design team for the optimal size + branding for these images.
 
 - `date` is the date that the post was published. This will be displayed at the top of the post and used inside of the `pubDate` field in the RSS feed.
 
@@ -120,14 +120,14 @@ Images can be added to the post by using relative paths to any image files (`.jp
 #### 6. Admonitions (callouts)
 The Tembo blog supports admonitions or callouts.
 
-These are special styled blocks of text that are used to highlight information. To use a callout you must first create an `index.mdx` file for your post instead of just plain markdown. There are four different types of callouts: `info`, `tip`, `warning`, and tip `danger`. Each callout can have a body with content along with a optional title. Below is an example of what a callout looks like:
+These are special styled blocks of text that are used to highlight information. To use a callout you must first create an `index.mdx` file for your post (instead of just plain markdown). There are four different types of callouts: `info`, `tip`, `warning`, and tip `danger`. Each callout can have a body with content along with a optional title. Below is an example of what a callout looks like:
 
 > Code:
 ```mdx
 import Callout from '../../../components/Callout.astro'; // be sure to import the callout component first :)
 
 <Callout title='Your title goes here' variant='info'>
-  Your body text goes here!
+  Your body text goes here! (this gets rendered + styled as markdown)
 </Callout>
 ```
 > Rendered in the blog post:
