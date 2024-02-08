@@ -133,7 +133,7 @@ import Callout from '../../../components/Callout.astro'; // be sure to import th
 #### 7. Embedding tweets and videos
 - You can embed a tweet by using the `Tweet` component and specifying the tweet id that you can find inside it's URL:
 ```mdx
-import Tweet from '../../../components/Tweet'
+import Tweet from '../../../components/Tweet' // the `Tweet` component must be imported first
 
 <Tweet id="1752060288814420168" client:load />
 ```
