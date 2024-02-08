@@ -147,7 +147,7 @@ ORDER BY year;
 ST_Contains checks whether a given geometry "A" contains another geometry "B".
 Note that during this exercise we loaded a custom geometry, described in the following section.
 
-We could ask, throughout the study, how many times did the elephant enter Dassioko Village?
+- We could ask, throughout the study, how many times did the elephant enter Dassioko Village?
 
 ```
 SELECT
@@ -168,7 +168,7 @@ ST_Contains(v.wkb_geometry, e.wkb_geometry);
 
 ST_ConcaveHull can be used to establish a boundary around a set of points, while also allowing for gaps (known as holes). ST_InteriorRingN can then be used to identify these holes.
 
-On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
+- On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
 
 ```
 WITH Hull AS (
@@ -230,7 +230,7 @@ While the results are not perfect, they are meant as a proof of concept that a p
 Figure 4. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing a generated potential area of avoidance. This is made possible above with the ST_ConcaveHull and ST_InteriorRingN functions.
 
 
-## 4. Explore Geospatial datasets today!
+## Explore Geospatial datasets today!
 
 Using [Tembo’s Geospatial Stack](https://cloud.tembo.io), we were able to explore a GPS tracking dataset in a matter of minutes. Though this demonstration focused on the movements of a single elephant, you can use the showcased PostGIS functions for numerous applications to other, business-centric projects like:
 - Loading and exploring geospatial datasets
