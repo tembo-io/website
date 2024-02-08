@@ -75,7 +75,7 @@ mkdir -p landing/src/content/blog/2024-09-20-example-post
 
 #### 2. Make a new markdown file inside the same directory (this is where you will write your blogpost)
 ```bash
-touch website/content/blog/2024-09-20-example-post/index.md
+touch landing/src/content/blog/2024-09-20-example-post/index.md
 ```
 
 #### 3. Frontmatter
@@ -120,7 +120,7 @@ Images can be added to the post by using relative paths to any image files (`.jp
 #### 6. Admonitions (callouts)
 The Tembo blog supports admonitions or callouts.
 
-These are special styled blocks of text that are used to highlight information. To use a callout you must first create an `index.mdx` file for your post (instead of just plain markdown). There are four different types of callouts: `info`, `tip`, `warning`, and tip `danger`. Each callout can have a body with content along with a optional title. Below is an example of what a callout looks like:
+These are special styled blocks of text that are used to highlight information. To use a callout you must first create an `index.mdx` file for your post (instead of just plain markdown). There are four different types of callouts: `info`, `tip`, `warning`, and `danger`. Each callout can have a body with content along with a optional title. Below is an example of what a callout looks like:
 
 > Code:
 ```mdx
