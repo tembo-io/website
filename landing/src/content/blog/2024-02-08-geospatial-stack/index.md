@@ -46,7 +46,7 @@ points.shp
 Having loaded the dataset into our Tembo instance, we ran the following to explore the database relations:
 
 ```
-postgres=# \d
+\d
                     List of relations
  Schema |           Name           |   Type   |  Owner
 --------+--------------------------+----------+----------
@@ -63,31 +63,31 @@ postgres=# \d
 Let's dive deeper into the schema of the elephant_5990 table. 
 
 ```
-SELECT column_name
-FROM information_schema.columns
-WHERE table_name = 'elephant5990'
-ORDER BY ordinal_position;
-
-column_name
-ogc_fid
-timestamp
-long
-lat
-comments
-sensor_typ
-individual
-tag_ident
-ind_ident
-study_name
-utm_east
-utm_north
-utm_zone
-study_tz
-study_ts
-date
-time
-wkb_geometry
-(18 rows)
+\d elephant5990
+                                        Table "public.elephant5990"
+    Column    |         Type         | Collation | Nullable |                    Default
+--------------+----------------------+-----------+----------+-----------------------------------------------
+ ogc_fid      | integer              |           | not null | nextval('elephant5990_ogc_fid_seq'::regclass)
+ timestamp    | character varying    |           |          |
+ long         | double precision     |           |          |
+ lat          | double precision     |           |          |
+ comments     | character varying    |           |          |
+ sensor_typ   | character varying    |           |          |
+ individual   | character varying    |           |          |
+ tag_ident    | character varying    |           |          |
+ ind_ident    | character varying    |           |          |
+ study_name   | character varying    |           |          |
+ utm_east     | double precision     |           |          |
+ utm_north    | double precision     |           |          |
+ utm_zone     | character varying    |           |          |
+ study_tz     | character varying    |           |          |
+ study_ts     | character varying    |           |          |
+ date         | date                 |           |          |
+ time         | character varying    |           |          |
+ wkb_geometry | geometry(Point,4326) |           |          |
+Indexes:
+    "elephant5990_pkey" PRIMARY KEY, btree (ogc_fid)
+    "elephant5990_wkb_geometry_geom_idx" gist (wkb_geometry)
 ```
 
 ## Using PostGIS functions to power insights
