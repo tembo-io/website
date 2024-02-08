@@ -3,6 +3,7 @@ slug: geospatial-on-postgres
 title: 'Simpler Geospatial Workloads on Postgres: An Elephant of a Story'
 authors: [evan]
 tags: [postgres, geospatial, stacks, database]
+image: ./Geospatial.png
 ---
 
 In today's world, geographic data stands out for its ability to apply spatial context to collections of points, transforming them into valuable insights. When properly analyzed, these datasets can facilitate predictive modeling and spatial analytics, aiding in everything from disaster response planning to optimizing delivery routes in logistics.
