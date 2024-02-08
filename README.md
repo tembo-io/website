@@ -79,6 +79,7 @@ touch website/content/blog/2024-09-20-example-post/index.md
 ```
 
 #### 3. Frontmatter
+> Note: the Tembo blog supports both [markdown](https://www.markdownguide.org/) (`.md`) and [MDX](https://mdxjs.com/) (`.mdx`) files for posts.
 Each blog post supports *frontmatter*, which is a block of `YAML` at the top of the file that contains metadata about the post. Here's an example of what frontmatter looks like:
 
 ```yaml
