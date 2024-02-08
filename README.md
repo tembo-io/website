@@ -68,7 +68,7 @@ This commands will generate static content into the associated `build` directory
 
 ## Writing a blog post ✍️
 > Refer to this [example post](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-07-05-tembo-manifesto) as needed
-#### 1. Create a new folder inside `website/content/blog` directory
+#### 1. Create a new folder inside [/landing/content/blog](https://github.com/tembo-io/website/tree/main/landing/src/content/blog) directory
 ```bash
 mkdir -p website/content/blog/2024-09-20-example-post
 ```
