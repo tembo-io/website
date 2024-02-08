@@ -6,7 +6,7 @@ import { AUTHORS } from '../content/config';
 interface Props {
 	title: string;
 	slug: string;
-	heroImage?: string;
+	heroImage?: any;
 	readingTime: string;
 	date: string;
 	author?: string;
@@ -27,11 +27,20 @@ const author = AUTHORS[authorProp || 'ryw'];
 	href={`/blog/${slug}`}
 >
 	<div class='flex flex-col gap-6'>
-		<img
-			src={heroImage?.substring(1) || '/blogFallbackImage.svg'}
-			alt={`${title} thumbnail`}
-			class='rounded-xl w-full lg:max-h-[200px]'
-		/>
+		{heroImage ? (
+			<Image
+				src={heroImage()}
+				alt={`${title} thumbnail`}
+				class='rounded-xl w-full lg:max-h-[200px]'
+			/>
+		) : (
+			<img
+				src='/blogFallbackImage.svg'
+				alt={`${title} thumbnail`}
+				class='rounded-xl w-full lg:max-h-[200px]'
+			/>
+		)}
+
 		<Author
 			name={author.name}
 			title={author.title || 'Tembonaut'}
