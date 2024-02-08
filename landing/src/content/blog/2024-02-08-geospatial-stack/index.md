@@ -200,9 +200,9 @@ LIMIT 1;
  0.00016060894274768603
 (1 row)
 ```
-Notice that the area's units are not given. By default, it is set to square degrees, but that can be converted to roughly 1.9789 square kilometers. 
-In addition to the area, this query also produces a WKB (Well Known Binary) value which was used to generate the overlay for Figure 4.
-However, due to its character length, we opted to not include it.
+Notice the area's units are not given. By default this is set to square degrees, but that can be converted to roughly 1.9789 square kilometers. 
+Additionally, this query produces a WKB (Well Known Binary), which we used to generate the QGIS overlay seen in Figure 4.
+However, due to its character length, we decided not to show the WKB itself.
 
 ## Visualizing Geospatial Data with QGIS
 
