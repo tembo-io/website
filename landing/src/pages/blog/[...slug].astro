@@ -149,3 +149,12 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 		</Container>
 	</div>
 </Layout>
+
+
+<style is:global>
+	@media screen and (max-width:500px) {
+		.tembo-blog-post-content tr {
+			display: grid !important;
+		}
+	}
+</style>
