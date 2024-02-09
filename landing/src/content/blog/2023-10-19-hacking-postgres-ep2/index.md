@@ -3,7 +3,7 @@ slug: hacking-postgres-ep2
 title: "Hacking Postgres, Ep. 2: Adam Hendel"
 authors: [eric]
 tags: [postgres, hacking-postgres]
-image: './hacking-postgres-ep2.png'
+image: './ep2.png'
 ---
 
 In this episode, Ry and Adam talk about developing extensions for Postgres, being in the trenches of the modern data stack sprawl, and the future of what’s possible with Tembo Stacks. If you haven’t seen or listened to it yet, you can do so below, or on Apple/Spotify (or your podcast platform of choice). Special thanks to Adam for joining us today!

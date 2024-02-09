@@ -3,7 +3,7 @@ slug: hacking-postgres-ep5
 title: "Hacking Postgres, Ep. 5: Alexander Korotkov"
 authors: [eric]
 tags: [postgres, hacking-postgres]
-image: './hacking-postgres-ep5.png'
+image: './ep5.png'
 ---
 
 
