@@ -3,7 +3,7 @@ slug: hacking-postgres-ep8
 title: "Hacking Postgres, Ep. 8: Philippe Noël"
 authors: [eric]
 tags: [postgres, hacking-postgres]
-image: './hacking-postgres-ep8.png'
+image: './ep8.png'
 ---
 
 Search is simple in theory. In practice? Anything but. In today’s Episode 8 of Hacking Postgres, Ry sits down with Philippe Noël of ParadeDB to talk about how search is evolving, the influence of AI, and the lessons you'd tell your younger self.

@@ -10,6 +10,7 @@ import BackButton from '../../components/BackButton.astro';
 import Author from '../../components/Author.astro';
 import { getCollection } from 'astro:content';
 import { AUTHORS } from '../../content/config';
+import { Image } from 'astro:assets';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -24,6 +25,9 @@ const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 const dateString = post.id.substring(0, 10);
 const parsedDate = post.data?.date || new Date(dateString);
 const author = AUTHORS[(post.data.authors[0] as string) || 'ryw'];
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/content/blog/**/*.{jpeg,jpg,png,webp,svg,gif}');
+const postDirectory = post.id.split('/')[0];
+const image: any = images[`/src/content/blog/${postDirectory}${post.data.image?.replace('.', '')}`];
 const { Content, remarkPluginFrontmatter, headings } = await post.render();
 ---
 
@@ -70,11 +74,15 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 							</a>
 						</div>
 					</header>
-					<img
-						src={`/${post.data.image || 'blogFallbackImage.svg'}`}
-						alt='blog post hero image'
-						class='hidden min-[1200px]:flex rounded-2xl w-[650px] max-h-[300px]'
-					/>
+					{image ? (
+						<Image src={image()} alt='blog post hero image' class='hidden min-[1200px]:flex rounded-2xl w-[650px] max-h-[300px]' />
+					) : (
+						<img
+							src={`/blogFallbackImage.svg`}
+							alt='blog post hero image'
+							class='hidden min-[1200px]:flex rounded-2xl w-[650px] max-h-[300px]'
+						/>
+					)}
 				</div>
 				<div
 					class='mt-12 mobile:mt-36 mobile:flex mobile:justify-between w-full'
