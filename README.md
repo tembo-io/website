@@ -22,8 +22,15 @@ $ npm install
 
 > Landing page:
 
+1. Install dependencies first:
 ```
-$ npm run landing
+cd landing
+npm install
+```
+
+2. Start the local dev server from the project root:
+```
+npm run landing
 ```
 
 > Docs:
