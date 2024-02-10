@@ -8,7 +8,7 @@ date: 2024-02-02T09:00
 description: Walk through using pg_vectorize to automate the vector search workflow in Postgres. Use pg_vectorize transform text to embeddings, and host Sentence Transformers in a container next to Postgres.
 ---
 
-Sentence transformers enable make it easy to convert raw text into numerical vectors, enabling applications like vector similarity searches and semantic search. With [pg_vectorize](https://github.com/tembo-io/pg_vectorize), an open source extension for Postgres, you have a seamless link to do vector search using over 120 open-source [Sentence Transformers](https://huggingface.co/sentence-transformers) from [Hugging Face](https://huggingface.co), directly from Postgres.
+Sentence transformers make it easy to convert raw text into numerical vectors, enabling applications like vector similarity searches and semantic search. With [pg_vectorize](https://github.com/tembo-io/pg_vectorize), an open source extension for Postgres, you have a seamless link to do vector search using over 120 open-source [Sentence Transformers](https://huggingface.co/sentence-transformers) from [Hugging Face](https://huggingface.co), directly from Postgres.
 
 pg_vectorize is completely open source, and you can run it locally or in your own environment by following the project’s [quick-start guide](https://github.com/tembo-io/pg_vectorize?tab=readme-ov-file#pg_vectorize). It is also available by default on the Tembo [VectorDB Stack](https://tembo.io/docs/tembo-stacks/vector-db) in [Tembo Cloud](https://tembo.io) and can be added to any Tembo Postgres instance.
 
