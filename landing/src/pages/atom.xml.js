@@ -10,8 +10,7 @@ export async function GET(context) {
         image: "https://tembo.io/og-image.png",
         favicon: "http://tembo.io/favicon.ico",
         copyright: "All rights reserved 2024, Tembo",
-        updated: new Date(2013, 6, 14), // optional, default = today
-        generator: "awesome", // optional, default = 'Feed for Node.js'
+        generator: "https://github.com/jpmonette/feed"
         feedLinks: {
           atom: "https://tembo.io/atom.xml",
           rss: "https://tembo.io/feed.xml"
