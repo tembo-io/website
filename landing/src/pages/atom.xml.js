@@ -1,6 +1,9 @@
 import { Feed } from "feed";
+import { getCollection } from 'astro:content';
+import { AUTHORS } from '../content/config';
 
-export async function GET(context) {
+export async function GET() {
+    const blog = await getCollection('blog');
     const feed = new Feed({
         title: "Tembo's Blog",
         description: "Latest news and technical blog posts from membors of the Tembo team and community!",
@@ -10,11 +13,12 @@ export async function GET(context) {
         image: "https://tembo.io/og-image.png",
         favicon: "http://tembo.io/favicon.ico",
         copyright: "All rights reserved 2024, Tembo",
-        generator: "https://github.com/jpmonette/feed"
+        generator: "https://github.com/jpmonette/feed",
         feedLinks: {
           atom: "https://tembo.io/atom.xml",
           rss: "https://tembo.io/feed.xml"
         },
     });
+
 	return new Response(feed.atom1());
 }
