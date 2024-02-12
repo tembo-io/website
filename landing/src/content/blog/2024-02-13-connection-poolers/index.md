@@ -19,13 +19,13 @@ In this post, we will compare these three popular alternatives:
 - PgCat
 - Supavisor
 
-Let’s quickly describe each of these.
+Let’s quickly describe each of them.
 
 ## Quick overview of PgBouncer, PgCat and Supavisor 
 
 ### PgBouncer
 
-[PgBouncer](https://www.pgbouncer.org/) is a lightweight connection pooler and probably the most popularly used.
+[PgBouncer](https://www.pgbouncer.org/) is a *lightweight connection pooler* and probably the most popularly used.
 
 It can be quickly installed with your OS package manager (e.g. apt) and the configuration involves adjusting two files: pgbouncer.ini and an authentication file. After that, you just need to change your connection strings to point to the PgBouncer instance.
 
@@ -34,7 +34,7 @@ One of its limitations often discussed on the internet is its lack of support fo
 
 ### PgCat
 
-PgBouncer’s limitations are addressed in [PgCat](https://github.com/postgresml/pgcat), which is described as a connection pooler and proxy that allows sharding, load balancing, failover and mirroring.
+PgBouncer’s limitations are addressed in [PgCat](https://github.com/postgresml/pgcat), which is described as a *connection pooler and proxy that allows sharding, load balancing, failover and mirroring*.
 
 In contrast with Pgbouncer, PgCat allows spreading queries to a sharded database. Plus, it is multithreaded, thus allowing to easily exploit hardware potential.
 
@@ -45,9 +45,9 @@ The [README](https://github.com/postgresml/pgcat/blob/main/README.md) is well-wr
 
 Another option is [Supavisor](https://github.com/supabase/supavisor), the connection pooler developed by Supabase. 
 
-It is described as a scalable, cloud-native Postgres connection pooler. In the launching [post](https://supabase.com/blog/supavisor-1-million), it is mentioned that it can handle millions of connections and will replace PgBouncer in Supabase’s managed Postgres offering as it is [intended](https://github.com/supabase/supavisor/blob/main/README.md) to provide zero downtime when scaling a server, and handling of modern connection demands such as those seen in serverless environments. 
+It is described as a *scalable, cloud-native Postgres connection pooler*. In the launching [post](https://supabase.com/blog/supavisor-1-million), it is mentioned that it can handle millions of connections and will replace PgBouncer in Supabase’s managed Postgres offering as it is [intended](https://github.com/supabase/supavisor/blob/main/README.md) to provide zero downtime when scaling a server, and handling of modern connection demands such as those seen in serverless environments. 
 
-Its setup is a bit more involved, as it requires an additional auxiliary database to store tenants information, plus there are more listening ports in play. Here is a diagram I drew to better understand the architecture. 
+Its setup is a bit more involved, as it requires an additional auxiliary database to store tenants information, plus there are more listening ports in play. Here is a diagram I drew to better understand the architecture:
 
 ![Supavisor components](./003-Supavisor.png)
 
@@ -128,7 +128,7 @@ PgBouncer’s latency (clients = 50) is generally below 4 ms for 99% of the conn
 ![Pgbouncer percentiles latencies](./008_pgbouncer_50_clients_percentiles.png)
 
 
-For PgCat (clients=1250), the latency at maximum throughput is higher than PgBouncer’s, as shown in the following picture but it is also dealing with a much larger number of connections:
+For PgCat (clients=1250), the latency at maximum throughput is higher than PgBouncer’s, as shown in the following picture, but it is also dealing with a much larger number of connections:
 
 ![Pgcat percentiles latencies](./009_pgcat_1250_clients_percentiles.png)
 
@@ -193,7 +193,7 @@ From my experiments, I found that PgCat performs better as it delivers higher th
 
 PgBouncer offers the best latency for low (<50) connection counts. However, its downsides are: (1) it is single-threaded, preventing it from fully utilizing the machine with a single instance, and (2) if there is a surge in the number of connection requests, clients would right away notice some performance degradation (at least in my environment). In comparison, PgCat and Supavisor keep their tps numbers when more clients are added.
 
-So, according to these experiments, PgCat shows like it’s the best option when you have high connection counts..
+So, according to these experiments, PgCat shows like it’s the best option when you have high connection counts.
 
 Thank you for reading until this point, dear reader. I hope you find these insights helpful. Also, I am curious: which connection pooler are you currently using and why? What other factors did you consider before making that decision? Let us know your comments at [@tembo_io](https://twitter.com/tembo_io).
 
