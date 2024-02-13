@@ -12,8 +12,8 @@ export async function GET() {
         title: "Tembo's Blog",
         description: "Latest news and technical blog posts from membors of the Tembo team and community!",
         id: "https://tembo.io/blog",
-        link: "http://example.com/",
-        language: "en", // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
+        link: "https://tembo.io/blog",
+        language: "en",
         image: "https://tembo.io/og-image.png",
         favicon: "http://tembo.io/favicon.ico",
         copyright: "All rights reserved 2024, Tembo",
@@ -28,7 +28,7 @@ export async function GET() {
         const dateString = post.id.substring(0, 10);
         const parsedDate = post.data?.date || new Date(dateString);
         const COULD_NOT_BE_RENDERED =
-            'This post contained content that could not be rendered in the Atom feed. Please use the official post link on https://tembo.io.';
+            `This post contained content that could not be rendered in the Atom feed. Please use the official post link: https://tembo.io/blog${post.slug}`;
         const isMdx = post.id.includes('.mdx');
         const author = AUTHORS[post.data.authors[0]]
         feed.addItem({
@@ -37,7 +37,7 @@ export async function GET() {
             description: post.data.description,
             link: `https://tembo.io/blog/${post.slug}`,
             content: isMdx
-                ? COULD_NOT_BE_RENDERED
+                ? post.body
                 : posts[index]
                         ?.compiledContent()
                         .replaceAll('src="/', 'src="https://tembo.io/') ||
