@@ -30,13 +30,13 @@ In addition to Postgres being the most-loved, most-utilized database, according 
 
 ## FerretDB as an app service next to Postgres
 
-Tembo offers the functionality of a fully-integrated, managed FerretDB experience built on Postgres.
-At the core of this integration is FerretDB, an open-source proxy built on Postgres that adeptly translates Mongo wire protocol queries into SQL, bridging the gap between document-oriented and relational database systems.
-To make this a reality, we built upon the foundation covered in our [application services blog post](https://tembo.io/blog/tembo-operator-apps).
-Essentially, this allows us to run FerretDB’s docker image in a kubernetes deployment next to Postgres.
+At its core, FerretDB is an open-source proxy built on Postgres that translates Mongo wire protocol queries into SQL, bridging the gap between document-oriented and relational database systems.
+We're able to offer a fully-integrated, managed FerretDB experience with the help of our application services, covered in this [blog post](https://tembo.io/blog/tembo-operator-apps).
+Essentially, we achieve this by running FerretDB’s docker image in a kubernetes deployment next to Postgres.
 
 [Loading FerretDB via our kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml)...
 
+![app_service](./app_service.png 'app_service')
 
 ## Migrate your Mongo apps to Postgres
 Before migrating from any database, it’s advisable to run pre-migration testing.
