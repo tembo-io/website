@@ -3,6 +3,7 @@ slug: mongo-on-postgres
 title: 'MongoDB capabilities on Postgres with Managed FerretDB on Tembo Cloud'
 authors: [evan]
 tags: [postgres, stacks, database]
+image: ./FerretDB.png
 ---
 
 Migrating data can be an involved process, often requiring specialized knowledge and expertise.
