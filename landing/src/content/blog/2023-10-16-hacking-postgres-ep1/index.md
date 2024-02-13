@@ -3,7 +3,7 @@ slug: hacking-postgres-ep1
 title: "Hacking Postgres Ep. 1: Marco Slot"
 authors: [eric]
 tags: [postgres, hacking-postgres]
-image: './hacking-postgres-ep1.png'
+image: './ep1.png'
 ---
 
 ## Episode Notes

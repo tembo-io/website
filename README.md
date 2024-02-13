@@ -22,8 +22,15 @@ $ npm install
 
 > Landing page:
 
+1. Install dependencies first:
 ```
-$ npm run landing
+cd landing
+npm install
+```
+
+2. Start the local dev server from the project root:
+```
+npm run landing
 ```
 
 > Docs:
@@ -102,7 +109,7 @@ description: Walk through using pg_vectorize to automate the vector search workf
 
 - `tags` is an array of tags that the post is associated with. Each tag will be displayed inside of the left sidebar in each post and will also be used inside of the `keywords` meta tag. The main tags that we use are `postgres`. `extensions`, `stacks`, `engineering`, and `data`.
 
-- `image` is the path to the image that will be displayed at the top of the post and in the `og:image` meta tags. This **MUST** be placed inside of the [public folder](https://github.com/tembo-io/website/tree/main/landing/public) for it to work properly. Please contact the Tembo design team for the optimal size + branding for these images.
+- `image` is the path to the image that will be displayed at the top of the post and in the `og:image` meta tags. This does NOT be placed inside of the [public folder](https://github.com/tembo-io/website/tree/main/landing/public) anymore. Please contact the Tembo design team for the optimal size + branding for these images.
 
 - `date` is the date that the post was published. This will be displayed at the top of the post and used inside of the `pubDate` field in the RSS feed.
 

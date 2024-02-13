@@ -3,7 +3,7 @@ slug: hacking-postgres-ep3
 title: "Hacking Postgres, Ep. 3: Eric Ridge"
 authors: [eric]
 tags: [postgres, hacking-postgres]
-image: './hacking-postgres-ep3.png'
+image: './ep3.png'
 ---
 
 In this episode, Ry and Eric talk about ZomboDB, the complicated road that led to the development of pgrx, and what it means for the future of extensions within Postgres. You can watch it below or listen to it on Apple/Spotify (or your podcast platform of choice). Special thanks to Eric for joining us today!

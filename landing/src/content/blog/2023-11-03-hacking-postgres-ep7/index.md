@@ -3,7 +3,7 @@ slug: hacking-postgres-ep7
 title: "Hacking Postgres Ep. 7: Burak Yucesoy"
 authors: [eric]
 tags: [postgres, hacking-postgres]
-image: './hacking-postgres-ep7.png'
+image: './ep7.png'
 ---
 
 Postgres for everything? How about building a new cloud provider? In episode 7 of Hacking Postgres, Ry talks with Burak Yucesoy of Ubicloud about new clouds, getting attached to extensions, and the future potential of Postgres.

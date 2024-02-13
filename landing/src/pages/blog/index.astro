@@ -8,7 +8,6 @@ import { sortPostDates } from '../../content/config';
 import BlogList from '../../components/BlogList.astro';
 
 const posts = (await getCollection('blog')).sort((a, b) => sortPostDates(a, b));
-
 const currentPath = Astro.url.pathname;
 ---
 

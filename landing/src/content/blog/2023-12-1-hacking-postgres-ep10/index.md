@@ -3,7 +3,7 @@ slug: hacking-postgres-ep10
 title: "Hacking Postgres, Ep. 10: Tim Sehn"
 authors: [eric]
 tags: [postgres, hacking-postgres]
-image: './hacking-postgres-ep10.png'
+image: './ep10.png'
 ---
 
 
