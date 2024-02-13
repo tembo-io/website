@@ -3,7 +3,9 @@ slug: postgres-connection-poolers
 title: 'Detailed analysis of PostgreSQL connection poolers'
 authors: [rjzv]
 tags: [postgres, "connection pool", pgbouncer, pgcat, supavisor, pgbench]
+image: ./connection_pool.png
 ---
+
 
 Creating a connection to your Postgres database to execute a short-lived query is expensive. Several people have measured the overhead of Postgres connections and some locate them in the range of [1.3MB of memory per connection](https://stackoverflow.blog/2020/10/14/improve-database-performance-with-connection-pooling/) and others in the range of [2MB](https://blog.anarazel.de/2020/10/07/measuring-the-memory-overhead-of-a-postgres-connection/). In addition, there is also the overhead of having to [fork a new process](https://www.postgresql.org/docs/current/connect-estab.html) in the database server. 
 
