@@ -28,7 +28,7 @@ export async function GET() {
         const dateString = post.id.substring(0, 10);
         const parsedDate = post.data?.date || new Date(dateString);
         const COULD_NOT_BE_RENDERED =
-            `This post contained content that could not be rendered in the Atom feed. Please use the official post link: https://tembo.io/blog${post.slug}`;
+            `This post contained content that could not be rendered in the Atom feed. Please use the official post link: https://tembo.io/blog/${post.slug}`;
         const isMdx = post.id.includes('.mdx');
         const author = AUTHORS[post.data.authors[0]]
         feed.addItem({
