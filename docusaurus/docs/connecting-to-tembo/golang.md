@@ -1,5 +1,6 @@
 **go.mod**: It's important to use lib pq version 1.10.7 or greater
-```
+
+``` go title="go.mod"
 module github.com/sjmiller609/connect-tembo
 
 go 1.20
@@ -8,7 +9,8 @@ require github.com/lib/pq v1.10.7
 ```
 
 **main.go**
-```
+
+``` go title="main.go"
 package main
 
 import (
