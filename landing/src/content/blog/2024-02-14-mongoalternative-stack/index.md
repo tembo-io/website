@@ -1,9 +1,8 @@
 ---
 slug: mongo-on-postgres
-title: ''
+title: 'MongoDB capabilities on Postgres with Managed FerretDB on Tembo Cloud'
 authors: [evan]
-tags: [postgres, ferretdb, stacks, database]
-image:
+tags: [postgres, stacks, database]
 ---
 
 Migrating data can be an involved process, often requiring specialized knowledge and expertise.
@@ -147,5 +146,5 @@ FROM ferretdb.orbit_data_aadfd118;
 Using Tembo’s MongoAlternative Stack, you can seamlessly migrate your data out of Mongo and into Postgres while still keeping your Mongo API.
 There are a large number of commands available, which you can checkout in FerretDB’s [supported commands](https://docs.ferretdb.io/reference/supported-commands/) documentation.
 Interested in learning more?
-Check out our [MongoAlternative getting started guide]](https://tembo.io/docs/tembo-stacks/mongo-alternative).
+Check out our [MongoAlternative getting started guide](https://tembo.io/docs/tembo-stacks/mongo-alternative).
 
