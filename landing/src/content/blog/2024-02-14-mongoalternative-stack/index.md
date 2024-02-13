@@ -12,17 +12,17 @@ Here at Tembo, we’re excited to launch Mongo compatibility on Postgres; a feat
 This is an exciting first, as users now have access to FerretDB, hosted on Tembo Cloud next to your Postgres instance.
 With the power of a fully-integrated FerretDB, users not only have access to a Mongo-compatible Postgres database without needing to change their application, they can do it with very low latency and without the need to spin up a Docker container!
 
-To get started with  a Mongo compatible instance on [Tembo Cloud](https://cloud.tembo.io/), just download the and run the SSL certificate, move it to a target directory, and run the `mongosh` connection string in that directory!
+To get started with a Mongo compatible instance on [Tembo Cloud](https://cloud.tembo.io/), just download the SSL certificate, move it to a target directory, and run the `mongosh` connection string in that directory!
 
 ![connection](./connection.png 'connection')
-Figure 1. Connection details for a MongoAlternative instance.
+Figure 1. Connection details for a sample MongoAlternative instance.
 
 ## Why migrate to Postgres?
 
 At first glance it’s easy to consider Mongo and Postgres as oil and water; why not, they’re document-oriented and relational databases?
-While this might have stood up years ago, recent developments in Postgres greatly reduce the reasons someone might want to leave Mongo for Postgres.
-In addition to Postgres being the most-loved, most-utilized database, according to [StackOverflow’s 2023 Survey](https://survey.stackoverflow.co/2023/#section-most-popular-technologies-databases) some reasons why Postgres might be the right choice for your document oriented workloads are:
-Native Jsonb Support - Postgres offers both [native jsonb support](https://www.postgresql.org/docs/current/datatype-json.html) as well as various extensions that provide additional document database capabilities.
+While this might have stood up years ago, recent developments in Postgres greatly increase the reasons someone might want to leave Mongo for Postgres.
+In addition to Postgres being the most-loved, most-utilized database, according to [StackOverflow’s 2023 Survey](https://survey.stackoverflow.co/2023/#section-most-popular-technologies-databases) some reasons why Postgres might be the right choice for your document-oriented workloads are:
+- [Native jsonb support](https://www.postgresql.org/docs/current/datatype-json.html) as well as various extensions that provide additional document database capabilities.
 - Rich ecosystem of extensions that can introduce new functions and data types.
 - ACID compliance and large SQL language support.
 - Ability to join with all your other data including relational data.
@@ -65,14 +65,14 @@ db.orbit_data.insertMany([
 ```
 
 A quick and easy way of getting the data out of Mongo is to use the cli tool, mongodump.
-In the case of this dataset, the files are orbit_data.bson, orbit_data.metadata.json, satellites.bson, satellites.metadata.json.
+In the case of this dataset, the resultant files are orbit_data.bson, orbit_data.metadata.json, satellites.bson, satellites.metadata.json.
 
 ```
 mongodump --uri="<your-mongo-host>" --username <your-mongo-username> --password <your-mongo-password>
 ```
 
 This command exports your Mongo data to the current working directory.
-You can then load the data by using the credentials to your Mongo Alternative Postgres instance by running mongorestore.
+You can then load the data by using the credentials to your MongoAlternative Postgres instance by running mongorestore.
 
 ```
 mongorestore --uri "mongodb://postgres:<your-tembo-password>@<your-tembo-host>:27018/ferretdb?authMechanism=PLAIN&tls=true&tlsCaFile=$(pwd)/ca.crt" </your/path/to/dump/files>
@@ -85,6 +85,7 @@ mongosh "mongodb://postgres:<your-password>@<your-host>:27018/ferretdb?authMecha
 ```
 
 ![ferretdb](./ferretdb.png 'ferretdb')
+Figure 2. Example of a successful connection to FerretDB.
 
 By running the following query you can confirm the data transfer:
 
@@ -102,6 +103,8 @@ Once connected to your Tembo MongoAlternative instance via `psql`, simply run `S
 From there you can run any read queries to further explore your dataset via Postgres’ SQL dialect.
 Here’s an example of what this representation would look like in Postgres:
 
+### 1. What are the available tables?
+
 ```
 \dt
                      List of relations
@@ -112,6 +115,8 @@ Here’s an example of what this representation would look like in Postgres:
  ferretdb | satellites_df29b4db         | table | postgres
 (3 rows)
 ```
+
+### 2. What are the fields (columns) in this dataset?
 
 ```
 SELECT jsonb_object_keys(_jsonb) AS key
@@ -129,7 +134,7 @@ GROUP BY key;
 (7 rows)
 ```
 
-What are the different satellites contained in this dataset?
+### 3. What are the different satellites contained in this dataset?
 
 ```
 SELECT DISTINCT _jsonb->>'satellite_name' AS satellite_name
