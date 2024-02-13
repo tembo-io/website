@@ -26,7 +26,7 @@ The following dataset was gathered by Dr. Mike Loomis and his team and published
 - Timeframe: 2018 - 2021
 - Sample Size: 1
 
-To begin, you can [download the dataset here](/blog).
+To begin, you can [download the dataset here](https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566).
 
 By navigating to the local directory containing the dataset, you can load the data into Postgres using your preferred method.
 There exist numerous tools, such as shp2pgsql and even QGIS, but we opted for ogr2ogr (bundled with [GDAL](https://gdal.org/index.html)) and executed the command below.
@@ -220,7 +220,7 @@ Already with this simple overlay, our superficial idea about where the elephant 
 - And so on!
 
 ![map_data_points](./map_data_points.png 'map_data_points')
-Figure 2. QGIS-renedered OpenStreetMap visualization containing elephant tracking data.
+Figure 2. QGIS-rendered OpenStreetMap visualization containing elephant tracking data.
 
 QGIS also has built-in features that allow for the creation of custom geometries to visualize and further analyze.
 As shown above (Figure 2), the OpenStreetMap layer reveals the defined border of Dassioko Village.

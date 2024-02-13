@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Tembo DataWarehouse
 
-Tembo's DataWarehouse is tuned and configured for datawarehouse workloads. Extract, Transform and Load data from external sources using extensions. Build centralize datastore for analytical and tactical queries.
+Tembo's DataWarehouse is tuned and configured for data warehouse workloads. Extract, Transform and Load data from external sources using extensions. Build centralize datastore for analytical and tactical queries.
 
 ## Extensions
 
