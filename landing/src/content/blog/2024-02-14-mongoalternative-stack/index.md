@@ -31,13 +31,12 @@ In addition to Postgres being the most-loved, most-utilized database, according 
 ## FerretDB as an app service next to Postgres
 
 At its core, FerretDB is an open-source proxy built on Postgres that translates Mongo wire protocol queries into SQL, bridging the gap between document-oriented and relational database systems.
-We're able to offer a fully-integrated, managed FerretDB experience with the help of our application services, covered in this [blog post](https://tembo.io/blog/tembo-operator-apps).
+We offer a fully-integrated, managed FerretDB experience with the help of our application services, covered in an earlier [blog post](https://tembo.io/blog/tembo-operator-apps) of ours.
 Essentially, we achieve this by running FerretDB’s docker image in a kubernetes deployment next to Postgres.
 
-To provide a bit more detail, integrating FerretDB involved establishing If the appService has any ingress requirements, then a Kubernetes Service and an ingress resource (Tembo currently uses Traefik) is created for that appService
-
-[Loading FerretDB via our kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml).
-[FerretDB secure connection](https://docs.ferretdb.io/security/tls-connections/).
+To provide a bit more detail, this process first required establishing a novel TCP ingress routing in line with [FerretDB's secure connection instructions](https://docs.ferretdb.io/security/tls-connections/).
+From there a Kubernetes Service and an ingress resource (Tembo currently uses Traefik)[https://doc.traefik.io/traefik/middlewares/overview/] is created.
+Finally, we generate a template by which we could [loading FerretDB via our kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml).
 
 ![app_service](./app_service.png 'app_service')
 Figure 2. Diagram of appService.
