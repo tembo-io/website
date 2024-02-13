@@ -7,7 +7,7 @@ tags: [postgres, "connection pool", pgbouncer, pgcat, supavisor, pgbench]
 
 Creating a connection to your Postgres database to execute a short-lived query is expensive. Several people have measured the overhead of Postgres connections and some locate them in the range of [1.3MB of memory per connection](https://stackoverflow.blog/2020/10/14/improve-database-performance-with-connection-pooling/) and others in the range of [2MB](https://blog.anarazel.de/2020/10/07/measuring-the-memory-overhead-of-a-postgres-connection/). In addition, there is also the overhead of having to [fork a new process](https://www.postgresql.org/docs/current/connect-estab.html) in the database server. 
 
-To alleviate these problems, typically people use a connection pooler. However, for Postgres, there are several options available. Some popular ones are Pgbouncer, Pgcat, Odyssey, PgAgroal, PgPool and Supavisor.
+To alleviate these problems, typically people use a connection pooler. However, for Postgres, there are several options available. Some popular ones are [Pgbouncer](https://www.pgbouncer.org/), [Pgcat](https://github.com/postgresml/pgcat), [Odyssey](https://github.com/yandex/odyssey), [pgagroal](https://github.com/agroal/pgagroal), [Pgpool-II](https://www.pgpool.net/mediawiki/index.php/Main_Page) and [Supavisor](https://github.com/supabase/supavisor).
 
 ![A diagram depicting a pool of connections](./001-Pooler.png)
 
@@ -101,7 +101,7 @@ A few things to notice:
 - For lower connection counts, PgBouncer has the lowest latency and best throughput. But as we go over 50 clients, PgCat starts having better latency and throughput.
 - Since PgBouncer is single-threaded, maybe beyond 25 connections, it is necessary to spawn another PgBouncer instance.
 - In contrast, PgCat and Supavisor continue to deliver more throughput, although PgCat performs better up to this point (number of clients <= 100).
-- For all cases, PgCat and PgBouncer have somewhat comparable latency (in the range of -17% and +24% difference), but Supavisor has much higher compared to the other two (in the range of 80-160%).
+- For all cases, PgCat and PgBouncer have somewhat comparable latency (in the range of **-17% and +24% difference**), but Supavisor has much higher compared to the other two (in the range of **80-160%**).
 
 
 ### Throughput and Latency for large connection count
@@ -112,9 +112,9 @@ Let’s see what happens when we stress the connection poolers using more client
 
 ![Average Throughput for large connection count](./007_average_throughput_many_conns.png)
 
-For the three poolers, the latency of executing a simple query continues growing. This is because, beyond a certain point, the CPU becomes a bottleneck, and connection requests begin to pile up. I suspect this could be mitigated with a more powerful machine.
+For the three poolers, the latency of executing a simple query continues to grow. This is because, beyond a certain point, the CPU becomes a bottleneck, and connection requests begin to pile up. I suspect this could be mitigated with a more powerful machine.
 
-We can see that PgCat performs better (higher throughput, lower latency), reaching 59K tps. In contrast, PgBouncer peaks at 44,096 tps and degrades to a steady state of 25,000-30,000 tps beyond 75 concurrent connections. Supavisor peaks at about  21,700 tps, but remains in steady state. 
+We can see that PgCat performs better (higher throughput, lower latency), reaching **59K tps**. In contrast, PgBouncer peaks at **44,096 tps** and degrades to a steady state of **25,000-30,000** tps beyond 75 concurrent connections. Supavisor peaks at about  **21,700 tps**, but remains in steady state. 
 
 As suggested in Supabase’s [blog post](https://supabase.com/blog/supavisor-1-million), beyond this point, one alternative is to scale Supavisor horizontally by adding more instances. This case, though, is beyond the scope of my experiments.
 
@@ -123,7 +123,7 @@ As suggested in Supabase’s [blog post](https://supabase.com/blog/supavisor-1-m
 
 Now, let us see what happens with the latency when each of  the poolers are exercised at their maximum throughput. For PgBouncer that is 50 clients; for PgCat, 1250 clients; and for Supavisor, 100 clients.
 
-PgBouncer’s latency (clients = 50) is generally below 4 ms for 99% of the connection requests, and (as shown earlier) the mean is around 1 ms.
+PgBouncer’s latency (clients = 50) is generally below **4 ms for 99%** of the connection requests, and (as shown earlier) the mean is around 1 ms.
 
 ![Pgbouncer percentiles latencies](./008_pgbouncer_50_clients_percentiles.png)
 
@@ -147,11 +147,11 @@ I don’t have enough knowledge to understand the root cause of this. One hypoth
 
 During the experiments, I also collected information about CPU utilization. Let’s see how the poolers use the CPU when exercised at their maximum throughput.
 
-The following plot demonstrates that with 50 clients, PgBouncer’s CPU utilization reaches ~100% (i.e., full utilization in one core). We again see the downside of its single-threaded implementation. The mitigation could be to add more PgBouncer instances.
+The following plot demonstrates that with 50 clients, PgBouncer’s CPU utilization reaches **~100%** (i.e., full utilization in one core). We again see the downside of its single-threaded implementation. The mitigation could be to add more PgBouncer instances.
 
 ![CPU Utilization](./012_cpu_utilization.png)
 
-In contrast, Pgcat uses CPU most efficiently by being able to support 1250 connections within 400% CPU utilization, whereas Supavisor uses 700% for 100 clients. In theory, PgCat and Supavisor have more room for better scalability due to their ability to utilize more cores.
+In contrast, PgCat uses CPU most efficiently by being able to support 1,250 connections within **400%** CPU utilization, whereas Supavisor uses **700%** for 100 clients. In theory, PgCat and Supavisor have more room for better scalability due to their ability to utilize more cores.
 
 
 ### Latency with 1250 clients
@@ -168,7 +168,7 @@ The following graph shows the latency for p99, and we see the same trend:
 
 ## Summary of Results
 
-For convenience, the following table summarizes my findings:
+For convenience, the following table summarizes the qualitative attributes of the three poolers:
 
 |                                                                    | **PgBouncer**                           | **PgCat**                            | **Supavisor**                          |
 |--------------------------------------------------------------------|-----------------------------------------|--------------------------------------|----------------------------------------|
@@ -179,17 +179,20 @@ For convenience, the following table summarizes my findings:
 | **Installation/Setup Complexity**                                  | Easy                                    | Easy                                 | Medium, several moving parts.          |
 | **Multi-threaded**                                                 | No                                      | Yes                                  | Yes                                    |
 | **Application Changes**                                            | Connection string                       | Connection string                    | Connection string                      |
-| **Experiments with E2-standard-8 (8 vCPUs, 4 cores, 32GB memory)** |                                         |                                      |                                        |
+
+And this table summarizes the results from my experiments with the E2-standard-8 vms:
+
+|                                                                    | **PgBouncer**                           | **PgCat**                            | **Supavisor**                          |
+|--------------------------------------------------------------------|-----------------------------------------|--------------------------------------|----------------------------------------|
 | **Max Concurrent Clients Tested**                                  | 2500                                    | 2500                                 | 2500                                   |
 | **Max Throughput**                                                 | 44,096 tps @ 50 clients                 | 59,051 tps @ 1,250 clients           | 21,708 tps @ 100 clients               |
-| **Latency @ Max throughput**                                       | 1.13 ms                                 | 64.3 ms                              | 4.6 ms                                 |
-| **Latency at 1,250 concurrent connections**                         | 47.2 ms                                 | 21.1 ms                              | 64.37 ms                               |
+| **Latency @ 1,250 concurrent clients**                         | 47.2 ms                                 | 21.1 ms                              | 64.37 ms                               |
 
 In this post, we compared connection poolers for Postgres across different axes.
 
 Of the three, Supavisor is the one that requires more steps to begin using it. However, the way it handles tenants is convenient for modern cloud environments. Other than that, once the poolers are adequately set up, the only change required in your application is the connection string.
 
-From my experiments, I found that PgCat performs better as it delivers higher throughput (more than 2X compared to PgBouncer and Supavisor) while supporting more concurrent clients.
+From my experiments, I found that PgCat performs better as it delivers higher throughput while supporting more concurrent clients. With more than 750 clients, PgCat achieves more than 2X qps compared to PgBouncer and Supavisor.
 
 PgBouncer offers the best latency for low (<50) connection counts. However, its downsides are: (1) it is single-threaded, preventing it from fully utilizing the machine with a single instance, and (2) if there is a surge in the number of connection requests, clients would right away notice some performance degradation (at least in my environment). In comparison, PgCat and Supavisor keep their tps numbers when more clients are added.
 
