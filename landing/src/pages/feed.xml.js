@@ -7,7 +7,7 @@ export async function GET(context) {
 	const postImportResult = import.meta.glob('../content/blog/**/*.{md,mdx}', {
 		eager: true,
 	});
-	const posts = Object.values(postImportResult);
+	const posts = Object.values(postImportResult).reverse();
 	return rss({
 		title: 'Tembo’s Blog',
 		description:
@@ -17,7 +17,7 @@ export async function GET(context) {
 			atom: 'http://www.w3.org/2005/Atom',
 		},
 		customData: `<atom:link href="${context.site}rss.xml" rel="self" type="application/rss+xml" />`,
-		items: blog.reverse().map((post, index) => {
+		items: blog.map((post, index) => {
 			const dateString = post.id.substring(0, 10);
 			const parsedDate = post.data?.date || new Date(dateString);
 			const COULD_NOT_BE_RENDERED =
