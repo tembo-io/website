@@ -24,7 +24,7 @@ export async function GET() {
         },
     });
 
-    blog.forEach((post, index) => {
+    blog.reverse().forEach((post, index) => {
         const dateString = post.id.substring(0, 10);
         const parsedDate = post.data?.date || new Date(dateString);
         const COULD_NOT_BE_RENDERED =
