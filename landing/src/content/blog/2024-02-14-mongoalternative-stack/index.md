@@ -34,9 +34,13 @@ At its core, FerretDB is an open-source proxy built on Postgres that translates 
 We're able to offer a fully-integrated, managed FerretDB experience with the help of our application services, covered in this [blog post](https://tembo.io/blog/tembo-operator-apps).
 Essentially, we achieve this by running FerretDB’s docker image in a kubernetes deployment next to Postgres.
 
-[Loading FerretDB via our kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml)...
+To provide a bit more detail, integrating FerretDB involved establishing If the appService has any ingress requirements, then a Kubernetes Service and an ingress resource (Tembo currently uses Traefik) is created for that appService
+
+[Loading FerretDB via our kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml).
+[FerretDB secure connection](https://docs.ferretdb.io/security/tls-connections/).
 
 ![app_service](./app_service.png 'app_service')
+Figure 2. Diagram of appService.
 
 ## Migrate your Mongo apps to Postgres
 Before migrating from any database, it’s advisable to run pre-migration testing.
@@ -85,7 +89,7 @@ mongosh "mongodb://postgres:<your-password>@<your-host>:27018/ferretdb?authMecha
 ```
 
 ![ferretdb](./ferretdb.png 'ferretdb')
-Figure 2. Example of a successful connection to FerretDB.
+Figure 3. Example of a successful connection to FerretDB.
 
 By running the following query you can confirm the data transfer:
 
