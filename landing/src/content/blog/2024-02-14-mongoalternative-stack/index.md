@@ -21,7 +21,7 @@ Figure 1. Connection details for a sample MongoAlternative instance.
 
 At first glance it’s easy to consider Mongo and Postgres as oil and water; why not, they’re document-oriented and relational databases?
 While this might have stood up years ago, recent developments in Postgres greatly increase the reasons someone might want to leave Mongo for Postgres.
-In addition to Postgres being the most-loved, most-utilized database, according to [StackOverflow’s 2023 Survey](https://survey.stackoverflow.co/2023/#section-most-popular-technologies-databases) some reasons why Postgres might be the right choice for your document-oriented workloads are:
+In addition to Postgres being the most-loved, most-utilized database (according to [StackOverflow’s 2023 Survey](https://survey.stackoverflow.co/2023/#section-most-popular-technologies-databases)), some reasons why Postgres might be the right choice for your document-oriented workloads are:
 - [Native jsonb support](https://www.postgresql.org/docs/current/datatype-json.html) as well as various extensions that provide additional document database capabilities.
 - Rich ecosystem of extensions that can introduce new functions and data types.
 - ACID compliance and large SQL language support.
@@ -35,11 +35,11 @@ We offer a fully-integrated, managed FerretDB experience with the help of our ap
 Essentially, we achieve this by running FerretDB’s docker image in a kubernetes deployment next to Postgres.
 
 To provide a bit more detail, this process first required creating a novel TCP ingress routing in line with [FerretDB's secure connection instructions](https://docs.ferretdb.io/security/tls-connections/).
-Once established, a Kubernetes Service and ingress resource [Tembo currently uses Traefik](https://doc.traefik.io/traefik/middlewares/overview/) could be created.
-Finally, we generate a template by which we could [loading FerretDB via our kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml).
+Once established, a Kubernetes Service and ingress resource could be created.
+Finally, we generated a template by which we could [load FerretDB via our kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml).
 
 ![app_service](./app_service.png 'app_service')
-Figure 2. Diagram of appService.
+Figure 2. Diagram of Tembo's MongoAlternative Stack-specific appService.
 
 ## Migrate your Mongo apps to Postgres
 Before migrating from any database, it’s advisable to run pre-migration testing.
