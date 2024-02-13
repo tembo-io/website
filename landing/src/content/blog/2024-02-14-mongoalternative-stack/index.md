@@ -14,7 +14,7 @@ With the power of a fully-integrated FerretDB, users not only have access to a M
 
 To get started with  a Mongo compatible instance on [Tembo Cloud](https://cloud.tembo.io/), just download the and run the SSL certificate, move it to a target directory, and run the `mongosh` connection string in that directory!
 
-
+![connection](./connection.png 'connection')
 Figure 1. Connection details for a MongoAlternative instance.
 
 ## Why migrate to Postgres?
