@@ -49,6 +49,6 @@ export async function GET(context) {
 						.replaceAll(',', '')}
                 `,
 			};
-		}),
+		}).sort((a, b) => b.entry.date - a.entry.date),
 	});
 }
