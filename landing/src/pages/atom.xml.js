@@ -30,9 +30,10 @@ export async function GET() {
         const COULD_NOT_BE_RENDERED =
             'This post contained content that could not be rendered in the RSS feed. Please use the official post link on https://tembo.io.';
         const isMdx = post.id.includes('.mdx');
-        return feed.addItem({
+        const author = AUTHORS[post.data.authors[0]]
+        feed.addItem({
             title: post.data.title,
-            pubDate: new Date(parsedDate).toISOString(),
+            date: new Date(parsedDate),
             description: post.data.description,
             link: `/blog/${post.slug}`,
             content: isMdx
@@ -41,20 +42,11 @@ export async function GET() {
                         ?.compiledContent()
                         .replaceAll('src="/', 'src="https://tembo.io/') ||
                     COULD_NOT_BE_RENDERED,
-            customData: `
-                <author>
-                    <name>${AUTHORS[post.data.authors[0]].name}</name>
-                    <email>noreply@tembo.io</email>
-                    <uri>${AUTHORS[post.data.authors[0]].url}</uri>
-                </author>
-                ${post.data.tags
-                    .map(
-                        (tag) =>
-                            `<category label='${tag}' term='${tag}' />`,
-                    )
-                    .join(',')
-                    .replaceAll(',', '')}
-            `,
+            author: {
+                name: author.name,
+                email: author.email,
+                link: author.url
+            },
         });
     });
 	return new Response(feed.atom1());
