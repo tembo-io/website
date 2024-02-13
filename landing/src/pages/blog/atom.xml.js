@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import { AUTHORS } from '../../content/config';
 
 export async function GET() {
-    const blog = await getCollection('blog');
+    const blog = (await getCollection('blog'))
     const postImportResult = import.meta.glob('../../content/blog/**/*.{md,mdx}', {
 		eager: true,
 	});
@@ -24,7 +24,7 @@ export async function GET() {
         },
     });
 
-    blog.reverse().forEach((post, index) => {
+    blog.forEach((post, index) => {
         const dateString = post.id.substring(0, 10);
         const parsedDate = post.data?.date || new Date(dateString);
         const COULD_NOT_BE_RENDERED =
