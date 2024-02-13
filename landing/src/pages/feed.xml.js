@@ -17,7 +17,7 @@ export async function GET(context) {
 			atom: 'http://www.w3.org/2005/Atom',
 		},
 		customData: `<atom:link href="${context.site}rss.xml" rel="self" type="application/rss+xml" />`,
-		items: blog.map((post, index) => {
+		items: blog.sort((a, b) => b.data.date - b.data.date).map((post, index) => {
 			const dateString = post.id.substring(0, 10);
 			const parsedDate = post.data?.date || new Date(dateString);
 			const COULD_NOT_BE_RENDERED =
@@ -49,6 +49,6 @@ export async function GET(context) {
 						.replaceAll(',', '')}
                 `,
 			};
-		}).sort((a, b) => b.pubDate - a.pubDate),
+		}),
 	});
 }
