@@ -4,7 +4,7 @@ import { AUTHORS } from '../content/config';
 
 export async function GET(context) {
 	const blog = await getCollection('blog');
-	const postImportResult = import.meta.glob('../content/blog/**/*.md', {
+	const postImportResult = import.meta.glob('../content/blog/**/*.{md,mdx}', {
 		eager: true,
 	});
 	const posts = Object.values(postImportResult);
