@@ -26,9 +26,9 @@ The following dataset was gathered by Dr. Mike Loomis and his team and published
 - Timeframe: 2018 - 2021
 - Sample Size: 1
 
-To begin, you can [download the dataset here](https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566).
+To begin, you can [download the dataset here](/blog).
 
-By navigating to the local directory containing the dataset, you can load the data into Postgres using your preferred method. 
+By navigating to the local directory containing the dataset, you can load the data into Postgres using your preferred method.
 There exist numerous tools, such as shp2pgsql and even QGIS, but we opted for ogr2ogr (bundled with [GDAL](https://gdal.org/index.html)) and executed the command below.
 If you're interested in understanding what the parameters mean, or the other options available, please refer to [PostGIS' guide on loading data with ogr2ogr](https://postgis.net/workshops/postgis-intro/loading_data.html#loading-with-ogr2ogr).
 
@@ -40,7 +40,7 @@ password=<your-password> \
 host=<your-host>" \
 -nln elephant5990 \
 -lco PRECISION=NO \
-points.shp 
+points.shp
 ```
 
 Having loaded the dataset into our Tembo instance, we ran the following to explore the database relations:
@@ -60,7 +60,7 @@ Having loaded the dataset into our Tembo instance, we ran the following to explo
 (7 rows)
 ```
 
-Let's dive deeper into the schema of the elephant_5990 table. 
+Let's dive deeper into the schema of the elephant_5990 table.
 
 ```
 \d elephant5990
@@ -200,7 +200,7 @@ LIMIT 1;
  0.00016060894274768603
 (1 row)
 ```
-Notice the area's units are not given. By default this is set to square degrees, but that can be converted to roughly 1.9789 square kilometers. 
+Notice the area's units are not given. By default this is set to square degrees, but that can be converted to roughly 1.9789 square kilometers.
 Additionally, this query produces a WKB (Well Known Binary), which we used to generate the QGIS overlay seen in Figure 4.
 However, due to its character length, we decided not to show the WKB itself.
 
