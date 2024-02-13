@@ -80,7 +80,7 @@ Once complete, you can use the typical mongo connection string to access your Te
 mongosh "mongodb://postgres:<your-password>@<your-host>:27018/ferretdb?authMechanism=PLAIN&tls=true&tlsCaFile=$(pwd)/ca.crt"
 ```
 
-(image)
+![ferretdb](./ferretdb.png 'ferretdb')
 
 By running the following query you can confirm the data transfer:
 
