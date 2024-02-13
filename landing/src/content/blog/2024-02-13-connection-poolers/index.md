@@ -1,6 +1,6 @@
 ---
 slug: postgres-connection-poolers
-title: 'Detailed analysis of PostgreSQL connection poolers'
+title: 'Benchmarking PostgreSQL connection poolers: PgBouncer, PgCat and Supavisor'
 authors: [rjzv]
 tags: [postgres, "connection pool", pgbouncer, pgcat, supavisor, pgbench]
 image: ./connection_pool.png
