@@ -23,16 +23,20 @@ At first glance it’s easy to consider Mongo and Postgres as oil and water; why
 While this might have stood up years ago, recent developments in Postgres greatly reduce the reasons someone might want to leave Mongo for Postgres.
 In addition to Postgres being the most-loved, most-utilized database, according to [StackOverflow’s 2023 Survey](https://survey.stackoverflow.co/2023/#section-most-popular-technologies-databases) some reasons why Postgres might be the right choice for your document oriented workloads are:
 Native Jsonb Support - Postgres offers both [native jsonb support](https://www.postgresql.org/docs/current/datatype-json.html) as well as various extensions that provide additional document database capabilities.
-- Extensibility - Postgres has a rich ecosystem of extensions that can introduce new functions and data types.
+- Rich ecosystem of extensions that can introduce new functions and data types.
 - ACID compliance and large SQL language support.
 - Ability to join with all your other data including relational data.
-- Licensing - The PostgreSQL License is a liberal open-source license offering free use, modification, and distribution. In contrast, Mongo uses the Server Side Public License (SSPL), which includes more restrictive terms.
+- The PostgreSQL License is a liberal open-source license offering free use, modification, and distribution. In contrast, Mongo uses the Server Side Public License (SSPL), which includes more restrictive terms.
 
 ## FerretDB as an app service next to Postgres
 
 Tembo offers the functionality of a fully-integrated, managed FerretDB experience built on Postgres.
-To make this possible, we used our kubernetes operator to [load FerretDB](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml) as [app service](https://tembo.io/blog/tembo-operator-apps).
-In essence, we run FerretDB’s docker image in a kubernetes deployment next to Postgres.
+At the core of this integration is FerretDB, an open-source proxy built on Postgres that adeptly translates Mongo wire protocol queries into SQL, bridging the gap between document-oriented and relational database systems.
+To make this a reality, we built upon the foundation covered in our [application services blog post](https://tembo.io/blog/tembo-operator-apps).
+Essentially, this allows us to run FerretDB’s docker image in a kubernetes deployment next to Postgres.
+
+[Loading FerretDB via our kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml)...
+
 
 ## Migrate your Mongo apps to Postgres
 Before migrating from any database, it’s advisable to run pre-migration testing.
