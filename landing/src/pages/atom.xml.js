@@ -35,18 +35,18 @@ export async function GET() {
             title: post.data.title,
             date: new Date(parsedDate),
             description: post.data.description,
-            link: `/blog/${post.slug}`,
+            link: `https://tembo.io/blog/${post.slug}`,
             content: isMdx
                 ? COULD_NOT_BE_RENDERED
                 : posts[index]
                         ?.compiledContent()
                         .replaceAll('src="/', 'src="https://tembo.io/') ||
                     COULD_NOT_BE_RENDERED,
-            author: {
+            author: [{
                 name: author.name,
                 email: author.email,
                 link: author.url
-            },
+            }],
         });
     });
 	return new Response(feed.atom1());
