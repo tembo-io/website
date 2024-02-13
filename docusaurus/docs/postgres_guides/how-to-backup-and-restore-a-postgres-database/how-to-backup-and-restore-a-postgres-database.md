@@ -16,7 +16,7 @@ Suppose you are working on a company’s project and you do not want to lose any
 
 The utility named `pg_dump` allows the users to create a logical backup of a specific Postgres database. Execute the following command to export the contents of the database into a SQL text file:
 
-```
+``` sh
 pg_dump -U username -d database_name -f backup_file.sql
 ```
 
@@ -34,11 +34,11 @@ Postgres comes with a `pg_dumpall` command which allows the users to backup the 
 
 Execute the following `pg_dumpall` command to export the data of the entire Postgres instance or cluster:
 
-```
+``` sh
 pg_dumpall -U username -f backup_file.sql
 ```
 
-Make sure to replace the `username` with your own Posgtres’ username.
+Make sure to replace the `username` with your own Postgres’ username.
 
 :::info
 `pg_dumpall` extracts the entire Postgres database instance into a script file. It simply executes the `pg_dump` command for each database.
@@ -64,14 +64,14 @@ Just like `pg_dump` for exporting data, Postgres comes with a `pg_restore` comma
 
 Run the following command in your terminal to import a SQL file and restore the database:
 
-```
+``` sh
 pg_restore -U username -d new_database_name -1 backup_file.sql
 ```
 
 Do replace the `username` and `new_database_name` with your Postgres username and the desired name of the new database respectively.
 
 :::info
-`pg_restore` command basically restores the postgres database from an archive created by the `pg_dump` command. `pg_restore` depends upon the archive files to restore the database, or even to organise the items before restoring them.
+`pg_restore` command basically restores the postgres database from an archive created by the `pg_dump` command. `pg_restore` depends upon the archive files to restore the database, or even to organize the items before restoring them.
 
 Please explore their [official documentation](https://www.postgresql.org/docs/current/app-pgrestore.html) to gain a deeper understanding of their features and capabilities.
 :::
@@ -82,7 +82,7 @@ You can also restore the backup using `psql`. To do that, you first need to crea
 
 Use the following command in your terminal to create a new database:
 
-```
+``` sh
 createdb -U username new_database_name
 ```
 
@@ -98,7 +98,7 @@ Replace the `username`, `new_database_name`, and `backup_file.sql` with your Pos
 
 Above we have discussed the `pg_dumpall` method to backup the database, so if you follow that method, you can execute the following `psql` command to instantly retrieve the database -
 
-```
+``` sh
 psql -U username -f backup_file.sql
 ```
 

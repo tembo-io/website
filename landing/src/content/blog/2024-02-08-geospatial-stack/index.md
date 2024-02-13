@@ -100,7 +100,7 @@ ST_Distance can be used to find the minimum distance between two points. This ap
 
 - As an example, let's find which hour of the day (24hr format) had the highest average distance traveled (meters) per year?
 
-```
+``` sql
 WITH TimeDistances AS (
     SELECT
         EXTRACT(YEAR FROM timestamp::timestamp) AS year,
@@ -133,7 +133,8 @@ SELECT
 FROM RankedDistances
 WHERE rank = 1
 ORDER BY year;
-
+```
+``` text
  year | hour |    avg_distance
 ------+------+--------------------
  2018 |   20 | 500.1667879009256
@@ -150,7 +151,7 @@ Note that during this exercise we loaded a custom geometry, described in the fol
 
 - We could ask, throughout the study, how many times did the elephant enter Dassioko Village?
 
-```
+``` sql
 SELECT
 COUNT(e.*)
 FROM
@@ -158,7 +159,8 @@ elephant5990 e,
 village v
 WHERE
 ST_Contains(v.wkb_geometry, e.wkb_geometry);
-
+```
+``` text
  count
 -------
     47
@@ -171,7 +173,7 @@ ST_ConcaveHull can be used to establish a boundary around a set of points, while
 
 - On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
 
-```
+``` sql
 WITH Hull AS (
     SELECT ST_ConcaveHull(ST_Collect(e.wkb_geometry), 0.50, true) AS geom
     FROM elephant5990 e
@@ -194,7 +196,8 @@ SELECT
 FROM HoleAreas
 ORDER BY area DESC
 LIMIT 1;
-
+```
+``` text
           area
 ------------------------
  0.00016060894274768603
@@ -238,7 +241,6 @@ While the results are not perfect, they are meant as a proof of concept that a p
 ![map_area_avoidance](./map_area_avoidance.png 'map_area_avoidance')
 Figure 4. QGIS-rendered OpenStreetMap visualization containing elephant tracking data and an overlay geometry representing a generated potential area of avoidance. This is made possible above with the ST_ConcaveHull and ST_InteriorRingN functions.
 
-
 ## Explore Geospatial datasets today!
 
 Using [Tembo’s Geospatial Stack](https://cloud.tembo.io), we were able to explore a GPS tracking dataset in a matter of minutes. Though this demonstration focused on the movements of a single elephant, you can use the showcased PostGIS functions for numerous applications to other, business-centric projects like:
@@ -248,4 +250,3 @@ Using [Tembo’s Geospatial Stack](https://cloud.tembo.io), we were able to expl
 - Insights on behavior related to pre-determined areas (zones)
 
 Interested in a more comprehensive guide? Checkout our [Geospatial Stack getting started guide](https://tembo.io/docs/tembo-stacks/geospatial).
-

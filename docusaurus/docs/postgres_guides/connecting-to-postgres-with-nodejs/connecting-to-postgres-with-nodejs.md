@@ -12,7 +12,7 @@ Let’s get started
 
 **Step 1** - Install the `pg` package in your project using npm. To install it, run this command in your terminal
 
-```
+``` sh
 npm install pg
 ```
 
@@ -20,9 +20,9 @@ npm install pg
 pg is a popular Node.js library used to work with Postgres. It serves as a PostgreSQL database driver for Node.js applications. To know more about pg, [check their official documentation](hhttps://node-postgres.com/)
 :::
 
-**Step 2** - Initialise the `pg` package in your Node.js script and get the Client from it.
+**Step 2** - Initialize the `pg` package in your Node.js script and get the Client from it.
 
-```
+``` js
 const { Client } = require('pg');
 ```
 
@@ -30,7 +30,7 @@ Make sure you initialize the pg package at the top of program
 
 **Step 3** - Create a PostgreSQL client object consisting of essential Postgres database credentials.
 
-```
+``` js
 const client = new Client({
   user: ‘username',
   password: 'password',
@@ -44,7 +44,7 @@ Make sure to replace the `username`, `password`, `host`, `port_number`, and `dat
 
 **Step 4** - Setup a connection with the database using the connect method with the manually created client object
 
-```
+``` js
 client.connect()
   .then(() => {
     console.log('Connected to PostgreSQL database');
@@ -56,7 +56,7 @@ client.connect()
 
 **Step 5** - Execute your desired SQL query to get the data. You can use the query method to run the SQL query
 
-```
+``` js
 client.query('SELECT * FROM customers', (err, result) => {
   if (err) {
     console.error('Error executing query', err);
@@ -68,7 +68,7 @@ client.query('SELECT * FROM customers', (err, result) => {
 
 **Step 6** - Close the connection after the whole work is done. Use the end method to close the connection
 
-```
+``` js
 client.end()
   .then(() => {
     console.log('Connection to PostgreSQL closed');
@@ -80,7 +80,7 @@ client.end()
 
 Here’s the complete code to connect to the Postgres database with Node.js
 
-```
+``` js
 const { Client } = require('pg');
 
 // Database connection configuration
@@ -125,11 +125,11 @@ client.connect()
 
 ```
 
-In this example, we have demonstrated how you can read the data, but you can also perform other operations of Posgtres database also like Insert, Update, and Create Table
+In this example, we have demonstrated how you can read the data, but you can also perform other operations of Postgres database also like Insert, Update, and Create Table
 
 ## `Insert` statements
 
-```
+``` js
 client.connect()
   .then(() => {
 
@@ -153,7 +153,7 @@ client.connect()
 
 ## `Update` statements
 
-```
+``` js
 const update = 'UPDATE employees SET column1 = value1 WHERE column2 = value2';
 const values = ['updated_value', 'criteria_value'];
 
@@ -171,7 +171,7 @@ client.query(update, values, (err, result) => {
 
 ## DDL statements like `Create Table`
 
-```
+``` js
 const createTable = `
   CREATE TABLE employees(
     id serial PRIMARY KEY,

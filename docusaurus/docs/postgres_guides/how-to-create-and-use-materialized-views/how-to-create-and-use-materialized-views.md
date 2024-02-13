@@ -48,7 +48,7 @@ Replace the `my_materialized_view` with your own materialized view’s name. Thi
 
 **Automatically**
 
-You can set up a trigger which will refresh the materialized view at a regular interval of time, which keeps you from haivng to refresh the materialized view manually.
+You can set up a trigger which will refresh the materialized view at a regular interval of time, which keeps you from having to refresh the materialized view manually.
 
 **Step 4** - Now you can query the populated materialized view to display it. You can query the materialized view just like a regular table on Postgres:
 

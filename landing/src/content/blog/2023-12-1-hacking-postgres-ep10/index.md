@@ -300,7 +300,7 @@ Yeah, it's a lot of work to do that stuff and do it right and make sure you're c
 
 ##### [00:26:10] - Tim
 
-No, it's one of these things. We were talking about this yesterday. We were. On yugobyte's. Website. They publish Sysbench test. A lot of people run Sysbench, but people don't run Sysbench. It's like, oh, on OLTP insert, it's 34 TPS on Sysbench, but on the same hardware, it doesn't give you a benchmark against, say, Postgres. And so you're like, okay, is that good or bad? You have a hard time. And the reason people don't do that is because setting up a database and putting on a bunch of different hardware and figuring out what the best way to kind of explain performance is fraught with peril. You open yourself up to being like, you didn't test it right.
+No, it's one of these things. We were talking about this yesterday. We were. On Yugabyte's. Website. They publish Sysbench test. A lot of people run Sysbench, but people don't run Sysbench. It's like, oh, on OLTP insert, it's 34 TPS on Sysbench, but on the same hardware, it doesn't give you a benchmark against, say, Postgres. And so you're like, okay, is that good or bad? You have a hard time. And the reason people don't do that is because setting up a database and putting on a bunch of different hardware and figuring out what the best way to kind of explain performance is fraught with peril. You open yourself up to being like, you didn't test it right.
 
 
 ##### [00:26:57] - Ry

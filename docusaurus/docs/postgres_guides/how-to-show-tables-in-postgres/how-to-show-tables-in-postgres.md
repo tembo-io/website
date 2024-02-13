@@ -60,7 +60,7 @@ PgAdmin software can also serve as a tool to list down the tables present in dat
 
 **Step 4** - You can type and run SQL queries in the _Query tool_. To list down all the tables present in the desired database, run this query -
 
-```
+``` sql
 SELECT tablename FROM pg_tables WHERE schemaname = 'public';
 ```
 
@@ -84,7 +84,7 @@ There is a SQL query which uses Postgres’ information_schema views. These view
 
 **Step 2** - Now run this SQL query to get the list of all tables present in the database
 
-```
+``` sql
 SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
 ```
 

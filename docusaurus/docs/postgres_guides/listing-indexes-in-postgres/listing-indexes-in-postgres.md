@@ -39,7 +39,7 @@ Postgres comes with a system view `pg_indexes` that can be used to list down all
 
 **Step 2** - To list down all the indexes, use this sql query:
 
-```
+``` sql
 SELECT indexname AS index_name,
        tablename AS table_name
 FROM pg_indexes
@@ -56,7 +56,7 @@ Here we have defined `index_name` and `table_name` as alias names, but it’s to
 
 `index_name` shows the name of the index stored and `table_name` shows the name of the table stored at that particular index.
 
-Here, we have displayed the _indexname_ and _tablename_ from the `pg_indexes`. However, it also retains some additional data too. To know more about it, [check their official documentation](https://www.postgresql.org/docs/current/view-pg-indexes.html).
+Here, we have displayed the `indexname` and `tablename` from the `pg_indexes`. However, it also retains some additional data too. To know more about it, [check their official documentation](https://www.postgresql.org/docs/current/view-pg-indexes.html).
 
 ## Conclusion
 

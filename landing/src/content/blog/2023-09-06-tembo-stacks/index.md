@@ -16,7 +16,7 @@ For years, Postgres has been considered among the most popular and advanced open
 
 Postgres has evolved to where people have started talking about using “Postgres for everything.” There’s strong agreement that it’s wise to use Postgres until you find a strong reason for why you can’t use it anymore - either a very specialized use case, or scale which can’t be achieved by Postgres. This topic was well-discussed on [hacker news](https://news.ycombinator.com/item?id=33934139) thanks to a [blog](https://www.amazingcto.com/postgres-for-everything/) by a friend, Steven Schmidt.
 
-And to clarify, when I say Postgres, I mean the entire Postgres ecosystem - this includes Postgres, its extensions and ecosystem tooling for high-availabilty, backups, connection pooling, etc. All of these together turn Postgres into a powerful data platform which you can use to run diverse workloads. However, it’s easier said than done.
+And to clarify, when I say Postgres, I mean the entire Postgres ecosystem - this includes Postgres, its extensions and ecosystem tooling for high-availability, backups, connection pooling, etc. All of these together turn Postgres into a powerful data platform which you can use to run diverse workloads. However, it’s easier said than done.
 
 
 ## Making “Postgres for Everything” real

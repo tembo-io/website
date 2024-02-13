@@ -60,7 +60,7 @@ INNER JOIN customers c ON o.customer_id = c.customer_id;
 
 ## Left Join
 
-It return all rows from left table and maching rows from the right table. Null values will be returned for the right table if there are no matching rows.
+It return all rows from left table and matching rows from the right table. Null values will be returned for the right table if there are no matching rows.
 
 It produces a complete set of records from Table A, with the matching records in Table B. If there is no match, the right side will contain null.
 
@@ -88,7 +88,7 @@ LEFT JOIN projects ON employees.employee_id = projects.employee_id;
 
 ## Right Join
 
-It return all rows from right table and maching rows from the left table. Null values will be returned for the left table if there are no matching rows.
+It return all rows from right table and matching rows from the left table. Null values will be returned for the left table if there are no matching rows.
 
 It produces a complete set of records from Table B, with the matching records in Table A. If there is no match, the left side will contain null.
 
@@ -124,7 +124,7 @@ SELECT * FROM table1 FULL OUTER JOIN table2 ON table1.column = table2.column;
 
 ### Example
 
-Supppose, now we want to see the full list of employees and projects along with the employees that does not have any projects assigned and projects that are not assigned to any employees. In such case, we can use Full Outer Join:
+Suppose, now we want to see the full list of employees and projects along with the employees that does not have any projects assigned and projects that are not assigned to any employees. In such case, we can use Full Outer Join:
 
 ```
 SELECT e.employee_id, e.employee_name, p.project_name
@@ -137,7 +137,7 @@ ON e.employee_id = p.employee_id;
 
 ## Cross Join
 
-It returns the result of Cartersian multiplication between the both tables. It combines the every row of left table to the every row of right table and gives the final result.
+It returns the result of Cartesian multiplication between the both tables. It combines the every row of left table to the every row of right table and gives the final result.
 
 It does not require any condition.
 

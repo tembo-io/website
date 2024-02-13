@@ -22,9 +22,7 @@ That’s right. You could have vector searches running on your existing Postgres
   </iframe>
 </div>
 
-
 Intrigued? Let’s take a look at the bigger story.
-
 
 ## Vector “Solutions” Aren’t Solving Anything
 
@@ -61,7 +59,7 @@ It’s as simple—actually simple—as that. One call, and we’re ready to sea
 See, Postgres lets us create our own indexes via extensions, which enables us to do that search with one more SQL function call. We reference the job name we set up in the last step, provide the raw text query, and specify which columns we want returned and the number of rows. Think of this as a “select product_id, product_name from products where product_name and product_description are similar to 'our query'”.
 
 
-```
+``` sql
 SELECT * FROM vectorize.search(
     job_name => 'product_search',
     query => 'accessories for mobile devices',
@@ -69,7 +67,6 @@ SELECT * FROM vectorize.search(
     num_results => 3
 );
 ```
-
 
 Then we get our results, along with the cosine similarity score for each records.
 

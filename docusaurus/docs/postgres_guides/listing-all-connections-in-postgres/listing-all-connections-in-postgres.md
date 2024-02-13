@@ -4,9 +4,9 @@ tags:
   - Postgres Basics
 ---
 
-import PgadminDashboard from './images/pgadmin-dashboard.png'
-import PgadminDashboardTables from './images/pgadmin-dashboard-tables.png'
-import PgadminServerActivity from './images/pgadmin-server-activity.png'
+import PgAdminDashboard from './images/pgadmin-dashboard.png'
+import PgAdminDashboardTables from './images/pgadmin-dashboard-tables.png'
+import PgAdminServerActivity from './images/pgadmin-server-activity.png'
 
 # Listing all connections to Postgres
 
@@ -28,11 +28,11 @@ SELECT * FROM pg_stat_activity;
 `pg_stat_activity` displays the information about the current activity of database connections present in PostgreSQL database server. Check out [the official documentation to learn more about it](https://www.postgresql.org/docs/current/monitoring-stats.html#MONITORING-PG-STAT-ACTIVITY-VIEW).
 :::
 
-<img src={PgadminDashboard} width="800" alt="PgadminDashboard" />
+<img src={PgAdminDashboard} width="800" alt="PgAdminDashboard" />
 
 - **dataid** - It shows the Object ID of the connected database.
 
-- **datname** - It shows the names of the connected database. It gives the human-readabale name of the database connected with the session.
+- **datname** - It shows the names of the connected database. It gives the human-readable name of the database connected with the session.
 
 - **pid** - It shows the process ID (pid) of the backend server process associated with the session. There is a backend process for each individual active session.
 
@@ -48,15 +48,15 @@ SELECT * FROM pg_stat_activity;
 
 **Step 2** - Navigate to the **Dashboard** section present on the right-hand side.
 
-<img src={PgadminDashboardTables} width="800" alt="PgadminDashboardTables" />
+<img src={PgAdminDashboardTables} width="800" alt="PgAdminDashboardTables" />
 
 **Step 3** - There you will see the **Sessions** tab present in the **Server activity** section. It will display the list of all connections created in each database.
 
-<img src={PgadminServerActivity} width="800" alt="PgadminServerActivity" />
+<img src={PgAdminServerActivity} width="800" alt="PgAdminServerActivity" />
 
 Along with _Server Activity_, it shows some other important statistics as well - Server Sessions, Transitions per Second, Tuples In and Tuples Out, Block IO.
 
-- **Server Sessions** - It shows the details about the sessions or connections that are currently goin on in the PostgreSQL server.
+- **Server Sessions** - It shows the details about the sessions or connections that are currently going on in the PostgreSQL server.
 
 - **Transactions per Second** - It represents the rate or time at which the transactions are being treated by the database server.
 

@@ -42,7 +42,7 @@ We will make a new table **employees_history** to store previous versions. This 
  Lenina Crowne |  7000.00 | ["2023-09-28 13:30:19.239152+00","2023-09-28 13:33:58.738827+00")
 ```
 
-To automatically delete old versions, we'll add one more column to the **employees_table**, `created_at`. We will use this information to expire old versions after they are older than our retenion configuration, with the help of **pg_partman**.
+To automatically delete old versions, we'll add one more column to the **employees_table**, `created_at`. We will use this information to expire old versions after they are older than our retention configuration, with the help of **pg_partman**.
 
 ## Getting set up
 
@@ -50,7 +50,7 @@ To automatically delete old versions, we'll add one more column to the **employe
 
 I have a Dockefile, two SQL scripts, and a file with Postgres configurations.
 
-```
+```tree
 .
 ├── Dockerfile
 ├── 0_startup.sql
@@ -140,7 +140,7 @@ UPDATE part_config
 
 **custom.conf:** our additions to the Postgres configuration.
 
-```
+```ini
 # Enable pg_partman background worker
 shared_preload_libraries = 'pg_partman_bgw'
 
@@ -496,7 +496,7 @@ Execution Time: 262.706 ms
 ```
 This query took 263 milliseconds. We notice this query needs to scan all partitions, because we are partitioning by `created_at`, and querying `sys_period`. We can improve the speed with indexes.
 
-If this was a real workload, I doubt that employees' salaries are being updated so frequently, or at least that's been the case in my personal experience. However, if it's a big company, then there could be a lot of employees. In that case, it would be best to add an index on the name (or more realistically, employee ID) in the **employees_history** table. Then, withing each partition it will find only rows for the employee being queryed using the index, then it would scan the remaining rows, probably typically zero, one, or two rows, to find the correct salary.
+If this was a real workload, I doubt that employees' salaries are being updated so frequently, or at least that's been the case in my personal experience. However, if it's a big company, then there could be a lot of employees. In that case, it would be best to add an index on the name (or more realistically, employee ID) in the **employees_history** table. Then, withing each partition it will find only rows for the employee being queried using the index, then it would scan the remaining rows, probably typically zero, one, or two rows, to find the correct salary.
 
 ## Expiring old versions
 
@@ -525,7 +525,7 @@ ORDER BY
     partition_name;
 ```
 
-In order to check that old versions are being dropped, I ran the procedure to create a lot of salaray increments several times in a row.
+In order to check that old versions are being dropped, I ran the procedure to create a lot of salary increments several times in a row.
 
 Then, running the above query, I find an output like this:
 

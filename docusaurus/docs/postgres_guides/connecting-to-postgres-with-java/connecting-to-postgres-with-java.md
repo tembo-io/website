@@ -19,7 +19,7 @@ Let’s get started.
 **1.1** - Download the PostgreSQL JDBC Driver in your Device. Visit their [official website](https://jdbc.postgresql.org/download/) to download it.
 
 :::info
-PostgreSQL JDBC Driver is driver that allows the users to connect a Java progam to a PostgreSQL database. It is an Open-source driver. To learn more about it, [check there official documentation](https://jdbc.postgresql.org/).
+PostgreSQL JDBC Driver is driver that allows the users to connect a Java program to a PostgreSQL database. It is an Open-source driver. To learn more about it, [check there official documentation](https://jdbc.postgresql.org/).
 :::
 
 **1.2** - Add the PostgreSQL JDBC Driver JAR file to your project.
@@ -34,7 +34,7 @@ To do that go to Project Properties → Add JAR/Folder and select the downloaded
 
 Open the `pom.xml` file in your project directory and integrate the PostgreSQL JDBC driver. To do that, simply paste the following code snippet in `pom.xml` file.
 
-```
+``` xml
 <dependencies>
     <!-- Other dependencies -->
     <dependency>
@@ -59,7 +59,7 @@ You do not need to manually download the JDBC Driver when you are using Maven me
 
 **Step 3** - Connect the PostgreSQL database to your project. Use this code to connect the database:
 
-```
+``` java
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -93,7 +93,7 @@ Make sure to replace the `username`, `password`, and `database_name` with the cr
 
 **Step 4** - Now you can execute your desired SQL queries to perform operations on database.
 
-```
+``` java
 Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
 
 Statement statement = connection.createStatement();
@@ -102,8 +102,8 @@ ResultSet resultSet = statement.executeQuery("SELECT * FROM employees");
 
 while (resultSet.next())
 {
-String columnValue = resultSet.getString("column_name");
-System.out.println("Column Value: " + columnValue);
+    String columnValue = resultSet.getString("column_name");
+    System.out.println("Column Value: " + columnValue);
 }
 ```
 
@@ -111,7 +111,7 @@ Use your table name in-place of `employees`.
 
 **Step 5** - Close the connection after you have performed the desired operations on the database.
 
-```
+``` java
 resultSet.close();
 statement.close();
 connection.close();
@@ -121,7 +121,7 @@ In this example, we have demonstrated how you can read the data, but you can als
 
 **Insert**
 
-```
+``` java
 (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
             String sql = "INSERT INTO employees(column1, column2) VALUES (value1, value2)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -136,7 +136,7 @@ In this example, we have demonstrated how you can read the data, but you can als
 
 **Update**
 
-```
+``` java
 (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
             String sql = "UPDATE employees SET column1 = ‘value1’ WHERE column2 = ‘value2’";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -151,7 +151,7 @@ In this example, we have demonstrated how you can read the data, but you can als
 
 **Create Table**
 
-```
+``` java
 (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
             Statement statement = connection.createStatement();
 

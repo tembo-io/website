@@ -42,8 +42,8 @@ We want to add an alternate domain name `steven.tembo-development.com`, so that 
   - For example, `org_2T7FJA0DpaNBnELVLU1IS4XzZG0`.
 
 Confirming a TXT record is present:
-```
-➜  ~ dig -t txt _tembo.steven.tembo-development.com
+``` console
+# dig -t txt _tembo.steven.tembo-development.com
 
 ; <<>> DiG 9.10.6 <<>> -t txt _tembo.steven.tembo-development.com
 ;; global options: +cmd
@@ -74,8 +74,8 @@ Next, we configure a CNAME record so that when clients perform DNS resolution on
 
 Confirming a CNAME record is present:
 
-```
-➜  ~ dig -t cname steven.tembo-development.com
+``` console
+$ dig -t cname steven.tembo-development.com
 
 ; <<>> DiG 9.10.6 <<>> -t cname steven.tembo-development.com
 ;; global options: +cmd

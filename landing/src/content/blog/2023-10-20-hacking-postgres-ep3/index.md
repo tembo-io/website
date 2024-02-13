@@ -218,7 +218,7 @@ Is it sort of a competitive advantage for the business? The power that I know, y
 
 ##### _[00:12:08] - Eric_
 
-Yeah, absolutely. Our industry is ediscovery litigation support and among many other areas within that domain, searching large volumes of text is a key thing. And we're the only player in our industry that has text search capabilities to the degree that we do. And I'm not going to go name or other competitors or anything, but their abilities to do complicated text search that involves fuzzy queries plus regular expressions, plus boolean expressions, plus long tail proximity queries hit highlighting it's our abilities to do that just far exceed our competitors because of ZomboDB, because of postgres, and because of Elasticsearch.
+Yeah, absolutely. Our industry is e-discovery litigation support and among many other areas within that domain, searching large volumes of text is a key thing. And we're the only player in our industry that has text search capabilities to the degree that we do. And I'm not going to go name or other competitors or anything, but their abilities to do complicated text search that involves fuzzy queries plus regular expressions, plus boolean expressions, plus long tail proximity queries hit highlighting it's our abilities to do that just far exceed our competitors because of ZomboDB, because of postgres, and because of Elasticsearch.
 
 
 ##### _[00:12:55] - Ry_

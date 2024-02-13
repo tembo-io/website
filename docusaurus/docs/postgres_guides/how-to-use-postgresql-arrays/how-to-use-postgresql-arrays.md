@@ -22,7 +22,7 @@ Let’s see how you can create and use an array-typed column:
 
 **Step 1** - Creating a table with an array column. For the array column, you can use the square brackets '[]' immediately after specifying the data type for the array, just like this:
 
-```
+``` sql
 CREATE TABLE students(
     id integer PRIMARY KEY,
     name VARCHAR(30),
@@ -33,7 +33,7 @@ CREATE TABLE students(
 
 In this example, the `home_coordinates` array does not have any fixed length and you can insert as many values in it as you want. You can also set limits for the array by specifying its maximum length in between the square brackets:
 
-```
+``` sql
 CREATE TABLE students(
     id integer PRIMARY KEY,
     name VARCHAR(30),
@@ -50,7 +50,7 @@ In this example, the `home_coordinates` column will store an array of maximum le
 
 Postgres comes with an `ARRAY` constructor that can be initialized in the SQL query to insert the array values into the table:
 
-```
+``` sql
 INSERT INTO students (id, name, age, home_coordinates) VALUES (1, 'John', 15, ARRAY[40.7, 74.0]);
 ```
 
@@ -60,7 +60,7 @@ Learn more about `ARRAY` constructor on their [official website](https://www.pos
 
 You can also use braces to represent an array:
 
-```
+``` sql
 INSERT INTO students (id, name, age, home_coordinates) VALUES (1, 'John', 15, {40.7, 74.0});
 ```
 
@@ -68,7 +68,7 @@ INSERT INTO students (id, name, age, home_coordinates) VALUES (1, 'John', 15, {4
 
 Specify the element number along with the column name that you want to fetch. Following command will display the first element of `home_coordinates` array:
 
-```
+``` sql
 SELECT home_coordinates[1] FROM students;
 ```
 
@@ -76,7 +76,7 @@ SELECT home_coordinates[1] FROM students;
 
 You can also specify a `WHERE` clause condition in the query. Following command will display the whole row where the latitude or longitude of a home is above 40 degrees:
 
-```
+``` sql
 SELECT * FROM students WHERE 40 < ANY (home_coordinates);
 ```
 
@@ -86,7 +86,7 @@ SELECT * FROM students WHERE 40 < ANY (home_coordinates);
 
 `UPDATE` statement can be used to remove element(s) from the array. To remove the value `74.0` from the array, execute the following command:
 
-```
+``` sql
  UPDATE students SET home_coordinates = array_remove(home_coordinates, 74.0);
 ```
 
@@ -94,7 +94,7 @@ SELECT * FROM students WHERE 40 < ANY (home_coordinates);
 
 It can then be used to append data to the array. To add the value `80.0` at the end of `home_coordinates` array, execute the following command:
 
-```
+``` sql
 UPDATE students SET home_coordinates = home_coordinates || ARRAY[80.0];
 ```
 
@@ -106,7 +106,7 @@ PostgreSQL offers a range of utilities to manage arrays. Some of these popular a
 
 `array_cat` function concatenates or merges multiple arrays and returns the merged array:
 
-```
+``` sql
 SELECT array_cat(array[1, 2], array[3, 4]);
 ```
 
@@ -114,7 +114,7 @@ SELECT array_cat(array[1, 2], array[3, 4]);
 
 `array_dims` function returns the dimensions of an array:
 
-```
+``` sql
 SELECT array_dims(array[[1, 2, 3], [4, 5, 6]]);
 ```
 
@@ -122,7 +122,7 @@ SELECT array_dims(array[[1, 2, 3], [4, 5, 6]]);
 
 `array_length` function returns the length of an array:
 
-```
+``` sql
  SELECT array_length(home_coordinates, 1) AS total_coordinates FROM students;
 ```
 
