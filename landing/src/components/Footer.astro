@@ -115,7 +115,7 @@ import { Image } from 'astro:assets';
 				</div>
 			</div>
 			<div
-				class='flex flex-col-reverse min-[470px]:flex-row justify-between min-[470px]:items-center mt-16 font-medium text-grey text-[13px] w-full'
+				class='flex flex-col-reverse min-[470px]:flex-row min-[470px]:items-center justify-between mt-16 font-medium text-grey text-[13px] w-full'
 			>
 				<div class='flex items-center justify-stretch gap-6'>
 					<a
@@ -133,18 +133,15 @@ import { Image } from 'astro:assets';
 					href='/soc2.pdf'
 					target='_blank'
 					rel='noreferrer'
+					class='inline-flex gap-2 font-secondary mb-2 min-[470px]:mb-0 bg-gradient-rainbow text-transparent bg-clip-text'
 				>
-					<span
-						class='inline-flex gap-2 font-secondary mb-2 min-[470px]:mb-0 bg-gradient-rainbow text-transparent bg-clip-text'
-					>
-						<Image
-							src={Checkmark}
-							alt='checkmark'
-							width={14}
-							height={16}
-						/>
-						SOC2 Type 1 compliant
-					</span>
+					<Image
+						src={Checkmark}
+						alt='checkmark'
+						width={14}
+						height={16}
+					/>
+					SOC2 Type 1 compliant
 				</a>
 			</div>
 		</div>

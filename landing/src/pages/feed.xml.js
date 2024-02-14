@@ -4,10 +4,10 @@ import { AUTHORS } from '../content/config';
 
 export async function GET(context) {
 	const blog = await getCollection('blog');
-	const postImportResult = import.meta.glob('../content/blog/**/*.md', {
+	const postImportResult = import.meta.glob('../content/blog/**/*.{md,mdx}', {
 		eager: true,
 	});
-	const posts = Object.values(postImportResult);
+	const posts = Object.values(postImportResult).reverse();
 	return rss({
 		title: 'Tembo’s Blog',
 		description:
@@ -21,7 +21,7 @@ export async function GET(context) {
 			const dateString = post.id.substring(0, 10);
 			const parsedDate = post.data?.date || new Date(dateString);
 			const COULD_NOT_BE_RENDERED =
-				'This post contained content that could not be rendered in the RSS feed. Please use the official post link on https://tembo.io.';
+            `This post contained content that could not be rendered in the Atom feed. Please use the official post link: https://tembo.io/blog/${post.slug}`
 			const isMdx = post.id.includes('.mdx');
 			return {
 				title: post.data.title,

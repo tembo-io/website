@@ -51,7 +51,7 @@ If you'd like to learn more, check out our guide: [How to select database in Pos
 ### Load the data
 
 Navigate to your local directory where the data is stored; the path will look similar to path/to/target/directory/postgis-workship/data/.
-For this simple exercise, we'll focus excusively on shapefiles, but bear in mind that they alone do not represent the entire dataset.
+For this simple exercise, we'll focus exclusively on shapefiles, but bear in mind that they alone do not represent the entire dataset.
 Consider the following files:
 - nyc_cencus_blocks.shp
 - nyc_homicides.shp
@@ -60,7 +60,7 @@ Consider the following files:
 - nyc_subway_stations.shp
 
 PostGIS does a great job in their free workshop how to use ogr2ogr with select flags to load data into Postgres.
-Their explaination can be found [here](https://postgis.net/workshops/postgis-intro/loading_data.html).
+Their explanation can be found [here](https://postgis.net/workshops/postgis-intro/loading_data.html).
 With the following command, we can load files (individually) into Postgres:
 
 ```bash
