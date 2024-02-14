@@ -200,13 +200,9 @@ PgBouncer offers the best latency for low (<50) connection counts. However, its 
 
 So, according to these experiments, PgCat shows like it’s the best option when you have high connection counts.
 
-Thank you for reading until this point, dear reader. I hope you find these insights helpful. Also, I am curious: which connection pooler are you currently using and why? What other factors did you consider before making that decision? Let us know your comments at [@tembo_io](https://twitter.com/tembo_io).
+Thank you for reading until this point, dear reader. I hope you find these insights helpful. In a follow up post, we shall compare the three connection poolers using **prepared statements**. In the meantime, I am curious: which connection pooler are you currently using and why? What other factors did you consider before making that decision? Let us know your comments at [@tembo_io](https://twitter.com/tembo_io).
 
-**Update (2024/02/14): Made it clear that the experiments use Transaction mode.**
-
-**Update (2024/02/14): Updated the line plots in "Throughput and Latency for large connection count" for better visibility.**
-
-**Update (2024/02/14): In a follow up post, we shall compare the three connection poolers using prepared statements. Please, stay tuned!**
+**Update (2024/02/14): Made it clear that the experiments use Transaction mode and added note about prepared statements.**
 
 ## Appendix
 
