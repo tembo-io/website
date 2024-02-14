@@ -80,7 +80,7 @@ I used separate machines to give the connection pooler and pgbench enough CPU/Me
 
 The VMs were Google Cloud’s E2-standard-8 (8 vCPUs, 4 cores, 32GB memory), all in the same zone. The OS was Debian 11.8. Postgres version was 15.5. 
 
-I configured the three poolers to create a pool of 100 connections and the workload was generated using PgBench. I collected the outputs and analyzed them. For the exact details of my experiments to replicate them, please refer to this [github repository](https://github.com/binidxaba/postgres-conn-poolers-comparison). 
+I configured the three poolers to create a pool of 100 connections and the workload was generated using PgBench. In all cases, the pooler was configured for **Transaction mode**. I collected the outputs and analyzed them. For the exact details of my experiments to replicate them, please refer to this [github repository](https://github.com/binidxaba/postgres-conn-poolers-comparison). 
 
 
 ## Results
@@ -201,6 +201,10 @@ PgBouncer offers the best latency for low (<50) connection counts. However, its 
 So, according to these experiments, PgCat shows like it’s the best option when you have high connection counts.
 
 Thank you for reading until this point, dear reader. I hope you find these insights helpful. Also, I am curious: which connection pooler are you currently using and why? What other factors did you consider before making that decision? Let us know your comments at [@tembo_io](https://twitter.com/tembo_io).
+
+**Update (2024/02/14): Made it clear that the experiments use Transaction mode.**
+
+**Update (2024/02/14): Updated the line plots in "Throughput and Latency for large connection count" for better visibility.**
 
 **Update (2024/02/14): In a follow up post, we shall compare the three connection poolers using prepared statements. Please, stay tuned!**
 
