@@ -35,7 +35,7 @@ At its core, FerretDB is an open-source proxy built on Postgres that translates 
 We offer a fully-integrated, managed FerretDB experience with the help of our application services, as covered in an earlier [blog post](https://tembo.io/blog/tembo-operator-apps) of ours.
 Essentially, we achieve this by running FerretDB’s Docker image in a Kubernetes deployment next to Postgres.
 
-To provide a bit more detail, this process first required creating a novel TCP ingress routing in line with [FerretDB's secure connection instructions](https://docs.ferretdb.io/security/tls-connections/).
+To provide a bit more detail, this process first required creating a TCP ingress routing in line with [FerretDB's secure connection instructions](https://docs.ferretdb.io/security/tls-connections/).
 Once established, a Kubernetes Service and ingress resource could be created.
 Finally, we generated a template by which we could [load FerretDB via our Kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml).
 
