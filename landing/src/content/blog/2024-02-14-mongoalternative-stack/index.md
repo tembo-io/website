@@ -11,19 +11,19 @@ This is especially true when concerned with cross-database transitions, such as 
 
 Here at Tembo, we’re excited to launch Mongo compatibility on Postgres; a feature made possible by our new, FerretDB-powered [MongoAlternative Stack](https://tembo.io/docs/tembo-stacks/mongo-alternative)!
 This is an exciting first, as users now have access to FerretDB, hosted on Tembo Cloud next to your Postgres instance.
-With the power of a fully-integrated FerretDB, users not only have access to a Mongo-compatible Postgres database without needing to change their application, they can do it with very low latency and without the need to spin up a Docker container!
+With the power of a fully integrated FerretDB, users not only have access to a Mongo-compatible Postgres database without needing to change their application, but can also do it with very low latency and without the need to spin up a Docker container!
 
-To get started with a Mongo compatible instance on [Tembo Cloud](https://cloud.tembo.io/), just download the SSL certificate, move it to a target directory, and run the `mongosh` connection string in that directory!
+To get started with a Mongo-compatible instance on [Tembo Cloud](https://cloud.tembo.io/), just download the SSL certificate, move it to a target directory, and run the `mongosh` connection string in that directory!
 
 ![connection](./connection.png 'connection')
 Figure 1. Connection details for a sample MongoAlternative instance.
 
 ## Why migrate to Postgres?
 
-At first glance it’s easy to consider Mongo and Postgres as oil and water; why not, they’re document-oriented and relational databases?
+At first glance, it’s easy to consider Mongo and Postgres as oil and water; why not, they’re document-oriented and relational databases?
 While this might have stood up years ago, recent developments in Postgres greatly increase the reasons someone might want to leave Mongo for Postgres.
-In addition to Postgres being the most-loved, most-utilized database (according to [StackOverflow’s 2023 Survey](https://survey.stackoverflow.co/2023/#section-most-popular-technologies-databases)), some reasons why Postgres might be the right choice for your document-oriented workloads are:
-- [Native jsonb support](https://www.postgresql.org/docs/current/datatype-json.html) as well as various extensions that provide additional document database capabilities.
+In addition to Postgres being the most-loved, most-utilized database (according to [Stack Overflow’s 2023 Survey](https://survey.stackoverflow.co/2023/#section-most-popular-technologies-databases)), some reasons why Postgres might be the right choice for your document-oriented workloads are:
+- [Native jsonb support](https://www.postgresql.org/docs/current/datatype-json.html), as well as various extensions that provide additional document database capabilities.
 - Rich ecosystem of extensions that can introduce new functions and data types.
 - ACID compliance and large SQL language support.
 - Ability to join with all your other data including relational data.
@@ -32,12 +32,12 @@ In addition to Postgres being the most-loved, most-utilized database (according 
 ## FerretDB as an app service next to Postgres
 
 At its core, FerretDB is an open-source proxy built on Postgres that translates Mongo wire protocol queries into SQL, bridging the gap between document-oriented and relational database systems.
-We offer a fully-integrated, managed FerretDB experience with the help of our application services, covered in an earlier [blog post](https://tembo.io/blog/tembo-operator-apps) of ours.
-Essentially, we achieve this by running FerretDB’s docker image in a kubernetes deployment next to Postgres.
+We offer a fully-integrated, managed FerretDB experience with the help of our application services, as covered in an earlier [blog post](https://tembo.io/blog/tembo-operator-apps) of ours.
+Essentially, we achieve this by running FerretDB’s Docker image in a Kubernetes deployment next to Postgres.
 
 To provide a bit more detail, this process first required creating a novel TCP ingress routing in line with [FerretDB's secure connection instructions](https://docs.ferretdb.io/security/tls-connections/).
 Once established, a Kubernetes Service and ingress resource could be created.
-Finally, we generated a template by which we could [load FerretDB via our kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml).
+Finally, we generated a template by which we could [load FerretDB via our Kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml).
 
 ![app_service](./app_service.png 'app_service')
 Figure 2. Diagram of Tembo's MongoAlternative Stack-specific appService.
@@ -46,7 +46,8 @@ Figure 2. Diagram of Tembo's MongoAlternative Stack-specific appService.
 Before migrating from any database, it’s advisable to run pre-migration testing.
 FerretDB lays out a guide on how to do just that [in their official docs](https://docs.ferretdb.io/migration/premigration-testing/).
 
-For demonstrative purposes, let's consider the following sample dataset consisting of two collections (known as tables in relational databases), satellites and orbit_data, containing information about two sets of weather satellites.
+For demonstrative purposes, let's consider the following sample dataset, which consists of two collections (known as tables in relational databases): satellites and orbit_data.
+These collections contain information about two sets of weather satellites.
 
 ```
 db.satellites.insertMany([
@@ -68,15 +69,16 @@ db.orbit_data.insertMany([
 ]);
 ```
 
-A quick and easy way of getting the data out of Mongo is to use the cli tool, mongodump.
-In the case of this dataset, the resultant files are orbit_data.bson, orbit_data.metadata.json, satellites.bson, satellites.metadata.json.
+A quick and easy way of getting data out of Mongo is to use the CLI tool, mongodump.
+In the case of this dataset, the resultant files are `orbit_data.bson`, `orbit_data.metadata.json`, `satellites.bson`, `satellites.metadata.json`.
+
+Use the following command to export your Mongo data to the current working directory:
 
 ```
 mongodump --uri="<your-mongo-host>" --username <your-mongo-username> --password <your-mongo-password>
 ```
 
-This command exports your Mongo data to the current working directory.
-You can then load the data by using the credentials to your MongoAlternative Postgres instance by running mongorestore.
+You can then load the data by using the credentials to your MongoAlternative Postgres instance by running mongorestore as follows:
 
 ```
 mongorestore --uri "mongodb://postgres:<your-tembo-password>@<your-tembo-host>:27018/ferretdb?authMechanism=PLAIN&tls=true&tlsCaFile=$(pwd)/ca.crt" </your/path/to/dump/files>
@@ -104,7 +106,7 @@ satellites
 
 One of the benefits of running FerretDB alongside Postgres is that you can also access your data via SQL in addition to MQL.
 Once connected to your Tembo MongoAlternative instance via `psql`, simply run `SET search_path TO ferretdb;`.
-From there you can run any read queries to further explore your dataset via Postgres’ SQL dialect.
+From there, you can run any read queries to further explore your dataset via Postgres’ SQL dialect.
 Here’s an example of what this representation would look like in Postgres:
 
 ### 1. What are the available tables?
@@ -157,7 +159,7 @@ FROM ferretdb.orbit_data_aadfd118;
 ## Try it out today!
 
 Using Tembo’s MongoAlternative Stack, you can seamlessly migrate your data out of Mongo and into Postgres while still keeping your Mongo API.
-There are a large number of commands available, which you can checkout in FerretDB’s [supported commands](https://docs.ferretdb.io/reference/supported-commands/) documentation.
+There are a large number of commands available, which you can find in FerretDB’s [supported commands](https://docs.ferretdb.io/reference/supported-commands/) documentation.
 Interested in learning more?
 Check out our [MongoAlternative getting started guide](https://tembo.io/docs/tembo-stacks/mongo-alternative).
 
