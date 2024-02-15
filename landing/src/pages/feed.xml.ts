@@ -1,18 +1,19 @@
 import rss from '@astrojs/rss';
+import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { AUTHORS } from '../content/config';
 
-export async function GET(context) {
+export const GET: APIRoute = async (context) => {
 	const blog = await getCollection('blog');
 	const postImportResult = import.meta.glob('../content/blog/**/*.{md,mdx}', {
 		eager: true,
 	});
-	const posts = Object.values(postImportResult).reverse();
+	const posts: any[] = Object.values(postImportResult).reverse();
 	return rss({
 		title: 'Tembo’s Blog',
 		description:
 			'Latest news and technical blog posts from membors of the Tembo team and community!',
-		site: context.site,
+		site: context.site as string | URL,
 		xmlns: {
 			atom: 'http://www.w3.org/2005/Atom',
 		},
@@ -25,7 +26,7 @@ export async function GET(context) {
 			const isMdx = post.id.includes('.mdx');
 			return {
 				title: post.data.title,
-				pubDate: new Date(parsedDate).toISOString(),
+				pubDate: new Date(parsedDate).toISOString() as any,
 				description: post.data.description,
 				link: `/blog/${post.slug}`,
 				content: isMdx

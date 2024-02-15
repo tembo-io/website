@@ -7,7 +7,7 @@ export async function GET() {
     const postImportResult = import.meta.glob('../../content/blog/**/*.{md,mdx}', {
 		eager: true,
 	});
-	const posts = Object.values(postImportResult).reverse();
+	const posts: any[] = Object.values(postImportResult).reverse();
     const feed = new Feed({
         title: "Tembo's Blog",
         description: "Latest news and technical blog posts from membors of the Tembo team and community!",
