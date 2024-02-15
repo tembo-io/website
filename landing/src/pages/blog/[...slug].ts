@@ -1,7 +1,9 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import fs from 'fs';
-import path from 'path'
+import path from 'path';
+
+const ALLOWED_EXTENSIONS = ['.pdf', '.json', '.csv', '.mp4'];
 
 export const GET: APIRoute = async ({ params }) => {
   const { slug } = params;
@@ -22,7 +24,7 @@ export async function getStaticPaths() {
     let entries: { params: { slug: string } }[] = []
 
     const files = fs.readdirSync(directoryPath);
-    entries = files.filter(file => file.endsWith('.pdf') || file.endsWith('.json')).map(file => {
+    entries = files.filter(file => ALLOWED_EXTENSIONS.some(ext => file.endsWith(ext))).map(file => {
       const fileSlug = `${slug}/${file}`;
       return { params: { slug: fileSlug } };
     });
