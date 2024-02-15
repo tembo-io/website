@@ -70,9 +70,9 @@ happy to share more widely:
 Links:
 
 *   [Video (YouTube)](https://www.youtube.com/watch?v=sjZPA3HA_q8)
-*   [Keynote](pgxn-architecture.key "“PGXN Architecture” Keynote deck")
-*   [PDF (one page per slide)](./pgxn-architecture.pdf)
-*   [PDF (one page per stage)](./pgxn-architecture-stages.pdf)
+*   [Keynote](/blog/pgxn-architecture/pgxn-architecture.key "“PGXN Architecture” Keynote deck")
+*   [PDF (one page per slide)](/blog/pgxn-architecture/pgxn-architecture.pdf)
+*   [PDF (one page per stage)](/blog/pgxn-architecture/pgxn-architecture-stages.pdf)
 
 [Tembo Stacks]: https://tembo.io/docs/category/tembo-stacks
 [join the team]: /blog/2024-01-22-welcoming-pgxn-creator-david-wheeler/index.md
