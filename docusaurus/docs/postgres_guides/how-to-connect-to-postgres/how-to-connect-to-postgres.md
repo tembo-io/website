@@ -17,20 +17,20 @@ According to the [official documentation](https://www.postgresql.org/docs/curren
 
 Once you have opened your preferred terminal, you can connect using this command:
 
-```
+``` sh
 psql postgresql://$HOST:$PORT/$DB_NAME -U $USER_NAME
 ```
 
 If your database is running locally, you can omit most of this command, as psql will know to connect via Unix-sockets or via TCP to localhost. You can just run:
 
-```
+``` sh
 psql -U $USER_NAME
 ```
 
 After you run this command, Postgres will prompt you for your password, which you can type in.
 
 :::important
-If you will be connecting to the same database frequently, it makes sense to have a _~/.pgpass_ file ([learn more](https://www.postgresql.org/docs/current/libpq-pgpass.html)), which is a simple text file that contains lines of the following form:
+If you will be connecting to the same database frequently, it makes sense to have a `~/.pgpass` file ([learn more](https://www.postgresql.org/docs/current/libpq-pgpass.html)), which is a simple text file that contains lines of the following form:
 
 ```
 hostname:port:database:username:password

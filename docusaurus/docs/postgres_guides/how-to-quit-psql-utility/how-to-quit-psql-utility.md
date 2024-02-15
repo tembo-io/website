@@ -10,7 +10,7 @@ This guide is designed to demystify the process of quitting the PSQL utility. In
 
 ## Using \q command
 
-You can simple execute the `\q` command in the psql promt to exit the psql utility. The **q** in \q stands for quit.
+You can simple execute the `\q` command in the psql prompt to exit the psql utility. The **q** in \q stands for quit.
 
 ```
 \q
@@ -24,7 +24,7 @@ Make sure to exit to your database after you have performed every operation that
 
 ## Using Keyboard shortcuts
 
-Psql also comes with an option to quit the psql utility with some defined keyboard shortcuts. These keyboard shortcuts varies depending upon the operating system you are usig
+Psql also comes with an option to quit the psql utility with some defined keyboard shortcuts. These keyboard shortcuts varies depending upon the operating system you are using
 
 - For Windows → `Ctrl + C`
 

@@ -147,7 +147,7 @@ SELECT * FROM vectorize.search(
 );
 ```
 
-```console
+```
                                          search_results                                         
 ------------------------------------------------------------------------------------------------
  {"product_id": 13, "product_name": "Phone Charger", "similarity_score": 0.8564774308489237}

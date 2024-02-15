@@ -14,7 +14,7 @@ In PostgreSQL, views are virtual representations of data that show the outcomes 
 
 **Step 2** - Create the SQL query that you want to turn into a view. Any `SELECT` query can be turned into a view. For example:
 
-```
+``` sql
 SELECT id, age
 FROM users
 WHERE age >= 18;
@@ -22,7 +22,7 @@ WHERE age >= 18;
 
 **Step 3** - If you are satisfied, you can create a view using the `CREATE VIEW` command. Assign a name to the view and add your desired query to the view:
 
-```
+``` sql
 CREATE VIEW adult_users AS
 SELECT id, age
 FROM users
@@ -31,7 +31,7 @@ WHERE age >= 18;
 
 **Step 4** - Now you can query that view the same way you would query any table. For example:
 
-```
+``` sql
 SELECT age, COUNT(*) FROM adult_users GROUP BY age;
 ```
 
@@ -39,7 +39,7 @@ Note that views do not store any data by themselves. They are only a query over 
 
 Postgres comes with the `ALTER VIEW` command which can be used to modify or edit the created view. `ALTER VIEW` can also be used to recreate the view with a whole new SQL query:
 
-```
+``` sql
 ALTER VIEW adult_users AS
 SELECT id, age
 FROM users
@@ -48,7 +48,7 @@ WHERE age >= 20;
 
 And to drop (delete) the view, there’s a `DROP VIEW` command in Postgres:
 
-```
+``` sql
 DROP VIEW adult_users;
 ```
 

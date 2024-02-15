@@ -13,7 +13,7 @@ There's an example of using this method of trying extensions in the blog [Versio
 ## Start Postgres using Docker
 
 - You can start a Postgres container locally like this:
-```
+``` sh
 docker run -d -it --name local-tembo -p 5432:5432 --rm quay.io/tembo/tembo-local
 ```
 - The above image includes common system dependencies for extensions listed in [Trunk](https://pgt.dev). Some extensions have very large dependencies, and these are not included.
@@ -22,23 +22,23 @@ docker run -d -it --name local-tembo -p 5432:5432 --rm quay.io/tembo/tembo-local
 
 - Browse [Trunk](https://pgt.dev) to find interesting extensions.
 - Get a shell connection into your Postgres container:
-```
+``` sh
 docker exec -it local-tembo /bin/bash
 ```
 
 - `trunk install` an extension:
-```
+``` sh
 trunk install pgmq
 ```
 
 ## Enabling extensions
 
 - Connect to Postgres. This works from inside or outside the Postgres container.
-```
+``` sh
 psql postgres://postgres:postgres@localhost:5432
 ```
 - Enable an extension. Note a hyphenated extension name, e.g., `uuid-ossp`, will require double quotes when enabling.
-```
+``` sql
 CREATE EXTENSION pgmq CASCADE;
 ```
 - List enabled extensions.
@@ -52,7 +52,7 @@ After using the above process to experiment with extensions, you may want to bui
 
 - Optionally, create a Postgres configuration file. Some extensions require configuration, for example `shared_preload_libraries`, or extension-specific configurations like `cron.host`. In this example, we have named the file `custom.conf`.
 
-```
+``` ini
 shared_preload_libraries = 'pg_partman_bgw'
 ```
 
@@ -64,7 +64,7 @@ CREATE EXTENSION IF NOT EXISTS pg_partman CASCADE;
 
 - Create a Dockerfile:
 
-```
+```dockerfile
 FROM quay.io/tembo/tembo-local:latest
 
 # Optional:
@@ -82,7 +82,7 @@ COPY startup.sql $PGDATA/startup-scripts
 
 - We now have the following files present in our directory:
 
-```
+```tree
 .
 ├── Dockerfile
 ├── custom.conf
@@ -93,7 +93,7 @@ COPY startup.sql $PGDATA/startup-scripts
 
 - This setup allows you to build an image that will start with your extensions ready to go:
 
-```
+``` sh
 # Build the image
 docker build -t example-local-image .
 
@@ -106,6 +106,6 @@ docker run -d -it --name local-tembo -p 5432:5432 --rm example-local-image
 
 - Connect to postgres in the same way as before:
 
-```
+``` sh
 psql postgres://postgres:postgres@localhost:5432
 ```

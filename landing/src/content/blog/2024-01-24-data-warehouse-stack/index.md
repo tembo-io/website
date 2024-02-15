@@ -182,6 +182,6 @@ Tembo's data warehouse was made possible by the hard work from [Jay Kothari](htt
 
 ![tembo-dw-stack](./fin.png 'final')
 
-The Tembo Datawarehouse Stack is [open source](https://github.com/tembo-io/tembo-stacks/blob/main/tembo-operator/src/stacks/templates/data_warehouse.yaml), and is available to deploy with a single click on [Tembo Cloud](https://cloud.tembo.io).
+The Tembo DataWarehouse Stack is [open source](https://github.com/tembo-io/tembo-stacks/blob/main/tembo-operator/src/stacks/templates/data_warehouse.yaml), and is available to deploy with a single click on [Tembo Cloud](https://cloud.tembo.io).
 
 Join the conversation about the Tembo Data Warehouse Stack in our [Slack Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw.)

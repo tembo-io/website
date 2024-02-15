@@ -99,7 +99,7 @@ Yeah. Awesome. Let's talk about some of your Postgres work. I know you've worked
 
 ##### [00:02:26] - Bertrand
 
-Yeah. So when I started to study Postgres, I was comparing with what I knew in Oracle, in the Oracle world, and I was like something like active session history was not there. And I was like, so let's try to build this. And this is how pgsentinel came up. So it's an extension that record active session. So it's pulling regularly active session from pgstat activity. You can define the sampling period and as well as the number of record to retain. It's in-memory ring buffer. And before PG 14, I think the query ID was not present in pgstat activity. So I had also to make use of, I think the [inaudible 00:03:18]  analyze hook to get the query ID and to show this up so that in every pgsentinel record you see what the session was doing and which query ID was associated at the time of the sampling.
+Yeah. So when I started to study Postgres, I was comparing with what I knew in Oracle, in the Oracle world, and I was like something like active session history was not there. And I was like, so let's try to build this. And this is how pgsentinel came up. So it's an extension that record active session. So it's pulling regularly active session from pgstat_activity. You can define the sampling period and as well as the number of record to retain. It's in-memory ring buffer. And before PG 14, I think the query ID was not present in pgstat_activity. So I had also to make use of, I think the [inaudible 00:03:18]  analyze hook to get the query ID and to show this up so that in every pgsentinel record you see what the session was doing and which query ID was associated at the time of the sampling.
 
 
 ##### [00:03:33] - Ry
@@ -294,7 +294,7 @@ And yes, we are involved in case there is a bug or things like this.
 
 ##### [00:16:37] - Ry
 
-Right, of course. Yeah. That's the idea is to have, it's nice to have a pack of tributors nearby when things are going.
+Right, of course. Yeah. That's the idea is to have, it's nice to have a pack of contributors nearby when things are going.
 
 
 ##### [00:16:47] - Bertrand
@@ -419,7 +419,7 @@ Okay, I like that. Any other areas of observability that you think are big oppor
 
 ##### [00:22:33] - Bertrand
 
-Yeah, for example, when a query is running, we'd like to know in which part of the plan is it running currently and pgstat activity displayed the plow ID. So I can also know which Plow ID was used in the past, which one is used currently and maybe there is a bad plan that were used and that's why it were slow before this kind of area.
+Yeah, for example, when a query is running, we'd like to know in which part of the plan is it running currently and pgstat_activity displayed the plow ID. So I can also know which Plow ID was used in the past, which one is used currently and maybe there is a bad plan that were used and that's why it were slow before this kind of area.
 
 
 ##### [00:23:01] - Ry

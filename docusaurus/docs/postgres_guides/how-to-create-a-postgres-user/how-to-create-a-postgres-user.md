@@ -18,7 +18,7 @@ Suppose you are working on a company’s project and you want to add your team m
 
 **Step 2** - Execute the following SQL query to create a new user in the database:
 
-```
+``` sql
 CREATE USER username WITH PASSWORD 'password';
 ```
 
@@ -44,7 +44,7 @@ Postgres comes with a [command line utility called `createuser`](https://www.pos
 
 **Step 1** - Open your terminal. If you are on a Unix-based system, then you first need to log into the operating system as a user with the right privileges to connect to the database (usually “postgres”). To do this execute the following command:
 
-```
+``` sh
 sudo -i -u postgres
 ```
 
@@ -52,7 +52,7 @@ If you are on Windows, you can skip this step.
 
 **Step 2** - Use the `createuser` command to create a new user in the Postgres database:
 
-```
+``` sh
 createuser --interactive --pwprompt username
 ```
 

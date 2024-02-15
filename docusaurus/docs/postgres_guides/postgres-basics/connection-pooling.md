@@ -18,7 +18,7 @@ Connection pooling is a method to effectively share database connections. It red
 
 **PgBouncer** is a lightweight connection pool for PostgreSQL. Its purpose is to effectively establish database connections, simultaneously improving the performance of applications built on PostgreSQL. PgBouncer acts as a Postgres server, so simply point your client to the PgBouncer port.
 
-Any application can connect to PgBouncer as a PostgeSQL server - PgBouncer will then manage connections from itself to the Postgres database.
+Any application can connect to PgBouncer as a PostgreSQL server - PgBouncer will then manage connections from itself to the Postgres database.
 
 Check out the [official documentation](https://www.pgbouncer.org/) to learn more about PgBouncer.
 
@@ -30,9 +30,9 @@ Firstly, install PgBouncer on a server or machine that can be reached by both yo
 
 ### Package Manager
 
-If your server is running on a Lunix-based system, you can take advantage of your system's package manager. To install the PgBouncer in Ubuntu, you can run the following command in your terminal:
+If your server is running on a Linux-based system, you can take advantage of your system's package manager. To install the PgBouncer in Ubuntu, you can run the following command in your terminal:
 
-```
+``` sh
 sudo apt-get install pgbouncer
 ```
 
@@ -42,11 +42,11 @@ PgBouncer can also be built from its source code. Simply download the source cod
 
 ## Configure 
 
-Configure PgBouncer with the pgbouncer.ini file that resides in the installation directory. You can also pass the file as a parameter when starting it.
+Configure PgBouncer with the `pgbouncer.ini` file that resides in the installation directory. You can also pass the file as a parameter when starting it.
 
 Here an example configuration for PgBouncer:
 
-```
+``` ini
 [databases]
 mydb = host=your_postgresql_host port=5432 dbname=your_database_name
 

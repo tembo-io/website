@@ -159,10 +159,10 @@ spec:
 
 To create our Postgres instance, we run the following command:
 
-```bash
-❯ kubectl apply -f yaml/sample-machine-learning.yaml
+```console
+$ kubectl apply -f yaml/sample-machine-learning.yaml
 coredb.coredb.io/sample-machine-learning created
-❯ kubectl get po
+$ kubectl get po
 NAME                                               READY   STATUS    RESTARTS   AGE
 sample-machine-learning-1                          1/1     Running   0          19s
 sample-machine-learning-metrics-5fbcf9b676-hkxtk   1/1     Running   0          31s
@@ -170,9 +170,9 @@ sample-machine-learning-metrics-5fbcf9b676-hkxtk   1/1     Running   0          
 
 Once we’ve connected to the Postgres instance, we can run `\dx` to confirm the extensions were installed and enabled as expected:
 
-```bash
-❯ export PGPASSWORD=$(kubectl get secrets/sample-machine-learning-connection --template={{.data.password}} | base64 -d)
-❯ psql postgres://postgres:$PGPASSWORD@sample-machine-learning.localhost:5432
+```console
+$ export PGPASSWORD=$(kubectl get secrets/sample-machine-learning-connection --template={{.data.password}} | base64 -d)
+$ psql postgres://postgres:$PGPASSWORD@sample-machine-learning.localhost:5432
 psql (16.0 (Ubuntu 16.0-1.pgdg22.04+1), server 15.3)
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
 Type "help" for help.
@@ -208,8 +208,8 @@ extensions:
 
 After applying the updated spec and connecting to Postgres, we can see the new extension [pg_bm25](https://pgt.dev/extensions/pg_bm25) is installed and enabled as expected:
 
-```bash
-❯ psql postgres://postgres:$PGPASSWORD@sample-machine-learning.localhost:5432
+```console
+$ psql postgres://postgres:$PGPASSWORD@sample-machine-learning.localhost:5432
 psql (16.0 (Ubuntu 16.0-1.pgdg22.04+1), server 15.3)
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
 Type "help" for help.

@@ -15,7 +15,7 @@ only when necessary, allowing for easier handling of thousands of connections at
 
 This document will guide you through the process of enabling and configuring connection pooling on Tembo Cloud.
 
-## Enabling and Configuring Connnection Pooling via the Tembo Cloud API
+## Enabling and Configuring Connection Pooling via the Tembo Cloud API
 
 1. Generate an API token for communicating with your Tembo instance. Navigate to https://cloud.tembo.io/generate-jwt and follow the instructions to generate a token.
 
@@ -81,7 +81,7 @@ curl -X 'PATCH' \
    psql "postgresql://<user>:<password>@$POOLER_HOST:5432?sslmode=require"
    ```
 
-## Connnection Pooling via the Tembo Cloud UI
+## Connection Pooling via the Tembo Cloud UI
 
 ### Enable and Configure your Tembo Instance's Connection Pooler
 

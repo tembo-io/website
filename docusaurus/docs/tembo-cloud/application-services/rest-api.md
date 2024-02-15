@@ -12,7 +12,7 @@ tags:
 **Powered by [PostgREST](https://postgrest.org/en/stable/)**
 :::
 
-Having an HTTP interface to your Postgres database significantly improves the rate at which you can develop applications. Sometimes developers build CRUD webservers from scratch, but for many use cases, you can simply use [PostgREST](https://postgrest.org/en/stable/) and it is available on Tembo Cloud.
+Having an HTTP interface to your Postgres database significantly improves the rate at which you can develop applications. Sometimes developers build CRUD web servers from scratch, but for many use cases, you can simply use [PostgREST](https://postgrest.org/en/stable/) and it is available on Tembo Cloud.
 
 PostgREST is a well-designed and supported Postgres project built by an awesome [group of engineers](https://github.com/PostgREST/postgrest/graphs/contributors), and arguably the fastest way to get a REST service in place for your Postgres database.
 
@@ -89,7 +89,7 @@ curl -X PATCH \
 
 ## Using PostgREST
 
-PostgREST is served within your data plane domain. This value is the same value as the host on your Tembo Postgres instance and can be found in at cloud.temb.io.
+PostgREST is served within your data plane domain. This value is the same value as the host on your Tembo Postgres instance and can be found in at cloud.tembo.io.
 
 First, create a table in the database:
 

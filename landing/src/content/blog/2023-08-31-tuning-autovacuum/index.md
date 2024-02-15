@@ -251,7 +251,7 @@ Reducing the scale factor had minimal impact on our result, so allowing the auto
 
 ## A Quick Siesta for Your System
 
-The autovacuum_naptime parameter in Postgres specifies the minimum delay between autovacuum runs on any given database. The default (which we set earlier) is `1min`. Generally, depending on just how high-churn your workloads are, it might be necessary to decrease this value, whereas a longer interval could be suited for environments that are not churning at such a high rate. But our table has a crazy amount of churn.
+The `autovacuum_naptime` parameter in Postgres specifies the minimum delay between autovacuum runs on any given database. The default (which we set earlier) is `1min`. Generally, depending on just how high-churn your workloads are, it might be necessary to decrease this value, whereas a longer interval could be suited for environments that are not churning at such a high rate. But our table has a crazy amount of churn.
 
 We want to reduce the height of the latency peaks. One way to do this is to make the vacuum more aggressive and tell it to run sooner. We tried to influence that by setting the `autovacuum_vacuum_scale_factor`, but we can also lower the `autovacuum_naptime` value, which will also allow it to run sooner. Let's cut it in half.
 

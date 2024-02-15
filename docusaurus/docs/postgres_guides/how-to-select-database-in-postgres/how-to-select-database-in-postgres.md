@@ -40,7 +40,7 @@ Make sure to replace the “database_name” with the name of your desired datab
 
 **Step 1** - Use the given below command to directly connect to your desired database. Then, enter your password and hit enter
 
-```
+``` sh
 psql -h hostname -p port postgres database_name
 ```
 

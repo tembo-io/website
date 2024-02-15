@@ -21,7 +21,7 @@ Whether dealing with spatial objects, location queries, or GIS (geographic infor
 
 ## Getting started
 
-Let's walkthrough a secenario that would involve loading geospatial data into Postgres.
+Let's walkthrough a scenario that would involve loading geospatial data into Postgres.
 
 ### Download GDAL library
 
@@ -30,7 +30,7 @@ If you haven't already, please [download the GDAL library](https://gdal.org/inde
 ### Download sample dataset
 
 For the purposes of this demonstration, we will utilize the PostGIS-supplied New York City data bundle.
-You can learn more about the PostGIS tutorial [here](https://postgis.net/workshops/postgis-intro/) or download the data direcly from this [link](https://s3.amazonaws.com/s3.cleverelephant.ca/postgis-workshop-2020.zip).
+You can learn more about the PostGIS tutorial [here](https://postgis.net/workshops/postgis-intro/) or download the data directly from this [link](https://s3.amazonaws.com/s3.cleverelephant.ca/postgis-workshop-2020.zip).
 Once downloaded, move the .zip file to your target directory and unzip.
 
 ## Setup
@@ -50,7 +50,7 @@ If you'd like to learn more, check out our guide: [How to select database in Pos
 
 ### Load the data
 
-Navigate to your local directory where the data is stored; the path will look similar to path/to/target/directory/postgis-workship/data/.
+Navigate to your local directory where the data is stored; the path will look similar to path/to/target/directory/postgis-workshop/data/.
 For this simple exercise, we'll focus exclusively on shapefiles, but bear in mind that they alone do not represent the entire dataset.
 Consider the following files:
 - nyc_cencus_blocks.shp

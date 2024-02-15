@@ -6,7 +6,7 @@ tags:
 
 import Headers from './images/headers.png'
 import PromptBox from './images/prompt-box.png'
-import SuccessfullPromptBox from './images/successfull-prompt-box.png'
+import SuccessfulPromptBox from './images/successful-prompt-box.png'
 
 # How to import a CSV file into Postgres
 
@@ -14,7 +14,7 @@ Imagine you are managing a large record of thousands of users having multiple de
 
 Manually inserting details of each of these users in the Postgres table would be extremely tedious and error-prone. Fortunately, Postgres comes with the flexibility to directly import a CSV file to a table with a single command and within a few seconds.
 
-There are mainly two ways to import the CSV file - Via a SQL query and via the Pgdmin tool.
+There are mainly two ways to import the CSV file - Via a SQL query and via the PgAdmin tool.
 
 ## Using SQL query
 
@@ -28,7 +28,7 @@ Save your CSV file on the machine where your database is running. Postgres needs
 
 **Step 3** - Create a table in the Postgres database into which you want to copy the data. To create the table, run the following command in your terminal:
 
-```
+``` sql
 CREATE TABLE table_name (column1 data_type, column2 data_type, column3 data_type, …);
 ```
 
@@ -38,7 +38,7 @@ A critical point to note is, the columns you will specify in this table should h
 
 Execute the following `COPY` command to copy the CSV file data to the Postgres table:
 
-```
+``` sql
 COPY table_name FROM 'path' WITH (FORMAT CSV, HEADER)
 ```
 
@@ -63,11 +63,11 @@ Right Click on Schemas and select the Query tool option.
 
 **Step 2** - Just like the previous method, you must create a table with the same columns and names as the data in the CSV file. To create the table, run the following command in query tool:
 
-```
+``` sql
 CREATE TABLE table_name (column1 data_type, column2 data_type, column3 data_type, …);
 ```
 
-**Step 3** - Right click on the created table (present under the tables section), and select the Import/Export Data option. The Import/Export Data Prompt box will appear on the sreen.
+**Step 3** - Right click on the created table (present under the tables section), and select the Import/Export Data option. The Import/Export Data Prompt box will appear on the screen.
 
 <img src={PromptBox} width="600" alt="PromptBox" />
 
@@ -77,7 +77,7 @@ CREATE TABLE table_name (column1 data_type, column2 data_type, column3 data_type
 
 **Step 5** - Click the OK button to initiate the import process. Upon successful completion of the data import, a prompt box will confirm the successful import of your data.
 
-<img src={SuccessfullPromptBox} width="600" alt="SuccessfullPromptBox" />
+<img src={SuccessfulPromptBox} width="600" alt="SuccessfulPromptBox" />
 
 ## Conclusion
 

@@ -10,7 +10,7 @@ In this tutorial, we have provided a thorough, step-by-step guide for creating a
 
 Let’s gets started
 
-**Step 1** - Install the Npsql library in your project. You can install it via .NET command line-interface by running this command in the terminal
+**Step 1** - Install the Npgsql library in your project. You can install it via .NET command line-interface by running this command in the terminal
 
 ```
 dotnet add package Npgsql

@@ -106,7 +106,7 @@ Do you remember when you first started using Postgres?
 
 ##### _[00:02:57] - Burak_
 
-Yeah, I do. Well to be honest, when I start programming I started as a web developer and at that time Lamp stack was very common. So my first database was MySQL but then I started working at Citus Data and which is the place that I started working development part of the Postgres. So basically for people who don't know Site, the Sitestata was the company behind many popular extensions such as Citus or Pgcron or PostgreSQL HLL. So when I first joined Citus Data, I initially worked on building Citus extension and while doing that you need to dig to the Postgres code first you need to understand and then you build your extension on top of it. And then we built our own managed service. So I switched to that team to build a Postgres managed service and some of our customers were well, they were heavily using PostgresQL HLL extension and at that time the original authors of the PostgreSQL HLL extension, they went through an acquisition process and they didn't have enough time at their hand to maintain the extension. And well, we know the people and at that time PostgreSQL Community was much smaller.
+Yeah, I do. Well to be honest, when I start programming I started as a web developer and at that time Lamp stack was very common. So my first database was MySQL but then I started working at Citus Data and which is the place that I started working development part of the Postgres. So basically for people who don't know Site, the CitusData was the company behind many popular extensions such as Citus or Pgcron or PostgreSQL HLL. So when I first joined Citus Data, I initially worked on building Citus extension and while doing that you need to dig to the Postgres code first you need to understand and then you build your extension on top of it. And then we built our own managed service. So I switched to that team to build a Postgres managed service and some of our customers were well, they were heavily using PostgresQL HLL extension and at that time the original authors of the PostgreSQL HLL extension, they went through an acquisition process and they didn't have enough time at their hand to maintain the extension. And well, we know the people and at that time PostgreSQL Community was much smaller.
 
 
 ##### _[00:04:37] - Burak_
@@ -171,12 +171,12 @@ Yeah, that's great. Yeah, it sounds like that's happening now with lots know a l
 
 ##### _[00:10:19] - Burak_
 
-Yeah, well, HLL stands for Hyperlog log and it is an extension to make a cardinality estimation, which is a fancy way of saying doing count distinct but approximately. Let me first explain why approximately. The reason is doing count distinct as an accurate number is pretty difficult. Well, not difficult, but maybe unfeasible. If your data size is small, that's okay. But if you have lots of data, the usual way is keeping a hash map or hash set. Every time you see an item you put it to hash set and at the end you count number of items in it. But if you have lots of data that becomes unfeasible. If you have a distributed system, like if you are doing count testing in two different nodes, that becomes even more difficult. Because let's say you bite the bullet and calculate the counter stick in one node and the other node, it's not possible to merge the result. Because there might be common elements, you cannot just sum them up. So what Hyperlog log does is it uses an approximation algorithm. I can go into detail of it as well to have an internal representation of the number of unique elements which is both memory efficient compared to doing a hash map which is also easy to merge.
+Yeah, well, HLL stands for HyperLogLog and it is an extension to make a cardinality estimation, which is a fancy way of saying doing count distinct but approximately. Let me first explain why approximately. The reason is doing count distinct as an accurate number is pretty difficult. Well, not difficult, but maybe unfeasible. If your data size is small, that's okay. But if you have lots of data, the usual way is keeping a hash map or hash set. Every time you see an item you put it to hash set and at the end you count number of items in it. But if you have lots of data that becomes unfeasible. If you have a distributed system, like if you are doing count testing in two different nodes, that becomes even more difficult. Because let's say you bite the bullet and calculate the counter stick in one node and the other node, it's not possible to merge the result. Because there might be common elements, you cannot just sum them up. So what HyperLogLog does is it uses an approximation algorithm. I can go into detail of it as well to have an internal representation of the number of unique elements which is both memory efficient compared to doing a hash map which is also easy to merge.
 
 
 ##### _[00:12:04] - Burak_
 
-So it allows you to do like the parallel computing. And the only gotcha is it is not an exact number, it's an approximation, but it turns out that we don't need exact number most of the time. Like for example, especially in analytical use cases, let's say you want to count the number of unique users that visit your website. It doesn't matter if they are 4 million or 4.1 million, like you want a ballpark number. And also the good thing is the error rate of hyperlog log is quite small. It is usually around 2% and you can make it even smaller if you give it a bit more memory like you can make it more accurate while this hyperlog log algorithm is just out there. And what PostgreSQL hyperlog log does is it implements this algorithm for PostgreSQL.
+So it allows you to do like the parallel computing. And the only gotcha is it is not an exact number, it's an approximation, but it turns out that we don't need exact number most of the time. Like for example, especially in analytical use cases, let's say you want to count the number of unique users that visit your website. It doesn't matter if they are 4 million or 4.1 million, like you want a ballpark number. And also the good thing is the error rate of HyperLogLog is quite small. It is usually around 2% and you can make it even smaller if you give it a bit more memory like you can make it more accurate while this HyperLogLog algorithm is just out there. And what PostgreSQL HyperLogLog does is it implements this algorithm for PostgreSQL.
 
 
 ##### _[00:13:09] - Ry_
@@ -186,7 +186,7 @@ So how much of a resource reduction would you estimate that using an approximati
 
 ##### _[00:13:24] - Burak_
 
-Well, usually it's about 1.5 KB. So the hyperlogo data structure on default it takes about 1.5 KB memory.
+Well, usually it's about 1.5 KB. So the HyperLog data structure on default it takes about 1.5 KB memory.
 
 
 ##### _[00:13:38] - Ry_
@@ -196,7 +196,7 @@ Orders of magnitude smaller.
 
 ##### _[00:13:40] - Burak_
 
-Yeah, actually log log parts come from that. So if you are dealing with 32 bit integers, it can go up to two to the 32. You get the log of that, it is 32. You get another log that you get five. So you need five bits of memory to be able to store one bucket. And then what hyperlog log does is it keeps multiple buckets to increase the accuracy. So at the end it end up about like 1.5 kilobyte.
+Yeah, actually log log parts come from that. So if you are dealing with 32 bit integers, it can go up to two to the 32. You get the log of that, it is 32. You get another log that you get five. So you need five bits of memory to be able to store one bucket. And then what HyperLogLog does is it keeps multiple buckets to increase the accuracy. So at the end it end up about like 1.5 kilobyte.
 
 
 ##### _[00:14:17] - Ry_
@@ -206,7 +206,7 @@ Got it. So how involved were you in that extension? Did you start it or did you 
 
 ##### _[00:14:25] - Burak_
 
-I inherited it. So actually another startup called Aggregate Knowledge built that extension. Then I think they got acquired by New Star and at that time the project was not maintained frequently. So there were some boxes we need to be merged in and our customers were also using it. So we contacted the original authors and said that hey, we want to maintain this. And they were happy to hand over the maintainership to us. And then after that we did bug fixes, we did regular releases. I presented a few conference talks about hyperlog log  in Pgcomp EU and Pgcomp US. Yeah, that's the overall story.
+I inherited it. So actually another startup called Aggregate Knowledge built that extension. Then I think they got acquired by New Star and at that time the project was not maintained frequently. So there were some boxes we need to be merged in and our customers were also using it. So we contacted the original authors and said that hey, we want to maintain this. And they were happy to hand over the maintainership to us. And then after that we did bug fixes, we did regular releases. I presented a few conference talks about HyperLogLog in PGConf EU and PGConf US. Yeah, that's the overall story.
 
 
 ##### _[00:15:24] - Ry_

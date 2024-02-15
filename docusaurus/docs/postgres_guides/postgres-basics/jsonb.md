@@ -44,7 +44,7 @@ SELECT data->'contacts'->>'email' as email FROM users WHERE data->'contacts'->>'
 
 ## Updating
 
-- Peforming an update on one of the fields
+- Performing an update on one of the fields
 ```sql
 UPDATE users SET data = jsonb_set(data, '{contacts,email}', '"new_email@example.com"') WHERE data->>'name' = 'John';
 ```
@@ -60,7 +60,7 @@ Updating one field of JSONB data also rewrites the column to disk.
 
 ## Checking if keys are present
 
-With unstructured documents, you'll often want to check for the prescence of particular keys.
+With unstructured documents, you'll often want to check for the presence of particular keys.
 
 - **Checking for the existence of a key**:
 

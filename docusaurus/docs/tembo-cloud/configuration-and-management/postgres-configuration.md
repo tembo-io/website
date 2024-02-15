@@ -23,14 +23,13 @@ More information on valid Postgres configuration values can be found at https://
 1. Generate an API token for communicating with your Tembo instance. Navigate to https://cloud.tembo.io/generate-jwt and follow the instructions to generate a token.
 
 
-2. Set the following environment variables:
+2.  Set the following environment variables:
 
-    ```bash
+    ```sh
     export TEMBO_TOKEN=<your token>
     export TEMBO_ORG=<your organization id>
     export TEMBO_INST=<your instance id>
     ```
-
 
 3. Patch your existing Tembo instance with new configuration values using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi):
 

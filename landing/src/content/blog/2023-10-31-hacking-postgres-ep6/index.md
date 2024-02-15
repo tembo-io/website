@@ -6,7 +6,6 @@ tags: [postgres, hacking-postgres]
 image: './ep6.png'
 ---
 
-
 In this episode, Ry, Regina, and Paul talk about geospatial development, the challenges of creating and maintaining an extension across multiple Postgres development cycles, and what they’re hoping for in the future of Postgres.
 
 Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Special thanks to Regina and Paul for joining us today!
@@ -25,8 +24,6 @@ Watch below, or listen on Apple/Spotify (or your podcast platform of choice). Sp
 </div>
 
 Want to know more about something they mentioned? Here’s a starting point:
-
-
 
 * SQL Server - [https://www.microsoft.com/en-us/sql-server](https://www.microsoft.com/en-us/sql-server)
 * PostGIS - https://postgis.net/
@@ -113,7 +110,7 @@ Awesome. Cool. All right, well, I'm going to kind of go off my standard script b
 
 ##### _[00:02:59] - Paul_
 
-Yeah, well, I mean, so when we started extension, this didn't exist. It's a pre extension as a package concept. It's just like the idea of runtime, adding things at runtime to the database which was there from the very beginning. That was a stonebreaker original. Like, this is one of the things Postgres can do. PostGIS is from 2001, as Regina mentioned, she started using it within three months of the initial release. So, yeah, may of 2001. So yeah, we're at 22 years.
+Yeah, well, I mean, so when we started extension, this didn't exist. It's a pre extension as a package concept. It's just like the idea of runtime, adding things at runtime to the database which was there from the very beginning. That was a Stonebraker original. Like, this is one of the things Postgres can do. PostGIS is from 2001, as Regina mentioned, she started using it within three months of the initial release. So, yeah, may of 2001. So yeah, we're at 22 years.
 
 
 ##### _[00:03:28] - Ry_
@@ -188,7 +185,7 @@ Yeah, although early on, we didn't have any other dependencies except Postgres, 
 
 ##### _[00:08:19] - Paul_
 
-Well GEOS after two years and then, well, proge at the same time. I mean, we had GEOS and proj almost from the start, and then started picking up format libraries after that.
+Well GEOS after two years and then, well, proj at the same time. I mean, we had GEOS and proj almost from the start, and then started picking up format libraries after that.
 
 
 ##### _[00:08:28] - Regina_
@@ -318,7 +315,7 @@ For my side, it's mostly consulting. Yeah, I don't have any commercial things ar
 
 ##### _[00:14:52] - Paul_
 
-I make sideline in talking about and studying the economics of open source. One of the things that's kind of obvious once you start looking at this stuff is that there's like a project size threshold before you start to see enough money around a project to support full time maintainership or people whose jobs are mostly around the project. And PostGIS is interesting in being like one of the few Postgres extensions which has received achieved that level. But even at that level, it's quite small. So you got Regina, who has a good consulting business. I work for Crunchy Data, which is a professional open source support company, which is to say they sell support contracts to Fortune 100 companies and US Federal government and increasingly a number of international organizations, but of similar size and scale, big organizations. And then also has a software as a service called Crunchy Bridge, which is basically database in the cloud of the sort that everyone's gotten used to. So, I mean, in that respect, I'm kind of like Regina. I work for Crunchy because they value my expertise as a PostGIS committer and my ability to help their customers who deploy PostGIS.
+I make sideline in talking about and studying the economics of open source. One of the things that's kind of obvious once you start looking at this stuff is that there's like a project size threshold before you start to see enough money around a project to support full time maintainer ship or people whose jobs are mostly around the project. And PostGIS is interesting in being like one of the few Postgres extensions which has received achieved that level. But even at that level, it's quite small. So you got Regina, who has a good consulting business. I work for Crunchy Data, which is a professional open source support company, which is to say they sell support contracts to Fortune 100 companies and US Federal government and increasingly a number of international organizations, but of similar size and scale, big organizations. And then also has a software as a service called Crunchy Bridge, which is basically database in the cloud of the sort that everyone's gotten used to. So, I mean, in that respect, I'm kind of like Regina. I work for Crunchy because they value my expertise as a PostGIS committer and my ability to help their customers who deploy PostGIS.
 
 
 ##### _[00:16:20] - Paul_
@@ -438,7 +435,7 @@ Yeah, because I remember when I be talking to my SQL Server friends and they're 
 
 ##### _[00:20:20] - Paul_
 
-Yeah. I'm frequently, frequently surprised by how much internal churn there is because I always feel like, oh, we're the supermature extension. We don't reach like super deep into the extension, like into the into the core. We're not hooking into like executor hooks or planner hooks or stuff like that. And yet there's always this there's always this medium to long list of things that have to be tweaked when you move up to a new, like in terms of our code or for it to build and still run correctly, that have to be tweaked at each major Postgres release.
+Yeah. I'm frequently, frequently surprised by how much internal churn there is because I always feel like, oh, we're the super mature extension. We don't reach like super deep into the extension, like into the into the core. We're not hooking into like executor hooks or planner hooks or stuff like that. And yet there's always this there's always this medium to long list of things that have to be tweaked when you move up to a new, like in terms of our code or for it to build and still run correctly, that have to be tweaked at each major Postgres release.
 
 
 ##### _[00:20:57] - Regina_
@@ -663,7 +660,7 @@ On the site formerly known as Twitter. I'm PWRamsey. I'm also PWRamsay at Mastod
 
 ##### _[00:33:25] - Regina_
 
-Yeah, I have how many blogs do I have? I have BostonGIS.com Postgresonline.com. Twitter is just Reginaobe, I think that's and my website, Paragoncorporation.com, I guess those are. Oh, and my book site PostGIS.us.
+Yeah, I have how many blogs do I have? I have BostonGIS.com postgresonline.com. Twitter is just reginaobe, I think that's and my website, paragoncorporation.com, I guess those are. Oh, and my book site PostGIS.us.
 
 
 ##### _[00:33:47] - Paul_

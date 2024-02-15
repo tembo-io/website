@@ -16,14 +16,14 @@ managing, and running Postgres in a local environment.
 
 Using homebrew:
 
-```
+``` sh
 brew tap tembo-io/tembo
 brew install tembo-cli
 ```
 
 Using cargo:
 
-```
+``` sh
 cargo install tembo-cli
 ```
 

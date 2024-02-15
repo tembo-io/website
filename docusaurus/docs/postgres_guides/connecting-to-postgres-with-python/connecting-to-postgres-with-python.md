@@ -12,7 +12,7 @@ Let’s get started
 
 **Step 1** - Install the “psycopg” library in your project. Run this command in your terminal to install the library:
 
-```
+``` sh
 pip install psycopg
 ```
 
@@ -24,14 +24,13 @@ You can read more about psycopg library [here](https://pypi.org/project/psycopg/
 
 **Step 2** - Import psycopg in your Python code
 
-```
+``` python
 import psycopg
 ```
 
 **Step 3** - Setup a database connection. For that, create a connection object consisting of database connection parameters - username, database name, password, host and port.
 
-```
-
+``` python
     connection = psycopg.connect(
         dbname="database_name",
         user="username",
@@ -39,21 +38,19 @@ import psycopg
         host="host",
         port="port"
     )
-
-
 ```
 
 Make sure to replace the database_name, username, password, host, and port with the credentials of your database.
 
 **Step 4** - Create a cursor object to run the SQL queries. A cursor is the main object that interacts with the database
 
-```
+``` python
 cursor = connection.cursor()
 ```
 
 **Step 5** - Execute the desired SQL query in the cursor object.
 
-```
+``` python
 cursor.execute("SELECT * FROM customers")
 dataset = cursor.fetchall()
 
@@ -65,7 +62,7 @@ You can execute your desired query in the cursor object. Also, you can create mu
 
 **Step 6** - Close the created cursor object and connection when their work is done.
 
-```
+``` python
 cursor.close()
 connection.close()
 ```
@@ -74,7 +71,7 @@ You can always create a new cursor object after closing an existing cursor objec
 
 Here’s the full code sample:
 
-```
+``` python
 # Importing library
 import psycopg
 
