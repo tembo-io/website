@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import fs from 'fs';
 import path from 'path'
 
-export const GET: APIRoute = async ({ params, request }) => {
+export const GET: APIRoute = async ({ params }) => {
   const { slug } = params;
   const blog = (await getCollection('blog'))
   const post = blog.find((post) => post.slug === slug?.split('/')[0]);
