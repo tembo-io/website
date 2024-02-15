@@ -10,7 +10,7 @@ export const GET: APIRoute = async ({ params }) => {
   const directoryPath = `./src/content/blog/${post?.id.replace('/index.mdx', '').replace('/index.md', '')}/${slug?.split('/')[1]}`;
   const ext = path.extname(directoryPath);
   const fileContents = fs.readFileSync(directoryPath);
-  return new Response(fileContents, { headers: { 'Content-Type': 'application/pdf' } });
+  return new Response(fileContents, { headers: { 'Content-Type': `application/${ext.replace('.', '')}` } });
 }
 
 export async function getStaticPaths() {
