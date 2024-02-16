@@ -4,6 +4,10 @@ import react from '@astrojs/react';
 import mdx from "@astrojs/mdx";
 import { remarkReadingTime } from './remark-reading-time.mjs';
 
+const options = {
+	contentPath: "src/content/blog"
+};
+
 // https://astro.build/config
 export default defineConfig({
 	integrations: [tailwind(), react(), mdx()],
