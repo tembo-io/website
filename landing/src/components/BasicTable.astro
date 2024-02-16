@@ -1,0 +1,73 @@
+---
+import { Image } from 'astro:assets';
+
+export type ImageMetadataWithAlt = ImageMetadata & { alt: string }
+
+interface Props {
+	title: string;
+	icon: ImageMetadataWithAlt;
+	rows: (string | ImageMetadataWithAlt)[][];
+	backdrop?: boolean;
+}
+
+const { title, icon, rows, backdrop = true } = Astro.props;
+---
+
+<section
+	class={backdrop
+		? 'bg-mwasi bg-opacity-80 pb-[38px] pt-[100px] customSm:pb-[158px] customLg:py-[125px] customXl:pt-[87px]'
+		: ''}
+>
+	<div
+		class='w-full px-5 mx-auto customXs:px-10 customSm:px-[50px] customMd:px-20 customXl:px-[144px] customXxl:px-0 max-w-[1632px]'
+	>
+		<div class='flex items-center gap-4'>
+			<Image
+				src={icon}
+				alt={icon.alt}
+				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[56px]'
+			/>
+			<h3
+				class='font-bold text-pricingGreen text-3xl leading-[38px] tracking-[0.473px] [text-shadow:0px_0px_81px_#000] customXs:text-[42px] customXs:leading-[53px]'
+			>
+				{title}
+			</h3>
+		</div>
+		<table class='mt-[40px] w-full customXs:mt-[52px] table-fixed'>
+			<tbody>
+				{
+					rows.map((row) => (
+						<tr class='h-20 border-b border-white border-opacity-20'>
+							{row.map((content, i) =>
+								i === 0 ? (
+									<th
+										scope='row'
+										class='text-left font-secondary font-semibold text-white text-base leading-[19px] customXs:w-[145px] customXs:text-lg customXs:leading-[22px] customSm:w-[236px] customMd:w-[280px] customLg:w-[288px] customXl:w-[353px]'
+									>
+										{typeof content === 'string' ? (
+											content
+										) : (
+											<Image src={content} alt={content.alt} />
+										)}
+									</th>
+								) : typeof content === 'string' ? (
+									<td class='text-center font-secondary text-pricingLightBlue font-normal text-lg leading-[22px]'>
+										{content}
+									</td>
+								) : (
+									<td>
+										<Image
+											src={content}
+											alt={content.alt}
+											class='mx-auto'
+										/>
+									</td>
+								),
+							)}
+						</tr>
+					))
+				}
+			</tbody>
+		</table>
+	</div>
+</section>
