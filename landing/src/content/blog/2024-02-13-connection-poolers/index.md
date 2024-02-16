@@ -7,7 +7,7 @@ image: ./connection_pool.png
 ---
 
 
-Creating a connection to your Postgres database to execute a short-lived query is expensive. Several people have measured the overhead of Postgres connections and some locate them in the range of [1.3MB of memory per connection](https://stackoverflow.blog/2020/10/14/improve-database-performance-with-connection-pooling/) and others in the range of [2MB](https://blog.anarazel.de/2020/10/07/measuring-the-memory-overhead-of-a-postgres-connection/). In addition, there is also the overhead of having to [fork a new process](https://www.postgresql.org/docs/current/connect-estab.html) in the database server. 
+Creating a connection to your Postgres database to execute a short-lived query is expensive. Several people have measured the overhead of Postgres connections and some locate them in the range of [1.3MB of memory per connection](https://stackoverflow.blog/2020/10/14/improve-database-performance-with-connection-pooling/) and others in the range of [2MB](https://blog.anarazel.de/2020/10/07/measuring-the-memory-overhead-of-a-postgres-connection/). In addition, there is also the overhead of having to [fork a new process](https://www.postgresql.org/docs/current/connect-estab.html) in the database server.
 
 To alleviate these problems, typically people use a connection pooler. However, for Postgres, there are several options available. Some popular ones are [Pgbouncer](https://www.pgbouncer.org/), [Pgcat](https://github.com/postgresml/pgcat), [Odyssey](https://github.com/yandex/odyssey), [pgagroal](https://github.com/agroal/pgagroal), [Pgpool-II](https://www.pgpool.net/mediawiki/index.php/Main_Page) and [Supavisor](https://github.com/supabase/supavisor).
 
@@ -23,7 +23,7 @@ In this post, we will compare these three popular alternatives:
 
 Let’s quickly describe each of them.
 
-## Quick overview of PgBouncer, PgCat and Supavisor 
+## Quick overview of PgBouncer, PgCat and Supavisor
 
 ### PgBouncer
 
@@ -45,9 +45,9 @@ The [README](https://github.com/postgresml/pgcat/blob/main/README.md) is well-wr
 
 ### Supavisor
 
-Another option is [Supavisor](https://github.com/supabase/supavisor), the connection pooler developed by Supabase. 
+Another option is [Supavisor](https://github.com/supabase/supavisor), the connection pooler developed by Supabase.
 
-It is described as a *scalable, cloud-native Postgres connection pooler*. In the launching [post](https://supabase.com/blog/supavisor-1-million), it is mentioned that it can handle millions of connections and will replace PgBouncer in Supabase’s managed Postgres offering as it is [intended](https://github.com/supabase/supavisor/blob/main/README.md) to provide zero downtime when scaling a server, and handling of modern connection demands such as those seen in serverless environments. 
+It is described as a *scalable, cloud-native Postgres connection pooler*. In the launching [post](https://supabase.com/blog/supavisor-1-million), it is mentioned that it can handle millions of connections and will replace PgBouncer in Supabase’s managed Postgres offering as it is [intended](https://github.com/supabase/supavisor/blob/main/README.md) to provide zero downtime when scaling a server, and handling of modern connection demands such as those seen in serverless environments.
 
 Its setup is a bit more involved, as it requires an additional auxiliary database to store tenants information, plus there are more listening ports in play. Here is a diagram I drew to better understand the architecture:
 
@@ -70,7 +70,7 @@ We try to answer some of these questions in the sections below.
 
 ## Description of experiments
 
-To compare the three connection poolers, I set up a couple of VMs in Google Cloud. My intention was to evaluate some of the factors I described above. 
+To compare the three connection poolers, I set up a couple of VMs in Google Cloud. My intention was to evaluate some of the factors I described above.
 
 So, my setup was as follows:
 
@@ -78,9 +78,9 @@ So, my setup was as follows:
 
 I used separate machines to give the connection pooler and pgbench enough CPU/Memory resources.
 
-The VMs were Google Cloud’s E2-standard-8 (8 vCPUs, 4 cores, 32GB memory), all in the same zone. The OS was Debian 11.8. Postgres version was 15.5. 
+The VMs were Google Cloud’s E2-standard-8 (8 vCPUs, 4 cores, 32GB memory), all in the same zone. The OS was Debian 11.8. Postgres version was 15.5.
 
-I configured the three poolers to create a pool of 100 connections and the workload was generated using PgBench. In all cases, the pooler was configured for **Transaction mode**. I collected the outputs and analyzed them. For the exact details of my experiments to replicate them, please refer to this [github repository](https://github.com/binidxaba/postgres-conn-poolers-comparison). 
+I configured the three poolers to create a pool of 100 connections and the workload was generated using PgBench. In all cases, the pooler was configured for **Transaction mode**. I collected the outputs and analyzed them. For the exact details of my experiments to replicate them, please refer to this [github repository](https://github.com/binidxaba/postgres-conn-poolers-comparison).
 
 
 ## Results
@@ -116,7 +116,7 @@ Let’s see what happens when we stress the connection poolers using more client
 
 For the three poolers, the latency of executing a simple query continues to grow. This is because, beyond a certain point, the CPU becomes a bottleneck, and connection requests begin to pile up. I suspect this could be mitigated with a more powerful machine.
 
-We can see that PgCat performs better (higher throughput, lower latency), reaching **59K tps**. In contrast, PgBouncer peaks at **44,096 tps** and degrades to a steady state of **25,000-30,000** tps beyond 75 concurrent connections. Supavisor peaks at about  **21,700 tps**, but remains in steady state. 
+We can see that PgCat performs better (higher throughput, lower latency), reaching **59K tps**. In contrast, PgBouncer peaks at **44,096 tps** and degrades to a steady state of **25,000-30,000** tps beyond 75 concurrent connections. Supavisor peaks at about  **21,700 tps**, but remains in steady state.
 
 As suggested in Supabase’s [blog post](https://supabase.com/blog/supavisor-1-million), beyond this point, one alternative is to scale Supavisor horizontally by adding more instances. This case, though, is beyond the scope of my experiments.
 
@@ -175,8 +175,8 @@ For convenience, the following table summarizes the qualitative attributes of th
 |                                                                    | **PgBouncer**                           | **PgCat**                            | **Supavisor**                          |
 |--------------------------------------------------------------------|-----------------------------------------|--------------------------------------|----------------------------------------|
 | **Current Version (Maturity)**                                     | v1.21                                   | v1.1.1                               | v1.1.13                                |
-| **Repo**                                                           | [https://github.com/pgbouncer/pgbouncer](https://github.com/pgbouncer/pgbouncer)  | [https://github.com/postgresml/pgcat](https://github.com/postgresml/pgcat)  | [https://github.com/supabase/supavisor](https://github.com/supabase/supavisor)  |
-| **Repo Popularity (Stars in GH)**                                  | 2.5K                                    | 2.3K                                 | 1.4K                                   |
+| **Repo**                                                           | [pgbouncer](https://github.com/pgbouncer/pgbouncer)  | [pgcat](https://github.com/postgresml/pgcat)  | [supavisor](https://github.com/supabase/supavisor)  |
+| **Repo Popularity (Stars in GH)**                                  | 2.5K                                    | 2.4K                                 | 1.4K                                   |
 | **Language of implementation**                                     | C                                       | Rust                                 | Elixir                                 |
 | **Installation/Setup Complexity**                                  | Easy                                    | Easy                                 | Medium, several moving parts.          |
 | **Multi-threaded**                                                 | No                                      | Yes                                  | Yes                                    |
@@ -188,7 +188,7 @@ And this table summarizes the results from my experiments with the E2-standard-8
 |--------------------------------------------------------------------|-----------------------------------------|--------------------------------------|----------------------------------------|
 | **Max Concurrent Clients Tested**                                  | 2500                                    | 2500                                 | 2500                                   |
 | **Max Throughput**                                                 | 44,096 tps @ 50 clients                 | 59,051 tps @ 1,250 clients           | 21,708 tps @ 100 clients               |
-| **Latency @ 1,250 concurrent clients**                         | 47.2 ms                                 | 21.1 ms                              | 64.37 ms                               |
+| **Latency @ 1,250 concurrent clients**                             | 47.2 ms                                 | 21.1 ms                              | 64.37 ms                               |
 
 In this post, we compared connection poolers for Postgres across different axes.
 
