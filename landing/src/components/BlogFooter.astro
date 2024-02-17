@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets';
+import GithubGradient from '../images/githubGradient.svg';
+import Youtube from '../images/youtube.svg';
+import X from '../images/x.svg';
+import Rss from '../images/rss.svg';
+import Cloud from '../images/cloud.svg';
+---
+
+<div class='mt-16'>
+    <div class='h-[1px] w-full bg-[#242424]' />
+    <div class='flex flex-col gap-6'>
+        <h3 class='text-white font-bold mt-10'>Follow us</h3>
+        <div class='flex flex-col md:flex-row md:flex-wrap gap-6 md:gap-16'>
+            <div class='flex flex-col gap-6'>
+                <div class='flex gap-2'>
+                    <Image src={Cloud} height={24} width={24} alt='Github cat logo' />
+                    <a href="https://cloud.tembo.io" target='_blank' rel='noreferrer' class='font-secondary font-semibold text-grey'>
+                        Try Tembo Cloud
+                    </a>
+                </div>
+                <div class='flex gap-2'>
+                    <Image src={GithubGradient} height={24} width={24} alt='Github cat logo' />
+                    <a href="https://github.com/tembo-io/tembo" target='_blank' rel='noreferrer' class='font-secondary font-semibold text-grey'>
+                        Star us on Github
+                    </a>
+                </div>
+                <div class='flex gap-2'>
+                    <Image src={Youtube} height={24} width={24} alt='Youtube play button logo' />
+                    <a href="https://www.youtube.com/@tembo_io/videos" target='_blank' rel='noreferrer' class='font-secondary font-semibold text-grey'>
+                        Subscribe to our Youtube Channel
+                    </a>
+                </div>
+            </div>
+            <div class='flex flex-col gap-6'>
+                <div class='flex gap-2'>
+                    <Image src={Rss} height={24} width={24} alt='Github cat logo' />
+                    <a href="https://tembo.io/feed.xml" target='_blank' rel='noreferrer' class='font-secondary font-semibold text-grey'>
+                        View our RSS feed
+                    </a>
+                </div>
+                <div class='flex gap-2'>
+                    <Image src={X} height={24} width={24} alt='Github cat logo' />
+                    <a href="https://twitter.com/tembo_io" target='_blank' rel='noreferrer' class='font-secondary font-semibold text-grey'>
+                        Follow us on X
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
