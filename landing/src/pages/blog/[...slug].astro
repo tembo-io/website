@@ -15,13 +15,16 @@ import BlogFooter from '../../components/BlogFooter.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
-	return posts.map((post) => ({
+	return posts.map((post, index) => ({
 		params: { slug: post.slug },
-		props: post,
+		props: {
+			post,
+			nextPost: index === 0 ? posts[posts.length - 1] : posts[index - 1]
+		},
 	}));
 }
 const currentPath = Astro.url.pathname;
-const post = Astro.props;
+const { post, nextPost } = Astro.props;
 const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 const dateString = post.id.substring(0, 10);
 const parsedDate = post.data?.date || new Date(dateString);
@@ -92,7 +95,10 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 						<Markdown>
 							<Content />
 						</Markdown>
-						<BlogFooter />
+						<BlogFooter slug={nextPost.slug} title={nextPost.data.title} date={parsedDate.toLocaleDateString(
+							'en-US',
+							dateOptions as any,
+						)} />
 					</div>
 					<div class='hidden mobile:flex flex-col gap-12'>
 						<div
@@ -168,3 +174,4 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 		}
 	}
 </style>
+../../components/BlogFooter.tsx
