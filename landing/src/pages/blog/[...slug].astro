@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 		params: { slug: post.slug },
 		props: {
 			post,
-			nextPost: index === 0 ? posts[posts.length - 1] : posts[index - 1]
+			nextPost: index === posts.length - 1 ? posts[0] : posts[index + 1]
 		},
 	}));
 }
