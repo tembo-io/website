@@ -25,27 +25,23 @@ import FeatureCard from '../components/FeatureCard.astro';
 import BasicTable from '../components/BasicTable.astro';
 const currentPath = Astro.url.pathname;
 
-const developerFeatures = [
+const hobbyFeatures = [
 	'200+ Extensions',
-	'All Stacks',
-	'Unlimited Databases',
-	'1 vCPU & 1 GB Memory',
+	'Limited Stacks',
+	'Up to 2 Databases',
+	'0.25 vCPU & 1 GB Memory',
 	'5 GB Storage',
 	'Unlimited Reads/Writes',
-	'50 GB Network Egress Included',
 ];
 
 const productionFeatures = [
 	'200+ Extensions',
 	'All Stacks',
 	'Unlimited Databases',
-	'1 vCPU to 64 vCPU',
-	'1 GB to 1 TB Memory',
+	'0.25 to 32 vCPU',
+	'10 GB to 1 TB Memory',
 	'Unlimited Reads/Writes',
-	'1 TB Network Egress Included',
 	'High Availability',
-	'Read Replicas',
-	'Multi Region & Cloud',
 	'Sidecars & Apps',
 ];
 
@@ -53,8 +49,7 @@ const enterpriseFeatures = [
 	'Private Data Plane',
 	'Network Isolation',
 	'Dedicated Technical Support',
-	'Optional Managed Data Plane ',
-	'SSO & SAML Support',
+	'Optional Managed Data Plane',
 	'Advanced Enterprise Security',
 	'Bring Your Own Cloud',
 ];
@@ -149,7 +144,7 @@ const supportRows = [
 				<h2
 					class='font-semibold text-pricingLightBlue text-[28px] leading-[35px] tracking-[0.54px]'
 				>
-					Developer
+					Hobby
 				</h2>
 				<span
 					class='block mt-[15px] font-secondary font-light text-white text-base leading-[19px] opacity-80'
@@ -173,7 +168,7 @@ const supportRows = [
 				/>
 				<ul class='flex flex-col gap-2'>
 					{
-						developerFeatures.map((feature) => (
+						hobbyFeatures.map((feature) => (
 							<li class='min-h-[50px] flex'>
 								<div class='flex gap-2 items-start'>
 									<Image
