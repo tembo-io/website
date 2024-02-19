@@ -1,7 +1,7 @@
 ---
 slug: hacking-postgres-ep4
 title: "Hacking Postgres, Ep. 4: Pavlo Golub"
-authors: [eric]
+authors: [ryw]
 tags: [postgres, hacking-postgres]
 image: './ep4.png'
 ---
