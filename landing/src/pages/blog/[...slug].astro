@@ -11,18 +11,24 @@ import Author from '../../components/Author.astro';
 import { getCollection } from 'astro:content';
 import { AUTHORS } from '../../content/config';
 import { Image } from 'astro:assets';
+import BlogFooter from '../../components/BlogFooter.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
-	return posts.map((post) => ({
+	return posts.map((post, index) => ({
 		params: { slug: post.slug },
-		props: post,
+		props: {
+			post,
+			nextPost: index === posts.length - 1 ? posts[0] : posts[index + 1]
+		},
 	}));
 }
 const currentPath = Astro.url.pathname;
-const post = Astro.props;
+const { post, nextPost } = Astro.props;
 const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 const dateString = post.id.substring(0, 10);
+const nextPostDateString = nextPost.id.substring(0, 10);
+const nextPostParsedDate = nextPost.data?.date || new Date(nextPostDateString);
 const parsedDate = post.data?.date || new Date(dateString);
 const author = AUTHORS[(post.data.authors[0] as string) || 'ryw'];
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/content/blog/**/*.{jpeg,jpg,png,webp,svg,gif}');
@@ -42,13 +48,13 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 	<Container styles='pb-10 w-full'>
 		<div class='mt-[120px] mobile:mt-[180px] w-full relative'>
 			<div class='flex flex-col w-full'>
-				<div class='flex items-start justify-between w-full gap-8'>
+				<div class='flex flex-col min-[1200px]:flex-row items-start justify-between w-full gap-8'>
 					<header class='flex flex-col gap-8'>
 						<BackButton />
 						<div class='flex flex-col gap-6'>
 							<div>
 								<h1
-									class='text-neon font-extrabold text-3xl mobile:text-4xl lg:text-5xl z-10 lg:leading-[60px] max-w-[600px]'
+									class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl z-10 max-w-[600px]'
 								>
 									{post.data.title}
 								</h1>
@@ -75,12 +81,12 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 						</div>
 					</header>
 					{image ? (
-						<Image src={image()} alt='blog post hero image' class='hidden min-[1200px]:flex rounded-2xl w-[650px] max-h-[300px]' />
+						<Image src={image()} alt='blog post hero image' class='flex rounded-2xl w-full max-h-[400px] min-[1200px]:w-[650px] min-[1200px]:max-h-[300px]' />
 					) : (
 						<img
 							src={`/blogFallbackImage.svg`}
 							alt='blog post hero image'
-							class='hidden min-[1200px]:flex rounded-2xl w-[650px] max-h-[300px]'
+							class='flex rounded-2xl w-[650px] max-h-[300px]'
 						/>
 					)}
 				</div>
@@ -91,6 +97,10 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 						<Markdown>
 							<Content />
 						</Markdown>
+						<BlogFooter slug={nextPost.slug} title={nextPost.data.title} date={nextPostParsedDate.toLocaleDateString(
+							'en-US',
+							dateOptions as any,
+						)} />
 					</div>
 					<div class='hidden mobile:flex flex-col gap-12'>
 						<div
@@ -145,12 +155,12 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 			</div>
 		</div>
 	</Container>
-	<div class='relative bg-offBlack z-10'>
+	<div class='relative bg-offBlack'>
 		<div
 			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
 		>
 		</div>
-		<Container styles='z-50'>
+		<Container>
 			<div class='mt-16 mobile:mt-24'>
 				<Footer />
 			</div>
@@ -166,3 +176,4 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 		}
 	}
 </style>
+../../components/BlogFooter.tsx

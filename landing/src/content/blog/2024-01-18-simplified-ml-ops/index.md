@@ -6,8 +6,6 @@ tags: [postgres, machine-learning, ml-ops]
 image: ./tembo_ml.png
 ---
 
-![tembo-ml](./tembo_ml.png "tembo-ml")
-
 At [Tembo](https://tembo.io), we're building a platform that gives developers a Postgres experience optimized for their application. Today's applications are growing in complexity, especially with the rise of large language models (LLMs), but also due to classical supervised and unsupervised machine learning (ML). For those who have been working in the ML space for a while, you know that the ML lifecycle is a complex process. Today we are launching the Tembo Machine Learning Stack to fight back at some of that complexity!
 
 An ML platform consists of all the tools and systems to manage the lifecycle of data science and machine learning projects. That lifecycle is a continuous and iterative process, from defining a business problem through ML model development, deploying for inference, and continuous monitoring and analysis. This incredibly complex process can become a barrier to entry for many teams. That’s why we built the [Tembo ML Stack](https://tembo.io/docs/tembo-stacks/machine-learning), which offers a Postgres configuration equipped with the tools to make ML lifecycle efficient and easy, all from Postgres. You can try it out today by signing up for [Tembo Cloud](https://cloud.tembo.io).
@@ -68,7 +66,7 @@ View those models by simply querying the `pgml.trained_models` table.
 ```sql
 select id, name, algorithm from pgml.trained_models;
 
- id |            name            | algorithm 
+ id |            name            | algorithm
 ----+----------------------------+-----------
   1 | clickbait_classifier       | xgboost
 ```
@@ -108,7 +106,7 @@ We can see all of our scheduled jobs in the `cron.job` table.
 SELECT jobid, schedule, command, jobname FROM cron.job;
 
 
- jobid | schedule  |      command         |    jobname     
+ jobid | schedule  |      command         |    jobname
 -------+-----------+----------------------+----------------
      1 | 0 0 * * 0 | SELECT model_train() | weekly-retrain
 ```
@@ -128,7 +126,7 @@ SELECT pgml.predict(
         'Hottest weather in 100 years'
     ))
 );
- predict 
+ predict
 ---------
        0
 (1 row)
@@ -143,7 +141,7 @@ SELECT pgml.predict(
         'Once A Huge Star, Today He Lives Alone in Westlake.'
     ))
 );
- predict 
+ predict
 ---------
        1
 (1 row)
@@ -162,7 +160,7 @@ We'll set up a function using a SQL function that takes our potentially clickbai
 ```sql
 CREATE OR REPLACE FUNCTION predict_clickbait(
     input_string text
-) RETURNS TABLE(is_clickbait REAL) LANGUAGE sql AS $$ 
+) RETURNS TABLE(is_clickbait REAL) LANGUAGE sql AS $$
     SELECT pgml.predict(
         project_name => 'clickbait_classifier',
         features => (select pgml.embed(
