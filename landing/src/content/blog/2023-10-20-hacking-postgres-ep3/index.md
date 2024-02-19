@@ -1,7 +1,7 @@
 ---
 slug: hacking-postgres-ep3
 title: "Hacking Postgres, Ep. 3: Eric Ridge"
-authors: [eric]
+authors: [ryw]
 tags: [postgres, hacking-postgres]
 image: './ep3.png'
 ---

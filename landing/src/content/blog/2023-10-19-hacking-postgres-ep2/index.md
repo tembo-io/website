@@ -1,7 +1,7 @@
 ---
 slug: hacking-postgres-ep2
 title: "Hacking Postgres, Ep. 2: Adam Hendel"
-authors: [eric]
+authors: [ryw]
 tags: [postgres, hacking-postgres]
 image: './ep2.png'
 ---
