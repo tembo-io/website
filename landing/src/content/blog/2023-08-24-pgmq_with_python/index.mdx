@@ -4,12 +4,16 @@ title: "Using pgmq with Python"
 authors: [rjzv]
 tags: [postgres, pgmq, python, extensions]
 image: './pgmq.png'
-
 ---
+import Callout from '../../../components/Callout.astro';
 
 In my recent search for something interesting to do with Rust, I discovered that people write postgres extensions using [pgrx](https://github.com/pgcentralfoundation/pgrx).
 
 I found that very cool, and while looking for some real-world examples to study and dissect, I came across [pgmq](https://tembo.io/blog/introducing-pgmq): "A lightweight message queue. Like AWS SQS and RSMQ but on Postgres." So, I decided to give it a shot so that perhaps in the future, I can contribute to the project ;)
+
+<Callout title='Message Queue Stack' variant='info'>
+      [Tembo Cloud](https://cloud.tembo.io/)'s Message Queue Stack is powered by PGMQ, but also ships with Postgres configurations optimized for message queue workloads. We also provide additional metrics and data visualizations specific to message queues.
+</Callout>
 
 When reviewing the [repository](https://github.com/tembo-io/pgmq), I noticed a [Python client](https://github.com/tembo-io/pgmq/tree/main/tembo-pgmq-python) to interact with pgmq and began to play with it.
 
@@ -225,3 +229,13 @@ if __name__ == '__main__':
             time.sleep(0.500)
 
 ```
+
+## Getting involved
+
+Give us a [star](https://github.com/tembo-io/pgmq) and try out PGMQ by cloning the [repo](https://github.com/tembo-io/pgmq) and following the example in the README. Please use Github issues if you run into any issues or have any feedback. We've also built client side libraries in [Rust](https://github.com/tembo-io/pgmq/tree/main/core) and [Python](https://github.com/tembo-io/pgmq/tree/main/tembo-pgmq-python), which will give you an ORM-like experience.
+
+## Interested in learning more?
+
+Check out [our post on pg_later](https://tembo.io/blog/introducing-pg-later), an extension we built on top of PGMQ as well as benchmarks comparing PGMQ to [SQS](https://aws.amazon.com/sqs/) and [Redis](https://redis.com/).
+
+You can also try PGMQ on [Tembo Cloud](https://cloud.tembo.io/) for free as part of our [Message Queue Stack](https://tembo.io/docs/stacks/message-queue).
