@@ -27,6 +27,8 @@ const currentPath = Astro.url.pathname;
 const { post, nextPost } = Astro.props;
 const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
 const dateString = post.id.substring(0, 10);
+const nextPostDateString = nextPost.id.substring(0, 10);
+const nextPostParsedDate = nextPost.data?.date || new Date(nextPostDateString);
 const parsedDate = post.data?.date || new Date(dateString);
 const author = AUTHORS[(post.data.authors[0] as string) || 'ryw'];
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/content/blog/**/*.{jpeg,jpg,png,webp,svg,gif}');
@@ -95,7 +97,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 						<Markdown>
 							<Content />
 						</Markdown>
-						<BlogFooter slug={nextPost.slug} title={nextPost.data.title} date={parsedDate.toLocaleDateString(
+						<BlogFooter slug={nextPost.slug} title={nextPost.data.title} date={nextPostParsedDate.toLocaleDateString(
 							'en-US',
 							dateOptions as any,
 						)} />

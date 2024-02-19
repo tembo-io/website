@@ -58,7 +58,7 @@ const { slug, title, date } = Astro.props;
         </div>
     </div>
     <div class='flex flex-col gap-4 mt-10'>
-        <button class='p-4 rounded-lg gradient-next-button blockGoBack'>
+        <button class='p-4 rounded-lg gradient-next-button blogGoBack'>
             <div class='flex items-center gap-2'>
                 <Image src={ChevronLeft} height={14} width={14} alt='Github cat logo' />
                 <p class='text-lightGrey font-semibold text-sm'>Go back</p>
@@ -78,7 +78,7 @@ const { slug, title, date } = Astro.props;
 </div>
 
 <script>
-    const buttons = document.querySelectorAll('button.blockGoBack');
+    const buttons = document.querySelectorAll('button.blogGoBack');
 
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
