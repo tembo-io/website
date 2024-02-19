@@ -1,7 +1,7 @@
 ---
 slug: hacking-postgres-ep7
 title: "Hacking Postgres Ep. 7: Burak Yucesoy"
-authors: [eric]
+authors: [ryw]
 tags: [postgres, hacking-postgres]
 image: './ep7.png'
 ---

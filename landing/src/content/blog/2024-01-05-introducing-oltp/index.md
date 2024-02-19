@@ -1,7 +1,7 @@
 ---
 slug: introducing-oltp-on-postgres
 title: 'OLTP on Postgres: 3 Ways the Tembo OLTP Stack Makes Things Simple'
-authors: [darren, eric]
+authors: [darren]
 tags: [postgres, oltp, stacks, database]
 image: './apps.png'
 ---

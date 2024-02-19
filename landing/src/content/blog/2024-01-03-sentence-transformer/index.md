@@ -1,7 +1,7 @@
 ---
 slug: secure-embeddings-in-postgres
 title: 'Secure Embeddings in Postgres without the OpenAI Risk'
-authors: [darren, eric]
+authors: [darren]
 tags: [postgres, extensions]
 image: './internalData.png'
 ---
