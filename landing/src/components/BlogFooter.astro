@@ -76,13 +76,3 @@ const { slug, title, date } = Astro.props;
         </a>
     </div>
 </div>
-
-<script>
-    const buttons = document.querySelectorAll('button.blogGoBack');
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        !document.referrer.includes('tembo.io') ? window.location.href = '/blog' : window.history.back();
-      });
-    });
-</script>

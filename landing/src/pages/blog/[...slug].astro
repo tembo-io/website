@@ -176,3 +176,12 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 		}
 	}
 </style>
+<script>
+    const buttons = document.querySelectorAll('button.blogGoBack');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        !document.referrer.includes('tembo.io') ? window.location.href = '/blog' : window.history.back();
+      });
+    });
+</script>
