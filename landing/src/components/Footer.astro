@@ -3,6 +3,7 @@ import Checkmark from '../images/checkmark.svg';
 import { Image } from 'astro:assets';
 ---
 
+
 <footer class='bg-offBlack py-12 mobile:py-24 z-40'>
 	<div class='flex flex-col mobile:flex-row gap-12 mobile:gap-32 lg:gap-56'>
 		<a
@@ -106,11 +107,13 @@ import { Image } from 'astro:assets';
 							target='_blank'
 							rel='noreferrer'>Careers</a
 						>
-						<a
-							href='mailto:support@tembo.io'
-							target='_blank'
-							rel='noreferrer'>Support</a
+						<button
+							id='intercom_launcher'
+							class='p-0 m-0 w-min'
+							aria-roledescription='Open chat support'
 						>
+							Support
+						</button>
 					</div>
 				</div>
 			</div>
@@ -147,3 +150,57 @@ import { Image } from 'astro:assets';
 		</div>
 	</div>
 </footer>
+
+<script>
+// @ts-nocheck
+const INTERCOM_APP_ID = 'lxripxeb';
+const bootIntercom = async () => {
+	try {
+		window.Intercom('boot', {
+			api_base: 'https://api-iam.intercom.io',
+			app_id: INTERCOM_APP_ID,
+			custom_launcher_selector: '#intercom_launcher',
+		});
+	} catch (error) {}
+};
+
+(function () {
+	var w = window;
+	var ic = w.Intercom;
+	if (typeof ic === 'function') {
+		ic('reattach_activator');
+		ic('update', w.intercomSettings);
+	} else {
+		var d = document;
+		var i = function () {
+			i.c(arguments);
+		};
+		i.q = [];
+		i.c = function (args) {
+			i.q.push(args);
+		};
+		w.Intercom = i;
+		var l = function () {
+			var s = d.createElement('script');
+			s.type = 'text/javascript';
+			s.async = true;
+			s.src = 'https://widget.intercom.io/widget/' + INTERCOM_APP_ID;
+			var x = d.getElementsByTagName('script')[0];
+			x.parentNode.insertBefore(s, x);
+		};
+		if (document.readyState === 'complete') {
+			l();
+		} else if (w.attachEvent) {
+			w.attachEvent('onload', l);
+		} else {
+			w.addEventListener('load', l, false);
+		}
+	}
+})();
+
+const footerButton = document.getElementById('intercom_launcher')
+
+footerButton.addEventListener('click', () => {
+	bootIntercom()
+});
+</script>
