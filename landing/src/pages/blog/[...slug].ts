@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import fs from 'fs';
 import path from 'path';
 
-const ALLOWED_EXTENSIONS = ['.pdf', '.json', '.csv', '.mp4'];
+const ALLOWED_EXTENSIONS = ['.pdf', '.json', '.csv', '.mp4', '.key'];
 
 export const GET: APIRoute = async ({ params }) => {
   const { slug } = params;

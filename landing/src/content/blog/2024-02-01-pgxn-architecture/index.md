@@ -70,7 +70,7 @@ happy to share more widely:
 Links:
 
 *   [Video (YouTube)](https://www.youtube.com/watch?v=sjZPA3HA_q8)
-*   [Keynote](/blog/pgxn-architecture/pgxn-architecture.key "“PGXN Architecture” Keynote deck")
+*   [Keynote](./pgxn-architecture/pgxn-architecture.key "“PGXN Architecture” Keynote deck")
 *   [PDF (one page per slide)](./pgxn-architecture/pgxn-architecture.pdf)
 *   [PDF (one page per stage)](./pgxn-architecture/pgxn-architecture-stages.pdf)
 
