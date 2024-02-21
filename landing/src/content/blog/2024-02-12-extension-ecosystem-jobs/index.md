@@ -6,7 +6,7 @@ tags: [postgres, extensions, ecosystem, packaging, distribution, architecture, j
 image: ./extension-ecosystem.png
 date: 2024-02-21T17:00
 description: |
-  These challenges of the current Postgres extension ecosystem and the
+  The challenges of the current Postgres extension ecosystem and the
   interest and energy put into exploring new solutions make clear that the
   time has come to revisit the whole idea. We begin with a survey of the
   jobs to be done by extensions packaging and distribution.
