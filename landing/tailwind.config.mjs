@@ -69,8 +69,6 @@ export default {
 				},
 			},
 			screens: {
-				customXxl: '1920px',
-				customXl: '1680px',
 				customLg: '1440px',
 				customMd: '1280px',
 				customSm: '1024px',

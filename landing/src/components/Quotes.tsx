@@ -4,6 +4,7 @@ import '../css/swiper.css';
 import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperCore } from 'swiper/types';
+import Container from './Container';
 
 export interface QuoteData {
 	name: string;
@@ -56,7 +57,7 @@ const Quotes: React.FC = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	return (
-		<section className='relative overflow-hidden mt-[70px] customSm:mt-[85px] customMd:mt-[125px] customLg:mt-[160px] customXl:mt-[150px] customXxl:pt-20'>
+		<section className='relative overflow-hidden mt-[70px] customSm:mt-[85px] customMd:mt-[125px] customLg:mt-[160px]'>
 			<Swiper
 				onBeforeInit={(swiper) => {
 					swiperRef.current = swiper;
@@ -118,7 +119,7 @@ const Quotes: React.FC = () => {
 						'absolute bottom-[35px] z-10 left-1/2 -translate-x-1/2'
 					}
 				>
-					<div className='flex justify-between w-screen px-5 customXs:px-10 customSm:px-12 customMd:px-20 customLg:px-[88px] customXl:px-[110px] customXxl:px-0 max-w-[1630px]'>
+					<Container styles='flex justify-between w-screen'>
 						<button
 							type='button'
 							className='h-[42px] w-[42px] disabled:invisible'
@@ -146,7 +147,7 @@ const Quotes: React.FC = () => {
 								alt={'forward arrow'}
 							/>
 						</button>
-					</div>
+					</Container>
 				</div>
 			)}
 		</section>
