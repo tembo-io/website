@@ -14,7 +14,7 @@ pg_vectorize is completely open source, and you can run it locally or in your ow
 
 ## What are sentence-transformers?
 
-Machine learning and artificial intelligence models ultimately perform mathematical operations. So if you have raw text and want to build a machine learning or AI application, you need to find a way to transform text to numbers. There has been detailed [research](https://arxiv.org/abs/1908.10084) in this field, and  the resulting transformer models encode the meaning behind the raw text data into an array of floats. Once you have the array of floats (also called vectors or embeddings), now you can perform efficient mathematical operations such as vector similarity search and other forms of machine learning. [SentenceTransformers](https://www.sbert.net/) is also the name of a popular open-source Python library that provides a simple interface to transformer models, and it is used in this project.
+Machine learning and artificial intelligence models ultimately perform mathematical operations. So if you have raw text and want to build a machine learning or AI application, you need to find a way to transform text to numbers. There has been detailed [research](https://arxiv.org/abs/1908.10084) in this field, and the resulting transformer models encode the meaning behind the raw text data into an array of floats. Once you have the array of floats (also called vectors or embeddings), now you can perform efficient mathematical operations such as vector similarity search and other forms of machine learning. [SentenceTransformers](https://www.sbert.net/) is also the name of a popular open-source Python library that provides a simple interface to transformer models, and it is used in this project.
 
 ## Picking the right sentence transformer for your use case
 
@@ -68,10 +68,10 @@ SELECT * FROM vectorize.transform_embeddings(
 
 Generating embeddings is one thing, but conducting vector search requires many steps:
 
-* Transform, store, and index existing data in a table
-* Handle refreshes for any inserts or updates during the lifecycle of your application.
-* Transform raw text search queries into embeddings, using precisely the same transformer model.
-* And lastly, conduct a similarity search on the fly.
+-   Transform, store, and index existing data in a table
+-   Handle refreshes for any inserts or updates during the lifecycle of your application.
+-   Transform raw text search queries into embeddings, using precisely the same transformer model.
+-   And lastly, conduct a similarity search on the fly.
 
 This logic is typically left up to application developers and requires many tools to implement, but pg_vectorize enables it with just two function calls: `vectorize.table()` and `vectorize.search()`.
 
@@ -91,13 +91,13 @@ SELECT vectorize.table(
 
 By default, inserts and updates trigger an immediate transform of the new data using Postgres’s built-in [triggers](https://www.postgresql.org/docs/current/sql-createtrigger.html). However, pg_vectorize provides the flexibility to schedule updates by changing the cron-syntax `schedule` parameter. For example, `schedule -> ‘* * * * *’` will configure a batch job, managed by [pg_cron](https://github.com/citusdata/pg_cron), that checks for updates or inserts every minute. All triggers send a job to a [pgmq](https://github.com/tembo-io/pgmq) job queue, which means the transformation of text to embeddings does not slow down your insert or update events. Embedding transformations are always decoupled from the insert or update events.
 
-![vectorize-table](./vectorize-table.png "vectorize-table")
+![vectorize-table](./vectorize-table.png 'vectorize-table')
 
 ### Intuitive vector search using vectorize.search
 
 `vectorize.search()` is how you query your data given a raw text query. To search `mytable` for something like “mobile electronic accessories”, you need to transform the raw query into embeddings, being certain to use precisely the same sentence-transformer that generated the embeddings written to our database. Then, using those embeddings, conduct a vector similarity search via [pgvector](https://github.com/pgvector/pgvector) and return the results of the query. This orchestration is often handled within an application built by the dev team, but since this is just a feature in the database triggered by a function call, you no longer have to build it.
 
-![vectorize-search](./vectorize-search.png "vectorize-search")
+![vectorize-search](./vectorize-search.png 'vectorize-search')
 
 By referencing the `job_name`, pg_vectorize will know exactly which transformer model to use and which table to find the embeddings for similarity search. You can also tell pg_vectorize which columns you want to return in our query, because you mostly want to return human readable data like a product id or a product name, and not the embeddings themselves.
 
@@ -124,7 +124,7 @@ Results are returned as rows of jsonb, including a similarity score for the sear
 
 Machine learning workloads typically have very different compute requirements than Postgres. For example, many transformers benefit immensely from a GPU, or massive amounts of CPU and memory. Therefore, it makes sense to run the embedding transformers on a separate host from Postgres itself, which does not natively require a GPU. So in our example, when you run [`docker compose up`](https://github.com/tembo-io/pg_vectorize/blob/main/docker-compose.yml), the transformer models are running in a separate container than Postgres. This gives you the flexibility to run the transformers wherever you want, so long as pg_vectorize is able to establish a network connection with the container running the transformers.
 
-![containers](./containers.png "containers")
+![containers](./containers.png 'containers')
 
 In Tembo Cloud, we run this workload on Kubernetes and manage it with the [tembo-operator](https://github.com/tembo-io/tembo/tree/main/tembo-operator) instead of `docker-compose`. This gives us the flexibility to assign and change the compute allocated to the transformer container.
 
