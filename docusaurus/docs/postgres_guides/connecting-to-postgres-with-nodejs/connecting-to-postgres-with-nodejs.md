@@ -32,10 +32,10 @@ Make sure you initialize the pg package at the top of program
 
 ``` js
 const client = new Client({
-  user: ‘username',
+  user: 'username',
   password: 'password',
   host: 'host',
-  port: ‘port_number’,
+  port: 'port_number',
   database: 'database_name',
 });
 ```
@@ -85,10 +85,10 @@ const { Client } = require('pg');
 
 // Database connection configuration
 const dbConfig = {
-  user: ‘username',
+  user: 'username',
   password: 'password',
   host: 'host',
-  port: ‘port_number’,
+  port: 'port_number',
   database: 'database_name',
 };
 
