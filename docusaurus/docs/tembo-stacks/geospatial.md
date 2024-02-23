@@ -7,6 +7,11 @@ sidebar_position: 9
 The Tembo Geospatial Stack is designed to bring spatial database capabilities to Postgres.
 Whether dealing with spatial objects, location queries, or GIS (geographic information systems)-facing workloads in general, this stack is pre-packaged to help.
 
+## Container Image
+
+This stack is built with a curated image, geo-cnpg.
+Detailed information about geo-cnpg, as well as other stack images can be found in the official [tembo-images repository](https://github.com/tembo-io/tembo-images/tree/main).
+
 ## Extensions
 
 - [pg_stat_statements](https://www.postgresql.org/docs/current/pgstatstatements.html) - `pg_stat_statements` is an additional supplied module that provides valuable metrics related to query performance.
