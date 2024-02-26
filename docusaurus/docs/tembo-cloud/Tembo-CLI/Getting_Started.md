@@ -78,13 +78,14 @@ The initialization process includes:
 - A `~/.tembo/context` file 
 - A `~/.tembo/credentials` file.
 
-## Configure Tembo CLI Context
-The Tembo CLI utilizes two primary configuration files to manage and streamline interactions with Tembo Cloud environments:
+## Configure Tembo CLI
+The Tembo CLI utilizes two primary configuration files inside `~/.tembo` to manage and streamline interactions with Tembo Cloud environments.
 
-- Credentials File: Stores authentication tokens and URLs necessary for the CLI to communicate with Tembo Cloud.
-- Context File: Manages different environments (e.g., local development, production) and specifies the target deployment and organizational settings.
-These files are located in the .tembo directory within your user home directory, ensuring secure and centralized configuration management.
+#### To configure, perform the following steps:
 
+- You can generate a `tembo_access_token` at [Tembo Cloud JWT Generator](https://cloud.tembo.io/generate-jwt).
+- Find your `org_id` in your Tembo Cloud URL, for example:
+`https://cloud.tembo.io/orgs/org_2bVDi36rsJNberstrP37enwxzMk/clusters`.
 
 ### Credentials File:
 This file contains your Tembo Cloud access tokens and API endpoints. It's crucial for authenticating requests and interacting with Tembo Cloud services.
@@ -98,6 +99,12 @@ name = 'prod'
 tembo_access_token = 'YOUR_ACCESS_TOKEN'
 tembo_host = 'https://api.tembo.io'
 tembo_data_host = 'https://api.data-1.use1.tembo.io'
+
+[[profile]]
+name = 'dev'
+tembo_access_token = 'YOUR_ACCESS_TOKEN'
+tembo_host = 'https://api.tembo.io'
+tembo_data_host = 'https://api.data-1.use1.tembo.io'  
 ```
 - `version`: Specifies the configuration file version.
 - `profile`: Defines a user profile with a unique name (prod in this example).
@@ -120,8 +127,14 @@ set = true
 [[environment]]
 name = "prod"
 target = "tembo-cloud"
-org_id = "org_2bVDi36rsJNoGrfwz37enwxzMk"
+org_id = "YOUR_ORGANIZATION_ID"
 profile = "prod"
+
+[[environment]]
+name = "dev"
+target = "tembo-cloud"
+org_id = "YOUR_ORGANIZATION_ID"
+profile = "dev"
 ```
 
 - `version`: Specifies the configuration file version.
@@ -132,28 +145,35 @@ profile = "prod"
   - `profile`: Specifies which profile to use from the credentials file.
   - `set`: Indicates if this environment is currently active.
 
+<!---
 <details>
 <summary><strong>Through CLI</strong></summary>
 To configure automatically, use the tembo login command:
-
-```shell
 tembo login
-```
-
 This command generates a JWT token and retrieves your organization ID, updating the credentials file as it guides you through the web-based login process.
-</details>
+</details> --->
 
-<details>
-<summary><strong>Modify manually</strong></summary>
-To configure manually, perform the following steps:
 
-Open the .tembo directory in your preferred text editor by running:
+## Tembo CLI Help
+
+To view the help information for Tembo CLI, you can run the following command in your terminal:
 
 ```shell
-open .tembo
+tembo --help
 ```
-- You can generate a JWT token at Tembo Cloud JWT Generator.
-- Find your organization ID in your Tembo Cloud URL, for example:
-`https://cloud.tembo.io/orgs/org_2bVDi36rsJNberstrP37enwxzMk/clusters`.
 
-</details>
+```output
+Commands:
+  context   Manage Tembo contexts
+  init      Initializes a local environment. Creates a sample context and configuration files
+  apply     Deploys a tembo.toml file
+  validate  Validates the tembo.toml file, context file, etc
+  delete    Deletes database instance locally or on Tembo Cloud
+  logs      View logs for your instance
+  help      Print this message or the help of the given subcommand(s)
+
+Options:
+  -v, --verbose  Show more information in command output
+  -h, --help     Print help
+  -V, --version  Print version
+```
