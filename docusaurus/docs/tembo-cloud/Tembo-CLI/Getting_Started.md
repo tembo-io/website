@@ -26,21 +26,41 @@ brew install tembo-cli
 
 <details>
 <summary><strong>Windows</strong></summary>
+
+Visit the [Tembo CLI Releases page](https://github.com/tembo-io/tembo/releases) on GitHub. Download the `tembo-cli-[version]-x86_64-windows.tar.gz` file.
+
+1. Use a tool like 7-Zip to extract the `tar.gz` file.
+2. Once extracted, you'll find the Tembo CLI executable. To use it, you might want to add its folder to your system's PATH environment variable for easy terminal access.
+
+```shell
+# Example of adding Tembo CLI to PATH in PowerShell
+$Env:Path += ";C:\path\to\tembo-cli-folder"
+```
+
 </details>
 
 
 <details>
 <summary><strong>Linux</strong></summary>
-</details>
 
-#### Using Cargo
-
-If you prefer using Rust's package manager, run:
+1. Visit the [Tembo CLI Releases page](https://github.com/tembo-io/tembo/releases) on GitHub and download the appropriate file for your architecture, such as `tembo-cli-0.17.0-aarch64-linux.tar.gz` for ARM64 or `tembo-cli-0.17.0-x86_64-linux.tar.gz for x86_64`.
+2. Open a terminal and navigate to the download location.
+3. Use tar to extract the tar.gz file. Replace `<filename>` with the name of the file you downloaded:
 
 ```shell
-cargo install tembo-cli
+tar -xzf <filename>
 ```
 
+4. Move the extracted tembo binary to a location in your PATH, such as /usr/local/bin/:
+```shell
+sudo mv tembo /usr/local/bin/
+```
+
+5. Make sure tembo is executable:
+```shell
+sudo chmod +x /usr/local/bin/tembo
+```
+</details>
 
 ## Setup Your Environment
 After installation, set up your environment by running:
@@ -55,14 +75,65 @@ The initialization process includes:
 
 - A sample `tembo.toml` configuration file.
 - A migrations directory for SQL migrations.
-- A `~/.tembo/context` file to manage various user contexts.
-- A `~/.tembo/credentials` file for storing credentials and API URLs.
+- A `~/.tembo/context` file 
+- A `~/.tembo/credentials` file.
 
-## Configure Tembo Cloud Information
-You can configure your Tembo Cloud information automatically or manually.
+## Configure Tembo CLI Context
+The Tembo CLI utilizes two primary configuration files to manage and streamline interactions with Tembo Cloud environments:
+
+- Credentials File: Stores authentication tokens and URLs necessary for the CLI to communicate with Tembo Cloud.
+- Context File: Manages different environments (e.g., local development, production) and specifies the target deployment and organizational settings.
+These files are located in the .tembo directory within your user home directory, ensuring secure and centralized configuration management.
+
+
+### Credentials File:
+This file contains your Tembo Cloud access tokens and API endpoints. It's crucial for authenticating requests and interacting with Tembo Cloud services.
+
+#### Example:
+```toml
+version = "1.0"
+
+[[profile]]
+name = 'prod'
+tembo_access_token = 'YOUR_ACCESS_TOKEN'
+tembo_host = 'https://api.tembo.io'
+tembo_data_host = 'https://api.data-1.use1.tembo.io'
+```
+- `version`: Specifies the configuration file version.
+- `profile`: Defines a user profile with a unique name (prod in this example).
+- `tembo_access_token`: JWT token for authenticating with Tembo Cloud.
+- `tembo_host`: The main API endpoint for Tembo Cloud.
+- `tembo_data_host`: Endpoint for Tembo Cloud data-related operations.
+
+### Context File:
+The context file allows you to switch between different environments seamlessly, each with its deployment targets and configurations.
+
+#### Example:
+```toml
+version = "1.0"
+
+[[environment]]
+name = "local"
+target = "docker"
+set = true
+
+[[environment]]
+name = "prod"
+target = "tembo-cloud"
+org_id = "org_2bVDi36rsJNoGrfwz37enwxzMk"
+profile = "prod"
+```
+
+- `version`: Specifies the configuration file version.
+- `environment`: Defines an environment setting.
+  - `name`: A friendly name for the environment (e.g., local, prod).
+  - `target`: Deployment target (e.g., docker for local development, tembo-cloud for production).
+  - `org_id`: Organization ID for Tembo Cloud environments.
+  - `profile`: Specifies which profile to use from the credentials file.
+  - `set`: Indicates if this environment is currently active.
 
 <details>
-<summary><strong>Automatic</strong></summary>
+<summary><strong>Through CLI</strong></summary>
 To configure automatically, use the tembo login command:
 
 ```shell
@@ -73,7 +144,7 @@ This command generates a JWT token and retrieves your organization ID, updating 
 </details>
 
 <details>
-<summary><strong>Manual</strong></summary>
+<summary><strong>Modify manually</strong></summary>
 To configure manually, perform the following steps:
 
 Open the .tembo directory in your preferred text editor by running:
