@@ -74,7 +74,6 @@ The tembo init command initializes your environment with the necessary files in 
 The initialization process includes:
 
 - A sample `tembo.toml` configuration file.
-- A migrations directory for SQL migrations.
 - A `~/.tembo/context` file 
 - A `~/.tembo/credentials` file.
 
@@ -177,3 +176,5 @@ Options:
   -h, --help     Print help
   -V, --version  Print version
 ```
+
+You can also use --help within subcommands like `tembo context --help`

@@ -3,6 +3,6 @@
 	"label": "cli",
 	"link": {
 		"type": "generated-index",
-		"description": "CLI"
+		"description": "Tembo CLI allows users to experience cloud.tembo.io locally, as well as, manage and deploy to Tembo Cloud. It abstracts away complexities of configuring, managing, and running Postgres in a local environment."
 	}
 }
