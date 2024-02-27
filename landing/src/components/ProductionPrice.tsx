@@ -49,7 +49,7 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 					/>
 				</svg>
 
-				<span className='font-semibold text-pricingGreen text-[40px] leading-[50px] customXs:text-[48px] customXs:leading-[60px] tracking-[0.54px]'>
+				<span className='font-semibold text-pricingGreen text-[40px] leading-[50px] tracking-[0.54px] customXs:text-[48px] customXs:leading-[60px]'>
 					{priceMatrix[selectValue][rangeValue].dollars}
 				</span>
 				<span className='opacity-50 font-semibold text-pricingGreen text-[23px] leading-[29px] tracking-[0.54px]'>
@@ -57,7 +57,7 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 				</span>
 			</div>
 			<Slider.Root
-				className='mt-6 w-full h-1.5 relative inline-block cursor-pointer'
+				className='relative inline-block mt-6 w-full h-1.5 cursor-pointer'
 				value={[rangeValue]}
 				onValueChange={handleSlide}
 				min={0}
@@ -65,16 +65,16 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 				step={1}
 				id={`${priceInterval}-slider`}
 			>
-				<Slider.Track className='w-full h-1.5 rounded-2xl bg-customDarkerGrey block absolute'>
-					<Slider.Range className='h-1.5 rounded-2xl bg-good absolute' />
+				<Slider.Track className='block absolute w-full h-1.5 rounded-2xl bg-customDarkerGrey'>
+					<Slider.Range className='absolute h-1.5 rounded-2xl bg-good' />
 				</Slider.Track>
 				<Slider.Thumb
-					className='-mt-[9px] -ml-3 w-6 h-6 rounded-full bg-[url("/thumb.svg")] bg-good absolute shadow'
+					className='absolute -mt-[9px] -ml-3 w-6 h-6 rounded-full bg-[url("/thumb.svg")] bg-good shadow'
 					aria-label='Instance Size'
 				/>
 			</Slider.Root>
 			<label
-				className='mt-4 block font-secondary font-normal text-white opacity-80 text-[14px] leading-[24px]'
+				className='block mt-4 font-secondary font-normal text-white opacity-80 text-[14px] leading-[24px]'
 				htmlFor={`${priceInterval}-slider`}
 			>
 				{priceMatrix[selectValue][rangeValue].size}
@@ -82,7 +82,7 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 
 			<Select.Root value={selectValue} onValueChange={handleSelection}>
 				<Select.Trigger
-					className='radix-select-trigger p-4 mt-4 w-full rounded-lg bg-[url(/dashedBorder.svg)] bg-[length:100%] flex justify-between items-center font-semibold text-white text-[18px] leading-[23px] tracking-[0.54px]'
+					className='flex justify-between items-center p-4 mt-4 w-full rounded-lg bg-[url(/dashedBorder.svg)] bg-[length:100%] font-semibold text-white text-[18px] leading-[23px] tracking-[0.54px]'
 					aria-label='Instance Type'
 				>
 					<Select.Value />
@@ -105,7 +105,7 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 								<Select.Item
 									key={instanceType}
 									value={instanceType}
-									className='w-[var(--radix-select-trigger-width)] py-3 px-4 hover:bg-white hover:bg-opacity-5 focus-visible:outline-none focus-visible:bg-white focus-visible:bg-opacity-5 active:bg-white active:bg-opacity-15 last:border-b-0 border-b border-white border-opacity-20'
+									className='w-[var(--radix-select-trigger-width)] py-3 px-4 border-b border-white border-opacity-20 hover:bg-white hover:bg-opacity-5 focus-visible:outline-none focus-visible:bg-white focus-visible:bg-opacity-5 active:bg-white active:bg-opacity-15 last:border-b-0'
 								>
 									<Select.ItemText>
 										{

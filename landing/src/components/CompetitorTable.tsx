@@ -148,20 +148,20 @@ const CompetitorHeading: React.FC<CompetitorHeadingProps> = ({
 		<>
 			<div
 				className={cx(
-					'ml-1 py-6 px-2 rounded-t-3xl bg-white bg-opacity-[0.08] customXs:mb-2 customXs:px-4 customXs:ml-2 customSm:mb-3 customSm:ml-4 customMd:ml-6 customLg:ml-8 customS:ml-4',
+					'ml-1 py-6 px-2 rounded-t-3xl bg-white bg-opacity-[0.08] customXs:mb-2 customXs:px-4 customXs:ml-2 customSm:mb-3 customSm:ml-4 customMd:ml-6 customMd:mb-[10px] customLg:ml-8',
 					competitorData.columns.length === 1
 						? 'block'
 						: 'block mobile:hidden',
 				)}
 			>
 				<div className='h-20 py-3 customMd:h-[85px] customLg:h-[87px]'>
-					<span className='block customMd:hidden mb-2 whitespace-nowrap text-lg leading-[22px] text-white font-semibold tracking-[0.54px] customXs:text-[26px] customXs:leading-[33px]'>
+					<span className='block mb-2 whitespace-nowrap text-lg leading-[22px] text-white font-semibold tracking-[0.54px] customXs:text-[26px] customXs:leading-[33px] customMd:hidden'>
 						{competitorData.shortName}
 					</span>
-					<span className='hidden customMd:block text-lg leading-[22px] text-white font-semibold tracking-[0.54px] customXs:text-[26px] customXs:leading-[33px]'>
+					<span className='hidden text-lg leading-[22px] text-white font-semibold tracking-[0.54px] customXs:text-[26px] customXs:leading-[33px] customMd:block'>
 						{competitorData.name}
 					</span>
-					<span className='h-[30px] block mt-2 text-xs leading-[15px] text-white font-normal tracking-[0.54px] customXs:h-auto customMd:text-base customMd:leading-[20px] customLg:text-lg customLg:leading-[22px]'>
+					<span className='h-[30px] block mt-2 text-xs leading-[15px] text-white font-normal tracking-[0.54px] customXs:h-auto customMd:text-base customMd:leading-5 customLg:text-lg customLg:leading-[22px]'>
 						{competitorData.columns[0].size}
 					</span>
 				</div>
@@ -169,17 +169,17 @@ const CompetitorHeading: React.FC<CompetitorHeadingProps> = ({
 					<span className='text-xl leading-[25px] text-white font-semibold tracking-[0.54px] customSm:text-[38px] customSm:leading-[48px]'>
 						${competitorData.columns[competitorSelectValue].dollars}
 					</span>
-					<span className='customMd:hidden text-[10px] leading-[12px] text-white font-normal tracking-[0.54px] text-opacity-70 customXs:text-base customXs:leading-[19px]'>
+					<span className='text-[10px] leading-3 text-white font-normal tracking-[0.54px] text-opacity-70 customXs:text-base customXs:leading-[19px] customMd:hidden '>
 						/mo
 					</span>
-					<span className='hidden customMd:inline text-[10px] leading-[12px] text-white font-normal tracking-[0.54px] text-opacity-70 customXs:text-base customXs:leading-[19px]'>
+					<span className='hidden text-[10px] leading-3 text-white font-normal tracking-[0.54px] text-opacity-70 customXs:text-base customXs:leading-[19px] customMd:inline '>
 						/month
 					</span>
 				</div>
 			</div>
 			<div
 				className={cx(
-					'ml-1 py-6 px-2 rounded-t-3xl bg-white bg-opacity-[0.08] customXs:ml-2 customXs:mb-2 customSm:mb-3 customSm:ml-4 customMd:ml-6 customLg:ml-8',
+					'ml-1 py-6 px-2 rounded-t-3xl bg-white bg-opacity-[0.08] customXs:ml-2 customXs:mb-2 customSm:mb-3 customSm:ml-4 customMd:mb-[10px] customMd:ml-6 customLg:ml-8',
 					competitorData.columns.length > 1
 						? 'hidden mobile:block'
 						: 'hidden',
@@ -192,14 +192,14 @@ const CompetitorHeading: React.FC<CompetitorHeadingProps> = ({
 					}
 				>
 					<Select.Trigger
-						className='radix-select-trigger p-3 w-full rounded-lg bg-[url(/dashedBorder.svg)] bg-contain flex justify-between items-center font-semibold text-white text-[18px] leading-[23px] tracking-[0.54px]'
+						className='p-3 w-full flex justify-between items-center rounded-lg bg-[url(/dashedBorder.svg)] bg-contain font-semibold text-white text-[18px] leading-[23px] tracking-[0.54px]'
 						aria-label='Instance Type'
 					>
 						<div className='text-left'>
-							<span className='block customMd:hidden mb-2 whitespace-nowrap text-lg leading-[22px] text-white font-semibold tracking-[0.54px] customXs:text-[26px] customXs:leading-[33px]'>
+							<span className='block mb-2 whitespace-nowrap text-lg leading-[22px] text-white font-semibold tracking-[0.54px] customXs:text-[26px] customXs:leading-[33px] customMd:hidden '>
 								{competitorData.shortName}
 							</span>
-							<span className='hidden customMd:block mb-2 text-lg leading-[22px] text-white font-semibold tracking-[0.54px] customXs:text-[26px] customXs:leading-[33px]'>
+							<span className='hidden mb-2 text-lg leading-[22px] text-white font-semibold tracking-[0.54px] customXs:text-[26px] customXs:leading-[33px] customMd:block'>
 								{competitorData.name}
 							</span>
 							<div className='h-[30px] block text-xs leading-[15px] text-white font-normal tracking-[0.54px] customXs:h-auto customXs:whitespace-nowrap customMd:text-base customMd:leading-[20px] customLg:text-lg customLg:leading-[22px]'>
@@ -226,7 +226,7 @@ const CompetitorHeading: React.FC<CompetitorHeadingProps> = ({
 										<Select.Item
 											key={columnIndex}
 											value={columnIndex.toString()}
-											className='w-[var(--radix-select-trigger-width)] py-3 px-4 hover:bg-white hover:bg-opacity-5 focus-visible:outline-none focus-visible:bg-white focus-visible:bg-opacity-5 active:bg-white active:bg-opacity-15 last:border-b-0 border-b border-white border-opacity-20'
+											className='w-[var(--radix-select-trigger-width)] py-3 px-4 border-b border-white border-opacity-20 hover:bg-white hover:bg-opacity-5 focus-visible:outline-none focus-visible:bg-white focus-visible:bg-opacity-5 active:bg-white active:bg-opacity-15 last:border-b-0'
 										>
 											<div className='h-[30px] block text-xs leading-[15px] text-white font-normal tracking-[0.54px] customXs:h-auto  customMd:text-base customMd:leading-[20px] customLg:text-lg customLg:leading-[22px]'>
 												<Select.ItemText>
@@ -244,10 +244,10 @@ const CompetitorHeading: React.FC<CompetitorHeadingProps> = ({
 					<span className='pl-2 text-xl leading-[25px] text-white font-semibold tracking-[0.54px] customSm:text-[38px] customSm:leading-[48px]'>
 						${competitorData.columns[competitorSelectValue].dollars}
 					</span>
-					<span className='customMd:hidden text-[10px] leading-[12px] text-white font-normal tracking-[0.54px] text-opacity-70 customXs:text-base customXs:leading-[19px]'>
+					<span className='text-[10px] leading-3 text-white font-normal tracking-[0.54px] text-opacity-70 customXs:text-base customXs:leading-[19px] customMd:hidden '>
 						/mo
 					</span>
-					<span className='hidden customMd:inline text-[10px] leading-[12px] text-white font-normal tracking-[0.54px] text-opacity-70 customXs:text-base customXs:leading-[19px]'>
+					<span className='hidden text-[10px] leading-3 text-white font-normal tracking-[0.54px] text-opacity-70 customXs:text-base customXs:leading-[19px] customMd:inline '>
 						/month
 					</span>
 				</div>
@@ -274,7 +274,7 @@ const CompetitorTable: React.FC = () => {
 				<tr className='w-full'>
 					<th className='w-full'></th>
 					<th className='w-full h-full text-left pb-0'>
-						<div className='h-full ml-1 px-2 py-6 rounded-t-3xl bg-white bg-opacity-[0.08] customXs:pb-8 customXs:ml-2 customSm:pb-9 customSm:ml-4 customMd:ml-6 customLg:ml-8 customS:ml-4 customXs:px-4'>
+						<div className='h-full ml-1 px-2 py-6 rounded-t-3xl bg-white bg-opacity-[0.08] customXs:pb-8 customXs:px-4 customXs:ml-2 customS:ml-4 customSm:pb-9 customSm:ml-4 customMd:pb-[34px] customMd:ml-6 customLg:ml-8'>
 							<div className='h-20 py-3 customMd:h-[85px] customLg:h-[87px]'>
 								<span className='block text-lg leading-[22px] text-pricingGreen font-semibold tracking-[0.54px] customXs:text-[26px] customXs:leading-[33px]'>
 									Tembo
@@ -287,10 +287,10 @@ const CompetitorTable: React.FC = () => {
 								<span className='text-xl leading-[25px] text-pricingGreen font-semibold tracking-[0.54px] customSm:text-[38px] customSm:leading-[48px]'>
 									$199
 								</span>
-								<span className='customXs:hidden text-[10px] leading-[12px] text-white font-normal tracking-[0.54px] text-opacity-70 customXs:text-base customXs:leading-[19px]'>
+								<span className='text-[10px] leading-3 text-white font-normal tracking-[0.54px] text-opacity-70 customXs:hidden customXs:text-base customXs:leading-[19px]'>
 									/mo
 								</span>
-								<span className='hidden customXs:inline text-[10px] leading-[12px] text-white font-normal tracking-[0.54px] text-opacity-70 customXs:text-base customXs:leading-[19px]'>
+								<span className='hidden text-[10px] leading-3 text-white font-normal tracking-[0.54px] text-opacity-70 customXs:inline customXs:text-base customXs:leading-[19px]'>
 									/month
 								</span>
 							</div>

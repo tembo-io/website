@@ -8,12 +8,15 @@ interface Props {
 	index: number;
 }
 
-const SingleColumnTable: React.FC<Props> = ({ rows, index }) => {
+const SingleSubjectTable: React.FC<Props> = ({ rows, index }) => {
 	return (
 		<table className='mt-3 w-full table-fixed'>
 			<tbody>
 				{rows.map((row, i) => (
-					<tr key={`row-${i}`} className='h-20 border-b border-white border-opacity-20'>
+					<tr
+						key={`row-${i}`}
+						className='h-20 border-b border-white border-opacity-20'
+					>
 						<th
 							scope='row'
 							className='text-left font-secondary font-semibold text-white text-base leading-[19px]'
@@ -28,7 +31,11 @@ const SingleColumnTable: React.FC<Props> = ({ rows, index }) => {
 							<td>
 								<img
 									src={row[index] ? blueCheck.src : blueX.src}
-									alt={row[index] ? 'check symbol meaning "included"' : 'x symbol meaning "not included"'}
+									alt={
+										row[index]
+											? 'check symbol meaning "included"'
+											: 'x symbol meaning "not included"'
+									}
 									className='mx-auto'
 								/>
 							</td>
@@ -40,4 +47,4 @@ const SingleColumnTable: React.FC<Props> = ({ rows, index }) => {
 	);
 };
 
-export default SingleColumnTable;
+export default SingleSubjectTable;

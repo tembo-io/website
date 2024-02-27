@@ -62,23 +62,6 @@ const supportRows = [
 	['Onboarding Support', false, false, true],
 	['Dedicated Customer Engineer', false, false, true],
 ];
-
-const competitorRows = [
-	[
-		'Use Cases',
-		'General Purpose & Multiple Specialized Stacks',
-		'General Purpose',
-		'Time-Series Only',
-	],
-	['Custom Sidecar Deployments', '10 GB', '10 GB', '10 GB'],
-	['Extensions', '150+', '91', '0'],
-	['Stacks', '20+ Stacks', false, false],
-	['Sidecar & App Deployments', true, false, false],
-	['Private Data Plane', true, false, false],
-	['Multi-Cloud Support', true, false, false],
-	['Custom Extension Deployments', true, false, false],
-	['Automated Schema Workflows', true, false, false],
-];
 ---
 
 <Layout title='Pricing - Tembo'>
@@ -95,22 +78,22 @@ const competitorRows = [
 				<Image
 					src={Elephant16}
 					alt='purple elephant'
-					class='ml-1.5 customXs:ml-[30px] w-[121px] h-[131px] customXs:w-[147px] customXs:h-[157px] customSm:ml-[20px] customLg:w-[171px] customLg:h-[182px]'
+					class='ml-1.5 w-[121px] h-[131px] customXs:w-[147px] customXs:h-[157px] customXs:ml-[30px] customSm:ml-[20px] customLg:w-[171px] customLg:h-[182px]'
 				/>
 				<Image
 					src={Elephant15}
 					alt='green elephant'
-					class='mt-1.5 customXs:mt-2 w-[170px] h-[220px] customXs:w-[206px] customXs:h-[264px] customSm:mt-[70px] customLg:w-[241px] customLg:h-[307px] customLg:mt-[80px]'
+					class='mt-1.5 w-[170px] h-[220px] customXs:w-[206px] customXs:h-[264px] customXs:mt-2 customSm:mt-[70px] customLg:w-[241px] customLg:h-[307px] customLg:mt-[80px]'
 				/>
 			</div>
 			<div class='shrink-0'>
 				<h1
-					class='mt-6 font-bold text-pricingGreen text-4xl leading-[45px] tracking-[0.472px] customXs:mt-10 customXs:text-6xl customXs:leading-[75px] customMd:text-[68px] customMd:leading-[85px] customSm:mt-[65px] customMd:mt-[25px] customLg:mt-[53px]'
+					class='mt-6 font-bold text-pricingGreen text-4xl leading-[45px] tracking-[0.472px] customXs:mt-10 customXs:text-6xl customXs:leading-[75px] customSm:mt-[65px] customMd:text-[68px] customMd:leading-[85px] customMd:mt-[25px] customLg:mt-[53px]'
 				>
 					Tembo’s Pricing
 				</h1>
 				<p
-					class='mt-2.5 font-secondary font-medium text-white text-sm leading-[25px] capitalize customXs:text-base opacity-80'
+					class='mt-2.5 opacity-80 font-secondary font-medium text-white text-sm leading-[25px] capitalize customXs:text-base'
 				>
 					Start for Free, No credit card required.<br />Pay for what
 					you use. One simple price. No complex algorithms.
@@ -153,7 +136,7 @@ const competitorRows = [
 			/>
 		</TabbedTable>
 		<Container
-			styles='flex flex-col gap-6 mt-[126px] mb-[175px] customXs:mt-[139px] customXs:mb-[150px] customSm:grid customSm:mt-[144px] customSm:grid-rows-2 customSm:grid-cols-2 customSm:mb-[135px] customMd:mb-[110px] customLg:mt-[86px] customLg:mb-[100px]'
+			styles='flex flex-col gap-6 mt-[126px] mb-[100px] customXs:mt-[139px] customXs:mb-[150px] customSm:grid customSm:mt-[144px] customSm:grid-rows-2 customSm:grid-cols-2 customSm:mb-[98px] customMd:mb-[110px] customLg:mt-[86px] customLg:mb-0'
 		>
 			{
 				generalIncluded.map((feature) => (
