@@ -3,7 +3,7 @@ slug: olap-stack
 title: 'Optimizing Postgres for OLAP Workloads'
 authors: [adam]
 tags: [postgres, stacks, database, olap]
-image: ./TODO.png
+# image: ./TODO.png
 date: 2024-02-28T17:00
 ---
 
