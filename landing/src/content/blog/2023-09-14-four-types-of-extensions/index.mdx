@@ -68,9 +68,9 @@ A big part of what I have been working on is fully automating enabling any exten
 - **[session_preload_libraries](https://www.postgresql.org/docs/15/runtime-config-client.html#GUC-LOCAL-PRELOAD-LIBRARIES:~:text=at%20session_preload_libraries%20instead.-,session_preload_libraries,-(string))**: configuration, specifies which libraries to LOAD for new connections
 - **[shared_preload_libraries](https://www.postgresql.org/docs/15/runtime-config-client.html#GUC-LOCAL-PRELOAD-LIBRARIES:~:text=pooling%20is%20used.-,shared_preload_libraries,-(string))**: configuration, specifies which libraries to LOAD at server start, and therefore requires a restart
 
-:::note
+<Callout variant='info'>
 Even though code is loaded in other ways during `CREATE EXTENSION`, that is not **requires `LOAD`: true** under this definition. I mean that the user must do something other than `CREATE EXTENSION` to load in libraries. Also, we are conflating [local_preload_libraries](https://www.postgresql.org/docs/15/runtime-config-client.html#GUC-LOCAL-PRELOAD-LIBRARIES:~:text=load%20that%20module.-,local_preload_libraries,-(string)) with `session_preload_libraries` to simplify things in this blog post.
-:::
+</Callout>
 
 For example, if you installed the extension [auto explain](https://pgt.dev/extensions/auto_explain), then you may have a library file called `auto_explain.so` in your library directory, which can be found with [pg_config --pkglibdir](https://pgpedia.info/d/dynamic_library_path.html). Libraries are not always named exactly the same as the extension.
 
@@ -103,11 +103,11 @@ HINT:  Add pg_cron to the shared_preload_libraries configuration variable in pos
 
 The best reason to use `LOAD` directly is for debugging. It can be nice to `LOAD` on-demand while troubleshooting.
 
-:::info
+<Callout variant='info'>
 **What to do when an extension requires load:**
 
 Extensions that **requires `LOAD`: true** can always be configured in `shared_preload_libraries`, but this configuration requires a restart to take effect. Some extensions can be loaded without a restart using `LOAD` directly, but in this case it's usually better to use the `session_preload_libraries` configuration, and [reload the Postgres configuration](https://pgpedia.info/p/pg_reload_conf.html) with `SELECT pg_reload_conf();`. You should run `LOAD` directly when you are intentionally loading for only the current connection.
-:::
+</Callout>
 
 ### CREATE EXTENSION
 
@@ -168,9 +168,9 @@ LANGUAGE c
 AS 'MODULE_PATHNAME', 'jsonb_matches_schema_wrapper';
 ```
 
-:::info
+<Callout variant='info'>
 You can always know whether or not an extension requires `CREATE EXTENSION` by the presence of a control file in `$(pg_config --sharedir)/extension`
-:::
+</Callout>
 
 ### Hooks that require a restart
 
@@ -197,10 +197,10 @@ superuser = true
 ```
 LOAD 'auto_explain';
 ```
-:::caution
-In practice, do not use `LOAD` in an extension start up script to activate hooks. `LOAD` is only applicable for the current connection.
 
-:::
+<Callout variant='warning'>
+In practice, do not use `LOAD` in an extension start up script to activate hooks. `LOAD` is only applicable for the current connection.
+</Callout>
 
 ```
 postgres=# CREATE EXTENSION auto_explain;
@@ -239,10 +239,9 @@ pg_cron.control
 
 Since that's not really applicable on auto_explain, because it's just logging outputs and there is nothing to migrate or handle between versions, it's just cleaner to not have a control file. Upgrading auto_explain only involves replacing the library, then loading it again.
 
-:::info
+<Callout variant='info'>
 Upgrade logic is not applicable for extensions that do not require `CREATE EXTENSION`. These cases just involve re-loading a new version of the library.
-:::
-
+</Callout>
 
 ### You don't load hooks during CREATE EXTENSION
 
@@ -253,14 +252,13 @@ It made sense to me for activating hooks that require a restart they have to be 
 First of all, when using the `LOAD` command directly, it's only applicable to the current connection. So, in the above example with auto explain, the queries are only logged in the connection where I ran `CREATE EXTENSION`. To apply to all connections without a restart, it would need to go into `session_preload_libraries`. It is technically possible to do that inside of `CREATE EXTENSION` by doing `ALTER SYSTEM SET session_preload_libraries` then `SELECT pg_reload_conf()` in your start up script, but it is not a good approach for `CREATE EXTENSION` to automatically perform a configuration update. First of all it would confuse a user to change a config on the fly, and secondly there is currently no concept to automatically merge multi-value, comma-separated configurations like `session_preload_libraries`.
 
 
-:::info
+<Callout variant='info'>
 The 2x2 matrix makes it easier to understand how to enable an extension.
 
 Just ask yourself "do I need to run `CREATE EXTENSION`?" determined by presence of a control file, and "do I need to do a `LOAD`?" determined by any mention of `LOAD`, `shared_preload_libraries`, or `session_preload_libraries` in the extension's documentation or an error message.
 
 In all cases of needing a `LOAD`, you can get away with setting it in `shared_preload_libraries`. You can optimize to avoid restarts in some cases.
-:::
-
+</Callout>
 
 ### Output plugins
 

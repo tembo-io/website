@@ -15,6 +15,9 @@ export default defineConfig({
 	redirects: {
 		'/product': '/',
 		'/pricing': '/',
+		'/blog/introducing-coredb': '/blog/introducing-tembo',
+		'/blog/manifesto': '/blog/tembo-manifesto',
+		'/waitlist': '/'
 	},
 	markdown: {
 		remarkPlugins: [remarkReadingTime],
