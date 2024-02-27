@@ -125,9 +125,15 @@ ALTER SYSTEM SET vectorize.openai_key TO '<your api key>';
 SELECT pg_reload_conf();
 ```
 
+Now call `vectorize.rag()` passing in the name of the agent we set up earlier (tembo_support) and a question.
+ The full response is a JSON object that includes the chat response and the context passed to the chat model.
+ Select just the chat resposne by adding `-> 'chat_response'` to the end of the query.
+
 ```sql
 select vectorize.rag('tembo_support', 'what are tembo_stacks?') -> 'chat_response';
 ```
+
+The response should be something like:
 
 ```console
 "Tembo Stacks are pre-built, use case specific Postgres deployments that are designed to quickly deploy specialized data services in order to replace external, non-Postgres data services."
