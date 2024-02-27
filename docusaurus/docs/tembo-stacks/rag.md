@@ -126,11 +126,11 @@ SELECT pg_reload_conf();
 ```
 
 ```sql
-\x
+select vectorize.rag('tembo_support', 'what are tembo_stacks?') -> 'chat_response';
+```
 
-postgres=# select vectorize.rag('tembo_support', 'what are tembo_stacks?') -> 'chat_response';
--[ RECORD 1 ]------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-?column? | "Tembo Stacks are pre-built, use case specific Postgres deployments that are designed to quickly deploy specialized data services in order to replace external, non-Postgres data services."
+```console
+"Tembo Stacks are pre-built, use case specific Postgres deployments that are designed to quickly deploy specialized data services in order to replace external, non-Postgres data services."
 ```
 
 ### Create a custom prompt
@@ -153,7 +153,7 @@ INSERT INTO vectorize.prompts (prompt_type, sys_prompt, user_prompt) VALUES (
 Then, call rag() again but specify the new prompt:
 
 ```sql
-postgres=# select vectorize.rag(
+select vectorize.rag(
     agent_name => 'tembo_support',
     query => 'what are tembo_stacks?',
     chat_model => 'gpt-3.5-turbo',
