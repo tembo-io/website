@@ -7,6 +7,12 @@ sidebar_position: 5
 
 Build LLM applications without deploying new infrastructure or changing your application's language stack. Tembo's RAG Stack gives you a SQL API to building LLM applications using Retrieval Augmented Generation (RAG) techniques.
 
+This guide will walk through building an application to support users with questions about Tembo's products and services.
+ The application will ingest a collection of documents into Postgres as chunks of text, generate embeddings from that text using a sentence transformer from Hugging Face and index it using pg vector.
+ Finally, a SQL interface to execute the RAG pipeline will be provided to generate responses to user questions.
+
+![alt text](rag.png)
+
 ## Features
 
 - text to embedding transformers: supports any Hugging Face sentence transformer model, privately hosted Hugging Face model, and OpenAI embedding models
@@ -95,11 +101,13 @@ tembo_loader.load_documents(chunks)
 
 ### Initialize the agent
 
-Now initialize the RAG project. This starts the process of generating embeddings for each chunk. This happens within Postgres on Tembo, and not in the location where the python scripts are executed. This could take some time depending on how many chunks and documents are in the project.
+Now initialize the RAG project. This starts the process of generating embeddings for each chunk using the `sentence-transformers/all-MiniLM-L12-v2` model. This happens within Postgres on Tembo, and not in the environment where the python scripts are executed. This could take some time depending on how many chunks and documents are in the project.
 
 ```python
 tembo_loader.init_rag(transformer="sentence-transformers/all-MiniLM-L12-v2")
 ```
+
+It is safe to close the connection to the Tembo Postgres instance at this point.
 
 ### Ask a question
 
