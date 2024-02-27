@@ -34,6 +34,7 @@ mkdir tembo_docs
 
 find "website/docusaurus/docs" -type f -name "*.md" -exec cp {} "tembo_docs" \;
 find "website/landing/src/content/blog" -type f -name "*.md" -exec cp {} "tembo_docs" \;
+```
 
 There should be somewhere around 80 documents in the `tembo_docs` directory:
 
@@ -58,7 +59,7 @@ It is also important to be aware for these context windows for cost reasons. As 
  That's approximately $0.04 per question (this also assumes usage of Tembo's self hosted transformer models for generating embeddings, which would normally accrue a cost per token on embedding the question itself).
  Generally, using the full context window will achieve a better response, but comes at great cost.
 
-Load the documents into memory and process them into chunks using the official python sdk for Tembo, tembo-py. This library's `rag` module currently wraps the major chunking functionality from the llama-index library, but all transformation and
+Load the documents into memory and process them into chunks using the official Python sdk for Tembo, tembo-py. This library's `rag` module currently wraps the major chunking functionality from the llama-index library, but all transformation and
  search functionality is handled within Tembo Postgres.
 
 ```bash
@@ -89,7 +90,6 @@ number of chunks:  475
 Loading the chunks into Tembo Postgres is a one-line command:
 
 ```python
-connection_string = 
 tembo_loader.load_documents(chunks)
 ```
 
@@ -127,6 +127,35 @@ postgres=# select vectorize.rag('tembo_support', 'what are tembo_stacks?') -> 'c
 
 ### Create a custom prompt
 
+An important step to RAG is creating the prompt. It involves crafting questions or commands in a way that guides the LLM to understand the context and generate accurate, relevant, and useful responses.
+ Therefore, its important to define a prompt template that is specific to the application and use case. The prompt is broken into two parts; the system message and the user message.
+ Both messages are sent to the LLM, but the system message is sent first and used to set the stage and tone of the LLM. The user message follows the system message and is used to provide
+ the LLM with the user's question along with the additional context that is provided from the relevant documents.
+
+For the Tembo support agent, we'll define a prompt template that gives the. Use `{{ context_str }}` to specify where the relevant contextual documents should be placed and `{{ query_str }}` to specify where the user's question should be placed.
+
+```sql
+INSERT INTO vectorize.prompts (prompt_type, sys_prompt, user_prompt) VALUES (
+    'tembo_support_task',
+    'You are a Postgres expert and are tasked with helping users find answers in Tembo documentation. You should prioritize answering questions using the provided context, but can draw from your expert Postgres experience where documentation is lacking. Avoid statements like "based on the documentation..."',
+    'Context information is below.\n---------------------\n{{ context_str }}\n---------------------\nGiven the Tembo documentation information and your expert Postgres knowledge, answer the question.\n Question: {{ query_str }}\nAnswer:'
+);
+```
+
+Then, call rag() again but specify the new prompt:
+
+```sql
+postgres=# select vectorize.rag(
+    agent_name => 'tembo_support',
+    query => 'what are tembo_stacks?',
+    chat_model => 'gpt-3.5-turbo',
+    task => 'tembo_support_task'
+) -> 'chat_response';
+```
+
+```console
+ "Tembo Stacks are a feature provided by Tembo that allows users to create and deploy custom-built versions of Postgres with extensions tailored for specific enterprise needs. These Stacks are designed to accelerate development by eliminating the need to set up new databases repeatedly. With Tembo Stacks, users can replace external non-Postgres data services. The Tembo General stack is a specific Stack provided by Tembo that offers a tuned Postgres instance suitable for general-purpose computing. Users have full control over compute resources, configuration settings, and the installation of extensions when using the Tembo General stack."
+```
 
 ### Support
 
