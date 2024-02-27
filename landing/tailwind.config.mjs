@@ -37,6 +37,7 @@ export default {
 				salmon: '#FF7D7F',
 				lightSalmon: '#FF999A',
 				mwasi: '#1C1C1C',
+				lightMwasi: '#161616',
 				customDarkGrey: '#414141',
 				customDarkerGrey: '#2D2D2D',
 				semiGrey: '#3E4243',
@@ -49,6 +50,7 @@ export default {
 				offGrey: '#1A1E22',
 				pricingGreen: '#84EA9A',
 				pricingLightBlue: '#CFF4FF',
+				white: '#FFFFFF',
 			},
 			backgroundImage: {
 				'gradient-rainbow':

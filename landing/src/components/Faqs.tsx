@@ -40,7 +40,7 @@ const Faqs: React.FC = () => {
 			<ul className='mt-14 flex flex-col gap-4'>
 				{content.map((faq, i) => (
 					<li
-						key={i}
+						key={`faq-${i}`}
 						className='p-6 rounded-2xl border-[0.5px] border-white border-opacity-20 bg-white bg-opacity-[0.06] customXs:px-6 customXs:py-10'
 					>
 						<div className='flex justify-between items-center h-full'>

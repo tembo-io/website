@@ -2,20 +2,14 @@
 import { Image } from 'astro:assets';
 import Elephant15 from '../images/elephant15.svg';
 import Elephant16 from '../images/elephant16.svg';
-import blueTickCircle from '../images/blueTickCircle.svg';
-import greenTickCircle from '../images/greenTickCircle.svg';
-import pennants from '../images/pennants.svg';
 import queue from '../images/queue.svg';
 import clipboard from '../images/clipboard.svg';
 import phone from '../images/phone.svg';
-import blueCheck from '../images/blueCheck.svg';
-import blueX from '../images/blueX.svg';
 import rainbowArrow from '../images/rainbowArrow.svg';
 import NavBar from '../components/NavBar';
 import Layout from '../layouts/Layout.astro';
 import Container from '../components/Container';
 import Button from '../components/Button';
-import ProductionPricing from '../components/ProductionPricing';
 import Quotes from '../components/Quotes';
 import Faqs from '../components/Faqs';
 import ArrowButton from '../components/ArrowButton.astro';
@@ -23,36 +17,10 @@ import Footer from '../components/Footer.astro';
 import Animation from '../components/Animation';
 import FeatureCard from '../components/FeatureCard.astro';
 import BasicTable from '../components/BasicTable.astro';
+import TabbedTable from '../components/TabbedTable';
+import PricingCards from '../components/PricingCards.astro';
+import CompetitorTable from '../components/CompetitorTable';
 const currentPath = Astro.url.pathname;
-
-const hobbyFeatures = [
-	'200+ Extensions',
-	'Limited Stacks',
-	'Up to 2 Databases',
-	'0.25 vCPU & 1 GB Memory',
-	'5 GB Storage',
-	'Unlimited Reads/Writes',
-];
-
-const productionFeatures = [
-	'200+ Extensions',
-	'All Stacks',
-	'Unlimited Databases',
-	'0.25 to 32 vCPU',
-	'10 GB to 1 TB Memory',
-	'Unlimited Reads/Writes',
-	'High Availability',
-	'Sidecars & Apps',
-];
-
-const enterpriseFeatures = [
-	'Private Data Plane',
-	'Network Isolation',
-	'Dedicated Technical Support',
-	'Optional Managed Data Plane',
-	'Advanced Enterprise Security',
-	'Bring Your Own Cloud',
-];
 
 const generalIncluded = [
 	'Custom Domains',
@@ -68,17 +36,14 @@ const platformIncluded = [
 	'High Availability',
 ];
 
-const checkWithAlt = { ...blueCheck, alt: 'check symbol' };
-const xWithAlt = { ...blueX, alt: 'x symbol' };
-
 const generalRows = [
-	['Side car support', checkWithAlt, checkWithAlt, checkWithAlt],
-	['Automatic Back Ups', checkWithAlt, checkWithAlt, checkWithAlt],
-	['Point in time recovery', checkWithAlt, checkWithAlt, checkWithAlt],
-	['Monitoring & Alerting', checkWithAlt, checkWithAlt, checkWithAlt],
-	['High Availability', xWithAlt, checkWithAlt, checkWithAlt],
-	['Read-Replicas', xWithAlt, checkWithAlt, checkWithAlt],
-	['Instance Re-sizing', xWithAlt, checkWithAlt, checkWithAlt],
+	['Side car support', true, true, true],
+	['Automatic Back Ups', true, true, true],
+	['Point in time recovery', true, true, true],
+	['Monitoring & Alerting', true, true, true],
+	['High Availability', false, true, true],
+	['Read-Replicas', false, true, true],
+	['Instance Re-sizing', false, true, true],
 	['Uptime SLA', '99%', '99.9%', '99.99%'],
 ];
 
@@ -86,16 +51,33 @@ const platformRows = [
 	['Team members', '10', 'Unlimited', 'Unlimited'],
 	['Log Retention', '30 Days', '90 Days', '365 Days'],
 	['Access Control', 'Owner, User', 'Owner, User', 'RBAC'],
-	['SSO', xWithAlt, checkWithAlt, checkWithAlt],
+	['SSO', false, true, true],
 ];
 
 const supportRows = [
-	['Community Support', xWithAlt, checkWithAlt, 'Single'],
-	['Email Support', xWithAlt, checkWithAlt, checkWithAlt],
-	['Designated Support', xWithAlt, checkWithAlt, checkWithAlt],
-	['Support SLA', xWithAlt, checkWithAlt, checkWithAlt],
-	['Onboarding Support', xWithAlt, xWithAlt, checkWithAlt],
-	['Dedicated Customer Engineer', xWithAlt, xWithAlt, checkWithAlt],
+	['Community Support', false, true, 'Single'],
+	['Email Support', false, true, true],
+	['Designated Support', false, true, true],
+	['Support SLA', false, true, true],
+	['Onboarding Support', false, false, true],
+	['Dedicated Customer Engineer', false, false, true],
+];
+
+const competitorRows = [
+	[
+		'Use Cases',
+		'General Purpose & Multiple Specialized Stacks',
+		'General Purpose',
+		'Time-Series Only',
+	],
+	['Custom Sidecar Deployments', '10 GB', '10 GB', '10 GB'],
+	['Extensions', '150+', '91', '0'],
+	['Stacks', '20+ Stacks', false, false],
+	['Sidecar & App Deployments', true, false, false],
+	['Private Data Plane', true, false, false],
+	['Multi-Cloud Support', true, false, false],
+	['Custom Extension Deployments', true, false, false],
+	['Automated Schema Workflows', true, false, false],
 ];
 ---
 
@@ -123,7 +105,7 @@ const supportRows = [
 			</div>
 			<div class='shrink-0'>
 				<h1
-					class='mt-6 font-bold text-pricingGreen text-4xl leading-[45px] tracking-[0.472px] customXs:mt-10 customXs:text-6xl customXs:leading-[75px] customSm:text-[68px] customSm:leading-[85px] customSm:mt-[65px] customMd:mt-[25px] customLg:mt-[53px]'
+					class='mt-6 font-bold text-pricingGreen text-4xl leading-[45px] tracking-[0.472px] customXs:mt-10 customXs:text-6xl customXs:leading-[75px] customMd:text-[68px] customMd:leading-[85px] customSm:mt-[65px] customMd:mt-[25px] customLg:mt-[53px]'
 				>
 					Tembo’s Pricing
 				</h1>
@@ -136,154 +118,11 @@ const supportRows = [
 			</div>
 		</Container>
 		<Container
-			styles='mt-[131px] flex flex-col gap-10 customXs:mt-20 customS:mt-[96px] customSm:flex-row customSm:gap-4 customSm:items-start customMd:mt-[215px] customLg:mt-[164px]'
+			styles='mt-[131px] flex flex-col gap-10 customXs:mt-20 customXs:grid customXs:grid-cols-[1fr_1fr] customXs:grid-rows-[auto_auto] customXs:items-start customXs:gap-5 mobile:gap-8 customSm:mt-[96px] customMd:mt-[215px] customMd:flex customMd:flex-row customLg:mt-[164px]'
 		>
-			<article
-				class='px-4 py-8 bg-mwasi bg-opacity-80 rounded-3xl w-full max-w-[560px] mx-auto'
-			>
-				<h2
-					class='font-semibold text-pricingLightBlue text-[28px] leading-[35px] tracking-[0.54px]'
-				>
-					Hobby
-				</h2>
-				<span
-					class='block mt-[15px] font-secondary font-light text-white text-base leading-[19px] opacity-80'
-					>For personal projects and simple applications.</span
-				>
-				<span
-					class='block mt-8 font-semibold text-pricingLightBlue text-[32px] leading-[40px] tracking-[0.54px]'
-				>
-					Free
-				</span>
-				<Button
-					client:load
-					variant='blue'
-					size='xl'
-					styles='w-full mt-8 font-semibold text-[15px] leading-[18px] tracking-[0.54px] customXs:text-[19px] customXs:leading-[23px]'
-				>
-					Sign Up Free
-				</Button>
-				<hr
-					class='my-8 h-[1px] w-full bg-white border-none opacity-30'
-				/>
-				<ul class='flex flex-col gap-2'>
-					{
-						hobbyFeatures.map((feature) => (
-							<li class='min-h-[50px] flex'>
-								<div class='flex gap-2 items-start'>
-									<Image
-										src={blueTickCircle}
-										alt='check mark'
-									/>
-									<span class='font-secondary font-normal text-white text-base leading-[27px] customMd:text-lg'>
-										{feature}
-									</span>
-								</div>
-							</li>
-						))
-					}
-				</ul>
-			</article>
-			<article
-				class='relative w-full max-w-[560px] mx-auto customSm:-mt-[45px] customMd:-mt-[245px] customLg:-mt-[220px]'
-			>
-				<Image
-					src={pennants}
-					alt='festive pennants'
-					class='hidden customSm:block absolute w-[143px] h-[127px] -top-[90px] -right-[18px]'
-				/>
-				<div
-					class='relative px-4 py-8 bg-mwasi bg-opacity-80 rounded-3xl border-2 border-pricingGreen'
-				>
-					<h2
-						class='font-semibold text-pricingGreen text-[28px] leading-[35px] tracking-[0.54px]'
-					>
-						Production
-					</h2>
-					<span
-						class='block mt-[15px] font-secondary font-light text-white text-base leading-[19px] opacity-80'
-						>For production applications and high traffic.</span
-					>
-					<ProductionPricing client:load />
-					<Button
-						client:load
-						variant='green'
-						size='xl'
-						styles='w-full mt-8 font-semibold text-[15px] leading-[18px] tracking-[0.54px] customXs:text-[19px] customXs:leading-[23px]'
-					>
-						Get Started
-					</Button>
-					<hr
-						class='my-8 h-[1px] w-full bg-white border-none opacity-30'
-					/>
-					<ul class='flex flex-col gap-2'>
-						{
-							productionFeatures.map((feature) => (
-								<li class='min-h-[50px] flex'>
-									<div class='flex gap-2 items-start'>
-										<Image
-											src={greenTickCircle}
-											alt='check mark'
-										/>
-										<span class='font-secondary font-normal text-white text-base leading-[27px] customMd:text-lg'>
-											{feature}
-										</span>
-									</div>
-								</li>
-							))
-						}
-					</ul>
-				</div>
-			</article>
-			<article
-				class='px-4 py-8 bg-mwasi bg-opacity-80 rounded-3xl w-full max-w-[560px] mx-auto'
-			>
-				<h2
-					class='font-semibold text-pricingLightBlue text-[28px] leading-[35px] tracking-[0.54px]'
-				>
-					Enterprise
-				</h2>
-				<span
-					class='block mt-[15px] font-secondary font-light text-white text-base leading-[19px] opacity-80'
-					>For critical workloads and robust security.</span
-				>
-				<span
-					class='block mt-8 font-semibold text-pricingLightBlue text-[32px] leading-[40px] tracking-[0.54px]'
-				>
-					Custom
-				</span>
-				<a
-					href='mailto:support@tembo.io'
-					target='_blank'
-					rel='noreferrer'
-					class='mt-8 py-6 px-8 w-full inline-block rounded-full text-center bg-lightBlue font-secondary font-semibold text-[15px] text-mwasi leading-[18px] tracking-[0.54px] customXs:text-[19px] customXs:leading-[23px]'
-					>Contact Us</a
-				>
-				<hr
-					class='my-8 h-[1px] w-full bg-white border-none opacity-30'
-				/>
-				<ul class='flex flex-col gap-2'>
-					{
-						enterpriseFeatures.map((feature) => (
-							<li class='min-h-[50px] flex'>
-								<div class='flex gap-2 items-start'>
-									<Image
-										src={blueTickCircle}
-										alt='check mark'
-									/>
-									<span class='font-secondary font-normal text-white text-base leading-[27px] customMd:text-lg'>
-										{feature}
-									</span>
-								</div>
-							</li>
-						))
-					}
-				</ul>
-			</article>
+			<PricingCards />
 		</Container>
-		<Container
-			styles='mt-[58px] mb-[37px] customXs:mt-[65px] customSm:mt-0'
-		>
+		<Container styles='mt-[58px] mb-[37px] customXs:mt-32 customMd:mt-0'>
 			<h2
 				class='relative w-[209px] font-bold text-white text-[26px] leading-[33px] tracking-[0.472px] customXs:text-[34px] customXs:leading-[43px]'
 			>
@@ -291,7 +130,7 @@ const supportRows = [
 				<Image
 					src={rainbowArrow}
 					alt='colorful arrow'
-					class='w-[56px] h-[105px] absolute -bottom-[90px] -right-4 customXs:-right-[55px] customSm:-bottom-[95px] customSm:-right-[66px] customSm:w-[62px] customSm:h-[117px]'
+					class='z-10 w-[56px] h-[105px] absolute -bottom-[90px] -right-4 customXs:-right-[55px] customSm:-bottom-[95px] customSm:-right-[66px] customSm:w-[62px] customSm:h-[117px]'
 				/>
 			</h2>
 		</Container>
@@ -299,7 +138,20 @@ const supportRows = [
 			title='General'
 			icon={{ ...queue, alt: 'message queue symbol' }}
 			rows={generalRows}
+			styles='hidden customXs:block'
 		/>
+		<TabbedTable
+			client:load
+			title='General'
+			rows={generalRows}
+			styles='customXs:hidden'
+		>
+			<Image
+				src={queue}
+				alt='message queue symbol'
+				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[56px]'
+			/>
+		</TabbedTable>
 		<Container
 			styles='flex flex-col gap-6 mt-[126px] mb-[175px] customXs:mt-[139px] customXs:mb-[150px] customSm:grid customSm:mt-[144px] customSm:grid-rows-2 customSm:grid-cols-2 customSm:mb-[135px] customMd:mb-[110px] customLg:mt-[86px] customLg:mb-[100px]'
 		>
@@ -314,7 +166,21 @@ const supportRows = [
 			icon={{ ...clipboard, alt: 'clipboard symbol' }}
 			rows={platformRows}
 			backdrop={false}
+			styles='hidden customXs:block'
 		/>
+		<TabbedTable
+			client:load
+			title='Platform'
+			rows={platformRows}
+			backdrop={false}
+			styles='customXs:hidden'
+		>
+			<Image
+				src={clipboard}
+				alt='clipboard symbol'
+				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[56px]'
+			/>
+		</TabbedTable>
 		<Container
 			styles='flex flex-col gap-6 mt-[126px] mb-[144px] customXs:mb-[115px] customSm:mt-[142px] customSm:grid customSm:grid-rows-2 customSm:grid-cols-2 customMd:mt-[90px] customMd:mb-[150px]'
 		>
@@ -328,8 +194,32 @@ const supportRows = [
 			title='Support'
 			icon={{ ...phone, alt: 'telephone symbol' }}
 			rows={supportRows}
+			styles='hidden customXs:block'
 		/>
+		<TabbedTable
+			client:load
+			title='Support'
+			rows={supportRows}
+			styles='customXs:hidden'
+		>
+			<Image
+				src={phone}
+				alt='telephone symbol'
+				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[56px]'
+			/>
+		</TabbedTable>
 		<Quotes client:load />
+		<Container
+			styles='mt-[160px] customXs:mt-[125px] customSm:mt-[265px] customMd:mt-[215px] customLg:mt-[175px]'
+		>
+		<span class="block font-semibold text-white text-lg leading-[23px] tracking-[0.54px]">Cost Comparison</span>
+			<h2
+				class='max-w-[300px] mt-[27px] font-semibold text-pricingGreen text-[32px] leading-[40px] tracking-[0.54px] customXs:max-w-full customXs:text-[35px] customXs:leading-[44px] customSm:mt-4 customSm:text-[42px] customSm:leading-[53px]'
+			>
+				Comparing Tembo vs. Others
+			</h2>
+			<CompetitorTable client:load />
+		</Container>
 		<Container
 			styles='mt-[150px] pb-[160px] customXs:pb-[265px] customSm:mt-[150px] customMd:mt-[130px] customLg:mt-[125px] md:pb-[200px] xl:pb-[500px]'
 		>

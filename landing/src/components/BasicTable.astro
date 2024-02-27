@@ -1,63 +1,82 @@
 ---
+import cx from 'classnames';
 import { Image } from 'astro:assets';
+import blueCheck from '../images/blueCheck.svg';
+import blueX from '../images/blueX.svg';
 import Container from './Container';
-
-export type ImageMetadataWithAlt = ImageMetadata & { alt: string }
 
 interface Props {
 	title: string;
-	icon: ImageMetadataWithAlt;
-	rows: (string | ImageMetadataWithAlt)[][];
+	icon: ImageMetadata & { alt: string };
+	rows: (string | boolean)[][];
 	backdrop?: boolean;
+	styles?: string
 }
 
-const { title, icon, rows, backdrop = true } = Astro.props;
+const { title, icon, rows, backdrop = true, styles } = Astro.props;
+
+const columnHeadings = ['Hobby', 'Production', 'Enterprise'];
 ---
 
 <section
-	class={backdrop
-		? 'bg-mwasi bg-opacity-80 pb-[38px] pt-[100px] customSm:pb-[158px] customLg:py-[125px]'
-		: ''}
+	class={cx({
+		'bg-lightMwasi pt-[22px] mobile:pt-[3px] pb-[38px] customSm:pb-[158px] customLg:py-[28px]':
+			backdrop,
+	}, styles)}
 >
 	<Container>
-		<div class='flex items-center gap-4'>
-			<Image
-				src={icon}
-				alt={icon.alt}
-				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[56px]'
-			/>
-			<h3
-				class='font-bold text-pricingGreen text-3xl leading-[38px] tracking-[0.473px] [text-shadow:0px_0px_81px_#000] customXs:text-[42px] customXs:leading-[53px]'
-			>
-				{title}
-			</h3>
-		</div>
-		<table class='mt-[40px] w-full customXs:mt-[52px] table-fixed'>
-			<tbody>
+		<table class='w-full table-fixed border-separate border-spacing-0'>
+				<thead
+					class={cx(
+						'sticky top-0 backdrop-blur-lg safari-blur',
+						backdrop ? 'bg-lightMwasi bg-opacity-70' : 'bg-black bg-opacity-50',
+					)}
+				>
+					<tr>
+						<th class='pt-[78px] mobile:pt-[97px] pb-7 mobile:pb-[30px] border-b border-white border-opacity-20'>
+							<div class='flex items-center gap-2 customSm:gap-3'>
+								<Image
+									src={icon}
+									alt={icon.alt}
+									class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[56px]'
+								/>
+								<span
+									class='font-bold text-pricingGreen text-3xl tracking-[0.473px] [text-shadow:0px_0px_81px_#000] customSm:text-[42px]'
+								>
+									{title}
+								</span>
+							</div>
+						</th>
+						{
+							columnHeadings.map((heading) => (
+								<th class='pt-[78px] mobile:pt-[97px] pb-7 mobile:pb-[30px] text-lg customSm:text-2xl leading-[30px] text-pricingGreen font-semibold tracking-[0.54px] border-b border-white border-opacity-20'>
+									{heading}
+								</th>
+							))
+						}
+					</tr>
+					<tbody>
+				</thead>
 				{
 					rows.map((row) => (
-						<tr class='h-20 border-b border-white border-opacity-20'>
+						<tr class='h-20'>
 							{row.map((content, i) =>
 								i === 0 ? (
 									<th
 										scope='row'
-										class='text-left font-secondary font-semibold text-white text-base leading-[19px] customXs:w-[145px] customXs:text-lg customXs:leading-[22px] customSm:w-[236px] customMd:w-[280px] customLg:w-[288px]'
+										class='text-left font-secondary font-semibold text-white text-base leading-[19px] customXs:w-[145px] customXs:text-lg customXs:leading-[22px] customSm:w-[236px] customMd:w-[280px] customLg:w-[288px] border-b border-white border-opacity-20'
 									>
-										{typeof content === 'string' ? (
-											content
-										) : (
-											<Image src={content} alt={content.alt} />
-										)}
+										{content}
 									</th>
 								) : typeof content === 'string' ? (
-									<td class='text-center font-secondary text-pricingLightBlue font-normal text-lg leading-[22px]'>
+									<td class='text-center font-secondary text-pricingLightBlue font-normal text-lg leading-[22px] border-b border-white border-opacity-20'>
 										{content}
 									</td>
 								) : (
-									<td>
+									<td class='border-b border-white border-opacity-20'>
 										<Image
-											src={content}
-											alt={content.alt}
+											src={content ? blueCheck : blueX}
+											alt={content ? 'check symbol meaning "included"' : 'x symbol meaning "not included"'}
 											class='mx-auto'
 										/>
 									</td>
