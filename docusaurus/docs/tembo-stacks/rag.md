@@ -73,15 +73,15 @@ pip install tembo-py
 ```
 
 ```python
-from tembo_py.rag import TemboRAGcontroller
+from tembo_py.rag import TemboRAG
 
-tembo_loader = TemboRAGcontroller(
+rag = TemboRAG(
     project_name="tembo_support",
     chat_model="gpt-3.5-turbo",
     connection_string="postgresql://postgres:<password>@<yourTemboHost>:5432/postgres"
 )
 
-chunks = tembo_loader.prepare_from_directory("./tembo_docs")
+chunks = rag.prepare_from_directory("./tembo_docs")
 ```
 
 The original 80 documents are now split into nearly 500 chunks, where each chunk is <= to the context window size of the `gpt-3.5-turbo` model.
@@ -96,7 +96,7 @@ number of chunks:  475
 Loading the chunks into Tembo Postgres is a one-line command:
 
 ```python
-tembo_loader.load_documents(chunks)
+rag.load_documents(chunks)
 ```
 
 ### Initialize the agent
@@ -104,7 +104,7 @@ tembo_loader.load_documents(chunks)
 Now initialize the RAG project. This starts the process of generating embeddings for each chunk using the `sentence-transformers/all-MiniLM-L12-v2` model. This happens within Postgres on Tembo, and not in the environment where the python scripts are executed. This could take some time depending on how many chunks and documents are in the project.
 
 ```python
-tembo_loader.init_rag(transformer="sentence-transformers/all-MiniLM-L12-v2")
+rag.init_rag(transformer="sentence-transformers/all-MiniLM-L12-v2")
 ```
 
 It is safe to close the connection to the Tembo Postgres instance at this point.
@@ -164,6 +164,14 @@ postgres=# select vectorize.rag(
 ```console
  "Tembo Stacks are a feature provided by Tembo that allows users to create and deploy custom-built versions of Postgres with extensions tailored for specific enterprise needs. These Stacks are designed to accelerate development by eliminating the need to set up new databases repeatedly. With Tembo Stacks, users can replace external non-Postgres data services. The Tembo General stack is a specific Stack provided by Tembo that offers a tuned Postgres instance suitable for general-purpose computing. Users have full control over compute resources, configuration settings, and the installation of extensions when using the Tembo General stack."
 ```
+
+### Limitations
+
+RAG can be a very powerful technique for building an LLM application, but the effectiveness of the chat model is highly dependent on a few factors:
+
+- the contextual documents provided in RAG need to be relevant. This means that relevant documents must not only exist, but the similarity search also needs to find them.
+- the prompt needs to be well-crafted to guide the LLM to generate accurate and relevant responses. Even with a highly tailored prompt, chat responses are still subject to "hallucinations".
+- context windows are a constraint, and are costly. Using a chat model with a higher context window is more likely but not guaranteed to generate a better response, and it is guaranteed to be more expensive.
 
 ### Support
 
