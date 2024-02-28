@@ -4,211 +4,233 @@ import Layout from '../layouts/Layout.astro';
 import Container from '../components/Container';
 import Footer from '../components/Footer.astro';
 import Callout from '../components/Callout.astro';
+import Markdown from '../components/Markdown.astro';
 const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Tembo for Startups'>
-    <NavBar client:load currentPage={currentPath} />
-    <Container>
-        <div class='mt-[140px] mobile:mt-[220px] mb-[80px]'>
-            <section
-                class='tembo-for-startups-section prose
-                dark:prose-invert prose-p:text-lightGrey prose-li:text-lightGrey
-                prose-headings:font-bold prose-headings:text-white
-                prose-h1:text-4xl
-                prose-a:bg-gradient-to-r prose-a:bg-[length:100%_1px] prose-a:bg-no-repeat 
-                prose-a:bg-bottom prose-a:from-salmon prose-a:via-purple 
-                prose-a:to-lightPurple prose-a:text-white
-                prose-a:no-underline prose-img:rounded-xl prose-p:font-secondary
-                prose-code:before:content-none prose-code:after:content-none 
-                prose-inline-code:rounded-lg prose-inline-code:font-normal 
-                prose-inline-code:text-white prose-inline-code:border
-                prose-inline-code:border-[#505050] prose-inline-code:bg-[#3D3D3D]
-                prose-inline-code:px-[4px] prose-inline-code:py-[4px] 
-                prose-strong:text-white prose-td:text-white
-                prose-li:font-secondary marker:text-[#505050]'
-            >
-                <h1>Tembo for Startups</h1>
+	<NavBar client:load currentPage={currentPath} />
+	<Container>
+		<section
+			class='tembo-for-startups-section flex w-full items-center justify-center mt-[120px] mobile:mt-[180px]'
+		>
+			<Markdown>
+				<h1
+					class='neon-text font-extrabold text-5xl lg:text-6xl z-10 mb-6'
+				>
+					Tembo for Startups
+				</h1>
+				<blockquote>
+					<p>
+						"Growing my startup with the Postgres doesn't get any
+						better, or more affordable, than this."
+						<br />- Startup CEO
+					</p>
+				</blockquote>
 
-                <blockquote>
-                    <p>
-                        "Growing my startup with the Postgres doesn't get any better, or more affordable, 
-                        than this."
-                        <br />- Startup CEO
-                    </p>
-                </blockquote>
+				<h2>Program Overview</h2>
 
-                <h2
-                >Program Overview</h2>
+				<p>
+					<b>Tembo for Startups</b> provides Tembo Cloud as a rich Postgres-based
+					data services foundation for high-potential early-stage startups.
+					Through an extensive catalog of Tembo Stacks and open source
+					extensions, Tembo aims to unlock the full power of Postgres to
+					your developers.
+				</p>
 
-                <p>
-                    <b>Tembo for Startups</b> provides Tembo Cloud as a rich Postgres-based data services 
-                    foundation for high-potential early-stage startups. Through an extensive catalog of 
-                    Tembo Stacks and open source extensions, Tembo aims to unlock the full power of 
-                    Postgres to your developers.  
-                </p>
+				<p>
+					The program features heavy discounts for the first year, and
+					ongoing discounts as you scale.
+				</p>
 
-                <p>
-                    The program features heavy discounts for the first year, and ongoing discounts as 
-                    you scale.
-                </p> 
+				<h2>About Tembo</h2>
 
-                <h2>About Tembo</h2>
+				<p>
+					As startups grow, they can find themselves spending
+					thousands per month on a fast-growing sprawl of data
+					vendors. Our aim is to help you fight back against this.
+				</p>
 
-                <p>
-                    As startups grow, they can find themselves spending thousands per month on 
-                    a fast-growing sprawl of data vendors. Our aim is to help you fight back 
-                    against this.
-                </p>
+				<p>
+					<b>Postgres</b> (and its assimilation of 25+ years of database
+					innovation) is the perfect tool to battle this; It is open-source,
+					extensible, flexible, and available from many vendors (therefore,
+					somewhat lock-in resistant).
+				</p>
 
-                <p>
-                    <b>Postgres</b> (and its assimilation of 25+ years of database innovation) 
-                    is the perfect tool to battle this; It is open-source, extensible, flexible, 
-                    and available from many vendors (therefore, somewhat lock-in resistant). 
-                </p>
+				<p>
+					However, most managed Postgres vendors provide a
+					stripped-down version of Postgres that restricts developer
+					creativity. Or a few specialized vendors provide a managed
+					offering around a specific use case, but not a full spectrum
+					of use cases.
+				</p>
 
-                <p>
-                    However, most managed Postgres vendors provide a stripped-down version of 
-                    Postgres that restricts developer creativity. Or a few specialized vendors 
-                    provide a managed offering around a specific use case, but not a full 
-                    spectrum of use cases.
-                </p>
+				<p>
+					Tembo is “multi-workload” Postgres and aims to integrate the <b
+						>entire</b
+					>
+					Postgres OSS ecosystem, providing developers confidence to use
+					Postgres however they like. It also packages and tunes Postgres
+					for common use cases, as an open-source library of
+					<a href='Thttps://tembo.io/docs/category/tembo-stacks'
+						>Tembo Stacks</a
+					>.
+				</p>
 
-                <p>
-                    Tembo is “multi-workload” Postgres and aims to integrate the <b>entire</b> 
-                    Postgres OSS ecosystem, providing developers confidence to use Postgres however 
-                    they like. It also packages and tunes Postgres for common use cases, as an 
-                    open-source library of 
-                    <a href="Thttps://tembo.io/docs/category/tembo-stacks">Tembo Stacks</a>.
-                </p>
+				<Callout title='Want to know more?' variant='info'>
+					<p>
+						If you'd like to dig deeper into why we started the
+						company and our vision, read the <a
+							href='https://tembo.io/blog/tembo-manifesto'
+							>Tembo Manifesto</a
+						>.
+					</p>
+				</Callout>
 
+				<h2>Qualifications</h2>
 
-                <Callout title='Want to know more?' variant='info'>
-                    <p>
-                        If you'd like to dig deeper into why we started the company and our vision,
-                        read the <a href="https://tembo.io/blog/tembo-manifesto">Tembo Manifesto</a>.
-                    </p>
-                </Callout>
+				<h3>Startups eligible for up to 50% off year one</h3>
+				<ul>
+					<li>Raised funding up to $2 million</li>
+					<li>
+						Associated with one of our approved VC, Incubator, or
+						Accelerator partners
+					</li>
+					<li>Get 25% off in the second year, and 15% off ongoing</li>
+				</ul>
 
-                <h2>Qualifications</h2>
+				<h3>Startups eligible for up to 25% off year one</h3>
+				<ul>
+					<li>Raised funding over $2 million</li>
+					<li>Have not raised Series B or beyond</li>
+					<li>
+						Associated with one of our approved partner
+						organizations
+					</li>
+					<li>Get 15% off ongoing</li>
+				</ul>
 
-                <h3>Startups eligible for up to 50% off year one</h3>
-                <ul>
-                    <li>Raised funding up to $2 million</li>
-                    <li>Associated with one of our approved VC, Incubator, or Accelerator partners</li>
-                    <li>Get 25% off in the second year, and 15% off ongoing</li>
-                </ul>
+				<h3>Startups eligible for up to 15% off ongoing</h3>
+				<ul>
+					<li>
+						Associated with one of our approved entrepreneurial
+						organizations
+					</li>
+				</ul>
 
-                <h3>Startups eligible for up to 25% off year one</h3>
-                <ul>
-                    <li>Raised funding over $2 million</li>
-                    <li>Have not raised Series B or beyond</li>
-                    <li>Associated with one of our approved partner organizations</li>
-                    <li>Get 15% off ongoing</li>
-                </ul>
+				<h2>Why join?</h2>
 
-                <h3>Startups eligible for up to 15% off ongoing</h3>
-                <ul>
-                    <li>Associated with one of our approved entrepreneurial organizations</li>
-                </ul>
+				<ul>
+					<li>
+						<b>Premium-level software —</b>
+						Tembo is a Postgres platform with all the tools you need
+						for OLTP, Data Warehousing, OLAP, AI, ML, time series, message
+						queue, and other database use cases.
+					</li>
+					<li>
+						<b>24/7 customer support —</b>
+						Between in-app support, community Slack, an extensive knowledge
+						base, you’ll have everything you need to get up and running
+						quickly. Tembo’s customer support team is always ready to
+						help with all your technical questions.
+					</li>
+					<li>
+						<b>Hundreds of extensions, apps, and stacks —</b>
+						Tembo Cloud integrates the very best from the Postgres ecosystem,
+						and provides a Tembo Stack for common Postgres use cases.
+						Best of all, the Tembo Stack ecosystem is entirely open-source,
+						so if we don’t have what you need, you can help get it added
+						to the platform.
+					</li>
+				</ul>
 
-                <h2>Why join?</h2>
+				<h2>Apply</h2>
 
-                <ul>
-                    <li>
-                        <b>Premium-level software —</b>
-                        Tembo is a Postgres platform with all the tools you need for OLTP, 
-                        Data Warehousing, OLAP, AI, ML, time series, message queue, and 
-                        other database use cases.
-                    </li>
-                    <li>
-                        <b>24/7 customer support —</b>
-                        Between in-app support, community Slack, an extensive knowledge base, 
-                        you’ll have everything you need to get up and running quickly. 
-                        Tembo’s customer support team is always ready to help with all your 
-                        technical questions.
-                    </li>
-                    <li>
-                        <b>Hundreds of extensions, apps, and stacks —</b>
-                        Tembo Cloud integrates the very best from the Postgres ecosystem, and 
-                        provides a Tembo Stack for common Postgres use cases. Best of all, 
-                        the Tembo Stack ecosystem is entirely open-source, so if we don’t 
-                        have what you need, you can help get it added to the platform.
-                    </li>
-                </ul>
+				<ol>
+					<li>
+						Signup for an account at <a
+							href='https://cloud.tembo.io'>Tembo Cloud</a
+						>.
+					</li>
+					<li>
+						Complete the <a
+							href='https://forms.gle/bvuCa9Yws7UMLfRy6'
+							>startup application</a
+						>
+						(if your partner is not listed, please direct them to the
+						section below).
+					</li>
+				</ol>
 
-                <h2>Apply</h2>
+				<hr class='mt-20' />
 
-                <ol>
-                    <li>Signup for an account at <a href="https://cloud.tembo.io">Tembo Cloud</a>.</li>
-                    <li>
-                        Complete the <a href="https://forms.gle/bvuCa9Yws7UMLfRy6">startup application</a>
-                        (if your partner is not listed, please direct them to the 
-                        section below).
-                    </li>
-                </ol>
+				<h2>Become a Tembo Partner</h2>
 
-                <hr class='mt-20' />
+				<p>
+					Become a Tembo Partner to unlock a substantial discount on
+					our products for your member companies.
+				</p>
 
-                <h2
-                >Become a Tembo Partner</h2>
-
-                <p>
-                    Become a Tembo Partner to unlock a substantial discount on our products for your 
-                    member companies. 
-                </p>
-
-                <p>
-                    Joining is a very quick process:
-                </p>
-
-                <ol>
-                    <li>
-                        Complete the <a href="https://forms.gle/gLWRRnnfwdaKoqm98">partner application</a>. 
-                        We'll process your application right away.
-                    </li>
-                    <li>
-                        (optional) Email a high-resolution png of your logo to 
-                        <a href="mailto:support@tembo.io">support@tembo.io</a>.
-                    </li>
-                    <li>
-                        (optional) Share this page to your members/portfolio with a message similar 
-                        to the following:
-                        <blockquote>
-                            <p>
-                                Tembo has graciously offered our companies heavy discounts for the first year, 
-                                and ongoing discounts as you scale.
-                                <br /><br />
-                                Tembo for Startups provides Tembo Cloud as a rich Postgres-based data services 
-                                foundation for high-potential early-stage startups. Through an extensive 
-                                catalog of Tembo Stacks and open source extensions, Tembo aims to unlock the 
-                                full power of Postgres to your developers.  
-                                <br /><br />
-                                You can apply at 
-                                <a href="https://tembo.io/for-startups">https://tembo.io/for-startups</a> 
-                                and choose our organization in the drop down. 
-                            </p>
-                        </blockquote>
-                    </li>
-                </ol>
-            </section>
-        </div>
-        <div class='relative bg-offBlack z-10'>
-            <div
-                class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
-            >
-            </div>
-            <Container styles='z-50'>
-                <Footer />
-            </Container>
-        </div>
-    </Container>
+				<p>Joining is a very quick process:</p>
+				<ol>
+					<li>
+						Complete the <a
+							href='https://forms.gle/gLWRRnnfwdaKoqm98'
+							>partner application</a
+						>. We'll process your application right away.
+					</li>
+					<li>
+						(optional) Email a high-resolution png of your logo to
+						<a href='mailto:support@tembo.io'>support@tembo.io</a>.
+					</li>
+					<li>
+						(optional) Share this page to your members/portfolio
+						with a message similar to the following:
+					</li>
+				</ol>
+				<Callout>
+					<p>
+						Tembo has graciously offered our companies heavy
+						discounts for the first year, and ongoing discounts as
+						you scale.
+						<br /><br />
+						Tembo for Startups provides Tembo Cloud as a rich Postgres-based
+						data services foundation for high-potential early-stage startups.
+						Through an extensive catalog of Tembo Stacks and open source
+						extensions, Tembo aims to unlock the full power of Postgres
+						to your developers.
+						<br /><br />
+						You can apply at
+						<a href='https://tembo.io/for-startups'
+							>https://tembo.io/for-startups</a
+						>
+						and choose our organization in the drop down.
+					</p>
+				</Callout>
+			</Markdown>
+		</section>
+	</Container>
+	<div class='relative'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
+		</div>
+		<Container>
+			<div class='mt-16 mobile:mt-24'>
+				<Footer />
+			</div>
+		</Container>
+	</div>
 </Layout>
 
 <style>
-    blockquote {
-        background-color: #1c1c1c;
-        padding: 1em;
-        quotes: none;
-    }
+	blockquote {
+		background-color: #1c1c1c;
+		padding: 1em;
+		quotes: none;
+	}
+	.neon-text {
+		color: #e9fc87 !important;
+	}
 </style>
