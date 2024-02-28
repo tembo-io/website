@@ -27,8 +27,7 @@ export async function GET() {
 			rss: 'https://tembo.io/feed.xml',
 		},
 	});
-	console.log(blog[0], posts[0]);
-	blog.forEach((post, index) => {
+	blog.forEach((post) => {
 		const dateString = post.id.substring(0, 10);
 		const parsedDate = post.data?.date || new Date(dateString);
 		const COULD_NOT_BE_RENDERED = `This post contained content that could not be rendered in the Atom feed. Please use the official post link: https://tembo.io/blog/${post.slug}`;

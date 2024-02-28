@@ -18,12 +18,14 @@ export const GET: APIRoute = async (context) => {
 			atom: 'http://www.w3.org/2005/Atom',
 		},
 		customData: `<atom:link href="${context.site}rss.xml" rel="self" type="application/rss+xml" />`,
-		items: blog.map((post, index) => {
+		items: blog.map((post) => {
 			const dateString = post.id.substring(0, 10);
 			const parsedDate = post.data?.date || new Date(dateString);
-			const COULD_NOT_BE_RENDERED =
-            `This post contained content that could not be rendered in the Atom feed. Please use the official post link: https://tembo.io/blog/${post.slug}`
+			const COULD_NOT_BE_RENDERED = `This post contained content that could not be rendered in the Atom feed. Please use the official post link: https://tembo.io/blog/${post.slug}`;
 			const isMdx = post.id.includes('.mdx');
+			const contentPost = posts.find((p) =>
+				p.frontmatter.slug.includes(post.slug),
+			);
 			return {
 				title: post.data.title,
 				pubDate: new Date(parsedDate).toISOString() as any,
@@ -31,7 +33,7 @@ export const GET: APIRoute = async (context) => {
 				link: `/blog/${post.slug}`,
 				content: isMdx
 					? COULD_NOT_BE_RENDERED
-					: posts[index]
+					: contentPost
 							?.compiledContent()
 							.replaceAll('src="/', 'src="https://tembo.io/') ||
 						COULD_NOT_BE_RENDERED,
@@ -52,4 +54,4 @@ export const GET: APIRoute = async (context) => {
 			};
 		}),
 	});
-}
+};
