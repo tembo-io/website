@@ -17,6 +17,7 @@ const Tag: React.FC<Props> = ({ title, classNames }) => {
 			window.location.pathname.split('/').filter((path) => path !== '/'),
 		);
 		setCurrentPath(window.location.pathname);
+		console.log('LOG', splitPath[splitPath.length - 1]);
 	}, []);
 	return (
 		<a
