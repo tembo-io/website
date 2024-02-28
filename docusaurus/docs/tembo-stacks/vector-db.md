@@ -13,7 +13,6 @@ Tembo's Vector Database provides tooling to automate the process of generating e
 - [pgmq](https://pgt.dev/extensions/pgmq) - `pgmq` implements a message queue with API parity with popular message queue services like AWS SQS and Redis RSMQ.
 - [pg_cron](https://pgt.dev/extensions/pg_cron) - `pg_cron` automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
 
-
 ## Getting started
 
 We will build a simple vector search database application using [pg_vectorize](https://github.com/tembo-io/pg_vectorize), Tembo's high level Postgres API which automated the transformation of text to embeddings and the management of embeddings in your database. It is powered by [OpenAI](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key), [pgvector](https://github.com/pgvector/pgvector), [pgmq](https://github.com/tembo-io/pgmq), and [pg_cron](https://github.com/citusdata/pg_cron).
@@ -48,100 +47,141 @@ SELECT * FROM products limit 2;
           2 | Laptop Stand | Elevated platform for laptops, enhancing ergonomics    | 2023-07-26 17:20:43.639351-05
 ```
 
-### Set your API key as a Postgres parameter
+## Using Hugging Face sentence transformers
+
+Setup a products table. Copy from the example data provided by the extension.
 
 ```sql
-ALTER SYSTEM SET vectorize.openai_key TO '<your api key>';
+CREATE TABLE products AS 
+SELECT * FROM vectorize.example_products;
 ```
 
-Then reload postgres configs so that the parameter takes effect.
 ```sql
-select pg_reload_conf();
+SELECT * FROM products limit 2;
 ```
 
-### Create a vectorize job
+```text
+ product_id | product_name |                      description                       |        last_updated_at        
+------------+--------------+--------------------------------------------------------+-------------------------------
+          1 | Pencil       | Utensil used for writing and often works best on paper | 2023-07-26 17:20:43.639351-05
+          2 | Laptop Stand | Elevated platform for laptops, enhancing ergonomics    | 2023-07-26 17:20:43.639351-05
+```
 
-Create a job to vectorize the products table. Give the job a name, we'll call it `product_search` in this example. Specify the table's primary key (`product_id`) and the columns that we want to search (`product_name` and `description`).
-
-Provide the OpenAI API key for the job.
+Create a job to vectorize the products table. We'll specify the tables primary key (product_id) and the columns that we want to search (product_name and description).
 
 ```sql
 SELECT vectorize.table(
-    job_name => 'product_search',
+    job_name => 'product_search_hf',
     "table" => 'products',
     primary_key => 'product_id',
-    columns => ARRAY['product_name', 'description']
+    columns => ARRAY['product_name', 'description'],
+    transformer => 'sentence-transformers/multi-qa-MiniLM-L6-dot-v1'
 );
 ```
 
-### Search your data
+This adds a new column to your table, in our case it is named `product_search_embeddings`, then populates that data with the transformed embeddings from the `product_name` and `description` columns.
 
-Depending on the size of your data, it could take a few minutes to generate embeddings.
-
-```sql
-SELECT vectorize.job_execute('product_search');
-```
-
-
-Specify the `job_name`, this must match what we specified in the previous step. Provide a raw text query to search our data. `return_columns` specifies the columns from the table that we want to return. `num_results` specifies the number of results to return.
+Then search,
 
 ```sql
 SELECT * FROM vectorize.search(
-    job_name => 'product_search',
+    job_name => 'product_search_hf',
     query => 'accessories for mobile devices',
     return_columns => ARRAY['product_id', 'product_name'],
     num_results => 3
 );
+
+                                       search_results                                        
+---------------------------------------------------------------------------------------------
+ {"product_id": 13, "product_name": "Phone Charger", "similarity_score": 0.8147814132322894}
+ {"product_id": 6, "product_name": "Backpack", "similarity_score": 0.7743061352550308}
+ {"product_id": 11, "product_name": "Stylus Pen", "similarity_score": 0.7709902653575383}
 ```
 
-```console
-                                          search_results
---------------------------------------------------------------------------------------------------
- {"value": "Phone Charger", "column": "product_name", "similarity_score": 0.8530797672121025}
- {"value": "Tablet Holder", "column": "product_name", "similarity_score": 0.8284493388477342}
- {"value": "Bluetooth Speaker", "column": "product_name", "similarity_score": 0.8255034841826178}
-```
+## Using OpenAI embedding models
 
-Great! Our query returned the top 3 most similar products to our query, along with the score for each product.
+pg_vectorize also works with using OpenAI's embeddings, but first you'll need an API key.
 
-### How it works
+- [openai API key](https://platform.openai.com/docs/guides/embeddings)
 
-By default, this job will run to generate and update embeddings every minute based on the `last_updated_at` column. This update process is triggered by a `pg_cron`, which is setup for your automatically by `pg_vectorize`. If there are updates to the `products` table, the next job run will subsequently update the embeddings accordingly. Tasks are enqueued into a [pgmq](https://github.com/tembo-io/pgmq) queue and processed by a configurable background worker.
-
-By default, this will add two columns to your table: `<job_name>_embeddings` and `<job_name>_updated_at`.
+Set your API key as a Postgres configuration parameter.
 
 ```sql
-SELECT column_name
-FROM information_schema.columns
-WHERE table_schema = 'public'
-AND table_name   = 'products';
+ALTER SYSTEM SET vectorize.openai_key TO '<your api key>';
+
+SELECT pg_reload_conf();
 ```
 
-```console
-        column_name
----------------------------
- product_id
- product_name
- description
- last_updated_at
- product_search_embeddings  <--- embeddings
- product_search_updated_at  <--- embeddings last updated at
-```
-
-### Stopping the job
-
-`pg_vectorize` will continuously update the embeddings for your table. If you want to stop the job, you can do so by running:
+Create an example table if it does not already exist.
 
 ```sql
-UPDATE cron.job
-SET active = false
-WHERE job_name = 'product_search';
+CREATE TABLE products AS 
+SELECT * FROM vectorize.example_products;
 ```
 
-You can reenable the job by running:
+Then create the job:
 
 ```sql
-UPDATE cron.job
-SET active = true
-WHERE job_name = 'product_search';
+SELECT vectorize.table(
+    job_name => 'product_search_openai',
+    "table" => 'products',
+    primary_key => 'product_id',
+    columns => ARRAY['product_name', 'description'],
+    transformer => 'text-embedding-ada-002'
+);
 ```
+
+It may take some time to generate embeddings, depending on API latency.
+
+```sql
+SELECT * FROM vectorize.search(
+    job_name => 'product_search_openai',
+    query => 'accessories for mobile devices',
+    return_columns => ARRAY['product_id', 'product_name'],
+    num_results => 3
+);
+
+                                         search_results                                     
+    
+--------------------------------------------------------------------------------------------
+----
+ {"product_id": 13, "product_name": "Phone Charger", "similarity_score": 0.8564681325237845}
+ {"product_id": 24, "product_name": "Tablet Holder", "similarity_score": 0.8295988934993099}
+ {"product_id": 4, "product_name": "Bluetooth Speaker", "similarity_score": 0.8250355616233103}
+(3 rows)
+```
+
+## Changing the database
+
+By default, `vectorize` is configured to run on the `postgres` database, but that can be changed to any database in Postgres.
+
+Update the following configuration parameters so that the corresponding background workers connect to the correct database.
+
+```sql
+ALTER SYSTEM SET cron.database_name TO 'my_new_db';
+ALTER SYSTEM SET vectorize.host TO 'postgresql://postgres?host=/controller/run&dbname=my_new_db';
+```
+
+Then, restart postgres
+
+```sql
+CREATE EXTENSION vectorize CASCADE;
+```
+
+
+## How it works
+
+
+When `vectorize.table()` is executed, the extension creates jobs in [pgmq](https://github.com/tembo-io/pgmq) that are executed by the background worker.
+ The background worker calls the appropriate embedding model, whether thats one coming from Hugging Face or OpenAI.
+ By default, triggers are created that also update the embeddings any time a new record is inserted into the table or
+ if a record is updated.
+
+`vectorize.search()` transforms the raw text query into embeddings using the same model that was used to generate the embeddings in the first place.
+ It then uses the `pgvector` extension to search for the most similar embeddings in the table,
+ and returns the results in a JSON format to the caller.
+
+
+## Support
+
+Join the Tembo Community [in Slack](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw) to ask a question or see how others are building on [https://cloud.tembo.io](Tembo).
