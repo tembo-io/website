@@ -14,13 +14,11 @@ const Tag: React.FC<Props> = ({ title, classNames }) => {
 
 	useEffect(() => {
 		setSplitPath(
-			window.location.pathname.split('/').filter((path) => path !== '/'),
+			window.location.pathname
+				.split('/')
+				.filter((path) => path !== '/' && path !== ''),
 		);
 		setCurrentPath(window.location.pathname);
-		console.log(
-			'LOG',
-			window.location.pathname.split('/').filter((path) => path !== '/'),
-		);
 	}, []);
 	return (
 		<a
