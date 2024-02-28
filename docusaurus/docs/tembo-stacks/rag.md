@@ -5,11 +5,11 @@ sidebar_position: 5
 
 # Tembo RAG
 
-Build LLM applications without deploying new infrastructure or changing your application's language stack. Tembo's RAG Stack gives you a SQL API to building LLM applications using Retrieval Augmented Generation (RAG) techniques.
+Build LLM applications without deploying new infrastructure or changing your application's language stack. Tembo's RAG Stack gives you a SQL API to building LLM applications using Retrieval Augmented Generation (RAG) techniques. In short, RAG is a technique used to provide your own data as context to a chat model as a means to provide a chat experience tailored to your application's needs.
 
 This guide will walk through building an application to support users with questions about Tembo's products and services.
- The application will ingest a collection of documents into Postgres as chunks of text, generate embeddings from that text using a sentence transformer from Hugging Face and index it using pg vector.
- Finally, a SQL interface to execute the RAG pipeline will be provided to generate responses to user questions.
+ The application will ingest a collection of documents into Postgres as chunks of text, generate embeddings from that text using a sentence transformer from [Hugging Face](https://huggingface.co/sentence-transformers) and index it using [pgvector](https://github.com/pgvector/pgvector).
+ Finally, a SQL interface to execute the RAG pipeline will be provided to generate responses to user questions using [tembo-py](https://github.com/tembo-io/tembo/tree/main/tembo-py) and [pg_vectorize](https://github.com/tembo-io/pg_vectorize).
 
 ![alt text](rag.png)
 
@@ -27,7 +27,7 @@ Navigate to [https://cloud.tembo.io](cloud.tembo.io) and create a new RAG Stack 
 
 ### Prepare documents
 
-First you will need a collection of documents. In this example, the Tembo's docs and blogs will be used as the contextual basis for the application.
+First you will need a collection of documents. In this example, Tembo's docs and blogs will be used as the contextual basis for the application.
 
 ```bash
 git clone https://github.com/tembo-io/website.git
@@ -63,7 +63,7 @@ Most chat-completion models, like [chatgpt-3.5-turbo](https://platform.openai.co
 It is also important to be aware for these context windows for cost reasons. As of this writing, GPT-4 costs $0.03 per 1k input tokens and $0.06 per output 1k token.
  Assume a question like "how do I build a message queue on Postgres?" is submitted to the agent, and it submits a 1,000 token document to GPT-4 as part of the request and a 100 token response is received.
  That's approximately $0.04 per question (this also assumes usage of Tembo's self hosted transformer models for generating embeddings, which would normally accrue a cost per token on embedding the question itself).
- Generally, using the full context window will achieve a better response, but comes at great cost.
+ Generally, using the full context window will achieve a better response, but comes at increased cost.
 
 Load the documents into memory and process them into chunks using the official Python sdk for Tembo, tembo-py. This library's `rag` module currently wraps the major chunking functionality from the llama-index library, but all transformation and
  search functionality is handled within Tembo Postgres.
