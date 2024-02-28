@@ -181,4 +181,4 @@ RAG can be a very powerful technique for building an LLM application, but the ef
 
 ### Support
 
-Join the Tembo Community and say hi and see how others are building on Tembo.
+Join the Tembo Community [in Slack](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw) and say hi and see how others are building on Tembo.
