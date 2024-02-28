@@ -2,21 +2,11 @@
 import BlogList from '../../../components/BlogList.astro';
 import Layout from '../../../layouts/Layout.astro';
 import NavBar from '../../../components/NavBar';
-import { getCollection, type CollectionEntry } from 'astro:content';
-import { sortPostDates, TAGS } from '../../../content/config';
+import { type CollectionEntry } from 'astro:content';
+import { getTags } from '../../../content/config';
 
 export async function getStaticPaths() {
-	const posts = (await getCollection('blog')).sort(
-		(a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
-			sortPostDates(a, b),
-	);
-	return TAGS.map((tag) => ({
-		params: { slug: tag.toLowerCase() },
-		props: posts.filter(
-			(post: CollectionEntry<'blog'>) =>
-				post.data.tags.includes(tag.toLowerCase()) || tag === 'All',
-		),
-	}));
+	return await getTags();
 }
 
 const posts = Astro.props;

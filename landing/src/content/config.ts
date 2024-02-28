@@ -1,4 +1,9 @@
-import { defineCollection, z, type CollectionEntry } from 'astro:content';
+import {
+	defineCollection,
+	z,
+	getCollection,
+	type CollectionEntry,
+} from 'astro:content';
 
 export interface Author {
 	name: string;
@@ -162,6 +167,26 @@ export function sortPostDates(
 	const bParsedDate = b.data?.date || new Date(bDateString);
 
 	return bParsedDate.valueOf() - aParsedDate.valueOf();
+}
+
+export async function getTags() {
+	const posts = (await getCollection('blog')).sort(
+		(a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+			sortPostDates(a, b),
+	);
+	const tags = posts.map((post) => post.data.tags).flat();
+	return [
+		...new Set(
+			tags.map((tag) => ({
+				params: { slug: tag.toLowerCase() },
+				props: posts.filter(
+					(post: CollectionEntry<'blog'>) =>
+						post.data.tags.includes(tag.toLowerCase()) ||
+						tag === 'All',
+				),
+			})),
+		),
+	];
 }
 
 export const collections = { blog };
