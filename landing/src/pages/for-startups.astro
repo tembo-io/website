@@ -189,27 +189,33 @@ const currentPath = Astro.url.pathname;
 					<li>
 						(optional) Share this page to your members/portfolio
 						with a message similar to the following:
+
+						<div class="email-template">
+								<p>
+									Tembo has graciously offered our companies heavy
+									discounts for the first year, and ongoing discounts as
+									you scale.
+								</p>
+								
+								<p>
+									Tembo for Startups provides Tembo Cloud as a rich Postgres-based
+									data services foundation for high-potential early-stage startups.
+									Through an extensive catalog of Tembo Stacks and open source
+									extensions, Tembo aims to unlock the full power of Postgres
+									to your developers.
+								</p>
+								
+								<p>
+									You can apply at
+									<a href='https://tembo.io/for-startups'
+										>https://tembo.io/for-startups</a
+									>
+									and choose our organization in the drop down.	
+								</p>
+						</div>
 					</li>
 				</ol>
-				<Callout>
-					<p>
-						Tembo has graciously offered our companies heavy
-						discounts for the first year, and ongoing discounts as
-						you scale.
-						<br /><br />
-						Tembo for Startups provides Tembo Cloud as a rich Postgres-based
-						data services foundation for high-potential early-stage startups.
-						Through an extensive catalog of Tembo Stacks and open source
-						extensions, Tembo aims to unlock the full power of Postgres
-						to your developers.
-						<br /><br />
-						You can apply at
-						<a href='https://tembo.io/for-startups'
-							>https://tembo.io/for-startups</a
-						>
-						and choose our organization in the drop down.
-					</p>
-				</Callout>
+
 			</Markdown>
 		</section>
 	</Container>
@@ -236,5 +242,9 @@ const currentPath = Astro.url.pathname;
     }
 	.neon-text {
 		color: #e9fc87 !important;
+	}
+	.email-template {
+		background: #432F94;
+		padding: 1em 2em;
 	}
 </style>
