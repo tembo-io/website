@@ -8,12 +8,11 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Tembo for Startups'>
-    <div class='main-content'>
-		<NavBar client:load currentPage={currentPath} />
-        <Container>
+    <NavBar client:load currentPage={currentPath} />
+    <Container>
+        <div class='mt-[140px] mobile:mt-[220px] mb-[80px]'>
             <section
-                class='tembo-for-startups-section mt-[120px] mobile:mt-[180px]
-                tembo-blog-post-content max-[900px]:max-w-full prose prose-md 
+                class='tembo-for-startups-section prose
                 dark:prose-invert prose-p:text-lightGrey prose-li:text-lightGrey
                 prose-headings:font-bold prose-headings:text-white
                 prose-h1:text-4xl
@@ -29,53 +28,48 @@ const currentPath = Astro.url.pathname;
                 prose-strong:text-white prose-td:text-white
                 prose-li:font-secondary marker:text-[#505050]'
             >
-                <h1
-                    class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
-                >Tembo for Startups</h1>
+                <h1>Tembo for Startups</h1>
 
                 <blockquote>
-                    <p class='font-secondary font-normal text-base text-otherGrey opacity-80'>
+                    <p>
                         "Growing my startup with the Postgres doesn't get any better, or more affordable, than this."
                         <br />- Startup CEO
                     </p>
                 </blockquote>
 
                 <h2
-                    class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
                 >Program Overview</h2>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     <b>Tembo for Startups</b> provides Tembo Cloud as a rich Postgres-based data services foundation for high-potential early-stage startups. Through an extensive catalog of Tembo Stacks and open source extensions, Tembo aims to unlock the full power of Postgres to your developers.  
                 </p>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     The program features heavy discounts for the first year, and ongoing discounts as you scale.
                 </p> 
 
-                <h2
-                    class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
-                >About Tembo</h2>
+                <h2>About Tembo</h2>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     As startups grow, they can find themselves spending thousands per month on 
                     a fast-growing sprawl of data vendors. Our aim is to help you fight back 
                     against this.
                 </p>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     <b>Postgres</b> (and its assimilation of 25+ years of database innovation) 
                     is the perfect tool to battle this; It is open-source, extensible, flexible, 
                     and available from many vendors (therefore, somewhat lock-in resistant). 
                 </p>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     However, most managed Postgres vendors provide a stripped-down version of 
                     Postgres that restricts developer creativity. Or a few specialized vendors 
                     provide a managed offering around a specific use case, but not a full 
                     spectrum of use cases.
                 </p>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     Tembo is “multi-workload” Postgres and aims to integrate the <b>entire</b> 
                     Postgres OSS ecosystem, providing developers confidence to use Postgres however 
                     they like. It also packages and tunes Postgres for common use cases, as an 
@@ -85,13 +79,13 @@ const currentPath = Astro.url.pathname;
 
 
                 <Callout title='Want to know more?' variant='info'>
-                   <p>If you'd like to dig deeper into why we started the company and our vision,
-                    read the <a href="https://tembo.io/blog/tembo-manifesto">Tembo Manifesto</a>.</p>
+                    <p>
+                        If you'd like to dig deeper into why we started the company and our vision,
+                        read the <a href="https://tembo.io/blog/tembo-manifesto">Tembo Manifesto</a>.
+                    </p>
                 </Callout>
 
-                <h2
-                    class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
-                >Qualifications</h2>
+                <h2>Qualifications</h2>
 
                 <h3>Startups eligible for up to 50% off year one</h3>
                 <ul>
@@ -113,9 +107,7 @@ const currentPath = Astro.url.pathname;
                     <li>Associated with one of our approved entrepreneurial organizations</li>
                 </ul>
 
-                <h2
-                    class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
-                >Why join?</h2>
+                <h2>Why join?</h2>
 
                 <ul>
                     <li>
@@ -140,9 +132,7 @@ const currentPath = Astro.url.pathname;
                     </li>
                 </ul>
 
-                <h2
-                    class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
-                >Apply</h2>
+                <h2>Apply</h2>
 
                 <ol>
                     <li>Signup for an account at <a href="https://cloud.tembo.io">Tembo Cloud</a>.</li>
@@ -153,17 +143,16 @@ const currentPath = Astro.url.pathname;
                     </li>
                 </ol>
 
-                <hr />
+                <hr class='mt-20' />
 
                 <h2
-                    class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
                 >Become a Tembo Partner</h2>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     Become a Tembo Partner to unlock a substantial discount on our products for your member companies. 
                 </p>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     Joining is a very quick process:
                 </p>
 
@@ -183,33 +172,21 @@ const currentPath = Astro.url.pathname;
                         </blockquote>
                     </li>
                 </ol>
-
-            
-                
             </section>
-			<div class='relative bg-offBlack z-10'>
-				<div
-					class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
-				>
-				</div>
-				<Container styles='z-50'>
-					<Footer />
-				</Container>
-			</div>
-        </Container>
-    </div>
+        </div>
+        <div class='relative bg-offBlack z-10'>
+            <div
+                class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+            >
+            </div>
+            <Container styles='z-50'>
+                <Footer />
+            </Container>
+        </div>
+    </Container>
 </Layout>
 
 <style>
-    .tembo-for-startups-section {
-        width: 70%;
-        margin-left: 15%;
-        margin-bottom: 8em;
-    }
-    h2 {
-        margin: 1em 0 .5em;
-        font-size: 2em;
-    }
     blockquote {
         background-color: #1c1c1c;
         padding: 1em;

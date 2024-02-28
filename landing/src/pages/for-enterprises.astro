@@ -10,12 +10,11 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Tembo for Enterprises'>
-    <div class='main-content'>
-		<NavBar client:load currentPage={currentPath} />
-        <Container>
+    <NavBar client:load currentPage={currentPath} />
+    <Container>
+        <div class='mt-[140px] mobile:mt-[220px] mb-[80px]'>
             <section
-                class='tembo-for-enterprises-section mt-[120px] mobile:mt-[180px]
-                tembo-blog-post-content max-[900px]:max-w-full prose prose-md 
+                class='tembo-for-startups-section prose
                 dark:prose-invert prose-p:text-lightGrey prose-li:text-lightGrey
                 prose-headings:font-bold prose-headings:text-white
                 prose-h1:text-4xl
@@ -31,45 +30,40 @@ const currentPath = Astro.url.pathname;
                 prose-strong:text-white prose-td:text-white
                 prose-li:font-secondary marker:text-[#505050]'
             >
-                <h1
-                    class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
-                >Tembo for Enterprises</h1>
+                <h1>Tembo for Enterprises</h1>
 
                 <blockquote>
-                    <p class='font-secondary font-normal text-base text-otherGrey opacity-80'>
+                    <p>
                         “Tembo gives me peace of mind that our databases are deployed with backups
                         and HA, and the simplified deployment and self-service models with the Tembo 
                         control plane help me avoid enterprise ticketing delays. And the ecosystem 
                         of Tembo Stacks creates a single data language for many use cases 
                         like vector search, high write, analytics, and message queueing.”
-
                         <br />- Director of Engineering, Fortune 50 Company
                     </p>
                 </blockquote>
 
-                <h2
-                    class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
-                >Overview</h2>
+                <h2>Overview</h2>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     Enterprises can find themselves spending many millions per year on a growing 
                     sprawl of data vendors. Our aim is to help you fight back against this.
                 </p>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     <b>Postgres</b> (and its assimilation of 25+ years of database innovation) 
                     is the perfect tool to battle this; It is open-source, extensible, flexible, 
                     and available from many vendors (therefore, somewhat lock-in resistant). 
                 </p>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     However, most managed Postgres vendors provide a stripped-down version of 
                     Postgres that restricts developer creativity. Or a few specialized vendors 
                     provide a managed offering around a specific use case, but not a full 
                     spectrum of use cases.
                 </p>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     Tembo is “multi-workload” Postgres and aims to integrate the <b>entire</b> 
                     Postgres OSS ecosystem, providing developers confidence to use Postgres however 
                     they like. It also packages and tunes Postgres for common use cases, as an 
@@ -78,13 +72,13 @@ const currentPath = Astro.url.pathname;
                 </p>
 
                 <Callout title='Want to know more?' variant='info'>
-                   <p>If you'd like to dig deeper into why we started the company and our vision,
-                    read the <a href="https://tembo.io/blog/tembo-manifesto">Tembo Manifesto</a>.</p>
+                    <p>
+                        If you'd like to dig deeper into why we started the company and our vision,
+                        read the <a href="https://tembo.io/blog/tembo-manifesto">Tembo Manifesto</a>.
+                    </p>
                 </Callout>
 
-                <h2
-                    class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
-                >Some ways we can help...</h2>
+                <h2>Some ways we can help...</h2>
 
                 <ul>
                     <li>If you have a team <b>self-hosting Postgres</b> (perhaps against their desire) because they are doing something that managed Postgres providers don't support, we can rectify this.</li>
@@ -97,9 +91,7 @@ const currentPath = Astro.url.pathname;
                     <li>If you need to <b>lock down standards</b> on how your developers use Postgres, for security or any other reasons, we have a solution for this (custom Tembo Stacks)</li>
                 </ul>
                 
-                <h2
-                    class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
-                >Architecture</h2>
+                <h2>Architecture</h2>
 
                 <Image
                     src={ArchitectureImage}
@@ -112,46 +104,35 @@ const currentPath = Astro.url.pathname;
                         Tembo Cloud allows enterprise users to 
                         <a href="https://tembo.io/docs/tembo-cloud/security-and-authentication/security#need-stronger-isolation">host a private data plane</a>
                         on premise, or in any cloud.</p>
-                 </Callout>
+                    </Callout>
 
 
-                <h2
-                    class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
-                >Contact</h2>
+                <h2>Contact</h2>
 
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+                <p>
                     If you'd like to schedule a walk-through or consultation, please reach out to:
                 </p>
-                <p class='font-secondary font-normal text-base text-otherGrey'>
+
+                <p>
                     Brad Kirn (<a href="mailto:brad@tembo.io">brad@tembo.io</a>)
                     <br />
                     Head of Growth, Tembo
                 </p>
-                
             </section>
-			<div class='relative bg-offBlack z-10'>
-				<div
-					class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
-				>
-				</div>
-				<Container styles='z-50'>
-					<Footer />
-				</Container>
-			</div>
-        </Container>
-    </div>
+        </div>
+        <div class='relative bg-offBlack z-10'>
+            <div
+                class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+            >
+            </div>
+            <Container styles='z-50'>
+                <Footer />
+            </Container>
+        </div>
+    </Container>
 </Layout>
 
 <style>
-    .tembo-for-enterprises-section {
-        width: 70%;
-        margin-left: 15%;
-        margin-bottom: 8em;
-    }
-    h2 {
-        margin: 1em 0 .5em;
-        font-size: 2em;
-    }
     blockquote {
         background-color: #1c1c1c;
         padding: 1em;
