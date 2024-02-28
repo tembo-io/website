@@ -3,9 +3,9 @@ slug: olap-stack
 title: 'Optimizing Postgres for OLAP Workloads'
 authors: [adam]
 tags: [postgres, stacks, database, olap]
-# image: ./TODO.png
 date: 2024-02-28T17:00
 ---
+# image: ./TODO.png
 
 Postgres is commonly known for its performance in transactional workloads where there are high frequencies of create, read, update and delete operations. However, Postgres can also be tuned to perform analytical workloads, such as queries that perform trend analysis, forecasting, and decision analytics support on large amounts of data. There continues to be innovation in analytical processing as well, including extending Postgres with high-performance analytics engines in ParadeDB (pg_analytics) and pg_quack.
 
