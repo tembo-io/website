@@ -18,7 +18,7 @@ export const GET: APIRoute = async (context) => {
 			atom: 'http://www.w3.org/2005/Atom',
 		},
 		customData: `<atom:link href="${context.site}rss.xml" rel="self" type="application/rss+xml" />`,
-		items: blog.map((post, index) => {
+		items: blog.map((post) => {
 			const dateString = post.id.substring(0, 10);
 			const parsedDate = post.data?.date || new Date(dateString);
 			const COULD_NOT_BE_RENDERED = `This post contained content that could not be rendered in the Atom feed. Please use the official post link: https://tembo.io/blog/${post.slug}`;
