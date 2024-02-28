@@ -16,15 +16,16 @@ A tembo stack is a pre-built, use case specific Postgres deployment which enable
 
 |Name|Replacement for|
 |----|---------------|
+|[Data Warehouse](datawarehouse.md)| Snowflake, Bigquery |
+|[Geospatial](geospatial.md)| ESRI, Oracle |
 |[OLTP](oltp.md)| Amazon RDS |
 |[OLAP](olap.md)| Snowflake, Bigquery |
 |[Machine Learning](machine-learning.md)| MindsDB |
 |[Message Queue](message-queue.md)| Amazon SQS, RabbitMQ, Redis |
-|[Data Warehouse](datawarehouse.md)| Snowflake, Bigquery |
-|[Mongo Alternative on Postgres](mongo-alternative.md)| MongoDB | 
-|[Geospatial](geospatial.md)| ESRI, Oracle | 
-|[Vector DB](vector-db.md)| Pinecone, Weaviate |
+|[Mongo Alternative on Postgres](mongo-alternative.md)| MongoDB |
+|[RAG](rag.md)| LangChain |
 |[Standard](standard.md)| Amazon RDS |
+|[Vector DB](vector-db.md)| Pinecone, Weaviate |
 
 We are actively working on additional Stacks. Check out the [Tembo Roadmap](https://roadmap.tembo.io/roadmap) and upvote the stacks you'd like to see next.
 
