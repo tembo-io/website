@@ -1,7 +1,7 @@
 ---
 import Container from './Container';
 import BlogPost from './BlogPost.astro';
-import Tag from './Tag.astro';
+import Tag from './Tag';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -9,7 +9,9 @@ interface Props {
 }
 
 const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/content/blog/**/*.{jpeg,jpg,png,webp,svg,gif}');
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/content/blog/**/*.{jpeg,jpg,png,webp,svg,gif}',
+);
 const { posts } = Astro.props;
 ---
 
@@ -23,12 +25,12 @@ const { posts } = Astro.props;
 		<div class='mt-16'>
 			<div class='flex items-center justify-between'>
 				<div class='flex items-center gap-2 flex-wrap'>
-					<Tag title='All' />
-					<Tag title='Postgres' />
-					<Tag title='Engineering' />
-					<Tag title='Stacks' />
-					<Tag title='Data' />
-					<Tag title='Extensions' />
+					<Tag title='All' client:load />
+					<Tag title='Postgres' client:load />
+					<Tag title='Engineering' client:load />
+					<Tag title='Stacks' client:load />
+					<Tag title='Data' client:load />
+					<Tag title='Extensions' client:load />
 				</div>
 			</div>
 			<div class='mt-10 pb-2'>
@@ -42,7 +44,10 @@ const { posts } = Astro.props;
 								const parsedDate =
 									post.data?.date || new Date(dateString);
 								const postDirectory = post.id.split('/')[0];
-								const image = images[`/src/content/blog/${postDirectory}${post.data.image?.replace('.', '')}`];
+								const image =
+									images[
+										`/src/content/blog/${postDirectory}${post.data.image?.replace('.', '')}`
+									];
 								return (
 									<BlogPost
 										title={post.data.title}
