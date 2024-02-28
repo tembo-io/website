@@ -27,7 +27,6 @@ export async function GET() {
 			rss: 'https://tembo.io/feed.xml',
 		},
 	});
-	console.log(blog[0], posts[0]);
 	blog.forEach((post, index) => {
 		const dateString = post.id.substring(0, 10);
 		const parsedDate = post.data?.date || new Date(dateString);
