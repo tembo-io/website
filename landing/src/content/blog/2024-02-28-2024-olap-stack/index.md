@@ -41,17 +41,17 @@ If there are common queries that are executed frequently, and do not need to be 
 
 Untuned Postgres is slow on these benchmarks, especially when comparing it to the top two performers [Clickhouse](https://clickhouse.com/) and [Umbra](https://umbra-db.com/). However, Postgres can be tuned and extended.
 
-![untuned-postgres](untuned.png)
+![untuned](./untuned.png 'untuned')
 
 ## Tuned Postgres is faster than you think, but it is not enough
 
 Postgres natively comes with several configurations that improve the performance of analytic workloads. If we are to ignore any changes involving storage or compression, how much performance gain should we expect? We can answer this question by analyzing some of Clickbench’s benchmark results for [Postgres vs Tuned Postgres](https://benchmark.clickhouse.com/#eyJzeXN0ZW0iOnsiQWxsb3lEQiI6ZmFsc2UsIkF0aGVuYSAocGFydGl0aW9uZWQpIjpmYWxzZSwiQXRoZW5hIChzaW5nbGUpIjpmYWxzZSwiQXVyb3JhIGZvciBNeVNRTCI6ZmFsc2UsIkF1cm9yYSBmb3IgUG9zdGdyZVNRTCI6ZmFsc2UsIkJ5Q29uaXR5IjpmYWxzZSwiQnl0ZUhvdXNlIjpmYWxzZSwiY2hEQiI6ZmFsc2UsIkNpdHVzIjpmYWxzZSwiQ2xpY2tIb3VzZSBDbG91ZCAoYXdzKSI6ZmFsc2UsIkNsaWNrSG91c2UgQ2xvdWQgKGdjcCkiOmZhbHNlLCJDbGlja0hvdXNlIDIzLjExIChkYXRhIGxha2UsIHBhcnRpdGlvbmVkKSI6ZmFsc2UsIkNsaWNrSG91c2UgMjMuMTEgKGRhdGEgbGFrZSwgc2luZ2xlKSI6ZmFsc2UsIkNsaWNrSG91c2UgMjMuMTEgKFBhcnF1ZXQsIHBhcnRpdGlvbmVkKSI6ZmFsc2UsIkNsaWNrSG91c2UgMjMuMTEgKFBhcnF1ZXQsIHNpbmdsZSkiOmZhbHNlLCJDbGlja0hvdXNlIDIzLjExICh3ZWIpIjpmYWxzZSwiQ2xpY2tIb3VzZSI6ZmFsc2UsIkNsaWNrSG91c2UgKHR1bmVkKSI6ZmFsc2UsIkNsaWNrSG91c2UgMjMuMTEiOmZhbHNlLCJDbGlja0hvdXNlICh6c3RkKSI6ZmFsc2UsIkNyYXRlREIiOmZhbHNlLCJEYXRhYmVuZCI6ZmFsc2UsIkRhdGFGdXNpb24gKFBhcnF1ZXQsIHBhcnRpdGlvbmVkKSI6ZmFsc2UsIkRhdGFGdXNpb24gKFBhcnF1ZXQsIHNpbmdsZSkiOmZhbHNlLCJBcGFjaGUgRG9yaXMiOmZhbHNlLCJEcnVpZCI6ZmFsc2UsIkR1Y2tEQiAoUGFycXVldCwgcGFydGl0aW9uZWQpIjpmYWxzZSwiRHVja0RCIjpmYWxzZSwiRWxhc3RpY3NlYXJjaCI6ZmFsc2UsIkVsYXN0aWNzZWFyY2ggKHR1bmVkKSI6ZmFsc2UsIkdsYXJlREIiOmZhbHNlLCJHcmVlbnBsdW0iOmZhbHNlLCJIZWF2eUFJIjpmYWxzZSwiSHlkcmEiOmZhbHNlLCJJbmZvYnJpZ2h0IjpmYWxzZSwiS2luZXRpY2EiOmZhbHNlLCJNYXJpYURCIENvbHVtblN0b3JlIjpmYWxzZSwiTWFyaWFEQiI6ZmFsc2UsIk1vbmV0REIiOmZhbHNlLCJNb25nb0RCIjpmYWxzZSwiTW90aGVyZHVjayI6ZmFsc2UsIk15U1FMIChNeUlTQU0pIjpmYWxzZSwiTXlTUUwiOmZhbHNlLCJPeGxhLmNvbSI6ZmFsc2UsIlBhcmFkZURCIjpmYWxzZSwiUGlub3QiOmZhbHNlLCJQb3N0Z3JlU1FMICh0dW5lZCkiOnRydWUsIlBvc3RncmVTUUwiOnRydWUsIlF1ZXN0REIgKHBhcnRpdGlvbmVkKSI6ZmFsc2UsIlF1ZXN0REIiOmZhbHNlLCJSZWRzaGlmdCI6ZmFsc2UsIlNlbGVjdERCIjpmYWxzZSwiU2luZ2xlU3RvcmUiOmZhbHNlLCJTbm93Zmxha2UiOmZhbHNlLCJTUUxpdGUiOmZhbHNlLCJTdGFyUm9ja3MiOmZhbHNlLCJUaW1lc2NhbGVEQiAoY29tcHJlc3Npb24pIjpmYWxzZSwiVGltZXNjYWxlREIiOmZhbHNlLCJVbWJyYSI6ZmFsc2V9LCJ0eXBlIjp7IkMiOnRydWUsImNvbHVtbi1vcmllbnRlZCI6dHJ1ZSwiUG9zdGdyZVNRTCBjb21wYXRpYmxlIjp0cnVlLCJtYW5hZ2VkIjp0cnVlLCJnY3AiOnRydWUsInN0YXRlbGVzcyI6dHJ1ZSwiSmF2YSI6dHJ1ZSwiQysrIjp0cnVlLCJNeVNRTCBjb21wYXRpYmxlIjp0cnVlLCJyb3ctb3JpZW50ZWQiOnRydWUsIkNsaWNrSG91c2UgZGVyaXZhdGl2ZSI6dHJ1ZSwiZW1iZWRkZWQiOnRydWUsInNlcnZlcmxlc3MiOnRydWUsImF3cyI6dHJ1ZSwiUnVzdCI6dHJ1ZSwic2VhcmNoIjp0cnVlLCJkb2N1bWVudCI6dHJ1ZSwiYW5hbHl0aWNhbCI6dHJ1ZSwic29tZXdoYXQgUG9zdGdyZVNRTCBjb21wYXRpYmxlIjp0cnVlLCJ0aW1lLXNlcmllcyI6dHJ1ZX0sIm1hY2hpbmUiOnsiMTYgdkNQVSAxMjhHQiI6dHJ1ZSwiOCB2Q1BVIDY0R0IiOnRydWUsInNlcnZlcmxlc3MiOnRydWUsIjE2YWN1Ijp0cnVlLCJjNmEuNHhsYXJnZSwgNTAwZ2IgZ3AyIjp0cnVlLCJMIjp0cnVlLCJNIjp0cnVlLCJTIjp0cnVlLCJYUyI6dHJ1ZSwiYzZhLm1ldGFsLCA1MDBnYiBncDIiOnRydWUsIjE5MkdCIjp0cnVlLCIyNEdCIjp0cnVlLCIzNjBHQiI6dHJ1ZSwiNDhHQiI6dHJ1ZSwiNzIwR0IiOnRydWUsIjk2R0IiOnRydWUsIjE0MzBHQiI6dHJ1ZSwiZGV2Ijp0cnVlLCI3MDhHQiI6dHJ1ZSwiYzVuLjR4bGFyZ2UsIDUwMGdiIGdwMiI6dHJ1ZSwiYzUuNHhsYXJnZSwgNTAwZ2IgZ3AyIjp0cnVlLCJtNWQuMjR4bGFyZ2UiOnRydWUsIm02aS4zMnhsYXJnZSI6dHJ1ZSwiYzZhLjR4bGFyZ2UsIDE1MDBnYiBncDIiOnRydWUsImNsb3VkIjp0cnVlLCJkYzIuOHhsYXJnZSI6dHJ1ZSwicmEzLjE2eGxhcmdlIjp0cnVlLCJyYTMuNHhsYXJnZSI6dHJ1ZSwicmEzLnhscGx1cyI6dHJ1ZSwiUzIiOnRydWUsIlMyNCI6dHJ1ZSwiMlhMIjp0cnVlLCIzWEwiOnRydWUsIjRYTCI6dHJ1ZSwiWEwiOnRydWV9LCJjbHVzdGVyX3NpemUiOnsiMSI6dHJ1ZSwiMiI6dHJ1ZSwiNCI6dHJ1ZSwiOCI6dHJ1ZSwiMTYiOnRydWUsIjMyIjp0cnVlLCI2NCI6dHJ1ZSwiMTI4Ijp0cnVlLCJzZXJ2ZXJsZXNzIjp0cnVlLCJkZWRpY2F0ZWQiOnRydWUsInVuZGVmaW5lZCI6dHJ1ZX0sIm1ldHJpYyI6ImhvdCIsInF1ZXJpZXMiOlt0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlXX0=). Tuning Postgres configuration settings results in roughly 20x improvement to performance on the Clickbench evaluation.
 
-![tuned-postgres](tuned.png)
+![tuned-postgres](./tuned.png 'tuned')
 
 And remove un-tuned Postgres for scale:
 
-![sized](tuned-sized.png)
+![sized](./tuned-sized.png 'tuned-sized')
 
 Most of the differences in configuration settings are all related to parallelism, which lets Postgres do more work in parallel, which results in faster processing. These are also configuration settings that anyone should be able to set, so long as their Postgres role allows them. Note that `max_worker_processes` should also be increased, since the `max_parallel_workers value` is not allowed to exceed `max_worker_processes`, so it should be increased accordingly. Key tunings performed in this benchmark are:
 
@@ -59,21 +59,21 @@ Most of the differences in configuration settings are all related to parallelism
 * `shared_buffers` increased to 25% of system memory
 * `max_parallel_workers` increased to be equal to the number of vCPU on the machine
 * `max_parallel_workers_per_gather` increased to 8, or ½ the total vCPU
-* `max_wal_size` increased to 32GB, to account for a larger amount of data. 
+* `max_wal_size` increased to 32GB, to account for a larger amount of data.
 
-These configuration settings can be found in the [untuned Postgres ](https://github.com/ClickHouse/ClickBench/tree/main/postgresql)settings and the [Tuned Postgres](https://github.com/ClickHouse/ClickBench/tree/main/postgresql-tuned) settings in the Clickbench Github repository.
+These configuration settings can be found in the [untuned Postgres](https://github.com/ClickHouse/ClickBench/tree/main/postgresql)settings and the [Tuned Postgres](https://github.com/ClickHouse/ClickBench/tree/main/postgresql-tuned) settings in the Clickbench Github repository.
 
 ## Moving the needle with compression and columnar storage
 
 Hydra’s [columnar extension](https://github.com/hydradatabase/hydra), which is a fork of Citus’s [columnar extension](https://github.com/citusdata/citus/tree/main/src/backend/columnar), adds two ingredients which improve performance; compression and columnar storage. These ingredients result in a roughly 13% improvement on Clickbench’s benchmark compared to tuned Postgres.
 
-![hydra](hydra.png)
+![hydra](./hydra.png 'hydra')
 
 The `hits` column is all stored together, with no index, so Postgres must scan every value to match the pattern. Whereas in the tuned Postgres benchmark, there is an index which allows Postgres to scan only a subset of data. Performance would likely improve more significantly under a benchmark that better represents pure analytics, rather than a combination of streaming and analytics changes.
 
 There is a set of queries that perform lower than tuned Postgres, all related to the usage of pattern matching which is very conducive to row-based indexes. For example, query 20 is `select count(*) from hits where url like ‘%google%’`. Columnar and compression do not help these cases. Ignoring queries 20-26, which are match based queries which are not best suited for columnar format, results in a significant improvement (3x vs 13%). Tuned Postgres performed very well on these types of queries, so removing them results in a decrease in performance for tuned Postgres.
 
-![remove-match](remove-match.png)
+![remove-match](./remove-match.png 'remove-match')
 
 ## Tembo’s OLAP Performance
 
@@ -86,7 +86,7 @@ Some of the configurations we’ve tuned further include:
 * work_mem = 3GB
 * effective_cache_size = 20GB
 
-![tembo](tembo.png)
+![tembo](./tembo.png 'tembo')
 
 ## Rising technologies in Postgres OLAP
 
@@ -94,6 +94,6 @@ pg_analytics and pg_quack, two Postgres extensions, both take a similar approach
 
 Pg_analytics provides its own process utility hook to handle all alter table, drop, rename, truncate, and vacuum statements so that they are compatible with Apache Parquet.
 
-![paradedb](paradedb.png)
+![paradedb](./paradedb.png 'paradedb')
 
 Talking with our friends at ParadeDB, pg_analytics is under active development and it is expected that it will mature rapidly. We’re looking forward to supporting this extension on  Tembo Cloud as the project matures.
