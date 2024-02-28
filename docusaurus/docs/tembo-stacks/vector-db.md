@@ -168,9 +168,7 @@ Then, restart postgres
 CREATE EXTENSION vectorize CASCADE;
 ```
 
-
 ## How it works
-
 
 When `vectorize.table()` is executed, the extension creates jobs in [pgmq](https://github.com/tembo-io/pgmq) that are executed by the background worker.
  The background worker calls the appropriate embedding model, whether thats one coming from Hugging Face or OpenAI.
@@ -180,7 +178,6 @@ When `vectorize.table()` is executed, the extension creates jobs in [pgmq](https
 `vectorize.search()` transforms the raw text query into embeddings using the same model that was used to generate the embeddings in the first place.
  It then uses the `pgvector` extension to search for the most similar embeddings in the table,
  and returns the results in a JSON format to the caller.
-
 
 ## Support
 
