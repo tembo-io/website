@@ -22,11 +22,13 @@ const currentPath = Astro.url.pathname;
 				</h1>
 				<blockquote>
 					<p>
-						"Growing my startup with the Postgres doesn't get any
-						better, or more affordable, than this."
-						<br />- Startup CEO
-					</p>
-				</blockquote>
+						Growing my startup with the Postgres doesn't get any
+						better, or more affordable, than this.
+                    </p>
+                    <footer>
+                        - Startup CEO
+                    </footer>
+        </blockquote>
 
 				<h2>Program Overview</h2>
 
@@ -228,8 +230,10 @@ const currentPath = Astro.url.pathname;
 	blockquote {
 		background-color: #1c1c1c;
 		padding: 1em;
-		quotes: none;
 	}
+    blockquote footer {
+            color: #EAEAEA;
+    }
 	.neon-text {
 		color: #e9fc87 !important;
 	}

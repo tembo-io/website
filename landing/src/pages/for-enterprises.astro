@@ -24,14 +24,16 @@ const currentPath = Astro.url.pathname;
 				</h1>
 				<blockquote>
 					<p>
-						“Tembo gives me peace of mind that our databases are
+						Tembo gives me peace of mind that our databases are
 						deployed with backups and HA, and the simplified
 						deployment and self-service models with the Tembo
 						control plane help me avoid enterprise ticketing delays.
 						And the ecosystem of Tembo Stacks creates a single data
 						language for many use cases like vector search, high
-						write, analytics, and message queueing.”
-						<br />- Director of Engineering, Fortune 50 Company
+						write, analytics, and message queueing.
+						<footer>
+                            - Director of Engineering, Fortune 50 Company
+                        </footer>
 					</p>
 				</blockquote>
 
@@ -184,8 +186,10 @@ const currentPath = Astro.url.pathname;
 	blockquote {
 		background-color: #1c1c1c;
 		padding: 1em;
-		quotes: none;
 	}
+    blockquote footer {
+            color: #EAEAEA;
+    }
 	li b {
 		color: #ffffff;
 	}
