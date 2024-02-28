@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 		params: { slug: post.slug },
 		props: {
 			post,
-			nextPost: index === posts.length - 1 ? posts[0] : posts[index + 1]
+			nextPost: index === posts.length - 1 ? posts[0] : posts[index + 1],
 		},
 	}));
 }
@@ -31,9 +31,14 @@ const nextPostDateString = nextPost.id.substring(0, 10);
 const nextPostParsedDate = nextPost.data?.date || new Date(nextPostDateString);
 const parsedDate = post.data?.date || new Date(dateString);
 const author = AUTHORS[(post.data.authors[0] as string) || 'ryw'];
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/content/blog/**/*.{jpeg,jpg,png,webp,svg,gif}');
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/content/blog/**/*.{jpeg,jpg,png,webp,svg,gif}',
+);
 const postDirectory = post.id.split('/')[0];
-const image: any = images[`/src/content/blog/${postDirectory}${post.data.image?.replace('.', '')}`];
+const image: any =
+	images[
+		`/src/content/blog/${postDirectory}${post.data.image?.replace('.', '')}`
+	];
 const { Content, remarkPluginFrontmatter, headings } = await post.render();
 ---
 
@@ -48,7 +53,9 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 	<Container styles='pb-10 w-full'>
 		<div class='mt-[120px] mobile:mt-[180px] w-full relative'>
 			<div class='flex flex-col w-full'>
-				<div class='flex flex-col min-[1200px]:flex-row items-start justify-between w-full gap-8'>
+				<div
+					class='flex flex-col min-[1200px]:flex-row items-start justify-between w-full gap-8'
+				>
 					<header class='flex flex-col gap-8'>
 						<BackButton />
 						<div class='flex flex-col gap-6'>
@@ -80,15 +87,21 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 							</a>
 						</div>
 					</header>
-					{image ? (
-						<Image src={image()} alt='blog post hero image' class='flex rounded-2xl w-full max-h-[400px] min-[1200px]:w-[650px] min-[1200px]:max-h-[300px]' />
-					) : (
-						<img
-							src={`/blogFallbackImage.svg`}
-							alt='blog post hero image'
-							class='flex rounded-2xl w-[650px] max-h-[300px]'
-						/>
-					)}
+					{
+						image ? (
+							<Image
+								src={image()}
+								alt='blog post hero image'
+								class='flex rounded-2xl w-full max-h-[400px] min-[1200px]:w-[650px] min-[1200px]:max-h-[300px]'
+							/>
+						) : (
+							<img
+								src={`/blogFallbackImage.svg`}
+								alt='blog post hero image'
+								class='flex rounded-2xl w-[650px] max-h-[300px]'
+							/>
+						)
+					}
 				</div>
 				<div
 					class='mt-12 mobile:mt-36 mobile:flex mobile:justify-between w-full'
@@ -97,10 +110,14 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 						<Markdown>
 							<Content />
 						</Markdown>
-						<BlogFooter slug={nextPost.slug} title={nextPost.data.title} date={nextPostParsedDate.toLocaleDateString(
-							'en-US',
-							dateOptions as any,
-						)} />
+						<BlogFooter
+							slug={nextPost.slug}
+							title={nextPost.data.title}
+							date={nextPostParsedDate.toLocaleDateString(
+								'en-US',
+								dateOptions as any,
+							)}
+						/>
 					</div>
 					<div class='hidden mobile:flex flex-col gap-12'>
 						<div
@@ -168,20 +185,21 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 	</div>
 </Layout>
 
-
 <style is:global>
-	@media screen and (max-width:500px) {
+	@media screen and (max-width: 500px) {
 		.tembo-blog-post-content tr {
 			display: grid !important;
 		}
 	}
 </style>
 <script>
-    const buttons = document.querySelectorAll('button.blogGoBack');
+	const buttons = document.querySelectorAll('button.blogGoBack');
 
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        !document.referrer.includes('tembo.io') ? window.location.href = '/blog' : window.history.back();
-      });
-    });
+	buttons.forEach((button) => {
+		button.addEventListener('click', () => {
+			!document.referrer.includes('tembo.io')
+				? (window.location.href = '/blog')
+				: window.history.back();
+		});
+	});
 </script>
