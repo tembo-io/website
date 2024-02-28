@@ -49,7 +49,9 @@ SELECT * FROM products limit 2;
 
 ## Using Hugging Face sentence transformers
 
-Setup a products table. Copy from the example data provided by the extension.
+`vectorize.table()` works with ANY model that can be loaded via the [SentenceTransformers()](https://www.sbert.net/) API so long as it does not require any additional code execution (which is most open source sentence transformers).
+
+To get started, setup a products table. Copy from the example data provided by the extension.
 
 ```sql
 CREATE TABLE products AS 
@@ -76,6 +78,22 @@ SELECT vectorize.table(
     primary_key => 'product_id',
     columns => ARRAY['product_name', 'description'],
     transformer => 'sentence-transformers/multi-qa-MiniLM-L6-dot-v1'
+);
+```
+
+### Private models from Hugging Face
+
+If you've uploaded a [private model](https://huggingface.co/blog/introducing-private-hub) to Hugging Face, you can still host it on Tembo Cloud. Simply reference your Hugging Face org and model name,
+ and pass the API key in as an argument to `vectorize.table()`.
+
+```sql
+SELECT vectorize.table(
+    job_name => 'product_search_hf',
+    "table" => 'products',
+    primary_key => 'product_id',
+    columns => ARRAY['product_name', 'description'],
+    transformer => 'my-hugging-face-org/my-private-model',
+    args => '{"api_key": "hf_my_private_api_key"}'
 );
 ```
 
