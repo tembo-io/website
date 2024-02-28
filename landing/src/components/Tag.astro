@@ -6,6 +6,7 @@ interface Props {
 }
 const { title, classNames } = Astro.props;
 const currentPath = Astro.url.pathname;
+const splitPath = currentPath.split('/');
 ---
 
 <a
@@ -13,7 +14,7 @@ const currentPath = Astro.url.pathname;
 	class={styles(
 		'flex items-center justify-center border border-otherGrey rounded-full px-4 py-3 h-[40px] text-otherGrey',
 		classNames,
-		currentPath.includes(title.toLowerCase()) ||
+		splitPath[splitPath.length - 1] === title.toLowerCase() ||
 			(title === 'All' &&
 				(currentPath === '/blog' || currentPath === '/blog/'))
 			? 'border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10'
