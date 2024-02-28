@@ -46,7 +46,7 @@ const TabbedTable: React.FC<Props> = ({
 				styles,
 			)}
 		>
-			<Container styles={styles}>
+			<Container>
 				<Tabs.Root
 					className='w-full'
 					value={currentTab}
@@ -54,7 +54,7 @@ const TabbedTable: React.FC<Props> = ({
 				>
 					<Tabs.List
 						className={cx(
-							'flex sticky top-0 backdrop-blur-lg safari-blur pt-[77px] font-secondary font-normal text-grey text-sm border-b border-white border-opacity-20',
+							'flex sticky top-0 backdrop-blur-lg safari-blur pt-[68px] font-secondary font-normal text-grey text-sm border-b border-white border-opacity-20',
 							backdrop
 								? 'bg-lightMwasi bg-opacity-70'
 								: 'bg-black bg-opacity-50',
@@ -71,9 +71,9 @@ const TabbedTable: React.FC<Props> = ({
 							</Tabs.Trigger>
 						))}
 					</Tabs.List>
-					<div className='mt-[34px] flex items-center gap-2 customSm:gap-3'>
+					<div className='mt-[34px] flex items-center gap-3'>
 						{children}
-						<span className='font-bold text-pricingGreen text-3xl tracking-[0.473px] [text-shadow:0px_0px_81px_#000] customSm:text-[42px]'>
+						<span className='font-bold text-pricingGreen text-[28px] tracking-[0.473px] [text-shadow:0px_0px_81px_#000]'>
 							{title}
 						</span>
 					</div>

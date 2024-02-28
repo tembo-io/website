@@ -49,7 +49,7 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 					/>
 				</svg>
 
-				<span className='font-semibold text-pricingGreen text-[40px] leading-[50px] tracking-[0.54px] customXs:text-[48px] customXs:leading-[60px]'>
+				<span className='font-semibold text-pricingGreen text-[40px] leading-[50px] tracking-[0.54px] customXs:text-[48px] customXs:leading-10'>
 					{priceMatrix[selectValue][rangeValue].dollars}
 				</span>
 				<span className='opacity-50 font-semibold text-pricingGreen text-[23px] leading-[29px] tracking-[0.54px]'>

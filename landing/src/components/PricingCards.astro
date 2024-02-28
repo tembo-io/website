@@ -57,7 +57,7 @@ const enterpriseFeatures = [
 		client:load
 		variant='blue'
 		size='xl'
-		styles='w-full mt-8 font-semibold text-[15px] leading-[18px] tracking-[0.54px] customXs:text-[19px] customXs:leading-[23px]'
+		styles='w-full mt-8 font-semibold text-[15px] leading-[4px] tracking-[0.54px] customXs:text-[19px]'
 	>
 		Sign Up Free
 	</Button>
@@ -65,10 +65,10 @@ const enterpriseFeatures = [
 	<ul class='flex flex-col gap-2'>
 		{
 			hobbyFeatures.map((feature) => (
-				<li class='min-h-[50px] flex'>
+				<li class='min-h-8 flex'>
 					<div class='flex gap-2 items-start'>
 						<Image src={blueTickCircle} alt='check mark' />
-						<span class='font-secondary font-normal text-white text-base leading-[27px] customMd:text-lg'>
+						<span class='font-secondary font-normal text-white text-[0.9rem] leading-[27px]'>
 							{feature}
 						</span>
 					</div>
@@ -78,7 +78,7 @@ const enterpriseFeatures = [
 	</ul>
 </div>
 <div
-	class='relative w-full customXs:row-span-2 customMd:-mt-[245px] customLg:-mt-[220px] customMd:w-[calc((100%-(2rem*2))/3)]'
+	class='relative w-full customXs:row-span-2 customMd:-mt-[140px] customLg:-mt-[169px] customMd:w-[calc((100%-(2rem*2))/3)]'
 >
 	<Image
 		src={pennants}
@@ -102,7 +102,7 @@ const enterpriseFeatures = [
 			client:load
 			variant='green'
 			size='xl'
-			styles='w-full mt-7 font-semibold text-[15px] leading-[18px] tracking-[0.54px] customXs:text-[19px] customXs:leading-[23px]'
+			styles='w-full mt-7 font-semibold text-[15px] leading-[4px] tracking-[0.54px] customXs:text-[19px]'
 		>
 			Get Started
 		</Button>
@@ -110,10 +110,10 @@ const enterpriseFeatures = [
 		<ul class='flex flex-col gap-2'>
 			{
 				productionFeatures.map((feature) => (
-					<li class='min-h-[50px] flex'>
+					<li class='min-h-8 flex'>
 						<div class='flex gap-2 items-start'>
 							<Image src={greenTickCircle} alt='check mark' />
-							<span class='font-secondary font-normal text-white text-base leading-[27px] customMd:text-lg'>
+							<span class='font-secondary font-normal text-white text-[0.9rem] leading-[27px]'>
 								{feature}
 							</span>
 						</div>
@@ -144,17 +144,17 @@ const enterpriseFeatures = [
 		href='mailto:support@tembo.io'
 		target='_blank'
 		rel='noreferrer'
-		class='mt-8 py-6 px-8 w-full inline-block rounded-full text-center bg-lightBlue font-secondary font-semibold text-[15px] text-mwasi leading-[18px] tracking-[0.54px] customXs:text-[19px] customXs:leading-[23px]'
+		class='mt-8 py-6 px-8 w-full inline-block rounded-full text-center bg-lightBlue font-secondary font-semibold text-[15px] text-mwasi leading-[4px] tracking-[0.54px] customXs:text-[19px]'
 		>Contact Us</a
 	>
 	<hr class='my-8 h-[1px] w-full bg-white border-none opacity-30' />
 	<ul class='flex flex-col gap-2'>
 		{
 			enterpriseFeatures.map((feature) => (
-				<li class='min-h-[50px] flex'>
+				<li class='min-h-8 flex'>
 					<div class='flex gap-2 items-start'>
 						<Image src={blueTickCircle} alt='check mark' />
-						<span class='font-secondary font-normal text-white text-base leading-[27px] customMd:text-lg'>
+						<span class='font-secondary font-normal text-white text-[0.9rem] leading-[27px]'>
 							{feature}
 						</span>
 					</div>

@@ -66,7 +66,7 @@ const supportRows = [
 
 <Layout title='Pricing - Tembo'>
 	<div
-		class='w-full h-full bg-black customXs:bg-[url("/triangularPixelBg.svg")] customXs:bg-no-repeat customXs:bg-[length:1280px_1075px] customXs:bg-[77%_0%] customSm:bg-left-top customMd:bg-[length:1440px_1075px] customLg:bg-[length:1680px_1075px]'
+		class='w-full h-full bg-black customXs:bg-[url("/triangularPixelBg.svg")] customXs:bg-no-repeat customXs:bg-[length:1280px_1075px] customXs:bg-[77%_0%] customSm:bg-left-top customMd:bg-[length:1440px_1075px] customLg:bg-[length:100vw_1075px]'
 	>
 		<NavBar client:load currentPage={currentPath} />
 		<Container
@@ -101,7 +101,7 @@ const supportRows = [
 			</div>
 		</Container>
 		<Container
-			styles='mt-[131px] flex flex-col gap-10 customXs:mt-20 customXs:grid customXs:grid-cols-[1fr_1fr] customXs:grid-rows-[auto_auto] customXs:items-start customXs:gap-5 mobile:gap-8 customSm:mt-[96px] customMd:mt-[215px] customMd:flex customMd:flex-row customLg:mt-[164px]'
+			styles='mt-[131px] flex flex-col gap-10 customXs:mt-20 customXs:grid customXs:grid-cols-[1fr_1fr] customXs:grid-rows-[auto_auto] customXs:items-start customXs:gap-5 mobile:gap-8 customSm:mt-[96px] customMd:mt-[90px] customMd:flex customMd:flex-row customLg:mt-[113px]'
 		>
 			<PricingCards />
 		</Container>
@@ -127,12 +127,12 @@ const supportRows = [
 			client:load
 			title='General'
 			rows={generalRows}
-			styles='customXs:hidden'
+			styles='customXs:hidden pt-[30px]'
 		>
 			<Image
 				src={queue}
 				alt='message queue symbol'
-				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[56px]'
+				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[32px]'
 			/>
 		</TabbedTable>
 		<Container
@@ -161,7 +161,7 @@ const supportRows = [
 			<Image
 				src={clipboard}
 				alt='clipboard symbol'
-				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[56px]'
+				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[32px]'
 			/>
 		</TabbedTable>
 		<Container
@@ -188,7 +188,7 @@ const supportRows = [
 			<Image
 				src={phone}
 				alt='telephone symbol'
-				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[56px]'
+				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[32px]'
 			/>
 		</TabbedTable>
 		<Quotes client:load />

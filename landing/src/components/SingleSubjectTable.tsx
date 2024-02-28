@@ -15,7 +15,7 @@ const SingleSubjectTable: React.FC<Props> = ({ rows, index }) => {
 				{rows.map((row, i) => (
 					<tr
 						key={`row-${i}`}
-						className='h-20 border-b border-white border-opacity-20'
+						className='h-16 border-b border-white border-opacity-20'
 					>
 						<th
 							scope='row'
@@ -24,7 +24,7 @@ const SingleSubjectTable: React.FC<Props> = ({ rows, index }) => {
 							{row[0]}
 						</th>
 						{typeof row[index] === 'string' ? (
-							<td className='text-center font-secondary text-pricingLightBlue font-normal text-lg leading-[22px]'>
+							<td className='text-center font-secondary text-pricingLightBlue font-normal text-base leading-[22px]'>
 								{row[index]}
 							</td>
 						) : (
@@ -36,7 +36,7 @@ const SingleSubjectTable: React.FC<Props> = ({ rows, index }) => {
 											? 'check symbol meaning "included"'
 											: 'x symbol meaning "not included"'
 									}
-									className='mx-auto'
+									className='mx-auto h-[61px] w-[61px]'
 								/>
 							</td>
 						)}

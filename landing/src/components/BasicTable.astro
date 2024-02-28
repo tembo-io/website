@@ -21,7 +21,7 @@ const columnHeadings = ['Hobby', 'Production', 'Enterprise'];
 <section
 	class={cx(
 		{
-			'bg-lightMwasi pt-[22px] pb-[38px] mobile:pt-[3px] customSm:pb-[158px] customLg:py-[28px]':
+			'bg-lightMwasi pt-[22px] pb-[38px] customXs:pb-[65px] mobile:pt-[3px] customSm:pb-[158px] customLg:py-[28px]':
 				backdrop,
 		},
 		styles,
@@ -39,16 +39,16 @@ const columnHeadings = ['Hobby', 'Production', 'Enterprise'];
 			>
 				<tr>
 					<th
-						class='pt-[78px] pb-7 border-b border-white border-opacity-20 mobile:pt-[97px] mobile:pb-[30px]'
+						class='pt-[60px] pb-1 border-b border-white border-opacity-20 mobile:pt-[76px]'
 					>
-						<div class='flex items-center gap-2 customSm:gap-3'>
+						<div class='flex items-center gap-3'>
 							<Image
 								src={icon}
 								alt={icon.alt}
-								class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[56px]'
+								class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[32px]'
 							/>
 							<span
-								class='font-bold text-pricingGreen text-3xl tracking-[0.473px] [text-shadow:0px_0px_81px_#000] customSm:text-[42px]'
+								class='font-bold text-pricingGreen text-[28px] tracking-[0.473px] [text-shadow:0px_0px_81px_#000]'
 							>
 								{title}
 							</span>
@@ -56,26 +56,27 @@ const columnHeadings = ['Hobby', 'Production', 'Enterprise'];
 					</th>
 					{
 						columnHeadings.map((heading) => (
-							<th class='pt-[78px] pb-7 text-lg leading-[30px] text-pricingGreen font-semibold tracking-[0.54px] border-b border-white border-opacity-20 mobile:pt-[97px] mobile:pb-[30px] customSm:text-2xl '>
+							<th class='pt-[60px] pb-1 text-base leading-8 text-pricingGreen font-semibold tracking-[0.54px] border-b border-white border-opacity-20 mobile:pt-[76px]'>
 								{heading}
 							</th>
 						))
 					}
 				</tr>
-				<tbody> </tbody>
+				</thead>
+				<tbody>
 				{
 					rows.map((row) => (
-						<tr class='h-20'>
+						<tr class='h-16'>
 							{row.map((content, i) =>
 								i === 0 ? (
 									<th
 										scope='row'
-										class='text-left font-secondary font-semibold text-white text-base leading-[19px] border-b border-white border-opacity-20 customXs:w-[145px] customXs:text-lg customXs:leading-[22px] customSm:w-[236px] customMd:w-[280px] customLg:w-[288px]'
+										class='text-left font-secondary font-semibold text-white text-base leading-[19px] border-b border-white border-opacity-20 customXs:w-[145px] customSm:text-lg customSm:leading-[22px] customSm:w-[236px] customMd:w-[280px] customLg:w-[288px]'
 									>
 										{content}
 									</th>
 								) : typeof content === 'string' ? (
-									<td class='text-center font-secondary text-pricingLightBlue font-normal text-lg leading-[22px] border-b border-white border-opacity-20'>
+									<td class='text-center text-base font-secondary text-pricingLightBlue font-normal customSm:text-lg leading-[22px] border-b border-white border-opacity-20'>
 										{content}
 									</td>
 								) : (
@@ -87,7 +88,7 @@ const columnHeadings = ['Hobby', 'Production', 'Enterprise'];
 													? 'check symbol meaning "included"'
 													: 'x symbol meaning "not included"'
 											}
-											class='mx-auto'
+											class='mx-auto h-[61px] w-[61px]'
 										/>
 									</td>
 								),
@@ -95,7 +96,7 @@ const columnHeadings = ['Hobby', 'Production', 'Enterprise'];
 						</tr>
 					))
 				}
-			</thead>
+			</tbody>
 		</table>
 	</Container>
 </section>

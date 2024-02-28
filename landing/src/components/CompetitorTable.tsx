@@ -361,7 +361,7 @@ const CompetitorTable: React.FC = () => {
 														? 'check symbol meaning "included"'
 														: 'x symbol meaning "not included"'
 												}
-												className='mx-auto'
+												className='mx-auto h-[61px] w-[61px]'
 											/>
 										)}
 									</div>
