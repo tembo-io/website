@@ -106,6 +106,19 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 							Home
 						</a>
 						<a
+							href='/pricing'
+							className={cx(
+								'font-secondary font-medium z-10',
+								currentPage == '/pricing'
+									? 'text-neon'
+									: 'text-white opacity-70',
+							)}
+							target='_blank'
+							rel='noreferrer'
+						>
+							Pricing
+						</a>
+						<a
 							href='/docs'
 							className={cx(
 								'font-secondary font-medium z-10',
@@ -128,14 +141,6 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 							)}
 						>
 							Blog
-						</a>
-						<a
-							href='https://github.com/tembo-io/tembo'
-							target='_blank'
-							rel='noreferrer'
-							className='font-secondary font-medium z-10 text-white opacity-70'
-						>
-							Github
 						</a>
 					</div>
 					<Button
