@@ -22,11 +22,11 @@ const Accordion: React.FC<Props> = ({ items }) => {
 	};
 
 	return (
-		<ul className='mt-14 flex flex-col gap-4'>
+		<ul className='mt-14 flex flex-col gap-4 z-100'>
 			{items.map((item, i) => (
 				<li
 					key={`faq-${i}`}
-					className='p-6 rounded-2xl border-[0.5px] border-white border-opacity-20 bg-white bg-opacity-[0.06] customXs:px-6 customXs:py-10'
+					className='p-6 rounded-2xl border-[0.5px] border-white border-opacity-20 bg-white bg-opacity-[0.06] customXs:px-6 customXs:py-10 z-100'
 				>
 					<div className='flex justify-between items-center h-full'>
 						<h3 className='font-secondary font-medium text-white text-[15px] leading-[18px] tracking-[0.472px] customXs:text-[23px] customXs:leading-[28px]'>
@@ -34,7 +34,7 @@ const Accordion: React.FC<Props> = ({ items }) => {
 						</h3>
 						<button
 							onClick={() => handleClick(i)}
-							className='shrink-0'
+							className='shrink-0 z-40'
 						>
 							{openIndexes.includes(i) ? (
 								<img src='/minus.svg' alt='minus symbol' />

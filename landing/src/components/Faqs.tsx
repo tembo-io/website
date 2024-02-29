@@ -21,12 +21,12 @@ const faqs = [
 
 const Faqs: React.FC = () => {
 	return (
-		<>
+		<div className='z-100'>
 			<h2 className='font-bold text-pricingGreen text-[32px] leading-[40px] tracking-[0.54px] [text-shadow:0px_0px_81px_#000]'>
 				Frequently Asked Questions
 			</h2>
 			<Accordion items={faqs} />
-		</>
+		</div>
 	);
 };
 
