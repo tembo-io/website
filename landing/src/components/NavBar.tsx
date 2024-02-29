@@ -109,7 +109,8 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 							href='/pricing'
 							className={cx(
 								'font-secondary font-medium z-10',
-								currentPage == '/pricing'
+								currentPage == '/pricing' ||
+									currentPage == '/pricing/'
 									? 'text-neon'
 									: 'text-white opacity-70',
 							)}
