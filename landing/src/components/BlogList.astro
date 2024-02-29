@@ -1,7 +1,7 @@
 ---
 import Container from './Container';
 import BlogPost from './BlogPost.astro';
-import Tag from './Tag';
+import Tag from './Tag.astro';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -25,12 +25,12 @@ const { posts } = Astro.props;
 		<div class='mt-16'>
 			<div class='flex items-center justify-between'>
 				<div class='flex items-center gap-2 flex-wrap'>
-					<Tag title='All' client:load />
-					<Tag title='Postgres' client:load />
-					<Tag title='Engineering' client:load />
-					<Tag title='Stacks' client:load />
-					<Tag title='Data' client:load />
-					<Tag title='Extensions' client:load />
+					<Tag title='All' />
+					<Tag title='Postgres' />
+					<Tag title='Engineering' />
+					<Tag title='Stacks' />
+					<Tag title='Data' />
+					<Tag title='Extensions' />
 				</div>
 			</div>
 			<div class='mt-10 pb-2'>
