@@ -1,3 +1,9 @@
+---
+slug: fast-forking-for-amazing-developer-experience
+title: 'Fast forking for amazing developer experience'
+authors: [steven, nick]
+tags: [postgres, engineering, developers]
+---
 
 ## What is database branching?
 
