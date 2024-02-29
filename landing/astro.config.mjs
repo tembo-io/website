@@ -1,33 +1,41 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
-import mdx from "@astrojs/mdx";
+import mdx from '@astrojs/mdx';
 import { remarkReadingTime } from './remark-reading-time.mjs';
-
+import starlight from '@astrojs/starlight';
 const options = {
-	contentPath: "src/content/blog"
+	contentPath: 'src/content/blog',
 };
 
 // https://astro.build/config
 export default defineConfig({
-	integrations: [tailwind(), react(), mdx()],
+	integrations: [
+		react(),
+		tailwind(),
+		starlight({
+			title: 'Tembo Docs',
+			disable404Route: true,
+			expressiveCode: false,
+		}),
+	],
 	site: 'https://tembo.io',
 	redirects: {
 		'/product': '/',
 		'/pricing': '/',
 		'/blog/introducing-coredb': '/blog/introducing-tembo',
 		'/blog/manifesto': '/blog/tembo-manifesto',
-		'/waitlist': '/'
+		'/waitlist': '/',
 	},
 	markdown: {
 		remarkPlugins: [remarkReadingTime],
 		shikiConfig: {
 			wrap: true,
-		}
+		},
 	},
 	vite: {
 		ssr: {
-			noExternal: ['react-tweet']
-		}
-	}
+			noExternal: ['react-tweet'],
+		},
+	},
 });

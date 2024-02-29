@@ -4,6 +4,7 @@ import {
 	getCollection,
 	type CollectionEntry,
 } from 'astro:content';
+import { docsSchema } from '@astrojs/starlight/schema';
 
 export interface Author {
 	name: string;
@@ -156,6 +157,7 @@ const blog = defineCollection({
 		),
 	}),
 });
+const docs = defineCollection({ schema: docsSchema() });
 
 export function sortPostDates(
 	a: CollectionEntry<'blog'>,
@@ -189,4 +191,4 @@ export async function getTags() {
 	];
 }
 
-export const collections = { blog };
+export const collections = { blog, docs };
