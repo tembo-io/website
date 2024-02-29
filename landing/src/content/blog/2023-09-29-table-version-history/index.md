@@ -1,6 +1,6 @@
 ---
 slug: table-version-history
-title: "Version History and Lifecycle Policies for Postgres Tables"
+title: 'Version History and Lifecycle Policies for Postgres Tables'
 authors: [steven]
 tags: [postgres, extensions, temporal_tables, pg_partman, trunk]
 image: ./back-in-time.jpeg
@@ -13,6 +13,7 @@ I would like something like that for my Postgres table data. **We can use the te
 ## Data model
 
 Let's say we have a table **employees**, and it looks like this:
+
 ```
        name       |  salary
 ------------------+----------
@@ -81,6 +82,7 @@ CREATE EXTENSION IF NOT EXISTS pg_partman;
 ```
 
 **1_create_versioned_table.sql:** Creates a sample table, then enables version history on it.
+
 ```sql
 -- Sample: an existing table we want to enable versioning on
 CREATE TABLE employees
@@ -178,14 +180,17 @@ After we are set up, we have version history and retention policy configured on 
 ```sql
 SELECT * FROM employees;
 ```
+
 ```
  name | department | salary | sys_period
 ------+------------+--------+------------
 (0 rows)
 ```
+
 ```sql
 SELECT * FROM employees_history;
 ```
+
 ```
  name | department | salary | sys_period | created_at
 ------+------------+--------+------------+------------
@@ -206,9 +211,11 @@ VALUES ('Helmholtz Watson', 'College of Emotional Engineering', 18500);
 ```
 
 Now, the **employees** has some data, and **employees_history** is still empty.
+
 ```sql
 SELECT name, salary, sys_period FROM employees;
 ```
+
 ```
        name       |   salary  |             sys_period
 ------------------+-----------+------------------------------------
@@ -217,9 +224,11 @@ SELECT name, salary, sys_period FROM employees;
  Helmholtz Watson |  18500.00 | ["2023-09-28 20:23:14.913555+00",)
 (3 rows)
 ```
+
 ```sql
 SELECT * FROM employees_history;
 ```
+
 ```
  name | department | salary | sys_period | created_at
 ------+------------+--------+------------+------------
@@ -240,6 +249,7 @@ Now, the **employees_history** table has past versions.
 ```sql
 SELECT name, salary, sys_period FROM employees;
 ```
+
 ```
        name       |  salary  |             sys_period
 ------------------+----------+------------------------------------
@@ -248,9 +258,11 @@ SELECT name, salary, sys_period FROM employees;
  Lenina Crowne    | 11601.00 | ["2023-09-28 20:23:50.734214+00",)
 (3 rows)
 ```
+
 ```sql
 SELECT name, salary, sys_period FROM employees_history;
 ```
+
 ```
      name      |  salary  |                            sys_period
 ---------------+----------+-------------------------------------------------------------------
@@ -289,7 +301,7 @@ AND sys_period @> TIMESTAMP WITH TIME ZONE '2023-09-28 20:23:30+00'
 LIMIT 1;
 ```
 
-`@>` Is a *containment operator* and you might recognize it if you have used [JSONB](https://tembo.io/docs/postgres_guides/postgres-basics/jsonb).
+`@>` Is a _containment operator_ and you might recognize it if you have used [JSONB](https://tembo.io/docs/postgres_guides/postgres-basics/jsonb).
 
 Comparing to the **employees_history** table shown above, it is returning the correct value.
 
@@ -301,6 +313,7 @@ Comparing to the **employees_history** table shown above, it is returning the co
 ```
 
 It also works to look up the current salary:
+
 ```sql
 SELECT salary
 FROM employee_history_view
@@ -308,15 +321,18 @@ WHERE name = 'Bernard Marx'
 AND sys_period @> now()::TIMESTAMP WITH TIME ZONE
 LIMIT 1;
 ```
+
 ```
   salary
 ----------
  11600.00
 (1 row)
 ```
+
 ```sql
 SELECT salary FROM employees WHERE name = 'Bernard Marx';
 ```
+
 ```
   salary
 ----------
@@ -339,6 +355,7 @@ Partitioning tables is something I’m familiar with from Tembo’s work in [PGM
 We should expect write performance to be slower, since we are writing to two tables for every update.
 
 I created a new table that does not have versioning enabled to compare write performance.
+
 ```sql
 -- Create a table like employees
 CREATE TABLE employees_write_test
@@ -353,12 +370,15 @@ VALUES ('Bernard Marx', 'Hatchery and Conditioning Centre', 11600.00, tstzrange(
 Then, I used `EXPLAIN ANALYZE` to compare the write performance. I ran the query a few times for each.
 
 **Without versioning:**
+
 ```sql
 EXPLAIN ANALYZE
 UPDATE employees_write_test
 SET salary = 11608 WHERE name = 'Bernard Marx';
 ```
+
 Three samples:
+
 ```
  Planning Time: 1.654 ms
  Execution Time: 1.540 ms
@@ -371,12 +391,15 @@ Three samples:
 ```
 
 **With versioning:**
+
 ```sql
 EXPLAIN ANALYZE
 UPDATE employees
 SET salary = 11610 WHERE name = 'Bernard Marx';
 ```
+
 Three samples:
+
 ```
  Planning Time: 2.423 ms
  Trigger versioning_trigger: time=2.430 calls=1
@@ -429,6 +452,7 @@ $$;
 ```
 
 Run the procedure:
+
 ```sql
 CALL increment_salary('Bernard Marx', 'employees');
 ```
@@ -438,6 +462,7 @@ This took 55 seconds to run on my laptop. I also tried it on the table without v
 ```sql
 SELECT count(*) FROM employees_history WHERE name = 'Bernard Marx';
 ```
+
 ```
  count
 --------
@@ -457,6 +482,7 @@ LIMIT 1;
 ```
 
 Simplified query plan output:
+
 ```
 Limit
   ->  Append
@@ -494,6 +520,7 @@ Planning Time: 12.427 ms
 Execution Time: 262.706 ms
 (47 rows)
 ```
+
 This query took 263 milliseconds. We notice this query needs to scan all partitions, because we are partitioning by `created_at`, and querying `sys_period`. We can improve the speed with indexes.
 
 If this was a real workload, I doubt that employees' salaries are being updated so frequently, or at least that's been the case in my personal experience. However, if it's a big company, then there could be a lot of employees. In that case, it would be best to add an index on the name (or more realistically, employee ID) in the **employees_history** table. Then, withing each partition it will find only rows for the employee being queried using the index, then it would scan the remaining rows, probably typically zero, one, or two rows, to find the correct salary.
@@ -503,6 +530,7 @@ If this was a real workload, I doubt that employees' salaries are being updated 
 Earlier in this blog, we configured **pg_partman** to partition in 1 minute increments, to expire partitions that are older than 15 minutes, and to check every 30 seconds. Every 30 seconds, any partition that is older that 15 minutes is deleted by the **pg_partman** background worker.
 
 With this query, I can check how many rows and the total data size in each partition.
+
 ```sql
 -- This query was produced by ChatGPT 4 with the prompt:
 -- "How can I check the number of rows in each partition of employees_history?"
@@ -529,7 +557,6 @@ In order to check that old versions are being dropped, I ran the procedure to cr
 
 Then, running the above query, I find an output like this:
 
-
 ```
            partition_name           | total_size | data_size | row_count
 ------------------------------------+------------+-----------+-----------
@@ -551,6 +578,7 @@ Then, running the above query, I find an output like this:
  employees_history_p2023_09_28_2218 |      16384 |         0 |         0
 (16 rows)
 ```
+
 In this output, we can see that we have 1 partition for every minute, and a total of 15 partitions. I have old versions expiring after 10 minutes. I thought it's interesting to note that **pg_partman** is preemptively creating partitions for the future, in this case 5 minutes into the future.
 
 If you refer to the original set up steps, I have configured `infinite_time_partitions = true`, and this means we will generate partitions even when we are not generating any data for them. I think this is the proper configuration since we also have a retention policy that will drop the old partitions. The concern of making infinite partitions as time passes, even if no data is being generated, is not applicable because old tables are being dropped.

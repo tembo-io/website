@@ -16,13 +16,20 @@ export default defineConfig({
 		starlight({
 			title: 'Tembo Docs',
 			disable404Route: true,
-			expressiveCode: false,
+			expressiveCode: {
+				frames: {
+					showCopyToClipboardButton: false,
+				},
+				defaultProps: {
+					wrap: true,
+					frame: false,
+					preserveIndent: false,
+				},
+			},
 		}),
 	],
 	site: 'https://tembo.io',
 	redirects: {
-		'/product': '/',
-		'/pricing': '/',
 		'/blog/introducing-coredb': '/blog/introducing-tembo',
 		'/blog/manifesto': '/blog/tembo-manifesto',
 		'/waitlist': '/',

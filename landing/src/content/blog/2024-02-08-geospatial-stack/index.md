@@ -22,9 +22,10 @@ Figure 1. Snapshot of Tembo's Geospatial Stack extension overview.
 Since we're talking about Postgres, we thought an interesting example to explore would be an elephant's journey through the forests of Côte d'Ivoire.
 
 The following dataset was gathered by Dr. Mike Loomis and his team and published to the [Movebank online database](https://www.movebank.org/cms/movebank-main) of animal tracking data under the CC0 License.
-- Location: Africa, Côte d'Ivoire, Forest Preserve near the village of Dassioko
-- Timeframe: 2018 - 2021
-- Sample Size: 1
+
+-   Location: Africa, Côte d'Ivoire, Forest Preserve near the village of Dassioko
+-   Timeframe: 2018 - 2021
+-   Sample Size: 1
 
 To begin, you can [download the dataset here](https://www.movebank.org/cms/webapp?gwt_fragment=page%3Dstudies%2Cpath%3Dstudy2742086566).
 
@@ -98,9 +99,9 @@ PostGIS provides functions, indexes and operators to analyze the geospatial attr
 
 ST_Distance can be used to find the minimum distance between two points. This approach can be extended in a recursive manner to many points.
 
-- As an example, let's find which hour of the day (24hr format) had the highest average distance traveled (meters) per year?
+-   As an example, let's find which hour of the day (24hr format) had the highest average distance traveled (meters) per year?
 
-``` sql
+```sql
 WITH TimeDistances AS (
     SELECT
         EXTRACT(YEAR FROM timestamp::timestamp) AS year,
@@ -134,7 +135,8 @@ FROM RankedDistances
 WHERE rank = 1
 ORDER BY year;
 ```
-``` text
+
+```text
  year | hour |    avg_distance
 ------+------+--------------------
  2018 |   20 | 500.1667879009256
@@ -149,9 +151,9 @@ ORDER BY year;
 ST_Contains checks whether a given geometry "A" contains another geometry "B".
 Note that during this exercise we loaded a custom geometry, described in the following section.
 
-- We could ask, throughout the study, how many times did the elephant enter Dassioko Village?
+-   We could ask, throughout the study, how many times did the elephant enter Dassioko Village?
 
-``` sql
+```sql
 SELECT
 COUNT(e.*)
 FROM
@@ -160,7 +162,8 @@ village v
 WHERE
 ST_Contains(v.wkb_geometry, e.wkb_geometry);
 ```
-``` text
+
+```text
  count
 -------
     47
@@ -171,9 +174,9 @@ ST_Contains(v.wkb_geometry, e.wkb_geometry);
 
 ST_ConcaveHull can be used to establish a boundary around a set of points, while also allowing for gaps (known as holes). ST_InteriorRingN can then be used to identify these holes.
 
-- On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
+-   On visual inspection, there appears to be an area of avoidance in the top left region of the dataset. Can this be identified with a query?
 
-``` sql
+```sql
 WITH Hull AS (
     SELECT ST_ConcaveHull(ST_Collect(e.wkb_geometry), 0.50, true) AS geom
     FROM elephant5990 e
@@ -197,12 +200,14 @@ FROM HoleAreas
 ORDER BY area DESC
 LIMIT 1;
 ```
-``` text
+
+```text
           area
 ------------------------
  0.00016060894274768603
 (1 row)
 ```
+
 Notice the area's units are not given. By default this is set to square degrees, but that can be converted to roughly 1.9789 square kilometers.
 Additionally, this query produces a WKB (Well Known Binary), which we used to generate the QGIS overlay seen in Figure 4.
 However, due to its character length, we decided not to show the WKB itself.
@@ -216,11 +221,12 @@ Figure 2 illustrates just such an example.
 Here we readily see a collection of points, representing the elephant (each point representing measurement captured roughly every two hours).
 What's more is that we not only can identify major and minor roads, but the village of Dassioko as well, and what appear to be smaller settlements in its periphery (represented by grey-shaded polygons).
 Already with this simple overlay, our superficial idea about where the elephant has gone develops into more complex understandings such as:
-- Where are the territorial boundaries?
-- Where are the areas of clusters and dispersions?
-- Are there any sections of roads where the elephant feels most comfortable?
-- Are there any identifiable areas of potential human interaction or avoidance?
-- And so on!
+
+-   Where are the territorial boundaries?
+-   Where are the areas of clusters and dispersions?
+-   Are there any sections of roads where the elephant feels most comfortable?
+-   Are there any identifiable areas of potential human interaction or avoidance?
+-   And so on!
 
 ![map_data_points](./map_data_points.png 'map_data_points')
 Figure 2. QGIS-rendered OpenStreetMap visualization containing elephant tracking data.
@@ -244,9 +250,10 @@ Figure 4. QGIS-rendered OpenStreetMap visualization containing elephant tracking
 ## Explore Geospatial datasets today!
 
 Using [Tembo’s Geospatial Stack](https://cloud.tembo.io), we were able to explore a GPS tracking dataset in a matter of minutes. Though this demonstration focused on the movements of a single elephant, you can use the showcased PostGIS functions for numerous applications to other, business-centric projects like:
-- Loading and exploring geospatial datasets
-- Insights on time-of-day activity
-- Insights on avoidance behavior
-- Insights on behavior related to pre-determined areas (zones)
+
+-   Loading and exploring geospatial datasets
+-   Insights on time-of-day activity
+-   Insights on avoidance behavior
+-   Insights on behavior related to pre-determined areas (zones)
 
 Interested in a more comprehensive guide? Checkout our [Geospatial Stack getting started guide](https://tembo.io/docs/tembo-stacks/geospatial).
