@@ -15,18 +15,18 @@ export interface PriceMatrix {
 
 const monthlyPrices: PriceMatrix = {
 	general: [
-		{ size: '2 vCPU · 8Gi', dollars: '140' },
-		{ size: '4 vCPU · 16Gi', dollars: '280' },
-		{ size: '8 vCPU · 32Gi', dollars: '560' },
+		{ size: '2 vCPU · 8Gi', dollars: '139.98' },
+		{ size: '4 vCPU · 16Gi', dollars: '279.96' },
+		{ size: '8 vCPU · 32Gi', dollars: '559.92' },
 	],
 	memory: [
-		{ size: '2 vCPU · 16Gi', dollars: '173' },
-		{ size: '4 vCPU · 32Gi', dollars: '345' },
+		{ size: '2 vCPU · 16Gi', dollars: '172.06' },
+		{ size: '4 vCPU · 32Gi', dollars: '344.12' },
 	],
 	compute: [
-		{ size: '2 vCPU · 4Gi', dollars: '124' },
-		{ size: '4 vCPU · 8Gi', dollars: '248' },
-		{ size: '8 vCPU · 16Gi', dollars: '496' },
+		{ size: '2 vCPU · 4Gi', dollars: '123.94' },
+		{ size: '4 vCPU · 8Gi', dollars: '247.88' },
+		{ size: '8 vCPU · 16Gi', dollars: '495.76' },
 	],
 };
 
