@@ -1,10 +1,11 @@
-# Creating a Rails Application with Tembo CLI
+# Rails
+## Creating a Rails Application with Tembo CLI
 
 ## Prerequisites
 
 Before you start, ensure you have the following installed:
 1. Ruby on Rails
-2. Tembo CLI. you can find the steps [here](https://github.com/tembo-io/tembo/tree/main/tembo-cli)
+2. Tembo CLI. you can find the steps [here](../Getting_Started.md)
 3. Docker, set up and running for local development
 
 ## Step 1: Creating Your Rails Project

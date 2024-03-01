@@ -1,10 +1,11 @@
-# Creating a Next.js Project with Tembo CLI
+# NextJS
+## Creating a Next.js Project with Tembo CLI
 
 ## Prerequisites
 
 Before you start, make sure you have the following installed:
 1. `npx` and `npm`
-2. Tembo CLI. you can find the steps [here](https://github.com/tembo-io/tembo/tree/main/tembo-cli)
+2. Tembo CLI. you can find the steps [here](../Getting_Started.md)
 3. Docker, set up and running for local development
 
 ## Step 1: Creating Your Next.js Project
