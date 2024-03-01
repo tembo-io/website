@@ -1,0 +1,26 @@
+---
+import Layout from './Layout.astro';
+import SideBar from '../components/docs/SideBar.astro';
+import Header from '../components/docs/Header.astro';
+import Container from '../components/Container';
+interface Props {
+	title?: string;
+}
+const { title = 'Docs | Tembo' }: Props = Astro.props;
+---
+
+<Layout title={title}>
+	<div class='h-screen flex flex-col'>
+		<main class='grow overflow-hidden'>
+			<div class='flex h-full'>
+				<SideBar />
+			</div>
+			<Container styles='docs-content w-full'>
+				<div class='flex flex-col relative'>
+					<Header />
+				</div>
+				<slot />
+			</Container>
+		</main>
+	</div>
+</Layout>

@@ -4,7 +4,6 @@ import {
 	getCollection,
 	type CollectionEntry,
 } from 'astro:content';
-import { docsSchema } from '@astrojs/starlight/schema';
 
 export interface Author {
 	name: string;
@@ -157,7 +156,13 @@ const blog = defineCollection({
 		),
 	}),
 });
-const docs = defineCollection({ schema: docsSchema() });
+const docs = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		tableOfContents: z.boolean().default(true),
+	}),
+});
 
 export function sortPostDates(
 	a: CollectionEntry<'blog'>,

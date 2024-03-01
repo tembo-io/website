@@ -1,6 +1,7 @@
 ---
-title: Hello, World!
+title: Tembo Docs
 description: This is a page in my Starlight-powered site
+tableOfContents: false
 ---
 
 # Hello world!

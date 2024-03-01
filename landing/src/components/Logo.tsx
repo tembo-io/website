@@ -8,7 +8,7 @@ const Logo = () => {
 		>
 			<img
 				src='/logoWithText.svg'
-				alt='tembo log'
+				alt='tembo logo'
 				className='w-[105px] mobile:w-[124px]'
 			/>
 		</a>
