@@ -2,6 +2,7 @@
 import Logo from '../../images/logoWithText.svg';
 import { Image } from 'astro:assets';
 import Home from '../../images/home.svg';
+import Line from './Line.astro';
 ---
 
 <nav class='border-r border-r-[#EAEAEA33] max-w-[280px] w-full'>
@@ -13,7 +14,7 @@ import Home from '../../images/home.svg';
 				>Docs</span
 			>
 		</a>
-		<div class='flex flex-col px-8 mt-[40px]'>
+		<div class='flex flex-col px-8 mt-[40px] gap-6'>
 			<a
 				href='/docs'
 				class='font-secondary font-extrabold flex items-center gap-4'
@@ -21,6 +22,7 @@ import Home from '../../images/home.svg';
 				<Image src={Home} alt='home' width={20} />
 				Home
 			</a>
+			<Line />
 		</div>
 	</div>
 </nav>
