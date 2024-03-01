@@ -3,17 +3,34 @@ import Accordion from './Accordion';
 
 const faqs = [
 	{
-		heading: 'Lorem ipsum dolor sit amet consectetur?',
+		heading: 'How can I estimate my costs for Tembo use?',
 		content:
 			'Lorem ipsum dolor sit amet consectetur. Massa eget dictumst senectus phasellus ultrices. Odio gravida mauris placerat suspendisse penatibus sit justo placerat praesent. Odio dapibus vitae magna nulla. Vulputate pharetra vitae pellentesque amet. Amet mi lacus et hendrerit est nunc quam arcu. Consectetur enim eu eget mauris commodo dictum egestas velit. Odio arcu turpis parturient semper sit congue cursus faucibus dui. Dolor viverra vel enim lorem. Auctor purus commodo tellus tristique id ut placerat. Hendrerit nunc vel elementum congue euismod enim cum ornare.',
 	},
 	{
-		heading: 'Lorem ipsum dolor sit amet consectetur?',
+		heading: 'When will I be billed?',
 		content:
 			'Lorem ipsum dolor sit amet consectetur. Massa eget dictumst senectus phasellus ultrices. Odio gravida mauris placerat suspendisse penatibus sit justo placerat praesent. Odio dapibus vitae magna nulla. Vulputate pharetra vitae pellentesque amet. Amet mi lacus et hendrerit est nunc quam arcu. Consectetur enim eu eget mauris commodo dictum egestas velit. Odio arcu turpis parturient semper sit congue cursus faucibus dui. Dolor viverra vel enim lorem. Auctor purus commodo tellus tristique id ut placerat. Hendrerit nunc vel elementum congue euismod enim cum ornare.',
 	},
 	{
-		heading: 'Lorem ipsum dolor sit amet consectetur?',
+		heading:
+			'Is the Hobby Tier free forever? What sort of workloads can I run on it?',
+		content:
+			'Lorem ipsum dolor sit amet consectetur. Massa eget dictumst senectus phasellus ultrices. Odio gravida mauris placerat suspendisse penatibus sit justo placerat praesent. Odio dapibus vitae magna nulla. Vulputate pharetra vitae pellentesque amet. Amet mi lacus et hendrerit est nunc quam arcu. Consectetur enim eu eget mauris commodo dictum egestas velit. Odio arcu turpis parturient semper sit congue cursus faucibus dui. Dolor viverra vel enim lorem. Auctor purus commodo tellus tristique id ut placerat. Hendrerit nunc vel elementum congue euismod enim cum ornare.',
+	},
+	{
+		heading: 'Are annual plans available?',
+		content:
+			'Lorem ipsum dolor sit amet consectetur. Massa eget dictumst senectus phasellus ultrices. Odio gravida mauris placerat suspendisse penatibus sit justo placerat praesent. Odio dapibus vitae magna nulla. Vulputate pharetra vitae pellentesque amet. Amet mi lacus et hendrerit est nunc quam arcu. Consectetur enim eu eget mauris commodo dictum egestas velit. Odio arcu turpis parturient semper sit congue cursus faucibus dui. Dolor viverra vel enim lorem. Auctor purus commodo tellus tristique id ut placerat. Hendrerit nunc vel elementum congue euismod enim cum ornare.',
+	},
+	{
+		heading: 'Do you have plans specifically for early-stage startups?',
+		content:
+			'Lorem ipsum dolor sit amet consectetur. Massa eget dictumst senectus phasellus ultrices. Odio gravida mauris placerat suspendisse penatibus sit justo placerat praesent. Odio dapibus vitae magna nulla. Vulputate pharetra vitae pellentesque amet. Amet mi lacus et hendrerit est nunc quam arcu. Consectetur enim eu eget mauris commodo dictum egestas velit. Odio arcu turpis parturient semper sit congue cursus faucibus dui. Dolor viverra vel enim lorem. Auctor purus commodo tellus tristique id ut placerat. Hendrerit nunc vel elementum congue euismod enim cum ornare.',
+	},
+	{
+		heading:
+			"Am I able to cap my spend each month so I don't accidentally spend way more than I intend to?",
 		content:
 			'Lorem ipsum dolor sit amet consectetur. Massa eget dictumst senectus phasellus ultrices. Odio gravida mauris placerat suspendisse penatibus sit justo placerat praesent. Odio dapibus vitae magna nulla. Vulputate pharetra vitae pellentesque amet. Amet mi lacus et hendrerit est nunc quam arcu. Consectetur enim eu eget mauris commodo dictum egestas velit. Odio arcu turpis parturient semper sit congue cursus faucibus dui. Dolor viverra vel enim lorem. Auctor purus commodo tellus tristique id ut placerat. Hendrerit nunc vel elementum congue euismod enim cum ornare.',
 	},
