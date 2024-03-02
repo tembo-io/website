@@ -39,7 +39,7 @@ const MobileMenu = () => {
 							<div className='flex gap-2 items-center'>
 								<img
 									src={'/github.svg'}
-									alt='line'
+									alt='github'
 									width={23}
 									height={23}
 								/>

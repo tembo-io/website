@@ -5,7 +5,9 @@ import Home from '../../images/home.svg';
 import Line from './Line.astro';
 ---
 
-<nav class='border-r border-r-[#EAEAEA33] max-w-[280px] w-full'>
+<nav
+	class='border-r border-r-[#EAEAEA33] max-w-[280px] w-full hidden min-[1150px]:flex'
+>
 	<div class='h-screen relative'>
 		<a href='/docs' class='flex items-center gap-2 sticky pt-8 px-8'>
 			<Image src={Logo} alt='tembo logo' width={120} />

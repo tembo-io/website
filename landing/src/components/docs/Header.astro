@@ -1,14 +1,39 @@
 ---
 import Container from '../Container';
+import Button from '../Button';
+import { Image } from 'astro:assets';
+import Github from '../../images/github.svg';
 ---
 
 <div class='sticky z-10 overflow-hidden'>
-	<nav class='border-b border-b-[#EAEAEA33] h-[65px]'>
-		<Container>
+	<nav class='border-b border-b-[#EAEAEA33] flex items-center mt-8 pb-4'>
+		<div
+			class='container px-[20px] min-[1150px]:px-[95px] max-w-container mx-auto'
+		>
 			<div class='flex items-center justify-between'>
 				<div id='search'></div>
-				<div class='flex items-center gap'></div>
+				<div class='flex items-center gap-8'>
+					<a href='/' target='_blank' rel='noreferrer'>Tembo.io</a>
+					<a href='/blog' target='_blank' rel='noreferrer'>Blog</a>
+					<a
+						href='https://github.com/tembo-io/tembo'
+						target='_blank'
+						rel='noreferrer'
+					>
+						<Image
+							src={Github}
+							alt='github'
+							width={23}
+							height={23}
+						/>
+					</a>
+					<Button
+						variant='neon'
+						client:load
+						link='https://cloud.tembo.io'>Try Free</Button
+					>
+				</div>
 			</div>
-		</Container>
+		</div>
 	</nav>
 </div>

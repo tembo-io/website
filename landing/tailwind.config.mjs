@@ -18,6 +18,7 @@ export default {
 			},
 			maxWidth: {
 				container: '88rem',
+				docsContainer: '120rem',
 				stackSlider: '130rem',
 			},
 			colors: {
