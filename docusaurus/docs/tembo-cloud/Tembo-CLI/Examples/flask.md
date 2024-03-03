@@ -165,4 +165,4 @@ Visit http://127.0.0.1:5000 in your web browser to see the results.
 
 ### Creating a Basic CRUD App
 
-To create a basic CRUD application in Flask, you can now follow the directions from this Digital Ocean article from step #5: [How to Use a PostgreSQL Database in a Flask Application](https://www.digitalocean.com/community/tutorials/how-to-use-a-postgresql-database-in-a-flask-application#step-5-adding-new-books).
+To create a basic CRUD application in Flask, you can now follow the directions from this Digital Ocean article from step #5: [How to Use a PostgreSQL Database in a Flask Application](https://www.digitalocean.com/community/tutorials/how-to-use-a-postgresql-database-in-a-flask-application#step-5-adding-new-books). This basic app shows how you can create a basic CRUD Flask application using Tembo CLI.
