@@ -8,7 +8,7 @@ date: 2024-03-08T12:00
 description: Announcing Tembo CLI
 ---
 
-# Introducing the Tembo CLI: Streamlining Database Deployments for Developers
+# Introducing the Tembo CLI: deploy the Postgres ecosystem with a single configuration file
 
 Postgres isn't just a database; it's a whole ecosystem of extensions and tools for all kinds of tasks.
 
@@ -59,29 +59,7 @@ instance_name = "analytics"
 stack = "DataWarehouse"
 ```
 
-You start your database(s) with the command `tembo apply`.
-
-You can deploy to cloud or local by selecting your deployment context.
-
-```bash
-tembo context list
-```
-```
-➜ Your current Tembo context: dev
-
-
-+---------+-------------+---------------------------------+---------+-------+
-| Name    | Target      | Org ID                          | Profile | Set   |
-+---------+-------------+---------------------------------+---------+-------+
-| local   | docker      |                                 | local   | false |
-+---------+-------------+---------------------------------+---------+-------+
-| prod    | tembo-cloud | org_2PEmuBhDmY2yKGnAdJI9sesXaaC | prod    | false |
-+---------+-------------+---------------------------------+---------+-------+
-| dev     | tembo-cloud | org_2YW4TYIMI1LeOqJTFIyvkHOHCUo | dev     | true  |
-+---------+-------------+---------------------------------+---------+-------+
-```
-
-This allows you to deploy locally, then deploy to cloud with the same configuration.
+You can deploy to cloud or local by selecting your deployment context. This allows you to deploy locally, then deploy to cloud with the same configuration.
 
 ```bash
 # Deploy local
@@ -93,21 +71,29 @@ tembo context set --name dev
 tembo apply
 ```
 
-The power of Tembo is that you can customize Postgres to suit your needs. You can enable Postgres extensions, set your own Postgres configurations, or enable Apps to run alongside your database, all using the Tembo CLI.
+The open source ecosystem of tools around Postgres are a first-class product experience with Tembo. You can enable Postgres extensions, set your own Postgres configurations, or enable Apps to run alongside your database, all using the Tembo CLI.
 
-```
+```toml
 [vector-search]
 environment = "prod"
 instance_name = "vector-search"
 stack = "VectorDB"
 
-# TODO: example turning on 1 extension, and rest API via app
+# Set a Postgres configuration
+[vector-search.postgres_configurations]
+statement_timeout = 60
+
+# Enable the popular extension pg_partman
+[vector-search.extensions.pg_partman]
+enabled = true
+trunk_project = "pg_partman"
+trunk_project_version = "4.7.4"
+
+# Enable an HTTP API with PostgREST
+[[vector-search.app_services]]
+restapi = {}
 ```
 
 ## Dive Deeper
 
-TODO link to getting started and examples in docs
-
-## What's Next?
-
-TODO
+Please refer to the [Tembo CLI Getting Started](https://tembo.io/docs/tembo-cloud/Tembo-CLI/Getting_Started) guide for setting up Tembo CLI on your machine. Continue reading to find examples for how you can use the Tembo CLI to power the data in your application.
