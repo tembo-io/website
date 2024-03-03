@@ -128,6 +128,6 @@ const prisma: PrismaClient = new PrismaClient();
 export default prisma;
 ```
 
-Now you should be all set to start development. Additionally you can follow the steps listed [here](https://birdeatsbug.com/blog/simplest-approach-to-work-with-databases-in-next-js-using-prisma) and follow-on from `Setting up the Next.js routes` section. This basic app shows how you can create a basic CRUD nextjs application using Tembo CLI
+Now you should be all set to start development. Additionally you can follow the steps listed [here](https://birdeatsbug.com/blog/simplest-approach-to-work-with-databases-in-next-js-using-prisma) and follow-on from `Setting up the Next.js routes` section. This basic app shows how you can create a basic CRUD nextjs application using Tembo CLI.
 
 
