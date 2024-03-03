@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer.astro';
-import BlogLinks from '../../components/BlogLinks';
+import Toc from '../../components/Toc';
 import Container from '../../components/Container';
 import Markdown from '../../components/Markdown.astro';
 import Tag from '../../components/Tag.astro';
@@ -137,7 +137,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 						>
 							{
 								headings.length > 0 && (
-									<BlogLinks
+									<Toc
 										headings={headings}
 										client:load
 									/>
@@ -204,3 +204,4 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 	});
 </script>
 ../../components/Tag.tsx
+../../components/Toc

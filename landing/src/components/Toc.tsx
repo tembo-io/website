@@ -9,7 +9,7 @@ interface Props {
 	}[];
 }
 
-const BlogLinks: React.FC<Props> = ({ headings }) => {
+const Toc: React.FC<Props> = ({ headings }) => {
 	const [link, setLink] = useState('');
 	const firstHeadingSlug = headings[0]?.slug || '';
 
@@ -52,4 +52,4 @@ const BlogLinks: React.FC<Props> = ({ headings }) => {
 	);
 };
 
-export default BlogLinks;
+export default Toc;
