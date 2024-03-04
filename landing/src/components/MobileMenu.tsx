@@ -4,7 +4,7 @@ import { navigate } from 'astro:transitions/client';
 
 const MobileMenu = () => {
 	return (
-		<div className='bg-offBlack mobile:hidden fixed z-10 w-screen h-screen overflow-hidden inset-0'>
+		<div className='bg-offBlack mid:hidden fixed z-10 w-screen h-screen overflow-hidden inset-0'>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
 			<Container styles='h-[100%] pb-12'>
 				<nav className='flex flex-col gap-[20px] h-full justify-between w-full'>

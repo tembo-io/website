@@ -19,7 +19,7 @@ const competitorOne = {
 			size: '4 vCPU and 32 GB RAM',
 			dollars: '1,217',
 			features: [
-				'General Purpose',
+				'General Purpose Only',
 				'10 GB',
 				'91',
 				false,
@@ -49,14 +49,14 @@ const competitorOne = {
 };
 
 const competitorTwo = {
-	name: 'Amazon RDS',
-	shortName: 'AWS RDS',
+	name: 'Google Cloud SQL',
+	shortName: 'Cloud SQL',
 	columns: [
 		{
-			size: 'TODO',
+			size: '4 vCPU and 32 GB RAM',
 			dollars: 'TODO',
 			features: [
-				'Time-Series Only',
+				'General Purpose Only',
 				'10 GB',
 				'0',
 				false,

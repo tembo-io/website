@@ -74,6 +74,7 @@ export default {
 				customLg: '1440px',
 				customMd: '1280px',
 				customSm: '1024px',
+				mid: '1100px',
 				mobile: '900px',
 				customXs: '680px',
 				customXxs: '375px',
