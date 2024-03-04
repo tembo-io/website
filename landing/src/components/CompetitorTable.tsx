@@ -16,27 +16,12 @@ const competitorOne = {
 	shortName: 'AWS RDS',
 	columns: [
 		{
-			size: '4 vCPU and 32 GB RAM',
-			dollars: '1,217',
+			size: '8 vCPU and 32 GB RAM',
+			dollars: '1,066',
 			features: [
 				'General Purpose Only',
-				'10 GB',
-				'91',
 				false,
-				false,
-				false,
-				false,
-				false,
-				false,
-			],
-		},
-		{
-			size: 'size 2 TODO',
-			dollars: '731',
-			features: [
-				'TODO',
-				'TODO',
-				'TODO',
+				'94',
 				false,
 				false,
 				false,
@@ -57,8 +42,8 @@ const competitorTwo = {
 			dollars: 'TODO',
 			features: [
 				'General Purpose Only',
-				'10 GB',
-				'0',
+				false,
+				'62',
 				false,
 				false,
 				false,
@@ -82,14 +67,14 @@ const getCompetitorRows = (
 			competitorTwo.columns[competitorTwoColumnIndex].features[0],
 		],
 		[
-			'Custom Sidecar Deployments',
-			'10 GB',
+			'Custom App Deployments',
+			true,
 			competitorOne.columns[competitorOneColumnIndex].features[1],
 			competitorTwo.columns[competitorTwoColumnIndex].features[1],
 		],
 		[
 			'Extensions',
-			'150+',
+			'200+',
 			competitorOne.columns[competitorOneColumnIndex].features[2],
 			competitorTwo.columns[competitorTwoColumnIndex].features[2],
 		],
@@ -122,12 +107,6 @@ const getCompetitorRows = (
 			true,
 			competitorOne.columns[competitorOneColumnIndex].features[7],
 			competitorTwo.columns[competitorTwoColumnIndex].features[7],
-		],
-		[
-			'Automated Schema Workflows',
-			true,
-			competitorOne.columns[competitorOneColumnIndex].features[8],
-			competitorTwo.columns[competitorTwoColumnIndex].features[8],
 		],
 	];
 };
@@ -280,12 +259,12 @@ const CompetitorTable: React.FC = () => {
 									Tembo
 								</span>
 								<span className='h-[30px] block mt-2 text-xs leading-[15px] text-white font-normal tracking-[0.54px] customXs:h-auto customMd:text-base customMd:leading-[20px] customLg:text-lg customLg:leading-[22px]'>
-									Pro 4 vCPU and 8 GB RAM
+									Pro 8 vCPU and 32 GB RAM
 								</span>
 							</div>
 							<div className='flex gap-[3px] items-baseline mt-6'>
 								<span className='text-xl leading-[25px] text-pricingGreen font-semibold tracking-[0.54px] customSm:text-[38px] customSm:leading-[48px]'>
-									$199
+									$559.92
 								</span>
 								<span className='text-[10px] leading-3 text-white font-normal tracking-[0.54px] text-opacity-70 customXs:hidden customXs:text-base customXs:leading-[19px]'>
 									/mo
