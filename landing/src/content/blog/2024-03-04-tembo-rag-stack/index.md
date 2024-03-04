@@ -1,6 +1,6 @@
 ---
 slug: tembo-rag-stack
-title: 'Making question-answer bot development native on Postgres'
+title: 'Build a question-answer bot natively on Postgres'
 authors: [adam]
 tags: [postgres, stacks, database, rag, ai]
 ---
