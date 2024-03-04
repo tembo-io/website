@@ -3,6 +3,7 @@ slug: tembo-rag-stack
 title: 'Build a question-answer bot natively on Postgres'
 authors: [adam]
 tags: [postgres, stacks, database, rag, ai]
+date: 2024-03-4T17:00
 ---
 
 TODO: social image image: ./rag-social.png
