@@ -8,7 +8,7 @@ date: 2024-03-08T12:00
 description: Announcing Tembo CLI
 ---
 
-# Tembo CLI: Infrastructure as code for the Postgres ecosystem
+# Infrastructure as code for the Postgres ecosystem
 
 Postgres isn't just a database; it's a whole ecosystem of extensions and tools for all kinds of tasks.
 
