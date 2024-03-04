@@ -143,16 +143,55 @@ const currentPath = Astro.url.pathname;
 					class='w-full rounded-xl'
 				/>
 
-				<Callout title='Need stronger isolation?' variant='info'>
-					<p>
-						Tembo Cloud allows enterprise users to
-						<a
+
+				<h2>Enterprise Deployment Modes</h2>
+
+				<ol>
+					<li>
+						Open-source
+						<ul>
+							<li>No subscription or license required</li>
+							<li>Run Tembo Operator/Stacks in your K8s cluster</li>
+						</ul>
+					</li>
+					<li>
+						Shared Control Plane / Multi-Tenant Data Plane (aka full-SaaS) 
+						<ul>
+							<li>Subscription required</li>
+							<li>Currently available on AWS only</li>
+							<li>Azure + Google Cloud coming soon</li>
+						</ul>
+					</li>
+					<li>
+						Shared Control Plane / <a
 							href='https://tembo.io/docs/tembo-cloud/security-and-authentication/security#need-stronger-isolation'
-							>host a private data plane</a
-						>
-						on premise, or in any cloud.
-					</p>
-				</Callout>
+						>Private Data Plane</a>
+						<ul>
+							<li>Subscription required</li>
+							<li>BYO Kubernetes cluster as Tembo Data Plane</li>
+							<li>You install Tembo Operator, enterprise key</li>
+							<li>Data plane phones home to Tembo Control plane for work (requires network egress)</li>
+						</ul>
+					</li>
+				</ol>
+
+				<p>
+					<b>Additional modes, coming soon:</b>
+				</p>
+
+				<ol>
+					<li>
+						SaaS Control Plane / Dedicated Data Plane 
+					</li>
+					<li>
+						Software
+						<ul>
+							<li>Subscription required</li>
+							<li>In your cloud, or on-prem</li>
+							<li>Fully Private Control Plane + Data Plane(s)</li>
+						</ul>					
+					</li>
+				</ol>
 
 				<h2>Contact</h2>
 
