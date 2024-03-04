@@ -22,7 +22,7 @@ The Tembo CLI is a powerful tool designed to simplify how you deploy databases, 
 
 - **Seamless Deployment Across Environments**: Deploy your database locally for development or to any cloud environment (dev, staging, prod) using the same configuration.
 - **Support for Stacks, Extensions, and Apps**: Tailor your Postgres deployments with Tembo Stacks, and further customize your setup by specifying additional extensions and apps
-- **Simple Configuration**: Specify the database(s) for your application in your Tembo.toml, then deploy locally, or to multiple cloud environments with the same configuration file
+- **Simple Configuration**: Specify the database(s) for your application in your **tembo.toml**, then deploy locally, or to multiple cloud environments with the same configuration file
 
 ## What's it like to use the Tembo CLI?
 
@@ -36,7 +36,7 @@ environment = "prod"
 instance_name = "minimal"
 ```
 
-The above tembo.toml file includes one database, on the Standard Stack. If you want to pick a stack tailored to your use case, you can do so like this:
+The above **tembo.toml** file includes one database, on the Standard Stack. If you want to pick a stack tailored to your use case, you can do so like this:
 
 ```toml
 [my-instance-vector]
