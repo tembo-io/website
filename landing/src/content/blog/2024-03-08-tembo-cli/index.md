@@ -12,7 +12,7 @@ description: Announcing Tembo CLI
 
 Postgres isn't just a database; it's a whole ecosystem of extensions and tools for all kinds of tasks.
 
-At Tembo Cloud, we've made it easy to deploy Postgres with extensions and apps combined to create solutions, such as vector search, data warehousing, machine learning, high throughput transactional database, and so on. But having these capabilities in the cloud means you'll also want a way to test them out locally, to ensure your applications work seamlessly. You will need a tool that helps set up Postgres with your extensions and apps locally. That's why we created the Tembo CLI. It's designed to give developers the power to set up their Postgres stacks on their own machines or in CI environments, mirroring how things will run on Tembo Cloud. This way, you can experiment, develop, and test with confidence, knowing your local setup reflects the cloud environment.
+At Tembo Cloud, we've made it easy to deploy Postgres with extensions and apps combined to create solutions, such as vector search, data warehousing, machine learning, high throughput transactional database, and so on. But having these capabilities in the cloud means you'll also want a way to test them out locally, to ensure your applications work seamlessly. That's why we created the Tembo CLI. It's designed to give developers the power to set up their Postgres stacks on their own machines or in CI environments, mirroring how things will run on Tembo Cloud. This way, you can experiment, develop, and test with confidence, knowing your local setup reflects the cloud environment.
 
 ## Why Tembo CLI?
 
