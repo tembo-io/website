@@ -3,11 +3,6 @@ import Accordion from './Accordion';
 
 const faqs = [
 	{
-		heading: 'How can I estimate my costs for Tembo use?',
-		content:
-			'Lorem ipsum dolor sit amet consectetur. Massa eget dictumst senectus phasellus ultrices. Odio gravida mauris placerat suspendisse penatibus sit justo placerat praesent. Odio dapibus vitae magna nulla. Vulputate pharetra vitae pellentesque amet. Amet mi lacus et hendrerit est nunc quam arcu. Consectetur enim eu eget mauris commodo dictum egestas velit. Odio arcu turpis parturient semper sit congue cursus faucibus dui. Dolor viverra vel enim lorem. Auctor purus commodo tellus tristique id ut placerat. Hendrerit nunc vel elementum congue euismod enim cum ornare.',
-	},
-	{
 		heading: 'When will I be billed?',
 		content: 'Our Production plan charges at the end of each month.',
 	},
@@ -28,17 +23,16 @@ const faqs = [
 			'Yes! please visit our Tembo for Startups site (https://tembo.io/for-startups/) and follow instructions. We offer up to 50% off for the entire first year, and discounts ongoing for startups who are part of a Partner Organization in our Partner network.',
 	},
 	{
-		heading:
-			"Am I able to cap my spend each month so I don't accidentally spend way more than I intend to?",
+		heading: 'Can Tembo be hosted on my own infrastructure?',
 		content:
-			'Lorem ipsum dolor sit amet consectetur. Massa eget dictumst senectus phasellus ultrices. Odio gravida mauris placerat suspendisse penatibus sit justo placerat praesent. Odio dapibus vitae magna nulla. Vulputate pharetra vitae pellentesque amet. Amet mi lacus et hendrerit est nunc quam arcu. Consectetur enim eu eget mauris commodo dictum egestas velit. Odio arcu turpis parturient semper sit congue cursus faucibus dui. Dolor viverra vel enim lorem. Auctor purus commodo tellus tristique id ut placerat. Hendrerit nunc vel elementum congue euismod enim cum ornare.',
+			'Yes! Tembo is open-source on Github: https://github.com/tembo-io/tembo',
 	},
 ];
 
 const Faqs: React.FC = () => {
 	return (
-		<div className='z-100'>
-			<h2 className='font-bold text-pricingGreen text-[32px] leading-[40px] tracking-[0.54px] [text-shadow:0px_0px_81px_#000]'>
+		<div className='z-50'>
+			<h2 className='font-bold text-pricingGreen text-[32px] leading-[40px] tracking-[0.54px] [text-shadow:0px_0px_81px_#000] z-50'>
 				Frequently Asked Questions
 			</h2>
 			<Accordion items={faqs} />

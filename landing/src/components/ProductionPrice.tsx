@@ -105,7 +105,7 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 								<Select.Item
 									key={instanceType}
 									value={instanceType}
-									className='w-[var(--radix-select-trigger-width)] py-3 px-4 border-b border-white border-opacity-20 hover:bg-white hover:bg-opacity-5 focus-visible:outline-none focus-visible:bg-white focus-visible:bg-opacity-5 active:bg-white active:bg-opacity-15 last:border-b-0'
+									className='w-[var(--radix-select-trigger-width)] hover:cursor-pointer py-3 px-4 border-b border-white border-opacity-20 hover:bg-white hover:bg-opacity-5 focus-visible:outline-none focus-visible:bg-white focus-visible:bg-opacity-5 active:bg-white active:bg-opacity-15 last:border-b-0'
 								>
 									<Select.ItemText>
 										{

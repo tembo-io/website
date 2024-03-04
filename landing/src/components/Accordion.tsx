@@ -22,14 +22,14 @@ const Accordion: React.FC<Props> = ({ items }) => {
 	};
 
 	return (
-		<ul className='mt-14 flex flex-col gap-4 z-100'>
+		<ul className='mt-14 flex flex-col gap-4'>
 			{items.map((item, i) => (
 				<li
 					key={`faq-${i}`}
 					className='p-6 rounded-2xl border-[0.5px] border-white border-opacity-20 bg-white bg-opacity-[0.06] customXs:px-6 customXs:py-10 z-100'
 				>
 					<div className='flex justify-between items-center h-full'>
-						<h3 className='font-secondary font-medium text-white text-[15px] leading-[18px] tracking-[0.472px] customXs:text-[23px] customXs:leading-[28px]'>
+						<h3 className='font-secondary font-medium text-white text-[15px] leading-[18px] tracking-[0.472px] customXs:text-[23px] customXs:leading-[28px] z-10'>
 							{item.heading}
 						</h3>
 						<button
