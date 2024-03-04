@@ -12,11 +12,11 @@ description: Announcing Tembo CLI
 
 Postgres isn't just a database; it's a whole ecosystem of extensions and tools for all kinds of tasks.
 
-At Tembo Cloud, we've made it easy to deploy Postgres with extensions and apps combined to create solutions, such as vector search, data warehousing, machine learning, high throughput transactional database, and so on. But having these capabilities in the cloud means you'll also want a way to test them out locally, to ensure your applications work seamlessly. That's why we created the Tembo CLI. It's designed to give developers the power to set up Postgres stacks on their own machines or in CI, mirroring how things will run on Tembo Cloud. This way, you can experiment, develop, and test with confidence, knowing your local setup reflects the cloud environment.
+At Tembo Cloud, we've made it easy to deploy the Postgres ecosystem of extensions and apps combined to create solutions, which we call "Stacks". If you're using these capabilities in Tembo Cloud, you'll also want a way to test locally. That's why we created the Tembo CLI. It's designed to give developers the power to set up Postgres Stacks on their own machines or in CI, mirroring how things will run on Tembo Cloud. This way, you can experiment, develop, and test with confidence, knowing your local setup reflects the cloud environment.
 
 ## Why Tembo CLI?
 
-The Tembo CLI is a powerful tool designed to simplify how you deploy databases, whether locally or in the cloud. By supporting the same Tembo configuration across development, staging, and production environments, it ensures consistency and reliability in your deployments. This means what you test locally, your workload behaves the same way when deployed to the cloud.
+The Tembo CLI is a powerful tool designed to simplify how you deploy databases, whether locally or in the cloud. By supporting the same Tembo configuration across development, staging, and production environments, it ensures consistency and reliability in your deployments. This means when you test locally, your workload behaves the same way when deployed to the cloud.
 
 ## Key Features of the Tembo CLI
 
