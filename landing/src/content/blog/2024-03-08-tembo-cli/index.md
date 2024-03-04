@@ -1,7 +1,7 @@
 ---
 slug: tembo-cli
 title: 'Announcing the Tembo CLI'
-authors: [steven]
+authors: [steven, adarsh, joshua]
 tags: [postgres, extensions, stacks]
 image: './dw_social.png'
 date: 2024-03-08T12:00
