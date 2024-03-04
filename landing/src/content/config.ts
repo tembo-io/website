@@ -158,6 +158,7 @@ const blog = defineCollection({
 					'abby',
 					'evan',
 					'theory',
+					'joshua',
 				])
 				.default('ryw'),
 		),
