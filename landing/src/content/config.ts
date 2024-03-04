@@ -78,13 +78,14 @@ export const AUTHORS: Record<string, Author> = {
 	},
 	jay: {
 		name: 'Jay Kothari',
-		title: 'Software Engineering Intern',
+		title: 'Software Engineer',
 		url: 'https://github.com/Jayko001',
 		image_url: 'https://github.com/Jayko001.png',
 		email: 'noreply@tembo.io',
 	},
 	adarsh: {
 		name: 'Adarsh Shah',
+		title: 'Software Engineer',
 		url: 'https://github.com/shahadarsh',
 		image_url: 'https://github.com/shahadarsh.png',
 		email: 'noreply@tembo.io',
