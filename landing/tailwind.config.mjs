@@ -1,5 +1,4 @@
-import plugin from 'tailwindcss/plugin';
-import starlightPlugin from '@astrojs/starlight-tailwind';
+const plugin = require('tailwindcss/plugin');
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
@@ -18,7 +17,6 @@ export default {
 			},
 			maxWidth: {
 				container: '88rem',
-				docsContainer: '120rem',
 				stackSlider: '130rem',
 			},
 			colors: {
@@ -39,14 +37,20 @@ export default {
 				salmon: '#FF7D7F',
 				lightSalmon: '#FF999A',
 				mwasi: '#1C1C1C',
+				lightMwasi: '#161616',
 				customDarkGrey: '#414141',
+				customDarkerGrey: '#2D2D2D',
 				semiGrey: '#3E4243',
 				semiGrey2: '#292929',
 				grey: '#9EA2A6',
 				lightGrey: '#BBBBBB',
+				lighterGrey: '#d9d9d9',
 				otherGrey: '#EAEAEA',
 				offBlack: '#120F0E',
 				offGrey: '#1A1E22',
+				pricingGreen: '#84EA9A',
+				pricingLightBlue: '#CFF4FF',
+				white: '#FFFFFF',
 			},
 			backgroundImage: {
 				'gradient-rainbow':
@@ -70,6 +74,7 @@ export default {
 				customLg: '1440px',
 				customMd: '1280px',
 				customSm: '1024px',
+				mid: '1100px',
 				mobile: '900px',
 				customXs: '680px',
 				customXxs: '375px',

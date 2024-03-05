@@ -2,8 +2,8 @@ import React from 'react';
 import cx from 'classnames';
 import { navigate } from 'astro:transitions/client';
 
-type Variant = 'primary' | 'neon' | 'gradient' | 'outline';
-type Size = 'sm' | 'md' | 'lg';
+type Variant = 'primary' | 'neon' | 'gradient' | 'outline' | 'blue' | 'green';
+type Size = 'sm' | 'md' | 'lg' | 'xl';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	variant: Variant;
@@ -29,6 +29,8 @@ const Button: React.FC<Props> = ({
 				return 'py-2 px-8';
 			case 'lg':
 				return 'py-3 px-10';
+			case 'xl':
+				return 'py-6 px-8';
 			default:
 				return 'py-2 px-6';
 		}
@@ -43,6 +45,10 @@ const Button: React.FC<Props> = ({
 				return 'bg-semiGrey2 hover:opacity-[80%] text-white';
 			case 'outline':
 				return 'bg-transparent text-white border border-white';
+			case 'blue':
+				return 'bg-lightBlue text-mwasi';
+			case 'green':
+				return 'bg-pricingGreen text-mwasi';
 		}
 	};
 	return (
@@ -54,7 +60,7 @@ const Button: React.FC<Props> = ({
 				styles,
 			)}
 			onClick={
-				variant === 'gradient'
+				['gradient', 'blue', 'green'].includes(variant)
 					? () => navigate('https://cloud.tembo.io')
 					: link
 						? () => navigate(link)

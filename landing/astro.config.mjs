@@ -9,6 +9,7 @@ export default defineConfig({
 	integrations: [react(), tailwind(), mdx()],
 	site: 'https://tembo.io',
 	redirects: {
+		'/product': '/',
 		'/blog/introducing-coredb': '/blog/introducing-tembo',
 		'/blog/manifesto': '/blog/tembo-manifesto',
 		'/waitlist': '/',

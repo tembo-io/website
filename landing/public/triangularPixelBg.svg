@@ -1,0 +1,14 @@
+<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" opacity="0.135" preserveAspectRatio="none">
+    <filter id="noiseFilter">
+        <feTurbulence
+        type="fractalNoise"
+        baseFrequency="3"
+        numOctaves="2"
+        stitchTiles="stitch"/>
+    <feComposite in2="SourceGraphic" operator="in" />
+    </filter>
+    <feComponentTransfer>
+        <feFuncA type="table" tableValues="0.5"/>
+    </feComponentTransfer>
+    <polygon points="0,0 1000,0 0,1000" filter="url(#noiseFilter)" />
+</svg>

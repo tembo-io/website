@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import globalEdit from '../images/globalEdit.svg';
+
+interface Props {
+	feature: string;
+}
+
+const { feature } = Astro.props;
+---
+
+<div
+	class='flex flex-col justify-between h-[162px] p-6 rounded-2xl bg-mwasi bg-opacity-60 customXs:pt-10 customXs:h-auto customXs:gap-6 transition-all duration-150 ease-linear hover:scale-[102%]'
+>
+	<Image src={globalEdit} alt='globe and pencil icon' />
+	<div>
+		<span
+			class='font-secondary font-normal text-white opacity-80 text-[17px] leading-[21px] tracking-[0.472px]'
+			>Included</span
+		>
+		<span
+			class='block mt-2 font-semibold text-white text-2xl leading-[30px] tracking-[0.472px] customXs:text-[32px] customXs:leading-10'
+			>{feature}</span
+		>
+	</div>
+</div>
