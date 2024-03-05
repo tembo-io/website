@@ -18,7 +18,7 @@ const quotes: QuoteData[] = [
 	{
 		role: 'Director of Engineering',
 		company: 'P&G',
-		quote: 'I like that Tembo databases are deployed with backups and HA settings, simplified deployment and self-service models with the Tembo control plane so I can avoid enterprise ticketing delays, and enjoy an ecosystem of Stacks',
+		quote: 'I like that Tembo databases are deployed with backups and HA settings, simplified deployment and self-service models with the Tembo control plane so I can avoid enterprise ticketing delays, and enjoy an ecosystem of Stacks.',
 		logoUrl: '/elephant1.svg',
 	},
 	{
@@ -50,14 +50,14 @@ const quotes: QuoteData[] = [
 		name: 'Hemanth Soni',
 		role: 'Growth & Partnerships Lead',
 		company: 'Goldsky',
-		quote: "Tembo is the only player who thinks about multi-tenant use cases at the core of the platform rather than an add-on. Combined with the simple flexibility of stacks, it's quickly growing as a share of our total database usage",
+		quote: "Tembo is the only player who thinks about multi-tenant use cases at the core of the platform rather than an add-on. Combined with the simple flexibility of stacks, it's quickly growing as a share of our total database usage.",
 		logoUrl: '/elephant1.svg',
 	},
 	{
 		name: 'Engineer',
 		role: 'Engineer',
 		company: 'Arch',
-		quote: 'Tembo makes trying and using Postgres extensions easy, which has unlocked a world of possibilities with regards to the kinds of problems Postgres can solve for u',
+		quote: 'Tembo makes trying and using Postgres extensions easy, which has unlocked a world of possibilities with regards to the kinds of problems Postgres can solve for you.',
 		logoUrl: '/elephant1.svg',
 	},
 ];
