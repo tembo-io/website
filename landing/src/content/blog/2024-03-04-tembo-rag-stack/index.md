@@ -3,9 +3,10 @@ slug: tembo-rag-stack
 title: 'Build a question-answer bot natively on Postgres'
 authors: [adam]
 tags: [postgres, stacks, database, rag, ai]
+image: ./RAG.png
 ---
 
-TODO: social image image: ./rag-social.png
+![rag-social](./RAG.png "rag social")
 
 Building applications on LLMs is normally a complicated process that involves moving data between data stores, running infrastructure, and orchestrating API calls across multiple transformer models and LLMs. This is a boilerplate process that can be abstracted, and by extending Postgres into a vector database, it can all be done from SQL.
 
