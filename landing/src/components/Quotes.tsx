@@ -7,47 +7,57 @@ import type { Swiper as SwiperCore } from 'swiper/types';
 import Container from './Container';
 
 export interface QuoteData {
-	name: string;
-	role: string;
-	company: string;
+	name?: string;
+	role?: string;
+	company?: string;
 	quote: string;
 	logoUrl: string;
 }
 
 const quotes: QuoteData[] = [
 	{
-		name: 'Anna Walker',
-		role: 'CEO',
-		company: 'Tembo',
-		quote: 'Lorem ipsum dolor sit amet consectetur. Mi egestas vitae lectus nunc tristique. Nisl velit lorem felis proin viverra mus eget orci. Mi congue porttitor ante ultricies amet nisl et eu.',
+		role: 'Director of Engineering',
+		company: 'P&G',
+		quote: 'I like that Tembo databases are deployed with backups and HA settings, simplified deployment and self-service models with the Tembo control plane so I can avoid enterprise ticketing delays, and enjoy an ecosystem of Stacks',
 		logoUrl: '/elephant1.svg',
 	},
 	{
-		name: 'Anna Walker',
-		role: 'CEO',
-		company: 'Tembo',
-		quote: 'Lorem ipsum dolor sit amet consectetur.',
+		name: 'Dev Agrawal',
+		role: 'Developer Advocate',
+		company: '',
+		quote: "You'd love @tembo_io",
 		logoUrl: '/elephant1.svg',
 	},
 	{
-		name: 'Anna Walker',
-		role: 'CEO',
-		company: 'Tembo',
-		quote: 'Lorem ipsum dolor sit amet consectetur. Mi egestas vitae lectus nunc tristique. Nisl velit lorem felis proin viverra mus eget orci. Mi congue porttitor ante ultricies amet nisl et eu.',
+		name: 'Twitter User',
+		role: 'Machine Learning Engineer',
+		company: '',
+		quote: 'Maaahn...so excited for @tembo_io🔥💯',
 		logoUrl: '/elephant1.svg',
 	},
 	{
-		name: 'Anna Walker',
-		role: 'CEO',
-		company: 'Tembo',
-		quote: 'Lorem ipsum dolor sit amet consectetur. Mi egestas vitae lectus nunc tristique. ',
+		name: 'Twitter User',
+		quote: `OMG!!
+
+		@tembo_io
+		 is so cool 🔥
+
+		My admiration and respect towards
+		@PostgreSQL quadrupled.`,
 		logoUrl: '/elephant1.svg',
 	},
 	{
-		name: 'Anna Walker',
-		role: 'CEO',
-		company: 'Tembo',
-		quote: 'Lorem ipsum dolor sit amet consectetur. Mi egestas vitae lectus nunc tristique. Nisl velit lorem felis proin viverra mus eget orci. Mi congue porttitor ante ultricies amet nisl et eu.',
+		name: 'Hemanth Soni',
+		role: 'Growth & Partnerships Lead',
+		company: 'Goldsky',
+		quote: "Tembo is the only player who thinks about multi-tenant use cases at the core of the platform rather than an add-on. Combined with the simple flexibility of stacks, it's quickly growing as a share of our total database usage",
+		logoUrl: '/elephant1.svg',
+	},
+	{
+		name: 'Engineer',
+		role: 'Engineer',
+		company: 'Arch',
+		quote: 'Tembo makes trying and using Postgres extensions easy, which has unlocked a world of possibilities with regards to the kinds of problems Postgres can solve for u',
 		logoUrl: '/elephant1.svg',
 	},
 ];
@@ -65,11 +75,10 @@ const Quotes: React.FC = () => {
 				onRealIndexChange={(element) =>
 					setActiveIndex(element.activeIndex)
 				}
-				className='mySwiper'
 				effect='coverflow'
 				grabCursor
 				centeredSlides
-				slidesPerView='auto'
+				slidesPerView={5}
 				speed={350}
 				coverflowEffect={{
 					rotate: 0,
@@ -90,7 +99,7 @@ const Quotes: React.FC = () => {
 									{it.quote}
 								</p>
 							</div>
-							<div className='flex gap-4 items-center mt-[83px]'>
+							<div className='flex gap-4 items-center'>
 								<div
 									className={
 										'h-12 w-12 shrink-0 overflow-hidden rounded-full'
@@ -104,9 +113,12 @@ const Quotes: React.FC = () => {
 								</div>
 								<div>
 									<span className='block font-secondary font-bold text-white text-[15px] leading-[18px] tracking-[0.54px]'>
-										{it.name}
+										{it?.name ? it.name : 'Anonymous'}
 									</span>
-									<span className='mt-2 block font-secondary font-normal text-white text-[13px] leading-[15px] tracking-[0.54px] opacity-60'>{`${it.role}, ${it.company}`}</span>
+									<span className='mt-2 block font-secondary font-normal text-white text-[13px] leading-[15px] tracking-[0.54px] opacity-60'>
+										{it.role}
+										{`${it?.company ? `, ${it.company}` : ''}`}
+									</span>
 								</div>
 							</div>
 						</div>
