@@ -1,0 +1,15 @@
+.swiper-wrapper {
+  @apply w-full;
+}
+
+.swiper-slide {
+  @apply mx-2 px-6 pt-20 pb-8 w-[280px] h-[518px] bg-gradient-to-b from-lighterGrey/0 to-lighterGrey/15 rounded-[32px] opacity-15 transition-all customXs:mx-3;
+}
+
+.swiper-slide-prev, .swiper-slide-next {
+  @apply opacity-50;
+}
+
+.swiper-slide-active {
+  @apply opacity-100;
+}
