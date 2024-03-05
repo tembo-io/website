@@ -12,22 +12,22 @@ const { title = 'Docs | Tembo' }: Props = Astro.props;
 ---
 
 <Layout title={title}>
-	<div class='fixed top-0 right-0 left-0'>
+	<div class='fixed top-0 right-0 left-0 z-50'>
 		<Rainbow />
 	</div>
 	<div class='h-screen flex flex-col'>
 		<main class='grow overflow-hidden'>
-			<div class='flex w-full'>
+			<div class='flex h-full'>
 				<SideBar />
-				<div class='docs-content w-full'>
+				<div class='docs-content w-full overflow-auto'>
 					<div class='flex flex-col relative'>
 						<Header />
-					</div>
-					<div
-						class='container px-[20px] min-[1150px]:px-[95px] max-w-container mx-auto'
-					>
-						<div class='pt-[20px] min-[1150px]:pt-[95px]'>
-							<slot />
+						<div
+							class='container px-[20px] min-[1150px]:px-[95px] max-w-container mx-auto'
+						>
+							<div class='pt-[20px] min-[1150px]:pt-[95px] grow'>
+								<slot />
+							</div>
 						</div>
 					</div>
 				</div>
