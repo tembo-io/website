@@ -78,7 +78,8 @@ const Quotes: React.FC = () => {
 				effect='coverflow'
 				grabCursor
 				centeredSlides
-				slidesPerView={5}
+				loop={true}
+				slidesPerView={'auto'}
 				speed={350}
 				coverflowEffect={{
 					rotate: 0,
