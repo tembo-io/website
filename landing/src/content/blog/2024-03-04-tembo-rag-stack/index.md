@@ -4,7 +4,7 @@ title: 'Build a question-answer bot natively using Postgres extensions'
 authors: [adam]
 tags: [postgres, stacks, database, rag, ai]
 image: ./RAG.png
-date: 2024-03-04T17:00
+date: 2024-03-05T17:00
 description: Introducing RAG workflows to pg_vectorize.
 ---
 
