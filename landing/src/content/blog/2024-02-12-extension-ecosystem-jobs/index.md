@@ -211,8 +211,8 @@ APIs:
 *   Event webhooks to notify registered services
 
 Better still, let trusted services report back results for listing — even
-badging! — in the [authoritative index](#authoritative), such as build results,
-test results, binary packaging availability, and more.
+badging! — in the [authoritative index](#authoritative), such as download
+counts, build results, test results, binary packaging availability, and more.
 
 Exemplars:
 
