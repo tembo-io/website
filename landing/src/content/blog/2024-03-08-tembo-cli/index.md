@@ -3,7 +3,7 @@ slug: tembo-cli
 title: 'Announcing Tembo CLI: Infrastructure as code for the Postgres ecosystem'
 authors: [steven, adarsh, joshua]
 tags: [postgres, extensions, stacks]
-image: './dw_social.png'
+image: './cli.png'
 date: 2024-03-08T12:00
 description: Announcing Tembo CLI
 ---
