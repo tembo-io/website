@@ -3,6 +3,7 @@ sidebar_position: 4
 tags:
   - api
   - metrics
+  - prometheus
 ---
 
 # Collecting metrics
@@ -24,7 +25,7 @@ curl -H "Authorization: Bearer ${TOKEN}" \
 
 ## Configuring Prometheus
 
-Prometheus is a metrics server that can collect metrics on a schedule. To configure prometheus to collect metrics from a Tembo Cloud instance, you must configure the target with the authentication token.
+Prometheus is a metrics server which collects metrics on a schedule. To configure Prometheus to collect metrics from a Tembo Cloud instance, you must configure the target with the authentication token.
 
 Here is a sample Prometheus configuration file:
 ```
@@ -51,6 +52,7 @@ You may also avoid including the token in your configuration file by loading it 
 Follow this part of the guide to quickly understand how to connect a Prometheus server to Tembo Cloud by example.
 
 To quickly get up and running with a local Prometheus server, you can follow these steps:
+- Install Docker
 - Generate a [Tembo authentication token](https://cloud.tembo.io/generate-jwt)
 - Create a file, `docker-compose.yml`, with the following content
 
@@ -70,4 +72,4 @@ services:
 - Create a file `prometheus.yml` in the same directory, with the Prometheus configuration. This should look like the configuration example in the previous section, replacing the target by your Postgres server's domain name, and the token by your Tembo Cloud token.
 - Run `docker-compose up`
 
-Within 30 seconds, you should be able to see Prometheus is collecting the metrics if you access the local Prometheus server in your web browser here: [localhost:9090/targets](http://localhost:9090/targets)
+Within 30 seconds, you should be able to see Prometheus is collecting the metrics if you access the local Prometheus server in your web browser here: [localhost:9090/targets](http://localhost:9090/targets).
