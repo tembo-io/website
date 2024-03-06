@@ -1,12 +1,12 @@
 ---
-sidebar_position: 4
+sidebar_position: 2
 tags:
   - api
   - metrics
   - prometheus
 ---
 
-# Collecting metrics
+# Collecting Metrics
 
 Tembo Cloud shows some database metrics on [cloud.tembo.io](https://cloud.tembo.io). If you want to collect metrics from your database into your self-hosted metrics system, you can follow this guide.
 
