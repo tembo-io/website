@@ -24,25 +24,6 @@ Whether you're building complex applications, managing large datasets, or develo
 
 The introduction of Postgres 16 brings a host of improvements and innovations that promise to enhance your experience:
 
-- **Query performance improvements**: Experience enhanced query performance with increased parallelism, allowing for more efficient data processing.
-- **Monitoring with pg_stat_io**: Gain deeper insights into your database operations with the new `pg_stat_io` view, offering detailed I/O statistics for better performance tuning.
-- **Enhanced Security Features**: Enjoy stronger security measures, providing peace of mind with more robust data protection and access control.
-- # Announcing support for Postgres 16 and 14 on Tembo
-
-We're thrilled to announce the addition of support for Postgres versions 14 and 16 in Tembo Cloud. This is a big leap forward for us. We're all in on our commitment to give developers and businesses the best, most powerful, and adaptable database options out there.
-
-## Broadening horizons with Postgres 14 & 16
-
-Postgres has long been the database of choice for those who prioritize reliability, scalability, and an active community of development. With the inclusion of versions 14 and 16, we're not just keeping pace with the latest developments — we're ensuring that our users are too.
-
-## What this means for you
-
-Whether you're building complex applications, managing large datasets, or developing cutting-edge services, the choice between Postgres 14, 15, and 16 means you can select the version that best fits your project's needs.
-
-### Postgres 16: A Closer Look at the New Features
-
-The introduction of Postgres 16 brings a host of improvements and innovations that promise to enhance your experience:
-
 - **Developer experience enhancements**:  Benefit from an array of usability and functionality improvements:
   - More SQL/JSON syntax, like `JSON_ARRAY()`, `JSON_ARRAYAGG()`, and `IS JSON`, simplifies working with JSON data.
   - Enhanced readability with the use of underscores in numeric literals (e.g., `5_432_000`) and support for non-decimal integer literals (e.g., `0x1538`, `0o12470`, `0b1010100111000`).
