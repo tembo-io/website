@@ -2,15 +2,16 @@
 import Button from '../Button';
 import { Image } from 'astro:assets';
 import Github from '../../images/github.svg';
+import Search from './Search.astro';
 ---
 
 <div class='sticky top-0 z-10 overflow-hidden'>
 	<nav
 		class='border-b border-b-[#EAEAEA33] flex items-center pt-4 pb-[12px] transition duration-100 backdrop-blur-lg safari-blur'
 	>
-		<div class='container px-[30px] max-w-container mx-auto'>
+		<div class='container px-8 max-w-container mx-auto'>
 			<div class='flex items-center justify-between'>
-				<div id='search'></div>
+				<Search />
 				<div class='flex items-center gap-8'>
 					<a href='/' target='_blank' rel='noreferrer'>Tembo.io</a>
 					<a href='/blog' target='_blank' rel='noreferrer'>Blog</a>

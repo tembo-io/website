@@ -9,7 +9,7 @@ import Tag from '../../components/Tag.astro';
 import BackButton from '../../components/BackButton.astro';
 import Author from '../../components/Author.astro';
 import { getCollection } from 'astro:content';
-import { AUTHORS } from '../../content/config';
+import { AUTHORS } from '../../blogAuthors';
 import { Image } from 'astro:assets';
 import BlogFooter from '../../components/BlogFooter.astro';
 
@@ -137,10 +137,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 						>
 							{
 								headings.length > 0 && (
-									<Toc
-										headings={headings}
-										client:load
-									/>
+									<Toc headings={headings} client:load />
 								)
 							}
 							<div class='flex flex-col gap-4 self-start w-max'>
@@ -203,5 +200,4 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 		});
 	});
 </script>
-../../components/Tag.tsx
-../../components/Toc
+../../components/Tag.tsx ../../components/Toc

@@ -1,6 +1,6 @@
 import { Feed } from 'feed';
 import { getCollection } from 'astro:content';
-import { AUTHORS } from '../../content/config';
+import { AUTHORS } from '../../blogAuthors';
 
 export async function GET() {
 	const blog = await getCollection('blog');

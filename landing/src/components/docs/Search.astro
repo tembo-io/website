@@ -1,0 +1,20 @@
+---
+import { Image } from 'astro:assets';
+import SearchImage from '../../images/search.svg';
+import CommandK from '../../images/commandK.svg';
+---
+
+<div
+	class='bg-mwasi border border-[#EAEAEA33] rounded-full px-[6px] py-[6px] w-[420px] flex items-center justify-between hover:cursor-pointer'
+>
+	<div class='bg-white w-max p-2 rounded-full'>
+		<Image
+			src={SearchImage}
+			alt='search icon'
+			class='flex rounded-2xl w-full'
+		/>
+	</div>
+	<div class='border border-[#EAEAEA33] rounded-[20px] py-1 px-[10px] mr-2'>
+		<Image src={CommandK} alt='command + K' width={20} />
+	</div>
+</div>

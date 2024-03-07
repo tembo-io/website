@@ -3,10 +3,34 @@ import Logo from '../../images/logoWithText.svg';
 import { Image } from 'astro:assets';
 import Home from '../../images/home.svg';
 import Line from './Line.astro';
+import type { SideBarSection } from '../../types';
+import { uppercaseFirstLetter } from '../../util';
+
+interface Props {}
+
+const sections: SideBarSection[] = [
+	{
+		label: 'product',
+		items: [
+			{
+				label: 'overview',
+				slug: '/docs/product/overview',
+			},
+			{
+				label: 'features',
+				slug: '/docs/product/features',
+			},
+			{
+				label: 'pricing',
+				slug: '/docs/product/pricing',
+			},
+		],
+	},
+];
 ---
 
 <nav
-	class='border-r border-r-[#EAEAEA33] max-w-[280px] w-full hidden min-[1000px]:flex'
+	class='border-r border-r-[#EAEAEA33] max-w-[280px] w-full hidden min-[1100px]:flex'
 >
 	<div class='h-screen relative w-full'>
 		<a href='/docs' class='flex items-center gap-2 sticky pt-8 px-8'>
@@ -16,7 +40,7 @@ import Line from './Line.astro';
 				>Docs</span
 			>
 		</a>
-		<div class='flex flex-col px-8 mt-[40px] gap-6'>
+		<div class='flex flex-col px-8 mt-[40px]'>
 			<a
 				href='/docs'
 				class='font-secondary font-extrabold flex items-center gap-4'
@@ -24,7 +48,29 @@ import Line from './Line.astro';
 				<Image src={Home} alt='home' width={20} />
 				Home
 			</a>
-			<Line />
+			{
+				sections.map((section) => (
+					<div class='flex flex-col'>
+						<div class='my-6'>
+							<Line />
+						</div>
+
+						<span class='text-neon text-lg'>
+							{uppercaseFirstLetter(section.label)}
+						</span>
+						<div class='mt-4 flex flex-col gap-2'>
+							{section.items.map((item) => (
+								<a
+									href={item.slug}
+									class='font-secondary text-lightGrey hover:text-white transition-all duration-100'
+								>
+									{item.label}
+								</a>
+							))}
+						</div>
+					</div>
+				))
+			}
 		</div>
 	</div>
 </nav>
