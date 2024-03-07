@@ -6,7 +6,9 @@ import Line from './Line.astro';
 import type { SideBarSection } from '../../types';
 import { uppercaseFirstLetter } from '../../util';
 
-interface Props {}
+interface Props {
+	sideBarMenuSections: SideBarSection[];
+}
 
 const sections: SideBarSection[] = [
 	{
@@ -95,18 +97,23 @@ const sections: SideBarSection[] = [
 		],
 	},
 ];
+const { sideBarMenuSections } = Astro.props;
 ---
 
 <nav
 	class='border-r border-r-[#EAEAEA33] max-w-[280px] w-full hidden min-[1100px]:flex'
 >
 	<div class='h-screen relative w-full overflow-y-scroll'>
-		<div class='sticky top-0 px-8 z-10 mb-4'>
+		<div class='sticky top-0 px-8 z-10 mb-2'>
 			<a
 				href='/docs'
-				class='flex items-center gap-2 bg-offBlack pt-8 pb-4'
+				class='flex items-center gap-2 bg-offBlack pt-8 pb-6'
 			>
-				<Image src={Logo} alt='tembo logo' width={120} />
+				<Image
+					src={Logo}
+					alt='tembo elephant logo and name'
+					width={120}
+				/>
 				<span
 					class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text'
 					>Docs</span
@@ -117,7 +124,6 @@ const sections: SideBarSection[] = [
 			>
 			</div>
 		</div>
-
 		<div
 			class='flex flex-col px-8 pb-8 transition-all duration-200 ease-out z-1'
 		>

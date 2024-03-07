@@ -6,9 +6,9 @@ import Rainbow from '../components/Rainbow.astro';
 import type { SideBarSection } from '../types';
 interface Props {
 	title?: string;
-	sideBarMenuSections?: SideBarSection[];
+	sideBarMenuSections: SideBarSection[];
 }
-const { title = 'Docs | Tembo' }: Props = Astro.props;
+const { title = 'Docs | Tembo', sideBarMenuSections }: Props = Astro.props;
 ---
 
 <Layout title={title}>
@@ -18,7 +18,7 @@ const { title = 'Docs | Tembo' }: Props = Astro.props;
 	<div class='h-screen flex flex-col'>
 		<main class='grow overflow-hidden'>
 			<div class='flex h-full'>
-				<SideBar />
+				<SideBar sideBarMenuSections={sideBarMenuSections} />
 				<div class='docs-content w-full overflow-auto'>
 					<div class='flex flex-col relative'>
 						<Header />
