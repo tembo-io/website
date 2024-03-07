@@ -26,21 +26,101 @@ const sections: SideBarSection[] = [
 			},
 		],
 	},
+	{
+		label: 'Cloud',
+		items: [
+			{
+				label: 'overview',
+				slug: '/docs/product/overview',
+			},
+			{
+				label: 'features',
+				slug: '/docs/product/features',
+			},
+			{
+				label: 'pricing',
+				slug: '/docs/product/pricing',
+			},
+		],
+	},
+	{
+		label: 'Stacks',
+		items: [
+			{
+				label: 'overview',
+				slug: '/docs/product/overview',
+			},
+			{
+				label: 'features',
+				slug: '/docs/product/features',
+			},
+			{
+				label: 'pricing',
+				slug: '/docs/product/pricing',
+			},
+		],
+	},
+	{
+		label: 'Command Line Interface',
+		items: [
+			{
+				label: 'overview',
+				slug: '/docs/product/overview',
+			},
+			{
+				label: 'features',
+				slug: '/docs/product/features',
+			},
+			{
+				label: 'pricing',
+				slug: '/docs/product/pricing',
+			},
+		],
+	},
+	{
+		label: 'Section',
+		items: [
+			{
+				label: 'overview',
+				slug: '/docs/product/overview',
+			},
+			{
+				label: 'features',
+				slug: '/docs/product/features',
+			},
+			{
+				label: 'pricing',
+				slug: '/docs/product/pricing',
+			},
+		],
+	},
 ];
 ---
 
 <nav
 	class='border-r border-r-[#EAEAEA33] max-w-[280px] w-full hidden min-[1100px]:flex'
 >
-	<div class='h-screen relative w-full'>
-		<a href='/docs' class='flex items-center gap-2 sticky pt-8 px-8'>
-			<Image src={Logo} alt='tembo logo' width={120} />
-			<span
-				class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text'
-				>Docs</span
+	<div class='h-screen relative w-full overflow-y-scroll'>
+		<div class='sticky top-0 px-8 z-10 mb-4'>
+			<a
+				href='/docs'
+				class='flex items-center gap-2 bg-offBlack pt-8 pb-4'
 			>
-		</a>
-		<div class='flex flex-col px-8 mt-[40px]'>
+				<Image src={Logo} alt='tembo logo' width={120} />
+				<span
+					class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text'
+					>Docs</span
+				>
+			</a>
+			<div
+				class='bg-gradient-to-b from-offBlack to-transparent h-4 w-full'
+			>
+			</div>
+		</div>
+
+		<div
+			class='flex flex-col px-8 pb-8 transition-all duration-200 ease-out z-1'
+		>
 			<a
 				href='/docs'
 				class='font-secondary font-extrabold flex items-center gap-4'
@@ -54,8 +134,7 @@ const sections: SideBarSection[] = [
 						<div class='my-6'>
 							<Line />
 						</div>
-
-						<span class='text-neon text-lg'>
+						<span class='text-neon'>
 							{uppercaseFirstLetter(section.label)}
 						</span>
 						<div class='mt-4 flex flex-col gap-2'>
