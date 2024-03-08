@@ -19,11 +19,13 @@ const { title = 'Docs | Tembo', sideBarMenuSections }: Props = Astro.props;
 		<main class='grow overflow-hidden'>
 			<div class='flex h-full'>
 				<SideBar sideBarMenuSections={sideBarMenuSections} />
-				<div class='docs-content w-full overflow-auto'>
+				<div
+					class='docs-content w-full overflow-auto scroll-pt-[120px]'
+				>
 					<div class='flex flex-col relative'>
 						<Header />
 						<div class='container px-8 max-w-container mx-auto'>
-							<div class='pt-[60px] grow'>
+							<div class='pt-[60px] grow pb-8'>
 								<slot />
 							</div>
 						</div>

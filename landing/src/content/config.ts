@@ -6,7 +6,7 @@ import {
 } from 'astro:content';
 
 export interface BlogCollection {
-	title?: string;
+	title: string;
 	description?: string;
 	date: Date;
 	updatedDate?: Date;
@@ -59,8 +59,8 @@ const blog = defineCollection({
 });
 const docs = defineCollection({
 	schema: z.object({
-		title: z.string(),
-		description: z.string(),
+		title: z.string().optional(),
+		description: z.string().optional(),
 		tableOfContents: z.boolean().default(true),
 	}),
 });

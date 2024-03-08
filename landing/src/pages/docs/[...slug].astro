@@ -1,6 +1,46 @@
 ---
 import Markdown from '../../components/Markdown.astro';
 import DocsLayout from '../../layouts/DocsLayout.astro';
+import { getCollection } from 'astro:content';
+import Toc from '../../components/Toc';
 
-export async function getStaticPaths() {}
+export async function getStaticPaths() {
+	const docs = await getCollection('docs');
+	console.log(docs);
+
+	return docs.map((doc) => {
+		return {
+			params: {
+				slug: doc.slug,
+			},
+			props: {
+				doc,
+			},
+		};
+	});
+}
+
+const { doc } = Astro.props;
+const { Content, headings } = await doc.render();
 ---
+
+<DocsLayout sideBarMenuSections={[]}>
+	<div class='flex flex-col relative'>
+		<div class='flex justify-between w-full gap-12'>
+			<Markdown>
+				<Content />
+			</Markdown>
+			<div>
+				<div
+					class='flex flex-col items-start w-max mobile:sticky mobile:top-[133px]'
+				>
+					{
+						headings.length > 0 && (
+							<Toc headings={headings} client:load />
+						)
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</DocsLayout>

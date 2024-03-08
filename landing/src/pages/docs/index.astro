@@ -2,6 +2,18 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import { Image } from 'astro:assets';
 import HeroImage from '../../images/tembonauts.svg';
+import { getCollection } from 'astro:content';
+import type { SideBarSection } from '../../types';
+
+// TODO: support passing in some pre-defined sidebar config to override the default behavior for this
+const getSideBarLinks = async (slug: string) => {
+	const docs = await getCollection('docs');
+
+	const sideBarLinks: SideBarSection[] = docs.map((doc) => {
+		const { slug } = doc;
+		return { label: '', items: [] };
+	});
+};
 ---
 
 <DocsLayout sideBarMenuSections={[]}>
