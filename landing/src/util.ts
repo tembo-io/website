@@ -48,6 +48,7 @@ export const styles = (...classNames: any[]) => {
 
 export const useActiveAnchors = (
 	firstHeadingSlug: string,
+	isDocs: boolean = false,
 	anchorsQuerySelector: string = 'h2, h3, h4, h5, h6',
 	tocQuerySelector: string = '.prose-toc',
 	offset: number = 120,
@@ -57,7 +58,10 @@ export const useActiveAnchors = (
 
 	const handleScroll = () => {
 		const firstHeading = document.getElementById(firstHeadingSlug);
-		const pageYOffset = window.scrollY;
+		const pageYOffset = isDocs
+			? (document.getElementById('docs-content') as HTMLElement)
+					?.scrollTop
+			: window.scrollY;
 		let newActiveAnchor: string = '';
 		if (pageYOffset < 1) {
 			return;
@@ -102,11 +106,16 @@ export const useActiveAnchors = (
 	useEffect(() => {
 		anchors.current = document.querySelectorAll(anchorsQuerySelector);
 		toc.current = document.querySelectorAll(tocQuerySelector);
+		const scrollListenerContainer = isDocs
+			? (document.getElementById('docs-content') as HTMLElement)
+			: window;
 
-		window.addEventListener('scroll', handleScroll);
-
+		scrollListenerContainer?.addEventListener('scroll', handleScroll);
 		return () => {
-			window.removeEventListener('scroll', handleScroll);
+			scrollListenerContainer?.removeEventListener(
+				'scroll',
+				handleScroll,
+			);
 		};
 	}, []);
 
