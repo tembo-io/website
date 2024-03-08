@@ -69,15 +69,23 @@ export const AUTHORS: Record<string, Author> = {
 		image_url: 'https://github.com/sjmiller609.png',
 		email: 'noreply@tembo.io',
 	},
+	joshua: {
+		name: 'Joshua Jerin',
+		title: 'Software Engineer',
+		url: 'https://github.com/joshuajerin',
+		image_url: 'https://github.com/joshuajerin.png',
+		email: 'noreply@tembo.io',
+	},
 	jay: {
 		name: 'Jay Kothari',
-		title: 'Software Engineering Intern',
+		title: 'Software Engineer',
 		url: 'https://github.com/Jayko001',
 		image_url: 'https://github.com/Jayko001.png',
 		email: 'noreply@tembo.io',
 	},
 	adarsh: {
 		name: 'Adarsh Shah',
+		title: 'Software Engineer',
 		url: 'https://github.com/shahadarsh',
 		image_url: 'https://github.com/shahadarsh.png',
 		email: 'noreply@tembo.io',
@@ -151,6 +159,7 @@ const blog = defineCollection({
 					'abby',
 					'evan',
 					'theory',
+					'joshua',
 				])
 				.default('ryw'),
 		),
