@@ -14,7 +14,6 @@ export default defineConfig({
 	site: 'https://tembo.io',
 	redirects: {
 		'/product': '/',
-		'/pricing': '/',
 		'/blog/introducing-coredb': '/blog/introducing-tembo',
 		'/blog/manifesto': '/blog/tembo-manifesto',
 		'/waitlist': '/'

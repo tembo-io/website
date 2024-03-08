@@ -82,18 +82,18 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 			)}
 		>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
-			<Container>
+			<Container styles='relative'>
 				<nav
 					className={cx(
-						'flex justify-between items-center transition-all duration-100',
+						'flex w-full items-center justify-between transition-all duration-100 relative',
 						scrollY > 20 &&
 							(!isMenuOpen || isScreenGreaterThanOrEqualTo900px)
-							? 'py-3 mobile:py-4'
+							? 'py-3 mid:py-4'
 							: 'py-8',
 					)}
 				>
 					<Logo />
-					<div className='mobile:flex hidden items-center gap-12'>
+					<div className='mid:flex hidden items-center gap-12 m-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
 						<a
 							href='/'
 							className={cx(
@@ -104,6 +104,20 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 							)}
 						>
 							Home
+						</a>
+						<a
+							href='/pricing'
+							className={cx(
+								'font-secondary font-medium z-10',
+								currentPage == '/pricing' ||
+									currentPage == '/pricing/'
+									? 'text-neon'
+									: 'text-white opacity-70',
+							)}
+							target='_blank'
+							rel='noreferrer'
+						>
+							Pricing
 						</a>
 						<a
 							href='/docs'
@@ -129,22 +143,31 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 						>
 							Blog
 						</a>
+					</div>
+					<div className='hidden mid:flex gap-8 items-center self-end'>
 						<a
 							href='https://github.com/tembo-io/tembo'
 							target='_blank'
-							rel='noreferrer'
-							className='font-secondary font-medium z-10 text-white opacity-70'
+							className={cx(
+								'font-secondary font-medium z-10 flex items-center gap-2 ',
+								'text-white opacity-70',
+							)}
 						>
+							<img
+								src='/github.svg'
+								alt='github icon'
+								className='w-[20px] h-[20px]'
+							/>
 							Github
 						</a>
+						<Button
+							variant='neon'
+							styles='z-100'
+							onClick={() => navigate('https://cloud.tembo.io')}
+						>
+							Try Free
+						</Button>
 					</div>
-					<Button
-						variant='neon'
-						styles='hidden mobile:flex z-100'
-						onClick={() => navigate('https://cloud.tembo.io')}
-					>
-						Try Free
-					</Button>
 					<button
 						onClick={() => {
 							document.body.style.overflow = !isMenuOpen
@@ -153,7 +176,7 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 							setIsMenuOpen(!isMenuOpen);
 						}}
 						className={cx(
-							'mobile:hidden flex flex-col gap-[2.5px] items-center justify-center bg-neon hover:bg-[#D1E278] rounded-full w-[32.57px] h-[32.57px] z-50',
+							'mid:hidden flex flex-col gap-[2.5px] items-center justify-center bg-neon hover:bg-[#D1E278] rounded-full w-[32.57px] h-[32.57px] z-50',
 							isMenuOpen ? 'p-2' : 'p-2.5',
 						)}
 					>
