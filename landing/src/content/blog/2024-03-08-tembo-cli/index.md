@@ -41,10 +41,10 @@ The above **tembo.toml** file includes one database. For additional information 
 You can also configure a Stack, like this:
 
 ```toml
-[my-instance-vector]
+[my-instance-oltp]
 environment = "prod"
-instance_name = "my-instance-vector"
-stack = "VectorDB"
+instance_name = "my-instance-oltp"
+stack = "OLTP"
 ```
 
 You can find information about each available Stack in our [Stacks documentation](https://tembo.io/docs/tembo-stacks/intro-to-stacks).
@@ -52,15 +52,15 @@ You can find information about each available Stack in our [Stacks documentation
 If you need to run multiple databases concurrently, they can all be configured within **tembo.toml**. This would look something like:
 
 ```toml
+[my-instance-oltp]
+environment = "prod"
+instance_name = "my-instance-oltp"
+stack = "OLTP"
+
 [vector-search]
 environment = "prod"
 instance_name = "vector-search"
 stack = "VectorDB"
-
-[analytics]
-environment = "prod"
-instance_name = "analytics"
-stack = "DataWarehouse"
 ```
 
 You can choose to deploy locally or to the cloud by selecting your [deployment context](https://tembo.io/docs/tembo-cloud/Tembo-CLI/Getting_Started#context-file). This option allows you to use the same configuration no matter where you deploy.
@@ -80,23 +80,23 @@ The open source ecosystem of tools surrounding Postgres are delivered as a first
 The following code shows an example of a complete **tembo.toml** file with these three situations managed within:
 
 ```toml
-[vector-search]
+[my-instance-oltp]
 environment = "prod"
-instance_name = "vector-search"
-stack = "VectorDB"
+instance_name = "my-instance-oltp"
+stack = "OLTP"
 
 # Enable the popular extension pg_partman
-[vector-search.extensions.pg_partman]
+[my-instance-oltp.extensions.pg_partman]
 enabled = true
 trunk_project = "pg_partman"
 trunk_project_version = "4.7.4"
 
 # Set a Postgres configuration
-[vector-search.postgres_configurations]
-statement_timeout = 60
+[my-instance-oltp.postgres_configurations]
+statement_timeout = "5min"
 
 # Enable an HTTP API with PostgREST
-[[vector-search.app_services]]
+[[my-instance-oltp.app_services]]
 restapi = {}
 ```
 
