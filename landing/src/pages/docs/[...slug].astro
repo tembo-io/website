@@ -26,7 +26,7 @@ const { Content, headings } = await doc.render();
 
 <DocsLayout sideBarMenuSections={[]}>
 	<div class='flex flex-col relative'>
-		<div class='flex justify-between w-full gap-28'>
+		<div class='flex justify-between w-full gap-16 xl:gap-28'>
 			<Markdown classNames='max-w-none'>
 				<Content />
 			</Markdown>
@@ -38,7 +38,8 @@ const { Content, headings } = await doc.render();
 						headings.length > 0 && (
 							<Toc
 								headings={headings}
-								titleStyles='bg-gradient-to-r from-salmon via-purple to-lightPurple text-transparent bg-clip-text'
+								titleStyles='bg-gradient-to-r from-salmon via-purple to-lightPurple text-transparent bg-clip-text text-sm'
+								title='ON THIS PAGE'
 								isDocs
 								client:load
 							/>

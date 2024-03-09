@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useActiveAnchors, styles } from '../util';
 
 interface Props {
@@ -8,9 +8,15 @@ interface Props {
 	}[];
 	isDocs?: boolean;
 	titleStyles?: string;
+	title?: string;
 }
 
-const Toc: React.FC<Props> = ({ headings, isDocs = false, titleStyles }) => {
+const Toc: React.FC<Props> = ({
+	headings,
+	isDocs = false,
+	titleStyles,
+	title = 'On this page',
+}) => {
 	const [link, setLink] = useState('');
 	const firstHeadingSlug = headings[0]?.slug || '';
 	useEffect(() => {
@@ -31,7 +37,7 @@ const Toc: React.FC<Props> = ({ headings, isDocs = false, titleStyles }) => {
 	return (
 		<div className='flex flex-col gap-6 max-w-[250px]'>
 			<h2 className={styles('text-lightGrey font-bold', titleStyles)}>
-				On this page
+				{title}
 			</h2>
 			<div className='flex flex-col border-l-2 border-[#9EA2A633] gap-4'>
 				{headings.map(({ text, slug }, index) => (
