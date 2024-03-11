@@ -29,7 +29,7 @@ informed decisions to optimize your database performance.
 - Connection Information
 - Configuration Settings
 - System Metrics
-- Alerting and Notifications
+- Alerts and Check-Up
 
 # Connecting your Tembo Instance to pganalyze
 Connecting your Tembo Cloud instance to pganalyze is simple. You can connect your instance to pganalyze in just a few clicks.
@@ -70,12 +70,15 @@ With Log Insights enabled, we can make use of other powerful features, such as E
 
 [//]: # (TODO: Add a screenshot of the pganalyze dashboard showing EXPLAIN Plans)
 
-# Alerting and Notifications
+# Alerts and Check-Up
 pganalyze provides powerful alerting and notification features that help you stay on top of your database performance.
 You can set up custom alerts based on query performance, system metrics, and other important events. pganalyze will
 notify you when an alert is triggered, so you can take action to resolve any issues.
 
-[//]: # (TODO: Add a screenshot of the pganalyze dashboard showing alerting and notifications)
+Alerts can be configured to send notifications via email, Slack, and PagerDuty, so you can stay informed about your Tembo
+instance no matter where you are.
+
+[//]: # (TODO: Add a screenshot of the pganalyze dashboard showing alerts and check-up)
 
 # Conclusion
 We’re excited to bring pganalyze to Tembo Cloud, and we’re confident that this integration will help you better understand
