@@ -45,6 +45,8 @@ If you don’t already have a pganalyze account, you can sign up for a free tria
 Once you have signed up for pganalyze, you will need to obtain your pganalyze API key. You can find your API key in the
 pganalyze dashboard under the “Settings” section. Copy your API key to use in the next step.
 
+![api-key.png](api-key.png)
+
 ## Step 3: Activate the pganalyze App in Tembo Cloud
 To connect your Tembo Cloud instance to pganalyze, you will need to activate the pganalyze App for your instance.
 
