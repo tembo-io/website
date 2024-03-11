@@ -70,6 +70,13 @@ With Log Insights enabled, we can make use of other powerful features, such as E
 
 [//]: # (TODO: Add a screenshot of the pganalyze dashboard showing EXPLAIN Plans)
 
+# Alerting and Notifications
+pganalyze provides powerful alerting and notification features that help you stay on top of your database performance.
+You can set up custom alerts based on query performance, system metrics, and other important events. pganalyze will
+notify you when an alert is triggered, so you can take action to resolve any issues.
+
+[//]: # (TODO: Add a screenshot of the pganalyze dashboard showing alerting and notifications)
+
 # Conclusion
 We’re excited to bring pganalyze to Tembo Cloud, and we’re confident that this integration will help you better understand
 and optimize your Postgres database. With detailed insights into your database performance, you can make informed decisions
