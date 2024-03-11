@@ -4,11 +4,11 @@ sidebar_position: 6
 
 # Tembo OLAP
 
-Postgres tuned for online analytical processing. Deploy a stack that is optimized for large data sets, complex queries, and high throughput.
+Run analytical workloads on a Postgres instance tuned for online analytical processing. Build applications that require complex queries and aggregations on large datasets.
 
 ## Getting Started
 
-This guide will walk through setting up an analytical workload on Postgres using [Clickbench's "hits" dataset](https://github.com/ClickHouse/ClickBench?tab=readme-ov-file#history-and-motivation). The dataset represents page views on a system and the guide will demonstrate using extensions to optimize the database for analytical queries.
+This guide will walk through setting up an analytical workload on Postgres using [Clickbench's "hits" dataset](https://github.com/ClickHouse/ClickBench?tab=readme-ov-file#history-and-motivation) and the [columnar](https://github.com/hydradatabase/hydra) Postgres extension. The dataset represents page views on a system and the guide will demonstrate using extensions to optimize the database for analytical queries.
 
 ### Create a Tembo OLAP Stack instance
 
@@ -43,7 +43,8 @@ There are 99,997,497 records in `hitz.tsv`.
 head -1000000 hits.tsv >> hits_1mil.tsv
 ```
 
-Once that download is complete, create a table configured for columnar storage using the `columnar` extension.
+Once the download is complete, create a table configured for columnar storage using the `columnar` extension.
+ Note the `USING columnar` clause at the end of the `CREATE TABLE` statement.
 
 ```sql
 CREATE TABLE hits
@@ -169,7 +170,7 @@ COPY 1000000
 
 ### Create indices on the table
 
-Create indices on the table to optimize for analytical queries.
+Create indices on the table to optimize the workload for analytical queries.
 
 ```sql
 CREATE INDEX adveng on hits (AdvEngineID);
