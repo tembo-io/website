@@ -64,7 +64,7 @@ This allows pganalyze to collect logs from your Tembo Cloud instance and provide
 
 With Log Insights enabled, we can make use of other powerful features, such as EXPLAIN Plans.
 
-[//]: # (TODO: Add a screenshot of the pganalyze dashboard showing log insights)
+![log-insights.png](log-insights.png)
 
 # EXPLAIN Plans
 
