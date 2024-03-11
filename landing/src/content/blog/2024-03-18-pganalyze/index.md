@@ -68,7 +68,12 @@ With Log Insights enabled, we can make use of other powerful features, such as E
 
 # EXPLAIN Plans
 
-
 [//]: # (TODO: Add a screenshot of the pganalyze dashboard showing EXPLAIN Plans)
 
 # Conclusion
+We’re excited to bring pganalyze to Tembo Cloud, and we’re confident that this integration will help you better understand
+and optimize your Postgres database. With detailed insights into your database performance, you can make informed decisions
+to optimize your database performance and improve the overall health of your database.
+
+If you have any questions or need help getting started with pganalyze on Tembo Cloud, please don’t hesitate to reach out to
+our support team. We’re here to help you get the most out of your Tembo Cloud Postgres instance.
