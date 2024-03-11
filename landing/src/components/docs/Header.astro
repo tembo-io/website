@@ -3,9 +3,10 @@ import Button from '../Button';
 import { Image } from 'astro:assets';
 import Github from '../../images/github.svg';
 import Search from './Search.astro';
+import ProgressBar from '../ProgressBar';
 ---
 
-<div class='sticky top-0 z-10 overflow-hidden'>
+<div class='sticky top-0 z-10 overflow-hidden flex flex-col w-full'>
 	<nav
 		class='border-b border-b-[#EAEAEA33] flex items-center pt-4 pb-[12px] transition duration-100 backdrop-blur-lg safari-blur'
 	>
@@ -29,11 +30,16 @@ import Search from './Search.astro';
 					</a>
 					<Button
 						variant='neon'
-						client:load
-						link='https://cloud.tembo.io'>Try Free</Button
+						link='https://cloud.tembo.io'
+						client:load>Try Free</Button
 					>
 				</div>
 			</div>
 		</div>
 	</nav>
+	<ProgressBar
+		scrollContainerId='docs-content'
+		parentContainerId='tembo-document'
+		client:load
+	/>
 </div>

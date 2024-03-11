@@ -9,6 +9,7 @@ interface Props {
 	isDocs?: boolean;
 	titleStyles?: string;
 	title?: string;
+	offset?: number;
 }
 
 const Toc: React.FC<Props> = ({
@@ -16,6 +17,7 @@ const Toc: React.FC<Props> = ({
 	isDocs = false,
 	titleStyles,
 	title = 'On this page',
+	offset = 120,
 }) => {
 	const [link, setLink] = useState('');
 	const firstHeadingSlug = headings[0]?.slug || '';
@@ -32,7 +34,7 @@ const Toc: React.FC<Props> = ({
 		element?.scrollIntoView();
 	};
 
-	const _ = useActiveAnchors(firstHeadingSlug, isDocs);
+	const _ = useActiveAnchors(firstHeadingSlug, isDocs, offset);
 
 	return (
 		<div className='flex flex-col gap-6 max-w-[250px]'>

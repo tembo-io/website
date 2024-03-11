@@ -1,5 +1,5 @@
 export interface SideBarItem {
-	label: string;
+	title: string;
 	slug: string;
 	icon?: string;
 }

@@ -14,18 +14,18 @@ Tembo Stacks solve that problem by providing pre-built, use case optimized Postg
 
 A tembo stack is a pre-built, use case specific Postgres deployment which enables you to quickly deploy specialized data services that can replace external, non-Postgres data services. They help you avoid the pains associated with adopting, operationalizing, optimizing and managing new databases.
 
-|Name|Replacement for|
-|----|---------------|
-|[Data Warehouse](datawarehouse.md)| Snowflake, Bigquery |
-|[Geospatial](geospatial.md)| ESRI, Oracle |
-|[OLTP](oltp.md)| Amazon RDS |
-|[OLAP](olap.md)| Snowflake, Bigquery |
-|[Machine Learning](machine-learning.md)| MindsDB |
-|[Message Queue](message-queue.md)| Amazon SQS, RabbitMQ, Redis |
-|[Mongo Alternative on Postgres](mongo-alternative.md)| MongoDB |
-|[RAG](rag.md)| LangChain |
-|[Standard](standard.md)| Amazon RDS |
-|[Vector DB](vector-db.md)| Pinecone, Weaviate |
+| Name                                                            | Replacement for             |
+| --------------------------------------------------------------- | --------------------------- |
+| [Data Warehouse](/docs/stacks/datawarehouse)                    | Snowflake, Bigquery         |
+| [Geospatial](/docs/stacks/geospatial)                           | ESRI, Oracle                |
+| [OLTP](/docs/stacks/oltp)                                       | Amazon RDS                  |
+| [OLAP](/docs/stacks/olap)                                       | Snowflake, Bigquery         |
+| [Machine Learning](/docs/stacks/machine-learning)               | MindsDB                     |
+| [Message Queue](/docs/stacks/message-queue)                     | Amazon SQS, RabbitMQ, Redis |
+| [Mongo Alternative on Postgres](/docs/stacks/mongo-alternative) | MongoDB                     |
+| [RAG](/docs/stacks/rag)                                         | LangChain                   |
+| [Standard](/docs/stacks/standard)                               | Amazon RDS                  |
+| [Vector DB](/docs/stacks/vector-db)                             | Pinecone, Weaviate          |
 
 We are actively working on additional Stacks. Check out the [Tembo Roadmap](https://roadmap.tembo.io/roadmap) and upvote the stacks you'd like to see next.
 
@@ -33,9 +33,9 @@ We are actively working on additional Stacks. Check out the [Tembo Roadmap](http
 
 A stack consists of a number of components that are optimized for a particular use case. A stack includes:
 
-* Docker Base Image containing a particular version of Postgres.
-* Curated Set of extensions which turn Postgres into best-in-class for that workload.
-* Hardware (CPU::Memory ratios, Storage tiers) optimized for the workload.
-* Postgres configs optimized according to hardware and use cases.
-* Use case specific metrics, alerts and recommendations.
-* On-instance application deployments to add additional tools required for the use case.
+-   Docker Base Image containing a particular version of Postgres.
+-   Curated Set of extensions which turn Postgres into best-in-class for that workload.
+-   Hardware (CPU::Memory ratios, Storage tiers) optimized for the workload.
+-   Postgres configs optimized according to hardware and use cases.
+-   Use case specific metrics, alerts and recommendations.
+-   On-instance application deployments to add additional tools required for the use case.

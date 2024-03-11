@@ -40,6 +40,8 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 					blogPost as any
 				)?.getBoundingClientRect();
 				let scrollDistance = -top;
+				console.log(scrollDistance);
+
 				let progressPercentage =
 					(scrollDistance /
 						(height - document.documentElement.clientHeight)) *

@@ -4,100 +4,14 @@ import { Image } from 'astro:assets';
 import Home from '../../images/home.svg';
 import Line from './Line.astro';
 import type { SideBarSection } from '../../types';
-import { uppercaseFirstLetter } from '../../util';
+import { styles } from '../../util';
 
 interface Props {
 	sideBarMenuSections: SideBarSection[];
 }
 
-const sections: SideBarSection[] = [
-	{
-		label: 'product',
-		items: [
-			{
-				label: 'Cloud',
-				slug: '/docs/product/overview',
-			},
-			{
-				label: 'Features',
-				slug: '/docs/product/features',
-			},
-			{
-				label: 'Pricing',
-				slug: '/docs/product/pricing',
-			},
-		],
-	},
-	{
-		label: 'Stacks',
-		items: [
-			{
-				label: 'Overview',
-				slug: '/docs/product/overview',
-			},
-			{
-				label: 'Features',
-				slug: '/docs/product/features',
-			},
-			{
-				label: 'Pricing',
-				slug: '/docs/product/pricing',
-			},
-		],
-	},
-	{
-		label: 'Development',
-		items: [
-			{
-				label: 'CLI',
-				slug: '/docs/product/overview',
-			},
-			{
-				label: 'Platform API',
-				slug: '/docs/product/features',
-			},
-			{
-				label: 'Terraform Provider',
-				slug: '/docs/product/pricing',
-			},
-		],
-	},
-	{
-		label: 'Guides',
-		items: [
-			{
-				label: 'Postgres Guides',
-				slug: '/docs/product/overview',
-			},
-			{
-				label: 'Features',
-				slug: '/docs/product/features',
-			},
-			{
-				label: 'Pricing',
-				slug: '/docs/product/pricing',
-			},
-		],
-	},
-	{
-		label: 'Section',
-		items: [
-			{
-				label: 'Overview',
-				slug: '/docs/product/overview',
-			},
-			{
-				label: 'Features',
-				slug: '/docs/product/features',
-			},
-			{
-				label: 'Pricing',
-				slug: '/docs/product/pricing',
-			},
-		],
-	},
-];
 const { sideBarMenuSections } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
 
 <nav
@@ -135,21 +49,25 @@ const { sideBarMenuSections } = Astro.props;
 				Home
 			</a>
 			{
-				sections.map((section) => (
+				sideBarMenuSections.map((section) => (
 					<div class='flex flex-col'>
 						<div class='my-6'>
 							<Line />
 						</div>
-						<span class='text-neon'>
-							{uppercaseFirstLetter(section.label)}
+						<span class='text-neon text-[15px]'>
+							{section.label}
 						</span>
 						<div class='mt-4 flex flex-col gap-2'>
 							{section.items.map((item) => (
 								<a
 									href={item.slug}
-									class='font-secondary text-lightGrey hover:text-white transition-all duration-100'
+									class={styles(
+										'font-secondary text-lightGrey hover:text-white transition-all duration-100',
+										currentPath.includes(item.slug) &&
+											'text-white',
+									)}
 								>
-									{item.label}
+									{item.title}
 								</a>
 							))}
 						</div>

@@ -15,7 +15,9 @@ export interface BlogCollection {
 	authors: string[];
 }
 
-export interface DocsCollection {}
+export interface DocsCollection {
+	title?: string;
+}
 
 export const TAGS = [
 	'All',
@@ -57,11 +59,20 @@ const blog = defineCollection({
 		),
 	}),
 });
+export const SIDEBAR_DOCS_ORDER = {
+	cloud: 0,
+	stacks: 1,
+	apps: 2,
+	cli: 3,
+	'connecting to tembo': 4,
+	guides: 5,
+};
 const docs = defineCollection({
 	schema: z.object({
 		title: z.string().optional(),
 		description: z.string().optional(),
 		tableOfContents: z.boolean().default(true),
+		sideBarOrder: z.number().optional(),
 	}),
 });
 

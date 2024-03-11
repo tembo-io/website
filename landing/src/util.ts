@@ -1,6 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import cx from 'classnames';
 import { twMerge } from 'tailwind-merge';
+import { getCollection } from 'astro:content';
+import type { SideBarSection } from './types';
+import { SIDEBAR_DOCS_ORDER } from './content/config';
 
 export const useIntersection = (
 	element: React.MutableRefObject<any>,
@@ -49,9 +52,9 @@ export const styles = (...classNames: any[]) => {
 export const useActiveAnchors = (
 	firstHeadingSlug: string,
 	isDocs: boolean = false,
+	offset: number = 120,
 	anchorsQuerySelector: string = 'h2, h3, h4, h5, h6',
 	tocQuerySelector: string = '.prose-toc',
-	offset: number = 120,
 ) => {
 	const anchors = useRef<NodeListOf<HTMLHeadingElement> | null>(null);
 	const toc = useRef<NodeListOf<HTMLHeadingElement> | null>(null);
@@ -125,3 +128,62 @@ export const useActiveAnchors = (
 export const uppercaseFirstLetter = (str: string) => {
 	return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+export const sortSideBarLinks = (sideBarLinks: SideBarSection[]) =>
+	sideBarLinks.sort((a, b) => {
+		const labelA = a.label.toLowerCase();
+		const labelB = b.label.toLowerCase();
+		const aOrder = SIDEBAR_DOCS_ORDER.hasOwnProperty(labelA)
+			? SIDEBAR_DOCS_ORDER[labelA as keyof typeof SIDEBAR_DOCS_ORDER]
+			: Infinity;
+		const bOrder = SIDEBAR_DOCS_ORDER.hasOwnProperty(labelB)
+			? SIDEBAR_DOCS_ORDER[labelB as keyof typeof SIDEBAR_DOCS_ORDER]
+			: Infinity;
+
+		if (aOrder < bOrder) {
+			return -1;
+		}
+		if (aOrder > bOrder) {
+			return 1;
+		}
+		return 0;
+	});
+
+export async function getSideBarLinks() {
+	const docs = await getCollection('docs');
+	const sideBarLinks: SideBarSection[] = [];
+	const sideBarRoots = new Set();
+	docs.forEach((doc) => {
+		const sectionTitle = uppercaseFirstLetter(doc.id.split('/')[0]);
+		sideBarRoots.add(sectionTitle);
+	});
+
+	Array.from(sideBarRoots).forEach(async (root: any) => {
+		const rootDocs = docs.filter((doc) =>
+			doc.id.startsWith(root.toLowerCase()),
+		);
+		const getItems = () => {
+			const items = rootDocs.map((doc) => {
+				const split = doc.id.split('/');
+				const title = uppercaseFirstLetter(
+					split[split.length - 1]
+						.replaceAll('-', ' ')
+						.replaceAll('_', ' ')
+						.replace(/\.mdx?/g, '')
+						.toLowerCase(),
+				);
+				return {
+					title: title,
+					slug: `/docs/${doc.slug}`,
+				};
+			});
+			return items;
+		};
+
+		sideBarLinks.push({
+			label: root.toUpperCase().replaceAll('-', ' ').replaceAll('_', ' '),
+			items: getItems(),
+		});
+	});
+	return sortSideBarLinks(sideBarLinks);
+}

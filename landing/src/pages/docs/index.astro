@@ -2,23 +2,12 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import { Image } from 'astro:assets';
 import HeroImage from '../../images/tembonauts.svg';
-import { getCollection } from 'astro:content';
-import type { SideBarSection } from '../../types';
-import { uppercaseFirstLetter } from '../../util';
+import { getSideBarLinks } from '../../util';
 
-// TODO: support passing in some pre-defined sidebar config to override the default behavior for this
-const getSideBarLinks = async (slug: string) => {
-	const docs = await getCollection('docs');
-
-	const sideBarLinks: SideBarSection[] = docs.map((doc) => {
-		const { slug } = doc;
-		const sectionTitle = uppercaseFirstLetter(doc.id.split('/')[0]);
-		return { label: '', items: [] };
-	});
-};
+const links = await getSideBarLinks();
 ---
 
-<DocsLayout sideBarMenuSections={[]}>
+<DocsLayout sideBarMenuSections={links}>
 	<div class='flex flex-col'>
 		<div class='flex flex-col xl:flex-row justify-between gap-8'>
 			<div class='flex flex-col gap-6'>
