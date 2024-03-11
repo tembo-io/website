@@ -68,7 +68,7 @@ With Log Insights enabled, we can make use of other powerful features, such as E
 
 # EXPLAIN Plans
 
-[//]: # (TODO: Add a screenshot of the pganalyze dashboard showing EXPLAIN Plans)
+![explain-plans.png](explain-plans.png)
 
 # Alerts and Check-Up
 pganalyze provides powerful alerting and notification features that help you stay on top of your database performance.
