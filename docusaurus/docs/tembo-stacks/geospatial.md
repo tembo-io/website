@@ -22,7 +22,6 @@ Detailed information about this image, as well as other stack images can be foun
 - [postgis_topology](https://postgis.net/docs/Topology.html) - `postgis_topology` focuses on topological data models and functions, allowing for more advanced spatial data analysis and consistency.
 - [address_standardizer](https://postgis.net/docs/Extras.html#Address_Standardizer) - `address_standardizer` helps in standardizing address data, making it consistent and easier to work with, especially for geocoding purposes.
 - [address_standardizer_data_us](https://postgis.net/docs/Extras.html#Address_Standardizer) - `address_standardizer_data_us` provides the necessary data for the address_standardizer extension, specifically tailored for US addresses.
-- [mobilitydb](https://mobilitydb.com/documentation.html) - `mobilitydb` offers support for temporal and spatio-temporal objects by introducing persistent database types and query operations.
 - Extensions from [Trunk](https://pgt.dev/) can be installed on-demand.
 
 ## Getting started
