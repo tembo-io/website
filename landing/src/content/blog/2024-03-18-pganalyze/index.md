@@ -34,6 +34,8 @@ informed decisions to optimize your database performance.
 # Connecting your Tembo Instance to pganalyze
 Connecting your Tembo Cloud instance to pganalyze is simple. You can connect your instance to pganalyze in just a few clicks.
 
+[//]: # (TODO: Add screenshots for each step)
+
 ## Step 1: Sign up for pganalyze
 If you don’t already have a pganalyze account, you can sign up for a free trial at [pganalyze.com](https://pganalyze.com/).
 
@@ -62,6 +64,11 @@ This allows pganalyze to collect logs from your Tembo Cloud instance and provide
 
 With Log Insights enabled, we can make use of other powerful features, such as EXPLAIN Plans.
 
+[//]: # (TODO: Add a screenshot of the pganalyze dashboard showing log insights)
+
 # EXPLAIN Plans
+
+
+[//]: # (TODO: Add a screenshot of the pganalyze dashboard showing EXPLAIN Plans)
 
 # Conclusion
