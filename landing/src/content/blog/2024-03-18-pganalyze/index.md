@@ -11,15 +11,17 @@ description: Announcing support for pganalyze on Tembo Cloud
 At Tembo, we’ve been hard at work building a unique, world-class managed Postgres solution.
 We’re excited to announce Tembo Cloud now supports integration with pganalyze - a powerful tool that helps
 you understand and optimize your Postgres database. With this integration, you can now easily monitor and analyze your
-Tembo Cloud Postgres instance with pganalyze.
+Tembo Cloud Postgres instance with detailed insights into your database performance.
 
 # What is pganalyze?
-pganalyze is a powerful tool that helps you understand and optimize your Postgres database. It provides detailed insights
-into your database performance, and helps you identify slow queries, track query performance over time, and understand
-the overall health of your database. With pganalyze, you can easily monitor and analyze your Postgres database, and make
-informed decisions to optimize your database performance.
+pganalyze helps you deliver consistent database performance and availability through intelligent tuning advisors and
+continuous database profiling. It provides Postgres configuration recommendations, helps identify slow
+queries, track query performance over time, and understand the overall health of your database.
 
 ## Key Features
+pganalyze has a wide range of features that help you understand and optimize your Postgres database. Some of the key features
+include:
+
 - Detailed query performance insights
 - Index Advisor
 - VACUUM Advisor
