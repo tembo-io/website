@@ -78,7 +78,7 @@ notify you when an alert is triggered, so you can take action to resolve any iss
 Alerts can be configured to send notifications via email, Slack, and PagerDuty, so you can stay informed about your Tembo
 instance no matter where you are.
 
-[//]: # (TODO: Add a screenshot of the pganalyze dashboard showing alerts and check-up)
+![alerts-and-check-up.png](alerts-and-check-up.png)
 
 # Conclusion
 We’re excited to bring pganalyze to Tembo Cloud, and we’re confident that this integration will help you better understand
