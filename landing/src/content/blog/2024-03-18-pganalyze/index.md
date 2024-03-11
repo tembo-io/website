@@ -56,6 +56,11 @@ Once connected, pganalyze will automatically start collecting and analyzing your
 with detailed insights into your database performance.
 
 # Log Insights
+pganalyze provides detailed insights into your database logs, including slow queries, errors, and other important events.
+To make this possible on Tembo Cloud, we've made some contributions to the open source [pganalyze collector](https://github.com/pganalyze/collector/).
+This allows pganalyze to collect logs from your Tembo Cloud instance and provide you with detailed insights into your database logs.
+
+With Log Insights enabled, we can make use of other powerful features, such as EXPLAIN Plans.
 
 # EXPLAIN Plans
 
