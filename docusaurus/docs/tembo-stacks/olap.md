@@ -12,7 +12,7 @@ This guide will walk through setting up an analytical workload on Postgres using
 
 ### Create a Tembo OLAP Stack instance
 
-Navigate to [cloud.tembo.io](https://cloud.tembo.io) and create a new stack. Select the "OLAP" stack type and choose the desired region and instance size.
+Navigate to [cloud.tembo.io](https://cloud.tembo.io) and create a new stack. Select the "OLAP" Stack type and choose the desired instance size. This guide will function on the hobby tier, but it is recommended to use a larger instance for production workloads.
 
 Connect to the instance using `psql`.
 
@@ -36,7 +36,8 @@ wget --no-verbose --continue 'https://datasets.clickhouse.com/hits_compatible/hi
 gzip -d hits.tsv.gz
 ```
 
-There are 99,997,497 records in `hitz.tsv`. For simplicity (and to speed up the duration of this guide), take a subset of the data.
+There are 99,997,497 records in `hitz.tsv`.
+ For simplicity (and to speed up the duration of this guide), take a subset of the data.
 
 ```bash
 head -1000000 hits.tsv >> hits_1mil.tsv
@@ -204,7 +205,6 @@ SELECT MIN(EventDate), MAX(EventDate) FROM hits;
 ------------+------------
  2013-07-15 | 2013-07-15
 ```
-
 
 Get the top 10 regions with the most unique users.
 
