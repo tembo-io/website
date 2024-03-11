@@ -19,7 +19,7 @@ continuous database profiling. It provides Postgres configuration recommendation
 queries, track query performance over time, and understand the overall health of your database.
 
 ## Key Features
-pganalyze has a wide range of features that help you understand and optimize your Postgres database. Some of the key features
+pganalyze has a wide range of features that help you understand and optimize your Postgres database. Key features
 include:
 
 - Detailed query performance insights
@@ -69,6 +69,11 @@ With Log Insights enabled, we can make use of other powerful features, such as E
 ![log-insights.png](log-insights.png)
 
 # EXPLAIN Plans
+pganalyze allows for viewing EXPLAIN plans in a convenient and easy-to-understand format. Query plans provide a lot of
+detail, and it can be difficult to recognize the most important information at a glance. This feature directly integrates
+with the `auto_explain` extension. Output from this extension is automatically gathered and used to provide insights into
+query plans. For each node in the plan, pganalyze highlights the most important information, surfacing data you might
+otherwise miss. Read more about the EXPLAIN plans feature in the [pganalyze documentation](https://pganalyze.com/docs/explain).
 
 ![explain-plans.png](explain-plans.png)
 
