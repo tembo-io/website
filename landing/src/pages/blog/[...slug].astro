@@ -30,7 +30,9 @@ const dateString = post.id.substring(0, 10);
 const nextPostDateString = nextPost.id.substring(0, 10);
 const nextPostParsedDate = nextPost.data?.date || new Date(nextPostDateString);
 const parsedDate = post.data?.date || new Date(dateString);
-const author = AUTHORS[(post.data.authors[0] as string) || 'ryw'];
+const authors = post.data.authors.map((author) => {
+	return AUTHORS[author];
+});
 const images = import.meta.glob<{ default: ImageMetadata }>(
 	'/src/content/blog/**/*.{jpeg,jpg,png,webp,svg,gif}',
 );
@@ -74,17 +76,25 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 									} • {remarkPluginFrontmatter.minutesRead}
 								</p>
 							</div>
-							<a
-								href={author.url || '/blog'}
-								target='_blank'
-								class='w-max'
-							>
-								<Author
-									name={author.name}
-									title={author.title || 'Tembonaut'}
-									avatar={author.image_url}
-								/>
-							</a>
+							<div class='flex gap-6 items-center flex-wrap'>
+								{
+									authors.map((author) => (
+										<a
+											href={author.url || '/blog'}
+											target='_blank'
+											class='w-max'
+										>
+											<Author
+												name={author.name}
+												title={
+													author.title || 'Tembonaut'
+												}
+												avatar={author.image_url}
+											/>
+										</a>
+									))
+								}
+							</div>
 						</div>
 					</header>
 					{
@@ -203,4 +213,3 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 		});
 	});
 </script>
-../../components/Tag.tsx

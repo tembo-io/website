@@ -1,17 +1,252 @@
 ---
+import { Image } from 'astro:assets';
+import Elephant15 from '../images/elephant15.svg';
+import Elephant16 from '../images/elephant16.svg';
+import queue from '../images/queue.svg';
+import clipboard from '../images/clipboard.svg';
+import phone from '../images/phone.svg';
+import rainbowArrow from '../images/rainbowArrow.svg';
 import NavBar from '../components/NavBar';
 import Layout from '../layouts/Layout.astro';
 import Container from '../components/Container';
+import Button from '../components/Button';
+import Quotes from '../components/Quotes';
+import Faqs from '../components/Faqs';
+import ArrowButton from '../components/ArrowButton.astro';
+import Footer from '../components/Footer.astro';
+import Animation from '../components/Animation';
+import FeatureCard from '../components/FeatureCard.astro';
+import BasicTable from '../components/BasicTable.astro';
+import TabbedTable from '../components/TabbedTable';
+import PricingCards from '../components/PricingCards.astro';
+import CompetitorTable from '../components/CompetitorTable';
 const currentPath = Astro.url.pathname;
+
+const generalIncluded = [
+	'Custom Domains',
+	'Connection Pooling',
+	'Point in time recovery',
+	'IP Allow Listing',
+];
+
+const platformIncluded = [
+	'Apps Support',
+	'REST Endpoint',
+	'Read Replicas',
+	'High Availability',
+];
+
+const generalRows = [
+	['App support', true, true, true],
+	['200+ extensions', true, true, true],
+	['Point in time recovery', true, true, true],
+	['Monitoring & Alerting', true, true, true],
+	['High Availability', false, true, true],
+	['Scale up storage', false, true, true],
+	['Instance Re-sizing', false, true, true],
+	['Uptime SLA', 'N/A', '99.95% with HA', '99.95% with HA'],
+];
+
+const platformRows = [
+	['Hobby Tier Instances', '3', 'Unlimited', 'Unlimited'],
+	['Log Retention', '30 Days', '30 Days', 'Unlimited'],
+	['Access Control', 'Owner, User', 'Owner, User', 'RBAC'],
+	['SSO', false, true, true],
+];
+
+const supportRows = [
+	['Community Support', true, true, true],
+	['Email Support', true, true, true],
+	['Support SLA', false, true, true],
+	['Onboarding Support', false, false, true],
+	['Dedicated Customer Engineer', false, false, true],
+];
 ---
 
-<Layout title='Pricing - Tembo'>
-	<NavBar currentPage={currentPath} />
-	<Container>
-		<section
-			class='tembo-pricing-hero-section mt-[120px] mobile:mt-[180px]'
+<Layout title='Pricing | Tembo'>
+	<div
+		class='w-full h-full bg-black customXs:bg-[url("/triangularPixelBg.svg")] customXs:bg-no-repeat customXs:bg-[length:1280px_1075px] customXs:bg-[77%_0%] customSm:bg-left-top customMd:bg-[length:1440px_1075px] customLg:bg-[length:100vw_1075px]'
+	>
+		<NavBar client:load currentPage={currentPath} />
+		<Container
+			styles='pt-[155px] customXs:pt-[128px] customSm:flex customSm:justify-between customSm:pt-[175px] customLg:pt-[147px]'
 		>
-			<p class='text-white'>Pricing page</p>
+			<div
+				class='flex justify-center items-start gap-6 customXs:gap-[52px] customSm:order-2 customSm:gap-[30px] customLg:gap-[35px]'
+			>
+				<Image
+					src={Elephant16}
+					alt='purple elephant'
+					class='ml-1.5 w-[121px] h-[131px] customXs:w-[147px] customXs:h-[157px] customXs:ml-[30px] customSm:ml-[20px] customLg:w-[171px] customLg:h-[182px]'
+				/>
+				<Image
+					src={Elephant15}
+					alt='green elephant'
+					class='mt-1.5 w-[170px] h-[220px] customXs:w-[206px] customXs:h-[264px] customXs:mt-2 customSm:mt-[70px] customLg:w-[241px] customLg:h-[307px] customLg:mt-[80px]'
+				/>
+			</div>
+			<div class='shrink-0'>
+				<h1
+					class='mt-6 font-bold text-pricingGreen text-4xl leading-[45px] tracking-[0.472px] customXs:mt-10 customXs:text-6xl customXs:leading-[75px] customSm:mt-[65px] customMd:text-[68px] customMd:leading-[85px] customMd:mt-[25px] customLg:mt-[53px]'
+				>
+					Tembo’s Pricing
+				</h1>
+				<p
+					class='mt-2.5 opacity-80 font-secondary font-medium text-white text-sm leading-[25px] capitalize customXs:text-base'
+				>
+					Start for Free, No credit card required.<br />Pay for what
+					you use. One simple price. No complex algorithms.
+				</p>
+			</div>
+		</Container>
+		<Container
+			styles='mt-[40px] mobile:mt-[131px] flex flex-col gap-10 customXs:mt-20 customXs:grid customXs:grid-cols-[1fr_1fr] customXs:grid-rows-[auto_auto] customXs:items-start customXs:gap-5 mobile:gap-8 customSm:mt-[96px] customMd:mt-[90px] customMd:flex customMd:flex-row customLg:mt-[113px]'
+		>
+			<PricingCards />
+		</Container>
+		<Container styles='mt-[58px] mb-[37px] customXs:mt-32 customMd:mt-0'>
+			<h2
+				class='relative w-[209px] font-bold text-white text-[26px] leading-[33px] tracking-[0.472px] customXs:text-[34px] customXs:leading-[43px]'
+			>
+				Plans comparison
+				<Image
+					src={rainbowArrow}
+					alt='colorful arrow'
+					class='z-10 w-[56px] h-[105px] absolute -bottom-[90px] -right-4 customXs:-right-[55px] customSm:-bottom-[95px] customSm:-right-[66px] customSm:w-[62px] customSm:h-[117px]'
+				/>
+			</h2>
+		</Container>
+		<BasicTable
+			title='General'
+			icon={{ ...queue, alt: 'message queue symbol' }}
+			rows={generalRows}
+			styles='hidden customXs:block'
+		/>
+		<TabbedTable
+			client:load
+			title='General'
+			rows={generalRows}
+			styles='customXs:hidden pt-[30px]'
+		>
+			<Image
+				src={queue}
+				alt='message queue symbol'
+				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[32px]'
+			/>
+		</TabbedTable>
+		<Container
+			styles='flex flex-col gap-6 mt-[126px] mb-[100px] customXs:mt-[139px] customXs:mb-[150px] customSm:grid customSm:mt-[144px] customSm:grid-rows-2 customSm:grid-cols-2 customSm:mb-[98px] customMd:mb-[110px] customLg:mt-[86px] customLg:mb-0'
+		>
+			{
+				generalIncluded.map((feature) => (
+					<FeatureCard feature={feature} />
+				))
+			}
+		</Container>
+		<BasicTable
+			title='Platform'
+			icon={{ ...clipboard, alt: 'clipboard symbol' }}
+			rows={platformRows}
+			backdrop={false}
+			styles='hidden customXs:block'
+		/>
+		<TabbedTable
+			client:load
+			title='Platform'
+			rows={platformRows}
+			backdrop={false}
+			styles='customXs:hidden'
+		>
+			<Image
+				src={clipboard}
+				alt='clipboard symbol'
+				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[32px]'
+			/>
+		</TabbedTable>
+		<Container
+			styles='flex flex-col gap-6 mt-[126px] mb-[144px] customXs:mb-[115px] customSm:mt-[142px] customSm:grid customSm:grid-rows-2 customSm:grid-cols-2 customMd:mt-[90px] customMd:mb-[150px]'
+		>
+			{
+				platformIncluded.map((feature) => (
+					<FeatureCard feature={feature} />
+				))
+			}
+		</Container>
+		<BasicTable
+			title='Support'
+			icon={{ ...phone, alt: 'telephone symbol' }}
+			rows={supportRows}
+			styles='hidden customXs:block'
+		/>
+		<TabbedTable
+			client:load
+			title='Support'
+			rows={supportRows}
+			styles='customXs:hidden'
+		>
+			<Image
+				src={phone}
+				alt='telephone symbol'
+				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[32px]'
+			/>
+		</TabbedTable>
+		<Quotes client:load />
+		<Container
+			styles='mt-[150px] customSm:mt-[150px] customMd:mt-[130px] customLg:mt-[125px]  pb-[50px] md:pb-[170px] z-100'
+		>
+			<Faqs client:load />
+		</Container>
+		<section class='tembo-footer-section mobile:pt-28 relative bg-black'>
+			<div class='container max-w-stackSlider mx-auto relative'>
+				<Animation
+					client:only='react'
+					isFooter={true}
+					styles='z-1 top-[300px] xs:top-[100px] sm:top-[50px] md:-top-[200px] xl:-top-[600px] fade-x-md-both-sides-animation'
+				/>
+				<div
+					class='flex flex-col justify-center pb-[100px] min-[400px]:pb-[200px] z-10'
+				>
+					<Container styles='z-10 pb-24'>
+						<h2
+							class='text-white font-bold text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] text-center leading-normal w-full z-50 mt-28'
+						>
+							Join The Herd
+						</h2>
+						<div
+							class='flex-col min-[500px]:flex-row flex items-center justify-center mt-10 gap-4 z-50'
+						>
+							<Button
+								variant='gradient'
+								size='lg'
+								client:load
+								styles='h-[60px] w-full min-[500px]:w-[182px] font-semibold font-primary z-10'
+							>
+								Try Free
+							</Button>
+							<ArrowButton
+								title='Join the team'
+								link='mailto:careers@tembo.io'
+							/>
+						</div>
+					</Container>
+				</div>
+			</div>
+			<div class='relative bg-offBlack z-10'>
+				<div
+					class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+				>
+				</div>
+				<Container styles='z-50'>
+					<Footer />
+				</Container>
+			</div>
 		</section>
-	</Container>
+	</div>
 </Layout>
+
+<style is:global>
+	.swiper-slide {
+		max-width: 350px !important;
+		width: 100% !important;
+	}
+</style>

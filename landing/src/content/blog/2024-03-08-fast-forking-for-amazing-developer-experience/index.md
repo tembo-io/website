@@ -1,7 +1,7 @@
 ---
 slug: fast-forking-for-amazing-developer-experience
 title: 'Fast forking for amazing developer experience'
-authors: [steven, nick]
+authors: [nick, steven]
 tags: [postgres, engineering, developers]
 ---
 
