@@ -6,6 +6,12 @@ sidebar_position: 7
 
 The Tembo Machine Learning Stack has several important Postgres extensions that make it easy to train and deploy machine learning models in Postgres.
 
+## Container Image
+
+This stack is built with a custom image, `ml-cnpg`, which you can find more detailed information about within the [ml-cnpg Dockerfile](https://github.com/tembo-io/tembo-images/blob/main/ml-cnpg/Dockerfile).
+
+For interest in the other Stack-specific images, please visit the official [tembo-images repository](https://github.com/tembo-io/tembo-images).
+
 ## Extensions
 
 - [postgresml](https://pgt.dev/extensions/postgresml) - `pgml` allows you to train and run machine learning models in Postgres. It supports a variety of models and algorithms, including linear regression, logistic regression, decision tree, random forest, and k-means clustering. It also provides hooks into HuggingFace for downloading and consuming pre-trained models and transformers. Visit [PostgresML](https://github.com/postgresml/postgresml) for more details.

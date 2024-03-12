@@ -6,6 +6,12 @@ sidebar_position: 3
 
 Tembo's DataWarehouse is tuned and configured for data warehouse workloads. Extract, Transform and Load data from external sources using extensions. Build centralize datastore for analytical and tactical queries.
 
+## Container Image
+
+This stack is built with a custom image, `dw-cnpg`, which you can find more detailed information about within the [dw-cnpg Dockerfile](https://github.com/tembo-io/tembo-images/blob/main/dw-cnpg/Dockerfile)
+
+For interest in the other Stack-specific images, please visit the official [tembo-images repository](https://github.com/tembo-io/tembo-images).
+
 ## Extensions
 
 - `pg_stat_statements` provides statistics on SQL statements executed by the database. It helps users analyze query performance and identify areas for optimization.
