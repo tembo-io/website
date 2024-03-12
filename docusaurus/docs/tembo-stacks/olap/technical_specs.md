@@ -3,6 +3,8 @@ sidebar_position: 2
 title: Technical Specs
 ---
 
+# OLAP Technical Specs
+
 ## Configuration
 
 The following configurations automatically scale based on the size of cpu, memory, and storage for the cluster:
