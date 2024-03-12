@@ -1,12 +1,9 @@
 ---
-sidebar_position: 6
+sidebar_position: 1
+title: Getting Started
 ---
 
-# Tembo OLAP
-
-Run analytical workloads on a Postgres instance tuned for online analytical processing. Build applications that require complex queries and aggregations on large datasets.
-
-## Getting Started
+# Getting Started
 
 This guide will walk through setting up an analytical workload on Postgres using [Clickbench's "hits" dataset](https://github.com/ClickHouse/ClickBench?tab=readme-ov-file#history-and-motivation) and the [columnar](https://github.com/hydradatabase/hydra) Postgres extension. The dataset represents page views on a system and the guide will demonstrate using extensions to optimize the database for analytical queries.
 
