@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import ChevronRight from '../images/arrow-right.svg';
+import { styles } from '../util';
+
+interface Props {
+	slug: string;
+	title: string;
+	date?: string;
+	subTitle?: string;
+	classNames?: string;
+}
+const { slug, title, date, classNames, subTitle = 'Next post' } = Astro.props;
+---
+
+<a
+	href={`/blog/${slug}`}
+	class={styles('p-4 rounded-lg gradient-next-button', classNames)}
+>
+	<div class='flex flex-col items-end gap-2'>
+		<div class='flex items-center gap-[5px]'>
+			<p class='text-lightGrey font-semibold text-sm'>{subTitle}</p>
+			<Image
+				src={ChevronRight}
+				height={14}
+				width={14}
+				alt='Github cat logo'
+			/>
+		</div>
+		<h4 class='text-white text-end'>{title}</h4>
+		{date && <p class='text-lightGrey font-semibold text-xs'>{date}</p>}
+	</div>
+</a>

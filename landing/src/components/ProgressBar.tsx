@@ -41,20 +41,22 @@ const ProgressBar: React.FC<Props> = ({
 
 	return (
 		<>
-			<div
-				className={cx(
-					'w-full flex justify-start relative z-10',
-					'h-[1.5px]',
-				)}
-			>
+			{scrollY > 0 && (
 				<div
-					className='h-full top-0 bottom-0 right-0 absolute w-full bg-salmon will-change-transform transition-opacity duration-[40] ease-linear'
-					style={{
-						transform: `translate3d(${isActive ? progressWidth - 100 + '%' : '0'},0,0)`,
-						opacity: isActive ? 1 : 0,
-					}}
-				></div>
-			</div>
+					className={cx(
+						'w-full flex justify-start relative z-10',
+						scrollY > 0 && 'h-[1.5px]',
+					)}
+				>
+					<div
+						className='h-full top-0 bottom-0 right-0 absolute w-full bg-salmon will-change-transform transition-opacity duration-[40] ease-linear'
+						style={{
+							transform: `translate3d(${isActive ? progressWidth - 100 + '%' : '0'},0,0)`,
+							opacity: isActive ? 1 : 0,
+						}}
+					></div>
+				</div>
+			)}
 		</>
 	);
 };

@@ -163,20 +163,32 @@ export async function getSideBarLinks() {
 			doc.id.startsWith(root.toLowerCase()),
 		);
 		const getItems = () => {
-			const items = rootDocs.map((doc) => {
-				const split = doc.id.split('/');
-				const title = uppercaseFirstLetter(
-					split[split.length - 1]
-						.replaceAll('-', ' ')
-						.replaceAll('_', ' ')
-						.replace(/\.mdx?/g, '')
-						.toLowerCase(),
-				);
-				return {
-					title: title,
-					slug: `/docs/${doc.slug}`,
-				};
-			});
+			const items = rootDocs
+				.sort((docA, docB) => {
+					const aOrder = docA.data?.sideBarPosition ?? Infinity;
+					const bOrder = docB.data?.sideBarPosition ?? Infinity;
+					if (aOrder < bOrder) {
+						return -1;
+					}
+					if (aOrder > bOrder) {
+						return 1;
+					}
+					return 0;
+				})
+				.map((doc) => {
+					const split = doc.id.split('/');
+					const title = uppercaseFirstLetter(
+						split[split.length - 1]
+							.replaceAll('-', ' ')
+							.replaceAll('_', ' ')
+							.replace(/\.mdx?/g, '')
+							.toLowerCase(),
+					);
+					return {
+						title: title,
+						slug: `/docs/${doc.slug}`,
+					};
+				});
 			return items;
 		};
 

@@ -4,6 +4,8 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 import { getCollection } from 'astro:content';
 import Toc from '../../components/Toc';
 import { getSideBarLinks } from '../../util';
+import Footer from '../../components/docs/Footer.astro';
+import NextButton from '../../components/NextButton.astro';
 
 export async function getStaticPaths() {
 	const docs = await getCollection('docs');
@@ -29,11 +31,19 @@ const links = await getSideBarLinks();
 	<div class='flex flex-col relative'>
 		<div
 			id='tembo-document'
-			class='flex justify-between w-full mobile:gap-16 xl:gap-28'
+			class='flex justify-between w-full mobile:gap-16 xl:gap-28 mb-12'
 		>
-			<Markdown classNames='max-w-none'>
-				<Content />
-			</Markdown>
+			<div class='flex flex-col gap-12'>
+				<Markdown classNames='max-w-none'>
+					<Content />
+				</Markdown>
+				<NextButton
+					title='VectorDB Stack'
+					subTitle='Next'
+					slug=''
+					classNames='max-w-[450px] w-full self-end'
+				/>
+			</div>
 			<div>
 				<div
 					class='hidden mobile:flex flex-col items-start w-max mobile:sticky mobile:top-[133px]'
@@ -55,5 +65,6 @@ const links = await getSideBarLinks();
 				</div>
 			</div>
 		</div>
+		<Footer editLink='' />
 	</div>
 </DocsLayout>
