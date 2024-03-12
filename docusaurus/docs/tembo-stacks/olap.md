@@ -171,6 +171,12 @@ COPY 1000000
 ### Create indices on the table
 
 Create indices on the table to optimize the workload for analytical queries.
+ Creating an index in Postgres helps with query performance by allowing the database to find data faster,
+ reducing the need to scan the entire table.
+ It is similar to an index in a book that lets you locate specific information without reading every page.
+
+Indexes will vary depending on the specific queries hitting the table.
+ The indices below are relevant to [Clickbench](https://github.com/ClickHouse/ClickBench/tree/main/tembo-olap) workload.
 
 ```sql
 CREATE INDEX userid on hits (UserID);
