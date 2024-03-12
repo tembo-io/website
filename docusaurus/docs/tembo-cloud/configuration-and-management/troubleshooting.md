@@ -49,3 +49,17 @@ Connection examples are provided [here](/docs/category/connection-examples).
   - just type their domain into browser or use curl
   - For example, `org-your-org-name-inst-your-cluster-name.data-1.use1.tembo.io`
   - If you get a 404, then you have network connectivity to Tembo
+
+## Connecting with Unix domain sockets
+
+Some extensions connect to the database using local access. This type of connection is known as connecting by Unix domain sockets.
+
+```
+local all all peer
+```
+
+Unix domain socket files are not in the default path on Tembo Cloud. Instead, the files are located in the directory `/controller/run`, which can be found by the configuration `unix_socket_directories`.
+
+If you are using an extension which requires local access, you must configure this option. When connecting to Postgres, the `host` option is understood as a path to the Unix domain socket when it starts with a slash.
+
+For example in the case of **cron**, the configuration `cron.host` can be set to `/controller/run`, and in the case of **dblink**, you connect like this: `dblink('dbname=sample host=/controller/run', 'SELECT 1')`
