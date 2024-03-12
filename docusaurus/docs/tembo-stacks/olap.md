@@ -188,7 +188,10 @@ CREATE INDEX search2 on hits (SearchPhrase) WHERE SearchPhrase <> ''::text;
 
 ### Execute analytical queries on the table
 
-Get the minimum and maximum event dates from the table.
+The table is ready for typical analytical queries and should observe a noticeable improvement in performance given the optimizations you just enabled.
+ Here's a few examples of queries you can try.
+
+#### Get the minimum and maximum event dates from the table.
 
 ```sql
 SELECT MIN(EventDate), MAX(EventDate) FROM hits;
@@ -200,7 +203,7 @@ SELECT MIN(EventDate), MAX(EventDate) FROM hits;
  2013-07-15 | 2013-07-15
 ```
 
-Get the top 10 regions with the most unique users.
+#### Get the top 10 regions with the most unique users.
 
 ```sql
 SELECT RegionID, COUNT(DISTINCT UserID) AS u
