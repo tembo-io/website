@@ -9,8 +9,9 @@ Whether dealing with spatial objects, location queries, or GIS (geographic infor
 
 ## Container Image
 
-This stack is built with a custom image, `geo-cnpg`.
-Detailed information about this image, as well as other stack images can be found in the official [tembo-images repository](https://github.com/tembo-io/tembo-images).
+This stack is built with a custom image, `geo-cnpg`, which you can find more detailed information about within the [geo-cnpg Dockerfile](https://github.com/tembo-io/tembo-images/blob/main/geo-cnpg/Dockerfile).
+
+For interest in the other Stack-specific images, please visit the official [tembo-images repository](https://github.com/tembo-io/tembo-images).
 
 ## Extensions
 

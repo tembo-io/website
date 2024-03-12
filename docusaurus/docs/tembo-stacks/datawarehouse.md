@@ -8,8 +8,9 @@ Tembo's DataWarehouse is tuned and configured for data warehouse workloads. Extr
 
 ## Container Image
 
-This stack is built with a custom image, `dw-cnpg`.
-Detailed information about this image, as well as other stack images can be found in the official [tembo-images repository](https://github.com/tembo-io/tembo-images).
+This stack is built with a custom image, `dw-cnpg`, which you can find more detailed information about within the [dw-cnpg Dockerfile](https://github.com/tembo-io/tembo-images/blob/main/dw-cnpg/Dockerfile)
+
+For interest in the other Stack-specific images, please visit the official [tembo-images repository](https://github.com/tembo-io/tembo-images).
 
 ## Extensions
 
