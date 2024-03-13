@@ -1,6 +1,6 @@
 ---
 slug: postgres-14-and-16
-title: 'Announcing support for Postgres 16 and 14'
+title: 'Announcing support for Postgres 14 and 16'
 authors: [vini, steven]
 tags: [postgres, extensions, stacks]
 image: './pg-14-16.png'
@@ -8,7 +8,7 @@ date: 2024-03-14T12:00
 description: Tembo Cloud now supports Postgres 14 and 16
 ---
 
-We're thrilled to announce the addition of support for Postgres versions 14, 15, and 16 in Tembo Cloud, broadening the horizons for developers and businesses seeking the best in database technology.
+We're thrilled to announce the addition of support for Postgres versions [14](https://www.postgresql.org/about/news/postgresql-14-released-2318/) and [16](https://www.postgresql.org/about/news/postgresql-16-released-2715/) in Tembo Cloud, broadening the horizons for developers and businesses seeking the best of Postgres on our platform.
 
 Starting today, you can select from Postgres 14, 15, and 16 when creating a Tembo Cloud instance. This flexibility ensures that you can choose the version that best fits your project's needs.
 
@@ -16,23 +16,25 @@ Starting today, you can select from Postgres 14, 15, and 16 when creating a Temb
 
 ## Postgres 16 features
 
+Postgres 16, which was released earlier this year, came with a host of features around logical replication, performance, developer experience, monitoring and security. Some notable ones include:
+
+- Logical replication improvements such as replication from standby and parallel apply of large transactions.
 - More SQL/JSON syntax, like `JSON_ARRAY()`, `JSON_ARRAYAGG()`, and `IS JSON`, simplifies working with JSON data.
-- Improved readability with the use of underscores in numeric literals (e.g., `5_432_000`) and support for non-decimal integer literals (e.g., `0x1538`, `0o12470`, `0b1010100111000`).
 - The `pg_stat_io` view for detailed I/O statistics, aiding in performance tuning.
 - Stronger security features for robust data protection.
 - Increased parallelism in query execution for better performance.
 
-For more information, refer to the [Postgres 16 release notes](https://www.postgresql.org/docs/current/release-16.html).
+For more information, you can refer to the [Postgres 16 release notes](https://www.postgresql.org/docs/current/release-16.html) or our blog about [it's exciting features](https://tembo.io/blog/postgres-16)
 
 ## Postgres 14 compatibility for simpler migration to Tembo Cloud
 
-Many prospective customers are using Postgres 14. Now, users can more easily move their workloads onto Tembo Cloud. You can find the Postgres 14 release notes [here](https://www.postgresql.org/docs/14/release-14.html).
+A lot of Postgres users are still using Postgres 14. Given that major Postgres versions aren't always compatible, upgrading Postgres versions is not always straightforward. Therefore, adding Postgres 14 was one of the most commonly requested features. Now, users can easily migrate their workloads onto Tembo Cloud. You can find the Postgres 14 release notes [here](https://www.postgresql.org/docs/14/release-14.html).
 
 ## Expanding Extension Support for Postgres 14 and 16
 
 To complement the introduction of new Postgres versions, we've expanded our extension ecosystem. This includes the ability to link and build extensions for different Postgres versions, enhancing the flexibility and capabilities of your databases.
 
-Here's a quick overview of the number of extensions supported by each Postgres version, as of March 13th, 2024, but we're always adding more!
+Here's a quick overview of the number of extensions supported on Tembo Cloud by each Postgres version, as of March 13th, 2024, but we're always adding more!
 
 | Postgres Version | Number of Supported Extensions |
 |------------------|--------------------------------|
