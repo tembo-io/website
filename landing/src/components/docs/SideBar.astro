@@ -8,9 +8,10 @@ import { styles } from '../../util';
 
 interface Props {
 	sideBarMenuSections: SideBarSection[];
+	isNested: boolean;
 }
 
-const { sideBarMenuSections } = Astro.props;
+const { sideBarMenuSections, isNested } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -54,10 +55,15 @@ const currentPath = Astro.url.pathname;
 						<div class='my-6'>
 							<Line />
 						</div>
-						<span class='text-neon text-[15px]'>
+						<span
+							class={styles(
+								'text-neon',
+								isNested ? 'text-base' : 'text-[15px]',
+							)}
+						>
 							{section.label}
 						</span>
-						<div class='mt-4 flex flex-col gap-2'>
+						<ul class='mt-4 flex flex-col gap-2'>
 							{section.items.map((item) => (
 								<a
 									href={item.slug}
@@ -70,7 +76,7 @@ const currentPath = Astro.url.pathname;
 									{item.title}
 								</a>
 							))}
-						</div>
+						</ul>
 					</div>
 				))
 			}

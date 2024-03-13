@@ -3,7 +3,11 @@ import Markdown from '../../components/Markdown.astro';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import { getCollection } from 'astro:content';
 import Toc from '../../components/Toc';
-import { getSideBarLinks } from '../../util';
+import {
+	getSideBarLinks,
+	getNestedSideBarLinks,
+	isNested,
+} from '../../util/docsUtils';
 import Footer from '../../components/docs/Footer.astro';
 import NextButton from '../../components/NextButton.astro';
 
@@ -24,16 +28,20 @@ export async function getStaticPaths() {
 
 const { doc } = Astro.props;
 const { Content, headings } = await doc.render();
-const links = await getSideBarLinks();
+const slug = doc.slug;
+const isDocNested = isNested(slug);
+const links = isDocNested
+	? await getNestedSideBarLinks(slug)
+	: await getSideBarLinks();
 ---
 
-<DocsLayout sideBarMenuSections={links}>
+<DocsLayout isNestedDoc={isDocNested} sideBarMenuSections={links}>
 	<div class='flex flex-col relative'>
 		<div
 			id='tembo-document'
 			class='flex justify-between w-full mobile:gap-16 xl:gap-28 mb-12'
 		>
-			<div class='flex flex-col gap-12'>
+			<div class='flex flex-col gap-12 w-full'>
 				<Markdown classNames='max-w-none'>
 					<Content />
 				</Markdown>

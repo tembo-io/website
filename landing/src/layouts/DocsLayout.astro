@@ -7,8 +7,13 @@ import type { SideBarSection } from '../types';
 interface Props {
 	title?: string;
 	sideBarMenuSections: SideBarSection[];
+	isNestedDoc: boolean;
 }
-const { title = 'Docs | Tembo', sideBarMenuSections }: Props = Astro.props;
+const {
+	title = 'Docs | Tembo',
+	sideBarMenuSections,
+	isNestedDoc,
+}: Props = Astro.props;
 ---
 
 <Layout title={title}>
@@ -18,7 +23,10 @@ const { title = 'Docs | Tembo', sideBarMenuSections }: Props = Astro.props;
 	<div class='h-screen flex flex-col'>
 		<main class='grow overflow-hidden'>
 			<div class='flex h-full'>
-				<SideBar sideBarMenuSections={sideBarMenuSections} />
+				<SideBar
+					isNested={isNestedDoc}
+					sideBarMenuSections={sideBarMenuSections}
+				/>
 				<div
 					class='w-full overflow-auto scroll-pt-[120px]'
 					id='docs-content'

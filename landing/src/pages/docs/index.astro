@@ -2,12 +2,12 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import { Image } from 'astro:assets';
 import HeroImage from '../../images/tembonauts.svg';
-import { getSideBarLinks } from '../../util';
+import { getSideBarLinks } from '../../util/docsUtils';
 
 const links = await getSideBarLinks();
 ---
 
-<DocsLayout sideBarMenuSections={links}>
+<DocsLayout isNestedDoc={false} sideBarMenuSections={links}>
 	<div class='flex flex-col'>
 		<div class='flex flex-col xl:flex-row justify-between gap-8'>
 			<div class='flex flex-col gap-6'>

@@ -2,8 +2,9 @@ import { useEffect, useState, useRef } from 'react';
 import cx from 'classnames';
 import { twMerge } from 'tailwind-merge';
 import { getCollection } from 'astro:content';
-import type { SideBarSection } from './types';
-import { SIDEBAR_DOCS_ORDER } from './content/config';
+import type { SideBarSection } from '../types';
+import { SIDEBAR_DOCS_ORDER } from '../content/config';
+import { type CollectionEntry } from 'astro:content';
 
 export const useIntersection = (
 	element: React.MutableRefObject<any>,
@@ -126,7 +127,7 @@ export const useActiveAnchors = (
 };
 
 export const uppercaseFirstLetter = (str: string) => {
-	return str.charAt(0).toUpperCase() + str.slice(1);
+	return str?.charAt(0)?.toUpperCase() + str?.slice(1);
 };
 
 export const sortSideBarLinks = (sideBarLinks: SideBarSection[]) =>
@@ -149,53 +150,12 @@ export const sortSideBarLinks = (sideBarLinks: SideBarSection[]) =>
 		return 0;
 	});
 
-export async function getSideBarLinks() {
-	const docs = await getCollection('docs');
-	const sideBarLinks: SideBarSection[] = [];
-	const sideBarRoots = new Set();
-	docs.forEach((doc) => {
-		const sectionTitle = uppercaseFirstLetter(doc.id.split('/')[0]);
-		sideBarRoots.add(sectionTitle);
-	});
-
-	Array.from(sideBarRoots).forEach(async (root: any) => {
-		const rootDocs = docs.filter((doc) =>
-			doc.id.startsWith(root.toLowerCase()),
-		);
-		const getItems = () => {
-			const items = rootDocs
-				.sort((docA, docB) => {
-					const aOrder = docA.data?.sideBarPosition ?? Infinity;
-					const bOrder = docB.data?.sideBarPosition ?? Infinity;
-					if (aOrder < bOrder) {
-						return -1;
-					}
-					if (aOrder > bOrder) {
-						return 1;
-					}
-					return 0;
-				})
-				.map((doc) => {
-					const split = doc.id.split('/');
-					const title = uppercaseFirstLetter(
-						split[split.length - 1]
-							.replaceAll('-', ' ')
-							.replaceAll('_', ' ')
-							.replace(/\.mdx?/g, '')
-							.toLowerCase(),
-					);
-					return {
-						title: title,
-						slug: `/docs/${doc.slug}`,
-					};
-				});
-			return items;
-		};
-
-		sideBarLinks.push({
-			label: root.toUpperCase().replaceAll('-', ' ').replaceAll('_', ' '),
-			items: getItems(),
-		});
-	});
-	return sortSideBarLinks(sideBarLinks);
-}
+const cleanSideBarTitle = (title: string) => {
+	return uppercaseFirstLetter(
+		title
+			.replaceAll('-', ' ')
+			.replaceAll('_', ' ')
+			.replace(/\.mdx?/g, '')
+			.toLowerCase(),
+	);
+};
