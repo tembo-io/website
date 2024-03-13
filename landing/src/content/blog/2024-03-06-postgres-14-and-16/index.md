@@ -1,6 +1,6 @@
 ---
 slug: postgres-14-and-16
-title: 'Announcing support for Postgres 16 and 14 on Tembo'
+title: 'Announcing support for Postgres 16 and 14'
 authors: [vini, steven]
 tags: [postgres, extensions, stacks]
 image: './pg-14-16.png'
