@@ -1,7 +1,7 @@
 import {
 	defineCollection,
-	z,
 	getCollection,
+	z,
 	type CollectionEntry,
 } from 'astro:content';
 
@@ -132,6 +132,13 @@ export const AUTHORS: Record<string, Author> = {
 		image_url: 'https://github.com/theory.png',
 		email: 'noreply@tembo.io',
 	},
+	nick: {
+		name: 'Nick Hudson',
+		title: 'Software Engineer',
+		url: 'https://github.com/nhudson',
+		image_url: 'https://github.com/nhudson.png',
+		email: 'noreply@tembo.io',
+	},
 };
 
 const blog = defineCollection({
@@ -160,6 +167,7 @@ const blog = defineCollection({
 					'evan',
 					'theory',
 					'joshua',
+					'nick',
 				])
 				.default('ryw'),
 		),
