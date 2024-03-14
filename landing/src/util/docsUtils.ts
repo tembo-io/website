@@ -1,9 +1,10 @@
 import { getCollection } from 'astro:content';
-import type { SideBarSection } from '../types';
+import type { SideBarItem, SideBarSection } from '../types';
 import { SIDEBAR_DOCS_ORDER } from '../content/config';
 import { type CollectionEntry } from 'astro:content';
 import { uppercaseFirstLetter } from '.';
 
+// This sorts the root sidebar links for any doc that is one level deep (e.g `/docs/cloud`)
 export const sortSideBarLinks = (sideBarLinks: SideBarSection[]) =>
 	sideBarLinks.sort((a, b) => {
 		const labelA = a.label.toLowerCase();
@@ -58,9 +59,7 @@ const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
 	return items;
 };
 
-// Function for getting all the links in a sidebar relative to some `slug`
-// This only goes one level deep when at the root and infinite levels deep anywhere else
-// Directory links can link to the doc that is at the index of 0 in the directory
+// This function gets sideBar links for any doc that isnt nested down one level
 export async function getSideBarLinks(): Promise<SideBarSection[]> {
 	const docs = await getCollection('docs');
 	const sideBarLinks: SideBarSection[] = [];
@@ -80,12 +79,13 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 			label: root.toUpperCase().replaceAll('-', ' ').replaceAll('_', ' '),
 			items: getSideBarItems(rootDocs)
 				.map((item) => {
-					if (item.slug.split('/').length !== 4) {
+					const itemSlugSplit = item.slug.split('/');
+					if (itemSlugSplit.length !== 4) {
 						return {
-							title: cleanSideBarTitle(item.slug.split('/')[3]),
+							title: cleanSideBarTitle(itemSlugSplit[3]),
 							slug: getSideBarItems(
 								rootDocs.filter((doc) =>
-									doc.slug.includes(item.slug.split('/')[3]),
+									doc.slug.includes(itemSlugSplit[3]),
 								),
 							)[0].slug,
 						};
@@ -123,7 +123,7 @@ export async function getNestedSideBarLinks(
 			const split = doc.id.split('/');
 			const splitTitle = split[split.length - 2];
 			const title = cleanSideBarTitle(splitTitle);
-			// Skip pushing if the title is already in the sideBarLinks
+			// Skip pushing if the title is already in the sideBarLinks array
 			if (sideBarLinks.some((item) => item.label === title)) {
 				return;
 			}
@@ -141,6 +141,57 @@ export async function getNestedSideBarLinks(
 		});
 
 	return sideBarLinks;
+}
+
+export async function nextDoc(
+	slug: string,
+): Promise<{ parentLabel: string; title: string; slug: string }> {
+	const docs = await getCollection('docs');
+	const sideBarLinks: SideBarSection[] = [];
+	const sideBarRoots = new Set();
+
+	docs.forEach((doc) => {
+		const sectionTitle = uppercaseFirstLetter(doc.id.split('/')[0]);
+		sideBarRoots.add(sectionTitle);
+	});
+
+	Array.from(sideBarRoots).forEach(async (root: any) => {
+		const rootDocs = docs.filter((doc) =>
+			doc.id.startsWith(root.toLowerCase()),
+		);
+
+		sideBarLinks.push({
+			label: root.toUpperCase().replaceAll('-', ' ').replaceAll('_', ' '),
+			items: getSideBarItems(rootDocs),
+		});
+	});
+
+	let nextItem = {
+		parentLabel: '',
+		title: '',
+		slug: '',
+	};
+
+	const sortedLinks = sortSideBarLinks(sideBarLinks);
+	sortedLinks.forEach((section, index) => {
+		const sideBarSection = section.items.find((item) => item.slug === slug);
+		if (sideBarSection) {
+			const currIndex = section.items.indexOf(sideBarSection);
+			if (currIndex === section.items.length - 1) {
+				nextItem = {
+					parentLabel: sortedLinks[index + 1].label,
+					...sortedLinks[index + 1].items[0],
+				};
+				return;
+			}
+			nextItem = {
+				parentLabel: section.label,
+				...section.items[currIndex + 1],
+			};
+			return;
+		}
+	});
+	return nextItem;
 }
 
 export function isNested(slug: string) {

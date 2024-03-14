@@ -7,6 +7,7 @@ import {
 	getSideBarLinks,
 	getNestedSideBarLinks,
 	isNested,
+	nextDoc,
 } from '../../util/docsUtils';
 import Footer from '../../components/docs/Footer.astro';
 import NextButton from '../../components/NextButton.astro';
@@ -33,6 +34,7 @@ const isDocNested = isNested(slug);
 const links = isDocNested
 	? await getNestedSideBarLinks(slug)
 	: await getSideBarLinks();
+const nextDocument = await nextDoc(`/docs/${slug}`);
 ---
 
 <DocsLayout isNestedDoc={isDocNested} sideBarMenuSections={links}>
@@ -46,10 +48,12 @@ const links = isDocNested
 					<Content />
 				</Markdown>
 				<NextButton
-					title='VectorDB Stack'
-					subTitle='Next'
-					slug=''
+					title={nextDocument.title}
+					label='Next'
+					subTitle={nextDocument.parentLabel}
+					slug={nextDocument.slug}
 					classNames='max-w-[450px] w-full self-end'
+					subTitleStyles='text-neon'
 				/>
 			</div>
 			<div>

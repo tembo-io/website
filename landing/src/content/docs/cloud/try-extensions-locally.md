@@ -1,7 +1,5 @@
 ---
 sidebar_position: 9
-tags:
-  - local
 ---
 
 # Try extensions locally
@@ -12,36 +10,45 @@ There's an example of using this method of trying extensions in the blog [Versio
 
 ## Start Postgres using Docker
 
-- You can start a Postgres container locally like this:
-``` sh
+-   You can start a Postgres container locally like this:
+
+```sh
 docker run -d -it --name local-tembo -p 5432:5432 --rm quay.io/tembo/tembo-local
 ```
-- The above image includes common system dependencies for extensions listed in [Trunk](https://pgt.dev). Some extensions have very large dependencies, and these are not included.
+
+-   The above image includes common system dependencies for extensions listed in [Trunk](https://pgt.dev). Some extensions have very large dependencies, and these are not included.
 
 ## Install extensions with Trunk
 
-- Browse [Trunk](https://pgt.dev) to find interesting extensions.
-- Get a shell connection into your Postgres container:
-``` sh
+-   Browse [Trunk](https://pgt.dev) to find interesting extensions.
+-   Get a shell connection into your Postgres container:
+
+```sh
 docker exec -it local-tembo /bin/bash
 ```
 
-- `trunk install` an extension:
-``` sh
+-   `trunk install` an extension:
+
+```sh
 trunk install pgmq
 ```
 
 ## Enabling extensions
 
-- Connect to Postgres. This works from inside or outside the Postgres container.
-``` sh
+-   Connect to Postgres. This works from inside or outside the Postgres container.
+
+```sh
 psql postgres://postgres:postgres@localhost:5432
 ```
-- Enable an extension. Note a hyphenated extension name, e.g., `uuid-ossp`, will require double quotes when enabling.
-``` sql
+
+-   Enable an extension. Note a hyphenated extension name, e.g., `uuid-ossp`, will require double quotes when enabling.
+
+```sql
 CREATE EXTENSION pgmq CASCADE;
 ```
-- List enabled extensions.
+
+-   List enabled extensions.
+
 ```
 \dx
 ```
@@ -50,19 +57,19 @@ CREATE EXTENSION pgmq CASCADE;
 
 After using the above process to experiment with extensions, you may want to build a custom image that you can start with all your extensions ready to go.
 
-- Optionally, create a Postgres configuration file. Some extensions require configuration, for example `shared_preload_libraries`, or extension-specific configurations like `cron.host`. In this example, we have named the file `custom.conf`.
+-   Optionally, create a Postgres configuration file. Some extensions require configuration, for example `shared_preload_libraries`, or extension-specific configurations like `cron.host`. In this example, we have named the file `custom.conf`.
 
-``` ini
+```ini
 shared_preload_libraries = 'pg_partman_bgw'
 ```
 
-- Optionally, create a startup SQL script. This script can be used to enable your extension, or other startup logic for your local development. In this example, we have named the file `startup.sql`
+-   Optionally, create a startup SQL script. This script can be used to enable your extension, or other startup logic for your local development. In this example, we have named the file `startup.sql`
 
 ```
 CREATE EXTENSION IF NOT EXISTS pg_partman CASCADE;
 ```
 
-- Create a Dockerfile:
+-   Create a Dockerfile:
 
 ```dockerfile
 FROM quay.io/tembo/tembo-local:latest
@@ -80,7 +87,7 @@ COPY custom.conf $PGDATA/extra-configs
 COPY startup.sql $PGDATA/startup-scripts
 ```
 
-- We now have the following files present in our directory:
+-   We now have the following files present in our directory:
 
 ```tree
 .
@@ -91,9 +98,9 @@ COPY startup.sql $PGDATA/startup-scripts
 1 directory, 3 files
 ```
 
-- This setup allows you to build an image that will start with your extensions ready to go:
+-   This setup allows you to build an image that will start with your extensions ready to go:
 
-``` sh
+```sh
 # Build the image
 docker build -t example-local-image .
 
@@ -104,8 +111,8 @@ docker rm --force local-tembo
 docker run -d -it --name local-tembo -p 5432:5432 --rm example-local-image
 ```
 
-- Connect to postgres in the same way as before:
+-   Connect to postgres in the same way as before:
 
-``` sh
+```sh
 psql postgres://postgres:postgres@localhost:5432
 ```

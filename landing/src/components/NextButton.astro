@@ -6,20 +6,22 @@ import { styles } from '../util';
 interface Props {
 	slug: string;
 	title: string;
-	date?: string;
+	label?: string;
 	subTitle?: string;
 	classNames?: string;
+	subTitleStyles?: string;
 }
-const { slug, title, date, classNames, subTitle = 'Next post' } = Astro.props;
+const { slug, title, classNames, subTitle, label, subTitleStyles } =
+	Astro.props;
 ---
 
 <a
-	href={`/blog/${slug}`}
+	href={slug}
 	class={styles('p-4 rounded-lg gradient-next-button', classNames)}
 >
 	<div class='flex flex-col items-end gap-2'>
 		<div class='flex items-center gap-[5px]'>
-			<p class='text-lightGrey font-semibold text-sm'>{subTitle}</p>
+			<p class='text-lightGrey font-semibold text-sm'>{label}</p>
 			<Image
 				src={ChevronRight}
 				height={14}
@@ -28,6 +30,17 @@ const { slug, title, date, classNames, subTitle = 'Next post' } = Astro.props;
 			/>
 		</div>
 		<h4 class='text-white text-end'>{title}</h4>
-		{date && <p class='text-lightGrey font-semibold text-xs'>{date}</p>}
+		{
+			subTitle && (
+				<p
+					class={styles(
+						'text-lightGrey font-semibold text-xs',
+						subTitleStyles,
+					)}
+				>
+					{subTitle}
+				</p>
+			)
+		}
 	</div>
 </a>
