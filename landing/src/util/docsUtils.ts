@@ -1,6 +1,6 @@
 import { getCollection } from 'astro:content';
-import type { SideBarItem, SideBarSection } from '../types';
-import { SIDEBAR_DOCS_ORDER } from '../content/config';
+import type { SideBarSection } from '../types';
+import { ROOT_SIDEBAR_DOCS_ORDER } from '../content/config';
 import { type CollectionEntry } from 'astro:content';
 import { uppercaseFirstLetter } from '.';
 
@@ -9,11 +9,15 @@ export const sortSideBarLinks = (sideBarLinks: SideBarSection[]) =>
 	sideBarLinks.sort((a, b) => {
 		const labelA = a.label.toLowerCase();
 		const labelB = b.label.toLowerCase();
-		const aOrder = SIDEBAR_DOCS_ORDER.hasOwnProperty(labelA)
-			? SIDEBAR_DOCS_ORDER[labelA as keyof typeof SIDEBAR_DOCS_ORDER]
+		const aOrder = ROOT_SIDEBAR_DOCS_ORDER.hasOwnProperty(labelA)
+			? ROOT_SIDEBAR_DOCS_ORDER[
+					labelA as keyof typeof ROOT_SIDEBAR_DOCS_ORDER
+				]
 			: Infinity;
-		const bOrder = SIDEBAR_DOCS_ORDER.hasOwnProperty(labelB)
-			? SIDEBAR_DOCS_ORDER[labelB as keyof typeof SIDEBAR_DOCS_ORDER]
+		const bOrder = ROOT_SIDEBAR_DOCS_ORDER.hasOwnProperty(labelB)
+			? ROOT_SIDEBAR_DOCS_ORDER[
+					labelB as keyof typeof ROOT_SIDEBAR_DOCS_ORDER
+				]
 			: Infinity;
 
 		if (aOrder < bOrder) {
@@ -80,7 +84,8 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 			items: getSideBarItems(rootDocs)
 				.map((item) => {
 					const itemSlugSplit = item.slug.split('/');
-					if (itemSlugSplit.length !== 4) {
+					// Anything nested down more than 4 levels will get grouped under one link
+					if (itemSlugSplit.length > 4) {
 						return {
 							title: cleanSideBarTitle(itemSlugSplit[3]),
 							slug: getSideBarItems(
@@ -92,6 +97,7 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 					}
 					return item;
 				})
+				// Filter out any link with a duplicate title
 				.filter(
 					(value, index, self) =>
 						index ===
@@ -109,7 +115,7 @@ export async function getNestedSideBarLinks(
 	const sideBarLinks: SideBarSection[] = [];
 	// Filter by docs that are 2nd parents of the slug
 	const rootDocs = docs.filter((doc) => slug.includes(doc.id.split('/')[1]));
-	// Push the first level of docs
+	// Push the first level of docs (e.g /docs/cloud/nested-dir/doc.md)
 	sideBarLinks.push({
 		label: cleanSideBarTitle(slug.split('/')[1]),
 		items: getSideBarItems(rootDocs).filter(
@@ -143,6 +149,10 @@ export async function getNestedSideBarLinks(
 	return sideBarLinks;
 }
 
+/**
+ * Grabs every single doc and sorts them then grabs the next doc after the provided `slug`
+ * @param slug
+ */
 export async function nextDoc(
 	slug: string,
 ): Promise<{ parentLabel: string; title: string; slug: string }> {
@@ -196,6 +206,9 @@ export async function nextDoc(
 	return nextItem;
 }
 
+/**
+ *  A doc is nested if it is down more than 1 level (e.g /docs/cloud/nested-dir/doc.md)
+ * */
 export function isNested(slug: string) {
 	return slug.split('/').length >= 3;
 }

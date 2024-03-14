@@ -5,6 +5,9 @@ import Home from '../../images/home.svg';
 import Line from './Line.astro';
 import type { SideBarSection } from '../../types';
 import { styles } from '../../util';
+import { isNested as isNestedHelper } from '../../util/docsUtils';
+import ChevronRight from '../../images/arrow-right.svg';
+import SideBarItem from './SideBarItem';
 
 interface Props {
 	sideBarMenuSections: SideBarSection[];
@@ -64,18 +67,21 @@ const currentPath = Astro.url.pathname;
 							{section.label}
 						</span>
 						<ul class='mt-4 flex flex-col gap-2'>
-							{section.items.map((item) => (
-								<a
-									href={item.slug}
-									class={styles(
-										'font-secondary text-lightGrey hover:text-white transition-all duration-100',
-										currentPath.includes(item.slug) &&
-											'text-white',
-									)}
-								>
-									{item.title}
-								</a>
-							))}
+							{section.items.map((item) => {
+								const isRootNested =
+									!isNested &&
+									isNestedHelper(
+										item.slug.replace('/docs/', ''),
+									);
+								return (
+									<SideBarItem
+										isRootNested={isRootNested}
+										item={item}
+										currentPath={currentPath}
+										client:load
+									/>
+								);
+							})}
 						</ul>
 					</div>
 				))

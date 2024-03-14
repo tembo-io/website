@@ -1,10 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import cx from 'classnames';
 import { twMerge } from 'tailwind-merge';
-import { getCollection } from 'astro:content';
-import type { SideBarSection } from '../types';
-import { SIDEBAR_DOCS_ORDER } from '../content/config';
-import { type CollectionEntry } from 'astro:content';
 
 export const useIntersection = (
 	element: React.MutableRefObject<any>,
@@ -61,6 +57,7 @@ export const useActiveAnchors = (
 	const toc = useRef<NodeListOf<HTMLHeadingElement> | null>(null);
 
 	const handleScroll = () => {
+		console.log('CALLED!');
 		const firstHeading = document.getElementById(firstHeadingSlug);
 		const pageYOffset = isDocs
 			? (document.getElementById('docs-content') as HTMLElement)
@@ -128,34 +125,4 @@ export const useActiveAnchors = (
 
 export const uppercaseFirstLetter = (str: string) => {
 	return str?.charAt(0)?.toUpperCase() + str?.slice(1);
-};
-
-export const sortSideBarLinks = (sideBarLinks: SideBarSection[]) =>
-	sideBarLinks.sort((a, b) => {
-		const labelA = a.label.toLowerCase();
-		const labelB = b.label.toLowerCase();
-		const aOrder = SIDEBAR_DOCS_ORDER.hasOwnProperty(labelA)
-			? SIDEBAR_DOCS_ORDER[labelA as keyof typeof SIDEBAR_DOCS_ORDER]
-			: Infinity;
-		const bOrder = SIDEBAR_DOCS_ORDER.hasOwnProperty(labelB)
-			? SIDEBAR_DOCS_ORDER[labelB as keyof typeof SIDEBAR_DOCS_ORDER]
-			: Infinity;
-
-		if (aOrder < bOrder) {
-			return -1;
-		}
-		if (aOrder > bOrder) {
-			return 1;
-		}
-		return 0;
-	});
-
-const cleanSideBarTitle = (title: string) => {
-	return uppercaseFirstLetter(
-		title
-			.replaceAll('-', ' ')
-			.replaceAll('_', ' ')
-			.replace(/\.mdx?/g, '')
-			.toLowerCase(),
-	);
 };

@@ -59,7 +59,7 @@ const blog = defineCollection({
 		),
 	}),
 });
-export const SIDEBAR_DOCS_ORDER = {
+export const ROOT_SIDEBAR_DOCS_ORDER = {
 	cloud: 0,
 	stacks: 1,
 	apps: 2,
