@@ -30,8 +30,8 @@ psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 Create a table using the example dataset.
 
 ```sql
-CREATE TABLE products AS
-SELECT * FROM vectorize.example_products;
+CREATE TABLE products (LIKE vectorize.example_products INCLUDING ALL);
+INSERT INTO products SELECT * FROM vectorize.example_products;
 ```
 
 The table contains products along with their descriptions. Our application will allow us to easily search the table.
