@@ -62,7 +62,7 @@ TEMBO_INST = os.environ["TEMBO_INST"]
 TEMBO_TOKEN = os.environ["TEMBO_TOKEN"]
 
 resp = requests.patch(
-    url=f"https://api.tembo.io/orgs/{TEMBO_ORG}/instances/{TEMBO_INST}",
+    url=f"https://api.tembo.io/api/v1/orgs/{TEMBO_ORG}/instances/{TEMBO_INST}",
     headers={"Authorization": f"Bearer {TEMBO_TOKEN}"},
     json={
         "app_services": [
@@ -81,7 +81,7 @@ curl -X PATCH \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
   -H "Content-Type: application/json" \
   -d '{"app_services": [{"restapi": null}]}' \
-  "https://api.tembo.io/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
+  "https://api.tembo.io/api/v1/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
 ```
 
 </TabItem>
