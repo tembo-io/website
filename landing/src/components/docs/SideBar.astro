@@ -6,15 +6,15 @@ import Line from './Line.astro';
 import type { SideBarSection } from '../../types';
 import { styles } from '../../util';
 import { isNested as isNestedHelper } from '../../util/docsUtils';
-import ChevronRight from '../../images/arrow-right.svg';
 import SideBarItem from './SideBarItem';
+import { getSideBarLinks, getNestedSideBarLinks } from '../../util/docsUtils';
 
 interface Props {
 	sideBarMenuSections: SideBarSection[];
-	isNested: boolean;
+	isNestedSideBar: boolean;
 }
 
-const { sideBarMenuSections, isNested } = Astro.props;
+const { sideBarMenuSections, isNestedSideBar } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -61,18 +61,36 @@ const currentPath = Astro.url.pathname;
 						<span
 							class={styles(
 								'text-neon',
-								isNested ? 'text-base' : 'text-[15px]',
+								isNestedSideBar ? 'text-base' : 'text-[15px]',
 							)}
 						>
 							{section.label}
 						</span>
 						<ul class='mt-4 flex flex-col gap-2'>
-							{section.items.map((item) => {
-								const isRootNested =
-									!isNested &&
-									isNestedHelper(
-										item.slug.replace('/docs/', ''),
+							{section.items.map(async (item) => {
+								const cleanedSlug = item.slug.replace(
+									'/docs/',
+									'',
+								);
+								const hasEnoughLinks = async () => {
+									const nestedLinks = isNestedHelper(
+										cleanedSlug,
+									)
+										? await getNestedSideBarLinks(
+												cleanedSlug,
+											)
+										: [];
+									return (
+										nestedLinks.length > 1 ||
+										nestedLinks[0].items.length > 1
 									);
+								};
+
+								const isRootNested =
+									!isNestedSideBar &&
+									isNestedHelper(cleanedSlug)
+										? await hasEnoughLinks()
+										: false;
 								return (
 									<SideBarItem
 										isRootNested={isRootNested}

@@ -30,14 +30,16 @@ export async function getStaticPaths() {
 const { doc } = Astro.props;
 const { Content, headings } = await doc.render();
 const slug = doc.slug;
-const isDocNested = isNested(slug);
-const links = isDocNested
-	? await getNestedSideBarLinks(slug)
-	: await getSideBarLinks();
+const normalLinks = await getSideBarLinks();
+const nestedLinks = await getNestedSideBarLinks(slug);
+const hasEnoughNestedDocs =
+	nestedLinks.length > 1 || nestedLinks[0].items.length > 1;
+const isNestedSideBar = isNested(slug) && hasEnoughNestedDocs;
+const links = isNestedSideBar ? nestedLinks : normalLinks;
 const nextDocument = await nextDoc(`/docs/${slug}`);
 ---
 
-<DocsLayout isNestedDoc={isDocNested} sideBarMenuSections={links}>
+<DocsLayout isNestedDoc={isNestedSideBar} sideBarMenuSections={links}>
 	<div class='flex flex-col relative w-full'>
 		<div id='tembo-document' class='flex justify-between w-full mb-12'>
 			<div
