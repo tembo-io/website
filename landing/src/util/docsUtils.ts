@@ -178,9 +178,11 @@ export async function nextDoc(
 		if (sideBarSection) {
 			const currIndex = section.items.indexOf(sideBarSection);
 			if (currIndex === section.items.length - 1) {
+				const nextSectionIndex =
+					index === sortedLinks.length - 1 ? 0 : index + 1;
 				nextItem = {
-					parentLabel: sortedLinks[index + 1].label,
-					...sortedLinks[index + 1].items[0],
+					parentLabel: sortedLinks[nextSectionIndex].label,
+					...sortedLinks[nextSectionIndex].items[0],
 				};
 				return;
 			}
