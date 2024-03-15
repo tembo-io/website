@@ -1,7 +1,7 @@
 ---
 import Layout from './Layout.astro';
 import SideBar from '../components/docs/SideBar.astro';
-import Header from '../components/docs/Header.astro';
+import Header from '../components/docs/Header';
 import Rainbow from '../components/Rainbow.astro';
 import type { SideBarSection } from '../types';
 interface Props {
@@ -32,7 +32,7 @@ const {
 					id='docs-content'
 				>
 					<div class='flex flex-col relative'>
-						<Header />
+						<Header client:load />
 						<div class='container px-8 max-w-container mx-auto'>
 							<div class='pt-[60px] grow pb-8'>
 								<slot />
@@ -44,3 +44,4 @@ const {
 		</main>
 	</div>
 </Layout>
+../components/docs/Header.tsx

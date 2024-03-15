@@ -208,6 +208,7 @@ export async function nextDoc(
 
 /**
  *  A doc is nested if it is down more than 1 level (e.g /docs/cloud/nested-dir/doc.md)
+ *  Note: Assumes the slug does not include `/docs`
  * */
 export function isNested(slug: string) {
 	return slug.split('/').length >= 3;

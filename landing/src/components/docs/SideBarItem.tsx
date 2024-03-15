@@ -19,7 +19,7 @@ const SideBarItem: React.FC<Props> = ({ item, currentPath, isRootNested }) => {
 			<a
 				href={item.slug}
 				className={styles(
-					'font-secondary text-lightGrey hover:text-white transition-all duration-100',
+					'font-secondary text-lightGrey hover:text-white transition-all duration-100 text-sm',
 					currentPath.includes(item.slug) && 'text-white',
 				)}
 			>

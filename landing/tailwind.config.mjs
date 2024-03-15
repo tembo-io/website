@@ -76,6 +76,7 @@ export default {
 				customSm: '1024px',
 				mid: '1100px',
 				mobile: '900px',
+				docsSearch: '705px',
 				customXs: '680px',
 				customXxs: '375px',
 			},
