@@ -4,7 +4,7 @@ title: 'Announcing support for Postgres 14 and 16'
 authors: [vini, steven]
 tags: [postgres, extensions, stacks]
 image: './pg-14-16.png'
-date: 2024-03-14T12:00
+date: 2024-03-15T12:00
 description: Tembo Cloud now supports Postgres 14 and 16
 ---
 
