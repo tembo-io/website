@@ -24,17 +24,19 @@ Postgres 16, which was released earlier this year, came with a host of features 
 - Stronger security features for robust data protection.
 - Increased parallelism in query execution for better performance.
 
-For more information, you can refer to the [Postgres 16 release notes](https://www.postgresql.org/docs/current/release-16.html) or our blog about [it's exciting features](https://tembo.io/blog/postgres-16)
+For more information, you can refer to the [Postgres 16 release notes](https://www.postgresql.org/docs/current/release-16.html) or our blog to read more about [its exciting features](https://tembo.io/blog/postgres-16).
 
 ## Postgres 14 compatibility for simpler migration to Tembo Cloud
 
-A lot of Postgres users are still using Postgres 14. Given that major Postgres versions aren't always compatible, upgrading Postgres versions is not always straightforward. Therefore, adding Postgres 14 was one of the most commonly requested features. Now, users can easily migrate their workloads onto Tembo Cloud. You can find the Postgres 14 release notes [here](https://www.postgresql.org/docs/14/release-14.html).
+A lot of Postgres users are still using Postgres 14. Given that major Postgres versions aren't always compatible, upgrading Postgres versions is not always straightforward. Therefore, adding Postgres 14 has been one of our most commonly requested features for Tembo Cloud. Now, users can easily migrate their workloads onto the platform.
+
+For more information about the Postgres 14 release, including added features and bug fixes, reference the release notes [here](https://www.postgresql.org/docs/14/release-14.html).
 
 ## Expanding Extension Support for Postgres 14 and 16
 
-To complement the introduction of new Postgres versions, we've expanded our extension ecosystem. This includes the ability to link and build extensions for different Postgres versions, enhancing the flexibility and capabilities of your databases.
+To complement the introduction of new Postgres versions, we've expanded the extension ecosystem in [Trunk](https://pgt.dev). Feature additions include the ability to link and build extensions for different Postgres versions, enhancing the flexibility and capability of your databases.
 
-Here's a quick overview of the number of extensions supported on Tembo Cloud by each Postgres version, as of March 13th, 2024, but we're always adding more!
+Here's a quick overview of the number of extensions supported on Tembo Cloud by each Postgres version (as of March 13th, 2024), but we're always adding more!
 
 | Postgres Version | Number of Supported Extensions |
 |------------------|--------------------------------|
@@ -42,7 +44,7 @@ Here's a quick overview of the number of extensions supported on Tembo Cloud by 
 | 15               | 204                            |
 | 16               | 148                            |
 
-Browse the free and open source [Trunk](https://pgt.dev) project to learn more about Postgres extensions.
+Browse the free and open source PostgreSQL extension project, [Trunk](https://pgt.dev), to learn more.
 
 If you want a programmatic means to find which extensions are supported on which Postgres versions, or other metadata about extensions, you can query the [Trunk API](https://registry.pgtrunk.io/swagger-ui/#/).
 
