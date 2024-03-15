@@ -132,6 +132,13 @@ export const AUTHORS: Record<string, Author> = {
 		image_url: 'https://github.com/theory.png',
 		email: 'noreply@tembo.io',
 	},
+	vini: {
+		name: 'Vinícius Miguel',
+		title: 'Software Engineer',
+		url: 'https://github.com/vrmiguel',
+		image_url: 'https://github.com/vrmiguel/vrmiguel/assets/36349314/0b1f98c7-e652-4bb6-be65-69e18f8c6029',
+		email: 'noreply@tembo.io'
+	}
 };
 
 const blog = defineCollection({
@@ -160,6 +167,7 @@ const blog = defineCollection({
 					'evan',
 					'theory',
 					'joshua',
+					'vini'
 				])
 				.default('ryw'),
 		),
