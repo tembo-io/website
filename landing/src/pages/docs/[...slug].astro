@@ -32,6 +32,8 @@ const { Content, headings } = await doc.render();
 const slug = doc.slug;
 const normalLinks = await getSideBarLinks();
 const nestedLinks = await getNestedSideBarLinks(slug);
+// If a document is nested, we need to check if it has more than one nested document
+// Directories that have only one doc (e.g /docs/cloud/cloud.md) should not have a nested sidebar
 const hasEnoughNestedDocs =
 	nestedLinks.length > 1 || nestedLinks[0].items.length > 1;
 const isNestedSideBar = isNested(slug) && hasEnoughNestedDocs;
