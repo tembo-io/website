@@ -25,7 +25,6 @@ const ProgressBar: React.FC<Props> = ({
 				100;
 
 			setProgressWidth(progressPercentage);
-			console.log(progressPercentage);
 
 			setScrollY(container?.scrollTop || 0);
 		};

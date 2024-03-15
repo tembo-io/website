@@ -7,7 +7,11 @@ import { getSideBarLinks } from '../../util/docsUtils';
 const links = await getSideBarLinks();
 ---
 
-<DocsLayout isNestedDoc={false} sideBarMenuSections={links}>
+<DocsLayout
+	isNestedDoc={false}
+	sideBarMenuSections={links}
+	isProgressBar={false}
+>
 	<div class='flex flex-col'>
 		<div class='flex flex-col xl:flex-row justify-between gap-8'>
 			<div class='flex flex-col gap-6'>

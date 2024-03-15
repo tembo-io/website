@@ -1,17 +1,26 @@
+import React from 'react';
 import Button from '../Button';
-import { Image } from 'astro:assets';
-import Github from '../../images/github.svg';
 import Search from './Search';
 import ProgressBar from '../ProgressBar';
+import LogoLink from './LogoLink';
 
-const Header = () => {
+interface Props {
+	isProgressBar?: boolean;
+}
+
+const Header: React.FC<Props> = ({ isProgressBar = true }) => {
 	return (
 		<div className='sticky top-0 z-10 overflow-hidden flex flex-col w-full'>
 			<nav className='border-b border-b-[#EAEAEA33] flex items-center pt-4 pb-[12px] transition duration-100 backdrop-blur-lg safari-blur'>
 				<div className='container px-8 max-w-container mx-auto'>
 					<div className='flex items-center justify-between'>
-						<Search />
-						<div className='flex items-center gap-8'>
+						<div className='flex items-center gap-6'>
+							<div className='flex min-[1125px]:hidden'>
+								<LogoLink width={100} />
+							</div>
+							<Search />
+						</div>
+						<div className='hidden min-[1125px]:flex items-center gap-8'>
 							<a href='/' target='_blank' rel='noreferrer'>
 								Tembo.io
 							</a>
@@ -40,10 +49,12 @@ const Header = () => {
 					</div>
 				</div>
 			</nav>
-			<ProgressBar
-				scrollContainerId='docs-content'
-				parentContainerId='tembo-document'
-			/>
+			{isProgressBar && (
+				<ProgressBar
+					scrollContainerId='docs-content'
+					parentContainerId='tembo-document'
+				/>
+			)}
 		</div>
 	);
 };

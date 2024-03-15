@@ -57,7 +57,6 @@ export const useActiveAnchors = (
 	const toc = useRef<NodeListOf<HTMLHeadingElement> | null>(null);
 
 	const handleScroll = () => {
-		console.log('CALLED!');
 		const firstHeading = document.getElementById(firstHeadingSlug);
 		const pageYOffset = isDocs
 			? (document.getElementById('docs-content') as HTMLElement)
