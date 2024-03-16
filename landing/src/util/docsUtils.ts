@@ -54,7 +54,7 @@ const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
 		})
 		.map((doc) => {
 			const split = doc.id.split('/');
-			const title = cleanSideBarTitle(split[split.length - 1]);
+			const title = cleanSideBarTitle(split.at(-1) as string);
 			return {
 				title: title,
 				slug: `/docs/${doc.slug}`,
