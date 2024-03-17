@@ -6,19 +6,21 @@ import Rainbow from '../components/Rainbow.astro';
 import type { SideBarSection } from '../types';
 interface Props {
 	title?: string;
+	description?: string;
 	sideBarMenuSections: SideBarSection[];
 	isNestedDoc: boolean;
 	isProgressBar?: boolean;
 }
 const {
 	title = 'Docs | Tembo',
+	description,
 	sideBarMenuSections,
 	isNestedDoc,
 	isProgressBar = true,
 }: Props = Astro.props;
 ---
 
-<Layout title={title}>
+<Layout title={title} description={description}>
 	<div class='fixed top-0 right-0 left-0 z-50'>
 		<Rainbow />
 	</div>
