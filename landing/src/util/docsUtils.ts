@@ -213,3 +213,9 @@ export async function nextDoc(
 export function isNested(slug: string) {
 	return slug.split('/').length >= 3;
 }
+
+export function githubEditLink(doc_id: string) {
+	const BASE_URL =
+		'https://github.com/tembo-io/website/edit/main/src/content/docs/';
+	return `${BASE_URL}${doc_id}`;
+}

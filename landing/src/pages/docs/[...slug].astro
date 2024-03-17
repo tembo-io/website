@@ -8,6 +8,7 @@ import {
 	getNestedSideBarLinks,
 	isNested,
 	nextDoc,
+	githubEditLink
 } from '../../util/docsUtils';
 import Footer from '../../components/docs/Footer.astro';
 import NextButton from '../../components/NextButton.astro';
@@ -80,7 +81,7 @@ const nextDocument = await nextDoc(`/docs/${slug}`);
 				</div>
 			</div>
 		</div>
-		<Footer editLink='' />
+		<Footer editLink={githubEditLink(doc.id)} />
 	</div>
 </DocsLayout>
 
