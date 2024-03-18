@@ -63,7 +63,7 @@ import TabItem from '@theme/TabItem';
 <TabItem value="curl" label="Curl">
 
 ```bash
-curl -X PATCH "https://api.tembo.io/orgs/${TEMBO_ORG_ID}/instances/${TEMBO_INST_ID}" \
+curl -X PATCH "https://api.tembo.io/api/v1/orgs/${TEMBO_ORG_ID}/instances/${TEMBO_INST_ID}" \
      -H "Authorization: Bearer ${TEMBO_TOKEN}" \
      -H "Content-Type: application/json" \
      -d '{
@@ -158,7 +158,7 @@ TEMBO_INST = os.environ["TEMBO_INST_ID"]
 TEMBO_TOKEN = os.environ["TEMBO_TOKEN"]
 
 resp = requests.patch(
-    url=f"https://api.tembo.io/orgs/{TEMBO_ORG}/instances/{TEMBO_INST}",
+    url=f"https://api.tembo.io/api/v1/orgs/{TEMBO_ORG}/instances/{TEMBO_INST}",
     headers={"Authorization": f"Bearer {TEMBO_TOKEN}"},
     json={
         "app_services": [

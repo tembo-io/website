@@ -42,8 +42,8 @@ const cleanSideBarTitle = (title: string) => {
 const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
 	const items = rootDocs
 		.sort((docA, docB) => {
-			const aOrder = docA?.data?.sideBarPosition ?? Infinity;
-			const bOrder = docB?.data?.sideBarPosition ?? Infinity;
+			const aOrder = docA?.data?.sideBarPosition;
+			const bOrder = docB?.data?.sideBarPosition;
 			if (aOrder < bOrder) {
 				return -1;
 			}
@@ -114,7 +114,9 @@ export async function getNestedSideBarLinks(
 	const docs = await getCollection('docs');
 	const sideBarLinks: SideBarSection[] = [];
 	// Filter by docs that are 2nd parents of the slug
-	const rootDocs = docs.filter((doc) => slug.includes(doc.id.split('/')[1]));
+	const rootDocs = docs.filter((doc) =>
+		slug.toLowerCase().includes(doc.id.toLowerCase().split('/')[1]),
+	);
 	// Push the first level of docs (e.g /docs/cloud/nested-dir/doc.md)
 	sideBarLinks.push({
 		label: cleanSideBarTitle(slug.split('/')[1]),
@@ -122,7 +124,7 @@ export async function getNestedSideBarLinks(
 			(item) => item.slug.split('/').length === 5,
 		),
 	});
-	// Push the all the other levels
+	// Push all the other levels
 	rootDocs
 		.filter((doc) => doc.slug.split('/').length > 3)
 		.forEach((doc) => {
@@ -137,10 +139,10 @@ export async function getNestedSideBarLinks(
 				label: title,
 				items: getSideBarItems(rootDocs).filter((item) => {
 					const splitSlug = item.slug.split('/');
-
 					return (
 						splitSlug.length > 5 &&
-						splitSlug[splitSlug.length - 2] === splitTitle
+						splitSlug[splitSlug.length - 2] ===
+							splitTitle.toLowerCase()
 					);
 				}),
 			});

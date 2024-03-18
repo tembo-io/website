@@ -74,7 +74,7 @@ const docs = defineCollection({
 		title: z.string().optional(),
 		description: z.string().optional(),
 		tableOfContents: z.boolean().default(true),
-		sideBarPosition: z.number().optional(),
+		sideBarPosition: z.number().default(Infinity),
 	}),
 });
 

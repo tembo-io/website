@@ -1,9 +1,11 @@
 # Rails
+
 ## Creating a Rails Application with Tembo CLI
 
 ## Prerequisites
 
 Before you start, ensure you have the following installed:
+
 1. Ruby on Rails
 2. Tembo CLI. you can find the steps [here](../Getting_Started.md)
 3. Docker, set up and running for local development
@@ -56,10 +58,10 @@ Update your `config/database.yml` file with the Tembo PostgreSQL instance URL:
 
 ```yaml
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: postgres://postgres:postgres@rails-todo.local.tembo.io:5432
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    url: postgres://postgres:postgres@rails-todo.local.tembo.io:5432
 ```
 
 Create the database:

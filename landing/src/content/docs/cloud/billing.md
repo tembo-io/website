@@ -8,32 +8,32 @@ Our usage-based model is designed to scale with your growth, offering both hobby
 
 **Usage-Based Model:** We bill you for production instances based on three primary resources: CPU, memory, and storage.
 
-- **Hobby Instances:** Enjoy free usage with limited resources - perfect for development and testing. 
-- **Production Instances:** Charged based on resource consumption. Below are the detailed costs:
+-   **Hobby Instances:** Enjoy free usage with limited resources - perfect for development and testing.
+-   **Production Instances:** Charged based on resource consumption. Below are the detailed costs:
 
 Note: You can install and enable as many extensions and apps as you like in both hobby and production instances.
 
 ## Pricing Details
 
 | Resource    | Cost per Hour | Cost per Month |
-|-------------|---------------|----------------|
+| ----------- | ------------- | -------------- |
 | 1 vCPU      | $0.07391      | $53.95         |
 | 1Gi Memory  | $0.00549      | $4.01          |
-| 1Gi Storage | $0.0002      | $0.146           |
+| 1Gi Storage | $0.0002       | $0.146         |
 
-- **High Availability (HA):** Enabling HA for your instances doubles the resources allocated for redundancy, effectively doubling the cost. HA ensures higher uptime and reliability, particularly beneficial for critical applications.
+-   **High Availability (HA):** Enabling HA for your instances doubles the resources allocated for redundancy, effectively doubling the cost. HA ensures higher uptime and reliability, particularly beneficial for critical applications.
 
-- **Users** You can add as many users as needed to your organization, without additional costs.
+-   **Users** You can add as many users as needed to your organization, without additional costs.
 
 ## Billing Cycle and Charges
 
-- **No Immediate Upfront Charges:** Changes in compute resources are billed at the start of the next billing cycle based on the previous period's resource hours.
-- **Multiple Instances:** All instances are aggregated into one invoice, broken down by instance.
-- **14-Day Free Trial:** New production instances come with a 14-day free trial (or up to $300 usage).
+-   **No Immediate Upfront Charges:** Changes in compute resources are billed at the start of the next billing cycle based on the previous period's resource hours.
+-   **Multiple Instances:** All instances are aggregated into one invoice, broken down by instance.
+-   **14-Day Free Trial:** New production instances come with a 14-day free trial (or up to $300 usage).
 
 ## Monitoring and Managing Your Billing
 
-- **Usage and Invoices:** Check your usage and view draft invoices on the Usage page in your profile.
+-   **Usage and Invoices:** Check your usage and view draft invoices on the Usage page in your profile.
 
 ## Frequently Asked Questions (FAQs)
 

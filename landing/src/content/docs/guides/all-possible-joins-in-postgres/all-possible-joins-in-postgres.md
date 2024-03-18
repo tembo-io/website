@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 tags:
-    - Postgres Basics
+  - Postgres Basics
 ---
 
 import InnerJoin from './images/inner-join.png';

@@ -8,10 +8,10 @@ Tembo's Vector Database provides tooling to automate the process of generating e
 
 ## Extensions
 
--   [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embeddings and then conducting vector search on that data.
--   [pg_vectorize](https://pgt.dev/extensions/vectorize) - `pg_vectorize` is an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
--   [pgmq](https://pgt.dev/extensions/pgmq) - `pgmq` implements a message queue with API parity with popular message queue services like AWS SQS and Redis RSMQ.
--   [pg_cron](https://pgt.dev/extensions/pg_cron) - `pg_cron` automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
+- [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embeddings and then conducting vector search on that data.
+- [pg_vectorize](https://pgt.dev/extensions/vectorize) - `pg_vectorize` is an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
+- [pgmq](https://pgt.dev/extensions/pgmq) - `pgmq` implements a message queue with API parity with popular message queue services like AWS SQS and Redis RSMQ.
+- [pg_cron](https://pgt.dev/extensions/pg_cron) - `pg_cron` automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
 
 ## Getting started
 
@@ -30,8 +30,8 @@ psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 Create a table using the example dataset.
 
 ```sql
-CREATE TABLE products AS
-SELECT * FROM vectorize.example_products;
+CREATE TABLE products (LIKE vectorize.example_products INCLUDING ALL);
+INSERT INTO products SELECT * FROM vectorize.example_products;
 ```
 
 The table contains products along with their descriptions. Our application will allow us to easily search the table.
@@ -54,7 +54,7 @@ SELECT * FROM products limit 2;
 To get started, setup a products table. Copy from the example data provided by the extension.
 
 ```sql
-CREATE TABLE products AS
+CREATE TABLE products AS 
 SELECT * FROM vectorize.example_products;
 ```
 
@@ -63,7 +63,7 @@ SELECT * FROM products limit 2;
 ```
 
 ```text
- product_id | product_name |                      description                       |        last_updated_at
+ product_id | product_name |                      description                       |        last_updated_at        
 ------------+--------------+--------------------------------------------------------+-------------------------------
           1 | Pencil       | Utensil used for writing and often works best on paper | 2023-07-26 17:20:43.639351-05
           2 | Laptop Stand | Elevated platform for laptops, enhancing ergonomics    | 2023-07-26 17:20:43.639351-05
@@ -84,7 +84,7 @@ SELECT vectorize.table(
 ### Private models from Hugging Face
 
 If you've uploaded a [private model](https://huggingface.co/blog/introducing-private-hub) to Hugging Face, you can still host it on Tembo Cloud. Simply reference your Hugging Face org and model name,
-and pass the API key in as an argument to `vectorize.table()`.
+ and pass the API key in as an argument to `vectorize.table()`.
 
 ```sql
 SELECT vectorize.table(
@@ -109,7 +109,7 @@ SELECT * FROM vectorize.search(
     num_results => 3
 );
 
-                                       search_results
+                                       search_results                                        
 ---------------------------------------------------------------------------------------------
  {"product_id": 13, "product_name": "Phone Charger", "similarity_score": 0.8147814132322894}
  {"product_id": 6, "product_name": "Backpack", "similarity_score": 0.7743061352550308}
@@ -120,7 +120,7 @@ SELECT * FROM vectorize.search(
 
 pg_vectorize also works with using OpenAI's embeddings, but first you'll need an API key.
 
--   [openai API key](https://platform.openai.com/docs/guides/embeddings)
+- [openai API key](https://platform.openai.com/docs/guides/embeddings)
 
 Set your API key as a Postgres configuration parameter.
 
@@ -133,7 +133,7 @@ SELECT pg_reload_conf();
 Create an example table if it does not already exist.
 
 ```sql
-CREATE TABLE products AS
+CREATE TABLE products AS 
 SELECT * FROM vectorize.example_products;
 ```
 
@@ -159,8 +159,8 @@ SELECT * FROM vectorize.search(
     num_results => 3
 );
 
-                                         search_results
-
+                                         search_results                                     
+    
 --------------------------------------------------------------------------------------------
 ----
  {"product_id": 13, "product_name": "Phone Charger", "similarity_score": 0.8564681325237845}
@@ -189,13 +189,13 @@ CREATE EXTENSION vectorize CASCADE;
 ## How it works
 
 When `vectorize.table()` is executed, the extension creates jobs in [pgmq](https://github.com/tembo-io/pgmq) that are executed by the background worker.
-The background worker calls the appropriate embedding model, whether thats one coming from Hugging Face or OpenAI.
-By default, triggers are created that also update the embeddings any time a new record is inserted into the table or
-if a record is updated.
+ The background worker calls the appropriate embedding model, whether thats one coming from Hugging Face or OpenAI.
+ By default, triggers are created that also update the embeddings any time a new record is inserted into the table or
+ if a record is updated.
 
 `vectorize.search()` transforms the raw text query into embeddings using the same model that was used to generate the embeddings in the first place.
-It then uses the `pgvector` extension to search for the most similar embeddings in the table,
-and returns the results in a JSON format to the caller.
+ It then uses the `pgvector` extension to search for the most similar embeddings in the table,
+ and returns the results in a JSON format to the caller.
 
 ## Support
 

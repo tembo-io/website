@@ -1,9 +1,11 @@
 # Flask
+
 # Creating a Flask Application with Tembo CLI
 
 ## Prerequisites
 
 Before you start, ensure you have the following installed:
+
 1. Python
 2. Tembo CLI. you can find the steps [here](../Getting_Started.md)
 3. Docker, set up and running for local development
@@ -20,6 +22,7 @@ source dev/bin/activate
 ```
 
 Install the dependencies
+
 ```bash
 pip install Flask psycopg2-binary
 ```
@@ -115,7 +118,9 @@ List all tables to see if the `books` table has been created:
 ```
 
 ### Step 5: Basic Set-up
+
 We will have our `app.py` file to establish the connection and read from the database
+
 ```python
 import os
 import psycopg2
@@ -139,22 +144,23 @@ def index():
     return render_template('index.html', books=books)
 ```
 
-We will also setup a basic template to show the results. Create `templates/index.html` 
+We will also setup a basic template to show the results. Create `templates/index.html`
+
 ```html
 {% block content %}
-    <h1>{% block title %} Books {% endblock %}</h1>
-    {% for book in books %}
-        <div class='book'>
-            <h3>#{{ book[0] }} - {{ book[1] }} BY {{ book[2] }}</h3>
-            <i><p>({{ book[3] }} pages)</p></i>
-            <p class='review'>{{ book[4] }}</p>
-            <i><p>Added {{ book[5] }}</p></i>
-        </div>
-    {% endfor %}
-{% endblock %}
+<h1>{% block title %} Books {% endblock %}</h1>
+{% for book in books %}
+<div class="book">
+	<h3>#{{ book[0] }} - {{ book[1] }} BY {{ book[2] }}</h3>
+	<i><p>({{ book[3] }} pages)</p></i>
+	<p class="review">{{ book[4] }}</p>
+	<i><p>Added {{ book[5] }}</p></i>
+</div>
+{% endfor %} {% endblock %}
 ```
 
 Run you application by running
+
 ```bash
 set FLASK_APP=app
 set FLASK_ENV=development

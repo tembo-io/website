@@ -12,14 +12,14 @@ const SideBarItem: React.FC<Props> = ({ item, currentPath, isRootNested }) => {
 	const [isShowingChevron, setIsShowingChevron] = useState(false);
 	return (
 		<div
-			className='flex items-center gap-2'
+			className='flex items-center gap-2 w-full'
 			onMouseEnter={() => setIsShowingChevron(true)}
 			onMouseLeave={() => setIsShowingChevron(false)}
 		>
 			<a
 				href={item.slug}
 				className={styles(
-					'font-secondary text-lightGrey hover:text-white transition-all duration-100 text-sm',
+					'font-secondary text-lightGrey hover:text-white transition-all duration-100 text-sm w-full',
 					currentPath.includes(item.slug) && 'text-white',
 				)}
 			>
