@@ -68,6 +68,7 @@ export const ROOT_SIDEBAR_DOCS_ORDER = {
 	'connecting to tembo': 3,
 	guides: 4,
 };
+
 const docs = defineCollection({
 	schema: z.object({
 		title: z.string().optional(),
