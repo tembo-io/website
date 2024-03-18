@@ -2,8 +2,6 @@
 sideBarPosition: 1
 ---
 
-# Getting Started
-
 This guide provides instructions on how to install and configure the Tembo CLI on various operating systems. Follow these steps to set up your environment and begin using Tembo CLI.
 
 ## Installation

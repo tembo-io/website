@@ -1,14 +1,3 @@
----
-sidebar_position: 8
-tags:
-  - api
-  - domains
-  - network
-  - dns
----
-
-# Custom domains
-
 Configure custom domains that are in your Postgres connection URLs.
 
 ## Design
@@ -36,13 +25,14 @@ We want to add an alternate domain name `steven.tembo-development.com`, so that 
 
 ### Configure TXT record
 
-- Configure a TXT record on the custom domain name prefixed by `_tembo.`
-  - For example, `_tembo.steven.tembo-development.com`
-- The value should be the organization ID of the instance
-  - For example, `org_2T7FJA0DpaNBnELVLU1IS4XzZG0`.
+-   Configure a TXT record on the custom domain name prefixed by `_tembo.`
+    -   For example, `_tembo.steven.tembo-development.com`
+-   The value should be the organization ID of the instance
+    -   For example, `org_2T7FJA0DpaNBnELVLU1IS4XzZG0`.
 
 Confirming a TXT record is present:
-``` console
+
+```console
 # dig -t txt _tembo.steven.tembo-development.com
 
 ; <<>> DiG 9.10.6 <<>> -t txt _tembo.steven.tembo-development.com
@@ -69,12 +59,12 @@ _tembo.steven.tembo-development.com. 300 IN TXT "org_2T7FJA0DpaNBnELVLU1IS4XzZG0
 
 Next, we configure a CNAME record so that when clients perform DNS resolution on `steven.tembo-development.com`, they are directed to Tembo Cloud.
 
-- Add a CNAME record on the domain name, with the value `cloud.data-1.use1.tembo.io`
-  - This assumes your database is in `data-1.use1`
+-   Add a CNAME record on the domain name, with the value `cloud.data-1.use1.tembo.io`
+    -   This assumes your database is in `data-1.use1`
 
 Confirming a CNAME record is present:
 
-``` console
+```console
 $ dig -t cname steven.tembo-development.com
 
 ; <<>> DiG 9.10.6 <<>> -t cname steven.tembo-development.com
@@ -107,7 +97,7 @@ psql: error: connection to server at "steven.tembo-development.com" (23.23.245.5
 
 ### Configure custom domain in Tembo Cloud
 
-- Configure your instance in Tembo Cloud to use this custom domain name.
+-   Configure your instance in Tembo Cloud to use this custom domain name.
 
 For example, using the API:
 

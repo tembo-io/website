@@ -1,5 +1,3 @@
-# Rails
-
 ## Creating a Rails Application with Tembo CLI
 
 ## Prerequisites

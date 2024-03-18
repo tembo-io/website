@@ -1,14 +1,10 @@
 ---
-sidebar_position: 2
-tags:
-  - Postgres Basics
+title: How to work with matrices in Postgres
 ---
 
 import AccessMatrix from './images/access-matrix-element.png'
 import ArrayFunctions from './images/array-functions-on-matrices.png'
 import CreateMatrices from './images/create-matrices.png'
-
-# How to work with matrices in Postgres
 
 Working with matrices in PostgreSQL opens a world of possibilities for managing structured data. Whether you're dealing with scientific data, financial models, or any other multidimensional datasets, PostgreSQL provides powerful tools and techniques to store, manipulate, and query matrices efficiently.
 
@@ -20,7 +16,7 @@ This guide will walk you through the essentials of working with matrices in Post
 
 As we mentioned, matrix is just a 2-D array, therefore you can use the `ARRAY` constructor to create a matrix in Postgres. Here’s an example of 2x2 matrix:
 
-``` sql
+```sql
 SELECT ARRAY[ARRAY[1, 2], ARRAY[3, 4]] AS matrix1;
 ```
 
@@ -32,7 +28,7 @@ In this example, we have used 2 `ARRAY` constructors (`ARRAY[1,2]`, `ARRAY[3,4]`
 
 In Postgres it’s possible to use "matrix" as a data type for a column in a table. You can create a column in the table and store matrix format data in it, like this:
 
-``` sql
+```sql
 CREATE TABLE matrix_table (
     id serial PRIMARY KEY,
     data INT[][]
@@ -43,7 +39,7 @@ In this example, the `data` column is of type integer matrix, but you can use an
 
 Once your matrix is created, you can follow the traditional method to insert values into it:
 
-``` sql
+```sql
 INSERT INTO matrix_table (data)
 VALUES (ARRAY[ARRAY[1, 2, 3], ARRAY[4, 5, 6]]);
 ```
@@ -52,7 +48,7 @@ VALUES (ARRAY[ARRAY[1, 2, 3], ARRAY[4, 5, 6]]);
 
 You can also specify each element present in the matrix individually by specifying the row and column indices for that element. For example:
 
-``` sql
+```sql
 SELECT data[2][1] FROM matrix_table;
 ```
 
@@ -66,7 +62,7 @@ Postgres does not come with built-in functions to perform operations on matrices
 
 Here’s an example of a function to add two matrices of size 2 by 2:
 
-``` sql
+```sql
 CREATE FUNCTION add_matrices(matrix1 INT[], matrix2 INT[])
 RETURNS INT[] AS $$
 DECLARE
@@ -83,7 +79,7 @@ $$ LANGUAGE plpgsql;
 
 PostgreSQL includes some array functions that can be used to manipulate matrices. For example, you can use the `ARRAY_AGG` function to transpose a matrix:
 
-``` sql
+```sql
 SELECT ARRAY_AGG(value ORDER BY rownum, colnum) AS transposed_matrix
 FROM my_matrix;
 ```

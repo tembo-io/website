@@ -1,5 +1,3 @@
-# Flask
-
 # Creating a Flask Application with Tembo CLI
 
 ## Prerequisites

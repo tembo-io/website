@@ -1,20 +1,19 @@
-# PL/R
-
->***R procedural language.***
+> **_R procedural language._**
 
 `PL/R` is a C-based procedural language extension that allows the user to compose R programming language scripts within Postgres.
 
-# When should you use it?
+## When should you use it?
 
 By means of procedural language capabilities, this extension grants the user the power of the R programming language, which has a well-deserved reputation in fields relating, but not limited to statistical analysis.
 
-# Example use case.
+## Example use case.
 
 Blood Pressure Treatment Analysis:
 
 A medical research team is evaluating the effectiveness of two distinct blood pressure treatments. On reviewing the anonymized data on patient responses, there's an interest in statistically determining whether one treatment outperforms the other. Using **`PL/R`** , the team applies R's wilcox.test function within their Postgres database. It’s the team’s hope that the test would yield a p-value is lower than the standard 0.05 threshold, such that they can celebrate that the treatments show statistically-significant differences.
 
-# Example test script.
+## Example test script.
+
 ```
 -- Create example table, bp_reduction, and populate with test data
 CREATE TABLE bp_reduction (

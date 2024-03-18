@@ -9,6 +9,7 @@ import {
 	isNested,
 	nextDoc,
 	githubEditLink,
+	cleanSideBarTitle,
 } from '../../util/docsUtils';
 import Footer from '../../components/docs/Footer.astro';
 import NextButton from '../../components/NextButton.astro';
@@ -46,13 +47,18 @@ const nextDocument = await nextDoc(`/docs/${slug}`);
 	<div class='flex flex-col relative w-full'>
 		<div id='tembo-document' class='flex justify-between w-full mb-12'>
 			<div
-				class='flex flex-col gap-12 w-full mobile:mr-16 xl:mr-28 overflow-x-hidden'
+				class='flex flex-col gap-12 w-full mobile:mr-16 xl:mr-28 overflow-x-hidden max-w-[900px]'
 			>
 				<header>
 					<h1
 						class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl z-10'
 					>
-						{doc?.data?.title}
+						{
+							doc?.data?.title ||
+								cleanSideBarTitle(
+									slug.split('/').at(-1) as string,
+								)
+						}
 					</h1>
 				</header>
 				<Markdown classNames='max-w-none'>

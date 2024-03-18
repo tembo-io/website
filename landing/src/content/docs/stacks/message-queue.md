@@ -1,18 +1,12 @@
----
-sidebar_position: 7
----
-
-# Tembo Message Queue
-
 Message queues let you send, read, and retain messages between applications without data loss or requiring all systems in a distributed system to be available. The MQ Stack is powered by [PGMQ](https://github.com/tembo-io/pgmq#sql-examples), a Postgres extension built and maintained by Tembo that provides a simple and consistent interface for creating queues and sending, receiving, deleting and archiving messages.
 
 Tembo optimized this Postgres instance for Message queue workloads by tuning the Postgres configuration, implementing aggressive [autovacuum](https://postgresqlco.nf/doc/en/param/autovacuum/) configurations, installing the PGMQ extension, and creating a default database and user. The Message Queue Stack is a great way to get started with PGMQ and Postgres.
 
 ## Extensions
 
-- [pgmq](https://pgt.dev/extensions/pgmq) - `pgmq` implements a message queue with API parity with popular message queue services like AWS SQS and Redis RSMQ.
-- [pg_partman](https://pgt.dev/extensions/pg_partman) - `pg_partman` automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
-- `pg_stat_statements` comes pre-installed and enabled. It provides statistics on SQL statements executed by the database, which helps users analyze query performance and identify areas for optimization.
+-   [pgmq](https://pgt.dev/extensions/pgmq) - `pgmq` implements a message queue with API parity with popular message queue services like AWS SQS and Redis RSMQ.
+-   [pg_partman](https://pgt.dev/extensions/pg_partman) - `pg_partman` automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
+-   `pg_stat_statements` comes pre-installed and enabled. It provides statistics on SQL statements executed by the database, which helps users analyze query performance and identify areas for optimization.
 
 ## SQL API
 
@@ -26,9 +20,9 @@ Tembo cloud provides an HTTP interface to your Message Queue Stack which allows 
 
 First, you'll need to gather some information from your Tembo instance. You'll need:
 
-- Tembo Data Domain -  this is the same value as the host of your Tembo Postgres instance. For example, `org-acme-inst-my-first-database.data-1.use1.tembo.io`
+-   Tembo Data Domain - this is the same value as the host of your Tembo Postgres instance. For example, `org-acme-inst-my-first-database.data-1.use1.tembo.io`
 
-- Tembo API Token - you can [generate a new API token](https://cloud.tembo.io/generate-jwt) on the [Tembo Cloud Platform](https://cloud.tembo.io/generate-jwt)
+-   Tembo API Token - you can [generate a new API token](https://cloud.tembo.io/generate-jwt) on the [Tembo Cloud Platform](https://cloud.tembo.io/generate-jwt)
 
 Export these two values as environment variables:
 
@@ -37,8 +31,8 @@ export TEMBO_DATA_DOMAIN="your-data-domain"
 export TEMBO_TOKEN="your-token"
 ```
 
-All of PGMQ's [API functions](https://tembo-io.github.io/pgmq/api/sql/functions/) are available via the REST API. 
-  The functions can be reached at `https://{TEMBO_DATA_DOMAIN}/pgmq/v1/<function_name>` and parameters passed as JSON in the request body.
+All of PGMQ's [API functions](https://tembo-io.github.io/pgmq/api/sql/functions/) are available via the REST API.
+The functions can be reached at `https://{TEMBO_DATA_DOMAIN}/pgmq/v1/<function_name>` and parameters passed as JSON in the request body.
 
 We'll walk through the major functionality of the HTTP interface below.
 
@@ -81,7 +75,7 @@ curl -X POST \
 </TabItem>
 </Tabs>
 
-___
+---
 
 ### List Queues
 
@@ -116,16 +110,16 @@ The existing queues will be returned in the response:
 
 ```json
 [
-  {
-    "queue_name": "my_demo",
-    "created_at": "2023-11-02T14:31:06.130805+00:00",
-    "is_partitioned": false,
-    "is_unlogged": false
-  }
+	{
+		"queue_name": "my_demo",
+		"created_at": "2023-11-02T14:31:06.130805+00:00",
+		"is_partitioned": false,
+		"is_unlogged": false
+	}
 ]
 ```
 
-___
+---
 
 ### Send a Message
 
@@ -162,17 +156,15 @@ curl -X POST \
 The message ID is returned from the request.
 
 ```json
-[
-    1
-]
+[1]
 ```
 
-___
+---
 
 ### Send a Batch of Messages
 
 To send multiple messages in a single request, use the `send_batch` endpoint.
- The `msg` parameter becomes `msgs`, and accepts a list or array of json messages.
+The `msg` parameter becomes `msgs`, and accepts a list or array of json messages.
 
 <Tabs>
 <TabItem value="py" label="Python">
@@ -213,16 +205,10 @@ curl -X POST \
 The message IDs for all messages are returned in an array.
 
 ```json
-[
-  2,
-  3,
-  4,
-  5,
-  6
-]
+[2, 3, 4, 5, 6]
 ```
 
-___
+---
 
 ### Read Messages
 
@@ -244,7 +230,7 @@ resp = requests.post(
 resp.json()
 ```
 
-___
+---
 
 </TabItem>
 <TabItem value="curl" label="Curl">
@@ -264,19 +250,19 @@ The messages are returned in an array. The message response also tells us how ma
 
 ```json
 [
-  {
-    "msg_id": 1,
-    "read_ct": 1,
-    "enqueued_at": "2023-11-02T15:00:39.396488+00:00",
-    "vt": "2023-11-02T15:05:26.352591+00:00",
-    "message": {
-      "hello": "world-0"
-    }
-  }
+	{
+		"msg_id": 1,
+		"read_ct": 1,
+		"enqueued_at": "2023-11-02T15:00:39.396488+00:00",
+		"vt": "2023-11-02T15:05:26.352591+00:00",
+		"message": {
+			"hello": "world-0"
+		}
+	}
 ]
 ```
 
-___
+---
 
 ### Archive a Single Message
 
@@ -319,11 +305,11 @@ Single message archive returned a boolean indicating the success or failure of t
 true
 ```
 
-___
+---
 
 ### Archive a Batch of Messages
 
-Same rules apply to batch archive as single message archive. However, you simple pass an array of `msg_ids` to instead of a single `msg_id`. 
+Same rules apply to batch archive as single message archive. However, you simple pass an array of `msg_ids` to instead of a single `msg_id`.
 
 <Tabs>
 <TabItem value="py" label="Python">
@@ -357,18 +343,15 @@ curl -X POST \
 The response will show which message IDs were successfully archived. If a message ID does not exist then it's ID will not be returned.
 
 ```json
-[
-  2,
-  3
-]
+[2, 3]
 ```
 
-___
+---
 
 ### Delete a Message
 
 Deleting messages removing them completely from the system. Specify the queue name and the message ID that you want to delete.
- If the message does not exist it will return `False`, otherwise it is `True`.
+If the message does not exist it will return `False`, otherwise it is `True`.
 
 <Tabs>
 <TabItem value="py" label="Python">
@@ -403,7 +386,7 @@ curl -X POST \
 true
 ```
 
-___ 
+---
 
 ### Delete a batch of Messages
 
@@ -441,8 +424,5 @@ curl -X POST \
 The response will show which message IDs were successfully deleted. If a message ID does not exist then it's ID will not be returned.
 
 ```json
-[
-  5,
-  6
-]
+[5, 6]
 ```

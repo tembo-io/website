@@ -1,13 +1,9 @@
 ---
-sidebar_position: 2
-tags:
-  - Postgres Basics
+title: Listing indexes in Postgres
 ---
 
 import DiCommand from './images/di-command.png'
 import SqlQuery from './images/sql-query.png'
-
-# Listing indexes in Postgres
 
 Indexing is a technique in databases that can help speed up searches. When managing a database, depending on the workload that will run on the database, you might decide to create indexes for certain tables.
 
@@ -39,7 +35,7 @@ Postgres comes with a system view `pg_indexes` that can be used to list down all
 
 **Step 2** - To list down all the indexes, use this sql query:
 
-``` sql
+```sql
 SELECT indexname AS index_name,
        tablename AS table_name
 FROM pg_indexes

@@ -1,9 +1,3 @@
----
-sidebar_position: 9
----
-
-# Tembo Geospatial
-
 The Tembo Geospatial Stack is designed to bring spatial database capabilities to Postgres.
 Whether dealing with spatial objects, location queries, or GIS (geographic information systems)-facing workloads in general, this stack is pre-packaged to help.
 
@@ -15,15 +9,15 @@ For interest in the other Stack-specific images, please visit the official [temb
 
 ## Extensions
 
-- [pg_stat_statements](https://www.postgresql.org/docs/current/pgstatstatements.html) - `pg_stat_statements` is an additional supplied module that provides valuable metrics related to query performance.
-- [fuzzystrmatch](https://www.postgresql.org/docs/current/fuzzystrmatch.html) - `fuzzystrmatch` is an additional supplied module that helps with string matching, including approximate or "fuzzy" matches. Useful in tasks like deduplication or linking different data sets where string data may not be exactly the same.
-- [postgis](https://postgis.net/) - `postgis` is the main PostGIS extension, adding support for geographic objects to the PostgreSQL database. It allows for storing and querying data based on location.
-- [postgis_raster](https://postgis.net/docs/RT_reference.html) - `postgis_raster` is an extension for handling raster data. It's used for storing and analyzing grid-based data like satellite imagery or digital elevation models.
-- [postgis_tiger_geocoder](https://postgis.net/docs/postgis_installation.html#loading_extras_tiger_geocoder) - `postgis_tiger_geocoder` provides geocoding and reverse geocoding functionality. It uses the TIGER (Topologically Integrated Geographic Encoding and Referencing) data from the US Census Bureau.
-- [postgis_topology](https://postgis.net/docs/Topology.html) - `postgis_topology` focuses on topological data models and functions, allowing for more advanced spatial data analysis and consistency.
-- [address_standardizer](https://postgis.net/docs/Extras.html#Address_Standardizer) - `address_standardizer` helps in standardizing address data, making it consistent and easier to work with, especially for geocoding purposes.
-- [address_standardizer_data_us](https://postgis.net/docs/Extras.html#Address_Standardizer) - `address_standardizer_data_us` provides the necessary data for the address_standardizer extension, specifically tailored for US addresses.
-- Extensions from [Trunk](https://pgt.dev/) can be installed on-demand.
+-   [pg_stat_statements](https://www.postgresql.org/docs/current/pgstatstatements.html) - `pg_stat_statements` is an additional supplied module that provides valuable metrics related to query performance.
+-   [fuzzystrmatch](https://www.postgresql.org/docs/current/fuzzystrmatch.html) - `fuzzystrmatch` is an additional supplied module that helps with string matching, including approximate or "fuzzy" matches. Useful in tasks like deduplication or linking different data sets where string data may not be exactly the same.
+-   [postgis](https://postgis.net/) - `postgis` is the main PostGIS extension, adding support for geographic objects to the PostgreSQL database. It allows for storing and querying data based on location.
+-   [postgis_raster](https://postgis.net/docs/RT_reference.html) - `postgis_raster` is an extension for handling raster data. It's used for storing and analyzing grid-based data like satellite imagery or digital elevation models.
+-   [postgis_tiger_geocoder](https://postgis.net/docs/postgis_installation.html#loading_extras_tiger_geocoder) - `postgis_tiger_geocoder` provides geocoding and reverse geocoding functionality. It uses the TIGER (Topologically Integrated Geographic Encoding and Referencing) data from the US Census Bureau.
+-   [postgis_topology](https://postgis.net/docs/Topology.html) - `postgis_topology` focuses on topological data models and functions, allowing for more advanced spatial data analysis and consistency.
+-   [address_standardizer](https://postgis.net/docs/Extras.html#Address_Standardizer) - `address_standardizer` helps in standardizing address data, making it consistent and easier to work with, especially for geocoding purposes.
+-   [address_standardizer_data_us](https://postgis.net/docs/Extras.html#Address_Standardizer) - `address_standardizer_data_us` provides the necessary data for the address_standardizer extension, specifically tailored for US addresses.
+-   Extensions from [Trunk](https://pgt.dev/) can be installed on-demand.
 
 ## Getting started
 
@@ -59,11 +53,12 @@ If you'd like to learn more, check out our guide: [How to select database in Pos
 Navigate to your local directory where the data is stored; the path will look similar to path/to/target/directory/postgis-workshop/data/.
 For this simple exercise, we'll focus exclusively on shapefiles, but bear in mind that they alone do not represent the entire dataset.
 Consider the following files:
-- nyc_cencus_blocks.shp
-- nyc_homicides.shp
-- nyc_neighborhoods.shp
-- nyc_streets.shp
-- nyc_subway_stations.shp
+
+-   nyc_cencus_blocks.shp
+-   nyc_homicides.shp
+-   nyc_neighborhoods.shp
+-   nyc_streets.shp
+-   nyc_subway_stations.shp
 
 PostGIS does a great job in their free workshop how to use ogr2ogr with select flags to load data into Postgres.
 Their explanation can be found [here](https://postgis.net/workshops/postgis-intro/loading_data.html).
@@ -141,7 +136,9 @@ How many rows are there in the nyc_streets table?
 ```sql
 SELECT COUNT(*) FROM nyc_streets;
 ```
+
 Result:
+
 ```text
  count
 -------
@@ -154,15 +151,17 @@ Result:
 Which fields (columns) are represented in the nyc_streets table?
 
 ```sql
-SELECT 
-    column_name, 
-    data_type 
-FROM 
-    information_schema.columns 
-WHERE 
+SELECT
+    column_name,
+    data_type
+FROM
+    information_schema.columns
+WHERE
     table_name = 'nyc_streets';
 ```
+
 Result:
+
 ```text
  column_name |     data_type
 -------------+-------------------
@@ -182,7 +181,9 @@ What are all the streets in the nyc_streets table that have the Ave suffix (limi
 ```sql
 SELECT name FROM nyc_streets WHERE name LIKE '%Ave%' LIMIT 10;
 ```
+
 Result:
+
 ```text
       name
 ----------------
@@ -204,11 +205,13 @@ Result:
 Say Lexington Avenue is your favorite street, but you want to know how many there are in this dataset.
 
 ```sql
-SELECT COUNT(*) 
-FROM nyc_streets 
+SELECT COUNT(*)
+FROM nyc_streets
 WHERE name = 'Lexington Ave';
 ```
+
 Result:
+
 ```text
  count
 -------
@@ -224,7 +227,9 @@ and if possible, how can I change it?
 ```sql
 SELECT DISTINCT ST_SRID(geom) FROM nyc_streets;
 ```
+
 Result:
+
 ```text
  st_srid
 ---------
@@ -240,7 +245,9 @@ ALTER COLUMN geom
 TYPE geometry(Geometry, 4326)
 USING ST_Transform(ST_SetSRID(geom, 26918), 4326);
 ```
+
 Result:
+
 ```text
 ALTER TABLE
 ```

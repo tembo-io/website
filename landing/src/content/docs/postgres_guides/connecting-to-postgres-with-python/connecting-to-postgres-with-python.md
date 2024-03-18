@@ -2,8 +2,6 @@
 title: Connecting to Postgres with Python
 ---
 
-# Connecting to Postgres with Python
-
 In this tutorial, we've covered a comprehensive, step-by-step procedure for establishing a connection to a PostgreSQL database using Python. We will take advantage of _psycopg_ library to connect to the Postgres database.
 
 Let’s get started

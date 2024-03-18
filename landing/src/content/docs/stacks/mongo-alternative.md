@@ -1,32 +1,27 @@
----
-sidebar_position: 10
----
-
-# Tembo MongoAlternative
-
-The Tembo MongoAlternative Stack is designed to offer MongoDB (Mongo) protocol compatibility with PostgreSQL (Postgres). 
+The Tembo MongoAlternative Stack is designed to offer MongoDB (Mongo) protocol compatibility with PostgreSQL (Postgres).
 Leveraging the power of FerretDB, Tembo users can both migrate from Mongo to Postgres, as well as interact with their data in a remarkably familiar to them.
 In other words, users have Mongo-compatible storage without needing to change their application.
 
 ## Apps & Extensions
 
-- [FerretDB](https://docs.ferretdb.io/) - `FerretDB` is an open-source proxy build on Postgres that translates Mongo wire protocol queries to SQL.
-- Extensions from [Trunk](https://pgt.dev/) can be installed on-demand.
+-   [FerretDB](https://docs.ferretdb.io/) - `FerretDB` is an open-source proxy build on Postgres that translates Mongo wire protocol queries to SQL.
+-   Extensions from [Trunk](https://pgt.dev/) can be installed on-demand.
 
 ## Getting started
 
 Before jumping in, it's important to note some recommended usage practices:
-- psql (PostgreSQL Client): When accessing the database via psql, we advise read-only operations.
-This is to maintain the integrity of the data structure and compatibility with FerretDB.
-- mongosh (MongoDB Shell): For read-write operations, including inserting, updating, and deleting data, please use mongosh.
-This ensures that all changes are properly managed and reflected in both Mongo and Postgres representations.
+
+-   psql (PostgreSQL Client): When accessing the database via psql, we advise read-only operations.
+    This is to maintain the integrity of the data structure and compatibility with FerretDB.
+-   mongosh (MongoDB Shell): For read-write operations, including inserting, updating, and deleting data, please use mongosh.
+    This ensures that all changes are properly managed and reflected in both Mongo and Postgres representations.
 
 ### Download mongosh
 
 Similar to `psql`, `mongosh` is a client used to query and interact with the data in your Mongo database and is compatible with FerretDB.
 
-- For macOS, you can run the following brew command: `brew install mongosh`.
-- For Windows and Linux, please refer to the steps found within the [mongosh official documentation](https://www.mongodb.com/docs/mongodb-shell/install/).
+-   For macOS, you can run the following brew command: `brew install mongosh`.
+-   For Windows and Linux, please refer to the steps found within the [mongosh official documentation](https://www.mongodb.com/docs/mongodb-shell/install/).
 
 ### Setup
 
@@ -87,35 +82,42 @@ From there you can interact with the data using the following [FerretDB supporte
 ### Reading from psql
 
 Similar to other stacks you can copy the connection string from the Tembo UI or fill in and run the following psql command:
+
 ```bash
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 ```
 
 Once connected to the instance, running `\dn` will list the schemas and show `ferretdb` and an option.
-Running ```SET search_path TO ferretdb;``` will allow you to interact with your data stored via FerretDB.
+Running `SET search_path TO ferretdb;` will allow you to interact with your data stored via FerretDB.
 At this point it's important to reemphasize that our current recommendation to treat `psql` as read only when using the MongoAlternative Stack.
 
 ### Sample mongosh queries
 
 #### Query 1
+
 List the collections (table equivalent to relational databases).
 
 ```
 show collections
 ```
+
 Result
+
 ```text
 orbit_data
 satellites
 ```
 
 #### Query 2
+
 Find all satellites launched after a certain date.
 
 ```
 db.satellites.find({ launch_date: { $gt: "2006-01-01" } })
 ```
+
 Result
+
 ```text
 [
   {
@@ -150,12 +152,15 @@ Result
 ```
 
 #### Query 3
+
 Find satellites with a specific perigee altitude range.
 
 ```
 db.orbit_data.find({perigee_altitude_km: { $gte: 800, $lte: 850 }})
 ```
+
 Result
+
 ```text
 [
   {

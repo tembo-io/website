@@ -1,16 +1,13 @@
 ---
-sidebar_position: 1
-tags:
-  - api
-  - tools
-  - containers
+title: GraphQL
 ---
 
-# graphQL
+import Callout from '../../../../components/Callout.astro';
 
-:::info
-**Powered by [PostgREST](https://postgrest.org/en/stable/) and [pg_graphql](https://github.com/supabase/pg_graphql)**
-:::
+<Callout variant='info'>
+	**Powered by [PostgREST](https://postgrest.org/en/stable/) and
+	[pg_graphql](https://github.com/supabase/pg_graphql)**
+</Callout>
 
 GraphQL is a query language for APIs, as well as a server-side runtime for executing those queries by using a type system that you define for your data. It offers a more efficient, flexible, and powerful alternative to the traditional REST API. Instead of accessing multiple endpoints to fetch or modify data, GraphQL enables you to request exactly what you need and nothing more from a single endpoint. This minimizes over-fetching or under-fetching of data, which can lead to faster and more efficient applications.
 
@@ -39,11 +36,7 @@ export TEMBO_DATA_DOMAIN=<you Tembo domain>
 
 Patch your existing Tembo instance using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi) to enable graphQL. We'll set the the configurations to `None` in this example so that the defaults are assigned.
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs>
-<TabItem value="py" label="Python">
+Python:
 
 ```py
 import requests
@@ -63,9 +56,7 @@ resp = requests.patch(
 )
 ```
 
-</TabItem>
-
-<TabItem value="curl" label="Curl">
+Curl:
 
 ```bash
 curl -X PATCH \
@@ -75,12 +66,9 @@ curl -X PATCH \
   "https://api.tembo.io/api/v1/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
 ```
 
-</TabItem>
-</Tabs>
+## Using GraphQL
 
-## Using graphQL
-
-graphQL is served from an HTTP interface that lives within your data plane domain. This value is the same value as the host on your Tembo Postgres instance and can be found in at cloud.tembo.io.
+GraphQL is served from an HTTP interface that lives within your data plane domain. This value is the same value as the host on your Tembo Postgres instance and can be found in at cloud.tembo.io.
 
 First, create a table in the database:
 
@@ -120,8 +108,7 @@ as $$ insert into products (name, category, unit_price) values (name, category, 
 
 Then we can call the function using the graphQL API.
 
-<Tabs>
-<TabItem value="py" label="Python">
+Python:
 
 ```py
 TEMBO_DATA_DOMAIN = os.environ["TEMBO_DATA_DOMAIN"]
@@ -147,9 +134,7 @@ resp = requests.post(
 resp.json()
 ```
 
-</TabItem>
-
-<TabItem value="curl" label="Curl">
+Curl:
 
 ```bash
 curl -X POST \
@@ -161,16 +146,13 @@ curl -X POST \
   "https://${TEMBO_DATA_DOMAIN/graphql/v1"
 ```
 
-</TabItem>
-</Tabs>
-
 You should see the following response. Note that the function we created simply returns the new product's uid.
 
 ```json
 {
-  "data": {
-    "addProduct": 2
-  }
+	"data": {
+		"addProduct": 2
+	}
 }
 ```
 
@@ -178,10 +160,10 @@ You should see the following response. Note that the function we created simply 
 
 Now we can query the products table using graphQL syntax.
 If you've been following the example, there should be two products in the database; a pen and a computer.
+
 Let's query the database and ask for products that have a unit price less than 2.
 
-<Tabs>
-<TabItem value="py" label="Python">
+Python:
 
 ```py
 TEMBO_DATA_DOMAIN = os.environ["TEMBO_DATA_DOMAIN"]
@@ -204,9 +186,7 @@ resp = requests.post(
 resp.json()
 ```
 
-</TabItem>
-
-<TabItem value="curl" label="Curl">
+Curl:
 
 ```bash
 curl -X POST \
@@ -218,27 +198,24 @@ curl -X POST \
   "https://${TEMBO_DATA_DOMAIN/graphql/v1"
 ```
 
-</TabItem>
-</Tabs>
-
 And you should see the following response:
 
 ```json
 {
-  "data": {
-    "products1Collection": {
-      "edges": [
-        {
-          "node": {
-            "uid": 1,
-            "name": "pen",
-            "category": "office-supplies",
-            "unit_price": "0.75"
-          }
-        }
-      ]
-    }
-  }
+	"data": {
+		"products1Collection": {
+			"edges": [
+				{
+					"node": {
+						"uid": 1,
+						"name": "pen",
+						"category": "office-supplies",
+						"unit_price": "0.75"
+					}
+				}
+			]
+		}
+	}
 }
 ```
 

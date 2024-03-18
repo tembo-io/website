@@ -1,16 +1,9 @@
----
-sidebar_position: 3
-tags:
-  - embeddings
-  - tools
-  - containers
----
+import Callout from '../../../../components/Callout.astro';
 
-# Embeddings
-
-:::info
-**Powered by [HuggingFace](https://huggingface.co/sentence-transformers/) sentence transformers**
-:::
+<Callout variant='info'>
+	**Powered by [HuggingFace](https://huggingface.co/sentence-transformers/)
+	sentence transformers**
+</Callout>
 
 The Embeddings API allows you to generate embeddings from your text. It is similar in functionality to [OpenAI's embeddings API](https://platform.openai.com/docs/guides/embeddings), except it is hosted privately, and powered by HuggingFace. Every Tembo instance gets its own service and all data passed to the Tembo Embedding API is not retained by the service.
 
@@ -49,11 +42,7 @@ export TEMBO_DATA_DOMAIN=<you Tembo domain>
 
 Patch your existing Tembo instance using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi) to enable the embeddings API. We'll set the the configurations to `None` so that the defaults are assigned.
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs>
-<TabItem value="py" label="Python">
+Python:
 
 ```py
 import requests
@@ -73,9 +62,7 @@ resp = requests.patch(
 )
 ```
 
-</TabItem>
-
-<TabItem value="curl" label="Curl">
+Curl:
 
 ```bash
 curl -X PATCH \
@@ -84,9 +71,6 @@ curl -X PATCH \
   -d '{"app_services": [{"embeddings": null}]}' \
   "https://api.tembo.io/api/v1/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
 ```
-
-</TabItem>
-</Tabs>
 
 ## Using the Embeddings API for vector similarity search
 
@@ -99,14 +83,14 @@ psql postgres://$yourUser:$yourPassword@${TEMBO_DATA_DOMAIN}:5432/postgres
 If you already have a table, you can start with that. You could also start with an example dataset, which is what we will use for this example.
 
 ```sql
-CREATE TABLE products AS 
+CREATE TABLE products AS
 SELECT * FROM vectorize.example_products;
 ```
 
 ## Initialize a table for automated vector search
 
 We need to specify a `job_name`. There can be more than one job per table, but generally people will have just one job. It must be unique though. Specify the `table` name, `primary_key` for the table that you want to search. The `columns`
-parameter specifies the specific columns within that table that you want to search. In our example, we'll search the `product_name` and `description` columns. The `transformer` parameter specifies the transformer model that you want to use (for not we only support `all_MiniLM_L12_v2` for privately hosted open source models). 
+parameter specifies the specific columns within that table that you want to search. In our example, we'll search the `product_name` and `description` columns. The `transformer` parameter specifies the transformer model that you want to use (for not we only support `all_MiniLM_L12_v2` for privately hosted open source models).
 
 The `schedule` parameter specifies how often you want to update the embeddings. In our example, we'll update the embeddings every minute.
 
@@ -132,11 +116,10 @@ Or we can simply wait for the cron job to complete.
 ## Search the table with raw text
 
 To search that table's job, use the same `job_name` that we specified in the previous step.
- Provide a raw text search `query`, and specify which `num_results` you want to receive from the request.
- Finally, specify the `num_results` to return. This amounts to effectively a `limit` statement.
+Provide a raw text search `query`, and specify which `num_results` you want to receive from the request.
+Finally, specify the `num_results` to return. This amounts to effectively a `limit` statement.
 
 `vectorize.search` will automatically use the same embedding model that was used during the `vectorize.table` call.
-
 
 ```sql
 SELECT * FROM vectorize.search(
@@ -148,7 +131,7 @@ SELECT * FROM vectorize.search(
 ```
 
 ```
-                                         search_results                                         
+                                         search_results
 ------------------------------------------------------------------------------------------------
  {"product_id": 13, "product_name": "Phone Charger", "similarity_score": 0.8564774308489237}
  {"product_id": 24, "product_name": "Tablet Holder", "similarity_score": 0.8295404213393001}
@@ -167,8 +150,7 @@ Export your Tembo host domain into an environment variable.
 export TEMBO_DATA_DOMAIN=org-yourOrg-inst-yourInst.prd.data-1.use1.tembo.io
 ```
 
-<Tabs>
-<TabItem value="py" label="Python">
+Python:
 
 ```py
 import requests
@@ -189,8 +171,7 @@ resp = requests.post(
 )
 ```
 
-</TabItem>
-<TabItem value="curl" label="Curl">
+Curl:
 
 ```bash
 curl -X POST "https://${TEMBO_DATA_DOMAIN}/embeddings/v1/embeddings" \
@@ -204,6 +185,3 @@ curl -X POST "https://${TEMBO_DATA_DOMAIN}/embeddings/v1/embeddings" \
            "model": "all-MiniLM-L12-v2"
          }'
 ```
-
-</TabItem>
-</Tabs>

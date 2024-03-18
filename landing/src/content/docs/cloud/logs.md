@@ -1,13 +1,8 @@
 ---
-sidebar_position: 3
-tags:
-  - api
-  - logs
+title: Managing Logs
 ---
 
-# Managing Logs
-
-Need help getting logs from your Tembo Instances? This guide can help. 
+Need help getting logs from your Tembo Instances? This guide can help.
 
 ## Loki
 
@@ -44,8 +39,8 @@ There are other endpoints available, please review the [Loki API documentation](
 
 To connect your Grafana server to Tembo's logging server, [add a new data source](https://grafana.com/docs/loki/latest/visualize/grafana/).
 
-- Select "Loki" as the data source type
-- For URL, configure your data plane domain name. For example, `https://api.data-1.use1.tembo.io/`.
-- Add two HTTP Headers configurations:
-  - Header: `X-Scope-OrgID`, Value: `your-tembo-org-here`
-  - Header: `Authorization`, Value: `Bearer your-tembo-cloud-token-here`
+-   Select "Loki" as the data source type
+-   For URL, configure your data plane domain name. For example, `https://api.data-1.use1.tembo.io/`.
+-   Add two HTTP Headers configurations:
+    -   Header: `X-Scope-OrgID`, Value: `your-tembo-org-here`
+    -   Header: `Authorization`, Value: `Bearer your-tembo-cloud-token-here`

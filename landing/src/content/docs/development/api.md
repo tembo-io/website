@@ -1,8 +1,6 @@
 ---
-uppercase: true
+title: API Authentication
 ---
-
-# API Authentication
 
 To explore the Tembo Cloud API, visit our [API documentation](/docs/tembo-cloud/openapi).
 

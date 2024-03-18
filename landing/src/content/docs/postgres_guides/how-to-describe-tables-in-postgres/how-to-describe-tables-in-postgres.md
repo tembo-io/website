@@ -1,10 +1,6 @@
 ---
-sidebar_position: 2
-tags:
-  - Postgres Basics
+title: How to describe tables in Postgres
 ---
-
-# How to describe tables in Postgres
 
 In this guide, we'll show you two different ways to describe tables: using the psql command-line tool, using the PgAdmin graphical interface, and through SQL queries. We'll walk you through the entire process step by step, using a practical example to make it easy to follow along.
 
@@ -12,7 +8,7 @@ In this guide, we'll show you two different ways to describe tables: using the p
 
 **Step 1** - Open the terminal on your device and connect it to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres)
 
-![connected-database](images/connected-database.png)
+![connected-database](./images/connected-database.png)
 
 Step 2 - To display the list of tables present in the database, run `\dt` command
 
@@ -20,7 +16,7 @@ Step 2 - To display the list of tables present in the database, run `\dt` comman
 \dt
 ```
 
-![dt-command](images/dt-command.png)
+![dt-command](./images/dt-command.png)
 
 **Step 3** - To describe a specific table from the database, run `\d table_name` command
 
@@ -28,7 +24,7 @@ Step 2 - To display the list of tables present in the database, run `\dt` comman
 \d table_name
 ```
 
-![d-command](images/d-command.png)
+![d-command](./images/d-command.png)
 
 Make sure to replace **table_name** with the name of table whose details you want to see
 
@@ -36,19 +32,19 @@ Make sure to replace **table_name** with the name of table whose details you wan
 
 Step 1 - Open the PgAdmin tool on your device
 
-![pgadmin](images/pgadmin.png)
+![pgadmin](./images/pgadmin.png)
 
 **Step 2** - In the left sidebar, expand the _Servers_ folder and direct to your desired database. In that database, expand the Schemas folder and go the Tables folder.
 
 It wil display the list of all tables present in your database.
 
-![tables-in-pgadmin](images/tables-in-pgadmin.png)
+![tables-in-pgadmin](./images/tables-in-pgadmin.png)
 
 **Step 3** - Right click on any table and select _Properties_. Properties dialog will appear containing _Columns_ tab.
 
 Columns tab will display the details of all columns present in that table.
 
-![table-properties](images/table-properties.png)
+![table-properties](./images/table-properties.png)
 
 ## Using SQL query
 
@@ -62,7 +58,7 @@ There is a SQL query which uses Postgres’ information_schema tables, which con
 SELECT table_name, column_name, data_type FROM information_schema.columns WHERE table_name = tableName;
 ```
 
-![sql-query-to-describe-table](images/sql-query-to-describe-table.png)
+![sql-query-to-describe-table](./images/sql-query-to-describe-table.png)
 
 Do replace **tableName** with the name of table whose details you wish to display
 

@@ -1,14 +1,10 @@
 ---
-sidebar_position: 2
-tags:
-  - Postgres Basics
+title: How to import a CSV file into Postgres
 ---
 
 import Headers from './images/headers.png'
 import PromptBox from './images/prompt-box.png'
 import SuccessfulPromptBox from './images/successful-prompt-box.png'
-
-# How to import a CSV file into Postgres
 
 Imagine you are managing a large record of thousands of users having multiple details about users stored in a CSV (Comma Separated Value) file. Your objective is to load this entire repository of user data from the CSV file into a PostgreSQL table.
 
@@ -28,7 +24,7 @@ Save your CSV file on the machine where your database is running. Postgres needs
 
 **Step 3** - Create a table in the Postgres database into which you want to copy the data. To create the table, run the following command in your terminal:
 
-``` sql
+```sql
 CREATE TABLE table_name (column1 data_type, column2 data_type, column3 data_type, …);
 ```
 
@@ -38,16 +34,16 @@ A critical point to note is, the columns you will specify in this table should h
 
 Execute the following `COPY` command to copy the CSV file data to the Postgres table:
 
-``` sql
+```sql
 COPY table_name FROM 'path' WITH (FORMAT CSV, HEADER)
 ```
 
 In this command-
 
-- Replace the `table_name` with the name of table you have previously created in the Postgres database
-- Replace the `path` with the path of CSV file
-- `FORMAT CSV` represents the file type of CSV file
-- `HEADER` represents the first row of the CSV file holding the names of the column. If there is not any headers in the CSV file, you can ignore adding `HEADER` to the command
+-   Replace the `table_name` with the name of table you have previously created in the Postgres database
+-   Replace the `path` with the path of CSV file
+-   `FORMAT CSV` represents the file type of CSV file
+-   `HEADER` represents the first row of the CSV file holding the names of the column. If there is not any headers in the CSV file, you can ignore adding `HEADER` to the command
 
 In this example, we have passed just `table_name`, `path`, `FORMAT CSV`, and `HEADER` arguments in the `COPY` command; however it can accept many other arguments to specify the file and data that you want to load into Postgres.
 
@@ -63,7 +59,7 @@ Right Click on Schemas and select the Query tool option.
 
 **Step 2** - Just like the previous method, you must create a table with the same columns and names as the data in the CSV file. To create the table, run the following command in query tool:
 
-``` sql
+```sql
 CREATE TABLE table_name (column1 data_type, column2 data_type, column3 data_type, …);
 ```
 

@@ -1,10 +1,6 @@
 ---
-sidebar_position: 2
-tags:
-  - Postgres Basics
+title: How to find the row count of tables in Postgres
 ---
-
-# How to find the row count of tables in Postgres
 
 Imagine you are the manager of an e-commerce website, and you want to analyze the sales performance of your products. Within your PostgreSQL database, there exists a table that stores records of every order placed. To assess the monthly performance comprehensively, it becomes necessary to obtain the total count of orders made in a specific month.
 

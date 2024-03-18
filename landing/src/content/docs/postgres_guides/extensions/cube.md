@@ -1,20 +1,18 @@
-# cube
-
 > Cube data type.
 
 The `cube` extension provides a data type for representing multidimensional cubes alongside a set of functions and operators for working with these cubes.
 
-# When should you use it?
+## When should you use it?
 
-This extension can be used when considering multi-dimensional data, for example, coordinates in a 3D space or multi-dimensional metrics. 
+This extension can be used when considering multi-dimensional data, for example, coordinates in a 3D space or multi-dimensional metrics.
 
-# Example use case.
+## Example use case.
 
-Suppose a research group is interested in studying the movements of a new fox population spotted in the vicinity of Angel Rocks Trailhead, near Fairbanks, Alaska.  Select foxes are equipped with GPS trackers that record their locations at regular intervals. Each data point contains 3D coordinates representing latitude, longitude, and altitude.
+Suppose a research group is interested in studying the movements of a new fox population spotted in the vicinity of Angel Rocks Trailhead, near Fairbanks, Alaska. Select foxes are equipped with GPS trackers that record their locations at regular intervals. Each data point contains 3D coordinates representing latitude, longitude, and altitude.
 
 Utilizing the `cube` extension, this data is be stored and organized efficiently within a PostgreSQL database. The research group can then run queries to analyze various aspects of fox movements, identify territorial boundaries, and observe proximity between different foxes over time.
 
-# Example test script.
+## Example test script.
 
 ```
 -- Create example table, fox_locations
@@ -40,7 +38,7 @@ BEGIN
     new_lat := base_lat + (random() - 0.5) / 100;
     new_long := base_long + (random() - 0.5) / 100;
     new_alt := base_alt + (random() - 0.5) * 20;
-    
+
     -- Return new coordinates as a cube
     RETURN cube(array[new_lat, new_long, new_alt]);
 END;
@@ -48,7 +46,7 @@ $$ LANGUAGE plpgsql;
 
 -- Populate with test data of 5 foxes over 7 days at 8 hour intervals
 DO $$
-DECLARE 
+DECLARE
     day INT;
     hour INT;
     fox INT;

@@ -1,17 +1,13 @@
 ---
-sidebar_position: 3
-tags:
-  - Postgres Basics
+title: Basic PostgreSQL Queries
 ---
-
-# Basic PostgreSQL Queries
 
 In this guide, you'll learn the fundamentals of writing SQL queries in PostgreSQL. SQL (Structured Query Language) is used to communicate with databases and retrieve, manipulate, and manage data. PostgreSQL, an open-source relational database management system, supports a wide range of SQL commands.
 
 ## Prerequisites
 
-- Tembo PostgreSQL stack running.
-- Database Administration tool of your choice (such as DBeaver, pgAdmin, etc.) connected to Tembo Cloud PostgreSQL cluster.
+-   Tembo PostgreSQL stack running.
+-   Database Administration tool of your choice (such as DBeaver, pgAdmin, etc.) connected to Tembo Cloud PostgreSQL cluster.
 
 ## Retrieving Data
 

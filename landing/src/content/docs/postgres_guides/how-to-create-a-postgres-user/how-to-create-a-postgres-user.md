@@ -1,12 +1,8 @@
 ---
-sidebar_position: 2
-tags:
-  - Postgres Basics
+title: How to create a Postgres User
 ---
 
 import PostgresUser from './images/create-postgres-user.png'
-
-# How to create a Postgres User
 
 Postgres provides the flexibility to add multiple users to a specific database, allowing for fine-grained control over user access and permissions. This also helps in maintaining the security of the database and can help prevent serious issues if a user account is compromised.
 
@@ -18,7 +14,7 @@ Suppose you are working on a company’s project and you want to add your team m
 
 **Step 2** - Execute the following SQL query to create a new user in the database:
 
-``` sql
+```sql
 CREATE USER username WITH PASSWORD 'password';
 ```
 
@@ -44,7 +40,7 @@ Postgres comes with a [command line utility called `createuser`](https://www.pos
 
 **Step 1** - Open your terminal. If you are on a Unix-based system, then you first need to log into the operating system as a user with the right privileges to connect to the database (usually “postgres”). To do this execute the following command:
 
-``` sh
+```sh
 sudo -i -u postgres
 ```
 
@@ -52,7 +48,7 @@ If you are on Windows, you can skip this step.
 
 **Step 2** - Use the `createuser` command to create a new user in the Postgres database:
 
-``` sh
+```sh
 createuser --interactive --pwprompt username
 ```
 

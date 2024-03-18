@@ -1,5 +1,8 @@
-# bool_plperl
->*Transform boolean type to and from PL/Perl.*
+---
+title: bool_plperl
+---
+
+> _Transform boolean type to and from PL/Perl._
 
 `bool_plperl` is a C-based transformation extension that allows conversion between PostgreSQL- and Perl-native boolean values.
 
@@ -24,7 +27,7 @@ CREATE TABLE library_books (
 );
 
 -- Populate the table with a sample book
-INSERT INTO library_books (title, is_available) VALUES 
+INSERT INTO library_books (title, is_available) VALUES
 ('The Great Gatsby', true),
 ('To Kill a Mockingbird', false),
 ('Brothers Grimm Fairy Tales', true);

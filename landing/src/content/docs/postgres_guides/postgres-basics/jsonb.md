@@ -1,18 +1,15 @@
 ---
-sidebar_position: 4
-tags:
-  - JSONB
+title: JSONB
 ---
-
-# JSONB
 
 ## Why JSONB?
 
-- **Flexibility**: JSONB allows for schema-less data storage, which can be useful for situations where the data structure is not fixed.
-- **Query Capabilities**: With JSONB, you can query specific fields, use array functions, and even join on JSONB fields.
-- **Performance**: JSONB data is stored in a binary format, making it faster to query compared to the textual JSON type. It also supports indexing, which can further speed up queries.
+-   **Flexibility**: JSONB allows for schema-less data storage, which can be useful for situations where the data structure is not fixed.
+-   **Query Capabilities**: With JSONB, you can query specific fields, use array functions, and even join on JSONB fields.
+-   **Performance**: JSONB data is stored in a binary format, making it faster to query compared to the textual JSON type. It also supports indexing, which can further speed up queries.
 
 ## Creating a table
+
 ```sql
 CREATE TABLE users (
     id serial PRIMARY KEY,
@@ -21,6 +18,7 @@ CREATE TABLE users (
 ```
 
 ## Inserting
+
 ```sql
 INSERT INTO users(data) VALUES
 ('{"name": "John", "age": 28, "contacts": {"email": "john@example.com", "phone": "1234567890"}}');
@@ -28,7 +26,8 @@ INSERT INTO users(data) VALUES
 
 ## Querying
 
-- Query a field:
+-   Query a field:
+
 ```sql
 SELECT data->>'name' as name FROM users WHERE data->>'name' = 'John';
 ```
@@ -37,19 +36,22 @@ SELECT data->>'name' as name FROM users WHERE data->>'name' = 'John';
 The `->` operator returns data as the jsonb type. The operator `->>` returns the data as text.
 :::
 
-- Query a nested field:
+-   Query a nested field:
+
 ```sql
 SELECT data->'contacts'->>'email' as email FROM users WHERE data->'contacts'->>'phone' = '1234567890';
 ```
 
 ## Updating
 
-- Performing an update on one of the fields
+-   Performing an update on one of the fields
+
 ```sql
 UPDATE users SET data = jsonb_set(data, '{contacts,email}', '"new_email@example.com"') WHERE data->>'name' = 'John';
 ```
 
-- Using another query to check it was updated
+-   Using another query to check it was updated
+
 ```sql
 SELECT data->'contacts'->>'email' as email FROM users WHERE data->>'name' = 'John';
 ```
@@ -62,25 +64,25 @@ Updating one field of JSONB data also rewrites the column to disk.
 
 With unstructured documents, you'll often want to check for the presence of particular keys.
 
-- **Checking for the existence of a key**:
+-   **Checking for the existence of a key**:
 
 ```sql
 SELECT id FROM users WHERE data ? 'name';
 ```
 
-- **Checking for the existence of multiple keys**:
+-   **Checking for the existence of multiple keys**:
 
 ```sql
 SELECT id FROM users WHERE data ?& array['name', 'age'];
 ```
 
-- **Checking for the existence of any given key**:
+-   **Checking for the existence of any given key**:
 
 ```sql
 SELECT id FROM users WHERE data ?| array['name', 'nickname'];
 ```
 
-- **Checking for a particular value ("containment")**:
+-   **Checking for a particular value ("containment")**:
 
 ```sql
 SELECT data FROM users WHERE data @> '{"name": "John"}';
@@ -94,21 +96,21 @@ Generalized Inverted Indexes ("GIN") can be used to efficiently search for keys 
 
 ### Types of indexes
 
-- Two primary GIN operator classes exist for `jsonb`:
-  - **Default (jsonb_ops)**:
-    - Supports: `?`, `?|`, `?&`, `@>`, `@?`, and `@@`.
-    - Typical use:
-      ```sql
-      CREATE INDEX idxgin ON users USING GIN (data);
-      ```
-    - `idxgin` is an arbitrary name for our index
-  - **jsonb_path_ops**:
-    - Doesn't support key-exists operators but does support: `@>`, `@?`, and `@@`.
-    - Typically more performant and space-efficient than default.
-    - Typical use:
-      ```sql
-      CREATE INDEX idxginp ON users USING GIN (data jsonb_path_ops);
-      ```
+-   Two primary GIN operator classes exist for `jsonb`:
+    -   **Default (jsonb_ops)**:
+        -   Supports: `?`, `?|`, `?&`, `@>`, `@?`, and `@@`.
+        -   Typical use:
+            ```sql
+            CREATE INDEX idxgin ON users USING GIN (data);
+            ```
+        -   `idxgin` is an arbitrary name for our index
+    -   **jsonb_path_ops**:
+        -   Doesn't support key-exists operators but does support: `@>`, `@?`, and `@@`.
+        -   Typically more performant and space-efficient than default.
+        -   Typical use:
+            ```sql
+            CREATE INDEX idxginp ON users USING GIN (data jsonb_path_ops);
+            ```
 
 ### Index query example
 
@@ -122,20 +124,23 @@ Let's try populating our database with a million rows, and compare the performan
 
 :::info
 You can list currently active indexes with
+
 ```sql
 SELECT tablename, indexname, indexdef
 FROM pg_indexes
 WHERE schemaname = 'public';
 ```
+
 :::
 
-- Let's drop the index, to be sure we are not using it
+-   Let's drop the index, to be sure we are not using it
+
 ```sql
 DROP INDEX IF EXISTS idxgin;
 DROP INDEX IF EXISTS idxginp;
 ```
 
-- Generate 1 million rows in the users table. We'll do this using PL/pgSQL
+-   Generate 1 million rows in the users table. We'll do this using PL/pgSQL
 
 :::info
 PL/pgSQL stands for "Procedural Language / PostgreSQL", and it's the PostgreSQL database's default procedural language.
@@ -162,21 +167,21 @@ END $$;
 SELECT * FROM users LIMIT 10;
 ```
 
-- Let's add another user to search for
+-   Let's add another user to search for
 
 ```sql
 INSERT INTO users(data) VALUES
 ('{"name": "Steven", "age": 31, "contacts": {"email": "steven@example.com", "phone": "8675309"}}');
 ```
 
-- Let's perform a search query by phone number, without the index
+-   Let's perform a search query by phone number, without the index
 
 ```sql
 SELECT id, data->>'name' as name, data->'contacts'->>'email' as email FROM users WHERE data @> '{"contacts": {"phone": "8675309"}}';
 ```
 
-- On the author's laptop, this query takes about 1 second
-- Let's check the query plan to understand what is performed when that query was running
+-   On the author's laptop, this query takes about 1 second
+-   Let's check the query plan to understand what is performed when that query was running
 
 :::info
 Prefixing a command by `EXPLAIN ANALYZE` will run the query and show the query plan.
@@ -203,21 +208,21 @@ postgres=# EXPLAIN ANALYZE SELECT id, data->>'name' as name, data->'contacts'->>
 (8 rows)
 ```
 
-- We can see it took 836ms. The query plan explains that this was performed in parallel by 2 workers, and each worker scanned 336,667 rows. In the author's table, there are 1,010,001 total rows. 336,667 times 3 is the total number of rows in the database, this shows how two background workers participate with the main thread to scan a table.
+-   We can see it took 836ms. The query plan explains that this was performed in parallel by 2 workers, and each worker scanned 336,667 rows. In the author's table, there are 1,010,001 total rows. 336,667 times 3 is the total number of rows in the database, this shows how two background workers participate with the main thread to scan a table.
 
-- Let's try with an index
+-   Let's try with an index
 
 ```sql
 CREATE INDEX idxgin ON users USING GIN (data);
 ```
 
-- This command took about 1 minute on the author's laptop.
+-   This command took about 1 minute on the author's laptop.
 
 :::caution
 Running `CREATE INDEX .. ON users ...` locks the users table. Instead, use `CREATE INDEX CONCURRENTLY`, which is mostly non-blocking. However, it's also slower to create the index, and if it fails part way through, it will leave behind an invalid index.
 :::
 
-- Now, we can search by phone number, using the index
+-   Now, we can search by phone number, using the index
 
 ```sql
 EXPLAIN ANALYZE SELECT id, data->>'name' as name, data->'contacts'->>'email' as email FROM users WHERE data @> '{"contacts": {"phone": "1234567890"}}';
@@ -239,9 +244,9 @@ postgres=# EXPLAIN ANALYZE SELECT id, data->>'name' as name, data->'contacts'->>
 (7 rows)
 ```
 
-- We can see this query only took 3ms, compared to more than 800ms in the previous example.
+-   We can see this query only took 3ms, compared to more than 800ms in the previous example.
 
-- Let's check how big our table is, and how much of that is the index
+-   Let's check how big our table is, and how much of that is the index
 
 ```sql
 SELECT
@@ -254,6 +259,7 @@ FROM (SELECT ('"' || table_schema || '"."' || table_name || '"') AS tablename
 ```
 
 Sample output:
+
 ```
 postgres=# SELECT
   tablename,
@@ -269,20 +275,20 @@ FROM (SELECT ('"' || table_schema || '"."' || table_name || '"') AS tablename
 (1 row)
 ```
 
-- Notably, the index is larger than the table itself!
-- We can make this much smaller by only indexing the phone number.
+-   Notably, the index is larger than the table itself!
+-   We can make this much smaller by only indexing the phone number.
 
 ```sql
 DROP INDEX idxgin;
 ```
 
-- Create a new, limited index. Using an expression index like this will only index the phone number. In our case, we are using the default, binary tree index because we are only searching for a single text value, so the index does not need to use GIN indexes. Consider the use of GIN indexes if you want to do a JSONB query, for example if users have multiple phone number each, and you want to check all users for any phone number.
+-   Create a new, limited index. Using an expression index like this will only index the phone number. In our case, we are using the default, binary tree index because we are only searching for a single text value, so the index does not need to use GIN indexes. Consider the use of GIN indexes if you want to do a JSONB query, for example if users have multiple phone number each, and you want to check all users for any phone number.
 
 ```sql
 CREATE INDEX idx_users_phone_btree ON users ((data->'contacts'->>'phone'));
 ```
 
-- We have to slightly modify our query so that it's not using the containment operator:
+-   We have to slightly modify our query so that it's not using the containment operator:
 
 ```sql
 SELECT id, data->>'name' as name, data->'contacts'->>'email' as email
@@ -303,7 +309,8 @@ WHERE data->'contacts'->>'phone' = '8675309';
 (4 rows)
 ```
 
-- And, we can see the index is smaller.
+-   And, we can see the index is smaller.
+
 ```
 
 postgres=# SELECT

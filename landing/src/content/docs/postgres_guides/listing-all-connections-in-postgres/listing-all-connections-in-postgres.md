@@ -1,14 +1,10 @@
 ---
-sidebar_position: 2
-tags:
-  - Postgres Basics
+title: Listing all connections to Postgres
 ---
 
 import PgAdminDashboard from './images/pgadmin-dashboard.png'
 import PgAdminDashboardTables from './images/pgadmin-dashboard-tables.png'
 import PgAdminServerActivity from './images/pgadmin-server-activity.png'
-
-# Listing all connections to Postgres
 
 There are 2 different methods to list down all the connections present in Postgres database - using SQL query and using PgAdmin. In this guide, we will explore these two methods and discuss the step-by-step process to run them.
 
@@ -30,17 +26,17 @@ SELECT * FROM pg_stat_activity;
 
 <img src={PgAdminDashboard} width="800" alt="PgAdminDashboard" />
 
-- **dataid** - It shows the Object ID of the connected database.
+-   **dataid** - It shows the Object ID of the connected database.
 
-- **datname** - It shows the names of the connected database. It gives the human-readable name of the database connected with the session.
+-   **datname** - It shows the names of the connected database. It gives the human-readable name of the database connected with the session.
 
-- **pid** - It shows the process ID (pid) of the backend server process associated with the session. There is a backend process for each individual active session.
+-   **pid** - It shows the process ID (pid) of the backend server process associated with the session. There is a backend process for each individual active session.
 
-- **usesysid** - It lists down the system identifier of all the users who has started the session.
+-   **usesysid** - It lists down the system identifier of all the users who has started the session.
 
-- **application_name** - It shows the names of the client application that started the session. In many cases, it is defined by the client application while building a connection to the session.
+-   **application_name** - It shows the names of the client application that started the session. In many cases, it is defined by the client application while building a connection to the session.
 
-- **backend_start** - This column represents the timestamp when the backend process was initiated.
+-   **backend_start** - This column represents the timestamp when the backend process was initiated.
 
 ## Using PgAdmin
 
@@ -56,13 +52,13 @@ SELECT * FROM pg_stat_activity;
 
 Along with _Server Activity_, it shows some other important statistics as well - Server Sessions, Transitions per Second, Tuples In and Tuples Out, Block IO.
 
-- **Server Sessions** - It shows the details about the sessions or connections that are currently going on in the PostgreSQL server.
+-   **Server Sessions** - It shows the details about the sessions or connections that are currently going on in the PostgreSQL server.
 
-- **Transactions per Second** - It represents the rate or time at which the transactions are being treated by the database server.
+-   **Transactions per Second** - It represents the rate or time at which the transactions are being treated by the database server.
 
-- **Tuples In and Tuples Out** - Tuples In shows the number of rows added to the database. Tuples Out shows the number of rows fetched from the database.
+-   **Tuples In and Tuples Out** - Tuples In shows the number of rows added to the database. Tuples Out shows the number of rows fetched from the database.
 
-- **Block IO** - It shows the input and output operations performed on the disk blocks.
+-   **Block IO** - It shows the input and output operations performed on the disk blocks.
 
 ## Conclusion
 

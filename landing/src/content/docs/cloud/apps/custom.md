@@ -1,12 +1,6 @@
 ---
-sidebar_position: 999
-tags:
-  - tools
-  - containers
-  - kubernetes
+title: User Defined Applications
 ---
-
-# User Defined Applications
 
 Tembo Cloud allows you to deploy containers next to your Postgres instance. Some of these apps are pre-configured such as [REST-API](./rest-api.md) or [Embeddings](./embeddings.md). You can also specify and configure these containers yourself. This allows you to run custom applications that can interact with your Postgres instance, or other services.
 
@@ -23,7 +17,7 @@ For user defined containers, you must specify the key `custom` in the `app_servi
 ```json
 app_services: [
     {
-        "custom": { <AppService object> } 
+        "custom": { <AppService object> }
     }
 ]
 
@@ -31,18 +25,18 @@ app_services: [
 
 ## Notes about the AppServices spec
 
-- `image`: The container image to run. This can be any container image that is publicly accessible, or a private image that is accessible to the Tembo Platform API.
+-   `image`: The container image to run. This can be any container image that is publicly accessible, or a private image that is accessible to the Tembo Platform API.
 
-- `name`: The name of the application service. This is used to identify the application service in the Tembo Platform API. It is unique across all application services in the same namespace, and there is one namespace per Tembo Postgres instance.
+-   `name`: The name of the application service. This is used to identify the application service in the Tembo Platform API. It is unique across all application services in the same namespace, and there is one namespace per Tembo Postgres instance.
 
-- `routing`: The routing configuration for the application service. This is an array of `Routing` objects, which define how the application service is exposed to the outside world. See also the [Routing](https://docs.rs/controller/latest/controller/app_service/types/struct.Routing.html) spec. The `Routing` object has the following fields:
-  - `port`: The port that the application service listens on.
-  - `ingressPath`: The path that the application service is exposed on. This is used to route traffic to the application service.
-  - `middlewares`: An array of references to middleware names that you want applied to the application service. The middleware names are defined in the `middlewares` field of the `AppService` spec, (see below).
-- `middlewares`: An array of middleware objects that are applied to the application service. The middleware objects have the following fields. Supported middlewares can be found [here](https://docs.rs/controller/latest/controller/app_service/types/enum.Middleware.html). These can be extended by contributing to the [Tembo Kubernetes Operator](https://github.com/tembo-io/tembo/tree/main/tembo-operator).
-- `env`: An array of environment variables that are passed to the application service. These are key-value pairs that are used to configure the application service. The Postgres connection string for your Tembo Postgres instance can be passed into an environment variable by using `valueFromPlatform: ReadWriteConnection`.
-- `resources`: The resource limits and requests for the application service. This is used to configure the amount of CPU and memory that the application service can use.
-- `storage`: The storage configuration for the application service, including volumes and volume mounts. See also the [StorageConfig](https://docs.rs/controller/latest/controller/app_service/types/struct.StorageConfig.html) spec.
+-   `routing`: The routing configuration for the application service. This is an array of `Routing` objects, which define how the application service is exposed to the outside world. See also the [Routing](https://docs.rs/controller/latest/controller/app_service/types/struct.Routing.html) spec. The `Routing` object has the following fields:
+    -   `port`: The port that the application service listens on.
+    -   `ingressPath`: The path that the application service is exposed on. This is used to route traffic to the application service.
+    -   `middlewares`: An array of references to middleware names that you want applied to the application service. The middleware names are defined in the `middlewares` field of the `AppService` spec, (see below).
+-   `middlewares`: An array of middleware objects that are applied to the application service. The middleware objects have the following fields. Supported middlewares can be found [here](https://docs.rs/controller/latest/controller/app_service/types/enum.Middleware.html). These can be extended by contributing to the [Tembo Kubernetes Operator](https://github.com/tembo-io/tembo/tree/main/tembo-operator).
+-   `env`: An array of environment variables that are passed to the application service. These are key-value pairs that are used to configure the application service. The Postgres connection string for your Tembo Postgres instance can be passed into an environment variable by using `valueFromPlatform: ReadWriteConnection`.
+-   `resources`: The resource limits and requests for the application service. This is used to configure the amount of CPU and memory that the application service can use.
+-   `storage`: The storage configuration for the application service, including volumes and volume mounts. See also the [StorageConfig](https://docs.rs/controller/latest/controller/app_service/types/struct.StorageConfig.html) spec.
 
 ## Apply the spec to your Tembo Instance
 
@@ -234,7 +228,7 @@ resp = requests.patch(
                     ]
                     }
                 }
-            },  
+            },
         ]
     }
 )
@@ -246,6 +240,6 @@ resp = requests.patch(
 
 ## Limitations
 
-- Container images must be publicly accessible
-- This means all HTTP ingress traffic is authenticated and authorized by Tembo's API Gateway, which means the HTTP header `Authorization: Bearer <your Tembo JWT>` must be valid. This is a limitation of the current implementation, and we are working on a solution to allow direct access to the application service from the internet.
-- Volumes are currently ephemeral only
+-   Container images must be publicly accessible
+-   This means all HTTP ingress traffic is authenticated and authorized by Tembo's API Gateway, which means the HTTP header `Authorization: Bearer <your Tembo JWT>` must be valid. This is a limitation of the current implementation, and we are working on a solution to allow direct access to the application service from the internet.
+-   Volumes are currently ephemeral only

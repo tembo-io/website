@@ -2,8 +2,6 @@
 sideBarPosition: 1
 ---
 
-# Getting Started
-
 Goodbye Database Sprawl, Hello Postgres.
 
 At Tembo, we've created a radically simpler way to build, deploy, and scale data services and applications on top of Postgres. Unlike traditional managed Postgres offerings, Tembo abstracts the complexity of deployment, configuration, management, and optimization, allowing developers to easily build and deploy highly specialized data services without needing to rely on multiple different database platforms, and teams of backend engineers, devops, database administrators, and data engineers.
@@ -35,7 +33,7 @@ Ready to get started? Let's do it.
 
 ## Enabling Extensions
 
--   We support (195+) [Trunk](https://www.pgt.dev)-installable extensions
+-   We support (200+) [Trunk](https://www.pgt.dev)-installable extensions
 -   Click the extensions tab while viewing a cluster (the little box icon)
 -   Click the "Add new extension”, find the extension, click “Install”
 -   Click the extensions tab while viewing a cluster, to enable any extensions you have installed.

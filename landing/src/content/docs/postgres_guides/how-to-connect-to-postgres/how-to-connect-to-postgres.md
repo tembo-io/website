@@ -1,15 +1,11 @@
 ---
-sidebar_position: 2
-tags:
-  - Postgres Basics
+title: How to connect to Postgres (and how to exit from psql)
 ---
-
-# How to connect to Postgres (and how to exit from psql)
 
 PostgreSQL is recognized both as a popular and versatile data storage option. Boasting a rich ecosystem, this relational database management system is enhanced by tools that abstract away complexities relating to connectivity and management. While there are many exciting tools available, we want to highlight two of the most popular:
 
-- psql - a command-line tool that comes bundled with Postgres.
-- pgAdmin - an open-source database management tool with a user-friendly interface for connecting to, querying, and managing PostgreSQL databases.
+-   psql - a command-line tool that comes bundled with Postgres.
+-   pgAdmin - an open-source database management tool with a user-friendly interface for connecting to, querying, and managing PostgreSQL databases.
 
 ## Connect using psql
 
@@ -17,13 +13,13 @@ According to the [official documentation](https://www.postgresql.org/docs/curren
 
 Once you have opened your preferred terminal, you can connect using this command:
 
-``` sh
+```sh
 psql postgresql://$HOST:$PORT/$DB_NAME -U $USER_NAME
 ```
 
 If your database is running locally, you can omit most of this command, as psql will know to connect via Unix-sockets or via TCP to localhost. You can just run:
 
-``` sh
+```sh
 psql -U $USER_NAME
 ```
 
@@ -52,8 +48,8 @@ Now, let us dive into one of the most asked questions in all of the Postgres eco
 
 psql was designed to be a very quick tool to use. For that reason, a lot of its commands are short ones. This includes the commands to exit the tool. Here are the main ways to exit psql:
 
-- The main way is the command `/q`. You can type `/q` and press Enter.
-- As with many shell tools, you can type `Ctrl+D`.
+-   The main way is the command `/q`. You can type `/q` and press Enter.
+-   As with many shell tools, you can type `Ctrl+D`.
 
 **Thankfully**, as of Postgres 11, the community addressed this usability issue, and now the `exit` and `quit` commands both exit psql.
 
@@ -67,11 +63,11 @@ You **must create a server connection**. To do that, you can go to the Server di
 
 The Server dialog looks like this:
 
-![server-general](images/server-general.png)
+![server-general](./images/server-general.png)
 
 This dialog allows you to configure every aspect of a connection to a specific database server. In the _Connection_ tab you can specify host, port, username, database name, etc.
 
-![server-connection](images/server-connection.png)
+![server-connection](./images/server-connection.png)
 
 Once you have created a connection object, you will see it appear under the Servers section in the administration menu of pgAdmin. You can right click on it, and click on _Connect_.
 
@@ -79,7 +75,7 @@ Once you have created a connection object, you will see it appear under the Serv
 
 If you see errors when trying to connect to Postgres, pgAdmin will return a detailed error message. We recommend that you **review the error message carefully**, as it usually contains the key to resolving the issue.
 
-![ce-not-running](images/ce-not-running.png)
+![ce-not-running](./images/ce-not-running.png)
 
 ## Conclusion
 

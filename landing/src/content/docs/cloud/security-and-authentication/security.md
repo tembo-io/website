@@ -1,11 +1,3 @@
----
-sidebar_position: 1
-tags:
-  - security
----
-
-# Security
-
 Please report security issues by emailing security@tembo.io
 
 ## User permissions
@@ -24,13 +16,13 @@ Kubernetes Pod configuration excerpt:
 
 ```yaml
 securityContext:
-  allowPrivilegeEscalation: false
-  capabilities:
-    drop:
-      - ALL
-  privileged: false
-  readOnlyRootFilesystem: true
-  runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+        drop:
+            - ALL
+    privileged: false
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
 ```
 
 Network isolation is handled with Kubernetes network policies, which are handled by [Calico](https://docs.tigera.io/calico/latest/reference/installation/api). Each server is in an isolated namespace, with a default deny-all network policy. Network access is permitted on a case-by-case basis, and the configurations are open source in [this file](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/network_policies.rs).
@@ -56,42 +48,42 @@ The certificate infrastructure is configured like this:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: selfsigning-postgres-ca-issuer
+    name: selfsigning-postgres-ca-issuer
 spec:
-  selfSigned: {}
+    selfSigned: {}
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: postgres-selfsigned-ca
-  namespace: cert-manager
+    name: postgres-selfsigned-ca
+    namespace: cert-manager
 spec:
-  commonName: data-1.use1.tembo.io
-  subject:
-    organizations:
-      - tembo
-    organizationalUnits:
-      - engineering
-  dnsNames:
-    - data-1.use1.coredb.io
-    - data-1.use1.tembo.io
-  isCA: true
-  issuerRef:
-    group: cert-manager.io
-    kind: ClusterIssuer
-    name: selfsigning-postgres-ca-issuer
-  privateKey:
-    algorithm: ECDSA
-    size: 256
-  secretName: postgres-ca-secret
+    commonName: data-1.use1.tembo.io
+    subject:
+        organizations:
+            - tembo
+        organizationalUnits:
+            - engineering
+    dnsNames:
+        - data-1.use1.coredb.io
+        - data-1.use1.tembo.io
+    isCA: true
+    issuerRef:
+        group: cert-manager.io
+        kind: ClusterIssuer
+        name: selfsigning-postgres-ca-issuer
+    privateKey:
+        algorithm: ECDSA
+        size: 256
+    secretName: postgres-ca-secret
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: postgres-server-issuer
+    name: postgres-server-issuer
 spec:
-  ca:
-    secretName: postgres-ca-secret
+    ca:
+        secretName: postgres-ca-secret
 ```
 
 Above, we use a self-signed ClusterIssuer to create a self-signed CA Certificate. Then, another ClusterIssuer is created to issue certificates for Tembo Instances using that CA.
@@ -103,39 +95,39 @@ Each tembo instance will have certificates created, for example like this:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: instance-name
-  namespace: namespace
+    name: instance-name
+    namespace: namespace
 spec:
-  dnsNames:
-    - instance-name.data-1.use1.tembo.io
-    - instance-name-rw
-    - instance-name-rw.namespace
-    - instance-name-rw.namespace.svc
-    - instance-name-r
-    - instance-name-r.namespace
-    - instance-name-r.namespace.svc
-    - instance-name-ro
-    - instance-name-ro.namespace
-    - instance-name-ro.namespace.svc
-    - instance-name-rw
-  issuerRef:
-    group: cert-manager.io
-    kind: ClusterIssuer
-    name: postgres-server-issuer
-  secretName: ...
+    dnsNames:
+        - instance-name.data-1.use1.tembo.io
+        - instance-name-rw
+        - instance-name-rw.namespace
+        - instance-name-rw.namespace.svc
+        - instance-name-r
+        - instance-name-r.namespace
+        - instance-name-r.namespace.svc
+        - instance-name-ro
+        - instance-name-ro.namespace
+        - instance-name-ro.namespace.svc
+        - instance-name-rw
+    issuerRef:
+        group: cert-manager.io
+        kind: ClusterIssuer
+        name: postgres-server-issuer
+    secretName: ...
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: instance-name
-  namespace: namespace
+    name: instance-name
+    namespace: namespace
 spec:
-  commonName: streaming_replica
-  issuerRef:
-    group: cert-manager.io
-    kind: ClusterIssuer
-    name: postgres-server-issuer
-  secretName: ...
+    commonName: streaming_replica
+    issuerRef:
+        group: cert-manager.io
+        kind: ClusterIssuer
+        name: postgres-server-issuer
+    secretName: ...
 ```
 
 The code to issue certificates is open source in [this GitHub repository](https://github.com/tembo-io/tembo).

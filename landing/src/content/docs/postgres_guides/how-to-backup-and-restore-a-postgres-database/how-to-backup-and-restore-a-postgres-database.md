@@ -1,11 +1,3 @@
----
-sidebar_position: 2
-tags:
-  - Postgres Basics
----
-
-# How to Backup and Restore a Postgres Database
-
 Postgres comes with a variety of methods to backup and restore the state of your database. It is an essential task for database administrators to ensure data integrity and recover from data loss or system failures.
 
 Suppose you are working on a company’s project and you do not want to lose any of the project’s data like user details, tables, etc; while simultaneously maintaining the security of data. In such a scenario, consistently backing up your database is critical. Let’s see how you can do this.
@@ -16,7 +8,7 @@ Suppose you are working on a company’s project and you do not want to lose any
 
 The utility named `pg_dump` allows the users to create a logical backup of a specific Postgres database. Execute the following command to export the contents of the database into a SQL text file:
 
-``` sh
+```sh
 pg_dump -U username -d database_name -f backup_file.sql
 ```
 
@@ -34,7 +26,7 @@ Postgres comes with a `pg_dumpall` command which allows the users to backup the 
 
 Execute the following `pg_dumpall` command to export the data of the entire Postgres instance or cluster:
 
-``` sh
+```sh
 pg_dumpall -U username -f backup_file.sql
 ```
 
@@ -64,7 +56,7 @@ Just like `pg_dump` for exporting data, Postgres comes with a `pg_restore` comma
 
 Run the following command in your terminal to import a SQL file and restore the database:
 
-``` sh
+```sh
 pg_restore -U username -d new_database_name -1 backup_file.sql
 ```
 
@@ -82,7 +74,7 @@ You can also restore the backup using `psql`. To do that, you first need to crea
 
 Use the following command in your terminal to create a new database:
 
-``` sh
+```sh
 createdb -U username new_database_name
 ```
 
@@ -98,7 +90,7 @@ Replace the `username`, `new_database_name`, and `backup_file.sql` with your Pos
 
 Above we have discussed the `pg_dumpall` method to backup the database, so if you follow that method, you can execute the following `psql` command to instantly retrieve the database -
 
-``` sh
+```sh
 psql -U username -f backup_file.sql
 ```
 

@@ -1,20 +1,18 @@
-# random
-
-> *Generate random data.*
+> _Generate random data._
 
 The `random` extension for PostgreSQL introduces a suite of functions specifically designed to generate random values across various data types.
 
-# When should you use it?
+## When should you use it?
 
 This extension may be deployed when you need to produce random data values within PostgreSQL. The use cases might include, but are not limited to generating sample data for application development or database stress testing.
 
-# Example use case.
+## Example use case.
 
 **Generate test data for development:**
 
 A software developer is building a tool that can analyze product listings and suggest suitable categories based on patterns in the data. To emulate a realistic e-commerce environment, the developer uses the `random` extension to populate the database with mock products.
 
-# Example test script.
+## Example test script.
 
 ```
 -- Create example table, products, and populate with test data
@@ -27,7 +25,7 @@ CREATE TABLE products (
 
 DO
 $$
-DECLARE 
+DECLARE
     counter INTEGER := 1;
 BEGIN
     WHILE counter <= 1000 LOOP

@@ -1,13 +1,8 @@
 ---
-sidebar_position: 3
-tags:
-  - api
-  - configuration
+title: Postgres Configuration
 ---
 
-# Postgres Configuration
-
-Postgres allows for setting a wide range of configuration options. These configurations include settings for memory, vacuum, 
+Postgres allows for setting a wide range of configuration options. These configurations include settings for memory, vacuum,
 extensions, logging, and more.
 
 This document will guide you through the process of setting Postgres configuration values on Tembo Cloud.
@@ -22,8 +17,7 @@ More information on valid Postgres configuration values can be found at https://
 
 1. Generate an API token for communicating with your Tembo instance. Navigate to https://cloud.tembo.io/generate-jwt and follow the instructions to generate a token.
 
-
-2.  Set the following environment variables:
+2. Set the following environment variables:
 
     ```sh
     export TEMBO_TOKEN=<your token>

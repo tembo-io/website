@@ -1,10 +1,6 @@
 ---
-sidebar_position: 2
-tags:
-  - Postgres Basics
+title: How to quit PSQL utility
 ---
-
-# How to quit PSQL utility
 
 This guide is designed to demystify the process of quitting the PSQL utility. In a succinct manner, we will explore the various methods to gracefully exit PSQL, ensuring that you can seamlessly transition in and out of this indispensable command-line environment.
 
@@ -16,7 +12,7 @@ You can simple execute the `\q` command in the psql prompt to exit the psql util
 \q
 ```
 
-![q-command](images/q-command.png)
+![q-command](./images/q-command.png)
 
 :::important
 Make sure to exit to your database after you have performed every operation that you want to perform in it. Once you exit, you have to perform the whole process again to connect to the database
@@ -26,9 +22,9 @@ Make sure to exit to your database after you have performed every operation that
 
 Psql also comes with an option to quit the psql utility with some defined keyboard shortcuts. These keyboard shortcuts varies depending upon the operating system you are using
 
-- For Windows → `Ctrl + C`
+-   For Windows → `Ctrl + C`
 
-- For Mac and Linux → `Ctrl + D`
+-   For Mac and Linux → `Ctrl + D`
 
 ## Using exit command
 
@@ -38,7 +34,7 @@ Just like `\q` command, you can also use the exit command to make an `exit` from
 exit
 ```
 
-![exit-command](images/exit-command.png)
+![exit-command](./images/exit-command.png)
 
 # Conclusion
 

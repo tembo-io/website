@@ -80,16 +80,16 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 								{
 									authors.map((author) => (
 										<a
-											href={author.url || '/blog'}
+											href={author?.url || '/blog'}
 											target='_blank'
 											class='w-max'
 										>
 											<Author
-												name={author.name}
+												name={author?.name}
 												title={
-													author.title || 'Tembonaut'
+													author?.title || 'Tembonaut'
 												}
-												avatar={author.image_url}
+												avatar={author?.image_url}
 											/>
 										</a>
 									))

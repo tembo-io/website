@@ -1,10 +1,6 @@
 ---
-sidebar_position: 2
-tags:
-  - Postgres Basics
+title: How to select database in Postgres
 ---
-
-# How to select database in Postgres
 
 Databases are the foundations upon which your data is organized and stored in Postgres. While PostgreSQL offers a robust environment for database management, the process of selecting a database may not always be as intuitive as one might hope.
 
@@ -14,7 +10,7 @@ In this guide, we'll explore 2 different methods to connect to specific Postgres
 
 **Step 1** - Connect the terminal to your desired Postgres database. Follow our guide to see the whole process, [click here](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres/)
 
-![postgres-user](images/postgres-user.png)
+![postgres-user](./images/postgres-user.png)
 
 **Step 2** - Use `\l` command to list down all the databases present in that user account
 
@@ -22,7 +18,7 @@ In this guide, we'll explore 2 different methods to connect to specific Postgres
 \l
 ```
 
-![l-command](images/l-command.png)
+![l-command](./images/l-command.png)
 
 You are free to choose any of database from the list for the purpose to establish a connection.
 
@@ -32,7 +28,7 @@ You are free to choose any of database from the list for the purpose to establis
 \c database_name
 ```
 
-![c-database-command](images/c-database-command.png)
+![c-database-command](./images/c-database-command.png)
 
 Make sure to replace the “database_name” with the name of your desired database
 
@@ -40,11 +36,11 @@ Make sure to replace the “database_name” with the name of your desired datab
 
 **Step 1** - Use the given below command to directly connect to your desired database. Then, enter your password and hit enter
 
-``` sh
+```sh
 psql -h hostname -p port postgres database_name
 ```
 
-![port-command](images/port-command.png)
+![port-command](./images/port-command.png)
 
 Do replace the hostname, port and database_name with the name of your host, port number and your desired database respectively.
 

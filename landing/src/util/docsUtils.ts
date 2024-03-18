@@ -29,7 +29,7 @@ export const sortSideBarLinks = (sideBarLinks: SideBarSection[]) =>
 		return 0;
 	});
 
-const cleanSideBarTitle = (title: string) => {
+export const cleanSideBarTitle = (title: string) => {
 	return uppercaseFirstLetter(
 		title
 			?.replaceAll('-', ' ')
@@ -54,7 +54,10 @@ const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
 		})
 		.map((doc) => {
 			const split = doc.id.split('/');
-			const title = cleanSideBarTitle(split.at(-1) as string);
+			const title =
+				doc?.data?.sideBarTitle ??
+				cleanSideBarTitle(split.at(-1) as string);
+
 			return {
 				title: doc.data.uppercase ? title.toUpperCase() : title,
 				slug: `/docs/${doc.slug}`,

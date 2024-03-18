@@ -1,10 +1,6 @@
 ---
-sidebar_position: 1
-tags:
-  - Postgres Basics
+title: Overview of PostgreSQL
 ---
-
-# Overview of PostgreSQL
 
 ## History of PostgreSQL
 
@@ -12,9 +8,9 @@ PostgreSQL, commonly known as Postgres, is an open-source, object-relational dat
 
 **Key Historical Milestones:**
 
-- **1986**: The POSTGRES project began at UC Berkeley led by Professor Michael Stonebraker.
-- **1995**: POSTGRES was renamed to PostgreSQL to reflect its support for the SQL language.
-- **1996**: PostgreSQL 6.0, the first version labeled as PostgreSQL, was released.
+-   **1986**: The POSTGRES project began at UC Berkeley led by Professor Michael Stonebraker.
+-   **1995**: POSTGRES was renamed to PostgreSQL to reflect its support for the SQL language.
+-   **1996**: PostgreSQL 6.0, the first version labeled as PostgreSQL, was released.
 
 ## Features of PostgreSQL
 

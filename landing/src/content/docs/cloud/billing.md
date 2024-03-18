@@ -1,4 +1,6 @@
-# Tembo Cloud Billing
+---
+title: Tembo Cloud Billing
+---
 
 You only use what you need, so you should only pay for what you need.
 

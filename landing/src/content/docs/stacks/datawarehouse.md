@@ -1,9 +1,3 @@
----
-sidebar_position: 3
----
-
-# Tembo DataWarehouse
-
 Tembo's DataWarehouse is tuned and configured for data warehouse workloads. Extract, Transform and Load data from external sources using extensions. Build centralize datastore for analytical and tactical queries.
 
 ## Container Image
@@ -14,15 +8,15 @@ For interest in the other Stack-specific images, please visit the official [temb
 
 ## Extensions
 
-- `pg_stat_statements` provides statistics on SQL statements executed by the database. It helps users analyze query performance and identify areas for optimization.
-- [hydra_columnar](https://pgt.dev/extensions/hydra_columnar) - `hydra_columnar` is open source, column-oriented Postgres, designed for high-speed aggregate operations.
-- [pg_partman](https://pgt.dev/extensions/pg_partman) - `pg_partman` - simplifies and automates partitioning of large database tables. It helps manage data efficiently by dividing it into smaller, more manageable partitions.
-- [pg_cron](https://pgt.dev/extensions/pg_cron) - `pg_cron` automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
-- [postgres_fdw](https://pgt.dev/extensions/postgres_fdw) - `postgres_fdw` provides the foreign data wrapper necessary to access data stored in external Postgres servers.
-- [redis_fdw](https://pgt.dev/extensions/redis_fdw) - `redis_fdw` provides the foreign data wrapper necessary to access data stored in external Redis servers.
-- [wrappers](https://pgt.dev/extensions/wrappers) - `wrappers` is a development framework for Postgres Foreign Data Wrappers (FDW), written in Rust. It also comes with collection of FDWs built by Supabase.
-- [multicorn](https://pgt.dev/extensions/multicorn) - `multicorn2` Foreign Data Wrapper allows you to fetch foreign data in Python in your PostgreSQL server.
-- Extensions from [Trunk](https://pgt.dev) can be installed on-demand.
+-   `pg_stat_statements` provides statistics on SQL statements executed by the database. It helps users analyze query performance and identify areas for optimization.
+-   [hydra_columnar](https://pgt.dev/extensions/hydra_columnar) - `hydra_columnar` is open source, column-oriented Postgres, designed for high-speed aggregate operations.
+-   [pg_partman](https://pgt.dev/extensions/pg_partman) - `pg_partman` - simplifies and automates partitioning of large database tables. It helps manage data efficiently by dividing it into smaller, more manageable partitions.
+-   [pg_cron](https://pgt.dev/extensions/pg_cron) - `pg_cron` automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
+-   [postgres_fdw](https://pgt.dev/extensions/postgres_fdw) - `postgres_fdw` provides the foreign data wrapper necessary to access data stored in external Postgres servers.
+-   [redis_fdw](https://pgt.dev/extensions/redis_fdw) - `redis_fdw` provides the foreign data wrapper necessary to access data stored in external Redis servers.
+-   [wrappers](https://pgt.dev/extensions/wrappers) - `wrappers` is a development framework for Postgres Foreign Data Wrappers (FDW), written in Rust. It also comes with collection of FDWs built by Supabase.
+-   [multicorn](https://pgt.dev/extensions/multicorn) - `multicorn2` Foreign Data Wrapper allows you to fetch foreign data in Python in your PostgreSQL server.
+-   Extensions from [Trunk](https://pgt.dev) can be installed on-demand.
 
 ## Getting started
 
@@ -148,7 +142,9 @@ Gather overall CTR across 1 million impressions.
 ```sql
 SELECT count(*) impressions, sum(click::integer) clicks, sum(click::integer) / count(*)::numeric overall_ctr from s3_ctr_1M_gzip_csv;
 ```
+
 Result:
+
 ```text
 impressions | clicks |      overall_ctr
 -------------+--------+------------------------
@@ -156,6 +152,7 @@ impressions | clicks |      overall_ctr
 (1 row)
 
 ```
+
 #### Query 2
 
 Gather hourly click trend.
@@ -165,6 +162,7 @@ SELECT EXTRACT(HOUR from to_timestamp(hour,'YYMMDDHH24')) hourly, count(*) hourl
 ```
 
 Result:
+
 ```text
  hourly | hourly_impressions | clicks_per_hour |       hourly_ctr
 --------+--------------------+-----------------+------------------------
@@ -205,8 +203,8 @@ SELECT EXTRACT(DOW from to_timestamp(hour,'YYMMDDHH24')) DayOfWeek, count(*) dow
 
 ```
 
-
 Result:
+
 ```text
  dayofweek | dow_impressions | dow_clicks |        dow_ctr
 -----------+-----------------+------------+------------------------
@@ -220,6 +218,7 @@ Result:
 (7 rows)
 
 ```
+
 #### Query 4
 
 Gather click trend on various Devices.
@@ -229,6 +228,7 @@ SELECT device_type, count(*) impressions_per_device, sum(click::integer) clicks_
 ```
 
 Result:
+
 ```text
  device_type | impressions_per_device | clicks_per_device |       device_ctr
 -------------+------------------------+-------------------+------------------------
@@ -239,6 +239,7 @@ Result:
  5           |                   3196 |               290 | 0.09073842302878598248
 (5 rows)
 ```
+
 #### Query 5
 
 Gather click trend for Features.
@@ -249,6 +250,7 @@ SELECT c1 feature, count(*) impressions_per_feature, sum(click::integer) clicks_
 ```
 
 Result:
+
 ```text
  feature | impressions_per_feature | clicks_per_feature |      feature_ctr
 ---------+-------------------------+--------------------+------------------------

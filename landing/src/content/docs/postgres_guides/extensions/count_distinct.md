@@ -1,20 +1,18 @@
-# count_distinct
-
 > COUNT(DISCTINCT ...) alternative.
 
 The COUNT_DISTINCT aggregate extension offers a better performance alternative to the traditional COUNT(DISTINCT ...), especially for larger datasets, where the traditional method may end in slow sorts. This extension includes polymorphic aggregate functions, which can handle both fixed-length data types and arrays of these types.
 
-# When should you use it?
+## When should you use it?
 
 This extension can be used for counting distinct values in large datasets, particularly in earlier PostgreSQL versions. However, it may not be suitable if memory consumption is a concern or if using newer PostgreSQL releases with improved COUNT(DISTINCT ...) performance.
 
-# Example use case.
+## Example use case.
 
 **Urban Rentals Analysis:**
 
 In a city, local authorities aim to analyze the rental data of various mobility options across 20 districts over a year to aid in urban planning and traffic management. The data comprises different vehicles rented each month. Using a local PostgreSQL setup, they employ the COUNT_DISTINCT extension to efficiently analyze the large dataset, particularly counting the distinct monthly utilization of each rental type across all districts.
 
-# Example test script.
+## Example test script.
 
 ```
 -- Create example table, rentals, and populate with test data

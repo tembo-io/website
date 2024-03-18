@@ -1,18 +1,16 @@
-# credcheck
-
 > Define authorization protocols.
 
 `credcheck` is designed to enforce credential policies within a database system. It provides various checks on username and password attributes to enhance security and compliance. By defining rules for credential characteristics such as minimum length, character type inclusion and exclusion, repetition of characters, and password expiration, database administrators can ensure that user credentials adhere to the desired policies.
 
-# When should you use it?
+## When should you use it?
 
 This extension can be used to implement specific rules on username and password attributes, relating, but not limited to to character count, special character usage, and password reuse.
 
-# Example use case.
+## Example use case.
 
 A country’s National Park Authority manages a PostgreSQL database to store and process data relating to wildlife sightings, visitor statistics, and park maintenance. To ensure data integrity and security, they decide to utilize the `credcheck` extension to enforce credential policies. This way, they can ensure that only personnel with strong, compliant credentials can access the database, thereby reducing the risk of unauthorized access or data manipulation.
 
-# Example test script.
+## Example test script.
 
 ```
 -- Configure credential policies to enforce username and password standards and reload configuration files

@@ -1,9 +1,13 @@
-# NextJS
+---
+title: NextJS
+---
+
 ## Creating a Next.js Project with Tembo CLI
 
 ## Prerequisites
 
 Before you start, make sure you have the following installed:
+
 1. `npx` and `npm`
 2. Tembo CLI. you can find the steps [here](../Getting_Started.md)
 3. Docker, set up and running for local development
@@ -24,6 +28,7 @@ After creating your project, navigate into your project directory:
 cd todos-app
 npm run dev
 ```
+
 ## Step 2: Initializing Prisma and Tembo
 
 Initialize Prisma with PostgreSQL as your data source provider:
@@ -45,6 +50,7 @@ tembo context set --name local
 ```
 
 You can check your context by running
+
 ```bash
 tembo context list
 ```
@@ -67,6 +73,7 @@ stack_type = "OLTP"
 Create a migrations file inside the migrations folder created after `tembo init`. Example SQL for creating users and posts tables:
 
 `create_user_post_table.sql`
+
 ```sql
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
@@ -93,6 +100,7 @@ tembo apply
 ```
 
 If the above command runs sucessfully, copy the `url` and paste it into your .env file. It would look something like
+
 ```
 DATABASE_URL="postgres://postgres:postgres@todos-app.local.tembo.io:5432"
 ```
@@ -122,12 +130,11 @@ npx prisma generate
 ```
 
 In the Next.js project root folder (prisma-next-todos-app), create a lib directory. In it, add a prisma.ts file which will configure the Prisma client as below:
+
 ```ts
-import {PrismaClient} from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 const prisma: PrismaClient = new PrismaClient();
 export default prisma;
 ```
 
 Now you should be all set to start development. Additionally you can follow the steps listed [here](https://birdeatsbug.com/blog/simplest-approach-to-work-with-databases-in-next-js-using-prisma) and follow-on from `Setting up the Next.js routes` section. This basic app shows how you can create a basic CRUD nextjs application using Tembo CLI.
-
-

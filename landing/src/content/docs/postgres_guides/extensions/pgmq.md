@@ -1,18 +1,16 @@
-# pgmq
-
 > Lightweight message queue.
 
 `pgmq` is a rust-based extension designed to implement message queues. It uses technologies also associated with Kafka, RabbitMQ, and SQS.
 
-# When should you use it?
+## When should you use it?
 
 This extension can be used when you’re interested in managing operational pipelines, especially in asynchronous tasks and distributed systems. It is also worth considering when you need features like guaranteed exactly-once delivery, optional archival for replay-ability, and the familiarity of SQL for managing your queues.
 
-# Example use case.
+## Example use case.
 
 A newly-founded Postgres startup requires a job queue to manage tasks between their control-plane and data-plane within their managed cloud offering. They needed operations like "create postgres cluster" and "update postgres cluster" to be queued and executed seamlessly. To simplify their architecture and reduce technology sprawl, they implemented `pgmq`, creating an efficient message queue system directly within Postgres.
 
-# Example test script.
+## Example test script.
 
 ```
 -- Creating a new queue

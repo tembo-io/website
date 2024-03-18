@@ -1,10 +1,6 @@
 ---
-sidebar_position: 2
-tags:
-  - Postgres Basics
+title: Connection Pooling in Postgres
 ---
-
-# Connection Pooling in Postgres
 
 ## The Problem: Many Database Requests from Your Application
 
@@ -32,7 +28,7 @@ Firstly, install PgBouncer on a server or machine that can be reached by both yo
 
 If your server is running on a Linux-based system, you can take advantage of your system's package manager. To install the PgBouncer in Ubuntu, you can run the following command in your terminal:
 
-``` sh
+```sh
 sudo apt-get install pgbouncer
 ```
 
@@ -40,13 +36,13 @@ sudo apt-get install pgbouncer
 
 PgBouncer can also be built from its source code. Simply download the source code from its repository, compile it and install it in your system.
 
-## Configure 
+## Configure
 
 Configure PgBouncer with the `pgbouncer.ini` file that resides in the installation directory. You can also pass the file as a parameter when starting it.
 
 Here an example configuration for PgBouncer:
 
-``` ini
+```ini
 [databases]
 mydb = host=your_postgresql_host port=5432 dbname=your_database_name
 

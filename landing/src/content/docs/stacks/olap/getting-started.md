@@ -1,9 +1,7 @@
 ---
-sidebar_position: 1
+sideBarPosition: 3
 title: Getting Started
 ---
-
-# Getting Started
 
 This guide will walk through setting up an analytical workload on Postgres using [Clickbench's "hits" dataset](https://github.com/ClickHouse/ClickBench?tab=readme-ov-file#history-and-motivation) and the [columnar](https://github.com/hydradatabase/hydra) Postgres extension. The dataset represents page views on a system and the guide will demonstrate using extensions to optimize the database for analytical queries.
 
@@ -18,7 +16,7 @@ The `columnar` extension should be pre-installed and enabled on the `postgres` d
 ```sql
 postgres=# \dx columnar
               List of installed extensions
-   Name   | Version | Schema |       Description        
+   Name   | Version | Schema |       Description
 ----------+---------+--------+--------------------------
  columnar | 11.1-10 | public | Hydra Columnar extension
 (1 row)
@@ -34,14 +32,14 @@ gzip -d hits.tsv.gz
 ```
 
 There are 99,997,497 records in `hitz.tsv`.
- For simplicity (and to speed up the duration of this guide), take a subset of the data.
+For simplicity (and to speed up the duration of this guide), take a subset of the data.
 
 ```bash
 head -1000000 hits.tsv >> hits_1mil.tsv
 ```
 
 Once the download is complete, create a table configured for columnar storage using the `columnar` extension.
- Note the `USING columnar` clause at the end of the `CREATE TABLE` statement.
+Note the `USING columnar` clause at the end of the `CREATE TABLE` statement.
 
 ```sql
 CREATE TABLE hits
@@ -168,12 +166,12 @@ COPY 1000000
 ### Create indices on the table
 
 Create indices on the table to optimize the workload for analytical queries.
- Creating an index in Postgres helps with query performance by allowing the database to find data faster,
- reducing the need to scan the entire table.
- It is similar to an index in a book that lets you locate specific information without reading every page.
+Creating an index in Postgres helps with query performance by allowing the database to find data faster,
+reducing the need to scan the entire table.
+It is similar to an index in a book that lets you locate specific information without reading every page.
 
 Indexes will vary depending on the specific queries hitting the table.
- The indices below are relevant to [Clickbench](https://github.com/ClickHouse/ClickBench/tree/main/tembo-olap) workload.
+The indices below are relevant to [Clickbench](https://github.com/ClickHouse/ClickBench/tree/main/tembo-olap) workload.
 
 ```sql
 CREATE INDEX userid on hits (UserID);
@@ -186,7 +184,7 @@ CREATE INDEX search2 on hits (SearchPhrase) WHERE SearchPhrase <> ''::text;
 ### Execute analytical queries on the table
 
 The table is ready for typical analytical queries and should observe a noticeable improvement in performance given the optimizations you just enabled.
- Here's a few examples of queries you can try.
+Here's a few examples of queries you can try.
 
 #### Get the minimum and maximum event dates from the table.
 
@@ -195,7 +193,7 @@ SELECT MIN(EventDate), MAX(EventDate) FROM hits;
 ```
 
 ```text
-    min     |    max     
+    min     |    max
 ------------+------------
  2013-07-15 | 2013-07-15
 ```
@@ -210,7 +208,7 @@ LIMIT 10;
 ```
 
 ```text
- regionid |   u   
+ regionid |   u
 ----------+-------
       229 | 27961
         2 | 10413
@@ -238,7 +236,7 @@ ORDER BY PageViews DESC LIMIT 10 OFFSET 100;
 ```
 
 ```text
-       urlhash        | eventdate  | pageviews 
+       urlhash        | eventdate  | pageviews
 ----------------------+------------+-----------
  -5794910153905534566 | 2013-07-15 |        19
  -8675455922189315655 | 2013-07-15 |        19

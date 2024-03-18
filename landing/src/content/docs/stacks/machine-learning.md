@@ -1,9 +1,3 @@
----
-sidebar_position: 7
----
-
-# Tembo Machine Learning
-
 The Tembo Machine Learning Stack has several important Postgres extensions that make it easy to train and deploy machine learning models in Postgres.
 
 ## Container Image
@@ -14,10 +8,10 @@ For interest in the other Stack-specific images, please visit the official [temb
 
 ## Extensions
 
-- [postgresml](https://pgt.dev/extensions/postgresml) - `pgml` allows you to train and run machine learning models in Postgres. It supports a variety of models and algorithms, including linear regression, logistic regression, decision tree, random forest, and k-means clustering. It also provides hooks into HuggingFace for downloading and consuming pre-trained models and transformers. Visit [PostgresML](https://github.com/postgresml/postgresml) for more details.
-- [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embeddings and then conducting vector search on that data. Visit pgvector's [Github repo](https://github.com/pgvector/pgvector) for more information.
-- [pg_vectorize](https://pgt.dev/extensions/vectorize) - an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
-- [pg_later](https://pgt.dev/extensions/pg_later) - Enables asynchronous query execution, which helps better manage resources and frees users up for other tasks. 
+-   [postgresml](https://pgt.dev/extensions/postgresml) - `pgml` allows you to train and run machine learning models in Postgres. It supports a variety of models and algorithms, including linear regression, logistic regression, decision tree, random forest, and k-means clustering. It also provides hooks into HuggingFace for downloading and consuming pre-trained models and transformers. Visit [PostgresML](https://github.com/postgresml/postgresml) for more details.
+-   [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embeddings and then conducting vector search on that data. Visit pgvector's [Github repo](https://github.com/pgvector/pgvector) for more information.
+-   [pg_vectorize](https://pgt.dev/extensions/vectorize) - an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
+-   [pg_later](https://pgt.dev/extensions/pg_later) - Enables asynchronous query execution, which helps better manage resources and frees users up for other tasks.
 
 The extensions listed above are all very flexible and support many use cases. Visit their documentation pages for additional details.
 
@@ -88,8 +82,8 @@ Which TV Female Friend Group Do You Belong In,1
 ## Load training data into Postgres using `psql`
 
 You will need a Tembo with the Machine Learning Stack. We recommend at least 8 vCPU and 32GB RAM instance for this example.
- Let's set our postgres connection string in an environment variable so we can re-use it throughout this guide.
- You can find the Tembo org and the instance ID in the Tembo Cloud UI in the URL.
+Let's set our postgres connection string in an environment variable so we can re-use it throughout this guide.
+You can find the Tembo org and the instance ID in the Tembo Cloud UI in the URL.
 
 `https://cloud.tembo.io/orgs/{TEMBO_ORG}/clusters/{TEMBO_INST}`
 
@@ -130,7 +124,7 @@ Inspect the data table. We should see two columns, exactly as shown below.
 ```sql
 select * from titles_training limit 2;
 
-                     title                     | is_clickbait 
+                     title                     | is_clickbait
 -----------------------------------------------+--------------
  Should I Get Bings                            |            1
  Which TV Female Friend Group Do You Belong In |            1
@@ -140,7 +134,7 @@ The dataset is approximately balanced, having about the same number of clickbait
 
 ```sql
 select count(*) from titles_training group by is_clickbait;
- count 
+ count
 -------
  16001
  15999
@@ -150,7 +144,7 @@ select count(*) from titles_training group by is_clickbait;
 ## Transform text to embeddings
 
 Machine learning algorithms work with numbers, not text. So in order to train a model on our text, we need to we need to transform that text into some numbers.
- There are many ways to transform text into numbers, such as [Bag of Words](https://en.wikipedia.org/wiki/Bag-of-words_model), [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf), [any many others](https://medium.com/analytics-vidhya/a-beginners-guide-to-convert-text-data-to-numeric-data-part-1-e0e15666d9e5). The natural language processing domain is rather large and for this example, we will use the [all_MiniLM_L12_v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) sentence transformer from Hugging Face.
+There are many ways to transform text into numbers, such as [Bag of Words](https://en.wikipedia.org/wiki/Bag-of-words_model), [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf), [any many others](https://medium.com/analytics-vidhya/a-beginners-guide-to-convert-text-data-to-numeric-data-part-1-e0e15666d9e5). The natural language processing domain is rather large and for this example, we will use the [all_MiniLM_L12_v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) sentence transformer from Hugging Face.
 
 Let's add the embeddings service to our Tembo instance. You can add it via the API like this, or you can do it in the browser on the "Apps" tab, selecting the "embeddings" app.
 
@@ -216,16 +210,15 @@ $$ LANGUAGE 'plpython3u';
 
 Now that we have that function created, we can craft a SQL statement and apply it to our table. You will need to replace the `project_name` parameter, which is the same subdomain prefix you can find in your connection string. For example, `org-test-inst-ml-demo` from the connection string `postgresql://user:password@org-test-inst-ml-demo.data-1.use1.tembo.io:5432/postgres`.
 
-
 ```sql
 WITH embedding_results as (
-    SELECT 
+    SELECT
         ROW_NUMBER() OVER () AS rn,
         sentence_transform
     FROM sentence_transform(relation => 'titles_training', col_name => 'title', project_name => 'org-test-inst-ml-demo')
 ),
 table_rows AS (
-    SELECT 
+    SELECT
         ROW_NUMBER() OVER () AS rn,
         record_id
     FROM titles_training
@@ -255,11 +248,9 @@ embedding | {-0.058323003,0.056333832,-0.0038603533,0.013325908,-0.011109264,0.0
 
 We don't want to train our model on the `record_id` column and we can't train it on the raw text in the `title` column, so let's create a new table with just the columns that we will use for training, which is the `embedding` column and the `is_clickbait` column.
 
-
 ```sql
 CREATE TABLE title_tng as (select is_clickbait, embedding from titles_training);
 ```
-
 
 ## Train a classification model using XGBoost and `pgml`
 
@@ -278,7 +269,7 @@ SELECT * FROM pgml.train(
 ...
 
 INFO:  Deploying model id: 1
-       project        |      task      | algorithm | deployed 
+       project        |      task      | algorithm | deployed
 ----------------------+----------------+-----------+----------
  clickbait_classifier | classification | xgboost   | t
 (1 row)
@@ -304,7 +295,7 @@ metrics    | {"f1": null, "mcc": null, "recall": null, "roc_auc": null, "accurac
 ```
 
 The model is trained. We can pass new titles in to the model to get them classified as clickbait or not clickbait. But first, we need to transform the new title into an embedding using the exact same transformer that we used to train the model.
- For that, we will call `vectorize.transform_embeddings()` and pass the result into `pgml.predict()`. Let's try it out, a 1 response means it is clickbait, a 0 means it is not clickbait.
+For that, we will call `vectorize.transform_embeddings()` and pass the result into `pgml.predict()`. Let's try it out, a 1 response means it is clickbait, a 0 means it is not clickbait.
 
 ## Make predictions using the model
 
@@ -315,7 +306,7 @@ SELECT pgml.predict('clickbait_classifier',
         model_name => 'all_MiniLM_L12_v2')
     )
 );
- predict 
+ predict
 ---------
        1
 (1 row)
@@ -328,7 +319,7 @@ SELECT pgml.predict('clickbait_classifier',
         model_name => 'all_MiniLM_L12_v2')
     )
 );
- predict 
+ predict
 ---------
        0
 (1 row)
@@ -353,7 +344,7 @@ Let's create a helper function that we can call via PostgREST. This function wil
 ```sql
 CREATE OR REPLACE FUNCTION predict_clickbait(
     input_string text
-) RETURNS TABLE(is_clickbait REAL) LANGUAGE sql AS $$ 
+) RETURNS TABLE(is_clickbait REAL) LANGUAGE sql AS $$
     SELECT pgml.predict(
         project_name => 'clickbait_classifier',
         features => (select vectorize.transform_embeddings(
@@ -396,4 +387,4 @@ Try it now at [cloud.tembo.io](https://cloud.tembo.io).
 
 Sources:
 
-[1] Chakraborty, A., Paranjape, B., Kakarla, S., & Ganguly, N. (2016). Stop Clickbait: Detecting and preventing clickbaits in online news media. In *Advances in Social Networks Analysis and Mining (ASONAM), 2016 IEEE/ACM International Conference on* (pp. 9-16). IEEE.
+[1] Chakraborty, A., Paranjape, B., Kakarla, S., & Ganguly, N. (2016). Stop Clickbait: Detecting and preventing clickbaits in online news media. In _Advances in Social Networks Analysis and Mining (ASONAM), 2016 IEEE/ACM International Conference on_ (pp. 9-16). IEEE.

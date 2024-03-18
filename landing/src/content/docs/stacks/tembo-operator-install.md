@@ -1,8 +1,6 @@
 ---
-sidebar_position: 8
+title: Tembo Operator Install
 ---
-
-# Tembo Operator Install
 
 ## Installing with Helm
 
@@ -10,12 +8,12 @@ Tembo provides Helm charts as a first-class method of installation on Kubernetes
 
 ### Prerequisites
 
-- [Install Helm version 3 or later](https://helm.sh/docs/intro/install/).
-- Install a supported version of Kubernetes (currently only 1.25 is supported, but newer versions should work).
-- Install cert-manager [with Helm](https://cert-manager.io/docs/installation/helm/#4-install-cert-manager)
-- **extra**: For monitoring, you can install the prometheus-operator using the 
-[kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
-Helm chart.
+-   [Install Helm version 3 or later](https://helm.sh/docs/intro/install/).
+-   Install a supported version of Kubernetes (currently only 1.25 is supported, but newer versions should work).
+-   Install cert-manager [with Helm](https://cert-manager.io/docs/installation/helm/#4-install-cert-manager)
+-   **extra**: For monitoring, you can install the prometheus-operator using the
+    [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
+    Helm chart.
 
 ### Steps
 
@@ -82,14 +80,14 @@ You should see the `controller`, `pod-init`, and
 #### 5. Deploy test instance
 
 To deploy a test instance we will need to enable the deployment via a namespace
-label.  You will need to apply this label to all namespaces you wish to deploy 
+label. You will need to apply this label to all namespaces you wish to deploy
 an instance in.
 
 ```bash
 kubectl label namespace default "tembo-pod-init.tembo.io/watch"="true"
 ```
 
-Apply the following sample `CoreDB` configuration.  This will use all defaults
+Apply the following sample `CoreDB` configuration. This will use all defaults
 and will deploy a Tembo instance to your cluster.
 
 ```bash
@@ -132,15 +130,15 @@ gp3enc             ebs.csi.aws.com         Delete          WaitForFirstConsumer 
 apiVersion: coredb.io/v1alpha1
 kind: CoreDB
 metadata:
-  name: test-db
+    name: test-db
 spec:
-  storageClass: gp3enc
+    storageClass: gp3enc
 ```
- 
+
 ### Uninstalling with Helm
 
 Uninstalling tembo-operator from a `helm` installation is a case of running the
-installation process, *in reverse*, using the delete command on both `kubectl`
+installation process, _in reverse_, using the delete command on both `kubectl`
 and `helm`.
 
 ```bash
@@ -156,6 +154,7 @@ kubectl delete namespace tembo-system
 Finally, delete the tembo-operator
 [`CustomResourceDefinitions`](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 using the link to the version you installed:
+
 > **Warning**: This command will also remove installed tembo-operator CRDs. All
 > tembo-operator resources (e.g. `coredbs.coredb.io` resources) will
 > be removed by Kubernetes' garbage collector.
@@ -164,7 +163,7 @@ using the link to the version you installed:
 kubectl delete -f https://raw.githubusercontent.com/tembo-io/tembo/main/charts/tembo-operator/templates/crd.yaml
 ```
 
-*Note:* If you used `helm` to install the CRDs with the `controller.crds.create=true`
+_Note:_ If you used `helm` to install the CRDs with the `controller.crds.create=true`
 value for the chart, then the CRDs will **NOT** have been removed and
 you will need to run this final `kubectl` command to purge them from the cluster.
 
@@ -172,19 +171,19 @@ you will need to run this final `kubectl` command to purge them from the cluster
 
 tembo-operator bundles the CRDs along with the other templates
 in the Helm chart. This means that Helm manages these resources so they are
-upgraded with your tembo-operator release when you use 
-`controller.crds.create: true` in your values file or CLI command. We also set 
+upgraded with your tembo-operator release when you use
+`controller.crds.create: true` in your values file or CLI command. We also set
 a helm annotation of `helm.sh/resource-policy: keep` which will not delete the
 CRD from the cluster when you delete the helm deployment.
 
 Benefits:
 
-- CRDS are automatically updated when you upgrade tembo-operator via `helm`
-- Same action manages both CRDs and other installation resources
+-   CRDS are automatically updated when you upgrade tembo-operator via `helm`
+-   Same action manages both CRDs and other installation resources
 
 Drawbacks:
 
-- Helm values need to be correct to avoid accidental removal of CRDs.
+-   Helm values need to be correct to avoid accidental removal of CRDs.
 
 ### CRD Installation Advice
 
@@ -192,13 +191,13 @@ Drawbacks:
 
 Generally we recommend:
 
-- For most installations, install CRDs with `helm` is the best method to 
-install for now.
+-   For most installations, install CRDs with `helm` is the best method to
+    install for now.
 
 You may want to consider your approach along with other tools that may offer
 helm compatible installs, for a standardized approach to managing CRD
 resources. If you have an approach that tembo-operator does not currently
-support, then please 
+support, then please
 [raise an issue](https://github.com/tembo-io/tembo/issues) to
 discuss or join us on our [Slack community](https://tembocommunity.slack.com) to ask
 questions.
