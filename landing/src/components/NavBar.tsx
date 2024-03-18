@@ -16,6 +16,7 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 	const [scrollY, setScrollY] = useState(0);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [progressWidth, setProgressWidth] = useState(101);
+	const [isBannerVisible, setIsBannerVisible] = useState(true);
 	const [
 		isScreenGreaterThanOrEqualTo900px,
 		setIsScreenGreaterThanOrEqualTo900px,
@@ -48,6 +49,8 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 			}
 
 			setScrollY(window.scrollY);
+      		const bannerHeight = 48;
+		  	setIsBannerVisible(currentPage === '/' && window.scrollY < bannerHeight);
 		};
 
 		handleScroll();
@@ -72,21 +75,36 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 	}, []);
 
 	let isActive = progressWidth <= 100;
+	const bannerStyle = {
+		transition: 'opacity 0.1s ease-out, top 0.1s ease-out',
+		top: isBannerVisible ? '0' : '-48px',
+		opacity: isBannerVisible ? '1' : '0',
+	  };
 
 	return (
+		<>
+		<a href="/blog/postgres-14-and-16">
+		<div
+			 className={`flex items-center justify-center gap-4 news-banner-container fixed top-0 w-full text-center bg-[#131313] border-b border-[#F77577] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-2.5 py-2.5 z-50`}
+			 style={bannerStyle}
+		   >
+				<span className="inline-block">Announcing Support for Postgres 14 and 16</span>
+				<span className="bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text font-bold">Read More</span>
+			</div></a>
 		<div
 			className={cx(
-				'fixed top-0 w-full z-50 transition duration-100',
+				'fixed w-full z-50 transition-all duration-400',
 				scrollY > 20 ? 'backdrop-blur-lg safari-blur' : '',
 				isMenuOpen && !isScreenGreaterThanOrEqualTo900px && 'h-screen',
 			)}
+			style={{ top: isBannerVisible ? '45px' : '0' }}
 		>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
 			<Container styles='relative'>
 				<nav
 					className={cx(
 						'flex w-full items-center justify-between transition-all duration-100 relative',
-						scrollY > 20 &&
+						scrollY > 48 &&
 							(!isMenuOpen || isScreenGreaterThanOrEqualTo900px)
 							? 'py-3 mid:py-4'
 							: 'py-8',
@@ -223,6 +241,7 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 				{isMenuOpen && <MobileMenu />}
 			</motion.div>
 		</div>
+		</>
 	);
 };
 
