@@ -1,3 +1,9 @@
+---
+title: Tembo Machine Learning
+sideBarTitle: Tembo Machine Learning
+sideBarPosition: 203
+---
+
 The Tembo Machine Learning Stack has several important Postgres extensions that make it easy to train and deploy machine learning models in Postgres.
 
 ## Container Image

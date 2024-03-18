@@ -1,5 +1,7 @@
 ---
-sideBarPosition: 2
+title: Tembo Standard
+sideBarTitle: Tembo Standard
+sideBarPosition: 101
 ---
 
 The Tembo Standard Stack is a tuned Postgres instance balance for general purpose computing. You have full control over compute, configuration, and extension installation.

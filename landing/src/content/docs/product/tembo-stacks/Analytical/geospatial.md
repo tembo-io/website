@@ -1,8 +1,7 @@
 ---
-sideBarPosition: 3
 title: Tembo Geospatial
 sideBarTitle: Tembo Geospatial
-
+sideBarPosition: 303
 ---
 
 The Tembo Geospatial Stack is designed to bring spatial database capabilities to Postgres.

@@ -1,7 +1,7 @@
 ---
-sideBarPosition: 2
 title: Tembo DataWarehouse
 sideBarTitle: Tembo DataWarehouse
+sideBarPosition: 302
 ---
 
 Tembo DataWarehouse Stack is tuned and configured for data warehouse workloads. Extract, Transform and Load data from external sources using extensions. Build centralize datastore for analytical and tactical queries.

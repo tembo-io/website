@@ -1,7 +1,7 @@
 ---
-sideBarPosition: 1
 title: Tembo OLAP
 sideBarTitle: Tembo OLAP
+sideBarPosition: 301
 ---
 
 

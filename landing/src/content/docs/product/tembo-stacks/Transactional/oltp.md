@@ -1,6 +1,7 @@
 ---
-sideBarPosition: 3
-uppercase: true
+title: Tembo OLTP
+sideBarTitle: Tembo OLTP
+sideBarPosition: 102
 ---
 
 The OLTP stack is a finely-tuned database cluster optimized for transactional workloads, designed to handle concurrency with ease. Built with optimized WAL and auto-vacuum settings, it also includes extensions for debugging and real-time metrics.
