@@ -1,5 +1,5 @@
 ---
-title: Try extensions locally
+title: Try Extensions Locally
 ---
 
 Run a Postgres container locally and install extensions with Trunk.
