@@ -85,7 +85,7 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 		<>
 		<a href="/blog/postgres-14-and-16">
 		<div
-			 className={`flex items-center justify-center gap-4 news-banner-container fixed top-0 w-full text-center bg-[#131313] border-b border-[#F77577] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-2.5 py-2.5 z-50`}
+			 className={`flex items-center text-[12px] sm:text-[17px] justify-center gap-4 news-banner-container fixed top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-2.5 py-3.5 sm:py-2.5 z-50`}
 			 style={bannerStyle}
 		   >
 				<span className="inline-block">Announcing Support for Postgres 14 and 16</span>
@@ -97,7 +97,7 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 				scrollY > 20 ? 'backdrop-blur-lg safari-blur' : '',
 				isMenuOpen && !isScreenGreaterThanOrEqualTo900px && 'h-screen',
 			)}
-			style={{ top: isBannerVisible ? '45px' : '0' }}
+			style={{ top: isBannerVisible ? '48px' : '0' }}
 		>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
 			<Container styles='relative'>
