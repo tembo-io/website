@@ -64,10 +64,9 @@ const blog = defineCollection({
 export const ROOT_SIDEBAR_DOCS_ORDER = {
 	cloud: 0,
 	stacks: 1,
-	apps: 2,
-	cli: 3,
-	'connecting to tembo': 4,
-	guides: 5,
+	development: 2,
+	'connecting to tembo': 3,
+	guides: 4,
 };
 const docs = defineCollection({
 	schema: z.object({
@@ -75,6 +74,7 @@ const docs = defineCollection({
 		description: z.string().optional(),
 		tableOfContents: z.boolean().default(true),
 		sideBarPosition: z.number().default(Infinity),
+		uppercase: z.boolean().default(false),
 	}),
 });
 

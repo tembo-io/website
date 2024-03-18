@@ -56,7 +56,7 @@ const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
 			const split = doc.id.split('/');
 			const title = cleanSideBarTitle(split.at(-1) as string);
 			return {
-				title: title,
+				title: doc.data.uppercase ? title.toUpperCase() : title,
 				slug: `/docs/${doc.slug}`,
 			};
 		});

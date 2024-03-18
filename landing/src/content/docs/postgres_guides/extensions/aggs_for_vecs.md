@@ -1,12 +1,14 @@
-# aggs_for_vecs
-> *Array-specific aggregate functions.*
+---
+title: aggs_for_vecs
+---
+
+> _Array-specific aggregate functions._
 
 `aggs_for_vecs` is a C-based extension that introduces arithmetic operations on arrays, as opposed to scalars. In the case of `aggs_for_vecs`, each array is treated as a vector.
 
-
 # When should you use it?
-This extension can offer element-wise operations across multiple rows, which could be useful when performing calculations on specific array positions, e.g., finding the minimum value across multiple rows for each element in the array.
 
+This extension can offer element-wise operations across multiple rows, which could be useful when performing calculations on specific array positions, e.g., finding the minimum value across multiple rows for each element in the array.
 
 # Example use case.
 
@@ -14,8 +16,8 @@ Customer Behavior Analysis:
 
 An e-commerce platform is using rating arrays to capture multi-faceted feedback on products. Each element in the array represents a specific aspect, i.e., usability, design, performance, and customer support. By analyzing these ratings over time, this business can gain insights into product trends and customer satisfaction. Different sources, such as review sites or direct feedback, contribute to these ratings. This aggregated data offers a comprehensive view of a product's performance, guiding improvements and strategies.
 
-
 # Example test script.
+
 ```
 -- Create example table, rating_aspects, and populate with test data
 CREATE TABLE rating_aspects (
@@ -56,7 +58,7 @@ INSERT INTO product_ratings(date, ratings, source) VALUES
 ('2023-01-03', '{3.8,4.0,3.9,4.0}', 'Source E');
 
 -- Leverage the function vec_to_mean in order to investigate the the average rating for each aspect each day
-SELECT 
+SELECT
     source,
     unnest(array['Usability', 'Design', 'Performance', 'Customer Support']) as aspect,
     unnest(vec_to_mean(ratings)) AS avg_rating
@@ -90,7 +92,7 @@ source  |      aspect      |     avg_rating
 
 -- Leverage the functions vec_to_min and vec_to_max in order to investigate the minimum and maximum ratings across sources for each aspect on each day
 WITH MinRatings AS (
-    SELECT 
+    SELECT
         date,
         unnest(array['Usability', 'Design', 'Performance', 'Customer Support']) as aspect,
         unnest(vec_to_min(ratings)) AS min_rating
@@ -99,7 +101,7 @@ WITH MinRatings AS (
 ),
 
 MaxRatings AS (
-    SELECT 
+    SELECT
         date,
         unnest(array['Usability', 'Design', 'Performance', 'Customer Support']) as aspect,
         unnest(vec_to_max(ratings)) AS max_rating

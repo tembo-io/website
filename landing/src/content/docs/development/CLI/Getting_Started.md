@@ -1,5 +1,5 @@
 ---
-sideBarPosition: 2
+sideBarPosition: 1
 ---
 
 # Getting Started

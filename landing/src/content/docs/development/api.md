@@ -1,8 +1,5 @@
 ---
-sidebar_position: 2
-tags:
-  - api
-  - authentication
+uppercase: true
 ---
 
 # API Authentication
@@ -24,4 +21,4 @@ curl "https://api.tembo.io/api/v1/orgs/instances/schema" \
   -H "authorization: Bearer ${TOKEN}"
 ```
 
-- You can try the Tembo Cloud API using this token in our [Interactive API documentation](https://api.tembo.io/swagger-ui/) by clicking the "Authorize" button.
+-   You can try the Tembo Cloud API using this token in our [Interactive API documentation](https://api.tembo.io/swagger-ui/) by clicking the "Authorize" button.

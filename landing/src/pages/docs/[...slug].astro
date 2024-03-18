@@ -48,6 +48,13 @@ const nextDocument = await nextDoc(`/docs/${slug}`);
 			<div
 				class='flex flex-col gap-12 w-full mobile:mr-16 xl:mr-28 overflow-x-hidden'
 			>
+				<header>
+					<h1
+						class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl z-10'
+					>
+						{doc?.data?.title}
+					</h1>
+				</header>
 				<Markdown classNames='max-w-none'>
 					<Content />
 				</Markdown>
