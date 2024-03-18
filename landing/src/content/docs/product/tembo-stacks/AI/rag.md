@@ -1,3 +1,7 @@
+---
+uppercase: true
+---
+
 Build LLM applications without deploying new infrastructure or changing your application's language stack. Tembo's RAG Stack gives you a SQL API to building LLM applications using Retrieval Augmented Generation (RAG) techniques. In short, RAG is a technique used to provide your own data as context to a chat model as a means to provide a chat experience tailored to your application's needs.
 
 This guide will walk through building an application to support users with questions about Tembo's products and services.

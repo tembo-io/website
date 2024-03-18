@@ -1,5 +1,6 @@
 ---
 title: Vector DB
+sideBarTitle: Vector DB
 ---
 
 Tembo's Vector Database provides tooling to automate the process of generating embeddings on your existing data, which allows you to have vector search semantic search capabilities on day one.
