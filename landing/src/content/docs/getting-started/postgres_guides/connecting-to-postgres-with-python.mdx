@@ -2,6 +2,8 @@
 title: Connecting to Postgres with Python
 ---
 
+import Callout from '../../../../components/Callout.astro';
+
 In this tutorial, we've covered a comprehensive, step-by-step procedure for establishing a connection to a PostgreSQL database using Python. We will take advantage of _psycopg_ library to connect to the Postgres database.
 
 Let’s get started
@@ -12,11 +14,12 @@ Let’s get started
 pip install psycopg
 ```
 
-:::info
+<Callout variant='info'>
 psycopg is the most popular PostgreSQL database library for the Python language. It was designed for large-scale applications that create and deletes tons of cursors and make large amount of continuous Inserts and Update calls.
 
 You can read more about psycopg library [here](https://pypi.org/project/psycopg/)
-:::
+
+</Callout>
 
 **Step 2** - Import psycopg in your Python code
 

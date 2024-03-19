@@ -1,3 +1,5 @@
+import Callout from '../../../../../components/Callout.astro';
+
 Tembo performs Postgres backups and Write-Ahead Log (WAL) archiving using [Barman](https://pgbarman.org/), powered by the [Cloud Native Postgres Operator (CNPG)](https://cloudnative-pg.io/).
 
 Backups are saved to [Amazon S3](https://aws.amazon.com/s3/).
@@ -16,9 +18,10 @@ Tembo sets `archive_timeout` to 5min, ensuring that WAL files are closed and arc
 
 Tembo Cloud supports Point-In-Time Recovery (PITR) to a new Tembo Instance for all running Instances and for 30 days after deletion.
 
-:::info
-Coming soon: Point-In-Time Recovery (PITR) via the [Tembo Cloud UI](https://cloud.tembo.io)
-:::
+<Callout variant='info'>
+	Coming soon: Point-In-Time Recovery (PITR) via the [Tembo Cloud
+	UI](https://cloud.tembo.io)
+</Callout>
 
 For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](/docs/tembo-cloud/security-and-authentication/api-authentication).
 

@@ -2,9 +2,11 @@
 title: How to import a CSV file into Postgres
 ---
 
-import Headers from './images/headers.png'
-import PromptBox from './images/prompt-box.png'
-import SuccessfulPromptBox from './images/successful-prompt-box.png'
+import Headers from './images/headers.png';
+import PromptBox from './images/prompt-box.png';
+import SuccessfulPromptBox from './images/successful-prompt-box.png';
+import { Image } from 'astro:assets';
+import Callout from '../../../../components/Callout.astro';
 
 Imagine you are managing a large record of thousands of users having multiple details about users stored in a CSV (Comma Separated Value) file. Your objective is to load this entire repository of user data from the CSV file into a PostgreSQL table.
 
@@ -16,9 +18,10 @@ There are mainly two ways to import the CSV file - Via a SQL query and via the P
 
 **Step 1** - Prepare your CSV file. Create the table in Excel and save your desired data of users in it.
 
-:::tip
-Save your CSV file on the machine where your database is running. Postgres needs to access the CSV file on the filesystem to be able to load it.
-:::
+<Callout variant='tip'>
+	Save your CSV file on the machine where your database is running. Postgres
+	needs to access the CSV file on the filesystem to be able to load it.
+</Callout>
 
 **Step 2** - Open your terminal and connect it to your desired Postgres database. Check out our [guide](https://tembo.io/docs/postgres_guides/how-to-connect-to-postgres/) on how to connect to Postgres.
 
@@ -65,15 +68,15 @@ CREATE TABLE table_name (column1 data_type, column2 data_type, column3 data_type
 
 **Step 3** - Right click on the created table (present under the tables section), and select the Import/Export Data option. The Import/Export Data Prompt box will appear on the screen.
 
-<img src={PromptBox} width="600" alt="PromptBox" />
+<Image src={PromptBox} width='600' alt='PromptBox' />
 
 **Step 4** - Select your desired CSV file in the Filename option and select csv in Format option. Now, go to the Options section and toggle the Header option to On, if your CSV file table has headers in it.
 
-<img src={Headers} width="600" alt="Headers" />
+<Image src={Headers} width='600' alt='Headers' />
 
 **Step 5** - Click the OK button to initiate the import process. Upon successful completion of the data import, a prompt box will confirm the successful import of your data.
 
-<img src={SuccessfulPromptBox} width="600" alt="SuccessfulPromptBox" />
+<Image src={SuccessfulPromptBox} width='600' alt='SuccessfulPromptBox' />
 
 ## Conclusion
 

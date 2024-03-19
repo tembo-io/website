@@ -2,7 +2,9 @@
 title: All possible joins in Postgres (Inner, Outer, Left, Right, etc)
 ---
 
-import AddingJdbc from './images/adding-jdbc.png'
+import AddingJdbc from './images/adding-jdbc.png';
+import { Image } from 'astro:assets';
+import Callout from '../../../../components/Callout.astro';
 
 # Connecting to Postgres with Java using JDBC
 
@@ -16,15 +18,18 @@ Let’s get started.
 
 **1.1** - Download the PostgreSQL JDBC Driver in your Device. Visit their [official website](https://jdbc.postgresql.org/download/) to download it.
 
-:::info
-PostgreSQL JDBC Driver is driver that allows the users to connect a Java program to a PostgreSQL database. It is an Open-source driver. To learn more about it, [check there official documentation](https://jdbc.postgresql.org/).
-:::
+<Callout variant='info'>
+	PostgreSQL JDBC Driver is driver that allows the users to connect a Java
+	program to a PostgreSQL database. It is an Open-source driver. To learn more
+	about it, [check there official
+	documentation](https://jdbc.postgresql.org/).
+</Callout>
 
 **1.2** - Add the PostgreSQL JDBC Driver JAR file to your project.
 
 To do that go to Project Properties → Add JAR/Folder and select the downloaded JDBC driver file.
 
-<img src={AddingJdbc} width="600" alt="AddingJdbc" />
+<Image src={AddingJdbc} width='600' alt='AddingJdbc' />
 
 ### 2. Using Maven
 
@@ -47,11 +52,12 @@ Do replace the `DRIVER_VERSION` with your PostgreSQL JDBC driver.
 
 You can check the [official documentation](https://jdbc.postgresql.org/) of Postgres JDBC to get the driver version.
 
-:::info
+<Callout variant='info'>
 Maven, primarily for Java projects, streamlines the entire development process, ensuring consistency in managing dependencies, code compilation, testing, packaging, and deployment across different environments.
 
 Check their [official documentation](https://maven.apache.org/what-is-maven.html) to learn more about it.
-:::
+
+</Callout>
 
 You do not need to manually download the JDBC Driver when you are using Maven method. Maven takes care of that by automatically downloading all the required JAR files from remote repositories.
 

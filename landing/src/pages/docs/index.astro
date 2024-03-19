@@ -17,7 +17,7 @@ const links = await getSideBarLinks();
 		<div class='flex flex-col xl:flex-row justify-between gap-8'>
 			<div class='flex flex-col gap-6'>
 				<h1
-					class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl z-10'
+					class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl'
 				>
 					Tembo Docs
 				</h1>
@@ -36,28 +36,28 @@ const links = await getSideBarLinks();
 		</div>
 		<ul class='w-full mt-16 grid grid-cols-12 gap-6'>
 			<DocCard
-				url=''
+				url='/docs/getting-started/getting_started'
 				icon='/icons/cloud.svg'
 				title='Tembo Cloud'
-				description='Lorem ipsum dolor sit amet consectetur. Arcu mauris dui ipsum massa.'
+				description='Tembo provides Tembo Cloud, a fully managed Postgres service with support for over 200+ extensions!.'
 			/>
 			<DocCard
-				url=''
+				url='/docs/product/stacks/intro-to-stacks'
 				icon='/icons/stacks.svg'
 				title='Stacks'
-				description='Lorem ipsum dolor sit amet consectetur. Arcu mauris dui ipsum massa.'
+				description='A tembo stack is a pre-built, use case specific Postgres deployment which enables you to quickly deploy specialized data services that can replace external, non-Postgres data services.'
 			/>
 			<DocCard
-				url=''
+				url='/docs/getting-started/postgres_guides/all-possible-joins-in-postgres'
 				icon='/icons/book.svg'
 				title='Postgres Guides'
-				description='Lorem ipsum dolor sit amet consectetur. Arcu mauris dui ipsum massa.'
+				description='Postgres specific guides crafted for you by the Tembo team!'
 			/>
 			<DocCard
-				url=''
+				url='/docs/getting-started/quickstarts/java'
 				icon='/icons/code.svg'
 				title='Connection Examples'
-				description='Lorem ipsum dolor sit amet consectetur. Arcu mauris dui ipsum massa.'
+				description='Learn how to connect to your new Tembo database with your favorite programming language or ORM/framework.'
 			/>
 		</ul>
 	</div>

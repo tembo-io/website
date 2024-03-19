@@ -2,6 +2,8 @@
 title: How to connect to Postgres (and how to exit from psql)
 ---
 
+import Callout from '../../../../components/Callout.astro';
+
 PostgreSQL is recognized both as a popular and versatile data storage option. Boasting a rich ecosystem, this relational database management system is enhanced by tools that abstract away complexities relating to connectivity and management. While there are many exciting tools available, we want to highlight two of the most popular:
 
 -   psql - a command-line tool that comes bundled with Postgres.
@@ -25,7 +27,7 @@ psql -U $USER_NAME
 
 After you run this command, Postgres will prompt you for your password, which you can type in.
 
-:::important
+<Callout variant='info'>
 If you will be connecting to the same database frequently, it makes sense to have a `~/.pgpass` file ([learn more](https://www.postgresql.org/docs/current/libpq-pgpass.html)), which is a simple text file that contains lines of the following form:
 
 ```
@@ -34,13 +36,17 @@ hostname:port:database:username:password
 …
 ```
 
-:::
+</Callout>
 
 Note that psql is a rich, highly configurable tool. Check out the [psql manual page](https://www.postgresql.org/docs/current/app-psql.html) if you want to dive deeper!
 
-:::note
-Why doesn’t psql accept the password next to the other connection parameters when starting it? Well, this is a _security risk_! If someone can list the processes in your machine, they could see the password in plaintext. To avoid this pitfall, psql does not allow passwords as command line parameters.
-:::
+<Callout variant='info'>
+	Why doesn’t psql accept the password next to the other connection parameters
+	when starting it? Well, this is a _security risk_! If someone can list the
+	processes in your machine, they could see the password in plaintext. To
+	avoid this pitfall, psql does not allow passwords as command line
+	parameters.
+</Callout>
 
 ### How to exit psql
 

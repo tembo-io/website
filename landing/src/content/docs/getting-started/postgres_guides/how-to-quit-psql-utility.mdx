@@ -2,6 +2,8 @@
 title: How to quit PSQL utility
 ---
 
+import Callout from '../../../../components/Callout.astro';
+
 This guide is designed to demystify the process of quitting the PSQL utility. In a succinct manner, we will explore the various methods to gracefully exit PSQL, ensuring that you can seamlessly transition in and out of this indispensable command-line environment.
 
 ## Using \q command
@@ -14,9 +16,11 @@ You can simple execute the `\q` command in the psql prompt to exit the psql util
 
 ![q-command](./images/q-command.png)
 
-:::important
-Make sure to exit to your database after you have performed every operation that you want to perform in it. Once you exit, you have to perform the whole process again to connect to the database
-:::
+<Callout variant='warning'>
+	Make sure to exit to your database after you have performed every operation
+	that you want to perform in it. Once you exit, you have to perform the whole
+	process again to connect to the database
+</Callout>
 
 ## Using Keyboard shortcuts
 

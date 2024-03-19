@@ -1,3 +1,5 @@
+import Callout from '../../../../components/Callout.astro';
+
 Postgres comes with a variety of methods to backup and restore the state of your database. It is an essential task for database administrators to ensure data integrity and recover from data loss or system failures.
 
 Suppose you are working on a company’s project and you do not want to lose any of the project’s data like user details, tables, etc; while simultaneously maintaining the security of data. In such a scenario, consistently backing up your database is critical. Let’s see how you can do this.
@@ -14,11 +16,12 @@ pg_dump -U username -d database_name -f backup_file.sql
 
 Make sure to replace the `username` with your Postgres username and `database_name` with the database name whose backup you want to create. You can also name the backup file however you like.
 
-:::info
+<Callout variant='info'>
 `pg_dump` extracts a particular Postgres database into a script file. It generates reliable backups, even when the database is in active use.
 
 Check out their [official documentation](https://www.postgresql.org/docs/current/app-pgdump.html) to learn more about it.
-:::
+
+</Callout>
 
 ### Using `pg_dumpall`
 
@@ -32,11 +35,12 @@ pg_dumpall -U username -f backup_file.sql
 
 Make sure to replace the `username` with your own Postgres’ username.
 
-:::info
+<Callout variant='info'>
 `pg_dumpall` extracts the entire Postgres database instance into a script file. It simply executes the `pg_dump` command for each database.
 
 To learn more about it, check their [official documentation](https://www.postgresql.org/docs/current/app-pg-dumpall.html).
-:::
+
+</Callout>
 
 It generates the `backup_file.sql` file which consists of all the necessary SQL commands to recreate the entire PostgreSQL cluster.
 
@@ -62,11 +66,12 @@ pg_restore -U username -d new_database_name -1 backup_file.sql
 
 Do replace the `username` and `new_database_name` with your Postgres username and the desired name of the new database respectively.
 
-:::info
+<Callout variant='info'>
 `pg_restore` command basically restores the postgres database from an archive created by the `pg_dump` command. `pg_restore` depends upon the archive files to restore the database, or even to organize the items before restoring them.
 
 Please explore their [official documentation](https://www.postgresql.org/docs/current/app-pgrestore.html) to gain a deeper understanding of their features and capabilities.
-:::
+
+</Callout>
 
 ### Using `psql`
 

@@ -2,8 +2,10 @@
 title: Listing indexes in Postgres
 ---
 
-import DiCommand from './images/di-command.png'
-import SqlQuery from './images/sql-query.png'
+import DiCommand from './images/di-command.png';
+import SqlQuery from './images/sql-query.png';
+import { Image } from 'astro:assets';
+import Callout from '../../../../components/Callout.astro';
 
 Indexing is a technique in databases that can help speed up searches. When managing a database, depending on the workload that will run on the database, you might decide to create indexes for certain tables.
 
@@ -21,7 +23,7 @@ Later you might want to see what indexes exist in that table. There are 2 differ
 \di
 ```
 
-<img src={DiCommand} width="600" alt="DiCommand" />
+<Image src={DiCommand} width='600' alt='DiCommand' />
 
 This command returns the table of all indexes present in the database consisting of details like _Schema_, _Name_, _Type_, _Owner_, and _Table_.
 
@@ -42,11 +44,12 @@ FROM pg_indexes
 WHERE schemaname = 'public';
 ```
 
-<img src={SqlQuery} width="400" alt="SqlQuery" />
+<Image src={SqlQuery} width='400' alt='SqlQuery' />
 
-:::note
-You can run this same command in the pgAdmin tool and it will return the same results.
-:::
+<Callout variant='info'>
+	You can run this same command in the pgAdmin tool and it will return the
+	same results.
+</Callout>
 
 Here we have defined `index_name` and `table_name` as alias names, but it’s totally optional. If you want, you can avoid using them.
 

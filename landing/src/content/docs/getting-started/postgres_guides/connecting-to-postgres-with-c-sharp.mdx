@@ -2,6 +2,8 @@
 title: Connecting to Postgres with C-sharp
 ---
 
+import Callout from '../../../../components/Callout.astro';
+
 In this tutorial, we have provided a thorough, step-by-step guide for creating a connection to a PostgreSQL database using C#. We will utilize the Npgsql package for establishing a connection to the Postgres database.
 
 Let’s gets started
@@ -12,9 +14,12 @@ Let’s gets started
 dotnet add package Npgsql
 ```
 
-:::info
-Npgsql is an open source ADO.NET Data Provider for PostgreSQL, it allows C# programs to connect to the PostgreSQL database server. To learn more about Npgsql, [take a look at its official documentation](https://www.npgsql.org/index.html).
-:::
+<Callout variant='info'>
+	Npgsql is an open source ADO.NET Data Provider for PostgreSQL, it allows C#
+	programs to connect to the PostgreSQL database server. To learn more about
+	Npgsql, [take a look at its official
+	documentation](https://www.npgsql.org/index.html).
+</Callout>
 
 **Step 2** - Create a connection string that includes all the necessary credentials required to setup a connection with Postgres database.
 

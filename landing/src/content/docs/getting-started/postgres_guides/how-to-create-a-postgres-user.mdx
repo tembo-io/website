@@ -2,6 +2,7 @@
 title: How to create a Postgres User
 ---
 
+import { Image } from 'astro:assets';
 import PostgresUser from './images/create-postgres-user.png'
 
 Postgres provides the flexibility to add multiple users to a specific database, allowing for fine-grained control over user access and permissions. This also helps in maintaining the security of the database and can help prevent serious issues if a user account is compromised.
@@ -56,7 +57,7 @@ Make sure to replace the `username` with the username that you want to keep.
 
 Once you execute this command, it will ask you to set a password and define the role for the new user.
 
-<img src={PostgresUser} width="600" alt="PostgresUser" />
+<Image src={PostgresUser} width="600" alt="PostgresUser" />
 
 In this instance, we've provided only the username in the `createuser` command, however it's worth noting that the `createuser` command allows users to include additional arguments like _-a role_, _-c number_, _–echo_, and others to specifically define the role of the new user.
 

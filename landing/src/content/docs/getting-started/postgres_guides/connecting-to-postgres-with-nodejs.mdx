@@ -2,6 +2,8 @@
 title: Connecting to Postgres with Nodejs
 ---
 
+import Callout from '../../../../components/Callout.astro';
+
 In this tutorial, we have provided a thorough, step-by-step guide for creating a connection to a PostgreSQL database using Node.js. We will use the `pg` package for establishing a connection to the Postgres database.
 
 Let’s get started
@@ -12,9 +14,11 @@ Let’s get started
 npm install pg
 ```
 
-:::info
-pg is a popular Node.js library used to work with Postgres. It serves as a PostgreSQL database driver for Node.js applications. To know more about pg, [check their official documentation](hhttps://node-postgres.com/)
-:::
+<Callout variant='info'>
+	pg is a popular Node.js library used to work with Postgres. It serves as a
+	PostgreSQL database driver for Node.js applications. To know more about pg,
+	[check their official documentation](hhttps://node-postgres.com/)
+</Callout>
 
 **Step 2** - Initialize the `pg` package in your Node.js script and get the Client from it.
 

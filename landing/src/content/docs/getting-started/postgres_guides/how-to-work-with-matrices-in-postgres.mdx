@@ -5,6 +5,7 @@ title: How to work with matrices in Postgres
 import AccessMatrix from './images/access-matrix-element.png'
 import ArrayFunctions from './images/array-functions-on-matrices.png'
 import CreateMatrices from './images/create-matrices.png'
+import { Image } from 'astro:assets';
 
 Working with matrices in PostgreSQL opens a world of possibilities for managing structured data. Whether you're dealing with scientific data, financial models, or any other multidimensional datasets, PostgreSQL provides powerful tools and techniques to store, manipulate, and query matrices efficiently.
 
@@ -20,7 +21,7 @@ As we mentioned, matrix is just a 2-D array, therefore you can use the `ARRAY` c
 SELECT ARRAY[ARRAY[1, 2], ARRAY[3, 4]] AS matrix1;
 ```
 
-<img src={CreateMatrices} width="600" alt="CreateMatrices" />
+<Image src={CreateMatrices} width="600" alt="CreateMatrices" />
 
 In this example, we have used 2 `ARRAY` constructors (`ARRAY[1,2]`, `ARRAY[3,4]`) inside of an `ARRAY` constructor. `matrix1` is the name of the column holding this matrix.
 
@@ -52,7 +53,7 @@ You can also specify each element present in the matrix individually by specifyi
 SELECT data[2][1] FROM matrix_table;
 ```
 
-<img src={AccessMatrix} width="600" alt="AccessMatrix" />
+<Image src={AccessMatrix} width="600" alt="AccessMatrix" />
 
 In this example, we have specified the row index `2` and column index `1`.
 
@@ -84,7 +85,7 @@ SELECT ARRAY_AGG(value ORDER BY rownum, colnum) AS transposed_matrix
 FROM my_matrix;
 ```
 
-<img src={ArrayFunctions} width="600" alt="ArrayFunctions" />
+<Image src={ArrayFunctions} width="600" alt="ArrayFunctions" />
 
 Here, `ARRAY_AGG` is an array function that we have applied on a matrix to perform the operation. However it's important to know that not every array function will work on matrices. To see a comprehensive list of array functions and operators, see the official [PostgreSQL documentation](https://www.postgresql.org/docs/current/functions-array.html).
 

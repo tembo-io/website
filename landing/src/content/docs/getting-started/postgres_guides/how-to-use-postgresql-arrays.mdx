@@ -9,6 +9,7 @@ import ArrayCat from './images/array-cat.png'
 import ArrayDims from './images/array-dims.png'
 import SelectElement from './images/select-element-from-array.png'
 import WhereClause from './images/where-clause-in-array.png'
+import { Image } from 'astro:assets';
 
 PostgreSQL is known for its flexibility in terms of data types. One useful, though sometimes confusing type are arrays. They enable the storage of multiple values of the same data type within a single column.
 
@@ -68,7 +69,7 @@ Specify the element number along with the column name that you want to fetch. Fo
 SELECT home_coordinates[1] FROM students;
 ```
 
-<img src={SelectElement} width="600" alt="SelectElement" />
+<Image src={SelectElement} width="600" alt="SelectElement" />
 
 You can also specify a `WHERE` clause condition in the query. Following command will display the whole row where the latitude or longitude of a home is above 40 degrees:
 
@@ -76,7 +77,7 @@ You can also specify a `WHERE` clause condition in the query. Following command 
 SELECT * FROM students WHERE 40 < ANY (home_coordinates);
 ```
 
-<img src={WhereClause} width="600" alt="WhereClause" />
+<Image src={WhereClause} width="600" alt="WhereClause" />
 
 **Step 4** - There are also methods to manipulate or update the data in the array. You can use the traditional `UPDATE` statement to update the data:
 
@@ -86,7 +87,7 @@ SELECT * FROM students WHERE 40 < ANY (home_coordinates);
  UPDATE students SET home_coordinates = array_remove(home_coordinates, 74.0);
 ```
 
-<img src={RemoveElement} width="700" alt="RemoveElement" />
+<Image src={RemoveElement} width="700" alt="RemoveElement" />
 
 It can then be used to append data to the array. To add the value `80.0` at the end of `home_coordinates` array, execute the following command:
 
@@ -94,7 +95,7 @@ It can then be used to append data to the array. To add the value `80.0` at the 
 UPDATE students SET home_coordinates = home_coordinates || ARRAY[80.0];
 ```
 
-<img src={AddElement} width="700" alt="AddElement" />
+<Image src={AddElement} width="700" alt="AddElement" />
 
 ## Array Functions in Postgres
 
@@ -106,7 +107,7 @@ PostgreSQL offers a range of utilities to manage arrays. Some of these popular a
 SELECT array_cat(array[1, 2], array[3, 4]);
 ```
 
-<img src={ArrayCat} width="600" alt="ArrayCat" />
+<Image src={ArrayCat} width="600" alt="ArrayCat" />
 
 `array_dims` function returns the dimensions of an array:
 
@@ -114,7 +115,7 @@ SELECT array_cat(array[1, 2], array[3, 4]);
 SELECT array_dims(array[[1, 2, 3], [4, 5, 6]]);
 ```
 
-<img src={ArrayDims} width="600" alt="ArrayDims" />
+<Image src={ArrayDims} width="600" alt="ArrayDims" />
 
 `array_length` function returns the length of an array:
 
@@ -124,7 +125,7 @@ SELECT array_dims(array[[1, 2, 3], [4, 5, 6]]);
 
 In this example, `1` represents the dimension of the array whose length you want to calculate.
 
-<img src={ArrayLength} width="700" alt="ArrayLength" />
+<Image src={ArrayLength} width="700" alt="ArrayLength" />
 
 There are tons of built-in array functions available in Postgres. You can check the official [PostgreSQL documentation](https://www.postgresql.org/docs/current/functions-array.html) for a comprehensive list of array functions and operators.
 

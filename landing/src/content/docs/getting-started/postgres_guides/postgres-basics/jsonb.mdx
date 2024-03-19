@@ -2,6 +2,8 @@
 title: JSONB
 ---
 
+import Callout from '../../../../../components/Callout.astro';
+
 ## Why JSONB?
 
 -   **Flexibility**: JSONB allows for schema-less data storage, which can be useful for situations where the data structure is not fixed.
@@ -32,9 +34,10 @@ INSERT INTO users(data) VALUES
 SELECT data->>'name' as name FROM users WHERE data->>'name' = 'John';
 ```
 
-:::info
-The `->` operator returns data as the jsonb type. The operator `->>` returns the data as text.
-:::
+<Callout variant='info'>
+	The `->` operator returns data as the jsonb type. The operator `->>` returns
+	the data as text.
+</Callout>
 
 -   Query a nested field:
 
@@ -56,9 +59,9 @@ UPDATE users SET data = jsonb_set(data, '{contacts,email}', '"new_email@example.
 SELECT data->'contacts'->>'email' as email FROM users WHERE data->>'name' = 'John';
 ```
 
-:::info
-Updating one field of JSONB data also rewrites the column to disk.
-:::
+<Callout variant='info'>
+	Updating one field of JSONB data also rewrites the column to disk.
+</Callout>
 
 ## Checking if keys are present
 
@@ -122,7 +125,7 @@ SELECT id, data->>'name' as name, data->'contacts'->>'email' as email FROM users
 
 Let's try populating our database with a million rows, and compare the performance with and without the index.
 
-:::info
+<Callout variant='info'>
 You can list currently active indexes with
 
 ```sql
@@ -131,7 +134,7 @@ FROM pg_indexes
 WHERE schemaname = 'public';
 ```
 
-:::
+</Callout>
 
 -   Let's drop the index, to be sure we are not using it
 
@@ -142,9 +145,10 @@ DROP INDEX IF EXISTS idxginp;
 
 -   Generate 1 million rows in the users table. We'll do this using PL/pgSQL
 
-:::info
-PL/pgSQL stands for "Procedural Language / PostgreSQL", and it's the PostgreSQL database's default procedural language.
-:::
+<Callout variant='info'>
+	PL/pgSQL stands for "Procedural Language / PostgreSQL", and it's the
+	PostgreSQL database's default procedural language.
+</Callout>
 
 ```sql
 -- Generate the data
@@ -183,9 +187,10 @@ SELECT id, data->>'name' as name, data->'contacts'->>'email' as email FROM users
 -   On the author's laptop, this query takes about 1 second
 -   Let's check the query plan to understand what is performed when that query was running
 
-:::info
-Prefixing a command by `EXPLAIN ANALYZE` will run the query and show the query plan.
-:::
+<Callout variant='info'>
+	Prefixing a command by `EXPLAIN ANALYZE` will run the query and show the
+	query plan.
+</Callout>
 
 ```sql
 EXPLAIN ANALYZE SELECT id, data->>'name' as name, data->'contacts'->>'email' as email FROM users WHERE data @> '{"contacts": {"phone": "8675309"}}';
@@ -218,9 +223,12 @@ CREATE INDEX idxgin ON users USING GIN (data);
 
 -   This command took about 1 minute on the author's laptop.
 
-:::caution
-Running `CREATE INDEX .. ON users ...` locks the users table. Instead, use `CREATE INDEX CONCURRENTLY`, which is mostly non-blocking. However, it's also slower to create the index, and if it fails part way through, it will leave behind an invalid index.
-:::
+<Callout variant='warning'>
+	Running `CREATE INDEX .. ON users ...` locks the users table. Instead, use
+	`CREATE INDEX CONCURRENTLY`, which is mostly non-blocking. However, it's
+	also slower to create the index, and if it fails part way through, it will
+	leave behind an invalid index.
+</Callout>
 
 -   Now, we can search by phone number, using the index
 
