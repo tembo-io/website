@@ -62,11 +62,9 @@ const blog = defineCollection({
 	}),
 });
 export const ROOT_SIDEBAR_DOCS_ORDER = {
-	cloud: 0,
-	stacks: 1,
 	development: 2,
-	'connecting to tembo': 3,
-	guides: 4,
+	product: 1,
+	'getting started': 0,
 };
 
 const docs = defineCollection({

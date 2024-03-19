@@ -160,38 +160,19 @@ export async function getNestedSideBarLinks(
  */
 export async function nextDoc(
 	slug: string,
+	sortedLinks: SideBarSection[],
 ): Promise<{ parentLabel: string; title: string; slug: string }> {
-	const docs = await getCollection('docs');
-	const sideBarLinks: SideBarSection[] = [];
-	const sideBarRoots = new Set();
-
-	docs.forEach((doc) => {
-		const sectionTitle = uppercaseFirstLetter(doc.id.split('/')[0]);
-		sideBarRoots.add(sectionTitle);
-	});
-
-	Array.from(sideBarRoots).forEach(async (root: any) => {
-		const rootDocs = docs.filter((doc) =>
-			doc.id.startsWith(root.toLowerCase()),
-		);
-
-		sideBarLinks.push({
-			label: root.toUpperCase().replaceAll('-', ' ').replaceAll('_', ' '),
-			items: getSideBarItems(rootDocs),
-		});
-	});
-
 	let nextItem = {
 		parentLabel: '',
 		title: '',
 		slug: '',
 	};
 
-	const sortedLinks = sortSideBarLinks(sideBarLinks);
 	sortedLinks.forEach((section, index) => {
 		const sideBarSection = section.items.find((item) => item.slug === slug);
 		if (sideBarSection) {
 			const currIndex = section.items.indexOf(sideBarSection);
+
 			if (currIndex === section.items.length - 1) {
 				const nextSectionIndex =
 					index === sortedLinks.length - 1 ? 0 : index + 1;

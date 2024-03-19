@@ -38,7 +38,7 @@ const Search = () => {
 	return (
 		<>
 			<div
-				className='bg-mwasi border border-[#EAEAEA33] rounded-full px-[6px] py-[6px] docsSearch:w-[280px] mobile:w-[420px] flex items-center justify-between hover:cursor-pointer'
+				className='bg-mwasi border border-[#EAEAEA33] rounded-full px-[6px] py-[6px] h-max docsSearch:w-[280px] mobile:w-[420px] flex items-center justify-between hover:cursor-pointer'
 				onClick={() => setIsShowingSearch(true)}
 			>
 				<div className='bg-white w-max p-2 rounded-full'>

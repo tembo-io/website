@@ -40,7 +40,8 @@ const hasEnoughNestedDocs =
 	nestedLinks.length > 1 || nestedLinks[0].items.length > 1;
 const isNestedSideBar = isNested(slug) && hasEnoughNestedDocs;
 const links = isNestedSideBar ? nestedLinks : normalLinks;
-const nextDocument = await nextDoc(`/docs/${slug}`);
+console.log(links);
+const nextDocument = await nextDoc(`/docs/${slug}`, links);
 const docTitle =
 	doc?.data?.title || cleanSideBarTitle(slug.split('/').at(-1) as string);
 ---
@@ -106,49 +107,3 @@ const docTitle =
 		window.pagefind = await import('/pagefind/pagefind.js');
 	};
 </script>
-
-<style is:global>
-	.DocsSearchDialogOverlay {
-		background-color: rgba(0, 0, 0, 0.5);
-		position: fixed;
-		inset: 0;
-		animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-		z-index: 10;
-	}
-
-	.DocsSearchDialogContent {
-		animation: contentShow 200ms cubic-bezier(0.16, 1, 0.3, 1);
-	}
-
-	.gradient-search-item:hover {
-		border: 1px solid #0000;
-		background:
-			linear-gradient(#1c1c1c, #1c1c1c) padding-box,
-			linear-gradient(
-					68.42deg,
-					#f77577 0%,
-					#db39cb 79.07%,
-					#ca6fe5 170.36%
-				)
-				border-box;
-	}
-
-	@keyframes overlayShow {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
-	@keyframes contentShow {
-		from {
-			opacity: 0;
-			transform: translate(-50%, -48%) scale(0.96);
-		}
-		to {
-			opacity: 1;
-			transform: translate(-50%, -50%) scale(1);
-		}
-	}
-</style>
