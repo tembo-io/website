@@ -3,6 +3,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 import { Image } from 'astro:assets';
 import HeroImage from '../../images/tembonauts.svg';
 import { getSideBarLinks } from '../../util/docsUtils';
+import DocCard from '../../components/docs/DocCard.astro';
 
 const links = await getSideBarLinks();
 ---
@@ -33,5 +34,31 @@ const links = await getSideBarLinks();
 				class='flex rounded-2xl w-full max-w-[600px]'
 			/>
 		</div>
+		<ul class='w-full mt-16 grid grid-cols-12 gap-6'>
+			<DocCard
+				url=''
+				icon='/icons/cloud.svg'
+				title='Tembo Cloud'
+				description='Lorem ipsum dolor sit amet consectetur. Arcu mauris dui ipsum massa.'
+			/>
+			<DocCard
+				url=''
+				icon='/icons/stacks.svg'
+				title='Stacks'
+				description='Lorem ipsum dolor sit amet consectetur. Arcu mauris dui ipsum massa.'
+			/>
+			<DocCard
+				url=''
+				icon='/icons/book.svg'
+				title='Postgres Guides'
+				description='Lorem ipsum dolor sit amet consectetur. Arcu mauris dui ipsum massa.'
+			/>
+			<DocCard
+				url=''
+				icon='/icons/code.svg'
+				title='Connection Examples'
+				description='Lorem ipsum dolor sit amet consectetur. Arcu mauris dui ipsum massa.'
+			/>
+		</ul>
 	</div>
 </DocsLayout>

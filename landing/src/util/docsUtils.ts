@@ -172,10 +172,19 @@ export async function nextDoc(
 		const sideBarSection = section.items.find((item) => item.slug === slug);
 		if (sideBarSection) {
 			const currIndex = section.items.indexOf(sideBarSection);
-
 			if (currIndex === section.items.length - 1) {
 				const nextSectionIndex =
 					index === sortedLinks.length - 1 ? 0 : index + 1;
+
+				if (nextSectionIndex === 0) {
+					nextItem = {
+						parentLabel: 'Home',
+						title: 'Docs',
+						slug: '/docs',
+					};
+					return;
+				}
+
 				nextItem = {
 					parentLabel: sortedLinks[nextSectionIndex].label,
 					...sortedLinks[nextSectionIndex].items[0],
@@ -190,6 +199,11 @@ export async function nextDoc(
 		}
 	});
 	return nextItem;
+}
+
+export function getParentLabel(slug: string) {
+	const split = slug.split('/');
+	return cleanSideBarTitle(split[split.length - 3]);
 }
 
 /**

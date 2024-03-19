@@ -49,6 +49,13 @@ const {
 	</div>
 </Layout>
 
+<script is:inline>
+	window.initSearch = async () => {
+		// load the pagefind script
+		window.pagefind = await import('/pagefind/pagefind.js');
+	};
+</script>
+
 <style is:global>
 	.DocsSearchDialogOverlay {
 		background-color: rgba(0, 0, 0, 0.5);

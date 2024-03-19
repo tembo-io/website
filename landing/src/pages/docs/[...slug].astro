@@ -40,7 +40,7 @@ const hasEnoughNestedDocs =
 	nestedLinks.length > 1 || nestedLinks[0].items.length > 1;
 const isNestedSideBar = isNested(slug) && hasEnoughNestedDocs;
 const links = isNestedSideBar ? nestedLinks : normalLinks;
-console.log(links);
+
 const nextDocument = await nextDoc(`/docs/${slug}`, links);
 const docTitle =
 	doc?.data?.title || cleanSideBarTitle(slug.split('/').at(-1) as string);
@@ -100,10 +100,3 @@ const docTitle =
 		<Footer editLink={githubEditLink(doc.id)} />
 	</div>
 </DocsLayout>
-
-<script is:inline>
-	window.initSearch = async () => {
-		// load the pagefind script
-		window.pagefind = await import('/pagefind/pagefind.js');
-	};
-</script>

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Command } from 'cmdk';
 import SearchItem from './SearchItem';
+import { getParentLabel } from '../../util/docsUtils';
 
 const Search = () => {
 	const [searchResults, setSearchResults] = useState([]);
@@ -110,6 +111,7 @@ const Search = () => {
 												key={item.id}
 												title={item.title}
 												url={item.url}
+												label={getParentLabel(item.url)}
 												excerpt={item.excerpt}
 											/>
 										))}
