@@ -10,7 +10,7 @@ description: Introducing RAG workflows to pg_vectorize.
 
 Building applications on LLMs is normally a complicated process that involves moving data between data stores, running infrastructure, and orchestrating API calls across multiple transformer models and LLMs. This is a boilerplate process that can be abstracted, and by using extensions such as [pg_vector](https://github.com/pgvector/pgvector) and [pg_vectorize](https://github.com/tembo-io/pg_vectorize) done directly from SQL.
 
-Today, we are launching the Tembo RAG stack which allows you to natively build Q&A bots on Postgres. You can try it out on your own by using our [Kubernetes Operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/rag.yaml), deploy it with a single click on [Tembo Cloud](https://cloud.tembo.io/), or run it locally with [docker-compose](https://github.com/tembo-io/pg_vectorize?tab=readme-ov-file#rag-example).
+Today, we are launching the Tembo RAG stack which allows you to natively build Q&A bots on Postgres. You can try it out on your own by using our [Kubernetes Operator](https://github.com/tembo-io/tembo/blob/main/tembo-stacks/src/stacks/specs/rag.yaml), deploy it with a single click on [Tembo Cloud](https://cloud.tembo.io/), or run it locally with [docker-compose](https://github.com/tembo-io/pg_vectorize?tab=readme-ov-file#rag-example).
 
 ## Your data improves LLM responses
 
