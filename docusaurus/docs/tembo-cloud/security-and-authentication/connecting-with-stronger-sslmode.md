@@ -35,6 +35,10 @@ The root CA certificate, know as the `sslrootcert` in the [Postgres documentatio
 
 ![test](./tembo-ui-download-cert-btn.svg)
 
+:::note
+Re-download the certificate at least monthly to avoid your copy of the certificate expiring
+:::
+
 ### Downloading the root certificate via the Tembo API
 
 For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication).
