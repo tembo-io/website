@@ -33,6 +33,10 @@ The root CA certificate, know as the `sslrootcert` in the [Postgres documentatio
 - Click "Show connection strings" on the right side of the screen
 - Download the root certificate using the button below:
 
+:::note
+Re-download the certificate at least monthly to avoid your copy of the certificate expiring
+:::
+
 ![test](./tembo-ui-download-cert-btn.svg)
 
 ### Downloading the root certificate via the Tembo API
