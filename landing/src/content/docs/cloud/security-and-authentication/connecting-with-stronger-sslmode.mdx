@@ -1,12 +1,10 @@
----
-tags:
-  - security
-  - sslmode
----
+import Callout from '../../../../components/Callout.astro';
 
-# More secure connections
+<Callout variant='warning'>
 
 Please report security issues by emailing security@tembo.io
+
+</Callout>
 
 ## sslmode
 
@@ -28,10 +26,10 @@ Both modes `verify-ca` or `verify-full` will authenticate the server, checking t
 The root CA certificate, know as the `sslrootcert` in the [Postgres documentation](https://www.postgresql.org/docs/current/libpq-ssl.html), is the same between all Tembo instances.
 :::
 
-- Visit [Tembo Cloud](https://cloud.tembo.io)
-- Navigate to your desired instance
-- Click "Show connection strings" on the right side of the screen
-- Download the root certificate using the button below:
+-   Visit [Tembo Cloud](https://cloud.tembo.io)
+-   Navigate to your desired instance
+-   Click "Show connection strings" on the right side of the screen
+-   Download the root certificate using the button below:
 
 ![test](./tembo-ui-download-cert-btn.svg)
 
