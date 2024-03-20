@@ -30,8 +30,7 @@ Ready to get started? Let's do it.
 
 ## Connecting to your Database
 
-- Click on the Overview tab of the database, and you can get a psql command to connect to the database
-- Or you can click into hostname, port, username, and password to obtain the credentials
+- Click on the Configurations Section of the database dashboard, then select Show Connection Strings.
 
 ## Enabling Extensions
 
