@@ -31,12 +31,6 @@ For a full list of configuration options, visit https://postgresqlco.nf/doc/en/p
 
 3. Patch your existing Tembo instance with new configuration values using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi):
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs>
-<TabItem value="curl" label="Curl">
-
 ```shell
 curl -X 'PATCH' \
   "https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/instances/$TEMBO_INST" \
@@ -60,9 +54,6 @@ curl -X 'PATCH' \
   ]
 }'
 ```
-
-</TabItem>
-</Tabs>
 
 ## Confirming Configuration Values are Applied
 
