@@ -1,6 +1,11 @@
-# Getting Started with the timeseries Extension
+# Tembo Time Series
 
-In this guide, you will become familiar with the functions and features of the timeseries extension through a hands-on tutorial using public bikeshare trip data from the Chicago bike share system, Divvy.
+Time-series data is data which is organized along a time dimension and which typically grows via recent data being inserted in near real-time. Tembo's Time Series stack makes the creation, operation, and maintenance of databases for storing time-series data simple. The stack is tuned for time-series workloads and helps users with the organization and use of time-series data.
+
+## Extensions
+
+- [pg_timeseries](https://pgt.dev/extensions/pg_timeseries) - provides an easy-to-use API to help create time-series pipelines using best practices
+- [pg_partman](https://pgt.dev/extensions/pg_partman) - simplifies and automates partitioning of large database tables
 
 ## Preparing your database
 
