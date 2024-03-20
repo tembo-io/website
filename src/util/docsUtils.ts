@@ -83,7 +83,7 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 		const rootDocs = docs.filter((doc) =>
 			doc.id.startsWith(root.toLowerCase()),
 		);
-		console.log(root.replaceAll('-', ' ').replaceAll('_', ' '));
+
 		sideBarLinks.push({
 			label: root.toUpperCase().replaceAll('-', ' ').replaceAll('_', ' '),
 			icon: ROOT_SIDEBAR_DOCS_ICONS[

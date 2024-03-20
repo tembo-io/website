@@ -73,7 +73,7 @@ const Search = () => {
 									const cleanedResults = await Promise.all(
 										search.results.map(async (item) => {
 											const data = await item.data();
-											console.log(item);
+
 											return {
 												id: item.id,
 												title: data?.meta?.title,
