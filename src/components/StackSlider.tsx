@@ -116,7 +116,7 @@ const SecondStackCards = () => {
 				<span className='z-10 text-white pt-4'>
 					<p>Time Series Stack</p>
 					<h2 className='font-medium text-2xl mt-2 leading-8'>
-						Hosted Prometheus Add-On
+						Simple Time-Based Partitioning
 					</h2>
 				</span>
 				<Animation
