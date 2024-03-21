@@ -21,11 +21,10 @@ const Header: React.FC<Props> = ({
 	currentPath,
 }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const [isScreenLessThan1000px, setIsScreenLessThan1000px] = useState(
-		window.innerWidth < 1000,
-	);
+	const [isScreenLessThan1000px, setIsScreenLessThan1000px] = useState(false);
 
 	useEffect(() => {
+		setIsScreenLessThan1000px(window.innerWidth < 1000);
 		const handleResize = () => {
 			const isScreenLessThan1000px = window.innerWidth < 1000;
 			setIsScreenLessThan1000px(isScreenLessThan1000px);
