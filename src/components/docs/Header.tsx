@@ -3,7 +3,6 @@ import Button from '../Button';
 import Search from './Search';
 import ProgressBar from '../ProgressBar';
 import LogoLink from './LogoLink';
-
 import cx from 'classnames';
 import { motion } from 'framer-motion';
 import MobileMenu from './MobileMenu';
@@ -52,7 +51,14 @@ const Header: React.FC<Props> = ({
 	return (
 		<>
 			<div className='fixed min-[1000px]:sticky top-0 overflow-hidden flex flex-col w-full z-10'>
-				<nav className='border-b border-b-[#EAEAEA33] flex items-center pt-4 pb-[12px] transition duration-100 backdrop-blur-lg safari-blur h-[74px]'>
+				<nav
+					className={cx(
+						'border-b border-b-[#EAEAEA33] flex items-center pt-4 pb-[12px] transition duration-100 h-[74px]',
+						isMenuOpen && isScreenLessThan1000px
+							? 'bg-offBlack'
+							: 'backdrop-blur-lg safari-blur',
+					)}
+				>
 					<div className='container px-8 max-w-container mx-auto'>
 						<div className='flex items-center justify-between'>
 							<div className='flex items-center gap-6 w-full min-[1000px]:w-max justify-between min-[1000px]:justify-start'>
@@ -60,19 +66,18 @@ const Header: React.FC<Props> = ({
 									<LogoLink width={100} />
 								</div>
 								<div className='flex items-center gap-4'>
-									{!isMenuOpen && <Search />}
+									{!isMenuOpen || !isScreenLessThan1000px ? (
+										<Search />
+									) : null}
 
 									<div className='flex min-[1000px]:hidden'>
 										<button
 											onClick={() => {
-												(
-													document.getElementById(
-														'docs-content',
-													) as HTMLElement
-												).style.overflow = !isMenuOpen
-													? 'hidden'
-													: 'scroll';
-												setIsMenuOpen(!isMenuOpen);
+												(document.body.style.overflow =
+													!isMenuOpen
+														? 'hidden'
+														: 'scroll'),
+													setIsMenuOpen(!isMenuOpen);
 											}}
 											className={cx(
 												'flex flex-col gap-[2.5px] items-center justify-center bg-neon hover:bg-[#D1E278] rounded-full w-[32.57px] h-[32.57px] z-50',
@@ -130,7 +135,7 @@ const Header: React.FC<Props> = ({
 						</div>
 					</div>
 				</nav>
-				{isProgressBar && !isMenuOpen && (
+				{isProgressBar && (!isMenuOpen || !isScreenLessThan1000px) && (
 					<ProgressBar
 						scrollContainerId='docs-content'
 						parentContainerId='tembo-document'
