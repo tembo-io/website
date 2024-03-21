@@ -4,7 +4,6 @@ import Search from './Search';
 import ProgressBar from '../ProgressBar';
 import LogoLink from './LogoLink';
 import cx from 'classnames';
-import { motion } from 'framer-motion';
 import MobileMenu from './MobileMenu';
 import type { SideBarSection } from '../../types';
 
@@ -22,24 +21,14 @@ const Header: React.FC<Props> = ({
 	currentPath,
 }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const [isScreenLessThan1000px, setIsScreenLessThan1000px] = useState(false);
-
-	const variants = {
-		open: {
-			opacity: 1,
-			transition: {
-				ease: 'linear',
-				duration: 0.15,
-			},
-		},
-		closed: { opacity: 0 },
-	};
+	const [isScreenLessThan1000px, setIsScreenLessThan1000px] = useState(
+		window.innerWidth < 1000,
+	);
 
 	useEffect(() => {
 		const handleResize = () => {
 			const isScreenLessThan1000px = window.innerWidth < 1000;
 			setIsScreenLessThan1000px(isScreenLessThan1000px);
-			console.log(isScreenLessThan1000px);
 		};
 
 		window.addEventListener('resize', handleResize);
@@ -78,6 +67,9 @@ const Header: React.FC<Props> = ({
 														? 'hidden'
 														: 'scroll'),
 													setIsMenuOpen(!isMenuOpen);
+												console.log(
+													!isScreenLessThan1000px,
+												);
 											}}
 											className={cx(
 												'flex flex-col gap-[2.5px] items-center justify-center bg-neon hover:bg-[#D1E278] rounded-full w-[32.57px] h-[32.57px] z-50',

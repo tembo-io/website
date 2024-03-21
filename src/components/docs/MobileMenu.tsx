@@ -19,6 +19,7 @@ const MobileMenu: React.FC<Props> = ({
 		const items = section.items.map((item) => {
 			return (
 				<SideBarItem
+					key={item.slug}
 					isRootNested={false}
 					item={item}
 					currentPath={currentPath}
@@ -45,7 +46,10 @@ const MobileMenu: React.FC<Props> = ({
 							const isBeyondFirstSection =
 								isNestedSideBar && index > 0;
 							return (
-								<div className='flex flex-col'>
+								<div
+									className='flex flex-col'
+									key={section.label}
+								>
 									<div className='my-6'>
 										<div className='h-px w-full bg-[#EAEAEA33]'></div>
 									</div>
