@@ -101,7 +101,7 @@ Run the script to initialize the database:
 python init_db.py
 ```
 
-### Step 4: Verify Database Setup
+### Verify Database Setup
 
 You can check the changes have been made by connecting to your database:
 
@@ -115,7 +115,7 @@ List all tables to see if the `books` table has been created:
 \dt
 ```
 
-### Step 5: Basic Set-up
+### Basic Set-up
 
 We will have our `app.py` file to establish the connection and read from the database
 
