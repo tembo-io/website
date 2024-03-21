@@ -20,19 +20,18 @@ $ npm install
 
 ### Local Development
 
-
 Start the local dev server from the project root:
 
 ```
-npm run dev
+$ npm run dev
 ```
 
-These command(s) start the local dev server on `localhost:4321` by default. All changes are reflected live without having to restart the server.
+A dev server will spin up on `localhost:4321` by default. All changes are reflected live without having to restart the server.
 
-### Build
+### Simulate a production build locally
 
 ```
-$ npm run build
+$ npm run build && npm run preview
 ```
 
 This commands will generate static content into the `build` directory and can be served using any static contents hosting service.
@@ -45,12 +44,12 @@ This commands will generate static content into the `build` directory and can be
 ### Recommended Workflow
 
 -   Checkout new branch
--   `npm dev`
+-   `npm run dev`
     -   commits locally... looking at site in browser
     -   push to remote each commit (opened draft PR)
 -   Ready to go?
     -   Review preview environment
-    -   Squash and merge and get approval from Darren/Samay
+    -   Squash and merge and get approval from @DarrenBaldwin07 or anyone in [CODEOWNERS](https://github.com/tembo-io/website/blob/main/CODEOWNERS)
 
 ## Writing a blog post ✍️
 
@@ -145,6 +144,7 @@ import Tweet from '../../../components/Tweet'; // the `Tweet` component must be 
 
 ```mdx
 {' '}
+
 <iframe
 	style={{ position: 'absolute', top: '10px', width: '100%', height: '100%' }}
 	width='900'
