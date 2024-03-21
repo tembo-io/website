@@ -3,6 +3,7 @@ import Button from '../Button';
 import Search from './Search';
 import ProgressBar from '../ProgressBar';
 import LogoLink from './LogoLink';
+import { useEffect } from 'react';
 import cx from 'classnames';
 import { motion } from 'framer-motion';
 import MobileMenu from './MobileMenu';
@@ -32,9 +33,11 @@ const Header: React.FC<Props> = ({
 		},
 		closed: { opacity: 0 },
 	};
+
+	useEffect(() => {}, []);
 	return (
 		<>
-			<div className='sticky top-0 overflow-hidden flex flex-col w-full z-10'>
+			<div className='fixed top-0 overflow-hidden flex flex-col w-full z-10'>
 				<nav className='border-b border-b-[#EAEAEA33] flex items-center pt-4 pb-[12px] transition duration-100 backdrop-blur-lg safari-blur h-[74px]'>
 					<div className='container px-8 max-w-container mx-auto'>
 						<div className='flex items-center justify-between'>
