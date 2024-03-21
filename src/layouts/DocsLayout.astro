@@ -12,12 +12,13 @@ interface Props {
 	isProgressBar?: boolean;
 }
 const {
-	title = 'Docs | Tembo',
+	title = 'Documentation | Tembo',
 	description,
 	sideBarMenuSections,
 	isNestedDoc,
 	isProgressBar = true,
 }: Props = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
 
 <Layout title={title} description={description}>
@@ -36,7 +37,13 @@ const {
 					id='docs-content'
 				>
 					<div class='flex flex-col relative'>
-						<Header isProgressBar={isProgressBar} client:load />
+						<Header
+							isProgressBar={isProgressBar}
+							isNestedSideBar={isNestedDoc}
+							sideBarMenuSections={sideBarMenuSections}
+							currentPath={currentPath}
+							client:load
+						/>
 						<div class='container px-8 max-w-container mx-auto'>
 							<div class='pt-[60px] grow pb-8'>
 								<slot />

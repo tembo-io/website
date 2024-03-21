@@ -1,5 +1,6 @@
 ---
 title: Managing Logs
+sideBarPosition: 1
 ---
 
 Need help getting logs from your Tembo Instances? This guide can help.

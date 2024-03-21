@@ -1,5 +1,5 @@
 ---
-sideBarPosition: 1
+sideBarPosition: 2
 title: Collecting Metrics
 ---
 

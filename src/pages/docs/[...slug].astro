@@ -80,7 +80,8 @@ const docTitle =
 					class='hidden mobile:flex flex-col items-start w-max mobile:sticky mobile:top-[133px]'
 				>
 					{
-						headings.length > 0 && (
+						headings.filter((heading) => heading.depth > 1).length >
+							0 && (
 							<Toc
 								headings={headings.filter(
 									(heading) => heading.depth !== 1,

@@ -1,5 +1,5 @@
 ---
-sideBarPosition: 1
+sideBarPosition: 0
 ---
 
 Goodbye Database Sprawl, Hello Postgres.

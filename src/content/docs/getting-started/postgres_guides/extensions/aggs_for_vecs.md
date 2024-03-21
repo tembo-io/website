@@ -6,17 +6,17 @@ title: aggs_for_vecs
 
 `aggs_for_vecs` is a C-based extension that introduces arithmetic operations on arrays, as opposed to scalars. In the case of `aggs_for_vecs`, each array is treated as a vector.
 
-# When should you use it?
+## When should you use it?
 
 This extension can offer element-wise operations across multiple rows, which could be useful when performing calculations on specific array positions, e.g., finding the minimum value across multiple rows for each element in the array.
 
-# Example use case.
+## Example use case.
 
 Customer Behavior Analysis:
 
 An e-commerce platform is using rating arrays to capture multi-faceted feedback on products. Each element in the array represents a specific aspect, i.e., usability, design, performance, and customer support. By analyzing these ratings over time, this business can gain insights into product trends and customer satisfaction. Different sources, such as review sites or direct feedback, contribute to these ratings. This aggregated data offers a comprehensive view of a product's performance, guiding improvements and strategies.
 
-# Example test script.
+## Example test script.
 
 ```
 -- Create example table, rating_aspects, and populate with test data

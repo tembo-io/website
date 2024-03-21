@@ -1,5 +1,6 @@
 ---
 title: User Defined Applications
+sideBarPosition: 12
 ---
 
 Tembo Cloud allows you to deploy containers next to your Postgres instance. Some of these apps are pre-configured such as [REST-API](./rest-api.md) or [Embeddings](./embeddings.md). You can also specify and configure these containers yourself. This allows you to run custom applications that can interact with your Postgres instance, or other services.

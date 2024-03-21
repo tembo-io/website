@@ -8,7 +8,7 @@ Before you start, ensure you have the following installed:
 2. Tembo CLI. you can find the steps [here](../Getting_Started.md)
 3. Docker, set up and running for local development
 
-## Step 1: Creating Your Rails Project
+## Creating Your Rails Project
 
 First, create a new Rails application with PostgreSQL as the database:
 
@@ -17,7 +17,7 @@ rails new todolist -d postgresql
 cd todolist/
 ```
 
-## Step 2: Initializing Tembo
+## Initializing Tembo
 
 Initialize Tembo in your project directory:
 
@@ -50,7 +50,7 @@ Apply your Tembo configuration to provision the required infrastructure:
 tembo apply
 ```
 
-## Step 3: Configuring the Database
+## Configuring the Database
 
 Update your `config/database.yml` file with the Tembo PostgreSQL instance URL:
 
@@ -68,7 +68,7 @@ Create the database:
 rails db:create
 ```
 
-## Step 4: Creating a Todo Model
+## Creating a Todo Model
 
 Generate a Todo model with a description field:
 
@@ -82,7 +82,7 @@ Migrate the database to create the todos table:
 rails db:migrate
 ```
 
-## Step 5: Verifying the Setup
+## Verifying the Setup
 
 Confirm the setup by connecting to the PostgreSQL instance and listing the databases and tables:
 

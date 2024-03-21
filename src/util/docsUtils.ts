@@ -102,9 +102,13 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 						return {
 							title: cleanSideBarTitle(itemSlugSplit[3]),
 							slug: getSideBarItems(
-								rootDocs.filter((doc) =>
-									doc.slug.includes(itemSlugSplit[3]),
-								),
+								rootDocs.filter((doc) => {
+									return (
+										doc.slug.split('/')[1] ===
+											itemSlugSplit[3] &&
+										doc.slug.split('/').length === 3
+									);
+								}),
 							)[0].slug,
 						};
 					}
@@ -128,7 +132,7 @@ export async function getNestedSideBarLinks(
 	const sideBarLinks: SideBarSection[] = [];
 	// Filter by docs that are 2nd parents of the slug
 	const rootDocs = docs.filter((doc) =>
-		slug.toLowerCase().includes(doc.id.toLowerCase().split('/')[1]),
+		slug.toLowerCase().includes(doc.id.split('/').splice(0, 2).join('/')),
 	);
 	// Push the first level of docs (e.g /docs/cloud/nested-dir/doc.md)
 	sideBarLinks.push({

@@ -39,7 +39,7 @@ const Search = () => {
 	return (
 		<>
 			<div
-				className='bg-mwasi border border-[#EAEAEA33] rounded-full px-[6px] py-[6px] [@media(min-width:600px)]:h-[45px] [@media(min-width:600px)]:w-[280px] [@media(min-width:750px)]:w-[420px] flex items-center justify-between hover:cursor-pointer'
+				className='bg-mwasi border border-[#EAEAEA33] rounded-full px-[6px] py-[6px] w-[42.57px] h-[42.57px] [@media(min-width:600px)]:h-[45px] [@media(min-width:600px)]:w-[280px] [@media(min-width:750px)]:w-[420px] flex items-center justify-between hover:cursor-pointer'
 				onClick={() => setIsShowingSearch(true)}
 			>
 				<div className='bg-white w-max p-2 rounded-full'>
@@ -59,7 +59,7 @@ const Search = () => {
 					open={isShowingSearch}
 					onOpenChange={setIsShowingSearch}
 					shouldFilter={false}
-					className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-[#141412] rounded-2xl max-w-[600px] w-full shadow-md DocsSearchDialogContent max-h-[500px]'
+					className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40 bg-[#141412] rounded-2xl max-w-[600px] w-full shadow-md DocsSearchDialogContent max-h-[500px]'
 					overlayClassName='DocsSearchDialogOverlay backdrop-blur-sm safari-blur'
 				>
 					<div className='px-6 pt-6'>

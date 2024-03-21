@@ -10,7 +10,7 @@ Before you start, ensure you have the following installed:
 
 ## Setup
 
-### Step 1: Create a Virtual Environment
+### Create a Virtual Environment
 
 First, create a virtual environment to manage your project's dependencies:
 
@@ -25,7 +25,7 @@ Install the dependencies
 pip install Flask psycopg2-binary
 ```
 
-### Step 2: Initialize Tembo
+### Initialize Tembo
 
 Initialize Tembo in your project directory:
 
@@ -58,7 +58,7 @@ Apply your Tembo configuration to provision the required infrastructure:
 tembo apply
 ```
 
-### Step 3: Create Database Initialization Script
+### Create Database Initialization Script
 
 Create a file named `init_db.py`. This script will be used to create the database tables:
 

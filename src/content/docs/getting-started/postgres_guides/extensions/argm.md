@@ -6,17 +6,17 @@ title: argm
 
 **`argm`** is a C-based extension that provides a set of custom aggregate functions to perform operations on database columns.
 
-# When should you use it?
+## When should you use it?
 
 This extension is designed for data analytics, for example when interested in performing calculations across grouped data.
 
-# Example use case.
+## Example use case.
 
 User Login Analysis:
 
 A team is managing a platform where user engagement metrics, such as weekly logins, are crucial to assess the health of the product. Recently, regional differences in user activity have become an interest. Using the **`argm`** extension, the team can efficiently group users by region, compute average weekly logins, and pinpoint the most active user from each region. These insights can be leveraged to understand regional engagement patterns, optimize product features tailored to specific regions, and enhance targeted outreach strategies.
 
-# Example test script.
+## Example test script.
 
 ```
 -- Create example table, users, and populate with test data
