@@ -28,13 +28,13 @@ $ npm run dev
 
 A dev server will spin up on `localhost:4321` by default. All changes are reflected live without having to restart the server.
 
-### Simulate a production build locally
+### Simulate a production build locally (optional)
+
+> This will build the site into `/dist` and serve the artifact on `localhost:4321`
 
 ```
 $ npm run build && npm run preview
 ```
-
-This commands will generate static content into the `build` directory and can be served using any static contents hosting service.
 
 ### Deployment
 
