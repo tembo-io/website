@@ -18,7 +18,7 @@ The root CA certificate, know as `sslrootcert` in the [Postgres documentation](h
 It is more secure to connect to Postgres with certificate validation, using **sslmode** `verify-ca` or `verify-full`.
 
 To use one of these options, the Postgres client needs to be configured to use the `sslrootcert` to authenticate the Postgres server. Users can download the root certificate using the the cloud ui or via the Tembo API.
-Both modes `verify-ca` or `verify-full` will authenticate the server, checking that the server's certificate was signed by the `sslrootcert`. `verify-full` also checks that the hostname on the certificate matches the domain name used to connect, therefore `verify-full` does not work with the [custom domains](/docs/tembo-cloud/configuration-and-management/custom-domains) feature.
+Both modes `verify-ca` or `verify-full` will authenticate the server, checking that the server's certificate was signed by the `sslrootcert`. `verify-full` also checks that the hostname on the certificate matches the domain name used to connect, therefore `verify-full` does not work with the [custom domains](/docs/product/cloud/configuration-and-management/custom-domains) feature.
 
 ### Downloading the root certificate
 

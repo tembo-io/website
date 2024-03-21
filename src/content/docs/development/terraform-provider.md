@@ -11,7 +11,7 @@ Tembo has a Terraform Provider that allows you to provision an Instance on the T
 
 ## Authentication
 
-Tembo Terraform Provider needs an `access_token` to authenticate with the API. Generate a long-lived API token by following steps [here](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication).
+Tembo Terraform Provider needs an `access_token` to authenticate with the API. Generate a long-lived API token by following steps [here](/docs/development/api).
 
 Note: To set `access_token` either create a local `.tfvars` file with the variable or set an environment variable with the `access_token` as shown below.
 
@@ -132,7 +132,7 @@ output "instance" {
 #### Optional
 
 -   `extensions` (Attributes List) Extensions to install in the instance (see [below for nested schema](#nestedatt--extensions))
--   `extra_domains_rw` (List of String) Custom domain. Read more [here](https://tembo.io/docs/tembo-cloud/custom-domains/)
+-   `extra_domains_rw` (List of String) Custom domain. Read more [here](/docs/product/cloud/configuration-and-management/custom-domains)
 -   `postgres_configs` (Attributes List) Postgres config values (see [below for nested schema](#nestedatt--postgres_configs))
 -   `replicas` (Number) Instance replicas
 -   `trunk_installs` (Attributes List) Trunk installs (see [below for nested schema](#nestedatt--trunk_installs))
