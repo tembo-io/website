@@ -52,7 +52,7 @@ psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 
 While the default database is `postgres`, you may desire to create a separate database for your geospatial workload.
 This can be achieved by running `CREATE DATABASE <your-database>` once you've connected to Tembo and navigated to by running `\c <your-database>`.
-If you'd like to learn more, check out our guide: [How to select database in Postgres](https://tembo.io/docs/postgres_guides/how-to-select-database-in-postgres/).
+If you'd like to learn more, check out our guide: [How to select database in Postgres](/docs/postgres_guides/how-to-select-database-in-postgres/).
 
 ### Load the data
 

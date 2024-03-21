@@ -54,6 +54,6 @@ Check out the [official documentation](https://www.postgresql.org/docs/current/t
 
 In this guide, we've introduced Postgres views and explored the step-by-step process to create them.
 
-Interested in expanding your knowledge of Postgres? Review our other [guides](https://tembo.io/docs/category/postgres-guides).
+Interested in expanding your knowledge of Postgres? Review our other [guides](/docs/getting-started/postgres_guides/all-possible-joins-in-postgres).
 
 Also, take a look at our latest extensions, [pgmq](https://tembo.io/blog/introducing-pgmq) and [pg_later](https://tembo.io/blog/introducing-pg-later), designed to assist you in handling messaging and long-running query tasks.

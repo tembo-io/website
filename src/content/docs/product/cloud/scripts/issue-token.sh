@@ -125,7 +125,7 @@ fi
 echo "Done!"
 
 echo ""
-echo "For more information, please review the documentation: https://tembo.io/docs/tembo-cloud/api"
+echo "For more information, please review the documentation: https://tembo.io/docs/development/api"
 echo ""
 echo "Token valid for ${DAYS} days:"
 echo ""

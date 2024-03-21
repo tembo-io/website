@@ -33,7 +33,7 @@ Want to see an example? No problem — Darren walks us through how it works:
   </iframe>
 </div>
 
-For more, keep reading or check out our [docs](https://tembo.io/docs/tembo-cloud/application-services/REST-API).
+For more, keep reading or check out our [docs](/docs/product/cloud/apps/rest-api).
 
 ## No SaaS, Just One Step
 

@@ -60,4 +60,4 @@ Want a deeper dive? Check out the [official documentation on Materialized Views]
 
 Within this guide, we delved into the topic of materialized views and explored their practical usage. Remember that you can use them to reuse the results from queries that might be needed many times in the future.
 
-Still have questions about PostgreSQL? We're here to help - have a look at our [guides](https://tembo.io/docs/category/postgres-guides) for more.
+Still have questions about PostgreSQL? We're here to help - have a look at our [guides](/docs/getting-started/postgres_guides/all-possible-joins-in-postgres) for more.

@@ -84,4 +84,4 @@ Finally, test your application to verify the connection is successfully establis
 
 Within this guide, we learned how to set up connection pooling in PostgreSQL. PgBouncer is not the only application that helps implement this. You can also look at [PgPool-II](https://www.pgpool.net/mediawiki/index.php/Main_Page).
 
-Have other questions? Check out our collection of [guides](https://tembo.io/docs/category/postgres-guides) designed to further enhance your knowledge of Postgres.
+Have other questions? Check out our collection of [guides](/docs/getting-started/postgres_guides/all-possible-joins-in-postgres) designed to further enhance your knowledge of Postgres.
