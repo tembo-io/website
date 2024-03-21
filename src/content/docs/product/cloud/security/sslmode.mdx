@@ -46,7 +46,7 @@ Re-download the certificate at least monthly to avoid your copy of the certifica
 
 ### Downloading the root certificate via the Tembo API
 
-For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication).
+For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](https://tembo.io/docs/development/api).
 
 ```bash
 ORG_ID='org_id123456'
@@ -65,4 +65,4 @@ curl -s -X 'GET' \
 psql 'postgresql://postgres:****@org-name-inst-name.data-1.use1.tembo.io:5432?sslmode=verify-full&sslrootcert=ca.crt'
 ```
 
-Different clients may connect in different ways. Connection examples are available in [this section of the Tembo documentation](/docs/category/connection-examples).
+Different clients may connect in different ways. Connection examples are available in [this section of the Tembo documentation](https://tembo.io/docs/getting-started/quickstarts/java).
