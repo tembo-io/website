@@ -32,7 +32,7 @@ title: How to Copy and Move Data Between PostgreSQL Instances Hosted at Differen
 5. **Verification**:
     - Verify the data integrity and completeness in the target database.
 
-For detailed instructions and troubleshooting, refer to the Tembo documentation on [Data Migration](https://tembo.io/docs/data_migration).
+For detailed instructions and troubleshooting, refer to the Tembo documentation on [Data Migration](/docs/getting-started/postgres_guides/how-to-copy-data-in-postgres).
 
 #### Best Practices and Recommendations
 
@@ -69,8 +69,6 @@ For detailed instructions and troubleshooting, refer to the Tembo documentation 
 
 4. **Verification**:
     - Verify the transferred data in the target database.
-
-For detailed instructions, visit the Tembo documentation on [Database Management](https://tembo.io/docs/database_management).
 
 #### Best Practices and Recommendations
 

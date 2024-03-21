@@ -4,7 +4,7 @@ It's important to use `pg` version 8.11.3 or greater.
 npm install pg@8.11.3
 ```
 
-Node.JS requires a CA Certificate. Refer to [this guide](/docs/tembo-cloud/security-and-authentication/connecting-with-stronger-sslmode) to retrieve your certificate.
+Node.JS requires a CA Certificate. Refer to [this guide](/docs/product/cloud/security/sslmode) to retrieve your certificate.
 
 ```js title="app.js"
 const { Pool } = require("pg")
