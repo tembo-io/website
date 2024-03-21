@@ -20,44 +20,22 @@ $ npm install
 
 ### Local Development
 
-> Landing page:
 
-1. Install dependencies first:
-
-```
-cd landing
-npm install
-```
-
-2. Start the local dev server from the project root:
+Start the local dev server from the project root:
 
 ```
-npm run landing
+npm run dev
 ```
 
-> Docs:
-
-```
-$ npm run docs
-```
-
-These command(s) start local dev servers and open up browsers on `localhost:3000` and `localhost:4321` by default. All changes are reflected live without having to restart the server.
+These command(s) start the local dev server on `localhost:4321` by default. All changes are reflected live without having to restart the server.
 
 ### Build
 
-> Landing:
-
 ```
-$ npm run build-landing
+$ npm run build
 ```
 
-> Docs:
-
-```
-$ npm run build-docs
-```
-
-This commands will generate static content into the associated `build` directory and can be served using any static contents hosting service.
+This commands will generate static content into the `build` directory and can be served using any static contents hosting service.
 
 ### Deployment
 
@@ -67,7 +45,7 @@ This commands will generate static content into the associated `build` directory
 ### Recommended Workflow
 
 -   Checkout new branch
--   `npm run docs` or `npm run landing`
+-   `npm dev`
     -   commits locally... looking at site in browser
     -   push to remote each commit (opened draft PR)
 -   Ready to go?
@@ -76,18 +54,18 @@ This commands will generate static content into the associated `build` directory
 
 ## Writing a blog post ✍️
 
-> Refer to this [example post](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-07-05-tembo-manifesto) as needed
+> Refer to this [example post](https://github.com/tembo-io/website/tree/main/src/content/blog/2023-07-05-tembo-manifesto) as needed
 
-#### 1. Create a new folder inside [/landing/src/content/blog](https://github.com/tembo-io/website/tree/main/landing/src/content/blog) directory
+#### 1. Create a new folder inside [/src/content/blog](https://github.com/tembo-io/website/tree/main/src/content/blog) directory
 
 ```bash
-mkdir -p landing/src/content/blog/2024-09-20-example-post
+mkdir -p src/content/blog/2024-09-20-example-post
 ```
 
 #### 2. Make a new markdown file inside the same directory (this is where you will write your blogpost)
 
 ```bash
-touch landing/src/content/blog/2024-09-20-example-post/index.md
+touch src/content/blog/2024-09-20-example-post/index.md
 ```
 
 #### 3. Frontmatter
