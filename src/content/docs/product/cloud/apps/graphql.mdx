@@ -25,7 +25,7 @@ You can enable the graphQL app on your Tembo Cloud instance by navigating to "Ap
 
 ### Via API
 
-First, you will need to generate an API token so that you can communicate with your Tembo instance. Navigate to cloud.tembo.io/generate-jwt and follow the instructions to generate a token. Alternatively, you can follow the instructions [here](https://tembo.io/docs/tembo-cloud/security-and-authentication/api-authentication).
+First, you will need to generate an API token so that you can communicate with your Tembo instance. Navigate to cloud.tembo.io/generate-jwt and follow the instructions to generate a token. Alternatively, you can follow the instructions [here](https://tembo.io/docs/development/api).
 
 Set your Tembo token as an environment variable, along with your organization id and the Tembo instance id. Fetch the `TEMBO_DATA_DOMAIN` from the "Host" parameter of your Tembo instance.
 
@@ -36,7 +36,7 @@ export TEMBO_INST=<your instance id>
 export TEMBO_DATA_DOMAIN=<you Tembo domain>
 ```
 
-Patch your existing Tembo instance using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi) to enable graphQL. We'll set the the configurations to `None` in this example so that the defaults are assigned.
+Patch your existing Tembo instance using the [Tembo Cloud Platform API](https://api.tembo.io/redoc) to enable graphQL. We'll set the the configurations to `None` in this example so that the defaults are assigned.
 
 Python:
 
