@@ -1,2 +1,12 @@
-landing/** @DarrenBaldwin07 @samay-sharma
-docusaurus/** @DarrenBaldwin07 @samay-sharma @ryw
+* @DarrenBaldwin07
+
+src/content/blog/ @samay-sharma
+src/content/blog/** @samay-sharma
+src/content/docs/ @samay-sharma
+src/content/docs/** @samay-sharma
+src/content/docs/product/cloud/ @sjmiller609
+src/content/docs/product/cloud/** @sjmiller609
+src/content/docs/product/stacks/ @ChuckHend
+src/content/docs/product/stacks/** @ChuckHend
+src/content/docs/product/software/ @ianstanton
+src/content/docs/product/software/** @ianstanton
