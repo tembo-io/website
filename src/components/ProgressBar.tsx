@@ -4,11 +4,13 @@ import cx from 'classnames';
 interface Props {
 	scrollContainerId: string;
 	parentContainerId: string;
+	isScrollingWindow?: boolean;
 }
 
 const ProgressBar: React.FC<Props> = ({
 	scrollContainerId,
 	parentContainerId,
+	isScrollingWindow = false,
 }) => {
 	const [scrollY, setScrollY] = useState(0);
 	const [progressWidth, setProgressWidth] = useState(101);
@@ -26,13 +28,17 @@ const ProgressBar: React.FC<Props> = ({
 
 			setProgressWidth(progressPercentage);
 
-			setScrollY(container?.scrollTop || 0);
+			if (isScrollingWindow) setScrollY(window.scrollY);
+			else setScrollY(container?.scrollTop || window.scrollY);
 		};
 
 		handleScroll();
+
+		window.addEventListener('scroll', handleScroll);
 		container?.addEventListener('scroll', handleScroll);
 
 		return () => {
+			window.removeEventListener('scroll', handleScroll);
 			container?.removeEventListener('scroll', handleScroll);
 		};
 	}, []);

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../Button';
 import Search from './Search';
 import ProgressBar from '../ProgressBar';
 import LogoLink from './LogoLink';
-import { useEffect } from 'react';
+
 import cx from 'classnames';
 import { motion } from 'framer-motion';
 import MobileMenu from './MobileMenu';
@@ -23,6 +23,8 @@ const Header: React.FC<Props> = ({
 	currentPath,
 }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [isScreenLessThan1000px, setIsScreenLessThan1000px] = useState(false);
+
 	const variants = {
 		open: {
 			opacity: 1,
@@ -34,21 +36,33 @@ const Header: React.FC<Props> = ({
 		closed: { opacity: 0 },
 	};
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		const handleResize = () => {
+			const isScreenLessThan1000px = window.innerWidth < 1000;
+			setIsScreenLessThan1000px(isScreenLessThan1000px);
+		};
+
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
 	return (
 		<>
-			<div className='fixed min-[1125px]:sticky top-0 overflow-hidden flex flex-col w-full z-10'>
+			<div className='fixed min-[1000px]:sticky top-0 overflow-hidden flex flex-col w-full z-10'>
 				<nav className='border-b border-b-[#EAEAEA33] flex items-center pt-4 pb-[12px] transition duration-100 backdrop-blur-lg safari-blur h-[74px]'>
 					<div className='container px-8 max-w-container mx-auto'>
 						<div className='flex items-center justify-between'>
-							<div className='flex items-center gap-6 w-full min-[1125px]:w-max justify-between min-[1125px]:justify-start'>
-								<div className='flex min-[1125px]:hidden'>
+							<div className='flex items-center gap-6 w-full min-[1000px]:w-max justify-between min-[1000px]:justify-start'>
+								<div className='flex min-[1000px]:hidden'>
 									<LogoLink width={100} />
 								</div>
 								<div className='flex items-center gap-4'>
 									{!isMenuOpen && <Search />}
 
-									<div className='flex min-[1125px]:hidden'>
+									<div className='flex min-[1000px]:hidden'>
 										<button
 											onClick={() => {
 												(
@@ -83,7 +97,7 @@ const Header: React.FC<Props> = ({
 									</div>
 								</div>
 							</div>
-							<div className='max-[1125px]:hidden flex items-center gap-8'>
+							<div className='max-[1000px]:hidden flex items-center gap-8'>
 								<a href='/' target='_blank' rel='noreferrer'>
 									Tembo.io
 								</a>
@@ -120,6 +134,7 @@ const Header: React.FC<Props> = ({
 					<ProgressBar
 						scrollContainerId='docs-content'
 						parentContainerId='tembo-document'
+						isScrollingWindow={isScreenLessThan1000px}
 					/>
 				)}
 			</div>

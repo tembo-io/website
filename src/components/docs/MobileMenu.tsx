@@ -4,8 +4,6 @@ import type { SideBarSection } from '../../types';
 import { styles } from '../../util';
 import { isNested as isNestedHelper } from '../../util/docsUtils';
 import SideBarItem from './SideBarItem';
-import { AnimatePresence } from 'framer-motion';
-
 import { getNestedSideBarLinks } from '../../util/docsUtils';
 
 interface Props {
@@ -21,16 +19,6 @@ const MobileMenu: React.FC<Props> = ({
 }) => {
 	const renderItems = (section: SideBarSection) => {
 		const items = section.items.map((item) => {
-			const cleanedSlug = item.slug.replace('/docs/', '');
-			const hasEnoughLinks = async () => {
-				const nestedLinks = isNestedHelper(cleanedSlug)
-					? await getNestedSideBarLinks(cleanedSlug)
-					: [];
-				return (
-					nestedLinks.length > 1 || nestedLinks[0].items.length > 1
-				);
-			};
-
 			return (
 				<SideBarItem
 					isRootNested={false}

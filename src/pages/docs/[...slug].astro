@@ -56,13 +56,11 @@ const docTitle =
 			<div
 				class='flex flex-col gap-12 w-full mobile:mr-16 xl:mr-28 overflow-x-hidden max-w-[900px]'
 			>
-				<header>
-					<h1
-						class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl z-10'
-					>
-						{docTitle}
-					</h1>
-				</header>
+				<h1
+					class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl'
+				>
+					{docTitle}
+				</h1>
 				<Markdown classNames='max-w-none'>
 					<Content />
 				</Markdown>
@@ -77,7 +75,7 @@ const docTitle =
 			</div>
 			<div>
 				<div
-					class='hidden mobile:flex flex-col items-start w-max mobile:sticky mobile:top-[133px]'
+					class='hidden min-[1150px]:flex flex-col items-start w-max min-[1150px]:sticky min-[1150px]:top-[133px]'
 				>
 					{
 						headings.filter((heading) => heading.depth > 1).length >
