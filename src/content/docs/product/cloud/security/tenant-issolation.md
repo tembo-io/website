@@ -37,7 +37,7 @@ Postgres connections are encrypted and authenticated inside each customer's data
 
 ### SSL and certificates
 
-Tembo Cloud supports [Postgres Connection sslmode](https://www.postgresql.org/docs/current/libpq-ssl.html) `require`, `verify-ca`, and `verify-full`. Users cannot connect to their database without using encryption. For a guide on how to connect with these modes, please see the [Tembo sslmode documentation](/docs/tembo-cloud/security-and-authentication/connecting-with-stronger-sslmode).
+Tembo Cloud supports [Postgres Connection sslmode](https://www.postgresql.org/docs/current/libpq-ssl.html) `require`, `verify-ca`, and `verify-full`. Users cannot connect to their database without using encryption. For a guide on how to connect with these modes, please see the [Tembo sslmode documentation](https://tembo.io/docs/product/cloud/security/sslmode).
 
 Tembo uses a self-signed certificate authority (CA) to issue unique certificates for each Tembo Instance. The CA is managed with [cert-manager](https://cert-manager.io/). All Tembo Instances are issued unique certificates with no wildcard domains. A self-signed CA is used instead of a publicly trusted CA so that Tembo can manage the CA used to sign leaf certificates for each Tembo Instance, allowing for scalable certificate management. Public CAs will not issue leaf certificates quickly enough or in high enough volume to allow for a platform-as-a-service use case, where each database will have unique certificates.
 
