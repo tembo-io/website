@@ -21,7 +21,7 @@ This document will guide you through the process of enabling and configuring con
     export TEMBO_INST=<your instance id>
     ```
 
-3. Patch your existing Tembo instance with connection pooler settings using the [Tembo Cloud Platform API](https://tembo.io/docs/tembo-cloud/openapi):
+3. Patch your existing Tembo instance with connection pooler settings using the [Tembo Cloud Platform API](https://tembo.io/docs/development/api):
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
