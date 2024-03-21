@@ -2,9 +2,7 @@ import React from 'react';
 import Container from '../Container';
 import type { SideBarSection } from '../../types';
 import { styles } from '../../util';
-import { isNested as isNestedHelper } from '../../util/docsUtils';
 import SideBarItem from './SideBarItem';
-import { getNestedSideBarLinks } from '../../util/docsUtils';
 
 interface Props {
 	sideBarMenuSections: SideBarSection[];
@@ -32,7 +30,7 @@ const MobileMenu: React.FC<Props> = ({
 	};
 	return (
 		<div className='bg-offBlack min-[1000px]:hidden fixed z-[5] w-screen h-screen overflow-y-scroll'>
-			<Container styles='pb-12 px-[32px] overflow-y-scroll'>
+			<Container styles='pb-16 px-[32px] overflow-y-scroll'>
 				<div className='bg-gradient-to-b fixed from-offBlack to-transparent h-4 w-full z-20 top-[70px]'></div>
 				<div className='mt-[120px]'>
 					<a

@@ -54,7 +54,7 @@ const Header: React.FC<Props> = ({
 				<nav
 					className={cx(
 						'border-b border-b-[#EAEAEA33] flex items-center pt-4 pb-[12px] transition duration-100 h-[74px]',
-						isMenuOpen && isScreenLessThan1000px
+						isMenuOpen
 							? 'bg-offBlack'
 							: 'backdrop-blur-lg safari-blur',
 					)}
@@ -143,18 +143,13 @@ const Header: React.FC<Props> = ({
 					/>
 				)}
 			</div>
-			<motion.div
-				animate={isMenuOpen ? 'open' : 'closed'}
-				variants={variants}
-			>
-				{isMenuOpen && (
-					<MobileMenu
-						sideBarMenuSections={sideBarMenuSections}
-						isNestedSideBar={isNestedSideBar}
-						currentPath={currentPath}
-					/>
-				)}
-			</motion.div>
+			{isMenuOpen && (
+				<MobileMenu
+					sideBarMenuSections={sideBarMenuSections}
+					isNestedSideBar={isNestedSideBar}
+					currentPath={currentPath}
+				/>
+			)}
 		</>
 	);
 };
