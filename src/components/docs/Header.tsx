@@ -37,7 +37,7 @@ const Header: React.FC<Props> = ({
 	useEffect(() => {}, []);
 	return (
 		<>
-			<div className='sticky top-0 overflow-hidden flex flex-col w-full z-10'>
+			<div className='fixed min-[1125px]:sticky top-0 overflow-hidden flex flex-col w-full z-10'>
 				<nav className='border-b border-b-[#EAEAEA33] flex items-center pt-4 pb-[12px] transition duration-100 backdrop-blur-lg safari-blur h-[74px]'>
 					<div className='container px-8 max-w-container mx-auto'>
 						<div className='flex items-center justify-between'>

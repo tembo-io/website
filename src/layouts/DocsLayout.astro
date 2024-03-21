@@ -25,7 +25,10 @@ const currentPath = Astro.url.pathname;
 	<div class='fixed top-0 right-0 left-0 z-50'>
 		<Rainbow />
 	</div>
-	<div class='flex flex-col overflow-hidden' data-pagefind-body>
+	<div
+		class='min-[1125px]:h-screen flex flex-col overflow-hidden'
+		data-pagefind-body
+	>
 		<main class='grow overflow-hidden'>
 			<div class='flex h-full'>
 				<SideBar
@@ -45,7 +48,9 @@ const currentPath = Astro.url.pathname;
 							client:load
 						/>
 						<div class='container px-8 max-w-container mx-auto'>
-							<div class='pt-[60px] grow pb-8'>
+							<div
+								class='pt-[60px] grow pb-8 mt-20 min-[1125px]:mt-0'
+							>
 								<slot />
 							</div>
 						</div>
