@@ -1,5 +1,6 @@
 ---
 title: Tembo Operator Install
+sideBarPosition: 101
 ---
 
 ## Installing with Helm

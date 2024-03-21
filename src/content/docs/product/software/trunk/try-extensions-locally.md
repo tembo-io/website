@@ -1,6 +1,8 @@
 ---
 title: Try Extensions Locally (manually)
+sideBarPosition: 401
 ---
+
 
 Run a Postgres container locally and install extensions with Trunk.
 

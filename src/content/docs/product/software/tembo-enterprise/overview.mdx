@@ -1,0 +1,42 @@
+---
+title: Tembo Enterprise
+sideBarPosition: 201
+---
+
+import Callout from '../../../../../components/Callout.astro';
+
+<Callout variant='tip'>
+	While our flagship product is <a href="https://cloud.tembo.io">Tembo Cloud</a>,
+	we also provide software as a solution as well.
+</Callout>
+
+
+## Tembo Enterprise
+
+In the Enterprise Software model, both the control plane and the data plane are 
+owned and managed by you, and will live in your cloud account. 
+
+We'll attempt to provide you with a way to install and run the control plane, 
+data plane and UI in your account so that they can use Tembo Cloud in a 
+way that meets your security requirements. 
+
+Extension management could be a challenge here. You may not be able to use the 
+public Trunk registry, so we may need to provide a way for you to use your 
+own private extension registry.
+
+<img src="/enterprise-software.png" />
+
+
+## Responsibilities
+
+Our Responsibilities:
+
+* General support
+
+Your Responsibilities: 
+
+* Kubernetes cluster provisioning
+* Data plane component installation
+* Data plane connection to Tembo's control plane
+* Data plane component upgrades, maintenance, and support
+* Kubernetes cluster upgrades, maintenance, and support
