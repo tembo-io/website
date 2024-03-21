@@ -28,8 +28,8 @@ const ProgressBar: React.FC<Props> = ({
 
 			setProgressWidth(progressPercentage);
 
-			if (isScrollingWindow) setScrollY(window.scrollY);
-			else setScrollY(container?.scrollTop || window.scrollY);
+			setScrollY(window.scrollY);
+			setScrollY(container?.scrollTop || window.scrollY);
 		};
 
 		handleScroll();

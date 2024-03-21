@@ -39,10 +39,10 @@ const Header: React.FC<Props> = ({
 		const handleResize = () => {
 			const isScreenLessThan1000px = window.innerWidth < 1000;
 			setIsScreenLessThan1000px(isScreenLessThan1000px);
+			console.log(isScreenLessThan1000px);
 		};
 
 		window.addEventListener('resize', handleResize);
-
 		return () => {
 			window.removeEventListener('resize', handleResize);
 		};
@@ -54,7 +54,7 @@ const Header: React.FC<Props> = ({
 				<nav
 					className={cx(
 						'border-b border-b-[#EAEAEA33] flex items-center pt-4 pb-[12px] transition duration-100 h-[74px]',
-						isMenuOpen
+						isMenuOpen && isScreenLessThan1000px
 							? 'bg-offBlack'
 							: 'backdrop-blur-lg safari-blur',
 					)}
