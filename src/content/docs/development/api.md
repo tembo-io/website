@@ -20,4 +20,4 @@ curl "https://api.tembo.io/api/v1/orgs/instances/schema" \
   -H "authorization: Bearer ${TOKEN}"
 ```
 
--   You can try the Tembo Cloud API using this token in our [Interactive API documentation](https://api.tembo.io/redoc/) by clicking the "Authorize" button.
+-   You can try the Tembo Cloud API using this token in our [Interactive API documentation](https://api.tembo.io/redoc) by clicking the "Authorize" button.
