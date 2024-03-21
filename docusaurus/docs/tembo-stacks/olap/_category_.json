@@ -1,8 +1,0 @@
-{
-	"label": "Tembo OLAP",
-	"position": 2,
-	"link": {
-		"type": "generated-index",
-		"description": "Run analytical workloads on a Postgres instance tuned for online analytical processing. Build applications that require complex queries and aggregations on large datasets."
-	}
-}

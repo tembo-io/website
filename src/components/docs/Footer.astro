@@ -1,0 +1,62 @@
+---
+import X from '../../images/x.svg';
+import GithubGradient from '../../images/githubGradient.svg';
+import Youtube from '../../images/youtube.svg';
+import External from '../../images/export.svg';
+import { Image } from 'astro:assets';
+
+interface Props {
+	editLink: string;
+}
+
+const { editLink } = Astro.props;
+---
+
+<div class='flex flex-col mt-8'>
+	<div class='h-[1px] w-full bg-[#242424]'></div>
+	<div
+		class='flex flex-col min-[400px]:flex-row w-full min-[400px]:items-center justify-between mt-4 gap-2 min-[400px]:gap-0'
+	>
+		<a href={editLink} class='text-lightGrey flex items-center gap-2'
+			>Edit this page on Github <Image
+				src={External}
+				height={14}
+				width={14}
+				alt='Github cat logo'
+			/></a
+		>
+		<div class='flex items-center gap-6'>
+			<a
+				href='https://github.com/tembo-io/tembo'
+				target='_blank'
+				rel='noreferrer'
+			>
+				<Image
+					src={GithubGradient}
+					height={20}
+					width={20}
+					alt='Github cat logo'
+				/>
+			</a>
+			<a
+				href='https://twitter.com/tembo_io'
+				target='_blank'
+				rel='noreferrer'
+			>
+				<Image src={X} height={20} width={20} alt='X logo' />
+			</a>
+			<a
+				href='https://www.youtube.com/@tembo_io/videos'
+				target='_blank'
+				rel='noreferrer'
+			>
+				<Image
+					src={Youtube}
+					height={20}
+					width={20}
+					alt='Youtube play button logo'
+				/>
+			</a>
+		</div>
+	</div>
+</div>

@@ -20,44 +20,22 @@ $ npm install
 
 ### Local Development
 
-> Landing page:
 
-1. Install dependencies first:
-
-```
-cd landing
-npm install
-```
-
-2. Start the local dev server from the project root:
+Start the local dev server from the project root:
 
 ```
-npm run landing
+npm run dev
 ```
 
-> Docs:
-
-```
-$ npm run docs
-```
-
-These command(s) start local dev servers and open up browsers on `localhost:3000` and `localhost:4321` by default. All changes are reflected live without having to restart the server.
+These command(s) start the local dev server on `localhost:4321` by default. All changes are reflected live without having to restart the server.
 
 ### Build
 
-> Landing:
-
 ```
-$ npm run build-landing
+$ npm run build
 ```
 
-> Docs:
-
-```
-$ npm run build-docs
-```
-
-This commands will generate static content into the associated `build` directory and can be served using any static contents hosting service.
+This commands will generate static content into the `build` directory and can be served using any static contents hosting service.
 
 ### Deployment
 
@@ -67,7 +45,7 @@ This commands will generate static content into the associated `build` directory
 ### Recommended Workflow
 
 -   Checkout new branch
--   `npm run docs` or `npm run landing`
+-   `npm dev`
     -   commits locally... looking at site in browser
     -   push to remote each commit (opened draft PR)
 -   Ready to go?
@@ -76,18 +54,18 @@ This commands will generate static content into the associated `build` directory
 
 ## Writing a blog post ✍️
 
-> Refer to this [example post](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-07-05-tembo-manifesto) as needed
+> Refer to this [example post](https://github.com/tembo-io/website/tree/main/src/content/blog/2023-07-05-tembo-manifesto) as needed
 
-#### 1. Create a new folder inside [/landing/src/content/blog](https://github.com/tembo-io/website/tree/main/landing/src/content/blog) directory
+#### 1. Create a new folder inside [/src/content/blog](https://github.com/tembo-io/website/tree/main/src/content/blog) directory
 
 ```bash
-mkdir -p landing/src/content/blog/2024-09-20-example-post
+mkdir -p src/content/blog/2024-09-20-example-post
 ```
 
 #### 2. Make a new markdown file inside the same directory (this is where you will write your blogpost)
 
 ```bash
-touch landing/src/content/blog/2024-09-20-example-post/index.md
+touch src/content/blog/2024-09-20-example-post/index.md
 ```
 
 #### 3. Frontmatter
@@ -112,11 +90,11 @@ description: Walk through using pg_vectorize to automate the vector search workf
 
 -   `title` is the title of the blog post. This will be displayed at the top of each post, on the main card list page, and in the `title` meta tag.
 
--   `authors` is an array of the authors of the post. Each author should be a string that matches the key of an author in the `AUTHORS` object inside of [here](https://github.com/tembo-io/website/blob/31ed5fdedd11579c83dbf7e151aa42287726685f/landing/src/content/config.ts#L31).
+-   `authors` is an array of the authors of the post. Each author should be a string that matches the key of an author in the `AUTHORS` object inside of [here](https://github.com/tembo-io/website/blob/31ed5fdedd11579c83dbf7e151aa42287726685f/src/content/config.ts#L31).
 
 -   `tags` is an array of tags that the post is associated with. Each tag will be displayed inside of the left sidebar in each post and will also be used inside of the `keywords` meta tag. The main tags that we use are `postgres`. `extensions`, `stacks`, `engineering`, and `data`.
 
--   `image` is the path to the image that will be displayed at the top of the post and in the `og:image` meta tags. This MUST be duplicated in the local blog folder and inside of the [public folder](https://github.com/tembo-io/website/tree/main/landing/public) for it to work properly. Please contact the Tembo design team for the optimal size + branding for these images.
+-   `image` is the path to the image that will be displayed at the top of the post and in the `og:image` meta tags. This MUST be duplicated in the local blog folder and inside of the [public folder](https://github.com/tembo-io/website/tree/main/public) for it to work properly. Please contact the Tembo design team for the optimal size + branding for these images.
 
 -   `date` is the date that the post was published. This will be displayed at the top of the post and used inside of the `pubDate` field in the RSS feed.
 
@@ -132,7 +110,7 @@ Code blocks can be done as you usually would in typical markdown and will be aut
 
 #### 5. Adding images
 
-Images can be added to the post by using relative paths to any image files (`.jpg`, `.png`, `.svg`, etc are all supported) that are placed inside of the `content/blog/2024-09-20-example-post` directory (identical to how our old blog worked). An example post with images can be found [here](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-12-06-mq-benchmarks).
+Images can be added to the post by using relative paths to any image files (`.jpg`, `.png`, `.svg`, etc are all supported) that are placed inside of the `content/blog/2024-09-20-example-post` directory (identical to how our old blog worked). An example post with images can be found [here](https://github.com/tembo-io/website/tree/main/src/content/blog/2023-12-06-mq-benchmarks).
 
 #### 6. Admonitions (callouts)
 
