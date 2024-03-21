@@ -1,6 +1,6 @@
 ---
-title: Tembo OLTP
-sideBarTitle: Tembo OLTP
+title: OLTP
+sideBarTitle: OLTP
 sideBarPosition: 102
 ---
 

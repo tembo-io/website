@@ -1,6 +1,6 @@
 ---
-title: Tembo Standard
-sideBarTitle: Tembo Standard
+title: Standard
+sideBarTitle: Standard
 sideBarPosition: 101
 ---
 

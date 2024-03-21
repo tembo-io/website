@@ -1,6 +1,6 @@
 ---
-title: Tembo MongoAlternative
-sideBarTitle: Tembo MongoAlternative
+title: MongoAlternative
+sideBarTitle: MongoAlternative
 sideBarPosition: 104
 ---
 

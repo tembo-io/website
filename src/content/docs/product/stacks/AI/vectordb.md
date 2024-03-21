@@ -1,6 +1,6 @@
 ---
-title: Tembo VectorDB
-sideBarTitle: Tembo VectorDB
+title: VectorDB
+sideBarTitle: VectorDB
 sideBarPosition: 201
 ---
 

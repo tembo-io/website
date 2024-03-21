@@ -1,6 +1,6 @@
 ---
-title: Tembo DataWarehouse
-sideBarTitle: Tembo DataWarehouse
+title: DataWarehouse
+sideBarTitle: DataWarehouse
 sideBarPosition: 302
 ---
 

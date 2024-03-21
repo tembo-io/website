@@ -1,4 +1,6 @@
-# Tembo Time Series
+---
+title: Time Series
+---
 
 Time-series data is data which is organized along a time dimension and which typically grows via recent data being inserted in near real-time. Tembo's Time Series stack makes the creation, operation, and maintenance of databases for storing time-series data simple. The stack is tuned for time-series workloads and helps users with the organization and use of time-series data.
 

@@ -1,6 +1,6 @@
 ---
-title: Tembo Geospatial
-sideBarTitle: Tembo Geospatial
+title: Geospatial
+sideBarTitle: Geospatial
 sideBarPosition: 303
 ---
 

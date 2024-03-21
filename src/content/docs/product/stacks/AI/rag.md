@@ -1,6 +1,6 @@
 ---
-title: Tembo RAG
-sideBarTitle: Tembo RAG
+title: RAG
+sideBarTitle: RAG
 sideBarPosition: 202
 ---
 
