@@ -35,7 +35,7 @@ Let’s dig in a little more.
 
 As we mentioned earlier, our original reason for creating pg_vectorize was to simplify this vector search process. If you’re using Postgres, there’s no reason why you should have to employ multiple tools, manage external services, or bring on extra vendors just to make vector search possible. We took that long, complex process you’ll find in most “how to create vector search” how-to articles and automated it.
 
-With Tembo, once your instance is created (and check out the [docs](https://tembo.io/docs/tembo-cloud/getting_started) if you need help with that), you can build your vector search query in just two commands. We’re using a table with some popular brands as an example:
+With Tembo, once your instance is created (and check out the [docs](/docs/getting-started/getting_started) if you need help with that), you can build your vector search query in just two commands. We’re using a table with some popular brands as an example:
 
 ```json
 [

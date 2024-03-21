@@ -10,7 +10,7 @@ description: Announcing Tembo CLI
 
 Postgres isn't just a database; it's a whole ecosystem of extensions and tools for all kinds of tasks. At Tembo Cloud, we've made it easy to deploy the Postgres ecosystem of extensions and apps combined to create solutions, which we call "[Stacks](https://tembo.io/blog/tembo-stacks-intro)".
 
-However, users often ask us, what about local development? That's why we created the [Tembo CLI](https://tembo.io/docs/tembo-cloud/Tembo-CLI/Getting_Started). It's designed to give you the power to set up Postgres Stacks on your own machine or in CI, mirroring how things will run on [Tembo Cloud](https://cloud.tembo.io/). This way, you can experiment, develop, and test with confidence, knowing your local setup reflects the cloud environment.
+However, users often ask us, what about local development? That's why we created the [Tembo CLI](/docs/development/cli/getting_started). It's designed to give you the power to set up Postgres Stacks on your own machine or in CI, mirroring how things will run on [Tembo Cloud](https://cloud.tembo.io/). This way, you can experiment, develop, and test with confidence, knowing your local setup reflects the cloud environment.
 
 ## Why Tembo CLI?
 
@@ -26,7 +26,7 @@ Tembo CLI also helps you deploy the same Tembo configuration across development,
 
 ## What's it like to use the Tembo CLI?
 
-When you're ready to dive in, please refer to the [Tembo CLI Getting Started](https://tembo.io/docs/tembo-cloud/Tembo-CLI/Getting_Started) guide.
+When you're ready to dive in, please refer to the [Tembo CLI Getting Started](/docs/development/cli/getting_started) guide.
 
 Using the Tembo CLI is easy. Just define your database(s) in a **tembo.toml** file.
 
@@ -36,7 +36,7 @@ environment = "prod"
 instance_name = "minimal"
 ```
 
-The above **tembo.toml** file includes one database. For additional information on how your **tembo.toml** file can be configured, please see "[Configure Tembo CLI](https://tembo.io/docs/tembo-cloud/Tembo-CLI/Getting_Started#configure-tembo-cli)" in the Tembo docs.
+The above **tembo.toml** file includes one database. For additional information on how your **tembo.toml** file can be configured, please see "[Configure Tembo CLI](/docs/development/cli/getting_started)" in the Tembo docs.
 
 You can also configure a Stack, like this:
 
@@ -63,7 +63,7 @@ instance_name = "vector-search"
 stack = "VectorDB"
 ```
 
-You can choose to deploy locally or to the cloud by selecting your [deployment context](https://tembo.io/docs/tembo-cloud/Tembo-CLI/Getting_Started#context-file). This option allows you to use the same configuration no matter where you deploy.
+You can choose to deploy locally or to the cloud by selecting your [deployment context](/docs/development/cli/getting_started). This option allows you to use the same configuration no matter where you deploy.
 
 ```bash
 # Deploy local
@@ -104,4 +104,4 @@ restapi = {}
 
 Tembo CLI allows you to easily access the full power of Postgres with its associated ecosystem seamlessly across local and cloud deployments using a single configuration file and simple CLI commands. Best of all, it's free to get started.
 
-For more information, please refer to our [Tembo CLI Getting Started](https://tembo.io/docs/tembo-cloud/Tembo-CLI/Getting_Started) guide to learn how to set up Tembo CLI on your machine.
+For more information, please refer to our [Tembo CLI Getting Started](/docs/development/cli/getting_started) guide to learn how to set up Tembo CLI on your machine.

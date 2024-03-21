@@ -47,7 +47,7 @@ To automatically delete old versions, we'll add one more column to the **employe
 
 ## Getting set up
 
-[This guide](https://tembo.io/docs/tembo-cloud/try-extensions-locally) covers how to quickly try out Postgres extensions locally. I've followed that guide to set up my environment with **temporal_tables** and **pg_partman**.
+[This guide](/docs/development/cli/try-extensions-locally) covers how to quickly try out Postgres extensions locally. I've followed that guide to set up my environment with **temporal_tables** and **pg_partman**.
 
 I have a Dockefile, two SQL scripts, and a file with Postgres configurations.
 
