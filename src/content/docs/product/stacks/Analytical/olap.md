@@ -1,9 +1,8 @@
 ---
-title: Tembo OLAP
-sideBarTitle: Tembo OLAP
+title: OLAP
+sideBarTitle: OLAP
 sideBarPosition: 301
 ---
-
 
 ## Configuration
 
