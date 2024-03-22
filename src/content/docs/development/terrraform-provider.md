@@ -1,6 +1,6 @@
 ---
-title: Tembo Terraform Provider
 sideBarPosition: 2
+title: Tembo Terraform Provider
 ---
 
 Tembo has a Terraform Provider that allows you to provision an Instance on the Tembo Cloud.
