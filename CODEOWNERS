@@ -6,6 +6,8 @@ src/content/docs/ @samay-sharma
 src/content/docs/** @samay-sharma
 src/content/docs/product/cloud/ @sjmiller609
 src/content/docs/product/cloud/** @sjmiller609
+src/content/docs/development/ @sjmiller609
+src/content/docs/development/** @sjmiller609
 src/content/docs/product/cloud/apps/ @ChuckHend
 src/content/docs/product/cloud/apps/** @ChuckHend
 src/content/docs/product/stacks/ @ChuckHend
