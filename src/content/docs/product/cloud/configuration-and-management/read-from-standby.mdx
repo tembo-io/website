@@ -1,0 +1,33 @@
+---
+sideBarPosition: 6
+sideBarTitle: Connect to standby
+title: Connecting to your standby server
+---
+
+import Callout from '../../../../../components/Callout.astro';
+
+Tembo offers an alternative subdomain that can be used to connect to your **standby server**.
+
+In Postgres, there is a primary server which can serve reads and writes. When running with high availability (HA), there is also a standby server, which can serve **eventually-consistent reads**. To learn more about Tembo's configuration of HA, and how to enable HA, please review the [High Availability documentation](/docs/product/cloud/configuration-and-management/high-availability).
+
+## Limitations of Hot Standby
+
+> Hot standby is the term used to describe the ability to connect to the server and run read-only queries while the server is in archive recovery or standby mode.
+
+- [Postgres documentation](https://www.postgresql.org/docs/current/hot-standby.html)
+
+It is important to understand the limitations of reading from your standby server. By using your standby server for reads in addition to failover, **read queries must be cancelled** if they are blocking Write-Ahead Log (WAL) application too long, in order to keep the standby sufficiently synchronized with the primary.
+
+> ... the WAL-logged action already occurred on the primary so the standby must not fail to apply it. Furthermore, allowing WAL application to wait indefinitely may be very undesirable, because the standby's state will become increasingly far behind the primary's. Therefore, a mechanism is provided to forcibly cancel standby queries that conflict with to-be-applied WAL records.
+
+- [Postgres documentation](https://www.postgresql.org/docs/current/hot-standby.html#HOT-STANDBY-CONFLICT)
+
+To configure the timeout for read queries on your standby, you may configure [max_standby_streaming_delay](https://www.postgresql.org/docs/current/runtime-config-replication.html#GUC-MAX-STANDBY-STREAMING-DELAY). Tembo recommends the default value of `30s`, and no greater than `5min`. For more information on changing configurations, please refer to Tembo's [Postgres Configuration documentation](/docs/product/cloud/configuration-and-management/postgres-configuration)
+
+## Connecting to your standby
+
+First, enable [High Availability](/docs/product/cloud/configuration-and-management/high-availability) to deploy a standby server.
+
+Then, connect to your instance by appending `-ro` to the subdomain of your Postgres host.
+
+For example, if your host is `org-tembo-test-inst-tembo-rag.data-1.use1.tembo.io`, you can connect with the host `org-tembo-test-inst-tembo-rag-ro.data-1.use1.tembo.io`. You should connect with the [readonly user](http://localhost:4321/docs/product/cloud/security/read-only-user).
