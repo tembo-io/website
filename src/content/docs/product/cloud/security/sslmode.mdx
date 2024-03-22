@@ -10,7 +10,7 @@ Please report security issues by emailing security@tembo.io
 
 Postgres has a connection setting called [sslmode](https://www.postgresql.org/docs/current/libpq-ssl.html).
 
-Tembo Cloud supports sslmodes `require`, `verify-ca`, and `verify-full`. All of these options require encryption. The modes `verify-ca` and `verify-full` validate the server certificate using a locally provided certificate. For more information, please review the [security documentation](https://tembo.io/docs/product/cloud/security/tenant-issolation).
+Tembo Cloud supports sslmodes `require`, `verify-ca`, and `verify-full`. All of these options require encryption. The modes `verify-ca` and `verify-full` validate the server certificate using a locally provided certificate. For more information, please review the [security documentation](/docs/product/cloud/security/tenant-isolation).
 
 ## Connecting with certificate validation
 
@@ -18,7 +18,7 @@ The root CA certificate, know as `sslrootcert` in the [Postgres documentation](h
 It is more secure to connect to Postgres with certificate validation, using **sslmode** `verify-ca` or `verify-full`.
 
 To use one of these options, the Postgres client needs to be configured to use the `sslrootcert` to authenticate the Postgres server. Users can download the root certificate using the the cloud ui or via the Tembo API.
-Both modes `verify-ca` or `verify-full` will authenticate the server, checking that the server's certificate was signed by the `sslrootcert`. `verify-full` also checks that the hostname on the certificate matches the domain name used to connect, therefore `verify-full` does not work with the [custom domains](/docs/tembo-cloud/configuration-and-management/custom-domains) feature.
+Both modes `verify-ca` or `verify-full` will authenticate the server, checking that the server's certificate was signed by the `sslrootcert`. `verify-full` also checks that the hostname on the certificate matches the domain name used to connect, therefore `verify-full` does not work with the [custom domains](/docs/product/cloud/configuration-and-management/custom-domains) feature.
 
 ### Downloading the root certificate
 
@@ -38,15 +38,11 @@ Both modes `verify-ca` or `verify-full` will authenticate the server, checking t
 	certificate expiring
 </Callout>
 
-:::note
-Re-download the certificate at least monthly to avoid your copy of the certificate expiring
-:::
-
 ![test](./tembo-ui-download-cert-btn.svg)
 
 ### Downloading the root certificate via the Tembo API
 
-For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](https://tembo.io/docs/development/api).
+For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](/docs/development/api).
 
 ```bash
 ORG_ID='org_id123456'
@@ -65,4 +61,4 @@ curl -s -X 'GET' \
 psql 'postgresql://postgres:****@org-name-inst-name.data-1.use1.tembo.io:5432?sslmode=verify-full&sslrootcert=ca.crt'
 ```
 
-Different clients may connect in different ways. Connection examples are available in [this section of the Tembo documentation](https://tembo.io/docs/getting-started/quickstarts/java).
+Different clients may connect in different ways. Connection examples are available in [this section of the Tembo documentation](/docs/getting-started/quickstarts/java).

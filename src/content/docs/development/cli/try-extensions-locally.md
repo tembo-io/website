@@ -1,8 +1,11 @@
 ---
-title: Try Extensions Locally (manually)
-sideBarPosition: 401
+title: Try extensions with Docker and Trunk
+sideBarTitle: Troubleshooting
 ---
 
+When you use the [Tembo CLI](/docs/development/cli/getting_started), you will find it creates a [Docker Compose](https://docs.docker.com/compose/) file in your local directory. This guide explains how to manually experiment with extensions using Docker, which allows you to debug or hack on extensions at a lower level than using the CLI.
+
+# Using Docker to try Postgres extensions
 
 Run a Postgres container locally and install extensions with Trunk.
 

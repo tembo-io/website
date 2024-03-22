@@ -1,6 +1,6 @@
 ---
-title: Tembo Message Queue
-sideBarTitle: Tembo Message Queue
+title: Message Queue
+sideBarTitle: Message Queue
 sideBarPosition: 103
 ---
 

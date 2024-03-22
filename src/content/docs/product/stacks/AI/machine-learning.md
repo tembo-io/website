@@ -1,6 +1,6 @@
 ---
-title: Tembo Machine Learning
-sideBarTitle: Tembo Machine Learning
+title: Machine Learning
+sideBarTitle: Machine Learning
 sideBarPosition: 203
 ---
 

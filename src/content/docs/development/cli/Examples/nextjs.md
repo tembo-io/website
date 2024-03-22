@@ -12,7 +12,7 @@ Before you start, make sure you have the following installed:
 2. Tembo CLI. you can find the steps [here](../Getting_Started.md)
 3. Docker, set up and running for local development
 
-## Step 1: Creating Your Next.js Project
+## Creating Your Next.js Project
 
 First, create a new Next.js application using the following command:
 
@@ -29,7 +29,7 @@ cd todos-app
 npm run dev
 ```
 
-## Step 2: Initializing Prisma and Tembo
+## Initializing Prisma and Tembo
 
 Initialize Prisma with PostgreSQL as your data source provider:
 
@@ -68,7 +68,7 @@ replicas = 1
 stack_type = "OLTP"
 ```
 
-## Step 3: Database Migrations
+## Database Migrations
 
 Create a migrations file inside the migrations folder created after `tembo init`. Example SQL for creating users and posts tables:
 
@@ -112,7 +112,7 @@ cd migrations
 psql postgres://postgres:postgres@todos-app.local.tembo.io:5432 -f create_user_post_table.sql
 ```
 
-## Step 4: Integrating Prisma
+## Integrating Prisma
 
 Navigate back to the parent folder and pull the schema from your PostgreSQL database into Prisma:
 

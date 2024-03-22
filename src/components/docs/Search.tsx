@@ -83,7 +83,9 @@ const Search = () => {
 										}),
 									);
 
-									setSearchResults(cleanedResults);
+									setSearchResults(
+										cleanedResults.slice(0, 10),
+									);
 								}}
 							/>
 							<div className='bg-[#141412] w-max p-2 rounded-full absolute right-[5px] top-1/2 -translate-y-1/2'>

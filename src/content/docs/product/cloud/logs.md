@@ -7,7 +7,7 @@ Need help getting logs from your Tembo Instances? This guide can help.
 
 ## Loki
 
-Tembo uses [Loki](https://grafana.com/docs/loki/) for logs. Tembo grants users access to the Loki API. Users must include an **Authorization** header, which is a Tembo Cloud token (see [authentication](https://tembo.io/docs/development/api)), and a header **X-Scope-OrgID**, which should be set to the Tembo Organization ID (for more information, see Loki docs on multi-tenancy [here](https://grafana.com/docs/loki/latest/operations/multi-tenancy/)).
+Tembo uses [Loki](https://grafana.com/docs/loki/) for logs. Tembo grants users access to the Loki API. Users must include an **Authorization** header, which is a Tembo Cloud token (see [authentication](/docs/development/api)), and a header **X-Scope-OrgID**, which should be set to the Tembo Organization ID (for more information, see Loki docs on multi-tenancy [here](https://grafana.com/docs/loki/latest/operations/multi-tenancy/)).
 
 ## Examples
 

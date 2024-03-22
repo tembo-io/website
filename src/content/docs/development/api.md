@@ -3,7 +3,7 @@ title: API Authentication
 uppercase: true
 ---
 
-To explore the Tembo Cloud API, visit our [API documentation](/docs/tembo-cloud/openapi).
+To explore the Tembo Cloud API, visit our [API documentation](/docs/development/api).
 
 ### Create a personal access token
 
