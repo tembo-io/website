@@ -16,7 +16,7 @@ In Postgres, there is a primary server which can serve reads and writes. When ru
 
 - [Postgres documentation](https://www.postgresql.org/docs/current/hot-standby.html)
 
-It is important to understand the limitations of reading from your standby server. By using your standby server for reads in addition to failover, **read queries must be cancelled** if they are blocking Write-Ahead Log (WAL) application too long, in order to keep the standby sufficiently synchronized with the primary.
+It is important to understand the limitations of reading from your standby server. By using your standby server for reads in addition to failover, **read queries must be cancelled** if they are blocking the Write-Ahead Log (WAL) too long, in order to keep the standby sufficiently synchronized with the primary.
 
 > ... the WAL-logged action already occurred on the primary so the standby must not fail to apply it. Furthermore, allowing WAL application to wait indefinitely may be very undesirable, because the standby's state will become increasingly far behind the primary's. Therefore, a mechanism is provided to forcibly cancel standby queries that conflict with to-be-applied WAL records.
 
