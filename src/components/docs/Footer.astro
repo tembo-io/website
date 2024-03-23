@@ -4,6 +4,7 @@ import GithubGradient from '../../images/githubGradient.svg';
 import Youtube from '../../images/youtube.svg';
 import External from '../../images/export.svg';
 import { Image } from 'astro:assets';
+import Slack from '../../images/slack.svg';
 
 interface Props {
 	editLink: string;
@@ -33,8 +34,8 @@ const { editLink } = Astro.props;
 			>
 				<Image
 					src={GithubGradient}
-					height={20}
-					width={20}
+					height={18}
+					width={18}
 					alt='Github cat logo'
 				/>
 			</a>
@@ -43,7 +44,14 @@ const { editLink } = Astro.props;
 				target='_blank'
 				rel='noreferrer'
 			>
-				<Image src={X} height={20} width={20} alt='X logo' />
+				<Image src={X} height={18} width={18} alt='X logo' />
+			</a>
+			<a
+				href='https://join.slack.com/t/tembocommunity/shared_invite/zt-277pu7chi-NHtvHWvLhHwyK0Y5Y6vTPw'
+				target='_blank'
+				rel='noreferrer'
+			>
+				<Image src={Slack} height={17} width={17} alt='Slack logo' />
 			</a>
 			<a
 				href='https://www.youtube.com/@tembo_io/videos'
