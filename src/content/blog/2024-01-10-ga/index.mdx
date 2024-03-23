@@ -5,7 +5,8 @@ authors: [ryw]
 tags: [postgres, tembo-cloud]
 image: './tembo-ga.png'
 ---
-import Tweet from '../../../components/Tweet'
+
+import Tweet from '../../../components/Tweet';
 
 After a year of hard work by our 🔥amazing team🔥, we're proud to announce the general availability (GA)
 of [Tembo Cloud](https://cloud.tembo.io),
@@ -17,7 +18,7 @@ Tembo Cloud currently provides 194 Postgres extensions and 9 Tembo Stacks that m
 
 As we outline in the [Tembo Manifesto](https://tembo.io/blog/tembo-manifesto/), the modern data stack has become a sprawling landscape of tools. Each promises a solution to a data problem, yet collectively they contribute to ever-growing complexity.
 
-<Tweet id="1736767394054365500" client:load />
+<Tweet id='1736767394054365500' client:load />
 
 A number of memes have emerged in recent years like **just use postgres** and **postgres for everything** — but in truth it's very hard to use Postgres for anything other than its “vanilla” OLTP use case.
 
@@ -26,19 +27,31 @@ You get stuck at finding which extensions to use, how to install and put them to
 ## What is Tembo Cloud?
 
 See a demo of Tembo Cloud in action along with a sneak peek of our beta CLI:
-<div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', marginBottom: '5%'}}>
-  <iframe
-    style={{ position: 'absolute', top:'10px', width: '100%', height: '100%' }}
-    width="900"
-    height="315"
-    src="https://www.youtube.com/embed/DWStcighK6M"
-    title="YouTube video player"
-    frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen>
-  </iframe>
-</div>
 
+<div
+	style={{
+		position: 'relative',
+		width: '100%',
+		paddingBottom: '56.25%',
+		marginBottom: '5%',
+	}}
+>
+	<iframe
+		style={{
+			position: 'absolute',
+			top: '10px',
+			width: '100%',
+			height: '100%',
+		}}
+		width='900'
+		height='315'
+		src='https://www.youtube.com/embed/DWStcighK6M'
+		title='YouTube video player'
+		frameBorder='0'
+		allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+		allowFullScreen
+	></iframe>
+</div>
 
 Our objective is to make it easy for developers to access **THE WHOLE POSTGRES ECOSYSTEM**, not just a thin sliver that's easy for us to support.
 
@@ -53,7 +66,7 @@ To support Tembo Cloud, we have also shipped a number of open source building bl
 -   Trunk @ [pgt.dev](https://pgt.dev) - An open source extension registry and installer
 -   The first 9 Tembo Stacks @ [tembo.io/docs/tembo-stacks](https://tembo.io/docs/category/tembo-stacks)
 -   Add-on apps that you can run next to your database - GraphQL, Rest API and even an embeddings model from [Huggingface](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2)
--   A Kubernetes Operator, Terraform Provider, and Helm Chart @ [tembo.io/docs/tembo-stacks/tembo-operator-install](/docs/product/software/tembo-operator-install)
+-   A Kubernetes Operator, Terraform Provider, and Helm Chart @ [tembo.io/docs/tembo-stacks/tembo-operator-install](/docs/product/software/tembo-operator/overview)
 
 We even created a few open source Postgres extensions that we needed:
 
@@ -67,8 +80,8 @@ We even created a few open source Postgres extensions that we needed:
 
 Our GA release is both a milestone and a commitment to our users and the broader development community. We've listened, adapted, and refined our platform to deliver a solution that's not only powerful but also intuitive and user-friendly.
 
--	We've introduced a transparent, flexible pricing model as well as a free option.
--	We now provide a higher level of customer support and uptime commitment.
+-   We've introduced a transparent, flexible pricing model as well as a free option.
+-   We now provide a higher level of customer support and uptime commitment.
 
 And good news, our roadmap is public - see [roadmap.tembo.io](https://roadmap.tembo.io) to vote for your favorite ideas and add your own suggestions :)
 
