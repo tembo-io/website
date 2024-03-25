@@ -6,13 +6,19 @@ import { navigate } from 'astro:transitions/client';
 import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
+import { set } from 'astro/zod';
 
 interface Props {
 	currentPage: string;
 	isProgressBar?: boolean;
+	isBanner?: boolean;
 }
 
-const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
+const NavBar: React.FC<Props> = ({
+	currentPage,
+	isProgressBar = false,
+	isBanner = false,
+}) => {
 	const [scrollY, setScrollY] = useState(0);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [progressWidth, setProgressWidth] = useState(101);
@@ -20,8 +26,6 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 		isScreenGreaterThanOrEqualTo900px,
 		setIsScreenGreaterThanOrEqualTo900px,
 	] = useState(false);
-
-	const IS_BANNER = false;
 
 	const variants = {
 		open: {
@@ -84,18 +88,21 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 				isMenuOpen && !isScreenGreaterThanOrEqualTo900px && 'h-screen',
 			)}
 		>
-			<a href='/blog/postgres-14-and-16'>
-				<div
-					className={`flex items-center text-[12px] sm:text-[17px] justify-center gap-4 news-banner-container top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-2.5 py-3.5 sm:py-2.5 z-50`}
-				>
-					<span className='text-sm'>
-						Announcing Support for Postgres 14 and 16
-					</span>
-					<span className='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text font-semibold text-sm'>
-						Read more
-					</span>
-				</div>
-			</a>
+			{isBanner && (
+				<a href='/blog/postgres-14-and-16'>
+					<div
+						className={`flex items-center text-[12px] min-[400px]:text-sm justify-center gap-4 news-banner-container top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-[20px] mobile:px-[95px] py-3.5 sm:py-2.5 z-50`}
+					>
+						<span className='truncate'>
+							Announcing Support for Postgres 14 and 16
+						</span>
+						<span className='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text font-semibold text-sm whitespace-nowrap'>
+							Read more
+						</span>
+					</div>
+				</a>
+			)}
+
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
 			<Container styles='relative'>
 				<nav
@@ -188,6 +195,7 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 							document.body.style.overflow = !isMenuOpen
 								? 'hidden'
 								: 'scroll';
+							setIsShowingBanner(false);
 							setIsMenuOpen(!isMenuOpen);
 						}}
 						className={cx(
