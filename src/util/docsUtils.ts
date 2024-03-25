@@ -64,6 +64,7 @@ const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
 			return {
 				title: doc.data.uppercase ? title.toUpperCase() : title,
 				slug: `/docs/${doc.slug}`,
+				uppercaseParent: doc.data.uppercaseParent,
 			};
 		});
 	return items;
@@ -98,9 +99,15 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 				.map((item) => {
 					const itemSlugSplit = item.slug.split('/');
 					// Anything nested down more than 4 levels will get grouped under one link
+
 					if (itemSlugSplit.length > 4) {
+						const cleanedTitle = cleanSideBarTitle(
+							itemSlugSplit[3],
+						);
 						return {
-							title: cleanSideBarTitle(itemSlugSplit[3]),
+							title: item.uppercaseParent
+								? cleanedTitle.toUpperCase()
+								: cleanedTitle,
 							slug: getSideBarItems(
 								rootDocs.filter((doc) => {
 									return (
@@ -118,7 +125,11 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 				.filter(
 					(value, index, self) =>
 						index ===
-						self.findIndex((t) => t.title === value.title),
+						self.findIndex(
+							(t) =>
+								t.title.toLowerCase() ===
+								value.title.toLowerCase(),
+						),
 				),
 		});
 	});

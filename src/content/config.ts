@@ -81,6 +81,7 @@ const docs = defineCollection({
 		sideBarPosition: z.number().default(Infinity),
 		sideBarTitle: z.string().optional(),
 		uppercase: z.boolean().default(false),
+		uppercaseParent: z.boolean().default(false),
 	}),
 });
 
