@@ -177,10 +177,10 @@ Update the following configuration parameters so that the corresponding backgrou
 
 ```sql
 ALTER SYSTEM SET cron.database_name TO 'my_new_db';
-ALTER SYSTEM SET vectorize.host TO 'postgresql://postgres?host=/controller/run&dbname=my_new_db';
+ALTER SYSTEM SET vectorize.database_name TO 'my_new_db';
 ```
 
-Then, restart postgres
+Then, restart postgres to apply the changes and, if you haven't already, enable the extension in your new database.
 
 ```sql
 CREATE EXTENSION vectorize CASCADE;
