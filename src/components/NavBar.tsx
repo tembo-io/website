@@ -6,7 +6,6 @@ import { navigate } from 'astro:transitions/client';
 import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
-import { set } from 'astro/zod';
 
 interface Props {
 	currentPage: string;
@@ -195,7 +194,7 @@ const NavBar: React.FC<Props> = ({
 							document.body.style.overflow = !isMenuOpen
 								? 'hidden'
 								: 'scroll';
-							setIsShowingBanner(false);
+
 							setIsMenuOpen(!isMenuOpen);
 						}}
 						className={cx(
