@@ -21,6 +21,8 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 		setIsScreenGreaterThanOrEqualTo900px,
 	] = useState(false);
 
+	const IS_BANNER = false;
+
 	const variants = {
 		open: {
 			opacity: 1,
@@ -82,6 +84,18 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 				isMenuOpen && !isScreenGreaterThanOrEqualTo900px && 'h-screen',
 			)}
 		>
+			<a href='/blog/postgres-14-and-16'>
+				<div
+					className={`flex items-center text-[12px] sm:text-[17px] justify-center gap-4 news-banner-container top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-2.5 py-3.5 sm:py-2.5 z-50`}
+				>
+					<span className='text-sm'>
+						Announcing Support for Postgres 14 and 16
+					</span>
+					<span className='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text font-semibold text-sm'>
+						Read more
+					</span>
+				</div>
+			</a>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
 			<Container styles='relative'>
 				<nav
