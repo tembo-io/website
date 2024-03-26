@@ -1,6 +1,6 @@
 ---
 title: High Availability
-sideBarPosition: 2
+sideBarPosition: 3
 ---
 
 Find in **Settings > Instance Settings**
