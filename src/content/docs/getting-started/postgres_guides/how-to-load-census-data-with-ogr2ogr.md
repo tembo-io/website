@@ -1,4 +1,6 @@
-# How to Load Census Data into Postgres with ogr2ogr
+---
+title: How to load census data into Postgres with ogr2ogr
+---
 
 Census data reflects the demographic, social, economic, and housing characteristics of a population.
 It is useful for guiding public policy decisions, allocating government funds, planning for educational needs, infrastructure development, and healthcare services.
