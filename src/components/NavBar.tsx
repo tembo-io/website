@@ -87,7 +87,7 @@ const NavBar: React.FC<Props> = ({
 				isMenuOpen && !isScreenGreaterThanOrEqualTo900px && 'h-screen',
 			)}
 		>
-			{isBanner && (
+			{isBanner && !isMenuOpen && (
 				<a href='/blog/postgres-14-and-16'>
 					<div
 						className={`flex items-center text-[12px] min-[400px]:text-sm justify-center gap-4 news-banner-container top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-[20px] mobile:px-[95px] py-3.5 sm:py-2.5 z-50`}
@@ -101,7 +101,6 @@ const NavBar: React.FC<Props> = ({
 					</div>
 				</a>
 			)}
-
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
 			<Container styles='relative'>
 				<nav
