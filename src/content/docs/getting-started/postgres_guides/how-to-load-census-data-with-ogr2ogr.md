@@ -68,7 +68,7 @@ Note that you will have to adjust the `-nln` flag and file (last line) parameter
 ```bash
 ogr2ogr -f "PostgreSQL" \
 PG:"dbname=postgres \
-host=<your-host>\
+host=<your-host> \
 port=5432 \
 user=postgres \
 password=<your-password>" \
