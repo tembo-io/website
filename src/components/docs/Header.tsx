@@ -47,7 +47,7 @@ const Header: React.FC<Props> = ({
 							: 'backdrop-blur-lg safari-blur',
 					)}
 				>
-					<div className='container px-8 max-w-container mx-auto'>
+					<div className='container px-[20px] mobile:px-8 max-w-container mx-auto'>
 						<div className='flex items-center justify-between'>
 							<div className='flex items-center gap-6 w-full min-[1000px]:w-max justify-between min-[1000px]:justify-start'>
 								<div className='flex min-[1000px]:hidden'>
