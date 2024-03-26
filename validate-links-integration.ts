@@ -38,18 +38,20 @@ async function validateLinks(
 		}
 	}
 
-	for (const link of links) {
+	const linkPromises = links.map(async (link) => {
 		try {
-			await axios.head(link, {
-				timeout: 2000,
-				maxRedirects: 10,
-			});
+			await axios.head(link, { timeout: 2000, maxRedirects: 10 });
+			return { link, status: 'ok' };
 		} catch (error: any) {
 			if (error?.response && error?.response?.status === 404) {
 				logger.error(`404 Not Found: ${link}`);
+				return { link, status: 'not found' };
 			}
+			return { link, status: 'error', error };
 		}
-	}
+	});
+
+	await Promise.allSettled(linkPromises);
 }
 
 interface PluginOptions {
