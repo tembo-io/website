@@ -354,7 +354,7 @@ CREATE OR REPLACE FUNCTION predict_clickbait(
     SELECT pgml.predict(
         project_name => 'clickbait_classifier',
         features => (select vectorize.transform_embeddings(
-            input => 'warmest weather on record',
+            input => input_string,
             model_name => 'all_MiniLM_L12_v2')
         )
     )
