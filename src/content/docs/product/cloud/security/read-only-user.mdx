@@ -1,0 +1,19 @@
+---
+sideBarPosition: 3
+sideBarTitle: Read only user
+title: Read only user
+---
+
+import Callout from '../../../../../components/Callout.astro';
+
+Find in **Instance dashboard > Show connection strings**
+
+![read-only-user](./read-only-connection-string.png)
+
+## Permissions
+
+The **readonly** user is granted the Postgres predefined-role [pg_read_all_data](https://www.postgresql.org/docs/current/predefined-roles.html).
+
+## Connection
+
+Connecting with **readonly** by default connects to the primary Postgres instance. To connect to a hot standby, please refer to the [connect to standby documentation](/docs/product/cloud/configuration-and-management/read-from-standby).

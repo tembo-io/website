@@ -2,16 +2,6 @@
 title: Troubleshooting
 ---
 
-### Connection hanging
-
--   There is a known [issue](https://github.com/traefik/traefik/issues/9929#issuecomment-1608993684) when connecting with the default sslmode 'prefer' where if the database is restarting while you start a connection, it will hang even after the database is back up.
--   Please use the sslmode 'require' to avoid this issue, and Tembo team will work on getting this issue resolved for sslmode 'prefer'.
--   Tembo will only accept encrypted connections, regardless of sslmode configured on the client side.
-
-```bash
-psql 'postgresql://postgres:***@***.data-1.use1.tembo.io:5432?sslmode=require'
-```
-
 ### Tembo requires PostgreSQL clients that support Server Name Indication (SNI)
 
 Connection examples are provided [here](/docs/getting-started/quickstarts/java).
