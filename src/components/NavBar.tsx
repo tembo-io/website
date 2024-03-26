@@ -10,9 +10,14 @@ import Logo from './Logo';
 interface Props {
 	currentPage: string;
 	isProgressBar?: boolean;
+	isBanner?: boolean;
 }
 
-const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
+const NavBar: React.FC<Props> = ({
+	currentPage,
+	isProgressBar = false,
+	isBanner = false,
+}) => {
 	const [scrollY, setScrollY] = useState(0);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [progressWidth, setProgressWidth] = useState(101);
@@ -82,6 +87,20 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 				isMenuOpen && !isScreenGreaterThanOrEqualTo900px && 'h-screen',
 			)}
 		>
+			{isBanner && !isMenuOpen && (
+				<a href='/'>
+					<div
+						className={`flex items-center text-[12px] min-[400px]:text-sm justify-center gap-4 news-banner-container top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-[20px] mobile:px-[95px] py-3.5 sm:py-2.5 z-50`}
+					>
+						<span className='truncate'>
+							Your Announcements here
+						</span>
+						<span className='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text font-semibold text-sm whitespace-nowrap'>
+							Read more
+						</span>
+					</div>
+				</a>
+			)}
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
 			<Container styles='relative'>
 				<nav
@@ -174,6 +193,7 @@ const NavBar: React.FC<Props> = ({ currentPage, isProgressBar = false }) => {
 							document.body.style.overflow = !isMenuOpen
 								? 'hidden'
 								: 'scroll';
+
 							setIsMenuOpen(!isMenuOpen);
 						}}
 						className={cx(
