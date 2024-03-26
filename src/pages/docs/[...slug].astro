@@ -38,6 +38,7 @@ const nestedLinks = await getNestedSideBarLinks(slug);
 // Directories that have only one doc (e.g /docs/cloud/cloud.md) should not have a nested sidebar
 const hasEnoughNestedDocs =
 	nestedLinks.length > 1 || nestedLinks[0].items.length > 1;
+console.log(slug, nestedLinks);
 const isNestedSideBar = isNested(slug) && hasEnoughNestedDocs;
 const links = isNestedSideBar ? nestedLinks : normalLinks;
 const nextDocument = await nextDoc(`/docs/${slug}`, links);

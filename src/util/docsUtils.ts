@@ -138,7 +138,9 @@ export async function getNestedSideBarLinks(
 	const sideBarLinks: SideBarSection[] = [];
 	// Filter by docs that are 2nd parents of the slug
 	const rootDocs = docs.filter((doc) =>
-		slug.toLowerCase().includes(doc.id.split('/').splice(0, 2).join('/')),
+		slug
+			.toLowerCase()
+			.includes(doc.id.toLowerCase().split('/').splice(0, 2).join('/')),
 	);
 	// Push the first level of docs (e.g /docs/cloud/nested-dir/doc.md)
 	sideBarLinks.push({
@@ -151,7 +153,7 @@ export async function getNestedSideBarLinks(
 	rootDocs
 		.filter((doc) => doc.slug.split('/').length > 3)
 		.forEach((doc) => {
-			const split = doc.id.split('/');
+			const split = doc.id.toLowerCase().split('/');
 			const splitTitle = split[split.length - 2];
 			const title = cleanSideBarTitle(splitTitle);
 			// Skip pushing if the title is already in the sideBarLinks array
