@@ -16,7 +16,7 @@ interface Props {
 const NavBar: React.FC<Props> = ({
 	currentPage,
 	isProgressBar = false,
-	isBanner = false,
+	isBanner = true,
 }) => {
 	const [scrollY, setScrollY] = useState(0);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
