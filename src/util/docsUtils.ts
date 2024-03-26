@@ -99,7 +99,6 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 				.map((item) => {
 					const itemSlugSplit = item.slug.split('/');
 					// Anything nested down more than 4 levels will get grouped under one link
-
 					if (itemSlugSplit.length > 4) {
 						const cleanedTitle = cleanSideBarTitle(
 							itemSlugSplit[3],
@@ -117,19 +116,15 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 									);
 								}),
 							)[0].slug,
+							uppercaseParent: item.uppercaseParent,
 						};
 					}
 					return item;
 				})
-				// Filter out any link with a duplicate title
+				// Filter out any link with a duplicate title/slug
 				.filter(
 					(value, index, self) =>
-						index ===
-						self.findIndex(
-							(t) =>
-								t.title.toLowerCase() ===
-								value.title.toLowerCase(),
-						),
+						index === self.findIndex((t) => t.slug === value.slug),
 				),
 		});
 	});

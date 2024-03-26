@@ -41,7 +41,7 @@ async function validateLinks(
 	for (const link of links) {
 		try {
 			await axios.head(link, {
-				timeout: 5000,
+				timeout: 2000,
 				maxRedirects: 10,
 			});
 		} catch (error: any) {
