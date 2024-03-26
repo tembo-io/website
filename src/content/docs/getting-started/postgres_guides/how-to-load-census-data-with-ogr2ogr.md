@@ -13,7 +13,20 @@ Some helpful references before getting started:
 
 ## Get ahold of ogr2ogr
 
-If you haven’t already, please [download the GDAL library](https://gdal.org/download.html#binaries), which includes the tool `ogr2ogr`.
+If you haven’t already, please download the GDAL library which includes the tool `ogr2ogr`.
+
+For MacOS:
+```bash
+brew install gdal
+```
+
+For Ubuntu:
+```bash
+sudo apt-get update
+sudo apt-get install gdal-bin
+```
+
+For Windows and others, please refer to the [official GDAL download page](https://gdal.org/download.html#download).
 
 ## Download the data
 
