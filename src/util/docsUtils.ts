@@ -7,6 +7,8 @@ import {
 import { type CollectionEntry } from 'astro:content';
 import { uppercaseFirstLetter } from '.';
 
+// TODO: refactor this file :)
+
 // This sorts the root sidebar links for any doc that is one level deep (e.g `/docs/cloud`)
 export const sortSideBarLinks = (sideBarLinks: SideBarSection[]) =>
 	sideBarLinks.sort((a, b) => {
