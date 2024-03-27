@@ -3,7 +3,7 @@ slug: managed-postgres-rust
 title: 'Building a Managed Postgres Service in Rust: Part 1'
 authors: [adam]
 tags: [postgres, rust, engineering]
-image: './social.png'
+image: './tembonauts.png'
 date: 2024-03-27T12:00
 description: Building a managed Postgres service in Rust on Kubernetes
 ---
@@ -76,9 +76,9 @@ impl State {
            }
            (State::Up, Event::Updated) => Ok(State::Up),
            (State::Restarting, Event::Restarted) => Ok(State::Restarting),
-           
-           … other state transitions …   
-           
+
+           … other state transitions …
+
            (State::Deleted, _) => Err(StateError::IllegalTransition(
                format!("instance {} is deleted", instance.instance_id).to_owned(),
            )),
@@ -99,7 +99,7 @@ With a finite state machine in place, all CRUD requests pass through basic HTTP 
 
 The task duration for processing events in the data-plane is quite variable. For example, creating a new instance could take seconds to minutes depending on whether an image is cached on a node or whether Kubernetes needs to add a new node to the cluster in order to deploy the instance. Once an instance is created, events like installing an extension could happen within seconds for a small extension. Changing a configuration could happen in milliseconds for a simple change like changing the `search_path`. In the case of a `shared_preload_libraries` change, it could take several seconds to over a minute since Postgres will also need to be restarted.
 
-Implementing a queue for these tasks allows us to buffer these requests, and allows the data-plane to determine when and how often tasks are retried. Further, implementing a queue means that complete outages in either the control-plane or the data-plane do not immediately cause system failures (though the queues will begin to build up).  
+Implementing a queue for these tasks allows us to buffer these requests, and allows the data-plane to determine when and how often tasks are retried. Further, implementing a queue means that complete outages in either the control-plane or the data-plane do not immediately cause system failures (though the queues will begin to build up).
 
 As a Postgres company, like many others ([Dagster](https://dagster.io/blog/skip-kafka-use-postgres-message-queue) and [Crunchy Data](https://www.crunchydata.com/blog/message-queuing-using-native-postgresql) as a couple examples) we implemented the queue on Postgres. It was initially built as a Rust crate to fit with our tech stack, but we quickly realized that we could share the implementation with all Postgres users if it lived as an extension, so we [released it as PGMQ](https://tembo.io/blog/introducing-pgmq).
 
