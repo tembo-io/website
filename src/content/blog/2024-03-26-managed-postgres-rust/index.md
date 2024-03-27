@@ -4,7 +4,7 @@ title: 'Building a Managed Postgres Service in Rust: Part 1'
 authors: [adam]
 tags: [postgres, rust, engineering]
 image: './social.png'
-date: 2024-03-26T12:00
+date: 2024-03-27T12:00
 description: Building a managed Postgres service in Rust on Kubernetes
 ---
 
