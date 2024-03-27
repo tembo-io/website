@@ -1,0 +1,465 @@
+---
+sideBarPosition: 2
+sideBarTitle: Adding New Stacks
+title: Adding New Stacks
+---
+
+import Callout from '../../../../components/Callout.astro';
+
+# Building Tembo Stacks
+
+# Introduction
+
+What are Stacks? Start here: [https://tembo.io/blog/tembo-stacks-intro](https://tembo.io/blog/tembo-stacks-intro).  Stacks are “blueprints” for deploying Postgres and extensions, tools, configurations, etc. The generic Stack specification lives in code and is [enforced by a Rust Struct](https://github.com/tembo-io/tembo-stacks/blob/763f83abe520e5f56088ce448e0986151782f5fd/tembo-operator/src/stacks/types.rs#L50-L68). The Stack Spec defines everything that should be created or configured for a given Tembo instance. All Stacks are defined in YAML. See the [tembo-stacks](https://github.com/tembo-io/tembo-stacks/tree/main/tembo-operator/src/stacks/templates) repo for current examples of all existing Stacks. To build a new Stack, you must define it in YAML.
+
+<aside>
+💡 The relationship between Tembo Stacks and Tembo Operator
+
+Tembo Stacks are managed indirectly by the tembo-operator. Tembo’s control-plane handles translating a “Tembo Stack” definition into a “CoreDBSpec”.  Conductor (a service that runs in the data-plane) handles applying a CoreDBSpec to Kubernetes, and the Tembo Operator manages the “CoreDB” custom resources. While a “Stack” is an attribute of the CoreDBSpec, the Tembo Operator ignores everything except for `postgres_config`.  See [code](https://www.notion.so/Building-Tembo-Stacks-023c2b5a2aed461987b797a56fc085ed?pvs=21).
+
+</aside>
+
+# Prerequisite knowledge
+
+- YAML - [https://yaml.org/](https://yaml.org/)
+- Containers, Images, and Kubernetes - [https://kubernetes.io/docs/concepts/](https://kubernetes.io/docs/concepts/)
+- Postgres - configuration, extensions
+- Trunk - packages vs extensions, and versions
+- Rust types - structs, enums
+- [Prometheus](https://prometheus.io/docs/concepts/metric_types/) - only if you want to define custom metrics
+
+# Building the Stack definition
+
+The best way to start building a new stack is to start with an [existing Stack definition](https://github.com/tembo-io/tembo-stacks/blob/main/tembo-operator/src/stacks/templates/message_queue.yaml).
+
+Copy the existing stack into a new file, e.g. `my_stack.yaml`.
+
+Then, go through each attribute and update it such that it fulfills the requirements of your Stack.
+
+## Choose a name
+
+Stack names must be unique across all stacks.
+
+```yaml
+name: MyStack
+```
+
+## Specify container image
+
+Currently only supports "quay.io/tembo/standard-cnpg:15.3.0-1-45c2054” or the equivalent ML image, but can easily build more here https://github.com/tembo-io/tembo-images
+
+```yaml
+repository: "quay.io./tembo"
+image: "standard-cnpg:15.3.0-1-45c2054"
+```
+
+## Define compute templates
+
+<aside>
+💡 Note this will be deprecated soon
+
+</aside>
+
+These are recommended combinations of CPU and Memory for the workload. Mahout uses these to determine what combinations to show the user. They do not have a direct mapping onto the CoreDBSpec.
+
+```yaml
+compute_templates:
+  - cpu: 1
+    memory: 4Gi
+  - cpu: 2
+    memory: 8Gi
+```
+
+## Install extensions
+
+For example, this installs pgmq 0.19.0 and pg_partman 4.7.3 from [pgt.dev](http://pgt.dev).
+
+Use the name from pgt.dev.
+
+```yaml
+trunk_installs:
+  - name: pgmq
+    version: 0.19.0
+  - name: pg_partman
+    version: 4.7.3
+```
+
+## Select which extension to have CREATED automatically
+
+Set their version, and which database to create them in.
+
+```yaml
+extensions:
+  - name: pgmq
+    locations:
+      - database: postgres
+        enabled: true
+        version: 0.19.0
+  - name: pg_partman
+    locations:
+      - database: postgres
+        enabled: true
+        version: 4.7.3
+```
+
+<aside>
+💡 Note, extension names can be different than the project name in pgt.dev
+
+</aside>
+
+## Define metrics specific to the stack
+
+For example, lets create a metric called in the `pgmq` Prometheus namespace that runs the query:
+
+```sql
+select
+	queue_name,
+	queue_length,
+	oldest_msg_age_sec,
+	newest_msg_age_sec,
+	total_messages
+from pgmq.pgmq_metrics_all()
+```
+
+We'll map the columns returned by that query result to prometheus parameters.
+
+For example,`queue_name` maps to a LABEL, `queue_length` maps to a GAUGE, etc.
+
+See [prometheus documentation](https://prometheus.io/docs/concepts/metric_types) for a complete list of the metric types:
+
+```yaml
+postgres_metrics:
+  pgmq:
+      query: select queue_name, queue_length, oldest_msg_age_sec, newest_msg_age_sec, total_messages from pgmq.metrics_all()
+      master: true
+      metrics:
+        - queue_name:
+            usage: LABEL
+            description: Name of the queue
+        - queue_length:
+            usage: GAUGE
+            description: Number of messages in the queue
+        - oldest_msg_age_sec:
+            usage: GAUGE
+            description: Age of the oldest message in the queue, in seconds.
+        - newest_msg_age_sec:
+            usage: GAUGE
+            description: Age of the newest message in the queue, in seconds.
+        - total_messages:
+            usage: GAUGE
+            description: Total number of messages that have passed into the queue.
+```
+
+These metrics will then be automatically scraped by the Prometheus exporter and ingested to Prometheus database. From there, they can be queried by the users and/or pulled into the Mahout user interface.
+
+## Set the configuration engine
+
+A Postgres configuration engine is a concept developed by Tembo and is designed to set certain Postgres configuration values based on:
+
+- system infrastructure values such as CPU, Memory, Storage
+- other Postgres config values, e.g. “half of max_connections”
+
+For example, it can derive `work_mem` based on number of connections, and shared_buffers based on memory. See the standard config engine [here](https://github.com/tembo-io/tembo-stacks/blob/f613936a01bf9a5dc085ef9268512279afe78f1e/tembo-operator/src/stacks/config_engines.rs#L21).
+
+Presently there are only two options:`standard` and `olap`
+
+```yaml
+postgres_config_engine: standard
+```
+
+## Set static config values
+
+For example, these are postgresql.conf values that are static. They can, however, be overridden by the user.
+
+```yaml
+postgres_config:
+  - name: shared_preload_libraries
+    value: pg_stat_statements,pg_partman_bgw
+  - name: pg_partman_bgw.dbname
+    value: postgres
+  - name: pg_partman_bgw.interval
+    value: 60
+  - name: pg_partman_bgw.role
+    value: postgres
+  - name: random_page_cost
+    value: 1.1
+  - name: autovacuum_naptime
+    value: '20s'
+  - name: autovacuum_vacuum_cost_limit
+    value: 10000
+  - name: autovacuum_vacuum_scale_factor
+    value: 0.05
+  - name: autovacuum_vacuum_insert_scale_factor
+    value: 0.05
+  - name: autovacuum_analyze_scale_factor
+    value: 0.05
+  - name: track_io_timing
+    value: 'on'
+  - name: checkpoint_timeout
+    value: 10min
+  - name: pg_stat_statements.track
+    value: all
+```
+
+## Define containers to run next to Postgres
+
+appServices are containers that run in the same namespace is the Tembo instance on Kubernetes. They can be practically any container that can be imagined, so long that there is a container image that can be reached by the Tembo Operator. The appService spec lives [here](https://github.com/tembo-io/tembo-stacks/blob/763f83abe520e5f56088ce448e0986151782f5fd/tembo-operator/src/app_service/types.rs#L12-L23).
+
+### `name`
+
+The name must be unique per Tembo instance, but is only limited by Kubernetes naming conventions.
+
+### `image`
+
+Container image name. This could be any image available in public container registries such as but not limited to quay.io, docker hub, or [ghcr.io](http://ghcr.io/).
+
+More info: [https://kubernetes.io/docs/concepts/containers/images](https://kubernetes.io/docs/concepts/containers/images)
+
+```yaml
+image: postgrest/postgrest:v10.0.0
+```
+
+### `command`
+
+Entry point array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: [https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell](https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell)
+
+```yaml
+command:
+ - python
+ - -m
+ - run.py
+```
+
+### `args`
+
+Arguments to the `entrypoint` . The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: [https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell](https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell)
+
+### `env`
+
+Environment variables to inject into the container. The tembo operator will inject postgres connection strings (read only or a read write connection) into the container if it is configured to do so.
+
+```yaml
+env:
+- name: MY_ENV_VAR
+  value: "my_value"
+- name: VAR_DERIVED_FROM_PLATFORM
+  valueFromPlatform: ReadOnlyConnection|ReadWriteConnection
+```
+
+### `resources`
+
+Compute Resources required by this container. More info: [https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
+
+```yaml
+resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 400m
+        memory: 256Mi
+```
+
+### `probes`
+
+configuration which tells kubernetes how to check in on the status of the container, i.e. did it start up properly and is it running as expected?
+
+```yaml
+probs:
+/// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+	readiness:
+		path: /health/ready
+		port: 3000
+		initial_delay_seconds: 2
+/// Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+	liveness:
+		path: /health/ready
+		port: 3000
+		initial_delay_seconds: 2
+```
+
+### `middlewares`
+
+Middlewares configure how incoming requests should be mutated before reaching the container specified by this appService. Middlewares are specific to one Tembo instance. They are defined under this attribute, but used under the  `routing` section of `appServices.`
+
+Middleware’s are enums, meaning there are only specific values or types of middlewares that are supported. Currently those are `customRequestHeaders`, `stripPrefix`, and `replacePathRegex`. See [https://doc.traefik.io/traefik/middlewares/http/overview/#http-middlewares](https://doc.traefik.io/traefik/middlewares/http/overview/#http-middlewares) for more information.
+
+```yaml
+middlewares:
+  - !customRequestHeaders
+      name: headers
+      config:
+        Authorization: ""
+        Content-Profile: pgmq
+        Accept-Profile: pgmq
+  - !stripPrefix
+      name: strip-prefix
+      config:
+        - /rest/v1
+  - !replacePathRegex
+      name: map-pgmq
+      config:
+        regex: \/pgmq\/v1\/?
+        replacement: /rpc/
+```
+
+### `routing`
+
+Routing describes how the container should be exposed outside of the Kubernetes cluster.
+
+In the example below, are telling Traefik to match requests on the path “/pgmq/v1” and to route them to port 3000 on the container. Before the requests reach the container, Traefik will apply the `map-pgmq`, `strip-prefix`, and `headers` ”Middlewares” to the request, which are defined in the `middlewares` section of the appService spec.
+
+```yaml
+routing:
+  - port: 3000
+    ingressPath: /pgmq/v1
+    middlewares:
+      - map-pgmq
+      - strip-prefix
+      - headers
+```
+
+## Complete Spec
+
+You will end up with something like this:
+
+```yaml
+name: MessageQueue
+description: A Tembo Postgres Stack optimized for Message Queue workloads.
+repository: "quay.io/tembo"
+image: "standard-cnpg:15.3.0-1-1096aeb"
+stack_version: 0.3.0
+appServices:
+  - name: postgrest
+    image: postgrest/postgrest:v10.0.0
+    routing:
+      - port: 3000
+        ingressPath: /pgmq/v1
+        middlewares:
+          - map-pgmq
+          - strip-prefix
+          - headers
+    middlewares:
+      - !customRequestHeaders
+          name: headers
+          config:
+            Authorization: ""
+            Content-Profile: pgmq
+            Accept-Profile: pgmq
+      - !stripPrefix
+          name: strip-prefix
+          config:
+            - /rest/v1
+      - !replacePathRegex
+          name: map-pgmq
+          config:
+            regex: \/pgmq\/v1\/?
+            replacement: /rpc/
+    env:
+      - name: PGRST_DB_URI
+        valueFromPlatform: ReadWriteConnection
+      - name: PGRST_DB_SCHEMA
+        value: "public, pgmq"
+      - name: PGRST_DB_ANON_ROLE
+        value: postgres
+      - name: PGRST_LOG_LEVEL
+        value: info
+compute_templates:
+  - cpu: 1
+    memory: 4Gi
+  - cpu: 2
+    memory: 8Gi
+  - cpu: 4
+    memory: 16Gi
+  - cpu: 8
+    memory: 32Gi
+  - cpu: 16
+    memory: 32Gi
+trunk_installs:
+  - name: pgmq
+    version: 0.31.0
+  - name: pg_partman
+    version: 4.7.3
+extensions:
+  - name: pgmq
+    locations:
+      - database: postgres
+        enabled: true
+        version: 0.31.0
+  - name: pg_partman
+    locations:
+      - database: postgres
+        enabled: true
+        version: 4.7.3
+postgres_metrics:
+  pgmq:
+      query: select queue_name, queue_length, oldest_msg_age_sec, newest_msg_age_sec, total_messages from pgmq.metrics_all()
+      master: true
+      metrics:
+        - queue_name:
+            usage: LABEL
+            description: Name of the queue
+        - queue_length:
+            usage: GAUGE
+            description: Number of messages in the queue
+        - oldest_msg_age_sec:
+            usage: GAUGE
+            description: Age of the oldest message in the queue, in seconds.
+        - newest_msg_age_sec:
+            usage: GAUGE
+            description: Age of the newest message in the queue, in seconds.
+        - total_messages:
+            usage: GAUGE
+            description: Total number of messages that have passed into the queue.
+postgres_config_engine: standard
+postgres_config:
+  - name: shared_preload_libraries
+    value: pg_stat_statements,pg_partman_bgw
+  - name: pg_partman_bgw.dbname
+    value: postgres
+  - name: pg_partman_bgw.interval
+    value: 60
+  - name: pg_partman_bgw.role
+    value: postgres
+  - name: random_page_cost
+    value: 1.1
+  - name: autovacuum_naptime
+    value: '20s'
+  - name: autovacuum_vacuum_cost_limit
+    value: 10000
+  - name: autovacuum_vacuum_scale_factor
+    value: 0.05
+  - name: autovacuum_vacuum_insert_scale_factor
+    value: 0.05
+  - name: autovacuum_analyze_scale_factor
+    value: 0.05
+  - name: track_io_timing
+    value: 'on'
+  - name: checkpoint_timeout
+    value: 10min
+  - name: pg_stat_statements.track
+    value: all
+```
+
+# Running and Testing a Stack
+
+- Manually translate the Stack template onto the CoreDBSpec resource spec. See [yaml/sample-message-queue.yaml](https://github.com/tembo-io/tembo-stacks/blob/main/tembo-operator/yaml/sample-message-queue.yaml) for an example of the [MQ Stack](https://github.com/tembo-io/tembo-stacks/blob/main/tembo-operator/src/stacks/templates/message_queue.yaml) mapped to a CoreDB resource. Name it `my_coredb.yaml` or something else that makes sense.
+- Follow the [Run Tembo Locally](https://tembo.io/docs/tembo-stacks/local-tembo-operator) guide to get tembo set up locally.
+- Install your Tembo Stack into the local kubernetes cluster `kubectl apply -f </path/to/my_coredb.yaml`/>
+
+# Releasing on Tembo Cloud
+
+If creating a new Stack, follow steps 1, 2 and 3. Updates to existing stacks require steps 1 and 2.
+
+1. Open PR on the tembo repo, in tembo-operator f
+    1. this commits the Stack’s definition to the [tembo-stacks project](https://github.com/tembo-io/tembo/tree/main/tembo-stacks/src/stacks/specs)
+    2. Bump version to the [tembo-stacks crate](https://github.com/tembo-io/tembo/blob/cbe3ddf14e4682007428532fa28bf3249c72003f/tembo-stacks/Cargo.toml#L4)
+    3. Example: https://github.com/tembo-io/tembo/pull/449: note-the code for tembo stacks has moved from `tembo-operator` to `tembo-stacks`. The code changes in this PR still apply, but their location has changed.
+2. Open PR on the control-plane
+    1. Example: https://github.com/tembo-io/control-plane/pull/399
+    2. control-plane imports the `tembo_stacks` crate which contains the Stack’s specification
+    3. exposes the Stack definition on the public facing platform API
+3. PR to Mahout - these should not merge until PR 2 makes it to production
+    1. example: https://github.com/tembo-io/mahout/pull/508
+    2. this adds the data required to display the stack in the UI
+    3. Optionally - release behind a feature flag (see @Darren Baldwin for feature flagging)
