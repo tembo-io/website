@@ -8,15 +8,15 @@ date: 2024-03-27T12:00
 description: Building a managed Postgres service in Rust on Kubernetes
 ---
 
-Tembo was founded in December 2022 with a mission to make the best service for Postgres extensions. At the very minimum, we wanted our users to be able to come to [Tembo Cloud](https://cloud.tembo.io), create a new Postgres instance, install Postgres extensions into that instance, and connect to that Postgres instance over the public internet.
+Tembo was founded in December 2022 with a mission to make the best Postgres service to deploy extensions. That mission has evolved since then to provide [optimized Postgres instances](https://tembo.io/blog/tembo-stacks-intro) for your workload, but let's go back to the start. At the very minimum, we wanted our users to be able to come to [Tembo Cloud](https://cloud.tembo.io), create a new Postgres instance, install Postgres extensions into that instance, and connect to that Postgres instance over the public internet.
 
-With an early vision in place, we started to sketch out an architecture for our product. Drawing inspiration from other [cloud platforms](https://developer.confluent.io/courses/confluent-cloud-networking/overview/#:~:text=There%20are%20two%20main%20ways,maintenance%2C%20and%20operations%20take%20place.), we quickly decided that we would architect the platform with two high-level components—a control-plane and a data-plane. Two early assumptions were that 1) there could be one too many data-planes per control-plane, and 2) the control-plane may not always be able to reach the data plane (for example if the data-plane's network is private, dedicated for one customer). So, these two components must stay highly decoupled. Making the decision to decouple the infrastructure enabled us to move quickly in the control-plane without risk of impacting the managed infrastructure in the data-plane.
+With this early vision in place, we started to sketch out an architecture for our product. Drawing inspiration from other [cloud platforms](https://developer.confluent.io/courses/confluent-cloud-networking/overview/#:~:text=There%20are%20two%20main%20ways,maintenance%2C%20and%20operations%20take%20place.), we quickly decided that we would architect the platform with two high-level components—a control-plane and a data-plane. Two early assumptions were that 1) there could be  many data-planes per control-plane, and 2) the control-plane may not always be able to reach the data plane (for example if the data-plane's network is private, dedicated for one customer). So, these two components must stay highly decoupled. Making the decision to decouple the infrastructure enabled us to move quickly in the control-plane without risk of impacting the managed infrastructure in the data-plane.
 
 ![alt_text](p0.png "image_tooltip")
 
 ## The Control Plane
 
-The initial version of the control-plane consisted of just a web UI and a HTTP server. The HTTP server serves the purpose of handling Create, Read, Update, and Delete (CRUD) requests for Tembo instances. The server’s GET endpoints do things like list all the instances that belong to an organization or list all the attributes and configuration for a specific instance. PATCH routes handle updating instances with operations like restarting, installing an extension, or changing a configuration.
+The initial version of the control-plane consisted of just a web UI and a HTTP server. The HTTP server serves the purpose of handling Create, Read, Update, and Delete (CRUD) requests for Tembo instances. The server’s GET endpoints do things like list all the instances that belong to an organization or list all the attributes and configurations for a specific instance. PATCH routes handle updating instances with operations like restarting, installing an extension, or changing a configuration.
 
 All state is persisted in a Postgres instance dedicated to the control-plane. This includes all metadata related to instances in the platform such as their infrastructure requirements (cpu / mem / storage), Postgres extensions installed, and any custom configurations applied to the instance.
 
@@ -30,13 +30,13 @@ Managing the lifecycle of Postgres, infrastructure, and its related services is 
 
 Transitions are events that move an instance from one state to another. These can be thought of as events. For example, when instances are first created they are in the “Submitted” state. When that instance receives a “Created” event back from the data-plane, it can transition to “Up”. Likewise, “Up” instances can move to a “Configuring” state when they receive “Update” events, and do not transition back to “Up” until their configuration is reported as complete via an “Updated” event. Error events can transition an instance into an error state and instances can recover out of an error state when recovered.
 
-The early iterations of the platform were more restrictive on state transitions. We modeled our state transition, as shown below, before implementing the first version of our state machine. Since then it has significantly evolved and become less restrictive. For example, instances can now be deleted and configuration changes can be requested from any state. The Stopping and Stopped states were temporarily disabled during the migration from our own Postgres operator to the CNPG Operator. Read more on the Operator decision in our [Tembo Operator blog post](https://tembo.io/blog/tembo-operator). The ability to suspend or stop a Tembo instance is coming soon.
+The early iterations of the platform were more restrictive on state transitions. We modeled our state transition, as shown below, before implementing the first version of our state machine. As we've added more functionality, it has significantly evolved and become less restrictive. For example, instances can now be deleted and configuration changes can be requested from any state. The Stopping and Stopped states were temporarily disabled during the migration from our own Postgres operator to the CNPG Operator. Read more on the Operator decision in our [Tembo Operator blog post](https://tembo.io/blog/tembo-operator). The ability to suspend or stop a Tembo instance is also being added soon.
 
 ![fsm](fsm.png "fsm")
 
 ## FSM in Rust
 
-The majority of the Tembo platform is written in Rust, and the state machine is no different. All possible states of a Tembo instance are represented as variants of a single Enum. At any moment in time, a Tembo instance is in exactly one state. The state is persisted in a Postgres instance dedicated to the control-plane.
+The majority of the Tembo platform is written in Rust, and the state machine is no different. All possible states of a Tembo instance are represented as variants of a single Enum. At any moment in time, a Tembo instance is in exactly one state. This state is persisted in a Postgres instance dedicated to the control-plane.
 
 ```rust
 pub enum State {
@@ -97,7 +97,7 @@ With a finite state machine in place, all CRUD requests pass through basic HTTP 
 
 ## Buffer tasks between the planes
 
-The task duration for processing events in the data-plane is quite variable. For example, creating a new instance could take seconds to minutes depending on whether an image is cached on a node or whether Kubernetes needs to add a new node to the cluster in order to deploy the instance. Once an instance is created, events like installing an extension could happen within seconds for a small extension. Changing a configuration could happen in milliseconds for a simple change like changing the search_path. In the case of a shared_preload_libraries change, it could take over a minute since Postgres will also need to be restarted.
+The task duration for processing events in the data-plane is quite variable. For example, creating a new instance could take seconds to minutes depending on whether an image is cached on a node or whether Kubernetes needs to add a new node to the cluster in order to deploy the instance. Once an instance is created, events like installing an extension could happen within seconds for a small extension. Changing a configuration could happen in milliseconds for a simple change like changing the `search_path`. In the case of a `shared_preload_libraries` change, it could take several seconds to over a minute since Postgres will also need to be restarted.
 
 Implementing a queue for these tasks allows us to buffer these requests, and allows the data-plane to determine when and how often tasks are retried. Further, implementing a queue means that complete outages in either the control-plane or the data-plane do not immediately cause system failures (though the queues will begin to build up).  
 
@@ -123,4 +123,5 @@ We continue to iterate on our platform. The Kubernetes operator, Conductor and r
 
 Enjoying learning about the decisions and thought processes behind building a managed Postgres service using Rust? There’s more to come - stay tuned for the next blog post in this series.
 
-If making decisions and solving challenges like this sounds interesting to you and you would like to help us improve our platform, reach out and talk to us on [Slack](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw). We are hiring for a variety of platform and product roles and would love to hear from you.
+We are hiring for a variety of platform and product roles. If making decisions and solving challenges like these sounds interesting to you, reach out to us at careers@tembo.io to apply. If you have suggestions on how we could improve our platform, reach out and talk to us on [Slack](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw).
+
