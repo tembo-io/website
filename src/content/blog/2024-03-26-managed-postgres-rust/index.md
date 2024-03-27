@@ -2,7 +2,7 @@
 slug: managed-postgres-rust
 title: 'Building a Managed Postgres Service in Rust: Part 1'
 authors: [adam]
-tags: [postgres, rust]
+tags: [postgres, rust, engineering]
 image: './social.png'
 date: 2024-03-26T12:00
 description: Building a managed Postgres service in Rust on Kubernetes
@@ -121,6 +121,6 @@ We continue to iterate on our platform. The Kubernetes operator, Conductor and r
 
 ## Moving forward
 
-Stay tuned for Part 2 of this series where we will dive into the data-plane and how we manage Postgres instances in Kubernetes.
+Enjoying learning about the decisions and thought processes behind building a managed Postgres service using Rust? There’s more to come - stay tuned for the next blog post in this series.
 
-If this sounds interesting and you would like to help us improve our platform, reach out and apply!
+If making decisions and solving challenges like this sounds interesting to you and you would like to help us improve our platform, reach out and talk to us on [Slack](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw). We are hiring for a variety of platform and product roles and would love to hear from you.
