@@ -1,5 +1,5 @@
 import { getCollection } from 'astro:content';
-import type { SideBarSection } from '../types';
+import type { SideBarSection, SideBarItem } from '../types';
 import {
 	ROOT_SIDEBAR_DOCS_ORDER,
 	ROOT_SIDEBAR_DOCS_ICONS,
@@ -42,6 +42,28 @@ export const cleanSideBarTitle = (title: string) => {
 			?.replace(/\.mdx?/g, '')
 			?.toLowerCase(),
 	);
+};
+
+const filterDuplicates = (
+	data: { title: string; slug: string; uppercaseParent: boolean }[],
+) => {
+	const result: SideBarItem[] = [];
+	const slugMap = new Map();
+
+	for (const item of data) {
+		const { slug, uppercaseParent } = item;
+		const existing = slugMap.get(slug);
+
+		if (!existing) {
+			slugMap.set(slug, item);
+			result.push(item);
+		} else if (uppercaseParent && !existing.uppercaseParent) {
+			result[result.indexOf(existing)] = item;
+			slugMap.set(slug, item);
+		}
+	}
+
+	return result;
 };
 
 const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
@@ -97,8 +119,8 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 						' ',
 					) as string as keyof typeof ROOT_SIDEBAR_DOCS_ICONS
 			],
-			items: getSideBarItems(rootDocs)
-				.map((item) => {
+			items: filterDuplicates(
+				getSideBarItems(rootDocs).map((item) => {
 					const itemSlugSplit = item.slug.split('/');
 					// Anything nested down more than 4 levels will get grouped under one link
 					if (itemSlugSplit.length > 4) {
@@ -122,12 +144,8 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 						};
 					}
 					return item;
-				})
-				// Filter out any link with a duplicate title/slug
-				.filter(
-					(value, index, self) =>
-						index === self.findIndex((t) => t.slug === value.slug),
-				),
+				}),
+			),
 		});
 	});
 	return sortSideBarLinks(sideBarLinks);
