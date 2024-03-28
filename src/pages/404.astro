@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar';
+import Container from '../components/Container';
+import Button from '../components/Button';
+import NotFound from '../images/404.svg';
+import NotFoundHero from '../images/404Hero.svg';
+import { Image } from 'astro:assets';
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
+	<NavBar client:load currentPage={currentPath} />
+	<Container styles='h-full customSm:h-[700px]'>
+		<div class='flex flex-col mt-[120px] mobile:mt-[180px] relative'>
+			<div class='flex flex-col gap-3'>
+				<h1
+					class='text-white text-2xl font-semibold max-w-[500px] flex flex-col'
+				>
+					This page seems to have <span
+						>slipped through a time portal.</span
+					>
+				</h1>
+				<div class='flex flex-col md:flex-row justify-between w-full'>
+					<p class='max-w-[450px]'>
+						We apologize for any disruption to the space-time
+						continuum. Feel free to journey back to our homepage.
+					</p>
+					<Button
+						variant='primary'
+						styles='w-max mt-6 md:mt-0 py-3'
+						link='/'
+						client:load>Go back home</Button
+					>
+				</div>
+				<Image src={NotFound} alt='404' class='w-[450px] mt-16 z-10' />
+			</div>
+			<Image
+				src={NotFoundHero}
+				alt='404'
+				class='mt-24 customSm:mt-0 customSm:absolute top-[60%] customLg:top-[40%] -right-[300px] customSm:w-full z-1'
+			/>
+		</div>
+	</Container>
+</Layout>

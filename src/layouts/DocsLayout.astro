@@ -1,0 +1,119 @@
+---
+import Layout from './Layout.astro';
+import SideBar from '../components/docs/SideBar.astro';
+import Header from '../components/docs/Header';
+import Rainbow from '../components/Rainbow.astro';
+import type { SideBarSection } from '../types';
+interface Props {
+	title?: string;
+	description?: string;
+	sideBarMenuSections: SideBarSection[];
+	isNestedDoc: boolean;
+	isProgressBar?: boolean;
+	image?: string;
+}
+const {
+	title = 'Documentation | Tembo',
+	description,
+	sideBarMenuSections,
+	isNestedDoc,
+	isProgressBar = true,
+	image = 'docs-og-image.png',
+}: Props = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title={title} description={description} image={image}>
+	<div class='fixed top-0 right-0 left-0 z-50'>
+		<Rainbow />
+	</div>
+	<div
+		class='min-[1000px]:h-screen flex flex-col overflow-hidden'
+		data-pagefind-body
+	>
+		<main class='grow overflow-hidden'>
+			<div class='flex h-full'>
+				<SideBar
+					isNestedSideBar={isNestedDoc}
+					sideBarMenuSections={sideBarMenuSections}
+				/>
+				<div
+					class='w-full overflow-auto scroll-pt-[120px]'
+					id='docs-content'
+				>
+					<div class='flex flex-col relative'>
+						<Header
+							isProgressBar={isProgressBar}
+							isNestedSideBar={isNestedDoc}
+							sideBarMenuSections={sideBarMenuSections}
+							currentPath={currentPath}
+							client:load
+						/>
+						<div
+							class='container px-[20px] mobile:px-8 max-w-container mx-auto'
+						>
+							<div
+								class='pt-[60px] grow pb-[20px] mobile:pb-8 mt-14 mobile:mt-20 min-[1000px]:mt-0'
+							>
+								<slot />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</Layout>
+
+<script is:inline>
+	window.initSearch = async () => {
+		// load the pagefind script
+		window.pagefind = await import('/pagefind/pagefind.js');
+	};
+</script>
+
+<style is:global>
+	.DocsSearchDialogOverlay {
+		background-color: rgba(0, 0, 0, 0.5);
+		position: fixed;
+		inset: 0;
+		animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+		z-index: 10;
+	}
+
+	.DocsSearchDialogContent {
+		animation: contentShow 200ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.gradient-search-item:hover {
+		border: 1px solid #0000;
+		background:
+			linear-gradient(#1c1c1c, #1c1c1c) padding-box,
+			linear-gradient(
+					68.42deg,
+					#f77577 0%,
+					#db39cb 79.07%,
+					#ca6fe5 170.36%
+				)
+				border-box;
+	}
+
+	@keyframes overlayShow {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	@keyframes contentShow {
+		from {
+			opacity: 0;
+			transform: translate(-50%, -48%) scale(0.96);
+		}
+		to {
+			opacity: 1;
+			transform: translate(-50%, -50%) scale(1);
+		}
+	}
+</style>

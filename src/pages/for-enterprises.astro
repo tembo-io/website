@@ -1,0 +1,245 @@
+---
+import NavBar from '../components/NavBar';
+import Layout from '../layouts/Layout.astro';
+import Container from '../components/Container';
+import Footer from '../components/Footer.astro';
+import Callout from '../components/Callout.astro';
+import { Image } from 'astro:assets';
+import ArchitectureImage from '../images/tembo-for-enterprises.png';
+import Markdown from '../components/Markdown.astro';
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title='Tembo for Enterprises'>
+	<NavBar client:load currentPage={currentPath} />
+	<Container>
+		<section
+			class='tembo-for-startups-section flex w-full items-center justify-center mt-[120px] mobile:mt-[180px]'
+		>
+			<Markdown>
+				<h1
+					class='neon-text font-extrabold text-5xl lg:text-6xl z-10 mb-6'
+				>
+					Tembo for Enterprises
+				</h1>
+				<blockquote>
+					<p>
+						Tembo gives me peace of mind that our databases are
+						deployed with backups and HA, and the simplified
+						deployment and self-service models with the Tembo
+						control plane help me avoid enterprise ticketing delays.
+						And the ecosystem of Tembo Stacks creates a single data
+						language for many use cases like vector search, high
+						write, analytics, and message queueing.
+						<footer>
+                            - Director of Engineering, Fortune 50 Company
+                        </footer>
+					</p>
+				</blockquote>
+
+				<h2>Overview</h2>
+
+				<p>
+					Enterprises can find themselves spending many millions per
+					year on a growing sprawl of data vendors. Our aim is to help
+					you fight back against this.
+				</p>
+
+				<p>
+					<b>Postgres</b> (and its assimilation of 25+ years of database
+					innovation) is the perfect tool to battle this; It is open-source,
+					extensible, flexible, and available from many vendors (therefore,
+					somewhat lock-in resistant).
+				</p>
+
+				<p>
+					However, most managed Postgres vendors provide a
+					stripped-down version of Postgres that restricts developer
+					creativity. Or a few specialized vendors provide a managed
+					offering around a specific use case, but not a full spectrum
+					of use cases.
+				</p>
+
+				<p>
+					Tembo is “multi-workload” Postgres and aims to integrate the <b
+						>entire</b
+					>
+					Postgres OSS ecosystem, providing developers confidence to use
+					Postgres however they like. It also packages and tunes Postgres
+					for common use cases, as an open-source library of
+					<a href='Thttps://tembo.io/docs/category/tembo-stacks'
+						>Tembo Stacks</a
+					>.
+				</p>
+
+				<Callout title='Want to know more?' variant='info'>
+					<p>
+						If you'd like to dig deeper into why we started the
+						company and our vision, read the <a
+							href='https://tembo.io/blog/tembo-manifesto'
+							>Tembo Manifesto</a
+						>.
+					</p>
+				</Callout>
+
+				<h2>Some ways we can help...</h2>
+
+				<ul>
+					<li>
+						If you have a team <b>self-hosting Postgres</b> (perhaps
+						against their desire) because they are doing something that
+						managed Postgres providers don't support, we can rectify
+						this.
+					</li>
+					<li>
+						If you have a team <b
+							>managing a large number of Postgres clusters</b
+						>, but feel that they are wasting money because the
+						clusters are over-provisioned (not adapting to
+						workloads), we are building a game-changing solution for
+						Postgres fleet management they should have a look at.
+					</li>
+					<li>
+						If you'd like to <b
+							>consolidate a wide range of database workloads</b
+						>
+						to Postgres, and accomplish that through a single vendor,
+						we should talk.
+					</li>
+					<li>
+						If you'd like to <b>productionize LLMs/RAGs</b> at the lowest
+						possible cost, we can show you how Postgres may be your best
+						bet.
+					</li>
+					<li>
+						If you need the <b
+							>flexibility and security of self-hosted Postgres</b
+						>, but would prefer a polished developer SaaS
+						experience, we offer a hybrid solution that provides the
+						best of both worlds.
+					</li>
+					<li>
+						If you want to <b>use Postgres for more</b> — for time series,
+						for data warehousing, for vector search, with bottomless
+						storage, for message queue, as an API (what?) — let's talk.
+					</li>
+					<li>
+						If you need a <b>simple transition path to the cloud</b>
+						for your data workloads, we offer a very flexible and powerful
+						solution.
+					</li>
+					<li>
+						If you need to <b>lock down standards</b> on how your developers
+						use Postgres, for security or any other reasons, we have
+						a solution for this (custom Tembo Stacks).
+					</li>
+				</ul>
+
+				<h2>Architecture</h2>
+
+				<Image
+					src={ArchitectureImage}
+					alt='Vector Store'
+					class='w-full rounded-xl'
+				/>
+
+
+				<h2>Enterprise Deployment Modes</h2>
+
+				<ol>
+					<li>
+						Open-source
+						<ul>
+							<li>No subscription or license required</li>
+							<li>Run Tembo Operator/Stacks in your K8s cluster</li>
+						</ul>
+					</li>
+					<li>
+						Shared Control Plane / Multi-Tenant Data Plane (aka full-SaaS) 
+						<ul>
+							<li>Subscription required</li>
+							<li>Currently available on AWS only</li>
+							<li>Azure + Google Cloud coming soon</li>
+						</ul>
+					</li>
+					<li>
+						Software
+						<ul>
+							<li>Subscription required</li>
+							<li>In your cloud, or on-prem</li>
+							<li>Fully Private Control Plane + Data Plane(s)</li>
+						</ul>
+					</li>
+				</ol>
+
+				<p>
+					<b>Additional modes, coming soon:</b>
+				</p>
+
+				<ol>
+					<li>
+						SaaS Control Plane / Dedicated Data Plane 
+						<ul>
+							<li>Subscription required</li>
+							<li>
+								We manage a dedicated data plane for you (in our account, on AWS, Azure, or GCP)
+							</li>
+						</ul>					
+					</li>
+					<li>
+						Shared Control Plane / <a
+						href='https://tembo.io/docs/tembo-cloud/security-and-authentication/security#need-stronger-isolation'
+					>Private Data Plane</a>
+						<ul>
+							<li>Subscription required</li>
+							<li>BYO Kubernetes cluster as Tembo Data Plane</li>
+							<li>You install Tembo Operator, enterprise key</li>
+							<li>Data plane phones home to Tembo Control plane for work (requires network egress)</li>
+						</ul>
+					</li>
+				</ol>
+
+				<h2>Contact</h2>
+
+				<p>
+					If you'd like to schedule a walk-through or consultation,
+					please reach out to:
+				</p>
+
+				<p>
+					<a href='https://calendly.com/rbk-tembo/tembo-chat'>Brad Kirn</a>
+					<br />
+					Head of Growth, Tembo
+				</p>
+			</Markdown>
+		</section>
+	</Container>
+	<div class='relative'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
+		</div>
+		<Container>
+			<div class='mt-16 mobile:mt-24'>
+				<Footer />
+			</div>
+		</Container>
+	</div>
+</Layout>
+
+<style>
+	blockquote {
+		background-color: #1c1c1c;
+		padding: 1em;
+	}
+    blockquote footer {
+            color: #EAEAEA;
+    }
+	li b {
+		color: #ffffff;
+	}
+
+	.neon-text {
+		color: #e9fc87 !important;
+	}
+</style>

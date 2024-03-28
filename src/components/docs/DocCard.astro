@@ -1,0 +1,20 @@
+---
+interface Props {
+	url: string;
+	title: string;
+	icon: string;
+	description: string;
+}
+const { url, title, icon, description } = Astro.props;
+---
+
+<a
+	href={url}
+	class='bg-mwasi rounded-2xl p-6 w-full max-w-[450px] col-span-12 md:col-span-4 min-h-[180px]'
+>
+	<div class='flex items-center gap-2'>
+		<img src={icon} class='w-8 h-8' />
+		<span class='text-md font-bold text-white'>{title}</span>
+	</div>
+	<p class='text-lightGrey font-secondary mt-4 text-sm'>{description}</p>
+</a>

@@ -1,0 +1,212 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer.astro';
+import Toc from '../../components/Toc';
+import Container from '../../components/Container';
+import Markdown from '../../components/Markdown.astro';
+import Tag from '../../components/Tag.astro';
+import BackButton from '../../components/BackButton.astro';
+import Author from '../../components/Author.astro';
+import { getCollection } from 'astro:content';
+import { AUTHORS } from '../../blogAuthors';
+import { Image } from 'astro:assets';
+import BlogFooter from '../../components/BlogFooter.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post, index) => ({
+		params: { slug: post.slug },
+		props: {
+			post,
+			nextPost: index === posts.length - 1 ? posts[0] : posts[index + 1],
+		},
+	}));
+}
+const currentPath = Astro.url.pathname;
+const { post, nextPost } = Astro.props;
+const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+const dateString = post.id.substring(0, 10);
+const nextPostDateString = nextPost.id.substring(0, 10);
+const nextPostParsedDate = nextPost.data?.date || new Date(nextPostDateString);
+const parsedDate = post.data?.date || new Date(dateString);
+const authors = post.data.authors.map((author) => {
+	return AUTHORS[author];
+});
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/content/blog/**/*.{jpeg,jpg,png,webp,svg,gif}',
+);
+const postDirectory = post.id.split('/')[0];
+const image: any =
+	images[
+		`/src/content/blog/${postDirectory}${post.data.image?.replace('.', '')}`
+	];
+const { Content, remarkPluginFrontmatter, headings } = await post.render();
+---
+
+<Layout
+	title={`${post.data.title} | Tembo`}
+	htmlClasses='scroll-pt-[120px]'
+	description={post.data.description || post.data.title}
+	keywords={post.data.tags}
+	image={post.data.image}
+>
+	<NavBar client:load currentPage={currentPath} isProgressBar={true} />
+	<Container styles='pb-10 w-full'>
+		<div class='mt-[120px] mobile:mt-[180px] w-full relative'>
+			<div class='flex flex-col w-full'>
+				<div
+					class='flex flex-col min-[1200px]:flex-row items-start justify-between w-full gap-8'
+				>
+					<header class='flex flex-col gap-8'>
+						<BackButton />
+						<div class='flex flex-col gap-6'>
+							<div>
+								<h1
+									class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl z-10 max-w-[600px]'
+								>
+									{post.data.title}
+								</h1>
+								<p class='text-white mt-4'>
+									{
+										parsedDate.toLocaleDateString(
+											'en-US',
+											dateOptions as any,
+										)
+									} • {remarkPluginFrontmatter.minutesRead}
+								</p>
+							</div>
+							<div class='flex gap-6 items-center flex-wrap'>
+								{
+									authors.map((author) => (
+										<a
+											href={author?.url || '/blog'}
+											target='_blank'
+											class='w-max'
+										>
+											<Author
+												name={author?.name}
+												title={
+													author?.title || 'Tembonaut'
+												}
+												avatar={author?.image_url}
+											/>
+										</a>
+									))
+								}
+							</div>
+						</div>
+					</header>
+					{
+						image ? (
+							<Image
+								src={image()}
+								alt='blog post hero image'
+								class='flex rounded-2xl w-full max-h-[400px] min-[1200px]:w-[650px] min-[1200px]:max-h-[300px]'
+							/>
+						) : (
+							<img
+								src={`/blogFallbackImage.svg`}
+								alt='blog post hero image'
+								class='flex rounded-2xl w-[650px] max-h-[300px]'
+							/>
+						)
+					}
+				</div>
+				<div
+					class='mt-12 mobile:mt-36 mobile:flex mobile:justify-between w-full'
+				>
+					<div id='tembo-blog-post' class='m-0 mobile:mr-12'>
+						<Markdown>
+							<Content />
+						</Markdown>
+						<BlogFooter
+							slug={nextPost.slug}
+							title={nextPost.data.title}
+							date={nextPostParsedDate.toLocaleDateString(
+								'en-US',
+								dateOptions as any,
+							)}
+						/>
+					</div>
+					<div class='hidden mobile:flex flex-col gap-12'>
+						<div
+							class='flex flex-wrap gap-4 items-start max-w-[180px]'
+						>
+							{
+								post.data.tags.map((tag: string) => (
+									<Tag
+										title={tag}
+										classNames='px-2.5 py-[0.4rem] text-center text-[12px] h-max border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10'
+									/>
+								))
+							}
+						</div>
+						<div
+							class='flex flex-col gap-12 w-max items-start mobile:sticky mobile:top-[100px]'
+						>
+							{
+								headings.length > 0 && (
+									<Toc headings={headings} client:load />
+								)
+							}
+							<div class='flex flex-col gap-4 self-start w-max'>
+								<h2 class='text-lightGrey font-bold'>
+									Share this article
+								</h2>
+								<a
+									href={`https://news.ycombinator.com/submitlink?u=https://tembo.io/blog/${post.slug}&t=${encodeURIComponent(post.data.title)}`}
+									target='_blank'
+								>
+									<svg
+										xmlns='http://www.w3.org/2000/svg'
+										height='25px'
+										width='25px'
+										viewBox='4 4 188 188'
+									>
+										<path
+											d='m4 4h188v188h-188z'
+											fill='#E9FC87'></path>
+										<path
+											d='m73.2521756 45.01 22.7478244 47.39130083 22.7478244-47.39130083h19.56569631l-34.32352071 64.48661468v41.49338532h-15.98v-41.49338532l-34.32352071-64.48661468z'
+											fill='#120F0E'></path>
+									</svg>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</Container>
+	<div class='relative bg-offBlack'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
+		</div>
+		<Container>
+			<div class='mt-16 mobile:mt-24'>
+				<Footer />
+			</div>
+		</Container>
+	</div>
+</Layout>
+
+<style is:global>
+	@media screen and (max-width: 500px) {
+		.tembo-blog-post-content tr {
+			display: grid !important;
+		}
+	}
+</style>
+<script>
+	const buttons = document.querySelectorAll('button.blogGoBack');
+
+	buttons.forEach((button) => {
+		button.addEventListener('click', () => {
+			!document.referrer.includes('tembo.io')
+				? (window.location.href = '/blog')
+				: window.history.back();
+		});
+	});
+</script>
