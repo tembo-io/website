@@ -34,7 +34,7 @@ websocat "wss://api.data-1.use1.tembo.io/loki/api/v1/tail?query=$URL_ENCODED_QUE
   -H "Authorization: Bearer ${TOKEN}"
 ```
 
-There are other endpoints available, please review the [Loki API documentation](https://grafana.com/docs/loki/latest/reference/api/).
+There are other endpoints available. Please review the [Loki API documentation](https://grafana.com/docs/loki/latest/reference/api/) for more details.
 
 ### Grafana
 
