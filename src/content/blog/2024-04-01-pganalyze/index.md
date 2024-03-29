@@ -55,6 +55,19 @@ dashboard by clicking on the “pganalyze app” button.
 pganalyze will automatically start collecting and analyzing your database performance data, and provide you
 with detailed insights into your database performance.
 
+# Index and VACUUM Advisors
+
+
+## Index Advisor
+
+The pganalyze Index Advisor automatically detects missing indexes and recommends single and multi-column indexes that
+improve query performance across your databases. These index recommendations are based on your database schema, statistics,
+and query workload. In addition to recommending new indexes, the Index Advisor also provides insights into existing indexes
+and why they may actually be ignored. This can be particularly useful for identifying whether a slow query is indexed
+properly.
+
+![index-advisor.png](index-advisor.png)
+
 # Log Insights
 pganalyze provides detailed insights into your database logs, including slow queries, errors, and other important events.
 To make this possible on Tembo Cloud, we've made some contributions to the open source [pganalyze collector](https://github.com/pganalyze/collector/).
