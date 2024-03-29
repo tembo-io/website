@@ -9,7 +9,7 @@ It is useful for guiding public policy decisions, allocating government funds, p
 This guide will walk through the steps to download `TIGER` census data, load it into Postgres with `ogr2ogr`, and confirm functionality using the `postgis_tiger_geocoder` extension.
 
 ## Contents
-- [Download](#download-ogr2ogr)
+- [Download ogr2ogr](#download-ogr2ogr)
 - [Obtain and load census data](#obtain-and-load-census-data)
     - [Single file](#single-file)
     - [Multiple files](#multiple-files)
@@ -69,6 +69,9 @@ As mentioned above, if you'd like other states [follow this link](https://www2.c
 
 We drew inspiration from the PostGIS guide, [Loader_Generate_Census_Script](https://postgis.net/docs/Loader_Generate_Census_Script.html), and will focus solely on `Massachusetts` data, specifically, `tract`, block groups `bg`, and `tabblocks`.
 
+<details>
+<summary><strong>wget commands to download the data</strong></summary>
+
 ```bash
 wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_bg10.zip
 ```
@@ -79,6 +82,12 @@ wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_
 wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_tabblock10.zip
 ```
 
+</details>
+
+<details>
+<summary><strong>unzip commands to unzip the downloaded files</strong></summary>
+
+```bash
 Unzip the files to your target directory.
 
 ```bash
@@ -91,10 +100,11 @@ unzip tl_2010_25_tract10.zip
 unzip tl_2010_25_tabblock10.zip
 ```
 
-Open your terminal and run the following commands:
+</details>
 
-<<<<<<< HEAD
-=======
+<details>
+<summary><strong>ogr2ogr command to load the data into Postgres</strong></summary>
+
 ```bash
 ogr2ogr -f "PostgreSQL" \
 PG:"dbname=postgres \
@@ -108,13 +118,18 @@ password=<your-password>" \
 -lco FID=gid \
 -lco PRECISION=no \
 tl_2010_25_tabblock10.shp
+```
+
+</details>
 
 ### Multiple files
+
+While the above section does a good job, you might be interested in 
 
 <details>
 <summary><strong>Example Script</strong></summary>
 
-```
+```bash
 #!/bin/bash
 
 # Set these variables according to your environment
