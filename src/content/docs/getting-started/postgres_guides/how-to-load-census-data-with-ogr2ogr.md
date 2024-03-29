@@ -9,13 +9,13 @@ It is useful for guiding public policy decisions, allocating government funds, p
 This guide will walk through the steps to download `TIGER` census data, load it into Postgres with `ogr2ogr`, and confirm functionality using the `postgis_tiger_geocoder` extension.
 
 ## Contents
-- [Get ahold of ogr2ogr](#get-ahold-of-ogr2ogr)
-- [Obtaining and loading the data](#obtaining-and-loading-the-data)
+- [Download](#download-ogr2ogr)
+- [Obtain and load census data](#obtain-and-load-census-data)
     - [Single file](#single-file)
     - [Multiple files](#multiple-files)
 - [Confirm successful load](#confirm-successful-load)
 
-## Get ahold of ogr2ogr
+## Download ogr2ogr
 
 [ogr2ogr](https://gdal.org/programs/ogr2ogr.html) is a tool within GDAL (Geospatial Data Abstraction Library); an open source library maintained by OSGeo. PostGIS recognizes `ogr2ogr` as a valid loading method, which can be read about within the [PostGIS official training material](https://postgis.net/workshops/postgis-intro/loading_data.html#loading-with-ogr2ogr).
 
@@ -57,15 +57,17 @@ Below we've laid out a select few that we'll be using in this guide:
 | `-lco PRECISION=no`                                      | Disables the storage of geometry precision.                                                   |
 | `tl_2010_25_tabblock10.shp`                              | The path to the input shapefile.                          
 
-## Obtaining and loading the data
+## Obtain and load census data
 
 While there are many ways to acquire census data, one good source is from the [United States Census Bureau](https://www.census.gov/).
 
-[TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) is an acronym for "Topologically Integrated Geographic Encoding and Referencing system", and is the United States Census Bureau's database for census and survey mapping. [Click here](https://www2.census.gov/geo/pvs/tiger2010st/) for the US Census Bureau directory for TIGER/Line shapefiles for all states, dated 2010.
-
-We drew inspiration from the PostGIS guide, [Loader_Generate_Census_Script](https://postgis.net/docs/Loader_Generate_Census_Script.html), and will focus solely on `Massachusetts` data, specifically, `tract`, block groups `bg`, and `tabblocks`.
+It's worth noting that [TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) is an acronym for "Topologically Integrated Geographic Encoding and Referencing system", and is the United States Census Bureau's database for census and survey mapping. [Click here](https://www2.census.gov/geo/pvs/tiger2010st/) for the US Census Bureau directory for TIGER/Line shapefiles for all states, dated 2010.
 
 As mentioned above, if you'd like other states [follow this link](https://www2.census.gov/geo/pvs/tiger2010st/).
+
+### Single file
+
+We drew inspiration from the PostGIS guide, [Loader_Generate_Census_Script](https://postgis.net/docs/Loader_Generate_Census_Script.html), and will focus solely on `Massachusetts` data, specifically, `tract`, block groups `bg`, and `tabblocks`.
 
 ```bash
 wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_bg10.zip
@@ -89,20 +91,6 @@ unzip tl_2010_25_tract10.zip
 unzip tl_2010_25_tabblock10.zip
 ```
 
-## Load the data
-
-### Single file
-
-
-
-### Multiple files
-
-Once you have the data, you can use `ogr2ogr` to load the shapefiles.
-We have a script
-
-<details>
-<summary><strong>Example Script</strong></summary>
-
 Open your terminal and run the following commands:
 
 <<<<<<< HEAD
@@ -120,7 +108,12 @@ password=<your-password>" \
 -lco FID=gid \
 -lco PRECISION=no \
 tl_2010_25_tabblock10.shp
->>>>>>> 9bdaf1eebb121935c6436f779038ae3e4865e4ee
+
+### Multiple files
+
+<details>
+<summary><strong>Example Script</strong></summary>
+
 ```
 #!/bin/bash
 
