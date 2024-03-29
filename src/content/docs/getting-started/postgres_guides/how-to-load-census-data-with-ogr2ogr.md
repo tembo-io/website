@@ -105,6 +105,22 @@ We have a script
 
 Open your terminal and run the following commands:
 
+<<<<<<< HEAD
+=======
+```bash
+ogr2ogr -f "PostgreSQL" \
+PG:"dbname=postgres \
+host=<your-host> \
+port=5432 \
+user=postgres \
+password=<your-password>" \
+-nln tiger_data.ma_tabblock \
+-nlt PROMOTE_TO_MULTI \
+-lco GEOMETRY_NAME=the_geom \
+-lco FID=gid \
+-lco PRECISION=no \
+tl_2010_25_tabblock10.shp
+>>>>>>> 9bdaf1eebb121935c6436f779038ae3e4865e4ee
 ```
 #!/bin/bash
 
