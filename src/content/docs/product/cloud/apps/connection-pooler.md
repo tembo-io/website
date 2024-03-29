@@ -2,10 +2,7 @@
 sideBarPosition: 0
 ---
 
-A connection pooler is a tool used to manage database connections, sitting between your application and Postgres
-instance. Because of the way Postgres handles connections, the server may encounter resource constraint issues when
-managing a few thousand connections. Using a pooler can alleviate these issues by using actual Postgres connections
-only when necessary, allowing for easier handling of thousands of connections at a lower cost.
+A connection pooler is a tool used to manage database connections that sits between your application and Postgres instance. Because of the way Postgres handles connections, the server may encounter resource constraint issues when managing a few thousand connections. Using a pooler can alleviate these issues by using actual Postgres connections only when necessary, allowing for easier handling of thousands of connections at a lower cost.
 
 This document will guide you through the process of enabling and configuring connection pooling on Tembo Cloud.
 
@@ -81,22 +78,19 @@ Log in to the [Tembo Cloud UI](https://cloud.tembo.io/) and select the "Database
 
 ### Connect to your Tembo Instance's Connection Pooler
 
-On the Home page of [Tembo Cloud UI](https://cloud.tembo.io/), find the "Show connection strings" button on the right side. This button opens a modal where you can find a PSQL connection string. If you have enabled connection pooling on your instance, there will also be a tab called "Connection Pooling" where you can find the complete connection string specifically for the connection pool.
+On the Home page of [Tembo Cloud UI](https://cloud.tembo.io/), find the "Show connection strings" button on the right side. This button opens a modal where you can find a `psql` connection string. If you have enabled connection pooling on your instance, there will also be a tab called "Connection Pooling" where you can find the complete connection string specifically for the connection pool.
 
 ### Integrate a manually created Database to the Connection Pooler
 
-If you manually create a database and wish to integrate it with the connection
-pooler you will need to run the following queries from inside your instance.
+If you manually create a database and wish to integrate it with the connection pooler you will need to follow these instructions and run the following queries from inside your instance.
 
-For each new database you will need to grant permission for `cnpg_pooler_pgbouncer`
-to connect to it:
+For each new database you will need to grant permission for `cnpg_pooler_pgbouncer` to connect to it:
 
 ```sql
 GRANT CONNECT ON DATABASE { database name here } TO cnpg_pooler_pgbouncer;
 ```
 
-Then connect in each new database, and then create the authentication
-function inside each of the application databases:
+Then connect in each new database and create the authentication function inside each of the application databases:
 
 ```sql
 CREATE OR REPLACE FUNCTION user_search(uname TEXT)
