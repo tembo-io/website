@@ -75,7 +75,7 @@ efficiency, dead rows, and table bloat. It does this by scanning each table's st
 Postgres logs to provide you with a holistic view of bloat, freezing and individual tables. To ensure proactive monitoring,
 pganalyze provides alerts related to these insights.
 
-[//]: # (screenshot)
+![vacuum-advisor.png](vacuum-advisor.png)
 
 # Log Insights
 pganalyze provides detailed insights into your database logs, including slow queries, errors, and other important events.
