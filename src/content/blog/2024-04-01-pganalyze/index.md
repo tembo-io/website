@@ -68,6 +68,15 @@ properly.
 
 ![index-advisor.png](index-advisor.png)
 
+## VACUUM Advisor
+Optimizing VACUUM is critical for maintaining peak Postgres performance, but it can be a complex and time-consuming task.
+The VACUUM Advisor provides insights and recommendations based on the following key metrics such as autovacuum
+efficiency, dead rows, and table bloat. It does this by scanning each table's statistics and combining them with the
+Postgres logs to provide you with a holistic view of bloat, freezing and individual tables. To ensure proactive monitoring,
+pganalyze provides alerts related to these insights.
+
+[//]: # (screenshot)
+
 # Log Insights
 pganalyze provides detailed insights into your database logs, including slow queries, errors, and other important events.
 To make this possible on Tembo Cloud, we've made some contributions to the open source [pganalyze collector](https://github.com/pganalyze/collector/).
