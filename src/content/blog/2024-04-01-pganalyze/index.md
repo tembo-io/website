@@ -55,11 +55,11 @@ dashboard by clicking on the “pganalyze app” button.
 pganalyze will automatically start collecting and analyzing your database performance data, and provide you
 with detailed insights into your database performance.
 
-# Index and VACUUM Advisors
-
+# Tuning Advisors
+Some of the most useful features in pganalyze are its tuning advisors. The Index Advisor and VACUUM Advisor help you optimize
+your database performance by providing recommendations for creating and maintaining indexes and optimizing table bloat.
 
 ## Index Advisor
-
 The pganalyze Index Advisor automatically detects missing indexes and recommends single and multi-column indexes that
 improve query performance across your databases. These index recommendations are based on your database schema, statistics,
 and query workload. In addition to recommending new indexes, the Index Advisor also provides insights into existing indexes
