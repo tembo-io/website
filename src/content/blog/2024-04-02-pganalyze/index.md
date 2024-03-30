@@ -4,7 +4,7 @@ title: 'Advanced PostgreSQL metrics and insights with pganalyze on Tembo Cloud'
 authors: [ian]
 tags: [postgres]
 image: './pganalyze.svg'
-date: 2024-04-01T12:00
+date: 2024-04-02T12:00
 description: Announcing support for pganalyze on Tembo Cloud
 ---
 
