@@ -110,6 +110,7 @@ const Search = () => {
 										src={'/searchEmptyState.svg'}
 										alt='Elephant holding search'
 										width={200}
+										height={200}
 									/>
 								</div>
 							</Command.Empty>
