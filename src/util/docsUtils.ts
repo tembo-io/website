@@ -7,7 +7,7 @@ import {
 import { type CollectionEntry } from 'astro:content';
 import { uppercaseFirstLetter } from '.';
 
-// TODO: refactor this file :)
+// TODO: refactor this file once we better determine the structure of our docs :)
 
 // This sorts the root sidebar links for any doc that is one level deep (e.g `/docs/cloud`)
 export const sortSideBarLinks = (sideBarLinks: SideBarSection[]) =>
@@ -45,18 +45,19 @@ export const cleanSideBarTitle = (title: string) => {
 };
 
 const filterDuplicates = (
-	data: { title: string; slug: string; uppercaseParent: boolean }[],
+	docs: { title: string; slug: string; uppercaseParent: boolean }[],
 ) => {
 	const result: SideBarItem[] = [];
 	const slugMap = new Map();
 
-	for (const item of data) {
+	for (const item of docs) {
 		const { slug, uppercaseParent } = item;
 		const existing = slugMap.get(slug);
 
 		if (!existing) {
 			slugMap.set(slug, item);
 			result.push(item);
+			// uppercase parent takes precedence
 		} else if (uppercaseParent && !existing.uppercaseParent) {
 			result[result.indexOf(existing)] = item;
 			slugMap.set(slug, item);

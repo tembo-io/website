@@ -101,7 +101,18 @@ const Search = () => {
 					<div className='w-full h-[1px] bg-[#292929] mt-6' />
 					<div className='max-h-[400px] overflow-y-auto'>
 						<Command.List className='p-6'>
-							<Command.Empty>No results found.</Command.Empty>
+							<Command.Empty className='flex items-center justify-center'>
+								<div className='flex flex-col items-center gap-4'>
+									<div className=' text-lightGrey'>
+										No results found
+									</div>
+									<img
+										src={'/searchEmptyState.svg'}
+										alt='Elephant holding search'
+										width={200}
+									/>
+								</div>
+							</Command.Empty>
 							{searchResults.length > 0 && (
 								<Command.Group
 									heading='Results'
