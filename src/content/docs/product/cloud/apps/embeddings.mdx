@@ -87,8 +87,8 @@ psql postgres://$yourUser:$yourPassword@${TEMBO_DATA_DOMAIN}:5432/postgres
 If you already have a table, you can start with that. You could also start with an example dataset, which is what we will use for this example.
 
 ```sql
-CREATE TABLE products AS
-SELECT * FROM vectorize.example_products;
+CREATE TABLE products (LIKE vectorize.example_products INCLUDING ALL);
+INSERT INTO products SELECT * FROM vectorize.example_products;
 ```
 
 ## Initialize a table for automated vector search
