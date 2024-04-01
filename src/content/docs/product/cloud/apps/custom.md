@@ -5,7 +5,7 @@ sideBarPosition: 12
 
 Tembo Cloud allows you to deploy containers next to your Postgres instance. Some of these apps are pre-configured such as [REST-API](./rest-api.md) or [Embeddings](./embeddings.md). You can also specify and configure these containers yourself. This allows you to run custom applications that can interact with your Postgres instance, or other services.
 
-As an implementation detail, Tembo Application Services consist of Kubernetes resources that are deployed in the same namespace as your Tembo Postgres instance. This consists of common Kubernetes resources such as Deployments, Services, ConfigMaps, and Ingress, etc.
+As an implementation detail, Tembo Application Services consist of Kubernetes resources that are deployed in the same namespace as your Tembo Postgres instance. This consists of common Kubernetes resources such as Deployments, Services, ConfigMaps, Ingress, etc.
 
 The Tembo Platform API provides you with an abstraction over the Kubernetes API, allowing you to manage your application services via the Tembo Platform API. Some, but not all of those Kubernetes resources are exposed to you via the Tembo Platform API, and this guide will walk you through what is currently available. Over time, the Tembo Platform API will mature and expose more of the underlying Kubernetes resources to you.
 
@@ -41,7 +41,7 @@ app_services: [
 
 ## Apply the spec to your Tembo Instance
 
-Below is an example deploying a python FastAPI web server container alongside your Tembo Postgres instance. This can be applied in a PATCH request to an existing Tembo instance or used as part of any of the instance methods, to the [Tembo Platform API](https://api.tembo.io/redoc). The container image is public, and the application was designed to run on port 3000 in the container. The application is exposed publicly at `https://$YourTemboHostName/embeddings`, and those requests are mapped to the path `/v1/embeddings` and port `3000` on the container. Two environment variables are configured, along with cpu and memory requests and limits. An ephemeral storage volume is mounted at the `/models` path in the container.
+Below is an example deploying a Python FastAPI web server container alongside your Tembo Postgres instance. This can be applied in a PATCH request to an existing Tembo instance or be used as part of any of the instance methods, to the [Tembo Platform API](https://api.tembo.io/redoc). The container image is public, and the application was designed to run on port 3000 in the container. The application is exposed publicly at `https://$YourTemboHostName/embeddings`, and those requests are mapped to the path `/v1/embeddings` and port `3000` on the container. Two environment variables are configured, along with cpu and memory requests and limits. An ephemeral storage volume is mounted at the `/models` path in the container.
 
 ```bash
 export TEMBO_TOKEN=<your token>
@@ -241,6 +241,6 @@ resp = requests.patch(
 
 ## Limitations
 
--   Container images must be publicly accessible
--   This means all HTTP ingress traffic is authenticated and authorized by Tembo's API Gateway, which means the HTTP header `Authorization: Bearer <your Tembo JWT>` must be valid. This is a limitation of the current implementation, and we are working on a solution to allow direct access to the application service from the internet.
--   Volumes are currently ephemeral only
+-   Container images must be publicly accessible.
+-   This means all HTTP ingress traffic is authenticated and authorized by Tembo's API Gateway. Because of this, the HTTP header `Authorization: Bearer <your Tembo JWT>` must be valid. This is a limitation of the current implementation, and we are working on a solution to allow direct access to the application service from the internet.
+-   Volumes are currently ephemeral only.

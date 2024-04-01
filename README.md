@@ -160,3 +160,15 @@ import Tweet from '../../../components/Tweet'; // the `Tweet` component must be 
 #### 8. RSS feed
 
 The RSS feed for the Tembo Blog gets generated on ever new merge to main and can be found at https://tembo.io/feed.xml.
+
+#### 9. Blog Post in the NewsBanner (Optional)
+
+To feature a blog post or announcement in the NavBar banner:
+
+1. Ensure `isBanner` is set to `true` in the `NavBar` component.
+2. Update the link (`href`) to point to your blog post or announcement page.
+3. Customize the banner message as desired.
+
+![News-banner](https://github.com/tembo-io/website/blob/main/src/components/NavBar.tsx)
+
+> This feature is optional but recommended only for highlighting significant updates or releases.

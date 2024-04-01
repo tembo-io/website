@@ -2,7 +2,11 @@
 sideBarPosition: 1
 ---
 
-import Callout from '../../../../../components/Callout.astro';
+Backups are **always enabled** on Tembo Cloud instances.
+
+Find Restore in **Instance dashboard > Restore from backup**
+
+## Technology
 
 Tembo performs Postgres backups and Write-Ahead Log (WAL) archiving using [Barman](https://pgbarman.org/), powered by the [Cloud Native Postgres Operator (CNPG)](https://cloudnative-pg.io/).
 
@@ -16,16 +20,15 @@ Backups are saved to [Amazon S3](https://aws.amazon.com/s3/).
 
 ## WAL archiving
 
-Tembo sets `archive_timeout` to 5min, ensuring that WAL files are closed and archived to S3 at least every five minutes, providing a deterministic time-based value for your Recovery Point Objective (RPO).
+Tembo sets `archive_timeout` to 5 minutes, ensuring that WAL files are closed and archived to S3 at least every five minutes, providing a deterministic time-based value for your Recovery Point Objective (RPO).
 
 ## Restore
 
-Tembo Cloud supports Point-In-Time Recovery (PITR) to a new Tembo Instance for all running Instances and for 30 days after deletion.
+Tembo Cloud supports Point-In-Time Recovery (PITR) to a new Tembo Instance for all running Instances.
 
-<Callout variant='info'>
-	Coming soon: Point-In-Time Recovery (PITR) via the [Tembo Cloud
-	UI](https://cloud.tembo.io)
-</Callout>
+To restore a running instance, navigate to **Instance dashboard > Restore from backup**.
+
+### Restore via API
 
 For information on authenticating to the API, please see the [Tembo Cloud API authentication guide](/docs/development/api).
 
@@ -35,7 +38,7 @@ TEMBO_ORG=<your organization id>
 TEMBO_INST_RESTORE_FROM=<your instance id>
 TEMBO_INST_RESTORE_TO=<your new instance name>
 
-# Recover to five minutes ago
+# Example, recover to five minutes ago
 TEMBO_RECOVERY_TIME=$(date -u +'%Y-%m-%dT%H:%M:%SZ' -d '-5 minutes')
 
 curl -X 'POST' \
@@ -54,6 +57,6 @@ curl -X 'POST' \
 EOF
 ```
 
-If `recovery_target_time` is omitted, then it will use now as the time.
+If `recovery_target_time` is omitted, then it will restore to the current time.
 
-For more information to restore from an existing instance, please see the [Tembo Cloud Platform API documentation](https://api.tembo.io/redoc).
+For more information, please see the [Tembo Cloud Platform API documentation](https://api.tembo.io/redoc).

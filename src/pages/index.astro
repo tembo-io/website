@@ -40,7 +40,7 @@ const currentPath = Astro.url.pathname;
 
 <Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
 	<div class='main-content'>
-		<NavBar client:load currentPage={currentPath} />
+		<NavBar client:load currentPage={currentPath} isBanner={true} />
 		<div class='w-full h-[150px] overflow-hidden'></div>
 		<Container styles='relative'>
 			<div

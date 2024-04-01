@@ -80,75 +80,95 @@ const currentPath = Astro.url.pathname;
 					>.
 				</p>
 
-				<h2>Popular Tembo Stacks</h2>
+				<h2>Available Tembo Stacks</h2>
 
 				<table>
 					<thead>
+						<th>Type</th>
 						<th>Name</th>
 						<th>Replacement for</th>
 					</thead>
 					<tr>
+						<td>Transactional</td>
 						<td>
-							<a href="/docs/tembo-stacks/oltp">OLTP</a> / <a href="/docs/tembo-stacks/standard">Standard</a>
+							<a href="/docs/product/stacks/transactional/oltp">OLTP</a> / 
+							<a href="/docs/product/stacks/transactional/standard">Standard</a>
 						</td>
 						<td>
 							Amazon RDS, Google Cloud SQL
 						</td>
 					</tr>
 					<tr>
+						<td></td>
 						<td>
-							<a href="/docs/tembo-stacks/vector-db">Vector DB</a>
-						</td>
-						<td>
-							Pinecone, Weaviate
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<a href="/docs/tembo-stacks/rag">RAG</a>
-						</td>
-						<td>
-							LangChain
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<a href="/docs/tembo-stacks/datawarehouse">Data Warehouse</a> / <a href="/docs/tembo-stacks/olap">OLAP</a>
-						</td>
-						<td>
-							Snowflake, Bigquery, Redshift
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<a href="/docs/tembo-stacks/geospatial">Geospatial</a>
-						</td>
-						<td>
-							ESRI, Oracle
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<a href="/docs/tembo-stacks/message-queue">Message Queue</a>
+							<a href="/docs/product/stacks/transactional/message-queue">Message Queue</a>
 						</td>
 						<td>
 							Amazon SQS, RabbitMQ, Redis
 						</td>
 					</tr>
 					<tr>
+						<td></td>
 						<td>
-							<a href="/docs/tembo-stacks/machine-learning">Machine Learning</a>
+							<a href="/docs/product/stacks/transactional/mongo-alternative">Mongo Alternative on Postgres</a>
+						</td>
+						<td>
+							MongoDB
+						</td>
+					</tr>
+					<tr>
+						<td>AI</td>
+						<td>
+							<a href="/docs/product/stacks/ai/vectordb">Vector DB</a>
+						</td>
+						<td>
+							Pinecone, Weaviate
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<a href="/docs/product/stacks/ai/rag">RAG</a>
+						</td>
+						<td>
+							LangChain
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<a href="/docs/product/stacks/ai/machine-learning">Machine Learning</a>
 						</td>
 						<td>
 							MindsDB
 						</td>
 					</tr>
 					<tr>
+						<td>Analytical</td>
 						<td>
-							<a href="/docs/tembo-stacks/mongo-alternative">Mongo Alternative on Postgres</a>
+							<a href="/docs/product/stacks/analytical/data-warehouse">Data Warehouse</a> / 
+							<a href="/docs/product/stacks/analytical/olap">OLAP</a>
 						</td>
 						<td>
-							MongoDB
+							Snowflake, Bigquery, Redshift
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<a href="/docs/product/stacks/analytical/geospatial">Geospatial</a>
+						</td>
+						<td>
+							ESRI, Oracle
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<a href="/docs/product/stacks/analytical/timeseries">Timeseries</a>
+						</td>
+						<td>
+							InfluxDB, TimescaleDB
 						</td>
 					</tr>
 				</table>
