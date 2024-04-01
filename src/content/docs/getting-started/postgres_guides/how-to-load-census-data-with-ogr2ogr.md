@@ -94,7 +94,7 @@ PGHOST=<your-host>
 PGPORT=5432
 PGUSER=postgres
 PGPASSWORD=<your-password>
-SCHEMA_NAME=public
+SCHEMA_NAME=tiger_data
 
 export PGDATABASE PGHOST PGPORT PGUSER PGPASSWORD
 
@@ -265,7 +265,16 @@ tl_2010_25_tabblock10.shp
 CREATE EXTENSION postgis_tiger_geocoder CASCADE;
 ```
 
-### Query 1 - 
+```sql
+SET search_path TO "$user", public, tiger, tiger_data;
+```
+```sql
+ALTER DATABASE your_database_name SET search_path TO "$user", public, tiger, tiger_data;
+```
+
+
+
+### Query 1 - Confirm proper data loading
 
 ```sql
 SELECT table_schema, table_name
