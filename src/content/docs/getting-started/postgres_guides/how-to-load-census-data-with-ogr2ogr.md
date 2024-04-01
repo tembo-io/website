@@ -8,7 +8,10 @@ It is useful for guiding public policy decisions, allocating government funds, p
 
 This guide will walk through the steps to download `TIGER` census data, load it into Postgres with `ogr2ogr`, and confirm functionality using the `postgis_tiger_geocoder` extension.
 
-## Contents
+The Postgres instance used in this guide was powered by [Tembo Cloud](https://cloud.tembo.io/)'s Geospatial Stack.
+To learn more about the Geospatial Stack [click here](https://tembo.io/docs/product/stacks/analytical/geospatial).
+
+## Table of Contents
 - [Download ogr2ogr](#download-ogr2ogr)
 - [Obtain and load census data](#obtain-and-load-census-data)
     - [Single file](#single-file)
@@ -17,7 +20,7 @@ This guide will walk through the steps to download `TIGER` census data, load it 
 
 ## Download ogr2ogr
 
-[ogr2ogr](https://gdal.org/programs/ogr2ogr.html) is a tool within GDAL (Geospatial Data Abstraction Library); an open source library maintained by OSGeo. PostGIS recognizes `ogr2ogr` as a valid loading method, which can be read about within the [PostGIS official training material](https://postgis.net/workshops/postgis-intro/loading_data.html#loading-with-ogr2ogr).
+[ogr2ogr](https://gdal.org/programs/ogr2ogr.html) is a tool within GDAL (Geospatial Data Abstraction Library); an open source library maintained by [OSGeo](https://www.osgeo.org/projects/gdal/). PostGIS recognizes `ogr2ogr` as a valid loading method, which can be explored within the [PostGIS official training material](https://postgis.net/workshops/postgis-intro/loading_data.html#loading-with-ogr2ogr).
 
 If you haven’t already, please download the GDAL library which includes `ogr2ogr`.
 
@@ -42,16 +45,21 @@ sudo apt-get install gdal-bin
 
 For Windows and others, please refer to the [official GDAL download page](https://gdal.org/download.html#download).
 
-There are numerous flags that allow you to configure a `ogr2ogr` command, which outlined within the [description section](https://gdal.org/programs/ogr2ogr.html#description) of the official documentation.
+There are numerous flags that allow you to configure a `ogr2ogr` command, which is outlined within the [description section](https://gdal.org/programs/ogr2ogr.html#description) of the official documentation.
 
 Below we've laid out a select few that we'll be using in this guide:
+
+
+The nlt option stands for “new layer type”. For shape file input in particular, the new layer type is often a “multi-part geometry”, so the system needs to be told in advance to use “MultiPolygon” instead of “Polygon” for the geometry type.
+
+
 
 | Parameter                                                | Description                                                                                    |
 |----------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | `-f "PostgreSQL"`                                        | Specifies the format of the output data source, in this case, PostgreSQL.                      |
-| `PG:"dbname=postgres host=<your-host> port=5432 user=postgres password=<your-password>"` | Connection string for PostgreSQL database. Replace placeholders with your actual credentials. |
+| `PG:"dbname=postgres host=<your-host> port=5432 user=postgres password=<your-password>"` | Connection string credentials. |
 | `-nln tiger_data.ma_tabblock`                            | Name of the new layer (table) to be created in the database.                                  |
-| `-nlt PROMOTE_TO_MULTI`                                  | Converts geometries to multi geometries.                                                      |
+| `-nlt PROMOTE_TO_MULTI`                                  | Shape files contain multi-part geometries, so this flag primes Postgres to use `MultiPolygon` instead of `Polygon` as the type.                                                      |
 | `-lco GEOMETRY_NAME=the_geom`                            | Specifies the name of the geometry column in the new table.                                   |
 | `-lco FID=gid`                                           | Designates the name of the FID (Feature ID) column in the new table.                          |
 | `-lco PRECISION=no`                                      | Disables the storage of geometry precision.                                                   |
@@ -63,11 +71,12 @@ While there are many ways to acquire census data, one good source is from the [U
 
 It's worth noting that [TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) is an acronym for "Topologically Integrated Geographic Encoding and Referencing system", and is the United States Census Bureau's database for census and survey mapping. [Click here](https://www2.census.gov/geo/pvs/tiger2010st/) for the US Census Bureau directory for TIGER/Line shapefiles for all states, dated 2010.
 
-As mentioned above, if you'd like other states [follow this link](https://www2.census.gov/geo/pvs/tiger2010st/).
+We drew inspiration from the PostGIS guide, [Loader_Generate_Census_Script](https://postgis.net/docs/Loader_Generate_Census_Script.html), and will focus solely on `Massachusetts` data, specifically, `tract`, block groups `bg`, and `tabblocks`.
 
 ### Single file
 
-We drew inspiration from the PostGIS guide, [Loader_Generate_Census_Script](https://postgis.net/docs/Loader_Generate_Census_Script.html), and will focus solely on `Massachusetts` data, specifically, `tract`, block groups `bg`, and `tabblocks`.
+This section walks through the three steps it would take to download, unzip, and load a single file into Postgres.
+If you'd like to leverage a script to work with either single or multiple files, please refer to the next section.
 
 <details>
 <summary><strong>wget commands to download the data</strong></summary>
@@ -124,8 +133,6 @@ tl_2010_25_tabblock10.shp
 
 ### Multiple files
 
-While the above section does a good job, you might be interested in 
-
 <details>
 <summary><strong>Example Script</strong></summary>
 
@@ -134,10 +141,10 @@ While the above section does a good job, you might be interested in
 
 # Set these variables according to your environment
 PGDATABASE=postgres
-PGHOST=org-evan-test-inst-evan-dev-march-geo-test.data-1.use1.tembo-development.com
+PGHOST=<your-host>
 PGPORT=5432
 PGUSER=postgres
-PGPASSWORD=VC2tVa2vz8bBEhUU
+PGPASSWORD=<your-password>
 #DATA_DIR=.
 SCHEMA_NAME=public
 
