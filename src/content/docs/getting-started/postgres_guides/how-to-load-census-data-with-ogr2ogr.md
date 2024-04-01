@@ -14,8 +14,7 @@ To learn more about the Geospatial Stack [click here](https://tembo.io/docs/prod
 ## Table of Contents
 - [Download ogr2ogr](#download-ogr2ogr)
 - [Obtain and load census data](#obtain-and-load-census-data)
-    - [Single file](#single-file)
-    - [Multiple files](#multiple-files)
+    - [Example Script](#example-script)
 - [Test for functionality](#test-for-functionality)
 
 ## Download ogr2ogr
@@ -51,19 +50,20 @@ While there are many ways to acquire census data, one good source is from the [U
 
 It's worth noting that [TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) is an acronym for "Topologically Integrated Geographic Encoding and Referencing system", and is the United States Census Bureau's database for census and survey mapping. [Click here](https://www2.census.gov/geo/pvs/tiger2010st/) for the US Census Bureau directory for TIGER/Line shapefiles for all states, dated 2010.
 
-We drew inspiration from the PostGIS guide, [Loader_Generate_Census_Script](https://postgis.net/docs/Loader_Generate_Census_Script.html), and created a script to ease the pipeline of working with multiple states.
+We drew inspiration from the PostGIS guide, [Loader_Generate_Census_Script](https://postgis.net/docs/Loader_Generate_Census_Script.html), and created a script to ease the aquisition and loading of files. The following three sections review the portions that require your configuration; the rest will be taken care of for you.
 
 ### Establish connection string variables
 
-
+Your connection string will be unique, and will need to be adjusted before the script can be run.
 
 ### Select files to download
 
-and will limit our file selection to `tract`, block groups `bg`, and `tabblocks`.
+For the purposes of this guide, we've selected the `tract`, block groups `bg`, and `tabblocks` files, but there are many more available.
+Check out [Minnesota's page](https://www2.census.gov/geo/pvs/tiger2010st/27_Minnesota/27/) for an example of the files available.
 
 ### Configure `ogr2ogr` command
 
-There are numerous flags that allow you to configure a `ogr2ogr` command, which is outlined within the [description section](https://gdal.org/programs/ogr2ogr.html#description) of the official documentation.
+There are numerous flags that allow you to configure a `ogr2ogr` command, which are outlined within the [description section](https://gdal.org/programs/ogr2ogr.html#description) of the official documentation.
 
 Below we've laid out a select few that we'll be using in this guide:
 
@@ -78,13 +78,12 @@ Below we've laid out a select few that we'll be using in this guide:
 | `-lco PRECISION=no`                                      | Disables the storage of geometry precision.                                                   |
 | `tl_2010_25_tabblock10.shp`                              | The path to the input shapefile.                          
 
-### Multiple files
+### Example Script
 
-When working with census data across multiple states, the total number of files to manage increases significantly.
-While the above-mentioned workflow might be efficient for a single, or small number of files, it becomes cumbersome to repeatedly apply to larger datasets.
+Below you can expand `census.sh` and copy its contents to a `.sh` file in your local environment.
 
 <details>
-<summary><strong>Example Script</strong></summary>
+<summary><strong>census.sh</strong></summary>
 
 ```bash
 #!/bin/bash
@@ -201,17 +200,18 @@ You can then run the script and enter the state abbreviation when prompted:
 ```bash
 bash census.sh
 ```
-
+```text
+Enter state abbreviation (e.g., FL for Florida):
+```
 ---
 
 <details>
-<summary><strong>Single file</strong></summary>
+<summary><strong>Single file workflow</strong></summary>
 
 This section walks through the three steps it would take to download, unzip, and load a single file into Postgres.
 If you'd like to leverage a script to work with either single or multiple files, please refer to the next section.
 
-<details>
-<summary><strong>wget commands to download the data</strong></summary>
+#### wget commands to download the data
 
 ```bash
 wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_bg10.zip
@@ -223,10 +223,7 @@ wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_
 wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_tabblock10.zip
 ```
 
-</details>
-
-<details>
-<summary><strong>unzip commands to decomp:Mress the downloaded files</strong></summary>
+#### unzip commands to decompress the downloaded files
 
 ```bash
 unzip tl_2010_25_bg10.zip
@@ -238,10 +235,7 @@ unzip tl_2010_25_tract10.zip
 unzip tl_2010_25_tabblock10.zip
 ```
 
-</details>
-
-<details>
-<summary><strong>ogr2ogr command to load the data into Postgres</strong></summary>
+#### ogr2ogr command to load the data into Postgres
 
 :bulb: Note that the command will have to be run for each shapefile, which means that the `-nln` and final arguments of the command need to be specified per file.
 
