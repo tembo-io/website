@@ -67,6 +67,10 @@ const filterDuplicates = (
 	return result;
 };
 
+const isUpperCase = (rootDocs: CollectionEntry<'docs'>[]) => {
+	return getSideBarItems(rootDocs).some((doc) => doc.uppercaseParent);
+};
+
 const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
 	const items = rootDocs
 		.sort((docA, docB) => {
@@ -163,9 +167,11 @@ export async function getNestedSideBarLinks(
 			.toLowerCase()
 			.includes(doc.id.toLowerCase().split('/').splice(0, 2).join('/')),
 	);
+
+	const title = cleanSideBarTitle(slug.split('/')[1]);
 	// Push the first level of docs (e.g /docs/cloud/nested-dir/doc.md)
 	sideBarLinks.push({
-		label: cleanSideBarTitle(slug.split('/')[1]),
+		label: isUpperCase(rootDocs) ? title.toUpperCase() : title,
 		items: getSideBarItems(rootDocs).filter(
 			(item) => item.slug.split('/').length === 5,
 		),
