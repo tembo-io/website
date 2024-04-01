@@ -8,13 +8,16 @@ date: 2024-04-02T12:00
 description: Announcing support for pganalyze on Tembo Cloud
 ---
 
-At Tembo, we’ve been building a world-class, developer friendly managed Postgres solution. We’re excited to announce
-Tembo Cloud now integrates seamlessly with pganalyze - a powerful tool that helps you understand and optimize your
-Postgres performance. With this integration, you can now easily monitor, analyze your Tembo Cloud Postgres instance with
-detailed insights into your database performance and configure alerts to receive notifications about the same.
+At Tembo, we’ve been building a world-class, developer friendly managed Postgres solution in [Tembo Cloud](https://cloud.tembo.io).
+Tembo Cloud allows you to unlock the full power of the [Postgres ecosystem](https://tembo.io/blog/ga) with support
+for over 200 extensions and 10+ workload optimized stacks.
+
+Today, we’re excited to announce that Tembo Cloud now integrates seamlessly with pganalyze - a powerful tool that helps you
+understand and optimize your Postgres performance. With this integration, you can now easily monitor, analyze your Tembo Cloud
+Postgres instance with detailed insights into your database performance and configure alerts to receive notifications about the same.
 
 # What is pganalyze?
-pganalyze helps you deliver consistent database performance and availability through intelligent tuning advisors and
+pganalyze helps you deliver consistent database performance through intelligent tuning advisors and
 continuous database profiling. It provides Postgres configuration recommendations, helps identify slow queries, track
 query performance over time, and understands the overall health of your database.
 
@@ -26,6 +29,8 @@ include:
 - Log Insights
 - System Metrics
 - Alerts and Check-Up
+
+We'll be talking about some of these features in the following sections.
 
 # Connecting your Tembo Instance to pganalyze
 Connecting your Tembo Cloud instance to pganalyze is simple and can be done in a few clicks.
@@ -49,11 +54,8 @@ To connect your Tembo Cloud instance to pganalyze, you will need to activate the
 3. Click on the “Apps” tab in the instance details page.
 4. Submit your pganalyze API key in the “API Key” section and click “Activate”.
 
-Once activated, pganalyze will start collecting and analyzing your database performance data. You can access your pganalyze
-dashboard by clicking on the “pganalyze app” button.
-
-pganalyze will automatically start collecting and analyzing your database performance data, and provide you
-with detailed insights into your database performance.
+Once activated, pganalyze will start collecting and analyzing your database performance data, and provide you with
+detailed insights into your database performance. You can access your pganalyze dashboard by clicking on the “pganalyze app” button.
 
 # Tuning Advisors
 Some of the most useful features in pganalyze are its tuning advisors. The Index Advisor and VACUUM Advisor help you optimize
