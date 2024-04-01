@@ -8,7 +8,7 @@ The aptly-named point cloud dataset represents a collection of data points in sp
 This guide will walk through the steps to download sample LiDAR data, load it into Postgres with PDAL, and confirm functionality using the `pgpointcloud` extension.
 
 The content of this guide was made possible with [Tembo Cloud](https://cloud.tembo.io/)'s Geospatial Stack.
-You can learn more about the Geospatial Stack [here](https://tembo.io/docs/product/stacks/analytical/geospatial).
+To learn more about the Geospatial Stack [click here](https://tembo.io/docs/product/stacks/analytical/geospatial).
 
 ## Table of contents
 - [Download PDAL](#download-pdal)
