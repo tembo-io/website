@@ -16,7 +16,7 @@ To learn more about the Geospatial Stack [click here](https://tembo.io/docs/prod
 - [Obtain and load census data](#obtain-and-load-census-data)
     - [Single file](#single-file)
     - [Multiple files](#multiple-files)
-- [Confirm successful load](#confirm-successful-load)
+- [Test for functionality](#test-for-functionality)
 
 ## Download ogr2ogr
 
@@ -94,10 +94,7 @@ wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_
 </details>
 
 <details>
-<summary><strong>unzip commands to unzip the downloaded files</strong></summary>
-
-```bash
-Unzip the files to your target directory.
+<summary><strong>unzip commands to decompress the downloaded files</strong></summary>
 
 ```bash
 unzip tl_2010_25_bg10.zip
@@ -113,6 +110,8 @@ unzip tl_2010_25_tabblock10.zip
 
 <details>
 <summary><strong>ogr2ogr command to load the data into Postgres</strong></summary>
+
+:bulb: Note that the command will have to be run for each shapefile, which means that the `-nln` and final arguments of the command need to be specified per file.
 
 ```bash
 ogr2ogr -f "PostgreSQL" \
@@ -132,6 +131,9 @@ tl_2010_25_tabblock10.shp
 </details>
 
 ### Multiple files
+
+When working with census data across multiple states, the total number of files to manage increases significantly.
+While the above-mentioned workflow might be efficient for a single, or small number of files, it becomes cumbersome to repeatedly apply to larger datasets.
 
 <details>
 <summary><strong>Example Script</strong></summary>
@@ -245,13 +247,15 @@ echo "Data loading complete."
 
 </details>
 
-## Confirm successful load
+## Test for functionality
 
-`psql` into Postgres and run the following:
+`psql` into Postgres and enable the `postgis_tiger_geocoder` extension:
 
 ```
 CREATE EXTENSION postgis_tiger_geocoder CASCADE;
 ```
+
+### Query 1 - 
 
 ```sql
 SELECT table_schema, table_name
@@ -267,3 +271,12 @@ ORDER BY table_name;
  tiger_data   | ma_tract
 (3 rows)
 ```
+
+### Query 2 - 
+
+
+
+### Query 3 - 
+
+
+
