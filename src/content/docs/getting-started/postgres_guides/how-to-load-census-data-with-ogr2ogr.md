@@ -45,14 +45,27 @@ sudo apt-get install gdal-bin
 
 For Windows and others, please refer to the [official GDAL download page](https://gdal.org/download.html#download).
 
+## Obtain and load census data
+
+While there are many ways to acquire census data, one good source is from the [United States Census Bureau](https://www.census.gov/).
+
+It's worth noting that [TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) is an acronym for "Topologically Integrated Geographic Encoding and Referencing system", and is the United States Census Bureau's database for census and survey mapping. [Click here](https://www2.census.gov/geo/pvs/tiger2010st/) for the US Census Bureau directory for TIGER/Line shapefiles for all states, dated 2010.
+
+We drew inspiration from the PostGIS guide, [Loader_Generate_Census_Script](https://postgis.net/docs/Loader_Generate_Census_Script.html), and created a script to ease the pipeline of working with multiple states.
+
+### Establish connection string variables
+
+
+
+### Select files to download
+
+and will limit our file selection to `tract`, block groups `bg`, and `tabblocks`.
+
+### Configure `ogr2ogr` command
+
 There are numerous flags that allow you to configure a `ogr2ogr` command, which is outlined within the [description section](https://gdal.org/programs/ogr2ogr.html#description) of the official documentation.
 
 Below we've laid out a select few that we'll be using in this guide:
-
-
-The nlt option stands for “new layer type”. For shape file input in particular, the new layer type is often a “multi-part geometry”, so the system needs to be told in advance to use “MultiPolygon” instead of “Polygon” for the geometry type.
-
-
 
 | Parameter                                                | Description                                                                                    |
 |----------------------------------------------------------|------------------------------------------------------------------------------------------------|
@@ -64,71 +77,6 @@ The nlt option stands for “new layer type”. For shape file input in particul
 | `-lco FID=gid`                                           | Designates the name of the FID (Feature ID) column in the new table.                          |
 | `-lco PRECISION=no`                                      | Disables the storage of geometry precision.                                                   |
 | `tl_2010_25_tabblock10.shp`                              | The path to the input shapefile.                          
-
-## Obtain and load census data
-
-While there are many ways to acquire census data, one good source is from the [United States Census Bureau](https://www.census.gov/).
-
-It's worth noting that [TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) is an acronym for "Topologically Integrated Geographic Encoding and Referencing system", and is the United States Census Bureau's database for census and survey mapping. [Click here](https://www2.census.gov/geo/pvs/tiger2010st/) for the US Census Bureau directory for TIGER/Line shapefiles for all states, dated 2010.
-
-We drew inspiration from the PostGIS guide, [Loader_Generate_Census_Script](https://postgis.net/docs/Loader_Generate_Census_Script.html), and will focus solely on `Massachusetts` data, specifically, `tract`, block groups `bg`, and `tabblocks`.
-
-### Single file
-
-This section walks through the three steps it would take to download, unzip, and load a single file into Postgres.
-If you'd like to leverage a script to work with either single or multiple files, please refer to the next section.
-
-<details>
-<summary><strong>wget commands to download the data</strong></summary>
-
-```bash
-wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_bg10.zip
-```
-```bash
-wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_tract10.zip
-```
-```bash
-wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_tabblock10.zip
-```
-
-</details>
-
-<details>
-<summary><strong>unzip commands to decompress the downloaded files</strong></summary>
-
-```bash
-unzip tl_2010_25_bg10.zip
-```
-```bash
-unzip tl_2010_25_tract10.zip
-```
-```bash
-unzip tl_2010_25_tabblock10.zip
-```
-
-</details>
-
-<details>
-<summary><strong>ogr2ogr command to load the data into Postgres</strong></summary>
-
-:bulb: Note that the command will have to be run for each shapefile, which means that the `-nln` and final arguments of the command need to be specified per file.
-
-```bash
-ogr2ogr -f "PostgreSQL" \
-PG:"dbname=postgres \
-host=<your-host> \
-port=5432 \
-user=postgres \
-password=<your-password>" \
--nln tiger_data.ma_tabblock \
--nlt PROMOTE_TO_MULTI \
--lco GEOMETRY_NAME=the_geom \
--lco FID=gid \
--lco PRECISION=no \
-tl_2010_25_tabblock10.shp
-```
-
-</details>
 
 ### Multiple files
 
@@ -147,7 +95,6 @@ PGHOST=<your-host>
 PGPORT=5432
 PGUSER=postgres
 PGPASSWORD=<your-password>
-#DATA_DIR=.
 SCHEMA_NAME=public
 
 export PGDATABASE PGHOST PGPORT PGUSER PGPASSWORD
@@ -245,6 +192,75 @@ download_and_load_state "$state_abbr"
 echo "Data loading complete."
 ```
 
+</details>
+
+---
+
+You can then run the script and enter the state abbreviation when prompted:
+
+```bash
+bash census.sh
+```
+
+---
+
+<details>
+<summary><strong>Single file</strong></summary>
+
+This section walks through the three steps it would take to download, unzip, and load a single file into Postgres.
+If you'd like to leverage a script to work with either single or multiple files, please refer to the next section.
+
+<details>
+<summary><strong>wget commands to download the data</strong></summary>
+
+```bash
+wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_bg10.zip
+```
+```bash
+wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_tract10.zip
+```
+```bash
+wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_tabblock10.zip
+```
+
+</details>
+
+<details>
+<summary><strong>unzip commands to decomp:Mress the downloaded files</strong></summary>
+
+```bash
+unzip tl_2010_25_bg10.zip
+```
+```bash
+unzip tl_2010_25_tract10.zip
+```
+```bash
+unzip tl_2010_25_tabblock10.zip
+```
+
+</details>
+
+<details>
+<summary><strong>ogr2ogr command to load the data into Postgres</strong></summary>
+
+:bulb: Note that the command will have to be run for each shapefile, which means that the `-nln` and final arguments of the command need to be specified per file.
+
+```bash
+ogr2ogr -f "PostgreSQL" \
+PG:"dbname=postgres \
+host=<your-host> \
+port=5432 \
+user=postgres \
+password=<your-password>" \
+-nln tiger_data.ma_tabblock \
+-nlt PROMOTE_TO_MULTI \
+-lco GEOMETRY_NAME=the_geom \
+-lco FID=gid \
+-lco PRECISION=no \
+tl_2010_25_tabblock10.shp
+```
+
+</details>
 </details>
 
 ## Test for functionality
