@@ -49,10 +49,13 @@ pganalyze dashboard under the “Settings” section. Copy your API key to use i
 ## Step 3: Activate the pganalyze App in Tembo Cloud
 To connect your Tembo Cloud instance to pganalyze, you will need to activate the pganalyze App for your instance.
 
+![activate-pganalyze.png](temp-app.png)
+
 1. Log in to Tembo Cloud at [cloud.tembo.io](https://cloud.tembo.io/).
 2. Select the instance you want to connect to pganalyze.
 3. Click on the “Apps” tab in the instance details page.
 4. Submit your pganalyze API key in the “API Key” section and click “Activate”.
+5. Click the “pganalyze App” button to access your pganalyze dashboard.
 
 Once activated, pganalyze will start collecting and analyzing your database performance data, and provide you with
 detailed insights into your database performance. You can access your pganalyze dashboard by clicking on the “pganalyze app” button.
