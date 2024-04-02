@@ -48,9 +48,9 @@ For Windows and others, please refer to the [official GDAL download page](https:
 
 While there are many ways to acquire census data, one good source is from the [United States Census Bureau](https://www.census.gov/).
 
-It's worth noting that [TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) is an acronym for "Topologically Integrated Geographic Encoding and Referencing system", and is the United States Census Bureau's database for census and survey mapping. [Click here](https://www2.census.gov/geo/pvs/tiger2010st/) for the US Census Bureau directory for TIGER/Line shapefiles for all states, dated 2010.
+Their database for census and survey mapping is called [TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) (Topologically Integrated Geographic Encoding and Referencing system), and the directory for TIGER/Line shapefiles for all states, dated 2010, can be found [here](https://www2.census.gov/geo/pvs/tiger2010st/).
 
-We drew inspiration from the PostGIS guide, [Loader_Generate_Census_Script](https://postgis.net/docs/Loader_Generate_Census_Script.html), and created a script to ease the aquisition and loading of files. The following three sections review the portions that require your configuration; the rest will be taken care of for you.
+We drew inspiration from the PostGIS guide, [Loader_Generate_Census_Script](https://postgis.net/docs/Loader_Generate_Census_Script.html), and created a script to ease the aquisition and loading of these shapefiles. The following three sections review the portions that require your configuration; the rest will be taken care of for you.
 
 ### Establish connection string variables
 
@@ -208,8 +208,7 @@ Enter state abbreviation (e.g., FL for Florida):
 <details>
 <summary><strong>Single file workflow</strong></summary>
 
-This section walks through the three steps it would take to download, unzip, and load a single file into Postgres.
-If you'd like to leverage a script to work with either single or multiple files, please refer to the next section.
+If instead of running a script, you're interested in walking through individual commands, this section walks through the three steps it would take to download, unzip, and load a single file into Postgres.
 
 #### wget commands to download the data
 
@@ -265,9 +264,14 @@ tl_2010_25_tabblock10.shp
 CREATE EXTENSION postgis_tiger_geocoder CASCADE;
 ```
 
+Following PostGIS conventions, we created a schema called `tiger_data` to house the loaded data. If you'd like to query the data, you'll need to set the search path to include this schema:
+
 ```sql
 SET search_path TO "$user", public, tiger, tiger_data;
 ```
+
+If you'd like to make this change permanet and persist across sessions, you can alter the database:
+
 ```sql
 ALTER DATABASE your_database_name SET search_path TO "$user", public, tiger, tiger_data;
 ```
