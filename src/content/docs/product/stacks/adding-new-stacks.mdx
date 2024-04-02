@@ -401,19 +401,6 @@ postgres_config:
 - Follow the [Run Tembo Locally](https://tembo.io/docs/tembo-stacks/local-tembo-operator) guide to get tembo set up locally.
 - Install your Tembo Stack into the local kubernetes cluster `kubectl apply -f </path/to/my_coredb.yaml`/>
 
-# Releasing on Tembo Cloud
+# Requesting inclusion in Tembo Cloud
 
-If creating a new Stack, follow steps 1, 2 and 3. Updates to existing stacks require steps 1 and 2.
-
-1. Open PR on the tembo repo, in tembo-operator f
-    1. this commits the Stack’s definition to the [tembo-stacks project](https://github.com/tembo-io/tembo/tree/main/tembo-stacks/src/stacks/specs)
-    2. Bump version to the [tembo-stacks crate](https://github.com/tembo-io/tembo/blob/cbe3ddf14e4682007428532fa28bf3249c72003f/tembo-stacks/Cargo.toml#L4)
-    3. Example: https://github.com/tembo-io/tembo/pull/449: note-the code for tembo stacks has moved from `tembo-operator` to `tembo-stacks`. The code changes in this PR still apply, but their location has changed.
-2. Open PR on the control-plane
-    1. Example: https://github.com/tembo-io/control-plane/pull/399
-    2. control-plane imports the `tembo_stacks` crate which contains the Stack’s specification
-    3. exposes the Stack definition on the public facing platform API
-3. PR to Mahout - these should not merge until PR 2 makes it to production
-    1. example: https://github.com/tembo-io/mahout/pull/508
-    2. this adds the data required to display the stack in the UI
-    3. Optionally - release behind a feature flag (see @Darren Baldwin for feature flagging)
+Open an issue on the [Tembo Github Repo](https://github.com/tembo-io/tembo) or drop us a line in [Slack](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw).
