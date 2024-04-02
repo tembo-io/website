@@ -7,8 +7,6 @@ description: Learn to add your own custom stacks to Tembo.
 
 import Callout from '../../../../components/Callout.astro';
 
-# Building Tembo Stacks
-
 # Introduction
 
 What are Stacks? Start here: [https://tembo.io/blog/tembo-stacks-intro](https://tembo.io/blog/tembo-stacks-intro).  Stacks are “blueprints” for deploying PostgreSQL, extensions, tools, configurations, and anything else related to making a database fit a specific use case better. The generic Stack specification lives in code and is [enforced by a Rust Struct](https://github.com/tembo-io/tembo/blob/cd8a139ef339ac4a5c61f4f513c9e7e275a15dad/tembo-operator/src/stacks/types.rs#L15-L47). The Stack Spec defines everything that should be created or configured for a given Tembo instance. All Stacks are defined in YAML. See the [stack spec files](https://github.com/tembo-io/tembo/tree/cd8a139ef339ac4a5c61f4f513c9e7e275a15dad/tembo-stacks/src/stacks/specs) in the tembo repo for current examples of all existing Stacks. To build a new Stack, you must define it in YAML.
