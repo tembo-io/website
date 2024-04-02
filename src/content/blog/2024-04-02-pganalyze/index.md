@@ -66,7 +66,7 @@ The pganalyze Index Advisor automatically detects missing indexes and recommends
 improve query performance across your databases. These index recommendations are based on your database schema, statistics,
 and query workload. In addition to recommending new indexes, the Index Advisor also provides insights into existing indexes
 and why they may actually be ignored. This can be particularly useful for identifying whether a slow query is indexed
-properly.
+properly. Read more about the Index Advisor in the [pganalyze documentation](https://pganalyze.com/docs/index-advisor).
 
 ![index-advisor.png](index-advisor.png)
 
@@ -75,7 +75,7 @@ Optimizing VACUUM is critical for maintaining peak Postgres performance, but it 
 The VACUUM Advisor provides insights and recommendations based on the following key metrics such as autovacuum
 efficiency, dead rows, and table bloat. It does this by scanning each table's statistics and combining them with the
 Postgres logs to provide you with a holistic view of bloat, freezing and individual tables. To ensure proactive monitoring,
-pganalyze provides alerts related to these insights.
+pganalyze provides alerts related to these insights. Read more about the VACUUM Advisor in the [pganalyze documentation](https://pganalyze.com/docs/vacuum-advisor).
 
 ![vacuum-advisor.png](vacuum-advisor.png)
 
