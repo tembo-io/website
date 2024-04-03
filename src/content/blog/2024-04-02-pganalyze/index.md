@@ -21,6 +21,8 @@ pganalyze helps you deliver consistent database performance through intelligent 
 continuous database profiling. It provides Postgres configuration recommendations, helps identify slow queries, track
 query performance over time, and understands the overall health of your database.
 
+![query-performance.png](query-performance.png)
+
 pganalyze has a wide range of features that help you understand and optimize your Postgres database. Key features
 include:
 
