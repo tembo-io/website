@@ -4,7 +4,7 @@ title: What’s Happening on the PGXN v2 Project
 authors: [theory]
 tags: [pgxn, extensions, trunk]
 # image: './pg-14-16.png'
-date: 2024-04-02T14:00
+date: 2024-04-03T14:00
 description: |
   A lot of thinking, explaining, dreaming, and planning has gone into what
   we're now calling the "PGXN v2" initiative. Let's check in on things, shall
