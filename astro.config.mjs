@@ -11,7 +11,7 @@ export default defineConfig({
 		react(),
 		tailwind(),
 		mdx(),
-		astroPluginValidateLinks({ validateAbsoluteLinks: false }),
+		astroPluginValidateLinks({ validateAbsoluteLinks: true }),
 	],
 	site: 'https://tembo.io',
 	redirects: {

@@ -1,3 +1,5 @@
+import { z } from 'astro:content';
+
 export interface Author {
 	name: string;
 	title?: string;
@@ -5,6 +7,28 @@ export interface Author {
 	image_url: string;
 	email?: string;
 }
+
+export const authorsEnum = z.array(
+	z
+		.enum([
+			'ryw',
+			'samay',
+			'adam',
+			'rjzv',
+			'steven',
+			'jay',
+			'adarsh',
+			'eric',
+			'ian',
+			'darren',
+			'abby',
+			'evan',
+			'theory',
+			'joshua',
+			'vini',
+		])
+		.default('ryw'),
+);
 
 export const AUTHORS: Record<string, Author> = {
 	ryw: {

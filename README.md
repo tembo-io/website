@@ -89,7 +89,7 @@ description: Walk through using pg_vectorize to automate the vector search workf
 
 -   `title` is the title of the blog post. This will be displayed at the top of each post, on the main card list page, and in the `title` meta tag.
 
--   `authors` is an array of the authors of the post. Each author should be a string that matches the key of an author in the `AUTHORS` object inside of [here](https://github.com/tembo-io/website/blob/31ed5fdedd11579c83dbf7e151aa42287726685f/src/content/config.ts#L31).
+-   `authors` is an array of the authors of the post. Each author should be a string that matches the key of an author in the `AUTHORS` object inside of [here](https://github.com/tembo-io/website/blob/0a887c61a8e6165a6ea0c13d4c84db255d04ad31/src/blogAuthors.ts#L9).
 
 -   `tags` is an array of tags that the post is associated with. Each tag will be displayed inside of the left sidebar in each post and will also be used inside of the `keywords` meta tag. The main tags that we use are `postgres`. `extensions`, `stacks`, `engineering`, and `data`.
 

@@ -54,8 +54,8 @@ SELECT * FROM products limit 2;
 To get started, setup a products table. Copy from the example data provided by the extension.
 
 ```sql
-CREATE TABLE products AS
-SELECT * FROM vectorize.example_products;
+CREATE TABLE products (LIKE vectorize.example_products INCLUDING ALL);
+INSERT INTO products SELECT * FROM vectorize.example_products;
 ```
 
 ```sql
@@ -133,8 +133,8 @@ SELECT pg_reload_conf();
 Create an example table if it does not already exist.
 
 ```sql
-CREATE TABLE products AS
-SELECT * FROM vectorize.example_products;
+CREATE TABLE products (LIKE vectorize.example_products INCLUDING ALL);
+INSERT INTO products SELECT * FROM vectorize.example_products;
 ```
 
 Then create the job:
