@@ -43,8 +43,8 @@ Connecting your Tembo Cloud instance to pganalyze is simple and can be done in a
 If you don’t already have a pganalyze account, you can sign up for a free trial at [pganalyze.com](https://pganalyze.com/).
 
 ## Step 2: Obtain your pganalyze API Key
-Once you have signed up for pganalyze, you will need to obtain your pganalyze API key. You can find your API key in the
-pganalyze dashboard under the “Settings” section. Copy your API key to use in the next step.
+Once you have signed up for pganalyze, you will need to obtain your pganalyze Collector API Key. You can find or create
+your API Key in the pganalyze dashboard under the “Settings” section. Copy your Collector API Key to use in the next step.
 
 ![api-key.png](api-key.png)
 
