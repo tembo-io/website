@@ -2,9 +2,9 @@
 slug: pganalyze
 title: 'Advanced PostgreSQL Metrics and Insights on Tembo Cloud with pganalyze'
 authors: [ian]
-tags: [postgres]
+tags: [postgres, announcement, apps, pganalyze]
 image: './pganalyze.svg'
-date: 2024-04-03T12:00
+date: 2024-04-03T17:00
 description: Announcing support for pganalyze on Tembo Cloud
 ---
 
@@ -36,8 +36,6 @@ We'll be talking about some of these features in the following sections.
 
 # Connecting your Tembo Instance to pganalyze
 Connecting your Tembo Cloud instance to pganalyze is simple and can be done in a few clicks.
-
-[//]: # (TODO: Add screenshots for each step)
 
 ## Step 1: Sign up for pganalyze
 If you don’t already have a pganalyze account, you can sign up for a free trial at [pganalyze.com](https://pganalyze.com/).
