@@ -4,7 +4,7 @@ title: 'Advanced PostgreSQL Metrics and Insights on Tembo Cloud with pganalyze'
 authors: [ian]
 tags: [postgres]
 image: './pganalyze.svg'
-date: 2024-04-02T12:00
+date: 2024-04-03T12:00
 description: Announcing support for pganalyze on Tembo Cloud
 ---
 
@@ -94,15 +94,15 @@ This allows pganalyze to collect logs from your Tembo Cloud instance and provide
 With Log Insights enabled, we can make use of other powerful features, such as EXPLAIN Plans.
 
 # EXPLAIN Plans
-pganalyze simplifies viewing EXPLAIN plans by integrating with the auto_explain extension. It highlights crucial
-information in query plans, making important data more noticeable. To make this integration as seamless as possible, we
-automatically modify configs and extensions in your Tembo instance. More details about this feature can be found in the 
-[pganalyze documentation](https://pganalyze.com/docs/explain).
+pganalyze simplifies viewing EXPLAIN plans by integrating with the [auto_explain](https://pgt.dev/extensions/auto_explain)
+extension. It highlights crucial information in query plans, making important data more noticeable. To make this integration
+as seamless as possible, we automatically modify configs and extensions in your Tembo instance. More details about this
+feature can be found in the [pganalyze documentation](https://pganalyze.com/docs/explain).
 
 ![explain-plans.png](explain-plans.png)
 
 # Alerts and Check-Up
-pganalyze also provides powerful alerting and notification features that help you stay on top of your database performance.
+pganalyze also provides powerful [alerting and notification](https://pganalyze.com/docs/checks/) features that help you stay on top of your database performance.
 You can set up custom alerts based on query performance, system metrics, and other important events. pganalyze will
 notify you when an alert is triggered, so you can take action to resolve any issues.
 
