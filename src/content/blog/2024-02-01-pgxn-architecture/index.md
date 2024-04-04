@@ -3,7 +3,7 @@ slug: pgxn-architecture
 title: "Presentation: Introduction to the PGXN Architecture"
 authors: [theory]
 tags: [postgres, pgxn, extensions, architecture, presentation, video]
-image: ./pgxn-diagram.png
+image: ./pgxn-arch.png
 date: 2024-02-01T20:25
 description: |
   As we begin to imagine and design the Postgres extension ecosystem of the
