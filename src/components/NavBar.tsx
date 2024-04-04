@@ -93,7 +93,7 @@ const NavBar: React.FC<Props> = ({
 						className={`flex items-center text-[12px] min-[400px]:text-sm justify-center gap-2 news-banner-container top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-[20px] mobile:px-[95px] py-3.5 sm:py-2.5 z-50`}
 					>
 						<span className='truncate'>
-							Tembo now supports integration with pganalyze!
+							Tembo now supports advanced metrics, alerts and more with pganalyze!
 						</span>
 						<span className='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text font-semibold text-sm whitespace-nowrap'>
 							Read more
