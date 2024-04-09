@@ -11,14 +11,16 @@ Tembo VectorDB Stack provides tooling to automate the process of generating embe
 
 ### Extensions
 
-- [pg_vectorize](https://pgt.dev/extensions/vectorize) provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
-- [pgvector](https://pgt.dev/extensions/pgvector) is a vector similarity search engine for Postgres. It is used for storing embeddings, creating indexes, and conducting vector search on that data. pg_vectorize relies on pgvector for indices and similiary search.
-- [pgmq](https://pgt.dev/extensions/pgmq) - pg_vectorize utilizes pgmq as a job queue for managing the calculating embeddings from source data. The lives in the VectorDB and provides a means of separating the compute of embeddings from the database.
-- [pg_cron](https://pgt.dev/extensions/pg_cron) - pg_vectorize relies on pg_cron for recurring updates to embeddings.
+- [pg_vectorize](https://github.com/tembo-io/pg_vectorize) provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
+- [pgvector](https://github.com/pgvector/pgvector) is a vector similarity search engine for Postgres. It is used for storing embeddings, creating indexes, and conducting vector search on that data. pg_vectorize relies on pgvector for indices and similiary search.
+- [pgmq](https://github.com/tembo-io/pgmq) - pg_vectorize utilizes pgmq as a job queue for managing the calculating embeddings from source data. The lives in the VectorDB and provides a means of separating the compute of embeddings from the database.
+- [pg_cron](https://github.com/citusdata/pg_cron) is utilized by pg_vectorize to schedule recurring updates to embeddings.
 
 ### Container Services
 
-The VectorDB Stack is deployed on a Kubernetes cluster and runs a webserver in the same namespace as your Postgres database. When embeddings need to be computed, pg_vectorize makes HTTP to this container. This container hosts any [SentenceTransformers](https://www.sbert.net/) model.
+The VectorDB Stack is deployed on Kubernetes and runs a container in the same namespace as your Postgres database to host text embedding models.
+ When embeddings need to be computed, pg_vectorize makes HTTP to this container. This container hosts any [SentenceTransformers](https://www.sbert.net/) model.
+ The specifics of this container can be found in the [VectorDB Stack Specification](https://github.com/tembo-io/tembo/blob/bbb464870101a6e310477036b1dca0b1d3c3c0eb/tembo-stacks/src/stacks/specs/vectordb.yaml#L11-L60).
 
 ## Getting started
 
