@@ -48,7 +48,7 @@ pub enum State {
    Starting,
    Stopped,
    Stopping,
-   Submitted
+   Submitted,
    Up,
 }
 ```
