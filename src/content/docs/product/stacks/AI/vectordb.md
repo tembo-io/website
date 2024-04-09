@@ -24,36 +24,19 @@ The VectorDB Stack is deployed on Kubernetes and runs a container in the same na
 
 ## Getting started
 
-We will build a simple vector search database application using [pg_vectorize](https://github.com/tembo-io/pg_vectorize), Tembo's high level Postgres API which automated the transformation of text to embeddings and the management of embeddings in your database. It is powered by [OpenAI](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key), [pgvector](https://github.com/pgvector/pgvector), [pgmq](https://github.com/tembo-io/pgmq), and [pg_cron](https://github.com/citusdata/pg_cron).
+The VectorDB Stack comes pre-configured to build applications that require text embeddings.
+ The fastest way to build applications on text embeddings is to use the pg_vectorize extension.
+ The extension provides a consistent interface to generating embeddings from many common text embedding model sources including OpenAI, and Hugging Face.
 
-### Setup
+The general flow is to first call `vectorize.table()` on your source data table to generate embeddings.
+This configures pg_vectorize to generate embeddings from data in that table, keeps track of which transformer model was used to generate embeddings, and watches for updates to the table to update embeddings.
+ Then, you can call `vectorize.search()` to search for similar embeddings based on a query and return the source data that is most similar to the query.
+ The extension handles the transformation of the query into embeddings and the search for similar embeddings in the table.
 
-First, you will need to acquire an API key from [OpenAI](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key).
-
-Then, connect to your Tembo cluster:
+First, connect to your Postgres instance.
 
 ```sql
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
-```
-
-Create a table using the example dataset.
-
-```sql
-CREATE TABLE products (LIKE vectorize.example_products INCLUDING ALL);
-INSERT INTO products SELECT * FROM vectorize.example_products;
-```
-
-The table contains products along with their descriptions. Our application will allow us to easily search the table.
-
-```sql
-SELECT * FROM products limit 2;
-```
-
-```text
- product_id | product_name |                      description                       |        last_updated_at
-------------+--------------+--------------------------------------------------------+-------------------------------
-          1 | Pencil       | Utensil used for writing and often works best on paper | 2023-07-26 17:20:43.639351-05
-          2 | Laptop Stand | Elevated platform for laptops, enhancing ergonomics    | 2023-07-26 17:20:43.639351-05
 ```
 
 ## Using Hugging Face sentence transformers
