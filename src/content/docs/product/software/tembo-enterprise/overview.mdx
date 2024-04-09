@@ -8,11 +8,33 @@ import Callout from '../../../../../components/Callout.astro';
 
 <Callout variant='tip'>
 	While our flagship product is <a href="https://cloud.tembo.io">Tembo Cloud</a>,
-	we also provide software for various use cases.
+	we also provide a self-hosted version for various use cases.
 </Callout>
 
 
 ## Tembo Enterprise
+
+Tembo Enterprise is a self-hosted version of the Tembo Platform that runs in your own Kubernetes cluster. It
+allows you to benefit from the same features as Tembo Cloud, but with the added control and security of running
+the software in your own environment.
+
+Tembo Enterprise is made up of the same components as Tembo Cloud, but packaged and distributed in a way that allows for
+easy installation and management. Instead of running in separate Kubernetes clusters, the components run in a single
+Kubernetes cluster. This keeps your total cost of ownership low and makes for a simple and easy-to-manage deployment.
+
+<img src="/enterprise-software.png" />
+
+Configurability is a key feature of Tembo Enterprise. The platform comes with a set of default configurations and
+components for convenience, but you can easily customize the platform to suit your needs. Example configurations
+include:
+- Enabling a private extension registry
+- Using your authentication provider of choice
+- Using your existing ingress, monitoring, and logging solutions
+
+## Installation
+
+
+## Releases and Upgrades
 
 Using our Tembo Enterprise, both the control plane and the data plane are 
 owned and managed by you, and will live in your cloud account. 
@@ -26,7 +48,7 @@ makes use of the Trunk extension registry under the hood. You may not be able to
 use the public Trunk registry, so we'll provide a way for you to use your 
 own private extension registry.
 
-<img src="/enterprise-software.png" />
+
 
 ## Responsibilities
 
