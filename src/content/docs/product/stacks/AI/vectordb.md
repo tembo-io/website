@@ -6,12 +6,18 @@ sideBarPosition: 201
 
 Tembo VectorDB Stack provides tooling to automate the process of generating embeddings on your existing data, which allows you to have vector search semantic search capabilities on day one.
 
-## Extensions
+## Technical Specifications
 
--   [pgvector](https://pgt.dev/extensions/pgvector) - `pgvector` is a vector similarity search engine for Postgres. It is typically used for storing embeddings and then conducting vector search on that data.
--   [pg_vectorize](https://pgt.dev/extensions/vectorize) - `pg_vectorize` is an orchestration layer for embedding generation and store, vector search and index maintenance. It provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
--   [pgmq](https://pgt.dev/extensions/pgmq) - `pgmq` implements a message queue with API parity with popular message queue services like AWS SQS and Redis RSMQ.
--   [pg_cron](https://pgt.dev/extensions/pg_cron) - `pg_cron` automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
+### Extensions
+
+- [pg_vectorize](https://pgt.dev/extensions/vectorize) provides a simple interface for generating embeddings from text, storing them in Postgres, and then searching for similar vectors using `pgvector`.
+- [pgvector](https://pgt.dev/extensions/pgvector) is a vector similarity search engine for Postgres. It is used for storing embeddings, creating indexes, and conducting vector search on that data. pg_vectorize relies on pgvector for indices and similiary search.
+- [pgmq](https://pgt.dev/extensions/pgmq) - pg_vectorize utilizes pgmq as a job queue for managing the calculating embeddings from source data. The lives in the VectorDB and provides a means of separating the compute of embeddings from the database.
+- [pg_cron](https://pgt.dev/extensions/pg_cron) - pg_vectorize relies on pg_cron for recurring updates to embeddings.
+
+### Container Services
+
+The VectorDB Stack is deployed on a Kubernetes cluster and runs a webserver in the same namespace as your Postgres database. When embeddings need to be computed, pg_vectorize makes HTTP to this container. This container hosts any [SentenceTransformers](https://www.sbert.net/) model.
 
 ## Getting started
 
@@ -77,14 +83,15 @@ SELECT vectorize.table(
     "table" => 'products',
     primary_key => 'product_id',
     columns => ARRAY['product_name', 'description'],
-    transformer => 'sentence-transformers/multi-qa-MiniLM-L6-dot-v1'
+    schedule => 'realtime',
+    transformer => 'sentence-transformers/all-MiniLM-L12-v2'
 );
 ```
 
 ### Private models from Hugging Face
 
 If you've uploaded a [private model](https://huggingface.co/blog/introducing-private-hub) to Hugging Face, you can still host it on Tembo Cloud. Simply reference your Hugging Face org and model name,
-and pass the API key in as an argument to `vectorize.table()`.
+and pass the API key in as an `arg` to `vectorize.table()`.
 
 ```sql
 SELECT vectorize.table(
@@ -93,11 +100,10 @@ SELECT vectorize.table(
     primary_key => 'product_id',
     columns => ARRAY['product_name', 'description'],
     transformer => 'my-hugging-face-org/my-private-model',
+    schedule => 'realtime',
     args => '{"api_key": "hf_my_private_api_key"}'
 );
 ```
-
-This adds a new column to your table, in our case it is named `product_search_embeddings`, then populates that data with the transformed embeddings from the `product_name` and `description` columns.
 
 Then search,
 
@@ -108,7 +114,9 @@ SELECT * FROM vectorize.search(
     return_columns => ARRAY['product_id', 'product_name'],
     num_results => 3
 );
+```
 
+```text
                                        search_results
 ---------------------------------------------------------------------------------------------
  {"product_id": 13, "product_name": "Phone Charger", "similarity_score": 0.8147814132322894}
@@ -120,7 +128,7 @@ SELECT * FROM vectorize.search(
 
 pg_vectorize also works with using OpenAI's embeddings, but first you'll need an API key.
 
--   [openai API key](https://platform.openai.com/docs/guides/embeddings)
+- [openai API key](https://platform.openai.com/docs/guides/embeddings)
 
 Set your API key as a Postgres configuration parameter.
 
@@ -145,7 +153,8 @@ SELECT vectorize.table(
     "table" => 'products',
     primary_key => 'product_id',
     columns => ARRAY['product_name', 'description'],
-    transformer => 'text-embedding-ada-002'
+    transformer => 'openai/text-embedding-ada-002',
+    schedule => '*realtime*'
 );
 ```
 
@@ -158,7 +167,9 @@ SELECT * FROM vectorize.search(
     return_columns => ARRAY['product_id', 'product_name'],
     num_results => 3
 );
+```
 
+```text
                                          search_results
 
 --------------------------------------------------------------------------------------------
@@ -169,11 +180,12 @@ SELECT * FROM vectorize.search(
 (3 rows)
 ```
 
-## Changing the database
+## Changing the configured database
 
 By default, `vectorize` is configured to run on the `postgres` database, but that can be changed to any database in Postgres.
-
-Update the following configuration parameters so that the corresponding background workers connect to the correct database.
+ Update the following configuration parameters so that the corresponding background workers connect to the correct database.
+ Both pg_vectorize and pg_cron will need their configuration updated.
+ This can be done by running the following SQL commands.
 
 ```sql
 ALTER SYSTEM SET cron.database_name TO 'my_new_db';
@@ -184,6 +196,190 @@ Then, restart postgres to apply the changes and, if you haven't already, enable 
 
 ```sql
 CREATE EXTENSION vectorize CASCADE;
+```
+
+## Updating embeddings
+
+Embeddings are immediately computed for your data when `vectorize.table()` is called.
+However, a time will come when rows are updated or inserted and result in the need for embeddings to be updated.
+ pg_vectorize supports two methods of keeping embeddings up-to-date; trigger based and a recurring interval.
+ This behavior is configured by setting the `schedule` parameter on `vecotrize.table()`.
+ The default behavior is a cron-like syntax `schedule => '* * * * *'` which checks for new rows or updates to existing rows every minute.
+
+ In both cases, the `schedule` parameter determines how new or updates rows or identified and results in jobs enqueued to pgmq to update the embeddings.
+
+### Using triggers
+
+Setting the parameter `schedule => 'realtime` will create triggers on the table to create embedding update jobs whenever a new row is inserted or an existing row is updated.
+
+```sql
+SELECT vectorize.table(
+    job_name => 'my_search_project',
+    "table" => 'products',
+    primary_key => 'product_id',
+    columns => ARRAY['product_name', 'description'],
+    transformer => 'sentence-transformers/all-MiniLM-L12-v2',
+    schedule => 'realtime'
+);
+```
+
+### Interval Updates with pg_cron
+
+The schedule parameter accepts a cron-like syntax to check for updates on a recurring basis.
+ For example, to check for updates every hour, set the schedule parameter to `0 * * * *`.
+ Using this method, you will also be required to provide the column that contains the last updated timestamp.
+ pg_vectorize uses this column to determine which rows have been updated since the last time the embeddings were updated.
+
+```sql
+SELECT vectorize.table(
+    job_name => 'my_search_project',
+    "table" => 'products',
+    primary_key => 'product_id',
+    columns => ARRAY['product_name', 'description'],
+    transformer => 'sentence-transformers/all-MiniLM-L12-v2',
+    update_col => 'last_updated_at',
+    schedule => '0 * * * *'
+);
+```
+
+The cron job can then be viewwed by running the following SQL command.
+
+```sql
+select command, jobname from cron.job where jobname = 'my_search_project';
+```
+
+```text
+                      command                      |      jobname      
+---------------------------------------------------+-------------------
+ select vectorize.job_execute('my_search_project') | my_search_project
+```
+
+### On-demand updates
+
+If you need to update the embeddings on an ad-hoc basis, you can do so by calling `vectorize.job_exec()`.
+
+```sql
+SELECT vectorize.job_execute('my_search_project');
+```
+
+## Embedding Locations
+
+Embeddings can be created either on the same table as the source data, or on a separate table in the `vectorize` schema.
+The `table_method` parameter determines where the embeddings are stored, and the default is `table_method => 'join'`,
+ which creates a table in the `vectorize` schema named `_embeddings_<project_name>` for each vectorize job.
+ For example, if you create a job named `my_search_project`, the embeddings will be stored in a table named `vectorize._embedding_my_search_project`.
+ Alternatively, pg_vectorize can be configured to create the embeddings on the same table as the source data.
+ By setting the `table_method => 'append'`, pg_vectorize will create two columns on the source table, one for the embedding and one for the updated-at timestamp.
+
+### Separate table
+
+The default behavior is `table_method => 'join'`, and creates a new table in the `vectorize` schema to store the embeddings.
+
+```sql
+SELECT vectorize.table(
+    job_name => 'my_search_project',
+    "table" => 'products',
+    primary_key => 'product_id',
+    columns => ARRAY['product_name', 'description'],
+    transformer => 'sentence-transformers/all-MiniLM-L12-v2',
+    table_method => 'join'
+);
+```
+
+```text
+postgres=# \d vectorize._embeddings_my_search_project;
+            Table "vectorize._embeddings_my_search_project"
+   Column   |           Type           | Collation | Nullable | Default 
+------------+--------------------------+-----------+----------+---------
+ product_id | integer                  |           | not null | 
+ embeddings | vector(384)              |           | not null | 
+ updated_at | timestamp with time zone |           | not null | now()
+Indexes:
+    "_embeddings_my_search_project_product_id_key" UNIQUE CONSTRAINT, btree (product_id)
+    "my_search_project_idx" hnsw (embeddings vector_cosine_ops)
+Foreign-key constraints:
+    "_embeddings_my_search_project_product_id_fkey" FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+```
+
+### New columns, same table
+
+To create the embeddings on the same table as the source data, set the `table_method` parameter to `append`.
+
+```sql
+SELECT vectorize.table(
+    job_name => 'my_search_project',
+    "table" => 'products',
+    primary_key => 'product_id',
+    columns => ARRAY['product_name', 'description'],
+    transformer => 'sentence-transformers/all-MiniLM-L12-v2',
+    table_method => 'append'
+);
+```
+
+Note two new columns; `my_search_project_embeddings` and `my_search_project_updated_at` have been added to the table.
+
+```text
+postgres=# \d products
+                                                             Table "public.products"
+            Column            |           Type           | Collation | Nullable |                            Default                             
+------------------------------+--------------------------+-----------+----------+----------------------------------------------------------------
+ product_id                   | integer                  |           | not null | nextval('vectorize.example_products_product_id_seq'::regclass)
+ product_name                 | text                     |           | not null | 
+ description                  | text                     |           |          | 
+ last_updated_at              | timestamp with time zone |           |          | CURRENT_TIMESTAMP
+ my_search_project_embeddings | vector(384)              |           |          | 
+ my_search_project_updated_at | timestamp with time zone |           |          | 
+Indexes:
+    "products_pkey" PRIMARY KEY, btree (product_id)
+    "my_search_project_idx" hnsw (my_search_project_embeddings vector_cosine_ops)
+```
+
+## Ad-hoc embedding requests
+
+Any text can be transformed into an embedding using `vectorize.transform_embeddings()`.
+
+This works with any of the sentence-transformers:
+
+```sql
+select vectorize.transform_embeddings(
+    input => 'the quick brown fox jumped over the lazy dogs',
+    model_name => 'sentence-transformers/multi-qa-MiniLM-L6-dot-v1'
+);
+```
+
+```text
+{-0.2556323707103729,-0.3213586211204529 ..., -0.0951206386089325}
+```
+
+Privately hosted models on hugging face:
+
+```sql
+select vectorize.transform_embeddings(
+    input => 'the quick brown fox jumped over the lazy dogs',
+    model_name => 'my-private-org/my-private-model',
+    api_key => 'your Hugginf Face key'
+)
+```
+
+And OpenAI models. Note for OpenAI requests, you can either set the API key as a Postgres configuration parameter or pass it in as an argument.
+
+As an argument:
+
+```sql
+select vectorize.transform_embeddings(
+    input => 'the quick brown fox jumped over the lazy dogs',
+    model_name => 'openai/text-embedding-ada-002',
+    api_key => 'your OpenAI API key'
+)
+```
+
+When it has already been set via `ALTER SYSTEM SET vectorize.openai_key`, you can omit the `api_key` argument.
+
+```sql
+select vectorize.transform_embeddings(
+    input => 'the quick brown fox jumped over the lazy dogs',
+    model_name => 'openai/text-embedding-ada-002'
+)
 ```
 
 ## How it works
