@@ -379,6 +379,8 @@ select vectorize.transform_embeddings(
  To do this, place the `vectorize.transform_embeddings()::vector` call into your query and manually compute the distance using pgvector's
  [distance operators](https://github.com/pgvector/pgvector?tab=readme-ov-file#distances). Note that you must select the same transformer model that was used to generate the embeddings.
 
+The example below assumes embeddings are in a column named `my_search_project_embeddings` on the `products` table.
+
 ```sql
 SELECT 
     product_name,
@@ -388,7 +390,16 @@ SELECT
         vectorize.transform_embeddings('mobile electronic devices', 'sentence-transformers/all-MiniLM-L12-v2')::vector
     ) as similarity
 FROM products
-ORDER by similarity DESC;
+ORDER by similarity DESC
+LIMIT 3;
+```
+
+```text
+   product_name    |                        description                         |     similarity      
+-------------------+------------------------------------------------------------+---------------------
+ Phone Charger     | Device to replenish the battery of mobile phones           |  0.5351522883863631
+ Bluetooth Speaker | Portable audio device with wireless connectivity           | 0.38232471837548787
+ Wireless Mouse    | Pointing device without the need for a physical connection | 0.35592426991011383
 ```
 
 ## How it works
