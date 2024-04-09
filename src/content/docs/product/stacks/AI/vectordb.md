@@ -140,7 +140,7 @@ SELECT vectorize.table(
     primary_key => 'product_id',
     columns => ARRAY['product_name', 'description'],
     transformer => 'openai/text-embedding-ada-002',
-    schedule => '*realtime*'
+    schedule => 'realtime'
 );
 ```
 
@@ -196,7 +196,7 @@ However, a time will come when rows are updated or inserted and result in the ne
 
 ### Using triggers
 
-Setting the parameter `schedule => 'realtime` will create triggers on the table to create embedding update jobs whenever a new row is inserted or an existing row is updated.
+Setting the parameter `schedule => 'realtime'` will create triggers on the table to create embedding update jobs whenever a new row is inserted or an existing row is updated.
 
 ```sql
 SELECT vectorize.table(
@@ -209,7 +209,7 @@ SELECT vectorize.table(
 );
 ```
 
-### Interval Updates with pg_cron
+### Interval updates with pg_cron
 
 The schedule parameter accepts a cron-like syntax to check for updates on a recurring basis.
  For example, to check for updates every hour, set the schedule parameter to `0 * * * *`.
@@ -242,7 +242,7 @@ select command, jobname from cron.job where jobname = 'my_search_project';
 
 ### On-demand updates
 
-If you need to update the embeddings on an ad-hoc basis, you can do so by calling `vectorize.job_exec()`.
+If you need to update the embeddings on an ad-hoc basis, you can do so by calling `vectorize.job_execute()`.
 
 ```sql
 SELECT vectorize.job_execute('my_search_project');
