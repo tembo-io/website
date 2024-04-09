@@ -31,7 +31,9 @@ include:
 - Using your authentication provider of choice
 - Using your existing ingress, monitoring, and logging solutions
 
+
 ## Installation
+
 Tembo Enterprise is packaged and distributed as a Helm chart. The chart can be configured to suit your needs and installed
 in your Kubernetes cluster using the Helm package manager. The installation process is simple and can be done in a few
 steps.
@@ -40,28 +42,13 @@ steps.
 
 
 ## Releases and Upgrades
+Tembo Enterprise will be released on a regular basis, with new features, bug fixes, and security updates:
+- Patch releases with bugfixes every 2 weeks
+- Minor releases every 3 months
+- Major releases every 12 months
 
-Using our Tembo Enterprise, both the control plane and the data plane are 
-owned and managed by you, and will live in your cloud account. 
-
-We'll provide you with a way to install and run the control plane, 
-data plane and UI in your account so that they can use Tembo Cloud in a 
-way that meets your security requirements. 
-
-Extension management is a key feature of the Tembo experience, and the platform 
-makes use of the Trunk extension registry under the hood. You may not be able to 
-use the public Trunk registry, so we'll provide a way for you to use your 
-own private extension registry.
+Upgrading Tembo Enterprise is as simple as running `helm upgrade` with the new version of the Helm chart. The upgrade
+process is designed to be seamless and non-disruptive to your running workloads.
 
 
-
-## Responsibilities
-
-Our Responsibilities:
-
-* General support
-
-Your Responsibilities: 
-
-* Kubernetes cluster provisioning, upgrades, maintenance, and support
-* Software installation, upgrades, and maintenance
+## Support
