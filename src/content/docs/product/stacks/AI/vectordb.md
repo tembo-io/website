@@ -5,7 +5,8 @@ sideBarPosition: 201
 description: An introduction to the Tembo VectorDB Stack
 ---
 
-Tembo VectorDB Stack provides tooling to automate the process of generating embeddings on your existing data, which allows you to have vector search semantic search capabilities on day one.
+Tembo VectorDB Stack is a platform that simplifies the process of working with embeddings in Postgres.
+ It provides tools to automate the process of generating, managing and working with embeddings from your existing data, which allows you to have vector search capabilities on day one.
 
 ## Technical Specifications
 
