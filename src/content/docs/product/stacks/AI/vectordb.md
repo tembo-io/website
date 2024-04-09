@@ -363,7 +363,7 @@ select vectorize.transform_embeddings(
 )
 ```
 
-When it has already been set via `ALTER SYSTEM SET vectorize.openai_key`, you can omit the `api_key` argument.
+You do not need to provide the API key as an argument if it already been set via `ALTER SYSTEM SET vectorize.openai_key`.
 
 ```sql
 select vectorize.transform_embeddings(
@@ -374,10 +374,8 @@ select vectorize.transform_embeddings(
 
 ## How it works
 
-When `vectorize.table()` is executed, the extension creates jobs in [pgmq](https://github.com/tembo-io/pgmq) that are executed by the background worker.
-The background worker calls the appropriate embedding model, whether thats one coming from Hugging Face or OpenAI.
-By default, triggers are created that also update the embeddings any time a new record is inserted into the table or
-if a record is updated.
+When `vectorize.table()` is executed, the extension creates jobs in [pgmq](https://github.com/tembo-io/pgmq) to generate embeddings for your existing data.
+ These jobs are executed by a background worker in Postgres. The background worker calls the appropriate embedding model, whether thats one coming from Hugging Face or OpenAI.
 
 `vectorize.search()` transforms the raw text query into embeddings using the same model that was used to generate the embeddings in the first place.
 It then uses the `pgvector` extension to search for the most similar embeddings in the table,
