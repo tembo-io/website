@@ -19,19 +19,20 @@ Tembo VectorDB Stack is a platform that simplifies the process of working with e
 
 ### Container Services
 
-The VectorDB Stack is deployed on Kubernetes and runs a container in the same namespace as your Postgres database to host text embedding models.
- When embeddings need to be computed, pg_vectorize makes HTTP to this container. This container hosts any [SentenceTransformers](https://www.sbert.net/) model.
+The VectorDB Stack deploys a container in the same Kubernetes namespace as your Postgres database to host text embedding models.
+ When embeddings need to be computed, pg_vectorize makes HTTP to this container. This container hosts any [SentenceTransformers](https://www.sbert.net/) models as well as any private models uploaded to Hugging Face. The models are downloaded to this container on-demand and cached for all subsequent requests.
+ The container is private to your Tembo instance.
  The specifics of this container can be found in the [VectorDB Stack Specification](https://github.com/tembo-io/tembo/blob/bbb464870101a6e310477036b1dca0b1d3c3c0eb/tembo-stacks/src/stacks/specs/vectordb.yaml#L11-L60).
 
 ## Getting started
 
-The VectorDB Stack comes pre-configured to build applications that require text embeddings.
- The fastest way to build applications on text embeddings is to use the pg_vectorize extension.
- The extension provides a consistent interface to generating embeddings from many common text embedding model sources including OpenAI, and Hugging Face.
+The VectorDB Stack comes pre-configured for building applications that require embeddings.
+ The fastest way to build applications on text embeddings is to use the pg_vectorize Postgres extension.
+ This extension provides a consistent interface for generating embeddings from many common text embedding model sources including OpenAI, and Hugging Face, as well as searching the embeddings and keeping them up-to-date.
 
-The general flow is to first call `vectorize.table()` on your source data table to generate embeddings.
-This configures pg_vectorize to generate embeddings from data in that table, keeps track of which transformer model was used to generate embeddings, and watches for updates to the table to update embeddings.
- Then, you can call `vectorize.search()` to search for similar embeddings based on a query and return the source data that is most similar to the query.
+The general flow is to first call `vectorize.table()` on your source data table to initialize the process. This can be done in a SQL migration.
+ This configures pg_vectorize to generate embeddings from data in that table, keeps track of which transformer model was used to generate embeddings, and watches for updates to the table to update embeddings.
+ Then, call `vectorize.search()` to search for similar embeddings based on a query and return the source data that is most similar to the query.
  The extension handles the transformation of the query into embeddings and the search for similar embeddings in the table.
 
 First, connect to your Postgres instance.
@@ -370,6 +371,24 @@ select vectorize.transform_embeddings(
     input => 'the quick brown fox jumped over the lazy dogs',
     model_name => 'openai/text-embedding-ada-002'
 )
+```
+
+## Manually searching embeddings
+
+`vectorize.transform_embeddings()` can be useful when you want to manually query your embeddings.
+ To do this, place the `vectorize.transform_embeddings()::vector` call into your query and manually compute the distance using pgvector's
+ [distance operators](https://github.com/pgvector/pgvector?tab=readme-ov-file#distances). Note that you must select the same transformer model that was used to generate the embeddings.
+
+```sql
+SELECT 
+    product_name,
+    description,
+    1 - (
+        my_search_project_embeddings <=>
+        vectorize.transform_embeddings('mobile electronic devices', 'sentence-transformers/all-MiniLM-L12-v2')::vector
+    ) as similarity
+FROM products
+ORDER by similarity DESC;
 ```
 
 ## How it works
