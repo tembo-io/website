@@ -344,7 +344,7 @@ Privately hosted models on hugging face:
 select vectorize.transform_embeddings(
     input => 'the quick brown fox jumped over the lazy dogs',
     model_name => 'my-private-org/my-private-model',
-    api_key => 'your Hugginf Face key'
+    api_key => 'your Hugging Face key'
 )
 ```
 
