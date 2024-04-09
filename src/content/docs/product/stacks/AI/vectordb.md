@@ -348,7 +348,10 @@ select vectorize.transform_embeddings(
 )
 ```
 
-And OpenAI models. Note for OpenAI requests, you can either set the API key as a Postgres configuration parameter or pass it in as an argument.
+And OpenAI models.
+
+For OpenAI requests, you can either set the API key as a Postgres configuration parameter or pass it in as an argument.
+ Passing it as an argument will override the configuration parameter.
 
 As an argument:
 
