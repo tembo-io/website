@@ -49,7 +49,6 @@ If you want to check if you can connect to Tembo using a known, working version 
 
 If the above fails, you may be having problems reaching your cluster. Please check the previous section, or reach out to Tembo support.
 
-
 ## Certificate validation
 
 <Callout variant='info'>
@@ -63,6 +62,15 @@ Most Postgres clients by default do not verify the server's identity using TLS, 
 Some clients, for example [Node](/docs/getting-started/quickstarts/nodejs), by default require certificate validation, checking against your system's trust store, similar to how it works with HTTPS in the browser. In these cases, connection issues can be resolved by specifying a value for the configuration option `sslrootcert`, which may be named differently in each client language.
 
 Tembo aims to have a simple connection guide for any client language, so please reach out to support if you don't see your language in [this list of guides](https://tembo.io/docs/getting-started/quickstarts/nodejs).
+
+## Connection issues from a third party
+
+If you are using a different service that cannot connect to Tembo Cloud, it may be because of SNI or certificate validation issues. Tembo support is happy to help, so please reach out and we will help improve the third party service to support certificate validation or SNI.
+
+Often, a connection issue related to certificate validation can be resolved by uploading your [sslrootcert](http://localhost:4321/docs/product/cloud/security/sslmode) to the third party.
+
+SNI issues typically require the third party to update the version of their client libraries.
+
 
 ## Connecting with Unix domain sockets
 
