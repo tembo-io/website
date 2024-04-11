@@ -56,7 +56,7 @@ If the above fails, you may be having problems reaching your cluster. Please che
     Certificate validation issues are resolved with the `sslrootcert` configuration option, which may be named differently in each client.
 </Callout>
 
-Tembo uses self-signed certificates for databases. The [standard practice for Postgres servers](https://www.postgresql.org/docs/current/ssl-tcp.html#SSL-CLIENT-CERTIFICATES) is to self-sign certificates, managing authentication by specifying trusted root certificates.
+Tembo uses self-signed certificates for databases.
 
 Most Postgres clients by default do not verify the server's identity using TLS, using [sslmode=default](https://www.postgresql.org/docs/current/libpq-ssl.html). It's better practice to connect with [sslmode=verify-ca](/docs/product/cloud/security/sslmode), especially when connecting over an untrusted network.
 
