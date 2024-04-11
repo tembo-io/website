@@ -15,7 +15,7 @@ Connection examples are provided [here](/docs/getting-started/quickstarts/java).
     ```bash
      docker run -it --rm \
         --entrypoint=psql postgres:15 \
-        'postgresql://postgres:***@***.data-1.use1.tembo.io:5432?sslmode=require'
+        'postgresql://postgres:***@***.data-1.use1.tembo.io:5432'
     ```
 
 -   If the above fails, you may be having problems reaching your cluster.
