@@ -30,7 +30,7 @@ At inference, the model is used to make predictions on new data.
  Similarly, in a vector database used for embedding search, if you're dealing with text embeddings, a new text query must be converted into an embedding using the same model and preprocessing steps that were used to create the embeddings in the database.
  Embeddings stored in the database using OpenAI's text-embedding-ada-002 model must also be searched using the same text-embedding-ada-002 model in order to produce a comparable embedding vector for search.
 
-It is not enough to just store embeddings in a database. To operationalize the vector database, you must also have a process in place to transform new data into embeddings and to serve the embeddings for search.
+It is not enough to just store embeddings in a database. To operationalize the vector database, you must also have a process to transform new data into embeddings and to serve the embeddings for search.
 
 ### Generating and searching embeddings
 
