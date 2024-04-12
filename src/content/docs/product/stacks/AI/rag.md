@@ -40,14 +40,14 @@ mkdir tembo_docs
 find ./src/content -type f \( -name "*.md" -o -name "*.mdx" \) -exec cp {} ./tembo_docs \;
 ```
 
-There should be somewhere around 80 documents in the `tembo_docs` directory:
+There should be somewhere around 100 documents in the `tembo_docs` directory, depending on the how many documents have been published since the writing of this guide.
 
 ```bash
 ls -l tembo_docs | wc -l
 ```
 
 ```console
-79
+97
 ```
 
 Now all the contextual documents are in the `./tembo_docs` directory, which will make the next steps easier.
@@ -90,11 +90,12 @@ Next, split the documents into chunks. This will use `llama-index` text [splitti
 chunks = rag.prepare_from_directory("./tembo_docs")
 ```
 
-The original documents are now split into nearly 500 chunks, where each chunk is <= to the context window size of the `gpt-3.5-turbo` model.
+The original documents are now split into many more chunks.
+ The number of chunks will depend on the size and number of documents, and can be further configured by passing in the `chunk_size` parameter, or any of llama-index [parameters](https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/modules/?h=sentencespl#sentencesplitter) as kwargs.
 
 ```python
 > print("number of chunks: ", len(chunks))
-number of chunks:  475
+number of chunks:  376
 ```
 
 ### Insert documents into Postgres
