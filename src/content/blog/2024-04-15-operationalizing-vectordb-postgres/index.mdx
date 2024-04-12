@@ -116,7 +116,7 @@ pg_vectorize provides two ways of managing transformations; an interval-based cr
  On Tembo Cloud, this container runs in a pod in the same namespace as your Postgres instance. If you're running the open-source pg_vectorize project on your own, the [docker-compose](https://github.com/tembo-io/pg_vectorize/blob/main/docker-compose.yml) file
  will start this container next to Postgres for you. In both cases, pg_vectorize is pre-configured to reach these endpoints.
 
-Show below is the process of updating embeddings with a trigger-based flow. The cron based update flow is identical, except that a pg_cron job is created to check for updates rather than a trigger.
+Below is the process of updating embeddings with a trigger-based flow. The cron based update flow is identical, except that a pg_cron job checks for updates rather than a trigger.
 
 ![embedding-updates](./upserts.png)
 
