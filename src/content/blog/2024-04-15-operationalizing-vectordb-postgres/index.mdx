@@ -65,10 +65,10 @@ To search the table using the embeddings, you can use the `vectorize.search` fun
 
     ```sql
     SELECT * FROM vectorize.search(
-        job_name => 'my_product_search_project',
-        query => 'accessories for mobile devices',
+        job_name       => 'my_product_search_project',
+        query          => 'accessories for mobile devices',
         return_columns => ARRAY['product_id', 'product_name'],
-        num_results => 3
+        num_results    => 3
     );
     ```
 
