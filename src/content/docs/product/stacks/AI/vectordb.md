@@ -424,7 +424,7 @@ LIMIT 3;
  Wireless Mouse    | Pointing device without the need for a physical connection | 0.35592426991011383
 ```
 
-### How it works
+## How it works
 
 When `vectorize.table()` is executed, the extension creates jobs in [pgmq](https://github.com/tembo-io/pgmq) to generate embeddings for your existing data.
 
