@@ -36,21 +36,18 @@ _Finally_, you can use those embeddings to search the data in the table.
 
 So are all these providers and “solutions” actually making things easier? It sure doesn’t seem like it. We think there’s a better way.
 
-
 ## Introducing pg_vectorize: Only Two Calls
 
 Remember at the beginning how we said you could set up vector searches on Tembo Cloud in 60 seconds? No way you’re doing that with the long, convoluted process we just described—so we automated it. On Tembo Cloud, the whole process of setting up and managing vectors for a given table is done with an open source extension we built named pg_vectorize, using a single Postgres function call:
 
-
-```
+```sql
 SELECT vectorize.table(
     job_name => 'product_search',
     "table" => 'products',
     primary_key => 'product_id',
-    columns => ARRAY['product_name', 'description'],
+    columns => ARRAY['product_name', 'description']
 );
 ```
-
 
 So what happened here? Remember that ultimately, vectors are just arrays of floats that we're going to do linear algebra on. So we created a job, called it “product_search”, on an existing table called “products”. We want our user search queries to look at “product_name” and “description”. Tembo’s platform handles transforming these two columns into embeddings (via OpenAI embeddings endpoint) for you, and continues to monitor the table for changes. When there’s changes, embeddings are updated. The data is stored using pg vector’s vector data type, and indexed using pg vector HNSW index.
 
@@ -58,8 +55,7 @@ It’s as simple—actually simple—as that. One call, and we’re ready to sea
 
 See, Postgres lets us create our own indexes via extensions, which enables us to do that search with one more SQL function call. We reference the job name we set up in the last step, provide the raw text query, and specify which columns we want returned and the number of rows. Think of this as a “select product_id, product_name from products where product_name and product_description are similar to 'our query'”.
 
-
-``` sql
+```sql
 SELECT * FROM vectorize.search(
     job_name => 'product_search',
     query => 'accessories for mobile devices',
