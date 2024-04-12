@@ -53,7 +53,7 @@ You'll want to begin by connecting to your Postgres instance.
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 ```
 
-### Call vectorize.table()
+### Using Hugging Face sentence transformers
 
 `vectorize.table()` works with ANY model that can be loaded via the [SentenceTransformers()](https://www.sbert.net/) API so long as it does not require any additional code execution (which includes most open source sentence transformers).
 
@@ -88,7 +88,7 @@ SELECT vectorize.table(
 );
 ```
 
-### Call vectorize.search()
+### Private models from Hugging Face
 
 If you've uploaded a [private model](https://huggingface.co/blog/introducing-private-hub) to Hugging Face, you can still host it on Tembo Cloud. Simply reference your Hugging Face org and model name,
 and pass the API key in as an `arg` to `vectorize.table()`.
