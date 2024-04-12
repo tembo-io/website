@@ -110,7 +110,7 @@ As an application developer, you can move the `vectorize.table` call into your S
 Inevitably, the source data will change. New data will be added, old data will be updated, and the embeddings will need to be re-computed.
  The process of transforming source data into embeddings is not a one-time task, but a continuous cycle that needs to be managed.
 
-pg_vectorize provides two ways of managing this; an interval-based cron-like schedule via pg_cron, or a real-time trigger-based approach.
+pg_vectorize provides two ways of managing transformations; an interval-based cron-like schedule via pg_cron, or a real-time trigger-based approach.
  In both methods, pg_vectorize enqueues jobs into a queue using [pgmq](https://github.com/tembo-io/pgmq), and a background worker handles the transformations.
  In the case of OpenAI embeddings, that means HTTP requests to OpenAI's public API. For Hugging Face Sentence Transformers, HTTP requests are made to a container that hosts the sentence-transformer models.
  On Tembo Cloud, this container runs in a pod in the same namespace as your Postgres instance. If you're running the open-source pg_vectorize project on your own, the [docker-compose](https://github.com/tembo-io/pg_vectorize/blob/main/docker-compose.yml) file
