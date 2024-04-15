@@ -143,7 +143,7 @@ SELECT pg_reload_conf();
 
 ```sql
 SELECT vectorize.table(
-    job_name    => 'product_search_all_MiniLM_L6_v2',
+    job_name    => 'my_product_search_project',
     "table"     => 'products',
     primary_key => 'product_id',
     columns     => ARRAY['product_name', 'description'],
