@@ -51,12 +51,12 @@ If you want to generate embeddings using an open source the Apache-2.0 licensed 
 
     ```sql
     SELECT vectorize.table(
-        job_name => 'my_product_search_project',
-        "table" => 'products',
+        job_name    => 'my_product_search_project',
+        "table"     => 'products',
         primary_key => 'product_id',
-        columns => ARRAY['product_name', 'description'],
+        columns     => ARRAY['product_name', 'description'],
         transformer => 'sentence-transformers/all-MiniLM-L6-v2',
-        schedule => 'realtime'
+        schedule    => 'realtime'
     );
     ```
 
@@ -149,12 +149,12 @@ To take our example above and instead use one of OpenAI's embedding models, we s
 
     ```sql
     SELECT vectorize.table(
-        job_name => 'product_search_all_MiniLM_L6_v2',
-        "table" => 'products',
+        job_name    => 'product_search_all_MiniLM_L6_v2',
+        "table"     => 'products',
         primary_key => 'product_id',
-        columns => ARRAY['product_name', 'description'],
+        columns     => ARRAY['product_name', 'description'],
         transformer => 'openai/text-embedding-ada-002',
-        schedule => 'realtime'
+        schedule    => 'realtime'
     );
     ```
 
@@ -162,10 +162,10 @@ Now we can search our data using the same `vectorize.search` function call as be
 
     ```sql
     SELECT * FROM vectorize.search(
-        job_name => 'product_search_openai',
-        query => 'accessories for mobile devices',
-        return_columns => ARRAY['product_id', 'product_name'],
-        num_results => 3
+        job_name        => 'product_search_openai',
+        query           => 'accessories for mobile devices',
+        return_columns  => ARRAY['product_id', 'product_name'],
+        num_results     => 3
     );
     ```
 
@@ -173,10 +173,10 @@ Meanwhile, our original embeddings are still available.
 
     ```sql
     SELECT * FROM vectorize.search(
-        job_name => 'my_product_search_project',
-        query => 'accessories for mobile devices',
-        return_columns => ARRAY['product_id', 'product_name'],
-        num_results => 3
+        job_name        => 'my_product_search_project',
+        query           => 'accessories for mobile devices',
+        return_columns  => ARRAY['product_id', 'product_name'],
+        num_results     => 3
     );
     ```
 
@@ -186,8 +186,8 @@ We can also transform text directly by calling `vectorize.transform_embeddings`.
 
     ```sql
     select vectorize.transform_embeddings(
-        input => 'the quick brown fox jumped over the lazy dogs',
-        model_name => 'sentence-transformers/all-MiniLM-L6-v2'
+        input       => 'the quick brown fox jumped over the lazy dogs',
+        model_name  => 'sentence-transformers/all-MiniLM-L6-v2'
     );
     ```
 
