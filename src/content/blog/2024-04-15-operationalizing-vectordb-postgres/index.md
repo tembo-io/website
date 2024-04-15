@@ -166,7 +166,7 @@ SELECT * FROM vectorize.search(
 Meanwhile, our original embeddings are still available.
 
 ```sql
-SELECT * FROM vectorize.search(product_search_openai
+SELECT * FROM vectorize.search(
     job_name        => 'my_product_search_project',
     query           => 'accessories for mobile devices',
     return_columns  => ARRAY['product_id', 'product_name'],
