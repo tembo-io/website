@@ -2,6 +2,7 @@ import rss from '@astrojs/rss';
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { AUTHORS } from '../blogAuthors';
+import ReactDOMServer from 'react-dom/server'
 
 export const GET: APIRoute = async (context) => {
 	const blog = await getCollection('blog');
@@ -32,7 +33,7 @@ export const GET: APIRoute = async (context) => {
 				description: post.data.description,
 				link: `/blog/${post.slug}`,
 				content: isMdx
-					? COULD_NOT_BE_RENDERED
+					? ReactDOMServer.renderToStaticMarkup(post.body)
 					: contentPost
 							?.compiledContent()
 							.replaceAll('src="/', 'src="https://tembo.io/') ||
