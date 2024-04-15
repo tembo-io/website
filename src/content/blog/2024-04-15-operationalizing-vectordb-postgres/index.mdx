@@ -73,7 +73,7 @@ To search the table using the embeddings, you can use the `vectorize.search` fun
     );
     ```
 
-    ```text
+    ```plaintext
                                         search_results                                        
     ---------------------------------------------------------------------------------------------
     {"product_id": 13, "product_name": "Phone Charger", "similarity_score": 0.8147814132322894}
@@ -91,7 +91,7 @@ If you want to view all your source data and the embeddings side-by-side, pg_vec
 
 The view contains everything from your original table, plus the embeddings and the last time they were updated.
 
-    ```text
+    ```plaintext
     \d vectorize.my_product_search_project;
                             View "vectorize.my_product_search_project"
             Column         |           Type           | Collation | Nullable | Default 
@@ -191,7 +191,7 @@ We can also transform text directly by calling `vectorize.transform_embeddings`.
     );
     ```
 
-    ```text
+    ```plaintext
     {0.032561734318733215,0.09281901270151138, ... ( omitted for formatting), 0.07227665930986404}
     ```
 
@@ -217,3 +217,5 @@ We are continuing to work on improving pg_vectorize and the VectorDB Stack at Te
  Additional embedding model sources (such as Ollama) and a more complete RAG API are in the works.
  The pg_vectorize extension is open source and available on [GitHub](https://github.com/tembo-io/pg_vectorize).
  If you find any issues or just want to talk to us, open an issue, pull request, or join our community [Slack](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw).
+
+Join us at the [Silicon Valley Postgres Meetup](https://www.meetup.com/silicon-valley-postgres/events/300397011) on April 30th, 2024 if you're interested in learning more on this topic.
