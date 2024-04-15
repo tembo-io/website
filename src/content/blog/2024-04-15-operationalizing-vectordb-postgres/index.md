@@ -39,13 +39,10 @@ It is not enough to just store embeddings in a database. To operationalize the v
 
 ![alt text](./image.png)
 
-import Callout from '../../../components/Callout.astro';
-
-<Callout title='Getting started with VectorDB' variant='info'>
-	To follow along with code, you can start a VectorDB instance for free on [Tembo Cloud](https://cloud.tembo.io) or run the [docker-compose](https://github.com/tembo-io/pg_vectorize?tab=readme-ov-file#installation) example locally.
-
-    Refer to our [detailed guide](https://tembo.io/docs/product/stacks/ai/vectordb) for a more in-depth walkthrough of pg_vectorize and the VectorDB Stack
-</Callout>
+___
+To follow along with code, you can start a VectorDB instance for free on [Tembo Cloud](https://cloud.tembo.io) or run the [docker-compose](https://github.com/tembo-io/pg_vectorize?tab=readme-ov-file#installation) example locally.
+ Refer to our [detailed guide](https://tembo.io/docs/product/stacks/ai/vectordb) for a more in-depth walkthrough of pg_vectorize and the VectorDB Stack
+___
 
 If you want to generate embeddings using an open source the Apache-2.0 licensed [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) sentence transformer, you can initialize your project like so:
 
@@ -121,12 +118,9 @@ Below is the process of updating embeddings with a trigger-based flow. The cron 
 
 ![embedding-updates](./upserts.png)
 
-Many thanks to [Gunnar Morling](https://twitter.com/gunnarmorling) who recently demonstrated this trigger based update flow on X.
+Many thanks to [Gunnar Morling](https://twitter.com/gunnarmorling/status/1778805731933790225) who recently demonstrated this trigger based update flow on X.
 
-import Tweet from '../../../components/Tweet'; // the `Tweet` component must be imported first
-
-<Tweet id='1778805731933790225' client:load />
-
+[![alt text](./image-1.png)](https://twitter.com/gunnarmorling/status/1778805731933790225)
 
 ## Flexibility and rapid iteration
 
@@ -142,74 +136,74 @@ pg_vectorize supports all of OpenAI's transformer models and all [Sentence Trans
 To take our example above and instead use one of OpenAI's embedding models, we simply change the `transformer` parameter.
  Note, OpenAI also requires an API key, so we will set that first:
 
-    ```sql
-    ALTER SYSTEM SET vectorize.openai_key TO '<your api key>';
-    SELECT pg_reload_conf();
-    ```
+```sql
+ALTER SYSTEM SET vectorize.openai_key TO '<your api key>';
+SELECT pg_reload_conf();
+```
 
-    ```sql
-    SELECT vectorize.table(
-        job_name    => 'product_search_all_MiniLM_L6_v2',
-        "table"     => 'products',
-        primary_key => 'product_id',
-        columns     => ARRAY['product_name', 'description'],
-        transformer => 'openai/text-embedding-ada-002',
-        schedule    => 'realtime'
-    );
-    ```
+```sql
+SELECT vectorize.table(
+    job_name    => 'product_search_all_MiniLM_L6_v2',
+    "table"     => 'products',
+    primary_key => 'product_id',
+    columns     => ARRAY['product_name', 'description'],
+    transformer => 'openai/text-embedding-ada-002',
+    schedule    => 'realtime'
+);
+```
 
 Now we can search our data using the same `vectorize.search` function call as before, but specifying the new `job_name`.
 
-    ```sql
-    SELECT * FROM vectorize.search(
-        job_name        => 'product_search_openai',
-        query           => 'accessories for mobile devices',
-        return_columns  => ARRAY['product_id', 'product_name'],
-        num_results     => 3
-    );
-    ```
+```sql
+SELECT * FROM vectorize.search(
+    job_name        => 'product_search_openai',
+    query           => 'accessories for mobile devices',
+    return_columns  => ARRAY['product_id', 'product_name'],
+    num_results     => 3
+);
+```
 
 Meanwhile, our original embeddings are still available.
 
-    ```sql
-    SELECT * FROM vectorize.search(
-        job_name        => 'my_product_search_project',
-        query           => 'accessories for mobile devices',
-        return_columns  => ARRAY['product_id', 'product_name'],
-        num_results     => 3
-    );
-    ```
+```sql
+SELECT * FROM vectorize.search(
+    job_name        => 'my_product_search_project',
+    query           => 'accessories for mobile devices',
+    return_columns  => ARRAY['product_id', 'product_name'],
+    num_results     => 3
+);
+```
 
 ### Transforming text to embeddings directly
 
 We can also transform text directly by calling `vectorize.transform_embeddings`.
 
-    ```sql
-    select vectorize.transform_embeddings(
-        input       => 'the quick brown fox jumped over the lazy dogs',
-        model_name  => 'sentence-transformers/all-MiniLM-L6-v2'
-    );
-    ```
+```sql
+select vectorize.transform_embeddings(
+    input       => 'the quick brown fox jumped over the lazy dogs',
+    model_name  => 'sentence-transformers/all-MiniLM-L6-v2'
+);
+```
 
-    ```plaintext
-    {0.032561734318733215,0.09281901270151138, ... ( omitted for formatting), 0.07227665930986404}
-    ```
+```plaintext
+{0.032561734318733215,0.09281901270151138, ... ( omitted for formatting), 0.07227665930986404}
+```
 
 Using `transform_embeddings` directly is useful if you want to do any complex joins or further transformations on your query.
  For example, we can manually re-create the underlying SQL that is executed when we call `vectorize.search`:
 
-    ```sql
-    SELECT 
-        product_name,
-        description,
-        1 - (
-            product_search_all_MiniLM_L6_v2 <=>
-            vectorize.transform_embeddings('mobile electronic devices', 'sentence-transformers/all-MiniLM-L12-v2')::vector
-        ) as similarity
-    FROM products
-    ORDER by similarity DESC
-    LIMIT 3;
-    ```
+```sql
+SELECT 
+    product_name,
+    description,
+    1 - (
+        product_search_all_MiniLM_L6_v2 <=>
+        vectorize.transform_embeddings('mobile electronic devices', 'sentence-transformers/all-MiniLM-L12-v2')::vector
+    ) as similarity
+FROM products
+ORDER by similarity DESC
+LIMIT 3;
+```
 
 ## What's next?
 
