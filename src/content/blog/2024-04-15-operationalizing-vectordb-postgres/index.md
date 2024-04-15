@@ -156,7 +156,7 @@ Now we can search our data using the same `vectorize.search` function call as be
 
 ```sql
 SELECT * FROM vectorize.search(
-    job_name        => 'product_search_openai',
+    job_name        => 'my_product_search_project',
     query           => 'accessories for mobile devices',
     return_columns  => ARRAY['product_id', 'product_name'],
     num_results     => 3
@@ -167,7 +167,7 @@ Meanwhile, our original embeddings are still available.
 
 ```sql
 SELECT * FROM vectorize.search(
-    job_name        => 'my_product_search_project',
+    job_name        => 'product_search_openai',
     query           => 'accessories for mobile devices',
     return_columns  => ARRAY['product_id', 'product_name'],
     num_results     => 3
