@@ -4,7 +4,7 @@ title: Operationalizing Vector Databases on Postgres
 authors: [adam]
 tags: [postgres, vectordb, pg_vectorize]
 image: './tembo_vector.png'
-date: 2024-04-15T14:00
+date: 2024-04-15T18:00
 description: |
     Beyond storage and search, building the tooling to maintain the lifecycle of embeddings in Postgres.
 ---
