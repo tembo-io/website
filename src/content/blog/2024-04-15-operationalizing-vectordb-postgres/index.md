@@ -3,7 +3,7 @@ slug: operationalizing-vectordbs-on-postgres
 title: Operationalizing Vector Databases on Postgres
 authors: [adam]
 tags: [postgres, vectordb, pg_vectorize]
-# image: './pg_vectorize.png'
+image: './tembo_vector.png'
 date: 2024-04-15T14:00
 description: |
     Beyond storage and search, building the tooling to maintain the lifecycle of embeddings in Postgres.
@@ -27,7 +27,8 @@ At inference, the model is used to make predictions on new data.
  For example in classical ML, imagine you have a text classification model trained on [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) vectors.
  At inference, any new text must undergo the same preprocessing (tokenization, stop word removal) and then be transformed into a TF-IDF vector using the same vocabulary as during training.
  If there's a discrepancy in this transformation, the model's output will be unreliable.
- Similarly, in a vector database used for embedding search, if you're dealing with text embeddings, a new text query must be converted into an embedding using the same model and preprocessing steps that were used to create the embeddings in the database.
+
+Similarly, in a vector database used for embedding search, if you're dealing with text embeddings, a new text query must be converted into an embedding using the same model and preprocessing steps that were used to create the embeddings in the database.
  Embeddings stored in the database using OpenAI's text-embedding-ada-002 model must also be searched using the same text-embedding-ada-002 model in order to produce a comparable embedding vector for search.
 
 It is not enough to just store embeddings in a database. To operationalize the vector database, you must also have a process to transform new data into embeddings and to serve the embeddings for search.
@@ -120,7 +121,7 @@ Below is the process of updating embeddings with a trigger-based flow. The cron 
 
 ![embedding-updates](./upserts.png)
 
-[Gunnar Morling](https://twitter.com/gunnarmorling) recently demonstrated the trigger based update flow on X.
+Many thanks to [Gunnar Morling](https://twitter.com/gunnarmorling) who recently demonstrated this trigger based update flow on X.
 
 import Tweet from '../../../components/Tweet'; // the `Tweet` component must be imported first
 
