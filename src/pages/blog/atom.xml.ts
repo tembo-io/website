@@ -1,6 +1,7 @@
 import { Feed } from 'feed';
 import { getCollection } from 'astro:content';
 import { AUTHORS } from '../../blogAuthors';
+import ReactDOMServer from 'react-dom/server'
 
 export async function GET() {
 	const blog = await getCollection('blog');
@@ -42,7 +43,7 @@ export async function GET() {
 			description: post.data.description,
 			link: `https://tembo.io/blog/${post.slug}`,
 			content: isMdx
-				? COULD_NOT_BE_RENDERED
+				? ReactDOMServer.renderToStaticMarkup(post.body)
 				: contentPost
 						?.compiledContent()
 						.replaceAll('src="/', 'src="https://tembo.io/') ||
