@@ -14,9 +14,9 @@ Finally, a SQL interface to execute the RAG pipeline will be provided to generat
 
 ## Features
 
--   text to embedding transformers: supports any Hugging Face sentence transformer model, privately hosted Hugging Face model, and OpenAI embedding models
--   define custom prompt templates with SQL
--   mix-and-match embedding models and chat-completion models by changing SQL configurations
+- text to embedding transformers: supports any Hugging Face sentence transformer model, privately hosted Hugging Face model, and OpenAI embedding models
+- define custom prompt templates with SQL
+- mix-and-match embedding models and chat-completion models by changing SQL configurations
 
 ## Build a support agent with Tembo RAG
 
@@ -37,18 +37,17 @@ Let's write a minimal script to copy all the markdown documents out of the repo 
 ```bash
 mkdir tembo_docs
 
-find "website/docusaurus/docs" -type f -name "*.md" -exec cp {} "tembo_docs" \;
-find "website/landing/src/content/blog" -type f -name "*.md" -exec cp {} "tembo_docs" \;
+find ./src/content -type f \( -name "*.md" -o -name "*.mdx" \) -exec cp {} ./tembo_docs \;
 ```
 
-There should be somewhere around 80 documents in the `tembo_docs` directory:
+There should be somewhere around 100 documents in the `tembo_docs` directory, depending on the how many documents have been published since the writing of this guide.
 
 ```bash
 ls -l tembo_docs | wc -l
 ```
 
 ```console
-79
+97
 ```
 
 Now all the contextual documents are in the `./tembo_docs` directory, which will make the next steps easier.
@@ -67,9 +66,13 @@ Generally, using the full context window will achieve a better response, but com
 Load the documents into memory and process them into chunks using the official Python sdk for Tembo, tembo-py. This library's `rag` module currently wraps the major chunking functionality from the llama-index library, but all transformation and
 search functionality is handled within Tembo Postgres.
 
+Install Tembo's python library which contains a convenience wrapper around  the [llama-index](https://docs.llamaindex.ai/en/stable/) library.
+
 ```bash
 pip install tembo-py
 ```
+
+Initialize the project with your Tembo instance. For this example, we will use the `gpt-3.5-turbo` model, but all of OpenAI's chat models are supported.
 
 ```python
 from tembo_py.rag import TemboRAG
@@ -79,15 +82,20 @@ rag = TemboRAG(
     chat_model="gpt-3.5-turbo",
     connection_string="postgresql://postgres:<password>@<yourTemboHost>:5432/postgres"
 )
+```
 
+Next, split the documents into chunks. This will use `llama-index` text [splitting algorithm](https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/modules/?h=sentencespl#sentencesplitter) to split all the documents into sensibly sized chunks.
+
+```python
 chunks = rag.prepare_from_directory("./tembo_docs")
 ```
 
-The original 80 documents are now split into nearly 500 chunks, where each chunk is <= to the context window size of the `gpt-3.5-turbo` model.
+The original documents are now split into many more chunks.
+ The number of chunks will depend on the size and number of documents, and can be further configured by passing in the `chunk_size` parameter, or any of llama-index [parameters](https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/modules/?h=sentencespl#sentencesplitter) as kwargs.
 
 ```python
 > print("number of chunks: ", len(chunks))
-number of chunks:  475
+number of chunks:  376
 ```
 
 ### Insert documents into Postgres
@@ -132,6 +140,8 @@ Select just the chat resposne by adding `-> 'chat_response'` to the end of the q
 select vectorize.rag('tembo_support', 'what are tembo_stacks?') -> 'chat_response';
 ```
 
+Note, you can view the context that was passed to the chat model by removing the `-> 'chat_response'` from the query.
+
 The response should be something like:
 
 ```console
@@ -174,9 +184,9 @@ select vectorize.rag(
 
 RAG can be a very powerful technique for building an LLM application, but the effectiveness of the chat model is highly dependent on a few factors:
 
--   the contextual documents provided in RAG need to be relevant. This means that relevant documents must not only exist, but the similarity search also needs to find them.
--   the prompt needs to be well-crafted to guide the LLM to generate accurate and relevant responses. Even with a highly tailored prompt, chat responses are still subject to "hallucinations".
--   context windows are a constraint, and are costly. Using a chat model with a higher context window is more likely but not guaranteed to generate a better response, and it is guaranteed to be more expensive.
+- the contextual documents provided in RAG need to be relevant. This means that relevant documents must not only exist, but the similarity search also needs to find them.
+- the prompt needs to be well-crafted to guide the LLM to generate accurate and relevant responses. Even with a highly tailored prompt, chat responses are still subject to "hallucinations".
+- context windows are a constraint, and are costly. Using a chat model with a higher context window is more likely but not guaranteed to generate a better response, and it is guaranteed to be more expensive.
 
 ### Support
 

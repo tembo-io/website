@@ -38,6 +38,22 @@ if __name__ == "__main__":
     main()
 ```
 
+If you're using Psycopg 3, which is the module just `psycopg`, then you may choose to install the version that includes the packaged dependencies like this `pip install "psycopg[binary,pool]"`, similar to the case of Psycopg 2. In either case of Psycopg 2 or 3, it works without the `-binary` version of the module if the underlying `libpq` is up to date.
+
+You can update `libpq` like this on a Debian based Linux system:
+
+```bash
+sudo apt-get update && sudo apt-get install -y lsb-release
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo tee /etc/apt/trusted.gpg.d/pgdg.asc &>/dev/null
+sudo apt-get update && sudo apt-get install -y postgresql-client
+```
+
+Here’s an example of updating `psql` and `libpq` on a Mac, using [brew](https://brew.sh/):
+
+```bash
+brew reinstall libpq
+```
 
 ## Support and Community
 

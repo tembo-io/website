@@ -8,33 +8,65 @@ import Callout from '../../../../../components/Callout.astro';
 
 <Callout variant='tip'>
 	While our flagship product is <a href="https://cloud.tembo.io">Tembo Cloud</a>,
-	we also provide software for various use cases.
+	we also provide a self-hosted version for various use cases.
 </Callout>
 
 
 ## Tembo Enterprise
 
-Using our Tembo Enterprise, both the control plane and the data plane are 
-owned and managed by you, and will live in your cloud account. 
+Tembo Enterprise is a self-hosted version of the Tembo Platform that runs in your own Kubernetes cluster. It
+allows you to benefit from the same features as Tembo Cloud, but with the added control and security of running
+the software in your own environment.
 
-We'll provide you with a way to install and run the control plane, 
-data plane and UI in your account so that they can use Tembo Cloud in a 
-way that meets your security requirements. 
-
-Extension management is a key feature of the Tembo experience, and the platform 
-makes use of the Trunk extension registry under the hood. You may not be able to 
-use the public Trunk registry, so we'll provide a way for you to use your 
-own private extension registry.
+Tembo Enterprise is made up of the same components as Tembo Cloud, but packaged and distributed in a way that allows for
+easy installation and management. Instead of running in separate Kubernetes clusters, the components run in a single
+Kubernetes cluster. This keeps your total cost of ownership low and makes for a simple and easy-to-manage deployment.
 
 <img src="/enterprise-software.png" />
 
-## Responsibilities
+Configurability is a key feature of Tembo Enterprise. The platform comes with a set of default configurations and
+components for convenience, but you can easily customize the platform to suit your needs. Example configurations
+include:
+- Enabling a private extension registry
+- Using your authentication provider of choice
+- Using your existing ingress, monitoring, and logging solutions
 
-Our Responsibilities:
 
-* General support
+## Installation
 
-Your Responsibilities: 
+Tembo Enterprise is packaged and distributed as a Helm chart. The chart can be configured to suit your needs and installed
+in your Kubernetes cluster using the Helm package manager. The installation process is simple and can be done in a few
+steps.
+1. `helm repo add tembo https://tembo-io.github.io/tembo-enterprise`
+2. `helm install tembo-enterprise tembo/tembo-enterprise`
 
-* Kubernetes cluster provisioning, upgrades, maintenance, and support
-* Software installation, upgrades, and maintenance
+
+## Releases and Upgrades
+
+Tembo Enterprise is released on a regular basis, with new features, bug fixes, and security updates:
+- Patch releases with bugfixes every 2 weeks
+- Minor releases every 3 months
+- Major releases every 12 months
+
+Upgrading Tembo Enterprise is as simple as running `helm upgrade` with the new version of the Helm chart. The upgrade
+process is designed to be seamless and non-disruptive to your running workloads.
+
+
+## Support
+
+Tembo provides support for the installation, configuration, and operation of Tembo Enterprise. Our support team is
+available to help you with any Tembo Enterprise issues you may encounter and to provide guidance on best practices for running the
+platform in your environment.
+
+Kubernetes cluster management is not included in our support offering, but we can provide
+guidance on how to manage your Kubernetes cluster to ensure the best performance and reliability of the Tembo Platform.
+
+We encourage Tembo Enterprise users to upgrade to the latest patch release as soon as possible to benefit from the latest
+bug fixes and features. Minor release `N` will be supported until 1 month after the release of minor release `N+2`.
+For example, if you are running release `24.1.0`, you will receive support until 1 month after the release of minor
+release `24.3.0`.
+
+
+## Try Tembo Enterprise
+Ready to try Tembo Enterprise? [Schedule some time with us](https://calendly.com/ian-tembo) to get
+started!
