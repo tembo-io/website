@@ -2,7 +2,9 @@ import rss from '@astrojs/rss';
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { AUTHORS } from '../blogAuthors';
-import ReactDOMServer from 'react-dom/server'
+import sanitizeHtml from 'sanitize-html';
+import MarkdownIt from 'markdown-it';
+const parser = new MarkdownIt();
 
 export const GET: APIRoute = async (context) => {
 	const blog = await getCollection('blog');
@@ -32,12 +34,9 @@ export const GET: APIRoute = async (context) => {
 				pubDate: new Date(parsedDate).toISOString() as any,
 				description: post.data.description,
 				link: `/blog/${post.slug}`,
-				content: isMdx
-					? ReactDOMServer.renderToStaticMarkup(post.body)
-					: contentPost
-							?.compiledContent()
-							.replaceAll('src="/', 'src="https://tembo.io/') ||
-						COULD_NOT_BE_RENDERED,
+				content: sanitizeHtml(parser.render(post.body), {
+					allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
+				  }).replaceAll('src="/', 'src="https://tembo.io/'),
 				customData: `
                     <author>
                         <name>${AUTHORS[post.data.authors[0]].name}</name>

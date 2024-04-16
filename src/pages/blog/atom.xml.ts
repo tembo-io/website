@@ -1,8 +1,9 @@
 import { Feed } from 'feed';
 import { getCollection } from 'astro:content';
 import { AUTHORS } from '../../blogAuthors';
-import ReactDOMServer from 'react-dom/server'
-
+import sanitizeHtml from 'sanitize-html';
+import MarkdownIt from 'markdown-it';
+const parser = new MarkdownIt();
 export async function GET() {
 	const blog = await getCollection('blog');
 	const postImportResult = import.meta.glob(
@@ -42,12 +43,9 @@ export async function GET() {
 			date: new Date(parsedDate),
 			description: post.data.description,
 			link: `https://tembo.io/blog/${post.slug}`,
-			content: isMdx
-				? ReactDOMServer.renderToStaticMarkup(post.body)
-				: contentPost
-						?.compiledContent()
-						.replaceAll('src="/', 'src="https://tembo.io/') ||
-					COULD_NOT_BE_RENDERED,
+			content: sanitizeHtml(parser.render(post.body), {
+				allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
+			  }).replaceAll('src="/', 'src="https://tembo.io/'),
 			author: [
 				{
 					name: author.name,
