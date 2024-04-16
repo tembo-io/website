@@ -7,6 +7,13 @@ image: './tembo_vector.png'
 date: 2024-04-15T18:00
 description: |
     Beyond storage and search, building the tooling to maintain the lifecycle of embeddings in Postgres.
+feedSummary: |
+This blog explores the area beyond storage and indexing of embeddings in VectorDBs.
+ It highlights the continuous lifecycle of embeddings, from generation embeddings from source data to updating and serving embedding models, which is vital for maintaining consistency between initial setup and subsequent search.
+ As data evolves, so too must the embeddings, necessitating regular updates to reflect new or altered data.
+ The article emphasizes the importance of using the same transformation processes and models for both generating and searching embeddings to ensure reliable outputs.
+ Additionally, the flexibility to swiftly adapt to new embedding models as they emerge in the industry is highlighted,
+ with practical examples using Postgres extensions and features such as pg_vectorize, pg_cron, and Postgres triggers.
 ---
 
 Why do we need vector databases? The proliferation of embeddings immediately brought forth the need to efficiently store, index, and search these arrays of floats.
