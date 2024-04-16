@@ -12,7 +12,7 @@ export const GET: APIRoute = async (context) => {
 	return rss({
 		title: 'Tembo’s Blog',
 		description:
-			'Latest news and technical blog posts from membors of the Tembo team and community!',
+			'Latest news and technical blog posts from members of the Tembo team and community!',
 		site: context.site as string | URL,
 		xmlns: {
 			atom: 'http://www.w3.org/2005/Atom',

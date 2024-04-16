@@ -14,7 +14,7 @@ export async function GET() {
 	const feed = new Feed({
 		title: "Tembo's Blog",
 		description:
-			'Latest news and technical blog posts from membors of the Tembo team and community!',
+			'Latest news and technical blog posts from members of the Tembo team and community!',
 		id: 'https://tembo.io/blog',
 		link: 'https://tembo.io/blog',
 		language: 'en',

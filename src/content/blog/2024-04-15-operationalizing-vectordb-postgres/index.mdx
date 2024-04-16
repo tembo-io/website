@@ -7,6 +7,13 @@ image: './tembo_vector.png'
 date: 2024-04-15T18:00
 description: |
     Beyond storage and search, building the tooling to maintain the lifecycle of embeddings in Postgres.
+feedSummary: |
+    This blog explores the area beyond storage and indexing of embeddings in VectorDBs.
+    It highlights the continuous lifecycle of embeddings, from generation embeddings from source data to updating and serving embedding models, which is vital for maintaining consistency between initial setup and subsequent search.
+    As data evolves, so too must the embeddings, necessitating regular updates to reflect new or altered data.
+    The article emphasizes the importance of using the same transformation processes and models for both generating and searching embeddings to ensure reliable outputs.
+    Additionally, the flexibility to swiftly adapt to new embedding models as they emerge in the industry is highlighted,
+    with practical examples using Postgres extensions and features such as pg_vectorize, pg_cron, and Postgres triggers.
 ---
 
 Why do we need vector databases? The proliferation of embeddings immediately brought forth the need to efficiently store, index, and search these arrays of floats.
@@ -39,10 +46,13 @@ It is not enough to just store embeddings in a database. To operationalize the v
 
 ![alt text](./image.png)
 
-___
-To follow along with code, you can start a VectorDB instance for free on [Tembo Cloud](https://cloud.tembo.io) or run the [docker-compose](https://github.com/tembo-io/pg_vectorize?tab=readme-ov-file#installation) example locally.
- Refer to our [detailed guide](https://tembo.io/docs/product/stacks/ai/vectordb) for a more in-depth walkthrough of pg_vectorize and the VectorDB Stack
-___
+import Callout from '../../../components/Callout.astro';
+
+<Callout title='Getting started with VectorDB' variant='info'>
+	To follow along with code, you can start a VectorDB instance for free on [Tembo Cloud](https://cloud.tembo.io) or run the [docker-compose](https://github.com/tembo-io/pg_vectorize?tab=readme-ov-file#installation) example locally.
+
+    Refer to our [detailed guide](https://tembo.io/docs/product/stacks/ai/vectordb) for a more in-depth walkthrough of pg_vectorize and the VectorDB Stack
+</Callout>
 
 If you want to generate embeddings using an open source the Apache-2.0 licensed [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) sentence transformer, you can initialize your project like so:
 
@@ -118,9 +128,11 @@ Below is the process of updating embeddings with a trigger-based flow. The cron 
 
 ![embedding-updates](./upserts.png)
 
-Many thanks to [Gunnar Morling](https://twitter.com/gunnarmorling/status/1778805731933790225) who recently demonstrated this trigger based update flow on X.
+Many thanks to [Gunnar Morling](https://twitter.com/gunnarmorling) who recently demonstrated this trigger based update flow on X.
 
-[![alt text](./image-1.png)](https://twitter.com/gunnarmorling/status/1778805731933790225)
+import Tweet from '../../../components/Tweet';
+
+<Tweet id='1778805731933790225' client:load />
 
 ## Flexibility and rapid iteration
 
