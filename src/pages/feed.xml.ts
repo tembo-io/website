@@ -1,4 +1,4 @@
-import rss from '@astrojs/rss';
+import rss, { pagesGlobToRssItems } from '@astrojs/rss';
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { AUTHORS } from '../blogAuthors';
@@ -32,7 +32,7 @@ export const GET: APIRoute = async (context) => {
 				description: post.data.description,
 				link: `/blog/${post.slug}`,
 				content: isMdx
-					? COULD_NOT_BE_RENDERED
+					? post.data?.feedSummary || COULD_NOT_BE_RENDERED
 					: contentPost
 							?.compiledContent()
 							.replaceAll('src="/', 'src="https://tembo.io/') ||

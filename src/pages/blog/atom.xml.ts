@@ -42,7 +42,7 @@ export async function GET() {
 			description: post.data.description,
 			link: `https://tembo.io/blog/${post.slug}`,
 			content: isMdx
-				? COULD_NOT_BE_RENDERED
+				? post.data?.feedSummary || COULD_NOT_BE_RENDERED
 				: contentPost
 						?.compiledContent()
 						.replaceAll('src="/', 'src="https://tembo.io/') ||
