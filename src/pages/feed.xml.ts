@@ -2,9 +2,6 @@ import rss, { pagesGlobToRssItems } from '@astrojs/rss';
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { AUTHORS } from '../blogAuthors';
-import sanitizeHtml from 'sanitize-html';
-import MarkdownIt from 'markdown-it';
-const parser = new MarkdownIt();
 
 export const GET: APIRoute = async (context) => {
 	const blog = await getCollection('blog');
@@ -24,6 +21,11 @@ export const GET: APIRoute = async (context) => {
 		items: blog.map((post) => {
 			const dateString = post.id.substring(0, 10);
 			const parsedDate = post.data?.date || new Date(dateString);
+			const COULD_NOT_BE_RENDERED = `This post contained content that could not be rendered in the Atom feed. Please use the official post link: https://tembo.io/blog/${post.slug}`;
+			const isMdx = post.id.includes('.mdx');
+			const contentPost = posts.find((p) =>
+				p.frontmatter.slug.includes(post.slug),
+			);
 			return {
 				title: post.data.title,
 				pubDate: new Date(parsedDate).toISOString() as any,
