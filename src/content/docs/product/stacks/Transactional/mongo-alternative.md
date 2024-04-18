@@ -95,7 +95,7 @@ Similar to other stacks, you can copy the connection string from the Tembo UI or
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 ```
 
-Once connected to the instance, running `\dn` will list the schemas and show `ferretdb` and an option.
+Once connected to the instance, running `\dn` will list the schemas and show `ferretdb` as an option.
 
 Running `SET search_path TO ferretdb;` will allow you to interact with your data stored via FerretDB.
 
