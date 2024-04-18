@@ -78,7 +78,69 @@ Below we've laid out a select few that we'll be using in this guide:
 | `-lco PRECISION=no`                                      | Disables the storage of geometry precision.                                                   |
 | `tl_2010_25_tabblock10.shp`                              | The path to the input shapefile.                          
 
-### Example Script
+### Example Scripts
+
+<details>
+<summary><strong>nation_script_load.sh</strong></summary>
+
+```bash
+#!/bin/bash
+
+# Set directory and tool variables
+TMPDIR="<path/to/temp/dir>"
+UNZIPTOOL=unzip
+WGETTOOL="<path/to/wget>"
+OGR2OGR="<path/to/ogr2ogr>"
+export PGBIN="<path/to/postgresql/bin>"
+export PGPORT=5432
+export PGHOST="<your-host>"
+export PGUSER="postgres"
+export PGPASSWORD="<your-password>"
+export PGDATABASE="postgres"
+PSQL="${PGBIN}/psql"
+
+# Ensure the temp directory is clear
+mkdir -p ${TMPDIR}
+rm -f ${TMPDIR}/*
+
+# Download and process state data
+echo "Downloading state data..."
+cd ${TMPDIR}
+${WGETTOOL} -N https://www2.census.gov/geo/tiger/TIGER2022/STATE/tl_2022_us_state.zip --directory-prefix=${TMPDIR}
+unzip -o ${TMPDIR}/tl_2022_us_state.zip -d ${TMPDIR}
+
+echo "Processing state data..."
+${PSQL} -c "DROP SCHEMA IF EXISTS tiger_staging CASCADE;"
+${PSQL} -c "CREATE SCHEMA tiger_staging;"
+${PSQL} -c "CREATE TABLE IF NOT EXISTS tiger_data.state_all(CONSTRAINT pk_state_all PRIMARY KEY (statefp), CONSTRAINT uidx_state_all_stusps UNIQUE (stusps), CONSTRAINT uidx_state_all_gid UNIQUE (gid)) INHERITS (tiger.state);"
+${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.state -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs EPSG:4269 -s_srs EPSG:4269 ${TMPDIR}/tl_2022_us_state.shp
+${PSQL} -c "SELECT loader_load_staged_data(lower('state'), lower('state_all'));"
+${PSQL} -c "CREATE INDEX IF NOT EXISTS tiger_data_state_all_the_geom_gist ON tiger_data.state_all USING gist(the_geom);"
+${PSQL} -c "VACUUM ANALYZE tiger_data.state_all"
+
+# Download and process county data
+echo "Downloading county data..."
+${WGETTOOL} -N https://www2.census.gov/geo/tiger/TIGER2022/COUNTY/tl_2022_us_county.zip --directory-prefix=${TMPDIR}
+unzip -o ${TMPDIR}/tl_2022_us_county.zip -d ${TMPDIR}
+
+echo "Processing county data..."
+if [ -f "${TMPDIR}/tl_2022_us_county.shp" ]; then
+    echo "Shapefile is present, proceeding with database operations..."
+    ${PSQL} -c "DROP SCHEMA IF EXISTS tiger_staging CASCADE;"
+    ${PSQL} -c "CREATE SCHEMA tiger_staging;"
+    ${PSQL} -c "CREATE TABLE IF NOT EXISTS tiger_data.county_all (CONSTRAINT pk_tiger_data_county_all PRIMARY KEY (cntyidfp), CONSTRAINT uidx_tiger_data_county_all_gid UNIQUE (gid)) INHERITS (tiger.county);"
+    ${OGR2OGR} -f "PostgreSQL" PG:"dbname=$PGDATABASE host=$PGHOST port=$PGPORT user=$PGUSER password=$PGPASSWORD" -nln tiger_staging.county -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs EPSG:4269 -s_srs EPSG:4269 "${TMPDIR}/tl_2022_us_county.shp"
+    ${PSQL} -c "INSERT INTO tiger_data.county_all SELECT * FROM tiger_staging.county ON CONFLICT DO NOTHING;"
+    ${PSQL} -c "CREATE INDEX IF NOT EXISTS tiger_data_county_all_the_geom_gist ON tiger_data.county_all USING gist(the_geom);"
+    ${PSQL} -c "VACUUM ANALYZE tiger_data.county_all"
+else
+    echo "ERROR: Shapefile not found after extraction: ${TMPDIR}/tl_2022_us_county.shp"
+fi
+
+```
+
+
+</details>
 
 Below you can expand `census.sh` and copy its contents to a `.sh` file in your local environment.
 
@@ -166,7 +228,7 @@ download_and_load_state() {
     esac
 
     # Array of file types you want to download
-    declare -a file_types=("bg10" "tract10" "tabblock10")
+    declare -a file_types=("bg10" "tract10" "tabblock10" "state10" "county10")
 
     for file_suffix in "${file_types[@]}"; do
         local file_name="tl_2010_${state_fips}_${file_suffix}"
@@ -289,17 +351,99 @@ ORDER BY table_name;
 ```text
  table_schema | table_name
 --------------+-------------
- tiger_data   | ma_bg
- tiger_data   | ma_tabblock
- tiger_data   | ma_tract
+ tiger_data   | ok_bg
+ tiger_data   | ok_tabblock
+ tiger_data   | ok_tract
 (3 rows)
 ```
 
 ### Query 2 - 
 
+postgres=# SELECT
+    AVG(aland10) AS average_land_area,
+    MIN(aland10) AS minimum_land_area,
+    MAX(aland10) AS maximum_land_area,
+    AVG(awater10) AS average_water_area,
+    COUNT(*) AS total_tracts
+FROM tiger_data.ok_tract10;
+-[ RECORD 1 ]------+---------------------
+average_land_area  | 169847056.93690249
+minimum_land_area  | 502385
+maximum_land_area  | 4707327640
+average_water_area | 3228692.636711281071
+total_tracts       | 1046
 
+postgres=#
 
 ### Query 3 - 
 
+postgres=# SELECT countyfp10, SUM(aland10) AS total_land_area, SUM(awater10) AS total_water_area
+FROM tiger_data.ok_tabblock10
+GROUP BY countyfp10
+ORDER BY countyfp10;
+ countyfp10 | total_land_area | total_water_area
+------------+-----------------+------------------
+ 001        |      1485298113 |          9261716
+ 003        |      2244106958 |         38546713
+ 005        |      2526578130 |         37283206
+ 007        |      4699978363 |          7347183
+ 009        |      2335665049 |          5527162
+ 011        |      2404607766 |         26851771
+ 013        |      2342567959 |        102228720
+ 015        |      3310753325 |         30820558
+ 017        |      2322250237 |         23244265
+ 019        |      2129424630 |         30016294
+ 021        |      1940956597 |         69625855
+ 023        |      1995214679 |         75667441
+ 025        |      4751948736 |         15923999
+ 027        |      1395398450 |         50038594
+ 029        |      1338199454 |         12080937
+ 031        |      2769439538 |         37339122
+ 033        |      1638566638 |         24095479
+ 035        |      1971897258 |          3697821
+ 037        |      2460853552 |         50982330
+ 039        |      2561024716 |         34321703
+ 041        |      1911868565 |        140205197
+ 043        |      2588632047 |         22688140
+ 045        |      3189609693 |           952238
+ 047        |      2741414396 |          4140336
+ 049        |      2077482576 |         29961926
+ 051        |      2850273013 |         11403865
+ 053        |      2592244963 |          7021928
+ 055        |      1655842714 |         11157422
+ 057        |      1391326707 |          3800417
+ 059        |      2691040791 |          5259448
+ 061        |      1493181861 |        126266885
+ 063        |      2084025091 |         26505491
+ 065        |      1223051540 |          3166046
+(33 rows)
 
 
+
+
+
+---
+
+
+postgres=# SELECT 'ok_bg10' AS table_name, COUNT(*) FROM tiger_data.ok_bg10
+UNION ALL
+SELECT 'ok_tabblock10', COUNT(*) FROM tiger_data.ok_tabblock10
+UNION ALL
+SELECT 'ok_tract10', COUNT(*) FROM tiger_data.ok_tract10;
+  table_name   | count
+---------------+-------
+ ok_bg10       |  2965
+ ok_tabblock10 | 99999
+ ok_tract10    |  1046
+(3 rows)
+
+
+### drop tables
+
+postgres=# SELECT drop_state_tables_generate_script('OK');
+-[ RECORD 1 ]---------------------+-------------------------------------
+drop_state_tables_generate_script | DROP TABLE tiger_data.ok_bg10;      +
+                                  | DROP TABLE tiger_data.ok_county10;  +
+                                  | DROP TABLE tiger_data.ok_state10;   +
+                                  | DROP TABLE tiger_data.ok_tabblock10;+
+                                  | DROP TABLE tiger_data.ok_tract10;
