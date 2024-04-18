@@ -145,112 +145,321 @@ fi
 Below you can expand `census.sh` and copy its contents to a `.sh` file in your local environment.
 
 <details>
-<summary><strong>census.sh</strong></summary>
+<summary><strong>multistate_load.sh</strong></summary>
 
 ```bash
 #!/bin/bash
 
-# Set these variables according to your environment
-PGDATABASE=postgres
-PGHOST=<your-host>
-PGPORT=5432
-PGUSER=postgres
-PGPASSWORD=<your-password>
-SCHEMA_NAME=tiger_data
+TMPDIR="<path/to/temp/dir>"
+UNZIPTOOL=unzip
+WGETTOOL="<path/to/wget>"
+OGR2OGR="<path/to/ogr2ogr>"
+export PGBIN="<path/to/postgresql/bin>"
+export PGPORT=5432
+export PGHOST=<your-host>
+export PGUSER=postgres
+export PGPASSWORD=<your-password>
+export PGDATABASE=postgres
+PSQL=${PGBIN}/psql
 
-export PGDATABASE PGHOST PGPORT PGUSER PGPASSWORD
-
-# Function to download and process shapefiles for a given state abbreviation
-download_and_load_state() {
-    local state_abbr="$1"
-    local state_fips=""
-    local state_name=""
-    
-    # Define state FIPS codes and names here
-    case "$state_abbr" in
-        AL) state_fips="01"; state_name="Alabama";;
-        AK) state_fips="02"; state_name="Alaska";;
-        AZ) state_fips="04"; state_name="Arizona";;
-        AR) state_fips="05"; state_name="Arkansas";;
-        CA) state_fips="06"; state_name="California";;
-        CO) state_fips="08"; state_name="Colorado";;
-        CT) state_fips="09"; state_name="Connecticut";;
-        DE) state_fips="10"; state_name="Delaware";;
-        DC) state_fips="11"; state_name="District_of_Columbia";;
-        FL) state_fips="12"; state_name="Florida";;
-        GA) state_fips="13"; state_name="Georgia";;
-        HI) state_fips="15"; state_name="Hawaii";;
-        ID) state_fips="16"; state_name="Idaho";;
-        IL) state_fips="17"; state_name="Illinois";;
-        IN) state_fips="18"; state_name="Indiana";;
-        IA) state_fips="19"; state_name="Iowa";;
-        KS) state_fips="20"; state_name="Kansas";;
-        KY) state_fips="21"; state_name="Kentucky";;
-        LA) state_fips="22"; state_name="Louisiana";;
-        ME) state_fips="23"; state_name="Maine";;
-        MD) state_fips="24"; state_name="Maryland";;
-        MA) state_fips="25"; state_name="Massachusetts";;
-        MI) state_fips="26"; state_name="Michigan";;
-        MN) state_fips="27"; state_name="Minnesota";;
-        MS) state_fips="28"; state_name="Mississippi";;
-        MO) state_fips="29"; state_name="Missouri";;
-        MT) state_fips="30"; state_name="Montana";;
-        NE) state_fips="31"; state_name="Nebraska";;
-        NV) state_fips="32"; state_name="Nevada";;
-        NH) state_fips="33"; state_name="New_Hampshire";;
-        NJ) state_fips="34"; state_name="New_Jersey";;
-        NM) state_fips="35"; state_name="New_Mexico";;
-        NY) state_fips="36"; state_name="New_York";;
-        NC) state_fips="37"; state_name="North_Carolina";;
-        ND) state_fips="38"; state_name="North_Dakota";;
-        OH) state_fips="39"; state_name="Ohio";;
-        OK) state_fips="40"; state_name="Oklahoma";;
-        OR) state_fips="41"; state_name="Oregon";;
-        PA) state_fips="42"; state_name="Pennsylvania";;
-        RI) state_fips="44"; state_name="Rhode_Island";;
-        SC) state_fips="45"; state_name="South_Carolina";;
-        SD) state_fips="46"; state_name="South_Dakota";;
-        TN) state_fips="47"; state_name="Tennessee";;
-        TX) state_fips="48"; state_name="Texas";;
-        UT) state_fips="49"; state_name="Utah";;
-        VT) state_fips="50"; state_name="Vermont";;
-        VA) state_fips="51"; state_name="Virginia";;
-        WA) state_fips="53"; state_name="Washington";;
-        WV) state_fips="54"; state_name="West_Virginia";;
-        WI) state_fips="55"; state_name="Wisconsin";;
-        WY) state_fips="56"; state_name="Wyoming";;
-        AS) state_fips="60"; state_name="American_Samoa";;
-        GU) state_fips="66"; state_name="Guam";;
-        MP) state_fips="69"; state_name="Commonwealth_Of_The_Northern_Mariana_Islands";;
-        PR) state_fips="72"; state_name="Puerto_Rico";;
-        VI) state_fips="78"; state_name="Virgin_Islands_Of_The_United_States";;
-        *) echo "State abbreviation ($state_abbr) not recognized." ; exit 1 ;;
+# Function to convert state abbreviation to FIPS code
+state_to_fips() {
+    case "$1" in
+        AL) echo "01" ;; # Alabama
+        AK) echo "02" ;; # Alaska
+        AZ) echo "04" ;; # Arizona
+        AR) echo "05" ;; # Arkansas
+        CA) echo "06" ;; # California
+        CO) echo "08" ;; # Colorado
+        CT) echo "09" ;; # Connecticut
+        DE) echo "10" ;; # Delaware
+        DC) echo "11" ;; # District of Columbia
+        FL) echo "12" ;; # Florida
+        GA) echo "13" ;; # Georgia
+        HI) echo "15" ;; # Hawaii
+        ID) echo "16" ;; # Idaho
+        IL) echo "17" ;; # Illinois
+        IN) echo "18" ;; # Indiana
+        IA) echo "19" ;; # Iowa
+        KS) echo "20" ;; # Kansas
+        KY) echo "21" ;; # Kentucky
+        LA) echo "22" ;; # Louisiana
+        ME) echo "23" ;; # Maine
+        MD) echo "24" ;; # Maryland
+        MA) echo "25" ;; # Massachusetts
+        MI) echo "26" ;; # Michigan
+        MN) echo "27" ;; # Minnesota
+        MS) echo "28" ;; # Mississippi
+        MO) echo "29" ;; # Missouri
+        MT) echo "30" ;; # Montana
+        NE) echo "31" ;; # Nebraska
+        NV) echo "32" ;; # Nevada
+        NH) echo "33" ;; # New Hampshire
+        NJ) echo "34" ;; # New Jersey
+        NM) echo "35" ;; # New Mexico
+        NY) echo "36" ;; # New York
+        NC) echo "37" ;; # North Carolina
+        ND) echo "38" ;; # North Dakota
+        OH) echo "39" ;; # Ohio
+        OK) echo "40" ;; # Oklahoma
+        OR) echo "41" ;; # Oregon
+        PA) echo "42" ;; # Pennsylvania
+        RI) echo "44" ;; # Rhode Island
+        SC) echo "45" ;; # South Carolina
+        SD) echo "46" ;; # South Dakota
+        TN) echo "47" ;; # Tennessee
+        TX) echo "48" ;; # Texas
+        UT) echo "49" ;; # Utah
+        VT) echo "50" ;; # Vermont
+        VA) echo "51" ;; # Virginia
+        WA) echo "53" ;; # Washington
+        WV) echo "54" ;; # West Virginia
+        WI) echo "55" ;; # Wisconsin
+        WY) echo "56" ;; # Wyoming
+        AS) echo "60" ;; # American Samoa
+        GU) echo "66" ;; # Guam
+        MP) echo "69" ;; # Northern Mariana Islands
+        PR) echo "72" ;; # Puerto Rico
+        VI) echo "78" ;; # U.S. Virgin Islands
+        # Default case if state is unknown
+        *) echo "Unknown" ;;
     esac
-
-    # Array of file types you want to download
-    declare -a file_types=("bg10" "tract10" "tabblock10" "state10" "county10")
-
-    for file_suffix in "${file_types[@]}"; do
-        local file_name="tl_2010_${state_fips}_${file_suffix}"
-        local url="https://www2.census.gov/geo/pvs/tiger2010st/${state_fips}_${state_name}/${state_fips}/${file_name}.zip"
-
-        echo "Downloading $file_name from URL: $url"
-        wget -q -O "${file_name}.zip" "$url" && \
-        echo "Unzipping ${file_name}..." && \
-        unzip -q -o "${file_name}.zip" && \
-        echo "Loading ${file_name} into PostgreSQL..." && \
-        ogr2ogr -f "PostgreSQL" PG:"dbname=$PGDATABASE host=$PGHOST port=$PGPORT user=$PGUSER password=$PGPASSWORD" \
-                -nln "${SCHEMA_NAME}.${state_abbr}_${file_suffix}" -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=no "${file_name}.shp" && \
-        echo "${file_name} processed successfully." || echo "Failed to process ${file_name}."
-    done
 }
 
-read -p "Enter state abbreviation (e.g., FL for Florida): " state_abbr
-state_abbr=$(echo "$state_abbr" | tr '[:lower:]' '[:upper:]')
+# Check for at least one argument
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <State Abbreviation>"
+    exit 1
+fi
 
-download_and_load_state "$state_abbr"
+STATE_ABBR=$1
+STATE_FIPS=$(state_to_fips $STATE_ABBR)
 
-echo "Data loading complete."
+if [ "$STATE_FIPS" = "Unknown" ]; then
+    echo "Invalid or unsupported state abbreviation: $STATE_ABBR"
+    exit 1
+fi
+
+ cd ${TMPDIR%/*}
+ wget https://www2.census.gov/geo/tiger/TIGER2022/PLACE/tl_2022_${STATE_FIPS}_place.zip --mirror --reject=html
+ cd ${TMPDIR%/*}/www2.census.gov/geo/tiger/TIGER2022/PLACE
+ rm -f ${TMPDIR}/*.*
+ ${PSQL} -c "DROP SCHEMA IF EXISTS tiger_staging CASCADE;"
+ ${PSQL} -c "CREATE SCHEMA tiger_staging;"
+ 
+for z in tl_2022_${STATE_FIPS}*_place.zip; do
+    $UNZIPTOOL -o -d $TMPDIR $z;
+done
+cd $TMPDIR;
+
+ ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_place(CONSTRAINT pk_${STATE_ABBR}_place PRIMARY KEY (plcidfp) ) INHERITS(tiger.place);" 
+
+ ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.ma_place -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" ${TMPDIR}/tl_2022_${STATE_FIPS}_place.shp
+
+ ${PSQL} -c "ALTER TABLE tiger_staging.${STATE_ABBR}_place RENAME geoid TO plcidfp;SELECT loader_load_staged_data(lower('${STATE_ABBR}_place'), lower('${STATE_ABBR}_place')); ALTER TABLE tiger_data.${STATE_ABBR}_place ADD CONSTRAINT uidx_${STATE_ABBR}_place_gid UNIQUE (gid);"
+ ${PSQL} -c "CREATE INDEX idx_${STATE_ABBR}_place_soundex_name ON tiger_data.${STATE_ABBR}_place USING btree (soundex(name));"
+ ${PSQL} -c "CREATE INDEX tiger_data_${STATE_ABBR}_place_the_geom_gist ON tiger_data.${STATE_ABBR}_place USING gist(the_geom);"
+ ${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_place ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ cd ${TMPDIR%/*}
+ wget https://www2.census.gov/geo/tiger/TIGER2022/COUSUB/tl_2022_${STATE_FIPS}_cousub.zip --mirror --reject=html
+ cd ${TMPDIR%/*}/www2.census.gov/geo/tiger/TIGER2022/COUSUB
+ rm -f ${TMPDIR}/*.*
+ ${PSQL} -c "DROP SCHEMA IF EXISTS tiger_staging CASCADE;"
+ ${PSQL} -c "CREATE SCHEMA tiger_staging;"
+ for z in tl_2022_${STATE_FIPS}*_cousub.zip ; do $UNZIPTOOL -o -d $TMPDIR $z; done
+ cd $TMPDIR;
+
+ ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_cousub(CONSTRAINT pk_${STATE_ABBR}_cousub PRIMARY KEY (cosbidfp), CONSTRAINT uidx_${STATE_ABBR}_cousub_gid UNIQUE (gid)) INHERITS(tiger.cousub);" 
+
+ ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.ma_cousub -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" ${TMPDIR}/tl_2022_${STATE_FIPS}_cousub.shp
+
+ ${PSQL} -c "ALTER TABLE tiger_staging.${STATE_ABBR}_cousub RENAME geoid TO cosbidfp;SELECT loader_load_staged_data(lower('${STATE_ABBR}_cousub'), lower('${STATE_ABBR}_cousub')); ALTER TABLE tiger_data.${STATE_ABBR}_cousub ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ ${PSQL} -c "CREATE INDEX tiger_data_${STATE_ABBR}_cousub_the_geom_gist ON tiger_data.${STATE_ABBR}_cousub USING gist(the_geom);"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_cousub_countyfp ON tiger_data.${STATE_ABBR}_cousub USING btree(countyfp);"
+ cd ${TMPDIR%/*}
+ wget https://www2.census.gov/geo/tiger/TIGER2022/TRACT/tl_2022_${STATE_FIPS}_tract.zip --mirror --reject=html
+ cd ${TMPDIR%/*}/www2.census.gov/geo/tiger/TIGER2022/TRACT
+ rm -f ${TMPDIR}/*.*
+ ${PSQL} -c "DROP SCHEMA IF EXISTS tiger_staging CASCADE;"
+ ${PSQL} -c "CREATE SCHEMA tiger_staging;"
+ for z in tl_2022_${STATE_FIPS}*_tract.zip ; do $UNZIPTOOL -o -d $TMPDIR $z; done
+ cd $TMPDIR;
+
+ ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_tract(CONSTRAINT pk_${STATE_ABBR}_tract PRIMARY KEY (tract_id) ) INHERITS(tiger.tract); " 
+
+ ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.ma_tract -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" ${TMPDIR}/tl_2022_${STATE_FIPS}_tract.shp
+
+ ${PSQL} -c "ALTER TABLE tiger_staging.${STATE_ABBR}_tract RENAME geoid TO tract_id; SELECT loader_load_staged_data(lower('${STATE_ABBR}_tract'), lower('${STATE_ABBR}_tract')); "
+ 	${PSQL} -c "CREATE INDEX tiger_data_${STATE_ABBR}_tract_the_geom_gist ON tiger_data.${STATE_ABBR}_tract USING gist(the_geom);"
+ 	${PSQL} -c "VACUUM ANALYZE tiger_data.${STATE_ABBR}_tract;"
+ 	${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_tract ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ cd ${TMPDIR%/*}
+ wget https://www2.census.gov/geo/tiger/TIGER2022/TABBLOCK20/tl_2022_${STATE_FIPS}_tabblock20.zip --mirror --reject=html
+ cd ${TMPDIR%/*}/www2.census.gov/geo/tiger/TIGER2022/TABBLOCK20
+ rm -f ${TMPDIR}/*.*
+ ${PSQL} -c "DROP SCHEMA IF EXISTS tiger_staging CASCADE;"
+ ${PSQL} -c "CREATE SCHEMA tiger_staging;"
+ for z in tl_2022_${STATE_FIPS}*_tabblock20.zip ; do $UNZIPTOOL -o -d $TMPDIR $z; done
+ cd $TMPDIR;
+
+ ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_tabblock20(CONSTRAINT pk_${STATE_ABBR}_tabblock20 PRIMARY KEY (geoid)) INHERITS(tiger.tabblock20);" 
+
+ ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.ma_tabblock20 -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" ${TMPDIR}/tl_2022_${STATE_FIPS}_tabblock20.shp
+
+ ${PSQL} -c "SELECT loader_load_staged_data(lower('${STATE_ABBR}_tabblock20'), lower('${STATE_ABBR}_tabblock20')); "
+ ${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_tabblock20 ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ ${PSQL} -c "CREATE INDEX tiger_data_${STATE_ABBR}_tabblock20_the_geom_gist ON tiger_data.${STATE_ABBR}_tabblock20 USING gist(the_geom);"
+ ${PSQL} -c "vacuum analyze tiger_data.${STATE_ABBR}_tabblock20;"
+ cd ${TMPDIR%/*}
+ wget https://www2.census.gov/geo/tiger/TIGER2022/BG/tl_2022_${STATE_FIPS}_bg.zip --mirror --reject=html
+ cd ${TMPDIR%/*}/www2.census.gov/geo/tiger/TIGER2022/BG
+ rm -f ${TMPDIR}/*.*
+ ${PSQL} -c "DROP SCHEMA IF EXISTS tiger_staging CASCADE;"
+ ${PSQL} -c "CREATE SCHEMA tiger_staging;"
+ for z in tl_2022_${STATE_FIPS}*_bg.zip ; do $UNZIPTOOL -o -d $TMPDIR $z; done
+ cd $TMPDIR;
+
+ ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_bg(CONSTRAINT pk_${STATE_ABBR}_bg PRIMARY KEY (bg_id)) INHERITS(tiger.bg);" 
+
+ ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.ma_bg -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" ${TMPDIR}/tl_2022_${STATE_FIPS}_bg.shp
+
+ ${PSQL} -c "ALTER TABLE tiger_staging.${STATE_ABBR}_bg RENAME geoid TO bg_id;  SELECT loader_load_staged_data(lower('${STATE_ABBR}_bg'), lower('${STATE_ABBR}_bg')); "
+ ${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_bg ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ ${PSQL} -c "CREATE INDEX tiger_data_${STATE_ABBR}_bg_the_geom_gist ON tiger_data.${STATE_ABBR}_bg USING gist(the_geom);"
+ ${PSQL} -c "vacuum analyze tiger_data.${STATE_ABBR}_bg;"
+
+ cd ${TMPDIR%/*}
+
+# Use curl to fetch the directory listing, grep to filter it, and cut to extract filenames
+curl -s https://www2.census.gov/geo/tiger/TIGER2022/FACES/ | grep 'tl_2022_'${STATE_FIPS}'[^"]*_faces.zip' | grep -o 'href="[^"]*"' | cut -d '"' -f 2 > files_to_download.txt
+
+# Download each file listed
+while IFS= read -r file; do
+
+    wget --mirror "https://www2.census.gov/geo/tiger/TIGER2022/FACES/$file"
+done < files_to_download.txt
+
+ cd ${TMPDIR%/*}/www2.census.gov/geo/tiger/TIGER2022/FACES/
+ rm -f ${TMPDIR}/*.*
+ ${PSQL} -c "DROP SCHEMA IF EXISTS tiger_staging CASCADE;"
+ ${PSQL} -c "CREATE SCHEMA tiger_staging;"
+ for z in tl_*_${STATE_FIPS}*_faces*.zip ; do $UNZIPTOOL -o -d $TMPDIR $z; done
+ cd $TMPDIR;
+
+ ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_faces(CONSTRAINT pk_${STATE_ABBR}_faces PRIMARY KEY (gid)) INHERITS(tiger.faces);" 
+ for z in *faces*.shp; do ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=no -nln tiger_staging.${STATE_ABBR}_faces $z; 
+ ${PSQL} -c "SELECT loader_load_staged_data(lower('${STATE_ABBR}_faces'), lower('${STATE_ABBR}_faces'));"
+ done
+
+ ${PSQL} -c "CREATE INDEX tiger_data_${STATE_ABBR}_faces_the_geom_gist ON tiger_data.${STATE_ABBR}_faces USING gist(the_geom);"
+ 	${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_faces_tfid ON tiger_data.${STATE_ABBR}_faces USING btree (tfid);"
+ 	${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_faces_countyfp ON tiger_data.${STATE_ABBR}_faces USING btree (countyfp);"
+ 	${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_faces ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ 	${PSQL} -c "vacuum analyze tiger_data.${STATE_ABBR}_faces;"
+
+ cd ${TMPDIR%/*}
+ 
+# Use curl to fetch the directory listing, grep to filter it, and cut to extract filenames
+curl -s https://www2.census.gov/geo/tiger/TIGER2022/FEATNAMES/ | grep 'tl_2022_'${STATE_FIPS}'[^"]*_featnames.zip' | grep -o 'href="[^"]*"' | cut -d '"' -f 2 > files_to_download.txt
+
+# Download each file listed
+while IFS= read -r file; do
+
+    wget --mirror "https://www2.census.gov/geo/tiger/TIGER2022/FEATNAMES/$file"
+done < files_to_download.txt
+
+ cd ${TMPDIR%/*}/www2.census.gov/geo/tiger/TIGER2022/FEATNAMES/
+ rm -f ${TMPDIR}/*.*
+ ${PSQL} -c "DROP SCHEMA IF EXISTS tiger_staging CASCADE;"
+ ${PSQL} -c "CREATE SCHEMA tiger_staging;"
+ for z in tl_*_${STATE_FIPS}*_featnames*.zip ; do $UNZIPTOOL -o -d $TMPDIR $z; done
+ cd $TMPDIR;
+
+ ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_featnames(CONSTRAINT pk_${STATE_ABBR}_featnames PRIMARY KEY (gid)) INHERITS(tiger.featnames);ALTER TABLE tiger_data.${STATE_ABBR}_featnames ALTER COLUMN statefp SET DEFAULT '${STATE_FIPS}';" 
+ for z in *featnames*.dbf; do ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=no -nln tiger_staging.${STATE_ABBR}_featnames $z;
+ ${PSQL} -c "SELECT loader_load_staged_data(lower('${STATE_ABBR}_featnames'), lower('${STATE_ABBR}_featnames'));"
+ done
+
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_featnames_snd_name ON tiger_data.${STATE_ABBR}_featnames USING btree (soundex(name));"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_featnames_lname ON tiger_data.${STATE_ABBR}_featnames USING btree (lower(name));"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_featnames_tlid_statefp ON tiger_data.${STATE_ABBR}_featnames USING btree (tlid,statefp);"
+ ${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_featnames ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ ${PSQL} -c "vacuum analyze tiger_data.${STATE_ABBR}_featnames;"
+
+ cd ${TMPDIR%/*}
+ 
+# Use curl to fetch the directory listing, grep to filter it, and cut to extract filenames
+curl -s https://www2.census.gov/geo/tiger/TIGER2022/EDGES/ | grep 'tl_2022_'${STATE_FIPS}'[^"]*_edges.zip' | grep -o 'href="[^"]*"' | cut -d '"' -f 2 > files_to_download.txt
+
+# Download each file listed
+while IFS= read -r file; do
+
+    wget --mirror "https://www2.census.gov/geo/tiger/TIGER2022/EDGES/$file"
+done < files_to_download.txt
+
+ cd ${TMPDIR%/*}/www2.census.gov/geo/tiger/TIGER2022/EDGES/
+ rm -f ${TMPDIR}/*.*
+ ${PSQL} -c "DROP SCHEMA IF EXISTS tiger_staging CASCADE;"
+ ${PSQL} -c "CREATE SCHEMA tiger_staging;"
+ for z in tl_*_${STATE_FIPS}*_edges*.zip ; do $UNZIPTOOL -o -d $TMPDIR $z; done
+ cd $TMPDIR;
+
+ ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_edges(CONSTRAINT pk_${STATE_ABBR}_edges PRIMARY KEY (gid)) INHERITS(tiger.edges);"
+ for z in *edges*.shp; do ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=no -nln tiger_staging.${STATE_ABBR}_edges $z; 
+${PSQL} -c "SELECT loader_load_staged_data(lower('${STATE_ABBR}_edges'), lower('${STATE_ABBR}_edges'));"
+ done
+
+ ${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_edges ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_edges_tlid ON tiger_data.${STATE_ABBR}_edges USING btree (tlid);"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_edgestfidr ON tiger_data.${STATE_ABBR}_edges USING btree (tfidr);"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_edges_tfidl ON tiger_data.${STATE_ABBR}_edges USING btree (tfidl);"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_edges_countyfp ON tiger_data.${STATE_ABBR}_edges USING btree (countyfp);"
+ ${PSQL} -c "CREATE INDEX tiger_data_${STATE_ABBR}_edges_the_geom_gist ON tiger_data.${STATE_ABBR}_edges USING gist(the_geom);"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_edges_zipl ON tiger_data.${STATE_ABBR}_edges USING btree (zipl);"
+ ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_zip_state_loc(CONSTRAINT pk_${STATE_ABBR}_zip_state_loc PRIMARY KEY(zip,stusps,place)) INHERITS(tiger.zip_state_loc);"
+ ${PSQL} -c "INSERT INTO tiger_data.${STATE_ABBR}_zip_state_loc(zip,stusps,statefp,place) SELECT DISTINCT e.zipl, '${STATE_ABBR}', '${STATE_FIPS}', p.name FROM tiger_data.${STATE_ABBR}_edges AS e INNER JOIN tiger_data.${STATE_ABBR}_faces AS f ON (e.tfidl = f.tfid OR e.tfidr = f.tfid) INNER JOIN tiger_data.${STATE_ABBR}_place As p ON(f.statefp = p.statefp AND f.placefp = p.placefp ) WHERE e.zipl IS NOT NULL;"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_zip_state_loc_place ON tiger_data.${STATE_ABBR}_zip_state_loc USING btree(soundex(place));"
+ ${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_zip_state_loc ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ ${PSQL} -c "vacuum analyze tiger_data.${STATE_ABBR}_edges;"
+ ${PSQL} -c "vacuum analyze tiger_data.${STATE_ABBR}_zip_state_loc;"
+ ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_zip_lookup_base(CONSTRAINT pk_${STATE_ABBR}_zip_state_loc_city PRIMARY KEY(zip,state, county, city, statefp)) INHERITS(tiger.zip_lookup_base);"
+ ${PSQL} -c "INSERT INTO tiger_data.${STATE_ABBR}_zip_lookup_base(zip,state,county,city, statefp) SELECT DISTINCT e.zipl, '${STATE_ABBR}', c.name,p.name,'${STATE_FIPS}'  FROM tiger_data.${STATE_ABBR}_edges AS e INNER JOIN tiger.county As c  ON (e.countyfp = c.countyfp AND e.statefp = c.statefp AND e.statefp = '${STATE_FIPS}') INNER JOIN tiger_data.${STATE_ABBR}_faces AS f ON (e.tfidl = f.tfid OR e.tfidr = f.tfid) INNER JOIN tiger_data.${STATE_ABBR}_place As p ON(f.statefp = p.statefp AND f.placefp = p.placefp ) WHERE e.zipl IS NOT NULL;"
+ ${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_zip_lookup_base ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_zip_lookup_base_citysnd ON tiger_data.${STATE_ABBR}_zip_lookup_base USING btree(soundex(city));"
+
+ cd ${TMPDIR%/*}
+
+# Use curl to fetch the directory listing, grep to filter it, and cut to extract filenames
+curl -s https://www2.census.gov/geo/tiger/TIGER2022/ADDR/ | grep 'tl_2022_'${STATE_FIPS}'[^"]*_addr.zip' | grep -o 'href="[^"]*"' | cut -d '"' -f 2 > files_to_download.txt
+
+# Download each file listed
+while IFS= read -r file; do
+
+    wget --mirror "https://www2.census.gov/geo/tiger/TIGER2022/ADDR/$file"
+done < files_to_download.txt
+
+cd ${TMPDIR%/*}/www2.census.gov/geo/tiger/TIGER2022/ADDR/
+ rm -f ${TMPDIR}/*.*
+ ${PSQL} -c "DROP SCHEMA IF EXISTS tiger_staging CASCADE;"
+ ${PSQL} -c "CREATE SCHEMA tiger_staging;"
+ for z in tl_*_${STATE_FIPS}*_addr*.zip ; do $UNZIPTOOL -o -d $TMPDIR $z; done
+ cd $TMPDIR;
+
+ ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_addr(CONSTRAINT pk_${STATE_ABBR}_addr PRIMARY KEY (gid)) INHERITS(tiger.addr);ALTER TABLE tiger_data.${STATE_ABBR}_addr ALTER COLUMN statefp SET DEFAULT '${STATE_FIPS}';" 
+ for z in *addr*.dbf; do
+ 	${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=no -nln tiger_staging.${STATE_ABBR}_addr $z; 
+ 	${PSQL} -c "SELECT loader_load_staged_data(lower('${STATE_ABBR}_addr'), lower('${STATE_ABBR}_addr'));" 
+ done
+
+ ${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_addr ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_addr_least_address ON tiger_data.${STATE_ABBR}_addr USING btree (least_hn(fromhn,tohn) );"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_addr_tlid_statefp ON tiger_data.${STATE_ABBR}_addr USING btree (tlid, statefp);"
+ ${PSQL} -c "CREATE INDEX idx_tiger_data_${STATE_ABBR}_addr_zip ON tiger_data.${STATE_ABBR}_addr USING btree (zip);"
+ ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_zip_state(CONSTRAINT pk_${STATE_ABBR}_zip_state PRIMARY KEY(zip,stusps)) INHERITS(tiger.zip_state); "
+ ${PSQL} -c "INSERT INTO tiger_data.${STATE_ABBR}_zip_state(zip,stusps,statefp) SELECT DISTINCT zip, '${STATE_ABBR}', '${STATE_FIPS}' FROM tiger_data.${STATE_ABBR}_addr WHERE zip is not null;"
+ ${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_zip_state ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ ${PSQL} -c "vacuum analyze tiger_data.${STATE_ABBR}_addr;"
+
 ```
 
 </details>
