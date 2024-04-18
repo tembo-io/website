@@ -39,6 +39,7 @@ const blog = defineCollection({
 		updatedDate: z.coerce.date().optional(),
 		image: z.string().optional(),
 		tags: z.array(z.string()),
+		feedSummary: z.string().optional(),
 		authors: authorsEnum,
 	}),
 });

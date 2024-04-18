@@ -5,8 +5,8 @@ sideBarPosition: 104
 ---
 
 The Tembo MongoAlternative Stack is designed to offer MongoDB (Mongo) protocol compatibility with PostgreSQL (Postgres).
-Leveraging the power of FerretDB, Tembo users can both migrate from Mongo to Postgres, as well as interact with their data in a remarkably familiar to them.
-In other words, users have Mongo-compatible storage without needing to change their application.
+
+Leveraging the power of FerretDB, Tembo users can migrate from Mongo to Postgres easily as well as interact with their data in a manner that is remarkably familiar to them. In other words, users are able to leverage Mongo-compatible storage without needing to change their application.
 
 ## Apps & Extensions
 
@@ -17,38 +17,40 @@ In other words, users have Mongo-compatible storage without needing to change th
 
 Before jumping in, it's important to note some recommended usage practices:
 
--   psql (PostgreSQL Client): When accessing the database via psql, we advise read-only operations.
+-   `psql` (PostgreSQL Client): When accessing the database via `psql`, we advise read-only operations.
     This is to maintain the integrity of the data structure and compatibility with FerretDB.
--   mongosh (MongoDB Shell): For read-write operations, including inserting, updating, and deleting data, please use mongosh.
+-   `mongosh` (MongoDB Shell): For read-write operations, including inserting, updating, and deleting data, please use `mongosh`.
     This ensures that all changes are properly managed and reflected in both Mongo and Postgres representations.
 
 ### Download mongosh
 
-Similar to `psql`, `mongosh` is a client used to query and interact with the data in your Mongo database and is compatible with FerretDB.
+Similar to `psql`, `mongosh` is a client that is compatible with FerretDB used to query and interact with the data in your Mongo database.
 
 -   For macOS, you can run the following brew command: `brew install mongosh`.
--   For Windows and Linux, please refer to the steps found within the [mongosh official documentation](https://www.mongodb.com/docs/mongodb-shell/install/).
+-   For Windows and Linux, please refer to the installation steps found within the [mongosh official documentation](https://www.mongodb.com/docs/mongodb-shell/install/).
 
 ### Setup
 
 #### Connecting via mongosh
 
 Once you've established a Tembo MongoAlternative Stack instance, you will need to download a root SSL certificate (this can be found just above the connection string on the right-hand side).
-You can then copy the connection string from the UI and execute it within the terminal, having first navigated to the directory containing the freshly-downloaded SSL certificate.
-As an alternative to copying from the UI, you can fill in and run the following mongosh command:
+Then, navigate to the directory containing the freshly-downloaded SSL certificate. You can then copy the connection string from the UI and execute it within the terminal.
+As an alternative to copying from the UI, you can fill in and run the following `mongosh` command:
 
 ```bash
 mongosh "mongodb://postgres:<your-password>@<your-host>:27018/ferretdb?authMechanism=PLAIN&tls=true&tlsCaFile=$(pwd)/ca.crt"
 ```
 
-The tlsCaFile=$(pwd)/ca.crt in your MongoDB connection string specifies the SSL certificate file's location using the current directory ($(pwd)).
-To use a different directory for your SSL certificate, replace $(pwd) with the full path to the certificate, like tlsCaFile=/your/certificate/path/ca.crt.
+The `tlsCaFile=$(pwd)/ca.crt` in your MongoDB connection string specifies the SSL certificate file's location using the current directory (`$(pwd)`).
+To use a different directory for your SSL certificate, replace `$(pwd)` with the full path to the certificate, like `tlsCaFile=/your/certificate/path/ca.crt`.
 
 ### Load sample data
 
-Once connected via mongosh, loading and working with data is very straightforward.
+Once connected via `mongosh`, loading and working with data is very straightforward.
+
 Here we've provided a sample dataset showing satellites belonging to NOAA (National Oceanic and Atmospheric Administration).
-Note that the data is for demonstrative purposes and might not be accurate.
+
+Note that this data is for demonstrative purposes and might not be accurate.
 
 ```
 db.satellites.insertMany([
@@ -87,14 +89,16 @@ From there you can interact with the data using the following [FerretDB supporte
 
 ### Reading from psql
 
-Similar to other stacks you can copy the connection string from the Tembo UI or fill in and run the following psql command:
+Similar to other stacks, you can copy the connection string from the Tembo UI or fill in and run the following `psql` command:
 
 ```bash
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 ```
 
-Once connected to the instance, running `\dn` will list the schemas and show `ferretdb` and an option.
+Once connected to the instance, running `\dn` will list the schemas and show `ferretdb` as an option.
+
 Running `SET search_path TO ferretdb;` will allow you to interact with your data stored via FerretDB.
+
 At this point it's important to reemphasize that our current recommendation to treat `psql` as read only when using the MongoAlternative Stack.
 
 ### Sample mongosh queries
@@ -104,7 +108,7 @@ At this point it's important to reemphasize that our current recommendation to t
 List the collections (table equivalent to relational databases).
 
 ```
-show collections
+SHOW collections;
 ```
 
 Result
