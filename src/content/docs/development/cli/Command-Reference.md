@@ -1,147 +1,162 @@
-This document contains the help content for the `Tembo` command-line program.
+---
+title: CLI Reference
+sideBarTitle: Reference
+uppercaseParent: true
+---
+
+This comprehensive guide is your resource for understanding and utilizing the `tembo` command-line interface, which offers powerful tools for managing your application environments. Below, you'll find complete instructions on how to use each command, alongside options and subcommands to tailor your operations precisely to your needs.
 
 **Command Overview:**
 
-* [Tembo](#Tembo)
-* [Tembo context](#Tembo-context)
-* [Tembo context list](#Tembo-context-list)
-* [Tembo context set](#Tembo-context-set)
-* [Tembo init](#Tembo-init)
-* [Tembo apply](#Tembo-apply)
-* [Tembo validate](#Tembo-validate)
-* [Tembo delete](#Tembo-delete)
-* [Tembo logs](#Tembo-logs)
-* [Tembo login](#Tembo-login)
-* [Tembo top](#Tembo-top)
+* [tembo](#tembo)
+* [tembo context](#tembo-context)
+* [tembo context list](#tembo-context-list)
+* [tembo context set](#tembo-context-set)
+* [tembo init](#tembo-init)
+* [tembo apply](#tembo-apply)
+* [tembo validate](#tembo-validate)
+* [tembo delete](#tembo-delete)
+* [tembo logs](#tembo-logs)
+* [tembo login](#tembo-login)
+* [tembo top](#tembo-top)
 
+## tembo
 
-## `Tembo`
+**Usage:**
+ ```bash
+tembo [OPTIONS] <COMMAND>
+```
 
-**Usage:** `Tembo [OPTIONS] <COMMAND>`
-
-###### **Subcommands:**
+**Subcommands:**
 
 * `context` — Manage Tembo contexts
-
 * `init` — Initializes a local environment. Creates a sample context and configuration files
-
 * `apply` — Deploys a tembo.toml file
-
 * `validate` — Validates the tembo.toml file, context file, etc
-
 * `delete` — Deletes database instance locally or on Tembo Cloud
-
 * `logs` — View logs for your instance
-
 * `login` — Initiates login sequence to authenticate with Tembo
-
 * `top` — [EXPERIMENTAL] View Metric values of your instances
 
-
-###### **Options:**
+**Options:**
 
 * `--markdown-help`
 * `-v`, `--verbose` — Show more information in command output
 
 <br />
 
-
-## `Tembo context`
+## tembo context
 
 Manage Tembo contexts
 
-**Usage:** `Tembo context <COMMAND>`
+**Usage:**
+ ```bash
+tembo context <COMMAND>
+```
 
-###### **Subcommands:**
+**Subcommands:**
 
 * `list` — List all available contexts
-
 * `set` — Set the current context
 
 <br />
 
-## `Tembo context list`
+## tembo context list
 
 List all available contexts
 
-**Usage:** `Tembo context list`
+**Usage:**
+ ```bash
+tembo context list
+```
 
 <br />
 
-
-## `Tembo context set`
+## tembo context set
 
 Set the current context
 
-**Usage:** `Tembo context set --name <NAME>`
+**Usage:**
+ ```bash
+tembo context set --name <NAME>
+```
 
-###### **Options:**
+**Options:**
 
 * `-n`, `--name <NAME>`
 
 <br />
 
-
-
-## `Tembo init`
+## tembo init
 
 Initializes a local environment. Creates a sample context and configuration files
 
-**Usage:** `Tembo init`
+**Usage:**
+ ```bash
+tembo init
+```
+
 <br />
 
-
-
-## `Tembo apply`
+## tembo apply
 
 Deploys a tembo.toml file
 
-**Usage:** `Tembo apply [OPTIONS]`
+**Usage:**
+ ```bash
+tembo apply [OPTIONS]
+```
 
-###### **Options:**
+**Options:**
 
 * `-m`, `--merge <MERGE>` — Merge the values of another tembo.toml file to this file before applying
 * `-s`, `--set <SET>` — Replace a specific configuration in your tembo.toml file. For example, tembo apply --set standard.cpu = 0.25
 
 <br />
 
-
-## `Tembo validate`
+## tembo validate
 
 Validates the tembo.toml file, context file, etc
 
-**Usage:** `Tembo validate`
+**Usage:**
+ ```bash
+tembo validate
+```
 
 <br />
 
-
-
-## `Tembo delete`
+## tembo delete
 
 Deletes database instance locally or on Tembo Cloud
 
-**Usage:** `Tembo delete`
+**Usage:**
+ ```bash
+tembo delete
+```
 
 <br />
 
-
-
-## `Tembo logs`
+## tembo logs
 
 View logs for your instance
 
-**Usage:** `Tembo logs`
+**Usage:**
+ ```bash
+tembo logs
+```
 
 <br />
 
-
-## `Tembo login`
+## tembo login
 
 Initiates login sequence to authenticate with Tembo
 
-**Usage:** `Tembo login [OPTIONS]`
+**Usage:**
+ ```bash
+tembo login [OPTIONS]
+```
 
-###### **Options:**
+**Options:**
 
 * `--organization-id <ORGANIZATION_ID>` — Set your Org ID for your new environment, which starts with "org_"
 * `--profile <PROFILE>` — Set a name for your new environment, for example "prod". This name will be used for the name of the environment and the credentials profile
@@ -150,14 +165,17 @@ Initiates login sequence to authenticate with Tembo
 
 <br />
 
-
-
-## `Tembo top`
+## tembo top
 
 [EXPERIMENTAL] View Metric values of your instances
 
-**Usage:** `Tembo top [OPTIONS]`
+**Usage:**
+ ```bash
+tembo top [OPTIONS]
+```
 
-###### **Options:**
+**Options:**
 
 * `--tail`
+
+<br />
