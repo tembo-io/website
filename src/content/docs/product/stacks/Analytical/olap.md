@@ -6,7 +6,7 @@ sideBarPosition: 301
 
 ## Configuration
 
-The following configurations automatically scale based on the size of cpu, memory, and storage for the cluster:
+The following configurations automatically scale based on the size of CPU, memory, and storage for the cluster:
 
 -   `shared_buffers`
 -   `max_connections`
@@ -15,27 +15,37 @@ The following configurations automatically scale based on the size of cpu, memor
 -   `effective_cache_size`
 -   `maintenance_work_mem`
 -   `max_wal_size`
+-   `effective_io_concurrency`
 
 ## Extensions
 
 -   `pg_stat_statements` provides statistics on SQL statements executed by the database. It helps users analyze query performance and identify areas for optimization.
--   [columnar](https://pgt.dev/extensions/hydra_columnar) - `hydra_columnar` is open source, column-oriented Postgres, designed for high-speed aggregate operations.
--   [pg_partman](https://pgt.dev/extensions/pg_partman) - `pg_partman` - simplifies and automates partitioning of large database tables. It helps manage data efficiently by dividing it into smaller, more manageable partitions.
--   [pg_cron](https://pgt.dev/extensions/pg_cron) - `pg_cron` automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
--   [postgres_fdw](https://pgt.dev/extensions/postgres_fdw) - `postgres_fdw` provides the foreign data wrapper necessary to access data stored in external Postgres servers.
--   [redis_fdw](https://pgt.dev/extensions/redis_fdw) - `redis_fdw` provides the foreign data wrapper necessary to access data stored in external Redis servers.
-
-Extensions from [Trunk](https://pgt.dev) can be installed on-demand.
+-   [columnar](https://pgt.dev/extensions/hydra_columnar) is open source, column-oriented Postgres, designed for high-speed aggregate operations.
+-   [pg_partman](https://pgt.dev/extensions/pg_partman) simplifies and automates partitioning of large database tables. It helps manage data efficiently by dividing it into smaller, more manageable partitions.
+-   [pg_cron](https://pgt.dev/extensions/pg_cron) automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
+-   [postgres_fdw](https://pgt.dev/extensions/postgres_fdw) provides the foreign data wrapper necessary to access data stored in external Postgres servers.
+-   [redis_fdw](https://pgt.dev/extensions/redis_fdw) provides the foreign data wrapper necessary to access data stored in external Redis servers.
+-   [clerk_fdw](https://pgt.dev/extensions/clerk_fdw) bridges the connection between Postgres and the user management solution Clerk.
+-   Extensions from [Trunk](https://pgt.dev) can be installed on-demand.
 
 ## Getting started
 
-This guide will walk through setting up an analytical workload on Postgres using [Clickbench's "hits" dataset](https://github.com/ClickHouse/ClickBench?tab=readme-ov-file#history-and-motivation) and the [columnar](https://github.com/hydradatabase/hydra) Postgres extension. The dataset represents page views on a system and the guide will demonstrate using extensions to optimize the database for analytical queries.
+This guide will walk through setting up an analytical workload on Postgres using [Clickbench's "hits" dataset](https://github.com/ClickHouse/ClickBench?tab=readme-ov-file#history-and-motivation) (representing page views on a system) and the [Hydra](https://github.com/hydradatabase/hydra) Postgres extension. 
+
+This guide will demonstrate the use of both extensions in optimizing the database for analytical queries.
 
 ### Create a Tembo OLAP Stack instance
 
 Navigate to [cloud.tembo.io](https://cloud.tembo.io) and create a new stack. Select the "OLAP" Stack type and choose the desired instance size. This guide will function on the hobby tier, but it is recommended to use a larger instance for production workloads.
 
-Connect to the instance using `psql`.
+### Setup
+
+Once you've established a Tembo OLAP Stack instance, you can copy the connection string from the UI and execute it in your terminal.
+Alternatively, you can fill in and run the following `psql` command:
+
+```bash
+psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
+```
 
 The `columnar` extension should be pre-installed and enabled on the `postgres` database.
 
@@ -192,12 +202,14 @@ COPY 1000000
 ### Create indices on the table
 
 Create indices on the table to optimize the workload for analytical queries.
-Creating an index in Postgres helps with query performance by allowing the database to find data faster,
-reducing the need to scan the entire table.
-It is similar to an index in a book that lets you locate specific information without reading every page.
+
+Creating an index in Postgres helps with query performance as it allows the database to find data faster without the need to scan the entire table.
+
+Think of it as being similar to a book index that enables you to locate specific information without reading every page.
 
 Indexes will vary depending on the specific queries hitting the table.
-The indices below are relevant to [Clickbench](https://github.com/ClickHouse/ClickBench/tree/main/tembo-olap) workload.
+
+The indices below are relevant to the [Clickbench](https://github.com/ClickHouse/ClickBench/tree/main/tembo-olap) workload.
 
 ```sql
 CREATE INDEX userid on hits (UserID);
@@ -209,7 +221,8 @@ CREATE INDEX search2 on hits (SearchPhrase) WHERE SearchPhrase <> ''::text;
 
 ### Execute analytical queries on the table
 
-The table is ready for typical analytical queries and should observe a noticeable improvement in performance given the optimizations you just enabled.
+The table is now optimized for typical analytical queries, where there should be an observable improvement in performance given the indexes you just created.
+
 Here's a few examples of queries you can try.
 
 #### Get the minimum and maximum event dates from the table.
