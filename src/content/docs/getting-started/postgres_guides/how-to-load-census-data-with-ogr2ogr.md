@@ -14,7 +14,7 @@ To learn more about the Geospatial Stack [click here](https://tembo.io/docs/prod
 ## Table of Contents
 - [Download ogr2ogr](#download-ogr2ogr)
 - [Obtain and load census data](#obtain-and-load-census-data)
-    - [Example Script](#example-script)
+    - [Example Scripts](#example-scripts)
 - [Test for functionality](#test-for-functionality)
 
 ## Download ogr2ogr
@@ -80,6 +80,12 @@ Below we've laid out a select few that we'll be using in this guide:
 
 ### Example Scripts
 
+PostGIS offers functionality to generate scripts for loading census data.
+
+The `nation_script_load.sh` file is essential to run first, and basically includes a relatively small amount of data of the different states and counties.
+
+The `multistate_load.sh` file, however, has been updated to handle loading data from multiple states in one command.
+
 <details>
 <summary><strong>nation_script_load.sh</strong></summary>
 
@@ -138,7 +144,6 @@ else
 fi
 
 ```
-
 
 </details>
 
@@ -477,66 +482,11 @@ cd ${TMPDIR%/*}/www2.census.gov/geo/tiger/TIGER2022/ADDR/
 
 ---
 
-You can then run the script and enter the state abbreviation when prompted:
+You can then run the script like the following example, which downloads and loads data for Massachusetts and Minnesota into Postgres:
 
 ```bash
-bash census.sh
+sh multistar.sh MA MN
 ```
-```text
-Enter state abbreviation (e.g., FL for Florida):
-```
----
-
-<details>
-<summary><strong>Single file workflow</strong></summary>
-
-If instead of running a script, you're interested in walking through individual commands, this section walks through the three steps it would take to download, unzip, and load a single file into Postgres.
-
-#### wget commands to download the data
-
-```bash
-wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_bg10.zip
-```
-```bash
-wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_tract10.zip
-```
-```bash
-wget https://www2.census.gov/geo/pvs/tiger2010st/25_Massachusetts/25/tl_2010_25_tabblock10.zip
-```
-
-#### unzip commands to decompress the downloaded files
-
-```bash
-unzip tl_2010_25_bg10.zip
-```
-```bash
-unzip tl_2010_25_tract10.zip
-```
-```bash
-unzip tl_2010_25_tabblock10.zip
-```
-
-#### ogr2ogr command to load the data into Postgres
-
-:bulb: Note that the command will have to be run for each shapefile, which means that the `-nln` and final arguments of the command need to be specified per file.
-
-```bash
-ogr2ogr -f "PostgreSQL" \
-PG:"dbname=postgres \
-host=<your-host> \
-port=5432 \
-user=postgres \
-password=<your-password>" \
--nln tiger_data.ma_tabblock \
--nlt PROMOTE_TO_MULTI \
--lco GEOMETRY_NAME=the_geom \
--lco FID=gid \
--lco PRECISION=no \
-tl_2010_25_tabblock10.shp
-```
-
-</details>
-</details>
 
 ## Test for functionality
 
@@ -560,25 +510,43 @@ ALTER DATABASE your_database_name SET search_path TO "$user", public, tiger, tig
 
 
 
-### Query 1 - Confirm proper data loading
+### Query 1 - Sample geocoding query
 
 ```sql
-SELECT table_schema, table_name
-FROM information_schema.tables
-WHERE table_schema = 'tiger_data'
-ORDER BY table_name;
+SELECT g.rating, ST_X(g.geomout) AS longitude, ST_Y(g.geomout) AS latitude,
+       (g.addy).address AS house_number,
+       (g.addy).streetname AS street,
+       (g.addy).streettypeabbrev AS street_type,
+       (g.addy).location AS city,
+       (g.addy).stateabbrev AS state,
+       (g.addy).zip
+FROM geocode('24 Beacon St, Boston, MA 02133', 1) AS g;
 ```
 ```text
- table_schema | table_name
---------------+-------------
- tiger_data   | ok_bg
- tiger_data   | ok_tabblock
- tiger_data   | ok_tract
-(3 rows)
+ rating |     longitude     |     latitude      | house_number | street | street_type |  city  | state |  zip
+--------+-------------------+-------------------+--------------+--------+-------------+--------+-------+-------
+      4 | -71.1393787502349 | 42.35374227929745 |           24 | Beacon | St          | Boston | MA    | 02134
+(1 row)
 ```
 
-### Query 2 - 
+### Query 2 - Sample reverse geocoding query
 
+```sql
+SELECT * FROM reverse_geocode(ST_SetSRID(ST_Point(-71.064544, 42.28787), 4326));
+```
+```text
+                        intpt                         |                   addy                   |               street
+------------------------------------------------------+------------------------------------------+-------------------------------------
+ {0101000020AD100000CB49287D21C451C0F0BF95ECD8244540} | {"(99,,Tilman,St,,,Boston,MA,02124,,,)"} | {"Dorchester Ave","Dorchester Ave"}
+(1 row)
+```
+
+
+
+
+### Query 3 - Sample query to get the average land and water area of all tracts
+
+```sql
 postgres=# SELECT
     AVG(aland10) AS average_land_area,
     MIN(aland10) AS minimum_land_area,
@@ -586,84 +554,12 @@ postgres=# SELECT
     AVG(awater10) AS average_water_area,
     COUNT(*) AS total_tracts
 FROM tiger_data.ok_tract10;
+```
+```text
 -[ RECORD 1 ]------+---------------------
 average_land_area  | 169847056.93690249
 minimum_land_area  | 502385
 maximum_land_area  | 4707327640
 average_water_area | 3228692.636711281071
 total_tracts       | 1046
-
-postgres=#
-
-### Query 3 - 
-
-postgres=# SELECT countyfp10, SUM(aland10) AS total_land_area, SUM(awater10) AS total_water_area
-FROM tiger_data.ok_tabblock10
-GROUP BY countyfp10
-ORDER BY countyfp10;
- countyfp10 | total_land_area | total_water_area
-------------+-----------------+------------------
- 001        |      1485298113 |          9261716
- 003        |      2244106958 |         38546713
- 005        |      2526578130 |         37283206
- 007        |      4699978363 |          7347183
- 009        |      2335665049 |          5527162
- 011        |      2404607766 |         26851771
- 013        |      2342567959 |        102228720
- 015        |      3310753325 |         30820558
- 017        |      2322250237 |         23244265
- 019        |      2129424630 |         30016294
- 021        |      1940956597 |         69625855
- 023        |      1995214679 |         75667441
- 025        |      4751948736 |         15923999
- 027        |      1395398450 |         50038594
- 029        |      1338199454 |         12080937
- 031        |      2769439538 |         37339122
- 033        |      1638566638 |         24095479
- 035        |      1971897258 |          3697821
- 037        |      2460853552 |         50982330
- 039        |      2561024716 |         34321703
- 041        |      1911868565 |        140205197
- 043        |      2588632047 |         22688140
- 045        |      3189609693 |           952238
- 047        |      2741414396 |          4140336
- 049        |      2077482576 |         29961926
- 051        |      2850273013 |         11403865
- 053        |      2592244963 |          7021928
- 055        |      1655842714 |         11157422
- 057        |      1391326707 |          3800417
- 059        |      2691040791 |          5259448
- 061        |      1493181861 |        126266885
- 063        |      2084025091 |         26505491
- 065        |      1223051540 |          3166046
-(33 rows)
-
-
-
-
-
----
-
-
-postgres=# SELECT 'ok_bg10' AS table_name, COUNT(*) FROM tiger_data.ok_bg10
-UNION ALL
-SELECT 'ok_tabblock10', COUNT(*) FROM tiger_data.ok_tabblock10
-UNION ALL
-SELECT 'ok_tract10', COUNT(*) FROM tiger_data.ok_tract10;
-  table_name   | count
----------------+-------
- ok_bg10       |  2965
- ok_tabblock10 | 99999
- ok_tract10    |  1046
-(3 rows)
-
-
-### drop tables
-
-postgres=# SELECT drop_state_tables_generate_script('OK');
--[ RECORD 1 ]---------------------+-------------------------------------
-drop_state_tables_generate_script | DROP TABLE tiger_data.ok_bg10;      +
-                                  | DROP TABLE tiger_data.ok_county10;  +
-                                  | DROP TABLE tiger_data.ok_state10;   +
-                                  | DROP TABLE tiger_data.ok_tabblock10;+
-                                  | DROP TABLE tiger_data.ok_tract10;
+```
