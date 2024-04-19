@@ -14,6 +14,7 @@ This document contains the help content for the `Tembo` command-line program.
 * [Tembo login](#Tembo-login)
 * [Tembo top](#Tembo-top)
 
+
 ## `Tembo`
 
 **Usage:** `Tembo [OPTIONS] <COMMAND>`
@@ -77,6 +78,7 @@ Set the current context
 ###### **Options:**
 
 * `-n`, `--name <NAME>`
+
 <br />
 
 
@@ -100,8 +102,8 @@ Deploys a tembo.toml file
 
 * `-m`, `--merge <MERGE>` — Merge the values of another tembo.toml file to this file before applying
 * `-s`, `--set <SET>` — Replace a specific configuration in your tembo.toml file. For example, tembo apply --set standard.cpu = 0.25
-<br />
 
+<br />
 
 
 ## `Tembo validate`
@@ -109,6 +111,7 @@ Deploys a tembo.toml file
 Validates the tembo.toml file, context file, etc
 
 **Usage:** `Tembo validate`
+
 <br />
 
 
@@ -118,6 +121,7 @@ Validates the tembo.toml file, context file, etc
 Deletes database instance locally or on Tembo Cloud
 
 **Usage:** `Tembo delete`
+
 <br />
 
 
@@ -143,6 +147,7 @@ Initiates login sequence to authenticate with Tembo
 * `--profile <PROFILE>` — Set a name for your new environment, for example "prod". This name will be used for the name of the environment and the credentials profile
 * `--tembo-host <TEMBO_HOST>` — Set your tembo_host for your profile, for example api.tembo.io
 * `--tembo-data-host <TEMBO_DATA_HOST>` — Set your tembo_data_host for your profile, for example api.data-1.use1.tembo.io
+
 <br />
 
 
