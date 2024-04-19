@@ -142,7 +142,6 @@ fi
 
 </details>
 
-Below you can expand `census.sh` and copy its contents to a `.sh` file in your local environment.
 
 <details>
 <summary><strong>multistate_load.sh</strong></summary>
@@ -221,24 +220,36 @@ state_to_fips() {
         MP) echo "69" ;; # Northern Mariana Islands
         PR) echo "72" ;; # Puerto Rico
         VI) echo "78" ;; # U.S. Virgin Islands
-        # Default case if state is unknown
+        ALL) echo "All" ;; # Special case to select all states
         *) echo "Unknown" ;;
     esac
 }
 
 # Check for at least one argument
 if [ $# -lt 1 ]; then
-    echo "Usage: $0 <State Abbreviation>"
+    echo "Usage: $0 <State Abbreviation(s)> or ALL"
     exit 1
 fi
 
-STATE_ABBR=$1
-STATE_FIPS=$(state_to_fips $STATE_ABBR)
-
-if [ "$STATE_FIPS" = "Unknown" ]; then
-    echo "Invalid or unsupported state abbreviation: $STATE_ABBR"
-    exit 1
-fi
+# Loop over all arguments
+for STATE_ABBR in "$@"
+do
+    if [ "$STATE_ABBR" = "ALL" ]; then
+        # Handle the ALL keyword
+        for EACH_STATE in AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY AS GU MP PR VI
+        do
+            STATE_FIPS=$(state_to_fips "$EACH_STATE")
+            echo "$EACH_STATE: $STATE_FIPS"
+        done
+    else
+        STATE_FIPS=$(state_to_fips "$STATE_ABBR")
+        if [ "$STATE_FIPS" = "Unknown" ]; then
+            echo "Invalid or unsupported state abbreviation: $STATE_ABBR"
+        else
+            echo "$STATE_ABBR: $STATE_FIPS"
+        fi
+    fi
+done
 
  cd ${TMPDIR%/*}
  wget https://www2.census.gov/geo/tiger/TIGER2022/PLACE/tl_2022_${STATE_FIPS}_place.zip --mirror --reject=html
