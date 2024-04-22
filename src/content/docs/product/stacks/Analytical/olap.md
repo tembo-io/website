@@ -20,7 +20,7 @@ The following configurations automatically scale based on the size of CPU, memor
 ## Extensions
 
 -   `pg_stat_statements` provides statistics on SQL statements executed by the database. It helps users analyze query performance and identify areas for optimization.
--   [columnar](https://pgt.dev/extensions/hydra_columnar) is open source, column-oriented Postgres, designed for high-speed aggregate operations.
+-   [hydra_columnar](https://pgt.dev/extensions/hydra_columnar) is open source, column-oriented Postgres, designed for high-speed aggregate operations.
 -   [pg_partman](https://pgt.dev/extensions/pg_partman) simplifies and automates partitioning of large database tables. It helps manage data efficiently by dividing it into smaller, more manageable partitions.
 -   [pg_cron](https://pgt.dev/extensions/pg_cron) automates database tasks within PostgreSQL, enabling scheduled maintenance, recurring tasks, and interval-based SQL queries.
 -   [postgres_fdw](https://pgt.dev/extensions/postgres_fdw) provides the foreign data wrapper necessary to access data stored in external Postgres servers.
