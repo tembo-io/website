@@ -50,12 +50,6 @@ While there are many ways to acquire census data, one good source is from the [U
 
 Their database for census and survey mapping is called [TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) (Topologically Integrated Geographic Encoding and Referencing system), and the directory for TIGER/Line shapefiles for all states, dated 2010, can be found [here](https://www2.census.gov/geo/pvs/tiger2010st/).
 
-We drew inspiration from the PostGIS guide, [Loader_Generate_Census_Script](https://postgis.net/docs/Loader_Generate_Census_Script.html), and created a script to ease the aquisition and loading of these shapefiles. The following three sections review the portions that require your configuration; the rest will be taken care of for you.
-
-### Establish connection string variables
-
-Your connection string will be unique, and will need to be adjusted before the script can be run.
-
 ### Select files to download
 
 For the purposes of this guide, we've selected the `tract`, block groups `bg`, and `tabblocks` files, but there are many more available.
