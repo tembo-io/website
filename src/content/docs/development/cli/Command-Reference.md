@@ -1,5 +1,5 @@
 ---
-title: CLI Reference
+title: Reference
 sideBarTitle: Reference
 uppercaseParent: true
 ---
