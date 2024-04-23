@@ -21,7 +21,7 @@ To learn more about the Geospatial Stack [click here](https://tembo.io/docs/prod
 
 The easiest way to install [ogr2ogr](https://gdal.org/programs/ogr2ogr.html) is to download and install GDAL (Geospatial Data Abstraction Library); an open source library maintained by [OSGeo](https://www.osgeo.org/projects/gdal/). PostGIS recognizes `ogr2ogr` as a valid loading method, which can be explored within the [PostGIS official training material](https://postgis.net/workshops/postgis-intro/loading_data.html#loading-with-ogr2ogr).
 
-If you haven’t already, please download the GDAL library which includes `ogr2ogr`.
+Install the GDAL library, which includes `ogr2ogr`.
 
 <details>
 <summary><strong>MacOS</strong></summary>
