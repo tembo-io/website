@@ -1,0 +1,224 @@
+---
+sideBarPosition: 999
+sideBarTitle: Alerts
+title: Alerts
+description: Documentation for Tembo Cloud alerts
+---
+
+## Running low on storage
+
+**Description:** The persistent volume associated with an instance is running out of storage space.
+
+[Increase storage](/docs/product/cloud/configuration-and-management/increase-storage), or reduce data stored.
+
+For instances with a very high and sustained write rate, the storage used will exceed the value shown by
+
+```sql
+SELECT pg_size_pretty(pg_database_size('postgres'));
+```
+
+which is caused by old Write Ahead Log (WAL) files still be cleared from disk.
+
+## CPU throttling
+
+**Description:** An instance is experiencing CPU throttling, which impacts the performance.
+
+[Increase instance size](/docs/product/cloud/configuration-and-management/increase-compute), or investigate and resolve the cause of high CPU.
+
+
+To identify long running queries:
+
+```sql
+SELECT
+  pid,
+  now() - pg_stat_activity.query_start AS duration,
+  query,
+  state
+FROM pg_stat_activity
+WHERE state != 'idle'
+  AND now() - pg_stat_activity.query_start > interval '5 minutes'
+ORDER BY duration DESC;
+```
+
+Find which queries are using the most compute time with `pg_stat_statements`:
+
+```sql
+SELECT
+  queryid,
+  substr(query, 1, 50) AS query_snippet,
+  calls,
+  total_exec_time,
+  (total_exec_time / calls) AS avg_exec_time,
+  rows,
+  shared_blks_hit,
+  shared_blks_read,
+  shared_blks_dirtied,
+  shared_blks_written,
+  local_blks_hit,
+  local_blks_read,
+  local_blks_dirtied,
+  local_blks_written,
+  temp_blks_read,
+  temp_blks_written
+FROM pg_stat_statements
+ORDER BY total_exec_time DESC
+LIMIT 10;
+```
+
+
+## High memory
+
+**Description:** An instance is near the memory limit.
+
+[Increase instance size](/docs/product/cloud/configuration-and-management/increase-compute), or investigate and resolve the cause of high memory.
+
+Postgres configurations that significantly impact memory include `work_mem`, `maintenance_work_mem`, `shared_buffers`, and `max_connections`. You can find the value of a configuration with the `SHOW` command:
+
+```sql
+SHOW shared_buffers;
+```
+
+Tembo picks default values for these configurations based on your instance size and Stack. You can review and alter the configurations in the instance's [Postgres Configurations](/docs/product/cloud/configuration-and-management/postgres-configuration) settings.
+
+## Backends waiting
+
+**Description:** A backend process in an instance has been waiting for several minutes.
+
+Find blocked queries:
+
+```sql
+SELECT
+    activity.pid,
+    activity.usename,
+    activity.query,
+    blocking.pid AS blocking_id,
+    blocking.query AS blocking_query
+FROM pg_stat_activity AS activity
+JOIN pg_stat_activity AS blocking ON blocking.pid = ANY(pg_blocking_pids(activity.pid));
+```
+
+Find long running queries that may be blocking other queries.
+
+```sql
+SELECT
+  pid,
+  now() - pg_stat_activity.query_start AS duration,
+  query,
+  state
+FROM pg_stat_activity
+WHERE state != 'idle'
+  AND now() - pg_stat_activity.query_start > interval '5 minutes'
+ORDER BY duration DESC;
+```
+
+You can cancel a query like this:
+```sql
+select pg_cancel_backend(< pid goes here >);
+```
+
+You can forcibly terminate a query like this:
+```sql
+select pg_terminate_backend(< pid goes here >);
+```
+
+## FrozenXID
+
+**Description:** An instance is at risk of transaction ID wraparound. When a critical threshold is reached, writes to the database will be locked until a **VACUUM** can be completed.
+
+Understand the cause of [transaction wraparound in Postgres](https://www.postgresql.org/docs/current/routine-vacuuming.html#VACUUM-FOR-WRAPAROUND). This occurs when postgres **VACUUM** cannot keep up with database activity.
+
+Check how close each table is to the `autovacuum_freeze_max_age`:
+
+```sql
+SELECT datname
+    , age(datfrozenxid)
+    , current_setting('autovacuum_freeze_max_age')
+FROM pg_database
+ORDER BY 2 DESC;
+```
+
+## Replication lag
+
+**Description:** The standby server of an instance is lagging behind the primary server.
+
+Investigate the replication lag by running the following query on the [standby server](/docs/product/cloud/configuration-and-management/read-from-standby):
+
+```sql
+SELECT now() - pg_last_xact_replay_timestamp() AS replication_lag;
+```
+
+The most common cause for replication lag is long-running queries on the standby server. Please review [this document](/docs/product/cloud/configuration-and-management/read-from-standby) to understand the drawbacks of reading from a standby server.
+
+The problem can also be caused by busy compute. You may want to [increase instance size](/docs/product/cloud/configuration-and-management/increase-compute).
+
+## Deadlock conflicts
+
+**Description:** There are deadlock conflicts in and instance, indicating contention and potential performance impact.
+
+Find deadlocks for each database with this command:
+
+```sql
+SELECT
+  datname AS database_name,
+  deadlocks,
+  blk_read_time,
+  blk_write_time,
+  stats_reset
+FROM pg_stat_database;
+```
+
+Investigate locks:
+
+```sql
+SELECT
+  locktype,
+  database,
+  relation::regclass AS relation,
+  page,
+  tuple,
+  virtualxid,
+  transactionid,
+  classid,
+  objid,
+  objsubid,
+  virtualtransaction,
+  pid,
+  mode,
+  granted,
+  fastpath
+FROM pg_locks
+WHERE NOT granted;
+```
+
+
+## Failover detected
+
+**Description:** A failover has been detected for and instance.
+
+This problem will automatically resolve. The instance may have had a short period of being unavailable.
+
+Check the transaction rate over time in your database on the instance dashboard, or the queries to your application in your application performance monitoring.
+
+## Excessive WAL size
+
+**Description:** The Write-Ahead Log (WAL) for an instance is using a significant percentage of available storage.
+
+Check for unused replication slots:
+
+```sql
+SELECT
+  slot_name,
+  pg_size_pretty(
+    pg_wal_lsn_diff(
+      pg_current_wal_lsn(), restart_lsn)) AS retained_wal,
+  active,
+  restart_lsn FROM pg_replication_slots;
+```
+
+For replication slots that are intentional, fix the replication client (for example Debezium) to advance the replication slot.
+
+For unintended replication slots that can be safely removed, you can drop a replication slot like this:
+
+```sql
+SELECT pg_drop_replication_slot('< replication slot name here >');
+```

@@ -4,45 +4,48 @@ sideBarTitle: Geospatial
 sideBarPosition: 303
 ---
 
-The Tembo Geospatial Stack is designed to bring spatial database capabilities to Postgres.
-Whether dealing with spatial objects, location queries, or GIS (geographic information systems)-facing workloads in general, this stack is pre-packaged to help.
+The Tembo Geospatial Stack is designed to bring spatial database capabilities to PostgreSQL.
 
-## Container Image
+No matter whether you need to handle spatial objects, location queries, or GIS (geographic information systems)-facing workloads in general, this stack brings out-of-the-box geospatial support to PostgreSQL for quick, easy, & reliable deployments.
 
-This stack is built with a custom image, `geo-cnpg`, which you can find more detailed information about within the [geo-cnpg Dockerfile](https://github.com/tembo-io/tembo-images/blob/main/geo-cnpg/Dockerfile).
+## Container image
 
-For interest in the other Stack-specific images, please visit the official [tembo-images repository](https://github.com/tembo-io/tembo-images).
+This stack is built with the custom image `geo-cnpg`. Specific technical specifications for this container image can be found within the [geo-cnpg Dockerfile](https://github.com/tembo-io/tembo-images/blob/main/geo-cnpg/Dockerfile).
+
+Interested in looking through the code for other Stack-specific images? You can find them all within the official [tembo-images repository](https://github.com/tembo-io/tembo-images).
 
 ## Extensions
 
 -   [pg_stat_statements](https://www.postgresql.org/docs/current/pgstatstatements.html) - `pg_stat_statements` is an additional supplied module that provides valuable metrics related to query performance.
--   [fuzzystrmatch](https://www.postgresql.org/docs/current/fuzzystrmatch.html) - `fuzzystrmatch` is an additional supplied module that helps with string matching, including approximate or "fuzzy" matches. Useful in tasks like deduplication or linking different data sets where string data may not be exactly the same.
--   [postgis](https://postgis.net/) - `postgis` is the main PostGIS extension, adding support for geographic objects to the PostgreSQL database. It allows for storing and querying data based on location.
+-   [fuzzystrmatch](https://www.postgresql.org/docs/current/fuzzystrmatch.html) - `fuzzystrmatch` is implemented to help with string matching including approximate or "fuzzy" matches. It's especially useful for tasks like deduplication or linking different data sets where string data may not be exactly the same.
+-   [postgis](https://postgis.net/) - `postgis` is the primary PostGIS extension used to add support for geographic objects to PostgreSQL. It allows for storing and querying data based on location.
 -   [postgis_raster](https://postgis.net/docs/RT_reference.html) - `postgis_raster` is an extension for handling raster data. It's used for storing and analyzing grid-based data like satellite imagery or digital elevation models.
 -   [postgis_tiger_geocoder](https://postgis.net/docs/postgis_installation.html#loading_extras_tiger_geocoder) - `postgis_tiger_geocoder` provides geocoding and reverse geocoding functionality. It uses the TIGER (Topologically Integrated Geographic Encoding and Referencing) data from the US Census Bureau.
 -   [postgis_topology](https://postgis.net/docs/Topology.html) - `postgis_topology` focuses on topological data models and functions, allowing for more advanced spatial data analysis and consistency.
--   [address_standardizer](https://postgis.net/docs/Extras.html#Address_Standardizer) - `address_standardizer` helps in standardizing address data, making it consistent and easier to work with, especially for geocoding purposes.
--   [address_standardizer_data_us](https://postgis.net/docs/Extras.html#Address_Standardizer) - `address_standardizer_data_us` provides the necessary data for the address_standardizer extension, specifically tailored for US addresses.
+-   [address_standardizer](https://postgis.net/docs/Extras.html#Address_Standardizer) - `address_standardizer` helps in standardizing address data to make it consistent and easier to work with, especially for geocoding purposes.
+-   [address_standardizer_data_us](https://postgis.net/docs/Extras.html#Address_Standardizer) - `address_standardizer_data_us` provides the necessary data for the `address_standardizer` extension that is specifically tailored for US addresses.
 -   Extensions from [Trunk](https://pgt.dev/) can be installed on-demand.
 
 ## Getting started
 
-Let's walkthrough a scenario that would involve loading geospatial data into Postgres.
+Ready to try out some examples? Let's walk through a scenario that would involve loading geospatial data into Postgres.
 
 ### Download GDAL library
 
-If you haven't already, please [download the GDAL library](https://gdal.org/index.html), which includes the tool ogr2ogr.
+If you haven't already, please [download the GDAL library](https://gdal.org/index.html) which includes the tool `ogr2ogr`.
 
 ### Download sample dataset
 
 For the purposes of this demonstration, we will utilize the PostGIS-supplied New York City data bundle.
-You can learn more about the PostGIS tutorial [here](https://postgis.net/workshops/postgis-intro/) or download the data directly from this [link](https://s3.amazonaws.com/s3.cleverelephant.ca/postgis-workshop-2020.zip).
+
+You can follow the PostGIS tutorial [here](https://postgis.net/workshops/postgis-intro/) or download this dataset directly from this [link](https://s3.amazonaws.com/s3.cleverelephant.ca/postgis-workshop-2020.zip).
+
 Once downloaded, move the .zip file to your target directory and unzip.
 
-## Setup
+### Setup
 
 Once you've established a Tembo Geospatial Stack instance, you can copy the connection string from the UI and execute it in your terminal.
-Alternatively, you can fill in and run the following psql command:
+Alternatively, you can fill in and run the following `psql` command:
 
 ```bash
 psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
@@ -50,24 +53,29 @@ psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
 
 ### Define a database
 
-While the default database is `postgres`, you may desire to create a separate database for your geospatial workload.
-This can be achieved by running `CREATE DATABASE <your-database>` once you've connected to Tembo and navigated to by running `\c <your-database>`.
-If you'd like to learn more, check out our guide: [How to select database in Postgres](/docs/getting-started/postgres_guides/how-to-select-database-in-postgres/).
+While the default database is `postgres`, it may be useful to create a separate database for your geospatial workload.
+
+This can be achieved by running `CREATE DATABASE <your-database>` once you've connected to Tembo. You can then switch the connected database by running `\c <your-database>`.
+
+If you'd like to learn more, check out our guide on [how to select a database in Postgres](/docs/getting-started/postgres_guides/how-to-select-database-in-postgres/).
 
 ### Load the data
 
-Navigate to your local directory where the data is stored; the path will look similar to path/to/target/directory/postgis-workshop/data/.
-For this simple exercise, we'll focus exclusively on shapefiles, but bear in mind that they alone do not represent the entire dataset.
-Consider the following files:
+Navigate to your local directory where the data is stored; the path will look similar to `path/to/target/directory/postgis-workshop/data/`.
 
+For this simple exercise, we'll focus exclusively on shapefiles, but bear in mind that they alone do not represent the entire dataset.
+
+Consider the following files:
 -   nyc_cencus_blocks.shp
 -   nyc_homicides.shp
 -   nyc_neighborhoods.shp
 -   nyc_streets.shp
 -   nyc_subway_stations.shp
 
-PostGIS does a great job in their free workshop how to use ogr2ogr with select flags to load data into Postgres.
+PostGIS does a great job in their free workshop on how to use `ogr2ogr` with select flags to load data into Postgres.
+
 Their explanation can be found [here](https://postgis.net/workshops/postgis-intro/loading_data.html).
+
 With the following command, we can load files (individually) into Postgres:
 
 ```bash
@@ -82,6 +90,7 @@ ogr2ogr \
 ```
 
 Loading files individually may take some time, so an alternative may be to create a script that iterates across target files and loads them from one executable.
+
 PLEASE NOTE: The following is strictly for demonstration purposes and we strongly advise against hardcoding sensitive information in a script like the one below.
 
 Start by creating a file:
@@ -129,15 +138,17 @@ You can then load the data by running the following command within the local, ta
 
 ### Confirm successful data upload
 
-If you're not already, connect to your database following the same instructions as laid out in the Setup section above.
+If you're not already connected, you can connect to your database by following the same instructions as laid out in the Setup section above.
+
 Then, simply confirm you are in the correct database and run `\t` to list the current tables.
-You should see something similar to the following:
 
 ### Sample queries
 
+Wondering what kinds of queries you're able to run at this point? Let's view some examples.
+
 #### Query 1
 
-How many rows are there in the nyc_streets table?
+_How many rows are there in the `nyc_streets` table?_
 
 ```sql
 SELECT COUNT(*) FROM nyc_streets;
@@ -154,7 +165,7 @@ Result:
 
 #### Query 2
 
-Which fields (columns) are represented in the nyc_streets table?
+_Which fields (columns) are represented in the `nyc_streets` table?_
 
 ```sql
 SELECT
@@ -182,7 +193,7 @@ Result:
 
 #### Query 3
 
-What are all the streets in the nyc_streets table that have the Ave suffix (limit to 10 rows)?
+_What are all the streets in the `nyc_streets` table that have the Ave suffix (while limiting results to 10 rows)?_
 
 ```sql
 SELECT name FROM nyc_streets WHERE name LIKE '%Ave%' LIMIT 10;
@@ -208,7 +219,7 @@ Result:
 
 #### Query 4
 
-Say Lexington Avenue is your favorite street, but you want to know how many there are in this dataset.
+_How many results are available for the specific street Lexington Avenue?_
 
 ```sql
 SELECT COUNT(*)
@@ -227,8 +238,7 @@ Result:
 
 #### Query 5
 
-What is the SRID (Spatial Reference Identifier) of the data in this table.
-and if possible, how can I change it?
+_What is the SRID (Spatial Reference Identifier) of the data in this table, and if possible, how can I change it?_
 
 ```sql
 SELECT DISTINCT ST_SRID(geom) FROM nyc_streets;
@@ -243,7 +253,7 @@ Result:
 (1 row)
 ```
 
-Say the srid was actually 26918. How can I change it to 4326?
+Say the SRID was actually 26918. _How can I change the SRID to 4326?_
 
 ```sql
 ALTER TABLE nyc_streets
