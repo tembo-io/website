@@ -17,13 +17,20 @@ In Postgres, there is a primary server which can serve reads and writes. When ru
 
 - [Postgres documentation](https://www.postgresql.org/docs/current/hot-standby.html)
 
-It is important to understand the limitations of reading from your standby server. By using your standby server for reads in addition to failover, **read queries must be cancelled** if they are blocking the Write-Ahead Log (WAL) too long, in order to keep the standby sufficiently synchronized with the primary.
+It is important to understand the limitations of reading from your standby server. Postgres standby instances must regularly apply changes from the primary server as received through the Write-Ahead Log (WAL). These are binary-level updates and cannot be applied while a modified record is in use. As a result, a standby server being used as a read replica **may cancel local queries** which are using these tuples. This allows the standby system to serve its principal role as a failover target.
 
 > ... the WAL-logged action already occurred on the primary so the standby must not fail to apply it. Furthermore, allowing WAL application to wait indefinitely may be very undesirable, because the standby's state will become increasingly far behind the primary's. Therefore, a mechanism is provided to forcibly cancel standby queries that conflict with to-be-applied WAL records.
 
 - [Postgres documentation](https://www.postgresql.org/docs/current/hot-standby.html#HOT-STANDBY-CONFLICT)
 
-To configure the timeout for read queries on your standby, you may configure [max_standby_streaming_delay](https://www.postgresql.org/docs/current/runtime-config-replication.html#GUC-MAX-STANDBY-STREAMING-DELAY). Tembo recommends the default value of `30s`, and no greater than `5min`. For more information on changing configurations, please refer to Tembo's [Postgres Configuration documentation](/docs/product/cloud/configuration-and-management/postgres-configuration).
+The easiest way to prohibit this behavior is to enable the [`hot_standby_feedback`](https://www.postgresql.org/docs/current/runtime-config-replication.html#GUC-HOT-STANDBY-FEEDBACK) parameter. This causes the standby server to transmit row usage and lock information to the primary system. The primary node will then refrain from maintenance which would normally remove affected row versions until they're no longer in use on _either_ server.
+
+Because this can cause a certain amount of overhead on the primary system, we also recommend setting the following parameters on the standby system:
+
+* [`idle_in_transaction_session_timeout'](https://www.postgresql.org/docs/16/runtime-config-client.html#GUC-IDLE-IN-TRANSACTION-SESSION-TIMEOUT) - If a user or application leaves a transaction uncommitted for long periods, this can prevent necessary maintenance on the primary system for long periods of time when `hot_standby_feedback` is enabled. This parameter will terminate any session which is in a transaction state for longer than the specified interval. We recommend a value no longer than one hour, or `1h`.
+* [`statement_timeout`](https://www.postgresql.org/docs/16/runtime-config-client.html#GUC-STATEMENT-TIMEOUT) - Unexpectedly slow queries can also hold rows for extended periods of time and prevent cleanup when `hot_standby_feedback` is enabled. This parameter will cancel queries that exceed the stated runtime interval. We recommend setting this to a value slightly longer than the slowest legitimate application or user-level query, such as `5min`.
+
+For more information on changing configuration parameters, please refer to Tembo's [Postgres Configuration documentation](/docs/product/cloud/configuration-and-management/postgres-configuration).
 
 ## Connecting to your standby
 
