@@ -3,8 +3,7 @@ title: Reference
 sideBarTitle: Reference
 uppercaseParent: true
 ---
-
-This comprehensive guide is your resource for understanding and utilizing the `tembo` command-line interface, which offers powerful tools for managing your application environments. Below, you'll find complete instructions on how to use each command, alongside options and subcommands to tailor your operations precisely to your needs.
+This comprehensive guide is your resource for understanding and utilizing the tembo CLI, which offers powerful tools for managing your instance environments. Below, you'll find complete instructions on how to use each command, alongside options and subcommands to tailor your operations precisely to your needs.
 
 **Command Overview:**
 
@@ -179,3 +178,5 @@ tembo top [OPTIONS]
 * `--tail`
 
 <br />
+
+
