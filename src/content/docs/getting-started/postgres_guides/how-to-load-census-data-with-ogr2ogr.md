@@ -97,7 +97,7 @@ export PGHOST="<your-host>"
 export PGUSER="postgres"
 export PGPASSWORD="<your-password>"
 export PGDATABASE="postgres"
-PSQL="${PGBIN}/psql"
+PSQL=$(which psql)
 
 # Ensure the temp directory is clear
 mkdir -p ${TMPDIR}
