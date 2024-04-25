@@ -89,15 +89,15 @@ The `multistate_load.sh` file, however, has been updated to handle loading data 
 # Set directory and tool variables
 TMPDIR="<path/to/temp/dir>"
 UNZIPTOOL=unzip
-WGETTOOL="<path/to/wget>"
-OGR2OGR="<path/to/ogr2ogr>"
+WGETTOOL=$(which wget)
+OGR2OGR=$(which ogr2ogr2)
 export PGBIN="<path/to/postgresql/bin>"
 export PGPORT=5432
 export PGHOST="<your-host>"
 export PGUSER="postgres"
 export PGPASSWORD="<your-password>"
 export PGDATABASE="postgres"
-PSQL="${PGBIN}/psql"
+PSQL=$(which psql)
 
 # Ensure the temp directory is clear
 mkdir -p ${TMPDIR}
