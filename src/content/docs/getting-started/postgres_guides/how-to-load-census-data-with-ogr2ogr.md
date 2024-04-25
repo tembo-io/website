@@ -476,10 +476,17 @@ cd ${TMPDIR%/*}/www2.census.gov/geo/tiger/TIGER2022/ADDR/
 
 ---
 
-You can then run the script like the following example, which downloads and loads data for Massachusetts and Minnesota into Postgres:
+The following example loads nation and state-specific data (in this case Massachusetts) into Postgres.
+Loading multiple states is also possible by providing additional state abbreviations as arguments, or `ALL` for all states.
+
+:bulb: Note that the `nation_script_load.sh` file must be run once prior to the `multistate.sh` file. Upon completion, you can run the `multistate.sh` file as many times as you'd like to load data for different states.
 
 ```bash
-sh multistar.sh MA MN
+sh nation_script_load.sh
+```
+
+```bash
+sh multistate.sh MA
 ```
 
 ## Test for functionality
