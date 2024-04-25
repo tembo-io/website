@@ -89,7 +89,7 @@ The `multistate_load.sh` file, however, has been updated to handle loading data 
 # Set directory and tool variables
 TMPDIR="<path/to/temp/dir>"
 UNZIPTOOL=unzip
-WGETTOOL="<path/to/wget>"
+WGETTOOL=$(which wget)
 OGR2OGR="<path/to/ogr2ogr>"
 export PGBIN="<path/to/postgresql/bin>"
 export PGPORT=5432
