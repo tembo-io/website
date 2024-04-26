@@ -4,6 +4,8 @@ src/content/blog/ @samay-sharma
 src/content/blog/** @samay-sharma
 src/content/docs/ @samay-sharma
 src/content/docs/** @samay-sharma
+src/content/docs/getting-started/quickstarts/ @sjmiller609
+src/content/docs/getting-started/quickstarts/** @sjmiller609
 src/content/docs/product/cloud/ @sjmiller609
 src/content/docs/product/cloud/** @sjmiller609
 src/content/docs/development/ @sjmiller609
