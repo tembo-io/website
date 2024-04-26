@@ -141,8 +141,12 @@ View logs for your instance
 
 **Usage:**
  ```bash
-tembo logs
+tembo logs [OPTIONS]
 ```
+
+**Options:**
+
+* `--app <APP>` — Fetch logs for specific apps
 
 <br />
 
