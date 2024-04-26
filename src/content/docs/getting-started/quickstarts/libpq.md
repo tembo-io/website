@@ -4,6 +4,8 @@ This guide helps users update their system's version of [libpq](https://www.post
 
 ## Debian based Linux system
 
+These instructions work for Linux systems that work with the Debian packaging system, for example Ubuntu, Mint, Raspian, and more.
+
 The below snippet shows how to add the official Postgres repository, then install the Postgres client from that apt repository.
 
 ```bash
