@@ -1,8 +1,13 @@
 It’s important to use `psycopg2-binary` version 2.9 or greater.
 
+
+## psycopg2
+
 ```shell
 pip install psycopg2-binary==2.9
 ```
+
+
 **main.py**
 ```python
 import psycopg2
@@ -38,22 +43,13 @@ if __name__ == "__main__":
     main()
 ```
 
-If you're using Psycopg 3, which is the module just `psycopg`, then you may choose to install the version that includes the packaged dependencies like this `pip install "psycopg[binary,pool]"`, similar to the case of Psycopg 2. In either case of Psycopg 2 or 3, it works without the `-binary` version of the module if the underlying `libpq` is up to date.
+It also works without the `-binary` version of the module if the underlying `libpq` is up to date. Please see [our libpq guide](/docs/getting-started/quickstarts/libpq) to update your version of **libpq**.
 
-You can update `libpq` like this on a Debian based Linux system:
+## psycopg
 
-```bash
-sudo apt-get update && sudo apt-get install -y lsb-release
-sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo tee /etc/apt/trusted.gpg.d/pgdg.asc &>/dev/null
-sudo apt-get update && sudo apt-get install -y postgresql-client
-```
+If you're using Psycopg 3, which is the module named `psycopg`, then you may choose to install the version that includes the packaged dependencies like this `pip install "psycopg[binary,pool]"`, similar to the case of Psycopg 2.
 
-Here’s an example of updating `psql` and `libpq` on a Mac, using [brew](https://brew.sh/):
-
-```bash
-brew reinstall libpq
-```
+It also works without the `-binary` version of the module if the underlying `libpq` is up to date. Please see [our libpq guide](/docs/getting-started/quickstarts/libpq) to update your version of **libpq**.
 
 ## Support and Community
 
