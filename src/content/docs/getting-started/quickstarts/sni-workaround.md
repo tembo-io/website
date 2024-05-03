@@ -1,5 +1,6 @@
 ---
 title: Server Name Indication (SNI)
+description: Server Name Indication connection issues workaround
 ---
 
 To connect to Tembo normally, the Postgres client must support SNI. Please see the [other guides](/docs/getting-started/quickstarts/libpq) in this section for how to pick a client that supports SNI. However if the client cannot be updated, Tembo offers a workaround solution.
