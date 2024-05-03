@@ -27,6 +27,10 @@ brew reinstall libpq
 
 Please find one of the Windows installers linked from the official [Postgres documentation](https://www.postgresql.org/download/windows/).
 
+## SNI workaround
+
+If you cannot update the Postgres client, you can use [Tembo's SNI workaround](/docs/getting-started/quickstarts/sni-workaround).
+
 ## Support and Community
 
 If you encounter any issues, please check out our [troubleshooting guide](/docs/product/cloud/troubleshooting) or contact [support@tembo.io](mailto:support@tembo.io).
