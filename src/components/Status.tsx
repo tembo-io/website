@@ -14,7 +14,7 @@ const getVariant = (status: StatusVariant) => {
 		case 'Operational':
 			return {
 				variant: 'Good',
-				status,
+				status: 'All Systems Normal.',
 				image: 'elephantHoldingFlag.svg',
 				pillStyles: 'bg-[#1BBF7A1A]',
 				textStyles: 'text-good',
@@ -22,7 +22,7 @@ const getVariant = (status: StatusVariant) => {
 		case 'Degraded Peformance':
 			return {
 				variant: 'Warning',
-				status,
+				status: `${status}.`,
 				image: 'elephantHoldingOrangeFlag.svg',
 				pillStyles: 'bg-[#F394051A]',
 				textStyles: 'text-warning',
@@ -30,7 +30,7 @@ const getVariant = (status: StatusVariant) => {
 		case 'Partial Service Disruption':
 			return {
 				variant: 'Warning',
-				status,
+				status: `${status}.`,
 				image: 'elephantHoldingOrangeFlag.svg',
 				pillStyles: 'bg-[#F394051A]',
 				textStyles: 'text-warning',
@@ -47,7 +47,7 @@ const getVariant = (status: StatusVariant) => {
 		case 'Security issue':
 			return {
 				variant: 'Error',
-				status,
+				status: `${status}.`,
 				image: 'elephantHoldingRedFlag.svg',
 				pillStyles: 'bg-[#FA46661A]',
 				textStyles: 'text-danger',
@@ -55,7 +55,7 @@ const getVariant = (status: StatusVariant) => {
 		default:
 			return {
 				variant: 'Good',
-				status,
+				status: `${status}.`,
 				image: 'elephantHoldingFlag.svg',
 				pillStyles: 'bg-[#1BBF7A1A]',
 				textStyles: 'text-good',
