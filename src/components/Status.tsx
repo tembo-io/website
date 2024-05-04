@@ -64,7 +64,6 @@ const getVariant = (status: StatusVariant) => {
 };
 
 const Status = () => {
-	const [data, setData] = useState(null);
 	const [variant, setVariant] = useState<StatusVariant | null>(null);
 
 	useEffect(() => {
@@ -103,7 +102,7 @@ const Status = () => {
 				alt='elephant holding flag'
 			/>
 			<p className={cx('font-bold', status.textStyles)}>
-				All Systems Normal.
+				{status.status}
 			</p>
 		</a>
 	);
