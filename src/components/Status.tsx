@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 
-type Variant = 'Good' | 'Warning' | 'Error';
 type StatusVariant =
 	| 'Operational'
 	| 'Degraded Performance'
@@ -13,7 +12,6 @@ const getVariant = (status: StatusVariant) => {
 	switch (status) {
 		case 'Operational':
 			return {
-				variant: 'Good',
 				status: 'All Systems Normal.',
 				image: 'elephantHoldingFlag.svg',
 				pillStyles: 'bg-[#1BBF7A1A]',
@@ -21,7 +19,6 @@ const getVariant = (status: StatusVariant) => {
 			};
 		case 'Degraded Performance':
 			return {
-				variant: 'Warning',
 				status: `${status}.`,
 				image: 'elephantHoldingOrangeFlag.svg',
 				pillStyles: 'bg-[#F394051A]',
@@ -29,7 +26,6 @@ const getVariant = (status: StatusVariant) => {
 			};
 		case 'Partial Service Disruption':
 			return {
-				variant: 'Warning',
 				status: `${status}.`,
 				image: 'elephantHoldingOrangeFlag.svg',
 				pillStyles: 'bg-[#F394051A]',
@@ -37,7 +33,6 @@ const getVariant = (status: StatusVariant) => {
 			};
 		case 'Service Disruption':
 			return {
-				variant: 'Error',
 				status,
 				image: 'elephantHoldingRedFlag.svg',
 				pillStyles: 'bg-[#FA46661A]',
@@ -54,7 +49,6 @@ const getVariant = (status: StatusVariant) => {
 			};
 		default:
 			return {
-				variant: 'Good',
 				status: `${status}.`,
 				image: 'elephantHoldingFlag.svg',
 				pillStyles: 'bg-[#1BBF7A1A]',
