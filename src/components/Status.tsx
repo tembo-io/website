@@ -4,7 +4,7 @@ import cx from 'classnames';
 type Variant = 'Good' | 'Warning' | 'Error';
 type StatusVariant =
 	| 'Operational'
-	| 'Degraded Peformance'
+	| 'Degraded Performance'
 	| 'Partial Service Disruption'
 	| 'Service Disruption'
 	| 'Security issue';
@@ -19,7 +19,7 @@ const getVariant = (status: StatusVariant) => {
 				pillStyles: 'bg-[#1BBF7A1A]',
 				textStyles: 'text-good',
 			};
-		case 'Degraded Peformance':
+		case 'Degraded Performance':
 			return {
 				variant: 'Warning',
 				status: `${status}.`,
