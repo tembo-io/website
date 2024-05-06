@@ -1,5 +1,6 @@
 ---
 title: Tembo Operator GKE Install
+uppercase: true
 sideBarPosition: 102
 ---
 
@@ -152,7 +153,34 @@ spec:
 
 #### a. Install traefik
 
-We recommend using traefik for ingress. You can setup traefik by running following command:
+We recommend using traefik for ingress.
+
+##### Create postgres-catch-all ConfigMap
+
+```bash
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-catch-all
+  namespace: traefik
+data:
+  postgres-catch-all.yaml: |
+    tcp:
+      routers:
+        catchAll:
+          entryPoints:
+            - "postgresql"
+          rule: "HostSNI(`*`)"
+          service: empty
+      services:
+        empty:
+          loadBalancer:
+            servers: {}
+EOF
+```
+
+##### Install traefik
 
 Create following files locally
 
@@ -207,29 +235,6 @@ resources:
   limits:
     cpu: "400m"
     memory: "300Mi"
-EOF
-```
-
-```bash
-cat <<EOF > postgres-catch-all.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: postgres-catch-all
-  namespace: traefik
-data:
-  postgres-catch-all.yaml: |
-    tcp:
-      routers:
-        catchAll:
-          entryPoints:
-            - "postgresql"
-          rule: "HostSNI(`*`)"
-          service: empty
-      services:
-        empty:
-          loadBalancer:
-            servers: {}
 EOF
 ```
 
