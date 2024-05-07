@@ -1,7 +1,7 @@
 ---
-title: Tembo Enterprise
+title: Tembo Self-Hosted
 sideBarPosition: 201
-description: Tembo Enterprise allows you to run the Tembo Platform within your own Kubernetes cluster.
+description: Tembo Self-Hosted allows you to run the Tembo Platform within your own Kubernetes cluster.
 ---
 
 import Callout from '../../../../../components/Callout.astro';
@@ -12,19 +12,19 @@ import Callout from '../../../../../components/Callout.astro';
 </Callout>
 
 
-## Tembo Enterprise
+## Tembo Self-Hosted
 
-Tembo Enterprise is a self-hosted version of the Tembo Platform that runs in your own Kubernetes cluster. It
+Tembo Self-Hosted is a self-hosted version of the Tembo Platform that runs in your own Kubernetes cluster. It
 allows you to benefit from the same features as Tembo Cloud, but with the added control and security of running
 the software in your own environment.
 
-Tembo Enterprise is made up of the same components as Tembo Cloud, but packaged and distributed in a way that allows for
+Tembo Self-Hosted is made up of the same components as Tembo Cloud, but packaged and distributed in a way that allows for
 easy installation and management. Instead of running in separate Kubernetes clusters, the components run in a single
 Kubernetes cluster. This keeps your total cost of ownership low and makes for a simple and easy-to-manage deployment.
 
 <img src="/enterprise-software.png" />
 
-Configurability is a key feature of Tembo Enterprise. The platform comes with a set of default configurations and
+Configurability is a key feature of Tembo Self-Hosted. The platform comes with a set of default configurations and
 components for convenience, but you can easily customize the platform to suit your needs. Example configurations
 include:
 - Enabling a private extension registry
@@ -34,7 +34,7 @@ include:
 
 ## Installation
 
-Tembo Enterprise is packaged and distributed as a Helm chart. The chart can be configured to suit your needs and installed
+Tembo Self-Hosted is packaged and distributed as a Helm chart. The chart can be configured to suit your needs and installed
 in your Kubernetes cluster using the Helm package manager. The installation process is simple and can be done in a few
 steps.
 1. `helm repo add tembo https://tembo-io.github.io/tembo-enterprise`
@@ -43,30 +43,30 @@ steps.
 
 ## Releases and Upgrades
 
-Tembo Enterprise is released on a regular basis, with new features, bug fixes, and security updates:
+Tembo Self-Hosted is released on a regular basis, with new features, bug fixes, and security updates:
 - Patch releases with bugfixes every 2 weeks
 - Minor releases every 3 months
 - Major releases every 12 months
 
-Upgrading Tembo Enterprise is as simple as running `helm upgrade` with the new version of the Helm chart. The upgrade
+Upgrading Tembo Self-Hosted is as simple as running `helm upgrade` with the new version of the Helm chart. The upgrade
 process is designed to be seamless and non-disruptive to your running workloads.
 
 
 ## Support
 
-Tembo provides support for the installation, configuration, and operation of Tembo Enterprise. Our support team is
-available to help you with any Tembo Enterprise issues you may encounter and to provide guidance on best practices for running the
+Tembo provides support for the installation, configuration, and operation of Tembo Self-Hosted. Our support team is
+available to help you with any Tembo Self-Hosted issues you may encounter and to provide guidance on best practices for running the
 platform in your environment.
 
 Kubernetes cluster management is not included in our support offering, but we can provide
 guidance on how to manage your Kubernetes cluster to ensure the best performance and reliability of the Tembo Platform.
 
-We encourage Tembo Enterprise users to upgrade to the latest patch release as soon as possible to benefit from the latest
+We encourage Tembo Self-Hosted users to upgrade to the latest patch release as soon as possible to benefit from the latest
 bug fixes and features. Minor release `N` will be supported until 1 month after the release of minor release `N+2`.
 For example, if you are running release `24.1.0`, you will receive support until 1 month after the release of minor
 release `24.3.0`.
 
 
-## Try Tembo Enterprise
-Ready to try Tembo Enterprise? [Schedule some time with us](https://calendly.com/ian-tembo) to get
+## Try Tembo Self-Hosted
+Ready to try Tembo Self-Hosted? [Schedule some time with us](https://calendly.com/ian-tembo) to get
 started!
