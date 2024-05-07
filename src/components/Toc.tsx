@@ -49,7 +49,7 @@ const Toc: React.FC<Props> = ({
 						key={slug}
 						onClick={() => handleLinkClick(slug)}
 						className={styles(
-							'font-secondary text-xs border-l-2 py-1 prose-toc transition-all duration-75 ease-in-out hover:text-white',
+							'font-secondary text-xs border-l-2 pl-2 py-1 prose-toc transition-all duration-75 ease-in-out hover:text-white',
 							`pl-${depth * 2}`,
 							link === slug || (link === '' && index === 0)
 								? 'border-neon text-white'
