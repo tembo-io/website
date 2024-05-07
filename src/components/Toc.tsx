@@ -5,6 +5,7 @@ interface Props {
 	headings: {
 		text: string;
 		slug: string;
+		depth: number;
 	}[];
 	isDocs?: boolean;
 	titleStyles?: string;
@@ -42,13 +43,14 @@ const Toc: React.FC<Props> = ({
 				{title}
 			</h2>
 			<div className='flex flex-col border-l-2 border-[#9EA2A633] gap-4'>
-				{headings.map(({ text, slug }, index) => (
+				{headings.map(({ text, slug, depth }, index) => (
 					<a
 						href={`#${slug}`}
 						key={slug}
 						onClick={() => handleLinkClick(slug)}
 						className={styles(
-							'font-secondary text-xs pl-4 border-l-2 py-1 prose-toc transition-all duration-75 ease-in-out hover:text-white',
+							'font-secondary text-xs border-l-2 py-1 prose-toc transition-all duration-75 ease-in-out hover:text-white',
+							`pl-${depth * 2}`,
 							link === slug || (link === '' && index === 0)
 								? 'border-neon text-white'
 								: 'border-transparent text-grey',
