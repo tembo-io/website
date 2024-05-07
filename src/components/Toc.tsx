@@ -13,6 +13,16 @@ interface Props {
 	offset?: number;
 }
 
+// Note: `pl-${depth * 2}` didn't work on deployment preview but worked on localhost, hence this solution for toc indentation
+const paddingLeftVariants: { [key: number]: string } = {
+	1: "pl-2",
+    2: "pl-4",
+    3: "pl-6",
+    4: "pl-8",
+    5: "pl-10",
+    6: "pl-12"
+};
+
 const Toc: React.FC<Props> = ({
 	headings,
 	isDocs = false,
@@ -49,8 +59,8 @@ const Toc: React.FC<Props> = ({
 						key={slug}
 						onClick={() => handleLinkClick(slug)}
 						className={styles(
-							'font-secondary text-xs border-l-2 pl-2 py-1 prose-toc transition-all duration-75 ease-in-out hover:text-white',
-							`pl-${depth * 2}`,
+							'font-secondary text-xs border-l-2 py-1 prose-toc transition-all duration-75 ease-in-out hover:text-white',
+							paddingLeftVariants[depth],
 							link === slug || (link === '' && index === 0)
 								? 'border-neon text-white'
 								: 'border-transparent text-grey',
