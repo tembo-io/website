@@ -51,7 +51,7 @@ systemctl restart postgresql
 2. **Effective Cache Size**:
     - Set **`effective_cache_size`** to approximately 50%-75% of your total memory. This helps the planner in optimizing disk I/O.
 3. **Work Memory**:
-    - **`work_mem`** is critical for performance. Set it high enough for your largest queries, but be mindful of the total number of connections, as each connection can use up to **`work_mem`**.
+    - **`work_mem`** is critical for performance. Set it high enough for your largest queries, but be mindful of the total number of connections and query complexity, as each active query can use this amount of memory for every sort, hash, merge, and other memory-intensive operation necessary for execution.
 4. **Maintenance Work Memory**:
     - A higher **`maintenance_work_mem`** can speed up maintenance tasks like **`VACUUM`**, **`CREATE INDEX`**, and **`ALTER TABLE ADD FOREIGN KEY`**. However, avoid setting it to a very high value to prevent the risk of out-of-memory conditions.
 5. **Monitoring Cache Usage**:
