@@ -53,7 +53,6 @@ const filterDuplicates = (
 	for (const item of docs) {
 		const { slug, uppercaseParent } = item;
 		const existing = slugMap.get(slug);
-
 		if (!existing) {
 			slugMap.set(slug, item);
 			result.push(item);
@@ -63,7 +62,6 @@ const filterDuplicates = (
 			slugMap.set(slug, item);
 		}
 	}
-
 	return result;
 };
 
@@ -90,14 +88,28 @@ const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
 				doc?.data?.sideBarTitle ??
 				cleanSideBarTitle(split.at(-1) as string);
 
+			// Transform specific titles (Nodejs -> NodeJS, Php -> PHP, etc.)
+			const transformedTitle = transformTitle(title);
+			
 			return {
-				title: doc.data.uppercase ? title.toUpperCase() : title,
+				title: doc.data.uppercase ? transformedTitle.toUpperCase() : transformedTitle,
 				slug: `/docs/${doc.slug}`,
 				uppercaseParent: doc.data.uppercaseParent,
 			};
 		});
 	return items;
 };
+
+// Utility function to transform specific titles in doc
+function transformTitle(title: string) {
+	if (title === "Nodejs") {
+        return "NodeJS";
+    }
+    if (title === "Php") {
+        return "PHP";
+    }
+    return title;
+}
 
 // This function gets sideBar links for any doc that isnt nested down one level
 export async function getSideBarLinks(): Promise<SideBarSection[]> {
