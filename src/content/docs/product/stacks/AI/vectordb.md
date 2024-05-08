@@ -34,7 +34,7 @@ Additional technical specs of this container can be found in the [VectorDB Stack
 The VectorDB Stack comes pre-configured for building applications that require embeddings.
 
 The fastest way to build applications on text embeddings is to use the `pg_vectorize` Postgres extension.
- 
+
 This extension provides a consistent interface for generating embeddings from many common text embedding model sources including OpenAI and Hugging Face, as well as searching the embeddings and keeping them up-to-date.
 
 The general flow is to first call `vectorize.table()` on your source data table to initialize the process. This can be done in a SQL migration.
@@ -393,6 +393,31 @@ SELECT vectorize.transform_embeddings(
     input => 'the quick brown fox jumped over the lazy dogs',
     model_name => 'openai/text-embedding-ada-002'
 )
+```
+
+### Filtering Results
+
+`vectorize.search()` results can be filtered by supplying a where clause to the `where_sql` parameter in `vectorize.search()`.
+ The filter operation happens after the embeddings are searched. To pre-filter the search of embeddings, you will need to separate
+ embeddings into multiple tables or deploy a partitioning strategy.
+
+In the example below, we will filter results to only return the product with `product_id = 3`.
+ Note that product_id is unique, so only one result will be returned.
+
+```sql
+SELECT * FROM vectorize.search( 
+    job_name        => 'product_search_hf',
+    query           => 'accessories for mobile devices',
+    return_columns  => ARRAY['product_id', 'product_name'],
+    num_results     => 3,
+    where_sql       => $$product_id = 3$$
+);
+```
+
+```plaintext
+                                     search_results                                     
+----------------------------------------------------------------------------------------
+ {"product_id": 3, "product_name": "Desk Lamp", "similarity_score": 0.6498761419705363}
 ```
 
 ### Manually searching embeddings
