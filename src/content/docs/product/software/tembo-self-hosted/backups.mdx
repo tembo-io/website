@@ -1,0 +1,114 @@
+---
+title: Configuring Backups
+sideBarPosition: 202
+description: Backups configuration guide for Tembo Self Hosted
+---
+
+1. Set the following environment variables:
+    ```shell
+    export AWS_ACCOUNT_ID=123456789012
+    export AWS_REGION=us-east-1
+    export EKS_OIDC=oidc.eks.us-east-1.amazonaws.com/id/EXAMPLE1234567890123456789
+    export CF_BUCKET_NAME=tembo-cf-templates
+    export BACKUPS_BUCKET_NAME=tembo-backups
+    export TEMBO_NAMESPACE=tembo
+    export TEMBO_CHART_NAME=tembo
+    ```
+1. Download the `aws-resource-gen.sh` script.
+    ```shell
+    curl -O https://raw.githubusercontent.com/tembo-io/tembo-enterprise/main/scripts/aws-resource-gen.sh
+    chmod +x aws-resource-gen.sh
+    ```
+
+1. Run the `aws-resource-gen.sh` script to create templated resource definitions for AWS.
+    ```shell
+    ./aws-resource-gen.sh
+    ```
+
+## Create Buckets
+
+### Create Bucket for CloudFormation Template
+
+1. Create an S3 bucket for storing a CloudFormation. The conductor component will use this template to create IAM resources
+that allow Postgres instances to access the S3 bucket for backups.
+    ```shell
+    aws s3api create-bucket --bucket $CF_BUCKET_NAME --region $AWS_REGION
+    ```
+
+1. Upload the CloudFormation template to the S3 bucket.
+    ```shell
+    aws s3 cp conductor-cf-template.yaml s3://$CF_BUCKET_NAME
+    ````
+
+1. Add bucket policy
+    ```shell
+    aws s3api put-bucket-policy --bucket $CF_BUCKET_NAME --policy file://tembo-cf-bucket-policy.json
+    ```
+
+1. Configure bucket access
+    ```shell
+    aws s3api put-public-access-block \
+     --bucket $CF_BUCKET_NAME \
+     --public-access-block-configuration "BlockPublicAcls=false,IgnorePublicAcls=true,BlockPublicPolicy=false,RestrictPublicBuckets=false"
+    ```
+
+
+### Create Bucket for Backups
+1. Create an S3 bucket for storing backups.
+    ```shell
+    aws s3api create-bucket --bucket $BACKUPS_BUCKET_NAME --region $AWS_REGION
+    ```
+
+1. Add bucket policy
+    ```shell
+    aws s3api put-bucket-policy --bucket $BACKUPS_BUCKET_NAME --policy file://tembo-backups-bucket-policy.json
+    ```
+
+1. Create directory `coredb` in the `tembo-backups` bucket.
+    ```shell
+    aws s3api put-object --bucket $BACKUPS_BUCKET_NAME --key coredb/ --server-side-encryption AES256
+    ```
+
+
+## Create IAM Policy and Role
+1. Create IAM Policy
+    ```shell
+    aws iam create-policy --policy-name tembo --policy-document file://tembo-iam-policy.json
+    ```
+
+1. Create IAM Role and Trust Relationship
+    ```shell
+    aws iam create-role --role-name tembo --assume-role-policy-document file://tembo-trust-relationship.json
+    ```
+
+1. Attach IAM Policy to IAM Role
+    ```shell
+    aws iam attach-role-policy --role-name tembo --policy-arn arn:aws:iam::$AWS_ACCOUNT_ID:policy/tembo
+    ```
+
+## Enable Backups in Helm Chart
+Set the following helm values and upgrade the Tembo chart.
+
+```yaml
+  conductor:
+    serviceAccount:
+      annotations:
+        eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/tembo
+    env:
+      - name: BACKUP_ARCHIVE_BUCKET
+        value: "tembo-backups"
+      - name: CF_TEMPLATE_BUCKET
+        value: "tembo-cf-templates"
+      - name: IS_CLOUD_FORMATION
+        value: "true"
+```
+
+```yaml
+  tembo-operator:
+    controller:
+      env:
+        - name: ENABLE_BACKUP
+          value: "true"
+        - name: ENABLE_VOLUME_SNAPSHOT
+          value: "false"
+```
