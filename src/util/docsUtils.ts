@@ -53,7 +53,6 @@ const filterDuplicates = (
 	for (const item of docs) {
 		const { slug, uppercaseParent } = item;
 		const existing = slugMap.get(slug);
-
 		if (!existing) {
 			slugMap.set(slug, item);
 			result.push(item);
@@ -63,7 +62,6 @@ const filterDuplicates = (
 			slugMap.set(slug, item);
 		}
 	}
-
 	return result;
 };
 

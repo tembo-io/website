@@ -1,3 +1,7 @@
+---
+sideBarTitle: 'PHP'
+---
+
 The [PHP Postgres database extension](https://www.php.net/manual/en/book.pgsql.php) depends on the Postgres client C libraries, known as **libpq**. Please see [our libpq guide](/docs/getting-started/quickstarts/libpq) to update your version of **libpq**.
 
 If you have PHP installed, often the Postgres database extension is already installed. Check if it is installed like this.
@@ -13,7 +17,6 @@ php --ini
 ```
 
 Open the `php.ini` file and uncomment the line `extension=pdo_pgsql`.
-
 
 Here is an example connecting to a Tembo Cloud instance using PHP.
 
@@ -44,7 +47,6 @@ try {
 ```
 
 ## Support and Community
-
 
 If you encounter any issues, please check out our [troubleshooting guide](/docs/product/cloud/troubleshooting) or contact [support@tembo.io](mailto:support@tembo.io).
 
