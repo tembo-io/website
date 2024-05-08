@@ -155,7 +155,7 @@ Therefore, its important to define a prompt template that is specific to the app
 Both messages are sent to the LLM, but the system message is sent first and used to set the stage and tone of the LLM. The user message follows the system message and is used to provide
 the LLM with the user's question along with the additional context that is provided from the relevant documents.
 
-For the Tembo support agent, we'll define a prompt template that gives the. Use `{{ context_str }}` to specify where the relevant contextual documents should be placed and `{{ query_str }}` to specify where the user's question should be placed.
+For the Tembo support agent, we'll define a prompt template that provides some structure and more specific instructions to the LLM. Use `{{ context_str }}` to specify where the relevant contextual documents should be placed and `{{ query_str }}` to specify where the user's question should be placed.
 
 ```sql
 INSERT INTO vectorize.prompts (prompt_type, sys_prompt, user_prompt) VALUES (
