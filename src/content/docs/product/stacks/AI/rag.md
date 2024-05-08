@@ -79,7 +79,7 @@ from tembo_py.rag import TemboRAG
 
 rag = TemboRAG(
     project_name="tembo_support",
-    chat_model="gpt-3.5-turbo",
+    chat_model="openai/gpt-3.5-turbo",
     connection_string="postgresql://postgres:<password>@<yourTemboHost>:5432/postgres"
 )
 ```
@@ -171,7 +171,7 @@ Then, call rag() again but specify the new prompt:
 select vectorize.rag(
     agent_name => 'tembo_support',
     query => 'what are tembo_stacks?',
-    chat_model => 'gpt-3.5-turbo',
+    chat_model => 'openai/gpt-3.5-turbo',
     task => 'tembo_support_task'
 ) -> 'chat_response';
 ```
