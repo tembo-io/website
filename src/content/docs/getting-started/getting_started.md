@@ -4,15 +4,15 @@ sideBarPosition: 0
 
 Goodbye Database Sprawl, Hello Postgres.
 
-At Tembo, we've created a radically simpler way to build, deploy, and scale data services and applications on top of Postgres. Unlike traditional managed Postgres offerings, Tembo abstracts the complexity of deployment, configuration, management, and optimization, allowing developers to easily build and deploy highly specialized data services without needing to rely on multiple different database platforms, and teams of backend engineers, devops, database administrators, and data engineers.
+At Tembo, we've created a radically simpler way to build, deploy, and scale data services and applications on top of Postgres. Unlike traditional managed Postgres offerings, Tembo abstracts the complexity of deployment, configuration, management, and optimization, allowing developers to easily build and deploy highly specialized data services without needing to rely on multiple different database platforms, and teams of backend engineers, DevOps teams, database administrators, and data engineers.
 
 ## What Makes Tembo Unique?
 
 Today, Tembo is differentiated by:
 
--   Expert database management - No need to learn new database systems or hire additional teams in order to get Master DBA-level database performance.
+-   Expert database management - No need to learn new database systems or hire additional teams in order to get Master DBA-level database performance. Now, get it out-of-the-box.
 -   Live extension management — thanks to [Trunk](https://www.pgt.dev), you can easily install a growing list of Postgres extensions into your running Postgres cluster at the click of a button.
--   Use-case specific — Tembo Stacks are productized starting points that includes a Postgres cluster, an intentionally curated bundle of Postgres extensions, optimized configuration, and application services. Want to know more? Check out our [Stacks](https://tembo.io/docs/category/tembo-stacks) here.
+-   Use-case specific — Tembo Stacks are productized starting points that include a Postgres cluster, an intentionally curated bundle of Postgres extensions, optimized configuration, and application services. Want to know more? Check out our [Stacks](https://tembo.io/docs/category/tembo-stacks) here.
 
 Ready to get started? Let's do it.
 
@@ -34,5 +34,5 @@ Ready to get started? Let's do it.
 
 -   We support (200+) [Trunk](https://www.pgt.dev)-installable extensions
 -   Click the extensions tab while viewing a cluster (the little box icon)
--   Click the "Add new extension”, find the extension, click “Install”
--   Click the extensions tab while viewing a cluster, to enable any extensions you have installed.
+-   Click "Add new extension”, find the extension, and click “Install”
+-   Click the extensions tab while viewing a cluster to enable any extensions you have installed.

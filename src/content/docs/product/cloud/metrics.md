@@ -7,7 +7,7 @@ Tembo Cloud shows some database metrics on [cloud.tembo.io](https://cloud.tembo.
 
 ## Where to find your metrics
 
-You can find your metrics on your database's domain name, with the `/metrics` path. You must provide a Tembo authentication token in order to access these metrics. You can generate a token in Tembo Cloud [here](https://cloud.tembo.io/generate-jwt).
+You can find your metrics on your database's domain name with the `/metrics` path. You must provide a Tembo authentication token in order to access these metrics. You can generate a token in Tembo Cloud [here](https://cloud.tembo.io/generate-jwt).
 
 ```bash
 # Your Tembo Cloud token
@@ -41,7 +41,7 @@ scrape_configs:
       credentials: < your token here >
 ```
 
-You may also avoid including the token in your configuration file by loading it from a file. Please consult [the Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config), `authorization` section of `scrape_config`.
+You may also avoid including the token in your configuration file by loading it from a file. Please consult [the Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) for more information, specifically the `authorization` section of `scrape_config`.
 
 ### Prometheus quick start
 
@@ -66,7 +66,7 @@ services:
             - '--config.file=/etc/prometheus/prometheus.yml'
 ```
 
--   Create a file `prometheus.yml` in the same directory, with the Prometheus configuration. This should look like the configuration example in the previous section, replacing the target by your Postgres server's domain name, and the token by your Tembo Cloud token.
+-   Create a file `prometheus.yml` in the same directory with the Prometheus configuration. This should look like the configuration example in the previous section. Replace the target by your Postgres server's domain name along with the token by your Tembo Cloud token.
 -   Run `docker-compose up`
 
 Within 30 seconds, you should be able to see Prometheus is collecting the metrics if you access the local Prometheus server in your web browser here: [localhost:9090/targets](http://localhost:9090/targets).

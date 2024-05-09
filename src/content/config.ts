@@ -4,6 +4,7 @@ import {
 	getCollection,
 	type CollectionEntry,
 } from 'astro:content';
+import { authorsEnum } from '../blogAuthors';
 
 export interface BlogCollection {
 	title: string;
@@ -38,27 +39,8 @@ const blog = defineCollection({
 		updatedDate: z.coerce.date().optional(),
 		image: z.string().optional(),
 		tags: z.array(z.string()),
-		authors: z.array(
-			z
-				.enum([
-					'ryw',
-					'samay',
-					'adam',
-					'rjzv',
-					'steven',
-					'jay',
-					'adarsh',
-					'eric',
-					'ian',
-					'darren',
-					'abby',
-					'evan',
-					'theory',
-					'joshua',
-					'vini',
-				])
-				.default('ryw'),
-		),
+		feedSummary: z.string().optional(),
+		authors: authorsEnum,
 	}),
 });
 export const ROOT_SIDEBAR_DOCS_ORDER = {
@@ -81,6 +63,7 @@ const docs = defineCollection({
 		sideBarPosition: z.number().default(Infinity),
 		sideBarTitle: z.string().optional(),
 		uppercase: z.boolean().default(false),
+		uppercaseParent: z.boolean().default(false),
 	}),
 });
 

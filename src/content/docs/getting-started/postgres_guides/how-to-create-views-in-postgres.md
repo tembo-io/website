@@ -33,10 +33,10 @@ SELECT age, COUNT(*) FROM adult_users GROUP BY age;
 
 Note that views do not store any data by themselves. They are only a query over one or more tables in a database.
 
-Postgres comes with the `ALTER VIEW` command which can be used to modify or edit the created view. `ALTER VIEW` can also be used to recreate the view with a whole new SQL query:
+Postgres comes with the `CREATE OR REPLACE VIEW` command which can be used to modify or edit the created view. `CREATE OR REPLACE VIEW` can also be used to recreate the view with a whole new SQL query:
 
 ```sql
-ALTER VIEW adult_users AS
+CREATE OR REPLACE VIEW adult_users AS
 SELECT id, age
 FROM users
 WHERE age >= 20;

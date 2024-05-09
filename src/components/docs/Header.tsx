@@ -66,9 +66,6 @@ const Header: React.FC<Props> = ({
 														? 'hidden'
 														: 'scroll'),
 													setIsMenuOpen(!isMenuOpen);
-												console.log(
-													!isScreenLessThan1000px,
-												);
 											}}
 											className={cx(
 												'flex flex-col gap-[2.5px] items-center justify-center bg-neon hover:bg-[#D1E278] rounded-full w-[32.57px] h-[32.57px] z-50',

@@ -10,11 +10,13 @@ import Callout from '../../../../../components/Callout.astro';
 	**Powered by [PostgREST](https://postgrest.org/en/stable/)**
 </Callout>
 
-Having an HTTP interface to your Postgres database significantly improves the rate at which you can develop applications. Sometimes developers build CRUD web servers from scratch, but for many use cases, you can simply use [PostgREST](https://postgrest.org/en/stable/) and it is available on Tembo Cloud.
+Having a HTTP interface to your Postgres database significantly improves the rate at which you can develop applications. Sometimes developers build CRUD web servers from scratch, but for many use cases, you can simply use [PostgREST](https://postgrest.org/en/stable/) which is also available on Tembo Cloud.
 
-PostgREST is a well-designed and supported Postgres project built by an awesome [group of engineers](https://github.com/PostgREST/postgrest/graphs/contributors), and arguably the fastest way to get a REST service in place for your Postgres database.
+PostgREST is a well-designed and supported Postgres project built by an awesome [group of engineers](https://github.com/PostgREST/postgrest/graphs/contributors), and arguably is the fastest way to get a REST service in place for your Postgres database.
 
-PostgREST is a standalone web server that turns your PostgreSQL database directly into a RESTful API. The immediacy with which PostgREST enables the interaction with the database eliminates the need for a middle-layer application server. By leveraging the underlying capabilities of PostgreSQL, PostgREST offers automatic API generation, allowing you to define the API's structure using the database schema, and then immediately querying it via the API endpoint.
+PostgREST is a standalone web server that turns your PostgreSQL database directly into a RESTful API. The immediacy with which PostgREST enables the interaction with the database eliminates the need for a middle-layer application server. 
+
+By leveraging the underlying capabilities of PostgreSQL, PostgREST offers automatic API generation, allowing you to define the API's structure using the database schema and immediately query it via the API endpoint.
 
 Main Features:
 
@@ -74,7 +76,7 @@ curl -X PATCH \
 
 ## Using PostgREST
 
-PostgREST is served within your data plane domain. This value is the same value as the host on your Tembo Postgres instance and can be found in at cloud.tembo.io.
+PostgREST is served within your data plane domain. This value is the same value as the host on your Tembo Postgres instance and can be found at cloud.tembo.io.
 
 First, create a table in the database:
 
@@ -194,7 +196,7 @@ curl -X GET \
   https://${TEMBO_DATA_DOMAIN}/restapi/v1/products
 ```
 
-We inserted two products and as expected, we the API response gave us two records.
+We inserted two products and as expected, the API response gave us two records.
 
 ```json
 [
