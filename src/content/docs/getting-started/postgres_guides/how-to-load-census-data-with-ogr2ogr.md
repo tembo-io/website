@@ -14,7 +14,7 @@ To learn more about the Geospatial Stack [click here](https://tembo.io/docs/prod
 ## Table of Contents
 - [Download ogr2ogr](#download-ogr2ogr)
 - [Obtain and load census data](#obtain-and-load-census-data)
-    - [Example Scripts](#example-scripts)
+    - [Census-loading scripts](#census-loading-scripts)
 - [Test for functionality](#test-for-functionality)
 
 ## Download ogr2ogr
@@ -53,7 +53,7 @@ Their database for census and survey mapping is called [TIGER](https://www.censu
 - [Official States and Counties FIPS codes](https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt) 
 - [Key for TIGER file name abbreviations](https://www2.census.gov/geo/tiger/TIGER2022/2022_TL_Shapefiles_File_Name_Definitions.pdf)
 
-### Example Scripts
+### Census-loading scripts
 
 PostGIS internals allow users to generate scripts for loading census data.
 We've adapted these to allow for single-state, multi-state, and all state loading capabilities.
@@ -62,6 +62,8 @@ Importantly, the `nation_script_load.sh` file must be run first.
 Once run, it no longer needs to be run again. Meaning, if your goal is to load census data from a single state, then later for multiple states, you can skip the `nation_script_load.sh` file for the second load of multiple states.
 
 The `multistate_load.sh` file, however, needs to be run every time you would like to load state-specific data.
+
+---
 
 <details>
 <summary><strong>nation_script_load.sh</strong></summary>
@@ -472,12 +474,7 @@ sh nation_script_load.sh
 sh multistate.sh MA
 ```
 
-### Select files to download
-
-For the purposes of this guide, we've selected the `tract`, block groups `bg`, and `tabblocks` files, but there are many more available.
-Check out [Minnesota's page](https://www2.census.gov/geo/pvs/tiger2010st/27_Minnesota/27/) for an example of the files available.
-
-### Configure `ogr2ogr` command
+### Script configuration
 
 There are numerous flags that allow you to configure a `ogr2ogr` command, which are outlined within the [description section](https://gdal.org/programs/ogr2ogr.html#description) of the official documentation.
 
