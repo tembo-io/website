@@ -55,11 +55,13 @@ Their database for census and survey mapping is called [TIGER](https://www.censu
 
 ### Example Scripts
 
-PostGIS offers functionality to generate scripts for loading census data.
+PostGIS internals allow users to generate scripts for loading census data.
+We've adapted these to allow for single-state, multi-state, and all state loading capabilities.
 
-The `nation_script_load.sh` file is essential to run first, and basically includes a relatively small amount of data of the different states and counties.
+Importantly, the `nation_script_load.sh` file must be run first.
+Once run, it no longer needs to be run again. Meaning, if your goal is to load census data from a single state, then later for multiple states, you can skip the `nation_script_load.sh` file for the second load of multiple states.
 
-The `multistate_load.sh` file, however, has been updated to handle loading data from multiple states in one command.
+The `multistate_load.sh` file, however, needs to be run every time you would like to load state-specific data.
 
 <details>
 <summary><strong>nation_script_load.sh</strong></summary>
