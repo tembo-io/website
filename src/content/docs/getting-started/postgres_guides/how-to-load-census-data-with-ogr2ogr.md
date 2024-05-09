@@ -48,7 +48,10 @@ For Windows and others, please refer to the [official GDAL download page](https:
 
 While there are many ways to acquire census data, one good source is from the [United States Census Bureau](https://www.census.gov/).
 
-Their database for census and survey mapping is called [TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) (Topologically Integrated Geographic Encoding and Referencing system), and the directory for TIGER/Line shapefiles for all states, dated 2010, can be found [here](https://www2.census.gov/geo/pvs/tiger2010st/).
+Their database for census and survey mapping is called [TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) (Topologically Integrated Geographic Encoding and Referencing system), and the directory for the 2022 TIGER/Line shapefiles, organized by file type, then FIPS (Federal Information Processing Standards)-categorized states, can be found [here](https://www2.census.gov/geo/tiger/TIGER2022/).
+
+- [Official States and Counties FIPS codes](https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt) 
+- [Key for TIGER file name abbreviations](https://www2.census.gov/geo/tiger/TIGER2022/2022_TL_Shapefiles_File_Name_Definitions.pdf)
 
 ### Select files to download
 
