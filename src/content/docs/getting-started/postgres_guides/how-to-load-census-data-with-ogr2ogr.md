@@ -53,28 +53,6 @@ Their database for census and survey mapping is called [TIGER](https://www.censu
 - [Official States and Counties FIPS codes](https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt) 
 - [Key for TIGER file name abbreviations](https://www2.census.gov/geo/tiger/TIGER2022/2022_TL_Shapefiles_File_Name_Definitions.pdf)
 
-### Select files to download
-
-For the purposes of this guide, we've selected the `tract`, block groups `bg`, and `tabblocks` files, but there are many more available.
-Check out [Minnesota's page](https://www2.census.gov/geo/pvs/tiger2010st/27_Minnesota/27/) for an example of the files available.
-
-### Configure `ogr2ogr` command
-
-There are numerous flags that allow you to configure a `ogr2ogr` command, which are outlined within the [description section](https://gdal.org/programs/ogr2ogr.html#description) of the official documentation.
-
-Below we've laid out a select few that we'll be using in this guide:
-
-| Parameter                                                | Description                                                                                    |
-|----------------------------------------------------------|------------------------------------------------------------------------------------------------|
-| `-f "PostgreSQL"`                                        | Specifies the format of the output data source, in this case, PostgreSQL.                      |
-| `PG:"dbname=postgres host=<your-host> port=5432 user=postgres password=<your-password>"` | Connection string credentials. |
-| `-nln tiger_data.ma_tabblock`                            | Name of the new layer (table) to be created in the database.                                  |
-| `-nlt PROMOTE_TO_MULTI`                                  | Shape files contain multi-part geometries, so this flag primes Postgres to use `MultiPolygon` instead of `Polygon` as the type.                                                      |
-| `-lco GEOMETRY_NAME=the_geom`                            | Specifies the name of the geometry column in the new table.                                   |
-| `-lco FID=gid`                                           | Designates the name of the FID (Feature ID) column in the new table.                          |
-| `-lco PRECISION=no`                                      | Disables the storage of geometry precision.                                                   |
-| `tl_2010_25_tabblock10.shp`                              | The path to the input shapefile.                          
-
 ### Example Scripts
 
 PostGIS offers functionality to generate scripts for loading census data.
@@ -491,6 +469,28 @@ sh nation_script_load.sh
 ```bash
 sh multistate.sh MA
 ```
+
+### Select files to download
+
+For the purposes of this guide, we've selected the `tract`, block groups `bg`, and `tabblocks` files, but there are many more available.
+Check out [Minnesota's page](https://www2.census.gov/geo/pvs/tiger2010st/27_Minnesota/27/) for an example of the files available.
+
+### Configure `ogr2ogr` command
+
+There are numerous flags that allow you to configure a `ogr2ogr` command, which are outlined within the [description section](https://gdal.org/programs/ogr2ogr.html#description) of the official documentation.
+
+Below we've laid out a select few that we'll be using in this guide:
+
+| Parameter                                                | Description                                                                                    |
+|----------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| `-f "PostgreSQL"`                                        | Specifies the format of the output data source, in this case, PostgreSQL.                      |
+| `PG:"dbname=postgres host=<your-host> port=5432 user=postgres password=<your-password>"` | Connection string credentials. |
+| `-nln tiger_data.ma_tabblock`                            | Name of the new layer (table) to be created in the database.                                  |
+| `-nlt PROMOTE_TO_MULTI`                                  | Shape files contain multi-part geometries, so this flag primes Postgres to use `MultiPolygon` instead of `Polygon` as the type.                                                      |
+| `-lco GEOMETRY_NAME=the_geom`                            | Specifies the name of the geometry column in the new table.                                   |
+| `-lco FID=gid`                                           | Designates the name of the FID (Feature ID) column in the new table.                          |
+| `-lco PRECISION=no`                                      | Disables the storage of geometry precision.                                                   |
+| `tl_2010_25_tabblock10.shp`                              | The path to the input shapefile.                          
 
 ## Test for functionality
 
