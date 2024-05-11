@@ -1,0 +1,40 @@
+---
+slug: auto-dw
+title: 'pg_auto_dw: a postgres extension to automate the build of data warehouses'
+authors: [ryw]
+tags: [postgres, announcement]
+image: ./auto_dw.png
+---
+import Callout from '../../../components/Callout.astro';
+
+<Callout title='tl;dr' variant='tip'>
+     We are working on a new Postgres extension, [pg_auto_dw](https://github.com/tembo-io/pg_auto_dw), to automate the build of data warehouses.
+</Callout>
+
+We are dedicated to commercializing and creating Postgres extensions and [Stacks](https://tembo.io/docs/product/stacks/intro-to-stacks) that drive developer efficiency. 
+
+## Bringing Data Warehousing Automation to PostgreSQL
+
+[pg_auto_dw](https://github.com/tembo-io/pg_auto_dw) is a new open source project, an auto-data warehouse extension that uses LLM to inspect operational Postgres schemas, and sets up automation to create a well-formed data warehouse. 
+
+Whether it's Data Vault, Kimball format, etc I don't care - I just want something better than a dumb dev like me would build as a DW - a pile of ingested tables, and ad-hoc derivative tables. 
+
+I have wanted this badly for years as a dev + data engineer. We aren't sure how this experimend will work out, but kind of fun to start something without certainty of success. 
+
+We've recently partnered with our friend Johnathan Pickard from [Analyzer1](https://www.analyzer1.com/) to iterate with us on this project. With the integration of Large Language Models (LLMs), he will transition his previously built automations to be as fully-automated as possible. And this shift requires a bit of rethink. 
+
+## Why Postgres for Data Warehouse Automations?  
+
+We do not believe that automating the creation of data warehousing structures should be offloaded and partitioned at the analytic edge.  Classically, operational data is offloaded at interval to be processed by a dedicated data team. 
+
+This approach has several disadvantages. Firstly, it makes operational analytics an afterthought or at least an expensive and time consuming endeavor.  Secondly, it creates a very broad data sprawl which directly conflicts with the paradigm of a unified data model.  
+
+PostgreSQL stands as the world's most popular, comprehensive, and extensible open-source database, with its growing trend reinforcing its future-proof status.
+
+## Join us on the Journey
+
+We are just getting started! The development process is transparent and [open for everyone to see on GitHub](https://github.com/tembo-io/pg_auto_dw). 
+
+We invite developers, data scientists, and technology enthusiasts to join us. Your insights and contributions are invaluable as we push the boundaries of what is possible.
+
+Stay tuned for upcoming product demos and development blogs related to building and using this extension. 
