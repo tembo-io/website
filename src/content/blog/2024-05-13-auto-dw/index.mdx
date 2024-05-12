@@ -1,28 +1,21 @@
 ---
 slug: auto-dw
-title: 'pg_auto_dw: a postgres extension to automate the build of data warehouses'
-description: We are working on a new Postgres extension, pg_auto_dw, to automate the build of data warehouses.
+title: 'pg_auto_dw: a postgres extension to generate well-formed data warehouses with AI'
+description: We are working on a new Postgres extension, pg_auto_dw, to generate well-formed data warehouses with AI.
 authors: [ryw]
 tags: [postgres, announcement]
 image: ./auto_dw.png
 ---
 import Callout from '../../../components/Callout.astro';
 
-<Callout title='tl;dr' variant='tip'>
-     We are working on a new Postgres extension, [pg_auto_dw](https://github.com/tembo-io/pg_auto_dw), to automate the build of data warehouses.
-</Callout>
-
-We are dedicated to commercializing and creating Postgres extensions and [Stacks](https://tembo.io/docs/product/stacks/intro-to-stacks) that drive developer efficiency. 
-
-## Bringing Data Warehousing Automation to PostgreSQL
 
 [pg_auto_dw](https://github.com/tembo-io/pg_auto_dw) is a new open source project, an auto-data warehouse extension that uses LLM to inspect operational Postgres schemas, and sets up automation to create a well-formed data warehouse. 
 
 Whether it's Data Vault, Kimball format, etc I don't care - I just want something better than a dumb dev like me would build as a DW - a pile of ingested tables, and ad-hoc derivative tables. 
 
-I have wanted this badly for years as a dev + data engineer. We aren't sure how this experimend will work out, but kind of fun to start something without certainty of success. 
+I have wanted this badly for years as a dev + data engineer. We aren't sure how this experiment will work out, but kind of fun to start something without certainty of success. 
 
-We've recently partnered with our friend Johnathan Pickard from [Analyzer1](https://www.analyzer1.com/) to iterate with us on this project. With the integration of Large Language Models (LLMs), he will transition his previously built automations to be as fully-automated as possible. And this shift requires a bit of rethink. 
+We've recently partnered with our friend Johnathan Pickard from [Analyzer1](https://www.analyzer1.com/) to iterate with us on this project. Leveraging Large Language Models (LLMs), he will transition his previously built automations to be as fully-automated as possible.
 
 ## Why Postgres for Data Warehouse Automations?  
 
