@@ -6,6 +6,17 @@ import { navigate } from 'astro:transitions/client';
 import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
+import {
+	ClerkProvider,
+	SignedIn,
+	SignedOut,
+	UserButton,
+} from '@clerk/clerk-react';
+
+const CLERK_PUBLISHABLE_KEY = import.meta.env.PUBLIC_VITE_CLERK_PUBLISHABLE_KEY;
+if (!CLERK_PUBLISHABLE_KEY) {
+	throw new Error('Missing Clerk Publishable Key');
+}
 
 interface Props {
 	currentPage: string;
@@ -181,19 +192,34 @@ const NavBar: React.FC<Props> = ({
 							/>
 							Github
 						</a>
-						<Button
-							variant='neon'
-							styles='z-100'
-							onClick={() => navigate('https://cloud.tembo.io')}
+						<ClerkProvider
+							publishableKey={CLERK_PUBLISHABLE_KEY}
+							isSatellite={true}
+							domain={(url) => url.host}
+							signInUrl='https://cloud.tembo.io'
 						>
-							Try Free
-						</Button>
-						{/* <SignedIn>
-							<div className='text-white'>hello in</div>
-						</SignedIn>
-						<SignedOut>
-							<div className='text-white'>hello out</div>
-						</SignedOut> */}
+							<Button
+								variant='neon'
+								styles='z-100'
+								onClick={() =>
+									navigate('https://cloud.tembo.io')
+								}
+							>
+								<SignedIn>Dashboard</SignedIn>
+								<SignedOut>Try Free</SignedOut>
+							</Button>
+						</ClerkProvider>
+
+						{/* <Button
+								variant='neon'
+								styles='z-100'
+								onClick={() =>
+									navigate('https://cloud.tembo.io')
+								}
+							>
+								Try Free
+							</Button> */}
+						{/* </ClerkProvider> */}
 					</div>
 					<button
 						onClick={() => {
