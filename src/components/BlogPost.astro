@@ -23,7 +23,7 @@ const author = AUTHORS[authorProp || 'ryw'];
 ---
 
 <a
-	class='col-span-12 mb-8 md:col-span-12 lg:col-span-6 xl:col-span-4 flex flex-col items-start justify-between bg-mwasi rounded-xl p-4 min-w-full gap-6 transition-all duration-300 ease-in-out hover:scale-[101.5%]'
+	class='col-span-12 mb-8 md:col-span-12 lg:col-span-6 xl:col-span-4 flex flex-col items-start justify-between bg-mwasi rounded-xl p-4 min-w-full gap-6 transition-all duration-300 ease-in-out hover:scale-[101.5%] h-full'
 	href={`/blog/${slug}`}
 >
 	<div class='flex flex-col gap-6 w-full'>
@@ -32,7 +32,9 @@ const author = AUTHORS[authorProp || 'ryw'];
 				<Image
 					src={heroImage()}
 					alt={`${title} thumbnail`}
-					class='rounded-xl w-full lg:max-h-[200px]'
+					class='rounded-xl w-full h-full lg:max-h-[200px]'
+					height={400}
+					width={600}
 				/>
 			) : (
 				<img
