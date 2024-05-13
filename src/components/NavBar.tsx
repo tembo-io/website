@@ -196,7 +196,7 @@ const NavBar: React.FC<Props> = ({
 							publishableKey={CLERK_PUBLISHABLE_KEY}
 							isSatellite={true}
 							domain={(url) => url.host}
-							signInUrl='https://cloud.tembo.io'
+							signInUrl='https://tembo.io'
 						>
 							<Button
 								variant='neon'
@@ -205,21 +205,15 @@ const NavBar: React.FC<Props> = ({
 									navigate('https://cloud.tembo.io')
 								}
 							>
-								<SignedIn>Dashboard</SignedIn>
-								<SignedOut>Try Free</SignedOut>
+								<SignedIn>
+									<span>Dashboard</span>
+								</SignedIn>
+
+								<SignedOut>
+									<span>Try Free</span>
+								</SignedOut>
 							</Button>
 						</ClerkProvider>
-
-						{/* <Button
-								variant='neon'
-								styles='z-100'
-								onClick={() =>
-									navigate('https://cloud.tembo.io')
-								}
-							>
-								Try Free
-							</Button> */}
-						{/* </ClerkProvider> */}
 					</div>
 					<button
 						onClick={() => {

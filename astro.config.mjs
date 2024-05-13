@@ -4,8 +4,6 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import { remarkReadingTime } from './remark-reading-time.mjs';
 import astroPluginValidateLinks from './validate-links-integration';
-import clerk from 'astro-clerk-auth';
-import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
