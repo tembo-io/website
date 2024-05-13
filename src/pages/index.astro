@@ -35,6 +35,8 @@ import DataWarehouse from '../images/analyticsData.png';
 import AutoApi from '../images/autoAPI.png';
 import LocalSearch from '../images/localSearch.png';
 import Realtime from '../images/realTimeNotifications.png';
+import ElephantsFooter from '../images/elephants_footer.svg';
+
 const currentPath = Astro.url.pathname;
 ---
 
@@ -599,10 +601,10 @@ const currentPath = Astro.url.pathname;
 		</section>
 		<section class='tembo-footer-section mobile:pt-28 relative bg-offBlack'>
 			<div class='container max-w-stackSlider mx-auto relative'>
-				<Animation
-					client:only='react'
-					isFooter={true}
-					styles='z-10 top-[300px] xs:top-[100px] sm:top-[50px] md:-top-[200px] xl:-top-[600px] fade-x-md-both-sides-animation'
+				<Image
+					src={ElephantsFooter}
+					alt='Elephants'
+					class='z-10 absolute top-[200px] sm:top-[50px] md:-top-[50px] xl:-top-[300px] fade-x-md-both-sides-animation'
 				/>
 				<div
 					class='flex flex-col justify-center pb-[100px] min-[400px]:pb-[200px] z-10'
