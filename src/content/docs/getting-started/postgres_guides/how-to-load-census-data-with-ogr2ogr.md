@@ -92,7 +92,7 @@ The `multistate_load.sh` file, however, needs to be run every time you would lik
 #!/bin/bash
 
 # Set directory and tool variables
-TMPDIR="<path/to/temp/dir>"
+TMPDIR="./tiger_tmp/"
 UNZIPTOOL=unzip
 WGETTOOL=$(which wget)
 OGR2OGR=$(which ogr2ogr)
@@ -153,7 +153,7 @@ fi
 ```bash
 #!/bin/bash
 
-TMPDIR="<path/to/temp/dir>"
+TMPDIR="./tiger_tmp/"
 UNZIPTOOL=unzip
 WGETTOOL="<path/to/wget>"
 OGR2OGR="<path/to/ogr2ogr>"
