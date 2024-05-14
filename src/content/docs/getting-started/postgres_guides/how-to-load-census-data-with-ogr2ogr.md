@@ -510,24 +510,26 @@ If you'd like to make this change permanet and persist across sessions, you can 
 ALTER DATABASE your_database_name SET search_path TO "$user", public, tiger, tiger_data;
 ```
 
-
-
-### Query 1 - Sample geocoding query
-
+### Query 1 - Sample data exploration
+From the Massachusetts State House [webpage](https://www.mass.gov/locations/massachusetts-state-house), we see that it's zip code is 02108. However, at the time of this guide, Google Maps [shows](https://www.google.com/maps/place/Massachusetts+State+House/@42.3587493,-71.0657554,16.77z/data=!4m6!3m5!1s0x89e3709c8355a541:0x64fc806713207cb0!8m2!3d42.3587772!4d-71.0638101!16zL20vMDQ3Ympu?entry=ttu) the zip code as 02133. Let's verify this information by querying the `ma_addr` table.
 ```sql
-SELECT g.rating, ST_X(g.geomout) AS longitude, ST_Y(g.geomout) AS latitude,
-       (g.addy).address AS house_number,
-       (g.addy).streetname AS street,
-       (g.addy).streettypeabbrev AS street_type,
-       (g.addy).location AS city,
-       (g.addy).stateabbrev AS state,
-       (g.addy).zip
-FROM geocode('24 Beacon St, Boston, MA 02133', 1) AS g;
+SELECT COUNT(*) FROM tiger_data.ma_addr
+WHERE zip = '02108';
 ```
 ```text
- rating |     longitude     |     latitude      | house_number | street | street_type |  city  | state |  zip
---------+-------------------+-------------------+--------------+--------+-------------+--------+-------+-------
-      4 | -71.1393787502349 | 42.35374227929745 |           24 | Beacon | St          | Boston | MA    | 02134
+ count
+-------
+   215
+(1 row)
+```
+```sql
+SELECT COUNT(*) FROM tiger_data.ma_addr
+WHERE zip = '02133';
+```
+```text
+ count
+-------
+     0
 (1 row)
 ```
 
