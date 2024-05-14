@@ -14,6 +14,7 @@ import {
 } from '@clerk/clerk-react';
 
 const CLERK_PUBLISHABLE_KEY = import.meta.env.PUBLIC_VITE_CLERK_PUBLISHABLE_KEY;
+// console.log(CLERK_PUBLISHABLE_KEY);
 if (!CLERK_PUBLISHABLE_KEY) {
 	throw new Error('Missing Clerk Publishable Key');
 }
@@ -192,27 +193,29 @@ const NavBar: React.FC<Props> = ({
 							/>
 							Github
 						</a>
-						<ClerkProvider
-							publishableKey={CLERK_PUBLISHABLE_KEY}
-							isSatellite={true}
-							domain={(url) => url.host}
-							signInUrl='https://tembo.io'
-						>
-							<Button
-								variant='neon'
-								styles='z-100'
-								onClick={() =>
-									navigate('https://cloud.tembo.io')
-								}
-							>
-								<SignedIn>
+						<ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY}>
+							<SignedIn>
+								<Button
+									variant='neon'
+									styles='z-100'
+									onClick={() =>
+										navigate('https://cloud.tembo.io')
+									}
+								>
 									<span>Dashboard</span>
-								</SignedIn>
-
-								<SignedOut>
+								</Button>
+							</SignedIn>
+							<SignedOut>
+								<Button
+									variant='neon'
+									styles='z-100'
+									onClick={() =>
+										navigate('https://cloud.tembo.io')
+									}
+								>
 									<span>Try Free</span>
-								</SignedOut>
-							</Button>
+								</Button>
+							</SignedOut>
 						</ClerkProvider>
 					</div>
 					<button
