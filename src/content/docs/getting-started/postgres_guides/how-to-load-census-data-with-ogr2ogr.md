@@ -535,37 +535,16 @@ WHERE zip = '02133';
 (1 row)
 ```
 
-### Query 2 - Sample reverse geocoding query
+### Query 2 - How many town/cities are in Massachusetts?
 
 ```sql
-SELECT * FROM reverse_geocode(ST_SetSRID(ST_Point(-71.064544, 42.28787), 4326));
+SELECT COUNT(*)
+FROM tiger_data.ma_place;
 ```
 ```text
-                        intpt                         |                   addy                   |               street
-------------------------------------------------------+------------------------------------------+-------------------------------------
- {0101000020AD100000CB49287D21C451C0F0BF95ECD8244540} | {"(99,,Tilman,St,,,Boston,MA,02124,,,)"} | {"Dorchester Ave","Dorchester Ave"}
+count
+-------
+   248
 (1 row)
 ```
 
-
-
-
-### Query 3 - Sample query to get the average land and water area of all tracts
-
-```sql
-postgres=# SELECT
-    AVG(aland10) AS average_land_area,
-    MIN(aland10) AS minimum_land_area,
-    MAX(aland10) AS maximum_land_area,
-    AVG(awater10) AS average_water_area,
-    COUNT(*) AS total_tracts
-FROM tiger_data.ok_tract10;
-```
-```text
--[ RECORD 1 ]------+---------------------
-average_land_area  | 169847056.93690249
-minimum_land_area  | 502385
-maximum_land_area  | 4707327640
-average_water_area | 3228692.636711281071
-total_tracts       | 1046
-```
