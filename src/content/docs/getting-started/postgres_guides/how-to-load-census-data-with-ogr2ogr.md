@@ -13,6 +13,7 @@ To learn more about the Geospatial Stack [click here](https://tembo.io/docs/prod
 
 ## Table of Contents
 - [Download ogr2ogr](#download-ogr2ogr)
+- [Preparing the Postgres database](#preparing-the-postgres-database)
 - [Obtain and load census data](#obtain-and-load-census-data)
     - [Census-loading scripts](#census-loading-scripts)
 - [Test for functionality](#test-for-functionality)
@@ -43,6 +44,25 @@ sudo apt-get install gdal-bin
 </details>
 
 For Windows and others, please refer to the [official GDAL download page](https://gdal.org/download.html#download).
+
+## Preparing the Postgres database
+
+Once you have the connection string, `psql` into Postgres and enable the postgis_tiger_geocoder extension:
+
+```sql
+CREATE EXTENSION postgis_tiger_geocoder CASCADE;
+```
+
+While not necessary prior to running the script, running the following will allow you to see the soon-to-be generated tables:
+```sql
+SET search_path TO "$user", public, tiger, tiger_data;
+```
+
+The above command is ephemeral and will need to be run each time you connect to the database.
+If you’d like to allow this to persist across sessions, you can alter the database via the following:
+```sql
+ALTER DATABASE your_database_name SET search_path TO "$user", public, tiger, tiger_data;
+```
 
 ## Obtain and load census data
 
@@ -492,19 +512,17 @@ Below we've laid out a select few that we've included in the scripts.
 
 ## Test for functionality
 
-`psql` into Postgres and enable the `postgis_tiger_geocoder` extension:
+If you haven't already run the following in Postgres, please do so now:
 
 ```
 CREATE EXTENSION postgis_tiger_geocoder CASCADE;
 ```
 
-Following PostGIS conventions, we created a schema called `tiger_data` to house the loaded data. If you'd like to query the data, you'll need to set the search path to include this schema:
-
 ```sql
 SET search_path TO "$user", public, tiger, tiger_data;
 ```
 
-If you'd like to make this change permanet and persist across sessions, you can alter the database:
+If you’d like to allow this to persist across sessions, you can alter the database via the following:
 
 ```sql
 ALTER DATABASE your_database_name SET search_path TO "$user", public, tiger, tiger_data;
