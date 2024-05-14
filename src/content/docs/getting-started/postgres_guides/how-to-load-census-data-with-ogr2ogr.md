@@ -8,7 +8,7 @@ It is useful for guiding public policy decisions, allocating government funds, p
 
 This guide will walk through the steps to download `TIGER` census data, load it into Postgres with `ogr2ogr`, and confirm functionality using the `postgis_tiger_geocoder` extension.
 
-The Postgres instance used in this guide was powered by [Tembo Cloud](https://cloud.tembo.io/)'s Geospatial Stack.
+The Postgres instance used in this guide was powered by Tembo Cloud's Geospatial Stack -- [try it for free!](https://cloud.tembo.io/)
 To learn more about the Geospatial Stack [click here](https://tembo.io/docs/product/stacks/analytical/geospatial).
 
 ## Table of Contents
@@ -21,7 +21,7 @@ To learn more about the Geospatial Stack [click here](https://tembo.io/docs/prod
 
 The easiest way to install [ogr2ogr](https://gdal.org/programs/ogr2ogr.html) is to download and install GDAL (Geospatial Data Abstraction Library); an open source library maintained by [OSGeo](https://www.osgeo.org/projects/gdal/). PostGIS recognizes `ogr2ogr` as a valid loading method, which can be explored within the [PostGIS official training material](https://postgis.net/workshops/postgis-intro/loading_data.html#loading-with-ogr2ogr).
 
-Install the GDAL library, which includes `ogr2ogr`.
+Follow the instructions to install the GDAL library, which includes `ogr2ogr`:
 
 <details>
 <summary><strong>MacOS</strong></summary>
@@ -46,20 +46,20 @@ For Windows and others, please refer to the [official GDAL download page](https:
 
 ## Obtain and load census data
 
-While there are many ways to acquire census data, one good source is from the [United States Census Bureau](https://www.census.gov/).
+While there are many ways to acquire census data, one good source is the [United States Census Bureau](https://www.census.gov/).
 
-Their database for census and survey mapping is called [TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) (Topologically Integrated Geographic Encoding and Referencing system), and the directory for the 2022 TIGER/Line shapefiles, organized by file type, then FIPS (Federal Information Processing Standards)-categorized states, can be found [here](https://www2.census.gov/geo/tiger/TIGER2022/).
+Their database for census and survey mapping is called [TIGER](https://www.census.gov/programs-surveys/geography/guidance/tiger-data-products-guide.html#:~:text=TIGER%20stands%20for%20the%20Topologically,data%20as%20the%20primary%20source.) (Topologically Integrated Geographic Encoding and Referencing system), and the directory for the 2022 TIGER/Line shapefiles, organized first by file type, then by FIPS (Federal Information Processing Standards)-categorized states, can be found [here](https://www2.census.gov/geo/tiger/TIGER2022/).
 
-- [Official States and Counties FIPS codes](https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt) 
-- [Key for TIGER file name abbreviations](https://www2.census.gov/geo/tiger/TIGER2022/2022_TL_Shapefiles_File_Name_Definitions.pdf)
+- [TIGER file name abbreviations key](https://www2.census.gov/geo/tiger/TIGER2022/2022_TL_Shapefiles_File_Name_Definitions.pdf)
+- [FIPS codes referece for States and Counties](https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt) 
 
 ### Census-loading scripts
 
 PostGIS internals allow users to generate scripts for loading census data.
-We've adapted these to allow for single-state, multi-state, and all state loading capabilities.
+We've adapted these scripts to allow for single-state, multi-state, and all state loading capabilities.
 
-Importantly, the `nation_script_load.sh` file must be run first.
-Once run, it no longer needs to be run again. Meaning, if your goal is to load census data from a single state, then later for multiple states, you can skip the `nation_script_load.sh` file for the second load of multiple states.
+Up front, it's important to emphasize that the `nation_script_load.sh` file must be run first.
+Once completed, it no longer needs to be run again. Meaning, if your goal is to load census data from a single state, and then to load multiple states at a later time, you can skip the `nation_script_load.sh` file for the second load of multiple states.
 
 The `multistate_load.sh` file, however, needs to be run every time you would like to load state-specific data.
 
@@ -476,7 +476,7 @@ sh multistate.sh MA
 
 ### Script configuration
 
-There are numerous flags that allow you to configure a `ogr2ogr` command, which are outlined within the [description section](https://gdal.org/programs/ogr2ogr.html#description) of the official documentation.
+There are numerous flags that allow you to configure an `ogr2ogr` command, which are outlined within the [description section](https://gdal.org/programs/ogr2ogr.html#description) of the official documentation.
 
 Below we've laid out a select few that we'll be using in this guide:
 
