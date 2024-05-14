@@ -75,7 +75,7 @@ The `multistate_load.sh` file, however, needs to be run every time you would lik
 TMPDIR="<path/to/temp/dir>"
 UNZIPTOOL=unzip
 WGETTOOL=$(which wget)
-OGR2OGR=$(which ogr2ogr2)
+OGR2OGR=$(which ogr2ogr)
 export PGBIN="<path/to/postgresql/bin>"
 export PGPORT=5432
 export PGHOST="<your-host>"
@@ -476,20 +476,19 @@ sh multistate.sh MA
 
 ### Script configuration
 
-There are numerous flags that allow you to configure an `ogr2ogr` command, which are outlined within the [description section](https://gdal.org/programs/ogr2ogr.html#description) of the official documentation.
+There are numerous flags that allow you to configure an `ogr2ogr` command, which are outlined in detail within the [description section](https://gdal.org/programs/ogr2ogr.html#description) of the official documentation.
 
-Below we've laid out a select few that we'll be using in this guide:
+Below we've laid out a select few that we've included in the scripts.
 
 | Parameter                                                | Description                                                                                    |
 |----------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | `-f "PostgreSQL"`                                        | Specifies the format of the output data source, in this case, PostgreSQL.                      |
-| `PG:"dbname=postgres host=<your-host> port=5432 user=postgres password=<your-password>"` | Connection string credentials. |
+| `PG:"dbname=$PGDATABASE host=$PGHOST port=$PGPORT user=$PGUSER password=$PGPASSWORD"` | Connection string credentials. For you to define at the top of each script. |
 | `-nln tiger_data.ma_tabblock`                            | Name of the new layer (table) to be created in the database.                                  |
 | `-nlt PROMOTE_TO_MULTI`                                  | Shape files contain multi-part geometries, so this flag primes Postgres to use `MultiPolygon` instead of `Polygon` as the type.                                                      |
 | `-lco GEOMETRY_NAME=the_geom`                            | Specifies the name of the geometry column in the new table.                                   |
 | `-lco FID=gid`                                           | Designates the name of the FID (Feature ID) column in the new table.                          |
 | `-lco PRECISION=no`                                      | Disables the storage of geometry precision.                                                   |
-| `tl_2010_25_tabblock10.shp`                              | The path to the input shapefile.                          
 
 ## Test for functionality
 
