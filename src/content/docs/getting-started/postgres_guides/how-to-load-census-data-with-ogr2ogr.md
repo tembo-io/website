@@ -13,7 +13,7 @@ To learn more about the Geospatial Stack [click here](https://tembo.io/docs/prod
 
 ## Table of Contents
 - [Download ogr2ogr](#download-ogr2ogr)
-- [Preparing the Postgres database](#preparing-the-postgres-database)
+- [Prepare the Postgres database](#prepare-the-postgres-database)
 - [Obtain and load census data](#obtain-and-load-census-data)
     - [Census-loading scripts](#census-loading-scripts)
 - [Test for functionality](#test-for-functionality)
@@ -45,7 +45,7 @@ sudo apt-get install gdal-bin
 
 For Windows and others, please refer to the [official GDAL download page](https://gdal.org/download.html#download).
 
-## Preparing the Postgres database
+## Prepare the Postgres database
 
 Once you have the connection string, `psql` into Postgres and enable the postgis_tiger_geocoder extension:
 
