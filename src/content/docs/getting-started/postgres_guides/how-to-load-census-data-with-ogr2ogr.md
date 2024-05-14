@@ -511,7 +511,9 @@ ALTER DATABASE your_database_name SET search_path TO "$user", public, tiger, tig
 ```
 
 ### Query 1 - Sample data exploration
-From the Massachusetts State House [webpage](https://www.mass.gov/locations/massachusetts-state-house), we see that it's zip code is 02108. However, at the time of this guide, Google Maps [shows](https://www.google.com/maps/place/Massachusetts+State+House/@42.3587493,-71.0657554,16.77z/data=!4m6!3m5!1s0x89e3709c8355a541:0x64fc806713207cb0!8m2!3d42.3587772!4d-71.0638101!16zL20vMDQ3Ympu?entry=ttu) the zip code as 02133. Let's verify this information by querying the `ma_addr` table.
+From the Massachusetts State House [webpage](https://www.mass.gov/locations/massachusetts-state-house), we see that it's zip code is 02108. However, at the time of this guide, Google Maps [shows](https://www.google.com/maps/place/Massachusetts+State+House/@42.3587493,-71.0657554,16.77z/data=!4m6!3m5!1s0x89e3709c8355a541:0x64fc806713207cb0!8m2!3d42.3587772!4d-71.0638101!16zL20vMDQ3Ympu?entry=ttu) the zip code as 02133. 
+
+Let's run a simple query against the `ma_addr` table, while adjusting the zip code.
 ```sql
 SELECT COUNT(*) FROM tiger_data.ma_addr
 WHERE zip = '02108';
