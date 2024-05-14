@@ -1,11 +1,13 @@
 import { getCollection } from 'astro:content';
-import type { SideBarSection } from '../types';
+import type { SideBarSection, SideBarItem } from '../types';
 import {
 	ROOT_SIDEBAR_DOCS_ORDER,
 	ROOT_SIDEBAR_DOCS_ICONS,
 } from '../content/config';
 import { type CollectionEntry } from 'astro:content';
 import { uppercaseFirstLetter } from '.';
+
+// TODO: refactor this file once we better determine the structure of our docs :)
 
 // This sorts the root sidebar links for any doc that is one level deep (e.g `/docs/cloud`)
 export const sortSideBarLinks = (sideBarLinks: SideBarSection[]) =>
@@ -42,6 +44,31 @@ export const cleanSideBarTitle = (title: string) => {
 	);
 };
 
+const filterDuplicates = (
+	docs: { title: string; slug: string; uppercaseParent: boolean }[],
+) => {
+	const result: SideBarItem[] = [];
+	const slugMap = new Map();
+
+	for (const item of docs) {
+		const { slug, uppercaseParent } = item;
+		const existing = slugMap.get(slug);
+		if (!existing) {
+			slugMap.set(slug, item);
+			result.push(item);
+			// uppercase parent takes precedence
+		} else if (uppercaseParent && !existing.uppercaseParent) {
+			result[result.indexOf(existing)] = item;
+			slugMap.set(slug, item);
+		}
+	}
+	return result;
+};
+
+const isUpperCase = (rootDocs: CollectionEntry<'docs'>[]) => {
+	return getSideBarItems(rootDocs).some((doc) => doc.uppercaseParent);
+};
+
 const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
 	const items = rootDocs
 		.sort((docA, docB) => {
@@ -64,6 +91,7 @@ const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
 			return {
 				title: doc.data.uppercase ? title.toUpperCase() : title,
 				slug: `/docs/${doc.slug}`,
+				uppercaseParent: doc.data.uppercaseParent,
 			};
 		});
 	return items;
@@ -94,13 +122,18 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 						' ',
 					) as string as keyof typeof ROOT_SIDEBAR_DOCS_ICONS
 			],
-			items: getSideBarItems(rootDocs)
-				.map((item) => {
+			items: filterDuplicates(
+				getSideBarItems(rootDocs).map((item) => {
 					const itemSlugSplit = item.slug.split('/');
 					// Anything nested down more than 4 levels will get grouped under one link
 					if (itemSlugSplit.length > 4) {
+						const cleanedTitle = cleanSideBarTitle(
+							itemSlugSplit[3],
+						);
 						return {
-							title: cleanSideBarTitle(itemSlugSplit[3]),
+							title: item.uppercaseParent
+								? cleanedTitle.toUpperCase()
+								: cleanedTitle,
 							slug: getSideBarItems(
 								rootDocs.filter((doc) => {
 									return (
@@ -110,16 +143,12 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 									);
 								}),
 							)[0].slug,
+							uppercaseParent: item.uppercaseParent,
 						};
 					}
 					return item;
-				})
-				// Filter out any link with a duplicate title
-				.filter(
-					(value, index, self) =>
-						index ===
-						self.findIndex((t) => t.title === value.title),
-				),
+				}),
+			),
 		});
 	});
 	return sortSideBarLinks(sideBarLinks);
@@ -132,11 +161,15 @@ export async function getNestedSideBarLinks(
 	const sideBarLinks: SideBarSection[] = [];
 	// Filter by docs that are 2nd parents of the slug
 	const rootDocs = docs.filter((doc) =>
-		slug.toLowerCase().includes(doc.id.split('/').splice(0, 2).join('/')),
+		slug
+			.toLowerCase()
+			.includes(doc.id.toLowerCase().split('/').splice(0, 2).join('/')),
 	);
+
+	const title = cleanSideBarTitle(slug.split('/')[1]);
 	// Push the first level of docs (e.g /docs/cloud/nested-dir/doc.md)
 	sideBarLinks.push({
-		label: cleanSideBarTitle(slug.split('/')[1]),
+		label: isUpperCase(rootDocs) ? title.toUpperCase() : title,
 		items: getSideBarItems(rootDocs).filter(
 			(item) => item.slug.split('/').length === 5,
 		),
@@ -145,7 +178,7 @@ export async function getNestedSideBarLinks(
 	rootDocs
 		.filter((doc) => doc.slug.split('/').length > 3)
 		.forEach((doc) => {
-			const split = doc.id.split('/');
+			const split = doc.id.toLowerCase().split('/');
 			const splitTitle = split[split.length - 2];
 			const title = cleanSideBarTitle(splitTitle);
 			// Skip pushing if the title is already in the sideBarLinks array

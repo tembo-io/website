@@ -9,9 +9,9 @@ import Callout from '../../../../../components/Callout.astro';
 	sentence transformers**
 </Callout>
 
-The Embeddings API allows you to generate embeddings from your text. It is similar in functionality to [OpenAI's embeddings API](https://platform.openai.com/docs/guides/embeddings), except it is hosted privately, and powered by HuggingFace. Every Tembo instance gets its own service and all data passed to the Tembo Embedding API is not retained by the service.
+The embeddings API allows you to generate embeddings from your text. It is similar in functionality to [OpenAI's embeddings API](https://platform.openai.com/docs/guides/embeddings), except it is hosted privately and is powered by HuggingFace. Every Tembo instance gets its own service, and all data passed to the Tembo embeddings API is not retained by this service.
 
-You can call the embeddings app directly from your Postgres instance by using the [pg_vectorize](https://github.com/tembo-io/pg_vectorize) extension. The embedding service supports all of the [HuggingFace sentence-transformers](https://huggingface.co/sentence-transformers/), simply replace `model_name` with the sentence-transformer of your choice.
+You can call the embeddings app directly from your Postgres instance by using the [pg_vectorize](https://github.com/tembo-io/pg_vectorize) extension. The embedding service supports all of the [HuggingFace sentence-transformers](https://huggingface.co/sentence-transformers/). Simply replace `model_name` with the sentence-transformer of your choice.
 
 ```sql
 select * from vectorize.transform_embeddings(
@@ -22,9 +22,9 @@ select * from vectorize.transform_embeddings(
 {0.5988337993621826,-0.12069590389728546, .... -0.11859191209077836}
 ```
 
-One of the most common use cases for embeddings is to perform vector similarity search on your data. In this guide we will walk through using [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) as an alternative to OpenAI's embeddings API, to perform vector similarity search on text data in your Postgres instance.
+One of the most common use cases for embeddings is to perform vector similarity search on your data. In this guide we will walk through using [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) as an alternative to OpenAI's embeddings API to perform vector similarity search on text data in your Postgres instance.
 
-## Enabling Embeddings on Tembo Cloud
+## Enabling embeddings on Tembo Cloud
 
 ### Via UI
 
@@ -76,7 +76,7 @@ curl -X PATCH \
   "https://api.tembo.io/api/v1/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}"
 ```
 
-## Using the Embeddings API for vector similarity search
+## Using the embeddings API for vector similarity search
 
 Connect to your Tembo Postgres instance.
 
@@ -87,14 +87,15 @@ psql postgres://$yourUser:$yourPassword@${TEMBO_DATA_DOMAIN}:5432/postgres
 If you already have a table, you can start with that. You could also start with an example dataset, which is what we will use for this example.
 
 ```sql
-CREATE TABLE products AS
-SELECT * FROM vectorize.example_products;
+CREATE TABLE products (LIKE vectorize.example_products INCLUDING ALL);
+INSERT INTO products SELECT * FROM vectorize.example_products;
 ```
 
 ## Initialize a table for automated vector search
 
-We need to specify a `job_name`. There can be more than one job per table, but generally people will have just one job. It must be unique though. Specify the `table` name, `primary_key` for the table that you want to search. The `columns`
-parameter specifies the specific columns within that table that you want to search. In our example, we'll search the `product_name` and `description` columns. The `transformer` parameter specifies the transformer model that you want to use (for not we only support `all_MiniLM_L12_v2` for privately hosted open source models).
+We need to specify a `job_name`. There can be more than one job per table, but generally people will have just one job. However, it must be unique. Specify the `table` name and the `primary_key` for the table that you want to search. 
+
+The `columns` parameter specifies the exact columns within that table that you want to search. In our example, we'll search the `product_name` and `description` columns. The `transformer` parameter specifies the transformer model that you want to use (for now, we only support `all_MiniLM_L12_v2` for privately hosted open source models).
 
 The `schedule` parameter specifies how often you want to update the embeddings. In our example, we'll update the embeddings every minute.
 
@@ -120,7 +121,9 @@ Or we can simply wait for the cron job to complete.
 ## Search the table with raw text
 
 To search that table's job, use the same `job_name` that we specified in the previous step.
-Provide a raw text search `query`, and specify which `num_results` you want to receive from the request.
+
+Provide a raw text search `query`, and specify which `num_results` you want to receive from the request. 
+
 Finally, specify the `num_results` to return. This amounts to effectively a `limit` statement.
 
 `vectorize.search` will automatically use the same embedding model that was used during the `vectorize.table` call.
@@ -146,7 +149,7 @@ Get started now at [cloud.tembo.io](https://cloud.tembo.io)!
 
 ## Using the embeddings API directly
 
-The embeddings service can also be used directly via your Tembo instance's API. For example, to generate embeddings for a single sentence, use the following:
+The embeddings service can also be used directly via your Tembo instance's API. For example, to generate embeddings for a single sentence, use the following as a reference.
 
 Export your Tembo host domain into an environment variable.
 

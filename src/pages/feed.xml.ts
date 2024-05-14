@@ -1,4 +1,4 @@
-import rss from '@astrojs/rss';
+import rss, { pagesGlobToRssItems } from '@astrojs/rss';
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { AUTHORS } from '../blogAuthors';
@@ -12,7 +12,7 @@ export const GET: APIRoute = async (context) => {
 	return rss({
 		title: 'Tembo’s Blog',
 		description:
-			'Latest news and technical blog posts from membors of the Tembo team and community!',
+			'Latest news and technical blog posts from members of the Tembo team and community!',
 		site: context.site as string | URL,
 		xmlns: {
 			atom: 'http://www.w3.org/2005/Atom',
@@ -32,7 +32,7 @@ export const GET: APIRoute = async (context) => {
 				description: post.data.description,
 				link: `/blog/${post.slug}`,
 				content: isMdx
-					? COULD_NOT_BE_RENDERED
+					? post.data?.feedSummary || COULD_NOT_BE_RENDERED
 					: contentPost
 							?.compiledContent()
 							.replaceAll('src="/', 'src="https://tembo.io/') ||

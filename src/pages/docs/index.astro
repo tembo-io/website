@@ -13,7 +13,11 @@ const links = await getSideBarLinks();
 	sideBarMenuSections={links}
 	isProgressBar={false}
 >
-	<div class='flex flex-col'>
+	<div class='flex flex-col relative'>
+		<div
+			class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'
+		>
+		</div>
 		<div class='flex flex-col xl:flex-row justify-between gap-8'>
 			<div class='flex flex-col gap-6'>
 				<h1
@@ -23,9 +27,9 @@ const links = await getSideBarLinks();
 				</h1>
 				<p class='max-w-xl text-lightGrey'>
 					Tembo is the Postgres developer platform for building every
-					data service. We collapse the database sprawl and empower
-					users with a high-performance, fully-extensible managed
-					Postgres service.
+					data service. We collapse database sprawl and empower users
+					with a high-performance, fully-extensible managed Postgres
+					service that's tailored for specific needs.
 				</p>
 			</div>
 			<Image
@@ -34,18 +38,18 @@ const links = await getSideBarLinks();
 				class='flex rounded-2xl w-full max-w-[600px]'
 			/>
 		</div>
-		<ul class='w-full mt-16 grid grid-cols-12 gap-6'>
+		<ul class='w-full mt-16 grid grid-cols-12 gap-6 z-[5]'>
 			<DocCard
 				url='/docs/getting-started/getting_started'
 				icon='/icons/cloud.svg'
 				title='Tembo Cloud'
-				description='Tembo provides Tembo Cloud, a fully managed Postgres service with support for over 200+ extensions!.'
+				description='Tembo provides Tembo Cloud, a fully managed Postgres service with support for over 200+ extensions.'
 			/>
 			<DocCard
 				url='/docs/product/stacks/intro-to-stacks'
 				icon='/icons/stacks.svg'
 				title='Stacks'
-				description='A tembo stack is a pre-built, use case specific Postgres deployment which enables you to quickly deploy specialized data services that can replace external, non-Postgres data services.'
+				description='A Tembo Stack is a pre-built, use case specific Postgres deployment which enables you to quickly deploy specialized data services that can replace external, non-Postgres data services.'
 			/>
 			<DocCard
 				url='/docs/getting-started/postgres_guides/all-possible-joins-in-postgres'
@@ -62,3 +66,15 @@ const links = await getSideBarLinks();
 		</ul>
 	</div>
 </DocsLayout>
+
+<style>
+	.light-gradient {
+		width: 45%;
+		height: 1200px;
+		background: radial-gradient(#ffffff 0px, transparent 35%);
+		-ms-filter: blur(300px) saturate(150%);
+		-webkit-filter: blur(300px) saturate(150%);
+		filter: blur(300px) saturate(150%);
+		transform: translate3d(0, 0, 0);
+	}
+</style>

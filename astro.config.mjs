@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import { remarkReadingTime } from './remark-reading-time.mjs';
 import astroPluginValidateLinks from './validate-links-integration';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,7 +12,8 @@ export default defineConfig({
 		react(),
 		tailwind(),
 		mdx(),
-		astroPluginValidateLinks({ validateAbsoluteLinks: false }),
+		astroPluginValidateLinks({ validateAbsoluteLinks: true }),
+		sitemap(),
 	],
 	site: 'https://tembo.io',
 	redirects: {

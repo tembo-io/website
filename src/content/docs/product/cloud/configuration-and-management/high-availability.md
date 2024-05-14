@@ -1,7 +1,9 @@
 ---
 title: High Availability
-sideBarPosition: 2
+sideBarPosition: 3
 ---
+
+Find in **Settings > Instance Settings**
 
 Tembo supports highly available (HA) deployments of Postgres in [Tembo Cloud](https://cloud.tembo.io). Click the HA toggle on when creating or updating an instance to enable this feature. When using the API directly, configure replicas to 2.
 

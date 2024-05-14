@@ -1,6 +1,7 @@
 ---
 title: Try extensions with Docker and Trunk
 sideBarTitle: Troubleshooting
+uppercaseParent: true
 ---
 
 When you use the [Tembo CLI](/docs/development/cli/getting_started), you will find it creates a [Docker Compose](https://docs.docker.com/compose/) file in your local directory. This guide explains how to manually experiment with extensions using Docker, which allows you to debug or hack on extensions at a lower level than using the CLI.
