@@ -1,24 +1,28 @@
 ---
-slug: tembo-cloud-metrics-in-postgresql
-title: How Tembo Cloud stores metrics data in PostgreSQL
+slug: prometheus-data-in-postgresql
+title: How Tembo Cloud stores Prometheus data in PostgreSQL
 authors: [steven]
-tags: [postgres, metrics, pg_partman, pg_cron, prometheus]
+tags: [postgres, metrics, pg_partman, pg_cron, prometheus, timeseries]
 image: './graphs.png'
 date: 2024-05-20T18:00
 description: |
-    How Tembo Cloud stores metrics in PostgreSQL
+    How Tembo Cloud stores Prometheus data in PostgreSQL using pg_partman
 ---
+
+import React from 'react';
 
 On [Tembo Cloud](https://cloud.tembo.io), you can see the status of your database with a **Good** or **Error** icon.
 
 ![good-status](./good-status.png)
 ![error-status](./error-status.png)
 
-We needed a simple and efficient way to store metrics data in our PostgreSQL database.
+This is an example of a feature that needs [time series data](https://en.wikipedia.org/wiki/Time_series).
+
+Time series data can be efficiently stored and queried directly from PostgreSQL, let's take a look at how this is done in Tembo Cloud.
 
 ### Prometheus data
 
-At Tembo, we are using Prometheus to collect metrics data from our systems.
+At Tembo, we are using [Prometheus](https://prometheus.io/) to collect metrics data from our systems.
 
 Prometheus collects metrics data by performing HTTP GET requests to metric endpoints on a schedule. Metrics endpoints display current metric values, and Prometheus remembers the data collected on each GET request.
 
@@ -59,13 +63,35 @@ Prometheus stores metrics as **time series data**, where each time series is a t
 
 ## Storing metrics data in Postgres
 
-In order to power Tembo Cloud features based on our metrics data, we needed a simple and efficient way to store Prometheus data in PostgreSQL.
+In order to use the Prometheus metrics data in our system, we needed a simple and efficient way to store it in PostgreSQL.
 
 A simple data model for storing any Prometheus data looks like this:
 
-![metrics-tables](./metrics-tables.png)
+**metrics_labels**
 
-This data model allows us to store all metrics data in a table **metric_values**, which we can optimize for time series data. Each row includes the timestamp, metric value, and a reference to the set of labels and metric name for that data point. In the **metric_labels** table, each row is unique by `(name, labels)`, so that we know which metric name and set of labels each data point has.
+| id | name         | labels                  |
+|----|--------------|-------------------------|
+| 1  | cpu_seconds  | `{"pod": "pod-1", ...}` |
+| 2  | cpu_seconds  | `{"pod": "pod-2", ...}` |
+| 3  | memory_bytes | `{"pod": "pod-1", ...}` |
+| 4  | memory_bytes | `{"pod": "pod-2", ...}` |
+
+**metrics_values**
+
+| label_id |        time         |   value    |
+|----------|---------------------|------------|
+| 1        | 2024-05-15 10:01:00 | 150000     |
+| 2        | 2024-05-15 10:01:00 | 300000     |
+| 3        | 2024-05-15 10:01:00 | 450000000  |
+| 4        | 2024-05-15 10:01:00 | 600000000  |
+| 1        | 2024-05-15 10:00:00 | 140000     |
+| 2        | 2024-05-15 10:00:00 | 280000     |
+| 3        | 2024-05-15 10:00:00 | 430000000  |
+| 4        | 2024-05-15 10:00:00 | 580000000  |
+
+This data model allows us to store all metrics data in a table **metric_values**, which we can optimize for time series data. Each row includes the timestamp, metric value, and a reference to the set of labels and metric name for that data point.
+
+In the **metric_labels** table, each row is unique by `(name, labels)`, so that we know which metric name and set of labels each data point has.
 
 ### Cardinality
 
@@ -93,38 +119,34 @@ We can reduce cardinality by only aggregating our data by the dimensions we care
 
 To manage and control cardinality, we focus on specific labels required by our application. Here's our simplified model, only remembering the metric name and instance ID in order to keep our metrics simple:
 
-```
-metric_labels table:
 
- id |               name                |      instance_id
-----+-----------------------------------+------------------------
-  1 | pg_isready                        | inst_1704307947520_WRlT82_1
-  2 | pg_failed_queries                 | inst_1704307947520_WRlT82_1
-  3 | pg_isready                        | inst_1710645460091_zDBrD1_5
-  4 | pg_failed_queries                 | inst_1710645460091_zDBrD1_5
-  ... delete label sets that don't correspond to any metric values
+**metric_labels**
 
+| id | name            | instance_id                    |
+|----|-----------------|--------------------------------|
+| 1  | pg_isready      | inst_1704307947520_WRlT82_1    |
+| 2  | pg_failed_queries | inst_1704307947520_WRlT82_1  |
+| 3  | pg_isready      | inst_1710645460091_zDBrD1_5    |
+| 4  | pg_failed_queries | inst_1710645460091_zDBrD1_5  |
 
-metric_values table:
+**metric_values**
 
- label_id |        time         |   value
-----------+---------------------+-----------
-        1 | 2024-05-15 10:01:00 | 1
-        2 | 2024-05-15 10:01:00 | 15
-        3 | 2024-05-15 10:01:00 | 1
-        4 | 2024-05-15 10:01:00 | 0
-        1 | 2024-05-15 10:00:00 | 1
-        2 | 2024-05-15 10:00:00 | 11
-        3 | 2024-05-15 10:00:00 | 0
-        4 | 2024-05-15 10:00:00 | 0
-        ... data older than 90 days can be deleted
-```
+| label_id |        time         |   value  |
+|----------|---------------------|----------|
+| 1        | 2024-05-15 10:01:00 | 1        |
+| 2        | 2024-05-15 10:01:00 | 15       |
+| 3        | 2024-05-15 10:01:00 | 1        |
+| 4        | 2024-05-15 10:01:00 | 0        |
+| 1        | 2024-05-15 10:00:00 | 1        |
+| 2        | 2024-05-15 10:00:00 | 11       |
+| 3        | 2024-05-15 10:00:00 | 0        |
+| 4        | 2024-05-15 10:00:00 | 0        |
 
 Queries are efficient on [partitioned data](https://www.postgresql.org/docs/current/ddl-partitioning.html) because queries that specify a time-based filter, for example "find instances that have been down in the last day" can skip all the partitions of **metric_values** that are outside of that range. We use [pg_partman](https://pgt.dev/extensions/pg_partman) for managing partitions in PostgreSQL.
 
-We will also use [pg_cron](https://pgt.dev/extensions/pg_cron) to clean up unused rows in the **metrics_labels** table.
+We will also use [pg_cron](https://pgt.dev/extensions/pg_cron) to delete rows in the **metrics_labels** table that no longer correspond to any metrics data.
 
-Here's exactly how those tables were set up:
+Here's how those tables were set up:
 
 ```sql
 -- Create the metric_labels table, unique by (metric name, instance ID)
@@ -179,26 +201,8 @@ SELECT cron.schedule('0 8 * * *', 'SELECT delete_unused_metric_labels()');
 
 Leveraging **pg_partman** and **pg_cron**, we now have a simple way of efficiently storing metrics.
 
-## Tembo Timeseries Stack
+## Tembo Time Series Stack
 
-Postgres can efficiently store and query time series data. However, it's a lot of boilerplate code you are likely to repeat in each case to manage your partions. That's where the [Tembo Time Series Stack](/docs/product/stacks/analytical/timeseries) comes in.
+Postgres can efficiently store and query time series data with the right data model and the right Postgres extensions. Tembo is building a [Time Series Stack](/docs/product/stacks/analytical/timeseries) to help users more easily work with time series data from their PostgreSQL server.
 
-The **Tembo Time Series Stack** can help you set up partitioned tables in a simpler way compared to using **pg_partman** directly. This is powered by the extension [pg_timeseries](https://pgt.dev/extensions/pg_timeseries).
-
-```sql
--- Creating our partitioned table in the same way as the previous example
-CREATE TABLE metric_values (
-    label_id INTEGER REFERENCES metric_labels (id),
-    time TIMESTAMP NOT NULL,
-    value INTEGER NOT NULL
-) PARTITION BY RANGE (time);
-
--- Optimize a partitioned table for time series,
---   in a simpler way than the previous example
-SELECT enable_ts_table(
-  'metric_values',
-  partition_duration := '1 day',
-  initial_table_start := '2020-01-01');
-```
-
-The Time Series Stack also includes commonly required time series features, for example compression of old data, promoting data to S3, querying data from S3, and time-based metric queries. Please read more about the Time Series Stack in our [documentation](/docs/product/stacks/analytical/timeseries).
+If you're interested to test your time series data on Postgres, try the Time Series Stack on [Tembo Cloud](https://cloud.tembo.io).
