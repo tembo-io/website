@@ -35,9 +35,12 @@ that allow Postgres instances to access the S3 bucket for backups.
     aws s3api create-bucket --bucket $CF_BUCKET_NAME --region $AWS_REGION
     ```
 
-1. Upload the CloudFormation template to the S3 bucket.
+1. Upload the CloudFormation templates to the S3 bucket.
     ```shell
     aws s3 cp conductor-cf-template.yaml s3://$CF_BUCKET_NAME
+    ````
+    ```shell
+    aws s3 cp conductor-cf-template-v2.yaml s3://$CF_BUCKET_NAME
     ````
 
 1. Add bucket policy
