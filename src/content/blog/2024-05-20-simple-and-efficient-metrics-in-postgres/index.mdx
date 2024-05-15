@@ -115,8 +115,6 @@ In this case, the metric is tracking the number of failed queries per instance, 
 
 We can reduce cardinality by only aggregating our data by the dimensions we care about most. In this case, we can aggregate by **instance_id**, so we don't need to have a separate set of labels for each `(instance_id, database)`.
 
-### Creating our metrics tables
-
 To manage and control cardinality, we focus on specific labels required by our application. Here's our simplified model, only remembering the metric name and instance ID in order to keep our metrics simple:
 
 
@@ -141,6 +139,8 @@ To manage and control cardinality, we focus on specific labels required by our a
 | 2        | 2024-05-15 10:00:00 | 11       |
 | 3        | 2024-05-15 10:00:00 | 0        |
 | 4        | 2024-05-15 10:00:00 | 0        |
+
+### Partitioning
 
 Queries are efficient on [partitioned data](https://www.postgresql.org/docs/current/ddl-partitioning.html) because queries that specify a time-based filter, for example "find instances that have been down in the last day" can skip all the partitions of **metric_values** that are outside of that range. We use [pg_partman](https://pgt.dev/extensions/pg_partman) for managing partitions in PostgreSQL.
 
