@@ -151,6 +151,7 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 			),
 		});
 	});
+
 	return sortSideBarLinks(sideBarLinks);
 }
 
@@ -159,26 +160,30 @@ export async function getNestedSideBarLinks(
 ): Promise<SideBarSection[]> {
 	const docs = await getCollection('docs');
 	const sideBarLinks: SideBarSection[] = [];
-	// Filter by docs that are 2nd parents of the slug
+	// Filter by docs that are 2nd parents of the slug (n: ones that include product/stacks out of all docs)
 	const rootDocs = docs.filter((doc) =>
 		slug
 			.toLowerCase()
 			.includes(doc.id.toLowerCase().split('/').splice(0, 2).join('/')),
 	);
-
+	// title - stacks
 	const title = cleanSideBarTitle(slug.split('/')[1]);
 	// Push the first level of docs (e.g /docs/cloud/nested-dir/doc.md)
 	sideBarLinks.push({
 		label: isUpperCase(rootDocs) ? title.toUpperCase() : title,
 		items: getSideBarItems(rootDocs).filter(
+			// /docs/product/stacks/intro-to-stacks and /docs/product/stacks/adding-new-stacks will be pushed first because 5
 			(item) => item.slug.split('/').length === 5,
 		),
 	});
-	// Push all the other levels
+
 	rootDocs
-		.filter((doc) => doc.slug.split('/').length > 3)
+		// 'product/stacks/analytical/timeseries' on .split gives gives ['product', 'stacks', 'analytical', 'timeseries']
+		.filter((doc) => doc.slug.split('/').length === 4)
 		.forEach((doc) => {
+			// product/stacks/Analytical/data-warehouse.md - id
 			const split = doc.id.toLowerCase().split('/');
+			// get analytical and uppercase it
 			const splitTitle = split[split.length - 2];
 			const title = cleanSideBarTitle(splitTitle);
 			// Skip pushing if the title is already in the sideBarLinks array
@@ -188,6 +193,7 @@ export async function getNestedSideBarLinks(
 			sideBarLinks.push({
 				label: title,
 				items: getSideBarItems(rootDocs).filter((item) => {
+					// /docs/product/stacks/analytical/timeseries on .split gives ['', 'docs', 'product', 'stacks', 'analytical', 'timeseries']
 					const splitSlug = item.slug.split('/');
 					return (
 						splitSlug.length > 5 &&
@@ -197,6 +203,73 @@ export async function getNestedSideBarLinks(
 				}),
 			});
 		});
+
+	interface NewProperty {
+		sectionHeading: string;
+	}
+	const nestedItems: (SideBarItem & NewProperty)[] = [];
+	rootDocs
+		.filter((doc) => doc.slug.split('/').length > 4)
+		.map((doc) => {
+			// product/stacks/Analytical/olap3/data-warehouse.md - id
+			const split = doc.id.toLowerCase().split('/');
+			// get analytical and uppercase it
+			const splitTitle = split[split.length - 3];
+			const title = cleanSideBarTitle(splitTitle);
+
+			if (nestedItems.length === 0) {
+				nestedItems.push({
+					sectionHeading: title,
+					title: cleanSideBarTitle(split[split.length - 2]),
+					slug: '',
+					uppercaseParent: false,
+					children: [
+						{
+							title: cleanSideBarTitle(split[split.length - 1]),
+							slug: doc.slug,
+							uppercaseParent: false,
+						},
+					],
+				});
+			} else {
+				nestedItems.map((item) => {
+					if (
+						item.title ===
+						cleanSideBarTitle(split[split.length - 2])
+					) {
+						item.children!.push({
+							title: cleanSideBarTitle(split[split.length - 1]),
+							slug: doc.slug,
+							uppercaseParent: false,
+						});
+					} else {
+						nestedItems.push({
+							sectionHeading: title,
+							title: cleanSideBarTitle(split[split.length - 2]),
+							slug: '',
+							uppercaseParent: false,
+							children: [
+								{
+									title: cleanSideBarTitle(
+										split[split.length - 1],
+									),
+									slug: doc.slug,
+									uppercaseParent: false,
+								},
+							],
+						});
+					}
+				});
+			}
+		});
+
+	for (let i = 0; i < nestedItems.length; i++) {
+		for (let j = 0; j < sideBarLinks.length; j++) {
+			if (nestedItems[i].sectionHeading === sideBarLinks[j].label) {
+				sideBarLinks[j].items.push(nestedItems[i]);
+			}
+		}
+	}
 
 	return sideBarLinks;
 }
