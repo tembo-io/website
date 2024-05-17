@@ -92,7 +92,7 @@ The `multistate_load.sh` file, however, needs to be run every time you would lik
 #!/bin/bash
 
 # Set directory and tool variables
-TMPDIR="./tiger_tmp/"
+TMPDIR="./tiger_tmp"
 UNZIPTOOL=unzip
 WGETTOOL=$(which wget)
 OGR2OGR=$(which ogr2ogr)
@@ -110,7 +110,6 @@ rm -f ${TMPDIR}/*
 
 # Download and process state data
 echo "Downloading state data..."
-cd ${TMPDIR}
 ${WGETTOOL} -N https://www2.census.gov/geo/tiger/TIGER2022/STATE/tl_2022_us_state.zip --directory-prefix=${TMPDIR}
 unzip -o ${TMPDIR}/tl_2022_us_state.zip -d ${TMPDIR}
 
@@ -155,15 +154,15 @@ fi
 
 TMPDIR="./tiger_tmp/"
 UNZIPTOOL=unzip
-WGETTOOL="<path/to/wget>"
-OGR2OGR="<path/to/ogr2ogr>"
+WGETTOOL=$(which wget)
+OGR2OGR=$(which ogr2ogr)
 export PGBIN="<path/to/postgresql/bin>"
 export PGPORT=5432
-export PGHOST=<your-host>
-export PGUSER=postgres
-export PGPASSWORD=<your-password>
-export PGDATABASE=postgres
-PSQL=${PGBIN}/psql
+export PGHOST="<your-host>"
+export PGUSER="postgres"
+export PGPASSWORD="<your-password>"
+export PGDATABASE="postgres"
+PSQL=$(which psql)
 
 # Function to convert state abbreviation to FIPS code
 state_to_fips() {
