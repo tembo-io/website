@@ -26,6 +26,7 @@ export const authorsEnum = z.array(
 			'theory',
 			'joshua',
 			'vini',
+			'jason',
 		])
 		.default('ryw'),
 );
