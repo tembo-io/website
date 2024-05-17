@@ -152,7 +152,7 @@ fi
 ```bash
 #!/bin/bash
 
-TMPDIR="./tiger_tmp/"
+TMPDIR="./tiger_tmp"
 UNZIPTOOL=unzip
 WGETTOOL=$(which wget)
 OGR2OGR=$(which ogr2ogr)
@@ -268,12 +268,13 @@ cd $TMPDIR;
 
  ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_place(CONSTRAINT pk_${STATE_ABBR}_place PRIMARY KEY (plcidfp) ) INHERITS(tiger.place);" 
 
- ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.ma_place -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" ${TMPDIR}/tl_2022_${STATE_FIPS}_place.shp
+ ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.${STATE_ABBR}_place -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" tl_2022_${STATE_FIPS}_place.shp
 
  ${PSQL} -c "ALTER TABLE tiger_staging.${STATE_ABBR}_place RENAME geoid TO plcidfp;SELECT loader_load_staged_data(lower('${STATE_ABBR}_place'), lower('${STATE_ABBR}_place')); ALTER TABLE tiger_data.${STATE_ABBR}_place ADD CONSTRAINT uidx_${STATE_ABBR}_place_gid UNIQUE (gid);"
  ${PSQL} -c "CREATE INDEX idx_${STATE_ABBR}_place_soundex_name ON tiger_data.${STATE_ABBR}_place USING btree (soundex(name));"
  ${PSQL} -c "CREATE INDEX tiger_data_${STATE_ABBR}_place_the_geom_gist ON tiger_data.${STATE_ABBR}_place USING gist(the_geom);"
  ${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_place ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
+ 
  cd ${TMPDIR%/*}
  wget https://www2.census.gov/geo/tiger/TIGER2022/COUSUB/tl_2022_${STATE_FIPS}_cousub.zip --mirror --reject=html
  cd ${TMPDIR%/*}/www2.census.gov/geo/tiger/TIGER2022/COUSUB
@@ -285,7 +286,7 @@ cd $TMPDIR;
 
  ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_cousub(CONSTRAINT pk_${STATE_ABBR}_cousub PRIMARY KEY (cosbidfp), CONSTRAINT uidx_${STATE_ABBR}_cousub_gid UNIQUE (gid)) INHERITS(tiger.cousub);" 
 
- ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.ma_cousub -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" ${TMPDIR}/tl_2022_${STATE_FIPS}_cousub.shp
+ ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.${STATE_ABBR}_cousub -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" tl_2022_${STATE_FIPS}_cousub.shp
 
  ${PSQL} -c "ALTER TABLE tiger_staging.${STATE_ABBR}_cousub RENAME geoid TO cosbidfp;SELECT loader_load_staged_data(lower('${STATE_ABBR}_cousub'), lower('${STATE_ABBR}_cousub')); ALTER TABLE tiger_data.${STATE_ABBR}_cousub ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
  ${PSQL} -c "CREATE INDEX tiger_data_${STATE_ABBR}_cousub_the_geom_gist ON tiger_data.${STATE_ABBR}_cousub USING gist(the_geom);"
@@ -301,7 +302,7 @@ cd $TMPDIR;
 
  ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_tract(CONSTRAINT pk_${STATE_ABBR}_tract PRIMARY KEY (tract_id) ) INHERITS(tiger.tract); " 
 
- ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.ma_tract -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" ${TMPDIR}/tl_2022_${STATE_FIPS}_tract.shp
+ ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.${STATE_ABBR}_tract -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" tl_2022_${STATE_FIPS}_tract.shp
 
  ${PSQL} -c "ALTER TABLE tiger_staging.${STATE_ABBR}_tract RENAME geoid TO tract_id; SELECT loader_load_staged_data(lower('${STATE_ABBR}_tract'), lower('${STATE_ABBR}_tract')); "
  	${PSQL} -c "CREATE INDEX tiger_data_${STATE_ABBR}_tract_the_geom_gist ON tiger_data.${STATE_ABBR}_tract USING gist(the_geom);"
@@ -318,7 +319,7 @@ cd $TMPDIR;
 
  ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_tabblock20(CONSTRAINT pk_${STATE_ABBR}_tabblock20 PRIMARY KEY (geoid)) INHERITS(tiger.tabblock20);" 
 
- ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.ma_tabblock20 -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" ${TMPDIR}/tl_2022_${STATE_FIPS}_tabblock20.shp
+ ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.${STATE_ABBR}_tabblock20 -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" tl_2022_${STATE_FIPS}_tabblock20.shp
 
  ${PSQL} -c "SELECT loader_load_staged_data(lower('${STATE_ABBR}_tabblock20'), lower('${STATE_ABBR}_tabblock20')); "
  ${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_tabblock20 ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
@@ -335,7 +336,7 @@ cd $TMPDIR;
 
  ${PSQL} -c "CREATE TABLE tiger_data.${STATE_ABBR}_bg(CONSTRAINT pk_${STATE_ABBR}_bg PRIMARY KEY (bg_id)) INHERITS(tiger.bg);" 
 
- ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.ma_bg -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" ${TMPDIR}/tl_2022_${STATE_FIPS}_bg.shp
+ ${OGR2OGR} -f "PostgreSQL" PG:"dbname=${PGDATABASE} host=${PGHOST} port=${PGPORT} user=${PGUSER} password=${PGPASSWORD}" -nln tiger_staging.${STATE_ABBR}_bg -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom -lco FID=gid -lco PRECISION=NO -a_srs "EPSG:4269" -s_srs "EPSG:4269" tl_2022_${STATE_FIPS}_bg.shp
 
  ${PSQL} -c "ALTER TABLE tiger_staging.${STATE_ABBR}_bg RENAME geoid TO bg_id;  SELECT loader_load_staged_data(lower('${STATE_ABBR}_bg'), lower('${STATE_ABBR}_bg')); "
  ${PSQL} -c "ALTER TABLE tiger_data.${STATE_ABBR}_bg ADD CONSTRAINT chk_statefp CHECK (statefp = '${STATE_FIPS}');"
