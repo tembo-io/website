@@ -9,3 +9,18 @@ export interface SideBarSection {
 	items: SideBarItem[];
 	icon?: string;
 }
+
+export interface GroupedItem {
+	sectionHeading?: string;
+	title: string;
+	uppercaseParent: boolean;
+	slug: string;
+	children: SideBarItem[];
+}
+
+export interface NestedItemType {
+	sectionHeading: string;
+	title: string;
+	uppercaseParent: boolean;
+	child: SideBarItem;
+}

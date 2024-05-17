@@ -1,5 +1,10 @@
 import { getCollection } from 'astro:content';
-import type { SideBarSection, SideBarItem } from '../types';
+import type {
+	SideBarSection,
+	SideBarItem,
+	GroupedItem,
+	NestedItemType,
+} from '../types';
 import {
 	ROOT_SIDEBAR_DOCS_ORDER,
 	ROOT_SIDEBAR_DOCS_ICONS,
@@ -204,10 +209,7 @@ export async function getNestedSideBarLinks(
 			});
 		});
 
-	interface NewProperty {
-		sectionHeading: string;
-	}
-	const nestedItems: (SideBarItem & NewProperty)[] = [];
+	const nestedItems: NestedItemType[] = [];
 	rootDocs
 		.filter((doc) => doc.slug.split('/').length > 4)
 		.map((doc) => {
@@ -217,56 +219,43 @@ export async function getNestedSideBarLinks(
 			const splitTitle = split[split.length - 3];
 			const title = cleanSideBarTitle(splitTitle);
 
-			if (nestedItems.length === 0) {
-				nestedItems.push({
-					sectionHeading: title,
-					title: cleanSideBarTitle(split[split.length - 2]),
-					slug: '',
+			nestedItems.push({
+				sectionHeading: title,
+				title: cleanSideBarTitle(split[split.length - 2]),
+				uppercaseParent: false,
+				child: {
+					title: cleanSideBarTitle(split[split.length - 1]),
+					slug: `/docs/${doc.slug}`,
 					uppercaseParent: false,
-					children: [
-						{
-							title: cleanSideBarTitle(split[split.length - 1]),
-							slug: doc.slug,
-							uppercaseParent: false,
-						},
-					],
-				});
-			} else {
-				nestedItems.map((item) => {
-					if (
-						item.title ===
-						cleanSideBarTitle(split[split.length - 2])
-					) {
-						item.children!.push({
-							title: cleanSideBarTitle(split[split.length - 1]),
-							slug: doc.slug,
-							uppercaseParent: false,
-						});
-					} else {
-						nestedItems.push({
-							sectionHeading: title,
-							title: cleanSideBarTitle(split[split.length - 2]),
-							slug: '',
-							uppercaseParent: false,
-							children: [
-								{
-									title: cleanSideBarTitle(
-										split[split.length - 1],
-									),
-									slug: doc.slug,
-									uppercaseParent: false,
-								},
-							],
-						});
-					}
-				});
-			}
+				},
+			});
 		});
 
-	for (let i = 0; i < nestedItems.length; i++) {
+	const groupedItems: { [key: string]: GroupedItem } = {};
+
+	nestedItems.forEach((item) => {
+		const key = `${item.sectionHeading}-${item.title}`;
+
+		if (!groupedItems[key]) {
+			groupedItems[key] = {
+				sectionHeading: item.sectionHeading,
+				title: item.title,
+				uppercaseParent: item.uppercaseParent,
+				slug: '#',
+				children: [],
+			};
+		}
+
+		groupedItems[key].children.push(item.child);
+	});
+
+	const groupedItemsArray = Object.values(groupedItems);
+
+	for (let i = 0; i < groupedItemsArray.length; i++) {
 		for (let j = 0; j < sideBarLinks.length; j++) {
-			if (nestedItems[i].sectionHeading === sideBarLinks[j].label) {
-				sideBarLinks[j].items.push(nestedItems[i]);
+			if (groupedItemsArray[i].sectionHeading === sideBarLinks[j].label) {
+				delete groupedItemsArray[i]['sectionHeading'];
+				sideBarLinks[j].items.push(groupedItemsArray[i]);
 			}
 		}
 	}
