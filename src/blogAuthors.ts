@@ -142,5 +142,5 @@ export const AUTHORS: Record<string, Author> = {
 		url: 'https://github.com/jasonmp85',
 		image_url: 'https://github.com/jasonmp85.png',
 		email: 'noreply@tembo.io',
-	}
+	},
 };

@@ -15,7 +15,7 @@ We are excited to launch `pg_timeseries`: a PostgreSQL extension focused on crea
 
 Put simply, time-series data is a collection of data points, each with a timestamp attached. These could be stock prices recorded throughout a trading day, temperature and availability data returned from devices and sensors, or web traffic on a website. Time-series workloads typically include queries filtering by time (generally for some degree of recency) and aggregation queries to summarize the data for analytics.
 
-![time-series](./ts-wiki.png)
+![time-series](./ts-wiki.png 'time-series')
 
 
 ## Using PostgreSQL for Time-series workloads
