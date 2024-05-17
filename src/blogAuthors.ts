@@ -138,8 +138,8 @@ export const AUTHORS: Record<string, Author> = {
 	},
 	jason: {
 		name: 'Jason Petersen',
-		title: 'Senior Software Engineer'
-		url: 'https://github.com/jasonmp85'
+		title: 'Senior Software Engineer',
+		url: 'https://github.com/jasonmp85',
 		image_url: 'https://github.com/jasonmp85.png',
 		email: 'noreply@tembo.io',
 	}
