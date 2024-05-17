@@ -112,4 +112,11 @@ export const AUTHORS: Record<string, Author> = {
 		image_url: 'https://github.com/joshuajerin.png',
 		email: 'noreply@tembo.io',
 	},
+	jason: {
+		name: 'Jason Petersen',
+		title: 'Senior Software Engineer'
+		url: 'https://github.com/jasonmp85'
+		image_url: 'https://github.com/jasonmp85.png',
+		email: 'noreply@tembo.io',
+	}
 };
