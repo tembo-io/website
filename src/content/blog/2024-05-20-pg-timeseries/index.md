@@ -3,7 +3,7 @@ slug: pg-timeseries
 title: 'Introducing pg_timeseries: Open-source time-series extension for PostgreSQL'
 authors: [samay, jason]
 tags: [postgres, extensions, stacks]
-image: './tembo_vector.png'
+image: './timeseriesBlogImg.png'
 date: 2024-05-20T09:00
 description: This blog introduces pg_timeseries - a PostgreSQL extension focused on creating a cohesive user experience around the creation, maintenance, and use of time-series tables.
 ---
@@ -73,13 +73,7 @@ The extension includes various views such as [ts_table_info](https://github.com/
     └──────────────┴──────────────────┘
 
 	SELECT * FROM ts_part_info;
-```
 
-
-	
-
-
-```
     ┌─[ RECORD 1 ]─────┬───────────────────────────────┐
     │ table_id         │ measurements                  │
     │ part_id          │ measurements_p20240411        │
