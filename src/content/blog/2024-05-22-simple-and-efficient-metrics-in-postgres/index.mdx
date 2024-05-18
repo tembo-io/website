@@ -1,6 +1,6 @@
 ---
 slug: prometheus-data-in-postgresql
-title: How Tembo Cloud stores Prometheus data in PostgreSQL
+title: How Tembo Cloud stores Prometheus metrics data in PostgreSQL
 authors: [steven]
 tags: [postgres, metrics, pg_partman, pg_cron, prometheus, timeseries]
 image: './graphs.png'
@@ -16,7 +16,7 @@ On [Tembo Cloud](https://cloud.tembo.io), you can see the status of your databas
 ![good-status](./good-status.png)
 ![error-status](./error-status.png)
 
-This is an example of a feature that needs [time series data](https://en.wikipedia.org/wiki/Time_series).
+In the above image, we can see the status of the Tembo Cloud instance _over time_. This is an example of a feature that needs [time series data](https://en.wikipedia.org/wiki/Time_series).
 
 Time series data can be efficiently stored and queried directly from PostgreSQL, let's take a look at how this is done in Tembo Cloud.
 
@@ -27,8 +27,8 @@ At Tembo, we are using [Prometheus](https://prometheus.io/) to collect metrics d
 Prometheus collects metrics data by performing HTTP GET requests to metric endpoints on a schedule. Metrics endpoints display current metric values, and Prometheus remembers the data collected on each GET request.
 
 ```
-pg_isready{"instance_id"="inst_1704307947520_WRlT82_1"} 1
-pg_isready{"instance_id"="inst_1710645460091_zDBrD1_5"} 0
+pg_isready{"instance_id"="inst_1712807947520_WRlT82_1"} 1
+pg_isready{"instance_id"="inst_1712988060091_zDBrD1_5"} 0
 ```
 - _Example metrics endpoint, returning one metric with two sets of labels. This data represents the Postgres availability status at the the current time for two Tembo instances._
 
@@ -39,7 +39,7 @@ Prometheus stores metrics as **time series data**, where each time series is a t
   {
     "metric": {
       "name": "pg_isready",
-      "instance_id": "inst_1704307947520_WRlT82_1"
+      "instance_id": "inst_1712807947520_WRlT82_1"
     },
     "values": [
       [1711997495, "0"],
@@ -50,7 +50,7 @@ Prometheus stores metrics as **time series data**, where each time series is a t
   {
     "metric": {
       "name": "pg_isready",
-      "instance_id": "inst_1710645460091_zDBrD1_5"
+      "instance_id": "inst_1712988060091_zDBrD1_5"
     },
     "values": [
       [1711997495, "0"],
@@ -91,7 +91,7 @@ A simple data model for storing any Prometheus data looks like this:
 
 This data model allows us to store all metrics data in a table **metric_values**, which we can optimize for time series data. Each row includes the timestamp, metric value, and a reference to the set of labels and metric name for that data point.
 
-In the **metric_labels** table, each row is unique by `(name, labels)`, so that we know which metric name and set of labels each data point has.
+In the **metric_labels** table, each row is unique by `(name, labels)`, so that we know which metric name and set of labels each data point has. For example, metrics may be labeled by instance ID, organization ID, and so on. Each set of labels for a given metric name represents an independent time series history.
 
 ### Cardinality
 
@@ -99,18 +99,18 @@ If you're familiar with metrics systems like Prometheus, you are likely familiar
 
 For example, consider a hypothetical metric like this
 ```
-failed_queries{"instance_id"="inst_1704307947520_WRlT82_1", database="postgres"} 11
-failed_queries{"instance_id"="inst_1704307947520_WRlT82_1", database="foobar"} 1
-failed_queries{"instance_id"="inst_1704307947520_WRlT82_1", database="example"} 1
-failed_queries{"instance_id"="inst_1704307947520_WRlT82_1", database="another-db"} 1
+failed_queries{"instance_id"="inst_1712807947520_WRlT82_1", database="postgres"} 11
+failed_queries{"instance_id"="inst_1712807947520_WRlT82_1", database="foobar"} 1
+failed_queries{"instance_id"="inst_1712807947520_WRlT82_1", database="example"} 1
+failed_queries{"instance_id"="inst_1712807947520_WRlT82_1", database="another-db"} 1
 ```
 In this case, the metric is tracking the number of failed queries per instance, per database within each instance. This metric may have high _cardinality_ because of the label **database**. If an instance has a lot of different databases, for example hundreds or thousands, this could be a lot of unique label sets. Consider how many values for database would impact the table **metric_labels**. There would need to be a unique row for each set of labels.
 
 ```
-1 | failed_queries | {"instance_id"="inst_1704307947520_WRlT82_1", database="postgres"}
-2 | failed_queries | {"instance_id"="inst_1704307947520_WRlT82_1", database="foobar"}
-3 | failed_queries | {"instance_id"="inst_1704307947520_WRlT82_1", database="example"}
-4 | failed_queries | {"instance_id"="inst_1704307947520_WRlT82_1", database="another-db"}
+1 | failed_queries | {"instance_id"="inst_1712807947520_WRlT82_1", database="postgres"}
+2 | failed_queries | {"instance_id"="inst_1712807947520_WRlT82_1", database="foobar"}
+3 | failed_queries | {"instance_id"="inst_1712807947520_WRlT82_1", database="example"}
+4 | failed_queries | {"instance_id"="inst_1712807947520_WRlT82_1", database="another-db"}
 ```
 
 We can reduce cardinality by only aggregating our data by the dimensions we care about most. In this case, we can aggregate by **instance_id**, so we don't need to have a separate set of labels for each `(instance_id, database)`.
@@ -122,10 +122,10 @@ To manage and control cardinality, we focus on specific labels required by our a
 
 | id | name            | instance_id                    |
 |----|-----------------|--------------------------------|
-| 1  | pg_isready      | inst_1704307947520_WRlT82_1    |
-| 2  | pg_failed_queries | inst_1704307947520_WRlT82_1  |
-| 3  | pg_isready      | inst_1710645460091_zDBrD1_5    |
-| 4  | pg_failed_queries | inst_1710645460091_zDBrD1_5  |
+| 1  | pg_isready      | inst_1712807947520_WRlT82_1    |
+| 2  | pg_failed_queries | inst_1712807947520_WRlT82_1  |
+| 3  | pg_isready      | inst_1712988060091_zDBrD1_5    |
+| 4  | pg_failed_queries | inst_1712988060091_zDBrD1_5  |
 
 **metric_values**
 
@@ -203,9 +203,11 @@ Leveraging **pg_partman** and **pg_cron**, we now have a simple way of efficient
 
 ## Tembo Time Series Stack
 
-Postgres can efficiently store and query time series data with the right data model and the right Postgres extensions. Tembo is building a [Time Series Stack](/docs/product/stacks/analytical/timeseries) to help users more easily work with time series data from their PostgreSQL server.
+This data model helps us efficiently store time series data for this simple use case. As our dataset gets larger and queries complex, we'll need more features like compression, long-term retention, and analytical functions.
 
-If you're interested to test your time series data on Postgres, try the Time Series Stack on [Tembo Cloud](https://cloud.tembo.io).
+At Tembo, we've built a [Time Series Stack](/blog/pg-timeseries) which solves exactly this problem and helps users work with time series data more efficiently with PostgreSQL. You can store your time series data in Postgres by trying the Time Series Stack on Tembo Cloud.
+
+We will soon be migrating this system to the time series stack to use all the time series features Postgres and it's extensions can provide. You can look forward to our blog covering that journey.
 
 ## Prometheus Foreign Data Wrapper
 
