@@ -143,6 +143,7 @@ export const AUTHORS: Record<string, Author> = {
 		title: 'Senior Software Engineer',
 		url: 'https://github.com/bonesmoses',
 		image_url: 'https://github.com/bonesmoses.png',
+	},
 	jason: {
 		name: 'Jason Petersen',
 		title: 'Senior Software Engineer',
