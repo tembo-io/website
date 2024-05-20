@@ -14,7 +14,6 @@ import {
 } from '@clerk/clerk-react';
 
 const CLERK_PUBLISHABLE_KEY = import.meta.env.PUBLIC_VITE_CLERK_PUBLISHABLE_KEY;
-// console.log(CLERK_PUBLISHABLE_KEY);
 if (!CLERK_PUBLISHABLE_KEY) {
 	throw new Error('Missing Clerk Publishable Key');
 }
