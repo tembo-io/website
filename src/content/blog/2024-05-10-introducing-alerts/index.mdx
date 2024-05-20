@@ -2,13 +2,15 @@
 slug: introducing-status-alerts
 title: 'Staying Informed: How Tembo Status Alerts Keep Postgres Databases Healthy'
 authors: [shaun, darren]
+description: |
+    Announcing the Alerts feature for Tembo Cloud.
 tags: [postgres, alerts, cloud, database, status]
 date: 2024-05-10T09:00
 ---
 
 We at Tembo know it's not always easy to keep track of the many components behind a busy cloud application stack. With Postgres filling the critical role of application data storage, it's important to always know everything is working properly. DBAs, devs, and product owners of all description _need_ the ability to preemptively address potential concerns before they cause an outage.
 
-So we are proud to announce that we're bringing an alert management GUI to our cloud platform. Our [Performance metrics dashboard](/docs/product/cloud/metrics) has been available for a while now, and is crucial to monitoring instances at a glance. Now our library of standard [Alerts](/docs/product/cloud/alerts) will be part of the big, happy family as well.
+So we are proud to announce that we're bringing an alert management UI to our cloud platform. Our [Performance metrics dashboard](/docs/product/cloud/metrics) has been available for a while now, and is crucial to monitoring instances at a glance. Now our library of standard [Alerts](/docs/product/cloud/alerts) will be part of the big, happy family as well.
 
 Let's discuss a bit of how some of these work---especially some of the more esoteric fare!
 
@@ -16,9 +18,9 @@ Let's discuss a bit of how some of these work---especially some of the more esot
 
 Like all good system monitoring and alerting stacks, Tembo provides a common baseline of alerts many have come to expect. Some examples include:
 
-* Low storage space
-* High CPU usage
-* High RAM usage
+-   Low storage space
+-   High CPU usage
+-   High RAM usage
 
 These are the normal items admins tend to consider purely as a general measure of health. Is storage running low? Are we saturating the CPU or RAM on the system and need to increase the instance size? No? Great! If any one of these alerts have been triggered, it's probably time to investigate further.
 
@@ -81,6 +83,30 @@ Thus if we had row versions with transactions 1, 500, and 10000, and we start a 
 But imagine if a transaction never commits and sits idle for hours or days. Or maybe there's a rogue query that is missing a join condition or critical predicate and becomes a [Cartesian Product](https://en.wikipedia.org/wiki/Cartesian_product). Perhaps an application bug didn't clean up a [prepared transaction](https://www.postgresql.org/docs/current/sql-prepare-transaction.html). Any of these can effectively "hold" old transactions so the `VACUUM FREEZE` can't reclaim these old XIDs. If that happens, our effective XID horizon can reach 1-billion or higher. If our system is a high transaction OLTP service, that could be a huge problem! Postgres will preemptively shut down at a certain point to prevent XID wraparound, and then fixing it requires manual intervention.
 
 This alert will go off once the effective XID age reaches 1-billion transactions. At that point, we need to check for old transactions, queries, and other sources that could be preventing cleanup. We may even need to run `VACUUM FREEZE` manually if we're close to the theoretical 2-billion emergency limit and want to prevent Postgres from enacting a defensive shutdown.
+
+## Viewing your Alerts on Tembo Cloud
+
+The [Tembo Cloud dashboard UI](https://cloud.tembo.io) has a page made specifically for viewing your entire organizations Alerts. Navigate to it via the "bell" icon in the upper right of the dashboard nav:
+
+![Alerts Org home](./alertsOrgHome.png)
+
+### Active Alerts
+
+"Active Alerts" are alerts that currently have a "firing" state in the last 15 minutes.
+
+![Tembo Cloud active alerts](./active.png)
+
+### Historical Alerts
+
+"Historical Alerts" are alerts that fired within the past 30 days.
+
+![Tembo Cloud active alerts](./history.png)
+
+### Filtering
+
+If you wish to view your Alerts at an even deeper level of specificity, they can also be filtered by their level (`Critical`, `Warning`, `Info`) or per database instance.
+
+![Tembo Cloud alerts filtering](./filters.png)
 
 ## Final Words
 
