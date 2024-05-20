@@ -36,18 +36,9 @@ import AutoApi from '../images/autoAPI.png';
 import LocalSearch from '../images/localSearch.png';
 import Realtime from '../images/realTimeNotifications.png';
 const currentPath = Astro.url.pathname;
-// import { ClerkLayout } from 'astro-clerk-auth/components/control';
-// import { SignedIn, SignedOut } from 'astro-clerk-auth/components/react';
 ---
 
-<!-- <ClerkLayout> -->
 <Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
-	<!-- <SignedIn>
-			<div class='text-white'>hello - in</div>
-		</SignedIn>
-		<SignedOut>
-			<div class='text-white'>hello - out</div>
-		</SignedOut> -->
 	<div class='main-content'>
 		<NavBar client:load currentPage={currentPath} isBanner={false} />
 		<div class='w-full h-[150px] overflow-hidden'></div>
@@ -676,7 +667,6 @@ const currentPath = Astro.url.pathname;
 		</section>
 	</div>
 </Layout>
-<!-- </ClerkLayout> -->
 
 <style>
 	.main-content {
