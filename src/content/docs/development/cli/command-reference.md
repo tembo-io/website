@@ -146,6 +146,7 @@ tembo logs [OPTIONS]
 
 **Options:**
 
+* `--tail` — Tail your logs
 * `--app <APP>` — Fetch logs for specific apps
 
 <br />
