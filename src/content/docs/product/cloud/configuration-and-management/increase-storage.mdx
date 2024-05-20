@@ -7,6 +7,8 @@ description: Increasing storage for your Tembo Cloud instance
 
 import Callout from '../../../../../components/Callout.astro';
 
+### Via UI
+
 Find in **Settings > Instance Settings**
 
 <Callout variant='warning'>
@@ -16,3 +18,21 @@ Find in **Settings > Instance Settings**
 Changes will only take effect after clicking **Save**. Increasing storage does not restart your database.
 
 ![storage](./storage.png)
+
+### Via API
+
+First, you will need to generate an API token so that you can communicate with your Tembo instance. Navigate to [cloud.tembo.io/generate-jwt](https://cloud.tembo.io/generate-jwt) and follow the instructions to generate a token. Read more about the Tembo API and tokens [here](/docs/development/api).
+
+Set your Tembo token as an environment variable, along with your organization id and the Tembo instance id. Fetch the `TEMBO_DATA_DOMAIN` from the "Host" parameter of your Tembo instance.
+
+```bash
+export TEMBO_TOKEN=<your token>
+export TEMBO_ORG=<your organization id>
+export TEMBO_INST=<your instance id>
+
+curl -X PATCH \
+	"https://api.tembo.io/api/v1/orgs/${TEMBO_ORG}/instances/${TEMBO_INST}" \
+	-H "Content-Type: application/json" \
+	-H "Authorization: Bearer ${TEMBO_TOKEN}" \
+	-d '{ "storage": "50Gi" }'
+```

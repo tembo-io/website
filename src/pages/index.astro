@@ -74,7 +74,13 @@ const currentPath = Astro.url.pathname;
 							Hello Postgres.
 						</h2>
 						<div>
-							<Button variant='gradient' size='lg' client:load>
+							<Button
+								variant='gradient'
+								size='lg'
+								isLinkTag={true}
+								link='https://cloud.tembo.io'
+								client:load
+							>
 								Try Free
 							</Button>
 						</div>
@@ -224,7 +230,13 @@ const currentPath = Astro.url.pathname;
 						Build any application on Postgres, the everything
 						database
 					</h1>
-					<Button variant='gradient' size='lg' client:load>
+					<Button
+						variant='gradient'
+						size='lg'
+						isLinkTag={true}
+						link='https://cloud.tembo.io'
+						client:load
+					>
 						Try Free
 					</Button>
 				</div>
@@ -257,6 +269,8 @@ const currentPath = Astro.url.pathname;
 							variant='gradient'
 							size='lg'
 							styles='w-max z-10'
+							isLinkTag={true}
+							link='https://cloud.tembo.io'
 							client:load
 						>
 							Try Free
@@ -523,7 +537,14 @@ const currentPath = Astro.url.pathname;
 						</Extension>
 					</div>
 				</div>
-				<Button variant='gradient' size='lg' styles='mb-2' client:load>
+				<Button
+					variant='gradient'
+					size='lg'
+					styles='mb-2'
+					isLinkTag={true}
+					link='https://cloud.tembo.io'
+					client:load
+				>
 					Try Free
 				</Button>
 			</div>
@@ -629,7 +650,9 @@ const currentPath = Astro.url.pathname;
 								variant='gradient'
 								size='lg'
 								client:load
-								styles='h-[60px] w-full min-[500px]:w-[182px] font-semibold font-primary z-10'
+								isLinkTag={true}
+								link='https://cloud.tembo.io'
+								styles='h-[60px] w-full min-[500px]:w-[182px] font-semibold font-primary z-10 flex items-center justify-center'
 							>
 								Try Free
 							</Button>
