@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Container from './Container';
-import Button from './Button';
 import cx from 'classnames';
-import { navigate } from 'astro:transitions/client';
 import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
-import {
-	ClerkProvider,
-	SignedIn,
-	SignedOut,
-	UserButton,
-} from '@clerk/clerk-react';
+import { ClerkProvider } from '@clerk/clerk-react';
+import ClerkButton from './ClerkButton';
 
 const CLERK_PUBLISHABLE_KEY = import.meta.env.PUBLIC_VITE_CLERK_PUBLISHABLE_KEY;
 // console.log(CLERK_PUBLISHABLE_KEY);
@@ -194,28 +188,7 @@ const NavBar: React.FC<Props> = ({
 							Github
 						</a>
 						<ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY}>
-							<SignedIn>
-								<Button
-									variant='neon'
-									styles='z-100'
-									onClick={() =>
-										navigate('https://cloud.tembo.io')
-									}
-								>
-									<span>Dashboard</span>
-								</Button>
-							</SignedIn>
-							<SignedOut>
-								<Button
-									variant='neon'
-									styles='z-100'
-									onClick={() =>
-										navigate('https://cloud.tembo.io')
-									}
-								>
-									<span>Try Free</span>
-								</Button>
-							</SignedOut>
+							<ClerkButton />
 						</ClerkProvider>
 					</div>
 					<button
