@@ -71,7 +71,7 @@ const SideBarItem: React.FC<Props> = ({ item, currentPath, isRootNested }) => {
 					/>
 				)}
 			</div>
-			<div className='flex flex-col border-l-slate-500 border-l-[1px] gap-y-1'>
+			<div className='flex flex-col border-l-[#EAEAEA33] border-l-[1px] space-y-1 mt-[2px]'>
 				{openChildrenDocs &&
 					item.children &&
 					item.children.length > 0 &&

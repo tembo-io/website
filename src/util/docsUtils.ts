@@ -221,12 +221,18 @@ export async function getNestedSideBarLinks(
 
 			nestedItems.push({
 				sectionHeading: title,
-				title: cleanSideBarTitle(split[split.length - 2]),
+				title: doc.data.uppercaseParent
+					? cleanSideBarTitle(split[split.length - 2]).toUpperCase()
+					: cleanSideBarTitle(split[split.length - 2]),
 				uppercaseParent: false,
 				child: {
-					title: cleanSideBarTitle(split[split.length - 1]),
+					title: doc.data.uppercase
+						? cleanSideBarTitle(
+								split[split.length - 1],
+							).toUpperCase()
+						: cleanSideBarTitle(split[split.length - 1]),
 					slug: `/docs/${doc.slug}`,
-					uppercaseParent: false,
+					uppercaseParent: doc.data.uppercaseParent,
 				},
 			});
 		});
