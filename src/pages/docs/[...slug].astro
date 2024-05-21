@@ -13,6 +13,7 @@ import {
 } from '../../util/docsUtils';
 import Footer from '../../components/docs/Footer.astro';
 import NextButton from '../../components/NextButton.astro';
+import Tag from '../../components/Tag.astro';
 
 export async function getStaticPaths() {
 	const docs = await getCollection('docs');
@@ -94,6 +95,16 @@ const docTitle =
 					}
 				</div>
 			</div>
+		</div>
+		<div class='flex items-start gap-2 max-h-full'>
+			{
+				doc.data.tags?.map((tag) => (
+					<Tag
+						title={tag}
+						classNames='px-2.5 py-[0.4rem] text-center text-[12px] h-max border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10'
+					/>
+				))
+			}
 		</div>
 		<Footer editLink={githubEditLink(doc.id)} />
 	</div>
