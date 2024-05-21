@@ -1,3 +1,9 @@
+---
+sideBarTitle: 'ODBC'
+description: Connect to Postgres using Windows ODBC
+title: 'ODBC'
+---
+
 ODBC is a way to connect to data sources from Windows.
 
 - **Open ODBC Data Source Administrator**, 64 bit (search to find in start menu). It should be installed by default on Windows.
