@@ -7,13 +7,13 @@ import SingleSubjectTable from './SingleSubjectTable';
 export enum Tier {
 	Hobby = 'hobby',
 	Production = 'production',
-	Self Hosted = 'selfhosted',
+	SelfHosted = 'selfhosted',
 }
 
 const tierIndexMap = {
 	[Tier.Hobby]: 1,
 	[Tier.Production]: 2,
-	[Tier.Self Hosted]: 3,
+	[Tier.SelfHosted]: 3,
 };
 
 interface Props {
