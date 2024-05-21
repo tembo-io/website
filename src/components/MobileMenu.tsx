@@ -58,16 +58,16 @@ const MobileMenu = () => {
 						<Button
 							variant='gradient'
 							size='lg'
-							onClick={() =>
-								navigate('https://accounts.tembo.io/sign-up')
-							}
+							isLinkTag={true}
+							link='https://cloud.tembo.io'
 						>
 							Sign up
 						</Button>
 						<Button
 							variant='outline'
 							size='lg'
-							onClick={() => navigate('https://cloud.tembo.io')}
+							isLinkTag={true}
+							link='https://cloud.tembo.io'
 						>
 							Login
 						</Button>

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Container from './Container';
-import Button from './Button';
 import cx from 'classnames';
-import { navigate } from 'astro:transitions/client';
 import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
+import { ClerkProvider } from '@clerk/clerk-react';
+import ClerkButton from './ClerkButton';
+
+const CLERK_PUBLISHABLE_KEY = import.meta.env.PUBLIC_VITE_CLERK_PUBLISHABLE_KEY;
+if (!CLERK_PUBLISHABLE_KEY) {
+	throw new Error('Missing Clerk Publishable Key');
+}
 
 interface Props {
 	currentPage: string;
@@ -93,7 +98,8 @@ const NavBar: React.FC<Props> = ({
 						className={`flex items-center text-[12px] min-[400px]:text-sm justify-center gap-2 news-banner-container top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-[20px] mobile:px-[95px] py-3.5 sm:py-2.5 z-50`}
 					>
 						<span className='truncate'>
-							Tembo now supports advanced metrics, alerts and more with pganalyze!
+							Tembo now supports advanced metrics, alerts and more
+							with pganalyze!
 						</span>
 						<span className='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text font-semibold text-sm whitespace-nowrap'>
 							Read more
@@ -180,13 +186,9 @@ const NavBar: React.FC<Props> = ({
 							/>
 							Github
 						</a>
-						<Button
-							variant='neon'
-							styles='z-100'
-							onClick={() => navigate('https://cloud.tembo.io')}
-						>
-							Try Free
-						</Button>
+						<ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY}>
+							<ClerkButton />
+						</ClerkProvider>
 					</div>
 					<button
 						onClick={() => {

@@ -30,7 +30,7 @@ const MobileMenu: React.FC<Props> = ({
 		return items;
 	};
 	return (
-		<div className='bg-offBlack min-[1000px]:hidden fixed z-[5] w-screen h-screen overflow-y-scroll'>
+		<div className='bg-offBlack min-[1000px]:hidden fixed z-[6] w-screen h-screen overflow-y-scroll'>
 			<Container styles='pb-16 px-[32px] overflow-y-scroll'>
 				<div className='bg-gradient-to-b fixed from-offBlack to-transparent h-4 w-full z-20 top-[70px]'></div>
 				<div className='mt-[120px]'>
