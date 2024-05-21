@@ -80,7 +80,7 @@ const currentPath = Astro.url.pathname;
 									{section.label}
 								</span>
 							</div>
-							<ul class='mt-4 flex flex-col gap-1'>
+							<ul class='mt-4 flex flex-col gap-2'>
 								{section.items.map(async (item) => {
 									const cleanedSlug = item.slug.replace(
 										'/docs/',

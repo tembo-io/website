@@ -71,24 +71,24 @@ const SideBarItem: React.FC<Props> = ({ item, currentPath, isRootNested }) => {
 					/>
 				)}
 			</div>
-			<div className='flex flex-col border-l-[#EAEAEA33] border-l-[1px] space-y-1 mt-[2px]'>
-				{openChildrenDocs &&
-					item.children &&
-					item.children.length > 0 &&
-					item.children.map((child, index) => (
-						<a
-							key={index}
-							href={child.slug}
-							className={styles(
-								'font-secondary text-lightGrey hover:text-white text-sm w-full flex justify-between items-center ml-4',
-								currentPath.includes(child.slug) &&
-									'text-white',
-							)}
-						>
-							{child.title}
-						</a>
-					))}
-			</div>
+			{item.children && openChildrenDocs && (
+				<div className='flex flex-col border-l-[#EAEAEA33] border-l-[1px] space-y-1'>
+					{item.children.length > 0 &&
+						item.children.map((child, index) => (
+							<a
+								key={index}
+								href={child.slug}
+								className={styles(
+									'font-secondary text-lightGrey hover:text-white text-sm w-full flex justify-between items-center ml-4',
+									currentPath.includes(child.slug) &&
+										'text-white',
+								)}
+							>
+								{child.title}
+							</a>
+						))}
+				</div>
+			)}
 		</>
 	);
 };

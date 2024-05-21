@@ -306,13 +306,90 @@ export async function nextDoc(
 				};
 				return;
 			}
-			nextItem = {
-				parentLabel: section.label,
-				...section.items[currIndex + 1],
-			};
+
+			if (section.items[currIndex + 1].children) {
+				nextItem = {
+					parentLabel: section.label,
+					title: section.items[currIndex + 1].children![0].title,
+					slug: section.items[currIndex + 1].children![0].slug,
+				};
+			} else {
+				nextItem = {
+					parentLabel: section.label,
+					...section.items[currIndex + 1],
+				};
+			}
 			return;
+		} else {
+			// NOTE all nested groups with children will be at the bottom of a sidebar section
+			// for nested docs
+			const nestedItem = section.items.find((item) => {
+				if (item.children) {
+					const found = item.children.find((nestedItem) => {
+						return nestedItem.slug === slug;
+					});
+					return found;
+				}
+				return false;
+			});
+
+			if (!nestedItem || !nestedItem.children) return;
+
+			const currNestedIndex = nestedItem.children.findIndex(
+				(item) => item.slug === slug,
+			);
+
+			// find the index of the current item of a sidebar section
+			const currentNestedItemIndex = section.items.findIndex(
+				(sectionItem) => sectionItem === nestedItem,
+			);
+
+			// is it one of the last children document
+			if (currNestedIndex === nestedItem.children.length - 1) {
+				// check if there are more nested items after
+				let nextNestedItemIndex: number;
+				// const nextNestedItemIndex = currentNestedItemIndex === section.items.length - 1 ? 0 : currentNestedItemIndex + 1
+
+				// last nested item in a section
+				if (currentNestedItemIndex === section.items.length - 1) {
+					const nextSectionIndex =
+						index === sortedLinks.length - 1 ? 0 : index + 1;
+					if (nextSectionIndex === 0) {
+						nextItem = {
+							parentLabel: 'Home',
+							title: 'Docs',
+							slug: '/docs',
+						};
+						return;
+					}
+
+					nextItem = {
+						parentLabel: sortedLinks[nextSectionIndex].label,
+						...sortedLinks[nextSectionIndex].items[0],
+					};
+					return;
+				} else {
+					// there are more nested items in this section
+					nextNestedItemIndex = currentNestedItemIndex + 1;
+
+					nextItem = {
+						parentLabel: section.label,
+						// ...nestedItem.children[nextNestedItemIndex],
+						...section.items[nextNestedItemIndex].children![0],
+					};
+					return;
+				}
+			} else {
+				// next children index
+				nextItem = {
+					parentLabel: section.label,
+					...nestedItem.children[currNestedIndex + 1],
+				};
+				return;
+			}
 		}
 	});
+
 	return nextItem;
 }
 
