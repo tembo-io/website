@@ -1,5 +1,10 @@
 import { getCollection } from 'astro:content';
-import type { SideBarSection, SideBarItem } from '../types';
+import type {
+	SideBarSection,
+	SideBarItem,
+	GroupedItem,
+	NestedItemType,
+} from '../types';
 import {
 	ROOT_SIDEBAR_DOCS_ORDER,
 	ROOT_SIDEBAR_DOCS_ICONS,
@@ -151,6 +156,7 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 			),
 		});
 	});
+
 	return sortSideBarLinks(sideBarLinks);
 }
 
@@ -159,26 +165,30 @@ export async function getNestedSideBarLinks(
 ): Promise<SideBarSection[]> {
 	const docs = await getCollection('docs');
 	const sideBarLinks: SideBarSection[] = [];
-	// Filter by docs that are 2nd parents of the slug
+	// Filter by docs that are 2nd parents of the slug (n: ones that include product/stacks out of all docs)
 	const rootDocs = docs.filter((doc) =>
 		slug
 			.toLowerCase()
 			.includes(doc.id.toLowerCase().split('/').splice(0, 2).join('/')),
 	);
-
+	// title - stacks
 	const title = cleanSideBarTitle(slug.split('/')[1]);
 	// Push the first level of docs (e.g /docs/cloud/nested-dir/doc.md)
 	sideBarLinks.push({
 		label: isUpperCase(rootDocs) ? title.toUpperCase() : title,
 		items: getSideBarItems(rootDocs).filter(
+			// /docs/product/stacks/intro-to-stacks and /docs/product/stacks/adding-new-stacks will be pushed first because 5
 			(item) => item.slug.split('/').length === 5,
 		),
 	});
-	// Push all the other levels
+
 	rootDocs
-		.filter((doc) => doc.slug.split('/').length > 3)
+		// 'product/stacks/analytical/timeseries' on .split gives gives ['product', 'stacks', 'analytical', 'timeseries']
+		.filter((doc) => doc.slug.split('/').length === 4)
 		.forEach((doc) => {
+			// product/stacks/Analytical/data-warehouse.md - id
 			const split = doc.id.toLowerCase().split('/');
+			// get analytical and uppercase it
 			const splitTitle = split[split.length - 2];
 			const title = cleanSideBarTitle(splitTitle);
 			// Skip pushing if the title is already in the sideBarLinks array
@@ -188,6 +198,7 @@ export async function getNestedSideBarLinks(
 			sideBarLinks.push({
 				label: title,
 				items: getSideBarItems(rootDocs).filter((item) => {
+					// /docs/product/stacks/analytical/timeseries on .split gives ['', 'docs', 'product', 'stacks', 'analytical', 'timeseries']
 					const splitSlug = item.slug.split('/');
 					return (
 						splitSlug.length > 5 &&
@@ -197,6 +208,63 @@ export async function getNestedSideBarLinks(
 				}),
 			});
 		});
+
+	const nestedItems: NestedItemType[] = [];
+	rootDocs
+		.filter((doc) => doc.slug.split('/').length > 4)
+		.map((doc) => {
+			// product/stacks/Analytical/olap3/data-warehouse.md - id
+			const split = doc.id.toLowerCase().split('/');
+			// get analytical and uppercase it
+			const splitTitle = split[split.length - 3];
+			const title = cleanSideBarTitle(splitTitle);
+
+			nestedItems.push({
+				sectionHeading: title,
+				title: doc.data.uppercaseParent
+					? cleanSideBarTitle(split[split.length - 2]).toUpperCase()
+					: cleanSideBarTitle(split[split.length - 2]),
+				uppercaseParent: false,
+				child: {
+					title: doc.data.uppercase
+						? cleanSideBarTitle(
+								split[split.length - 1],
+							).toUpperCase()
+						: cleanSideBarTitle(split[split.length - 1]),
+					slug: `/docs/${doc.slug}`,
+					uppercaseParent: doc.data.uppercaseParent,
+				},
+			});
+		});
+
+	const groupedItems: { [key: string]: GroupedItem } = {};
+
+	nestedItems.forEach((item) => {
+		const key = `${item.sectionHeading}-${item.title}`;
+
+		if (!groupedItems[key]) {
+			groupedItems[key] = {
+				sectionHeading: item.sectionHeading,
+				title: item.title,
+				uppercaseParent: item.uppercaseParent,
+				slug: '#',
+				children: [],
+			};
+		}
+
+		groupedItems[key].children.push(item.child);
+	});
+
+	const groupedItemsArray = Object.values(groupedItems);
+
+	for (let i = 0; i < groupedItemsArray.length; i++) {
+		for (let j = 0; j < sideBarLinks.length; j++) {
+			if (groupedItemsArray[i].sectionHeading === sideBarLinks[j].label) {
+				delete groupedItemsArray[i]['sectionHeading'];
+				sideBarLinks[j].items.push(groupedItemsArray[i]);
+			}
+		}
+	}
 
 	return sideBarLinks;
 }
@@ -238,13 +306,90 @@ export async function nextDoc(
 				};
 				return;
 			}
-			nextItem = {
-				parentLabel: section.label,
-				...section.items[currIndex + 1],
-			};
+
+			if (section.items[currIndex + 1].children) {
+				nextItem = {
+					parentLabel: section.label,
+					title: section.items[currIndex + 1].children![0].title,
+					slug: section.items[currIndex + 1].children![0].slug,
+				};
+			} else {
+				nextItem = {
+					parentLabel: section.label,
+					...section.items[currIndex + 1],
+				};
+			}
 			return;
+		} else {
+			// NOTE all nested groups with children will be at the bottom of a sidebar section
+			// for nested docs
+			const nestedItem = section.items.find((item) => {
+				if (item.children) {
+					const found = item.children.find((nestedItem) => {
+						return nestedItem.slug === slug;
+					});
+					return found;
+				}
+				return false;
+			});
+
+			if (!nestedItem || !nestedItem.children) return;
+
+			const currNestedIndex = nestedItem.children.findIndex(
+				(item) => item.slug === slug,
+			);
+
+			// find the index of the current item of a sidebar section
+			const currentNestedItemIndex = section.items.findIndex(
+				(sectionItem) => sectionItem === nestedItem,
+			);
+
+			// is it one of the last children document
+			if (currNestedIndex === nestedItem.children.length - 1) {
+				// check if there are more nested items after
+				let nextNestedItemIndex: number;
+				// const nextNestedItemIndex = currentNestedItemIndex === section.items.length - 1 ? 0 : currentNestedItemIndex + 1
+
+				// last nested item in a section
+				if (currentNestedItemIndex === section.items.length - 1) {
+					const nextSectionIndex =
+						index === sortedLinks.length - 1 ? 0 : index + 1;
+					if (nextSectionIndex === 0) {
+						nextItem = {
+							parentLabel: 'Home',
+							title: 'Docs',
+							slug: '/docs',
+						};
+						return;
+					}
+
+					nextItem = {
+						parentLabel: sortedLinks[nextSectionIndex].label,
+						...sortedLinks[nextSectionIndex].items[0],
+					};
+					return;
+				} else {
+					// there are more nested items in this section
+					nextNestedItemIndex = currentNestedItemIndex + 1;
+
+					nextItem = {
+						parentLabel: section.label,
+						// ...nestedItem.children[nextNestedItemIndex],
+						...section.items[nextNestedItemIndex].children![0],
+					};
+					return;
+				}
+			} else {
+				// next children index
+				nextItem = {
+					parentLabel: section.label,
+					...nestedItem.children[currNestedIndex + 1],
+				};
+				return;
+			}
 		}
 	});
+
 	return nextItem;
 }
 
