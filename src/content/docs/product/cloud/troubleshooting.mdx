@@ -37,7 +37,7 @@ Here's an example of updating `psql` and `libpq` on a Mac, using [brew](https://
 brew reinstall libpq
 ```
 
-Tembo aims to have a simple connection guide for any client language, so please reach out to support if you don't see your language in [this list of guides](https://tembo.io/docs/getting-started/quickstarts/nodejs).
+Tembo aims to have a simple connection guide for any client language, so please reach out to support if you don't see your language in [this list of guides](https://tembo.io/docs/getting-started/quickstarts/languages-and-frameworks/nodejs).
 
 If you want to check if you can connect to Tembo using a known, working version of a client, please use the following command. Replace the connection string with your connection string, found in the Tembo UI.
 
@@ -63,9 +63,9 @@ Tembo uses self-signed certificates for databases.
 
 Most Postgres clients by default do not verify the server's identity using TLS, using [sslmode=default](https://www.postgresql.org/docs/current/libpq-ssl.html). It's better practice to connect with [sslmode=verify-ca](/docs/product/cloud/security/sslmode), especially when connecting over an untrusted network.
 
-Some clients, for example [Node](/docs/getting-started/quickstarts/nodejs), by default require certificate validation, checking against your system's trust store, similar to how it works with HTTPS in the browser. In these cases, connection issues can be resolved by specifying a value for the configuration option `sslrootcert`, which may be named differently in each client language.
+Some clients, for example [Node](/docs/getting-started/quickstarts/languages-and-frameworks/nodejs), by default require certificate validation, checking against your system's trust store, similar to how it works with HTTPS in the browser. In these cases, connection issues can be resolved by specifying a value for the configuration option `sslrootcert`, which may be named differently in each client language.
 
-Tembo aims to have a simple connection guide for any client language, so please reach out to support if you don't see your language in [this list of guides](https://tembo.io/docs/getting-started/quickstarts/nodejs).
+Tembo aims to have a simple connection guide for any client language, so please reach out to support if you don't see your language in [this list of guides](https://tembo.io/docs/getting-started/quickstarts/languages-and-frameworks/nodejs).
 
 ## Connection issues from a third party
 

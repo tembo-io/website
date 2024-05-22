@@ -1,3 +1,10 @@
+---
+title: 'Rails'
+sideBarTitle: 'Rails'
+sideBarPosition: 207
+description: Connect to Postgres using Rails
+---
+
 Make sure you have Ruby Version `2.7.0` or greater
 You will have to remove the default `SQLite3` Active Record
 ```bash title="Gemfile"
