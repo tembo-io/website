@@ -1,5 +1,8 @@
 ---
+title: 'NodeJS'
 sideBarTitle: 'NodeJS'
+sideBarPosition: 203
+description: Connect to Postgres using NodeJS
 ---
 
 It's important to use `pg` version 8.11.3 or greater.

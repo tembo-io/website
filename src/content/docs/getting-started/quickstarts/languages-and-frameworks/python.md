@@ -1,3 +1,10 @@
+---
+title: 'Python'
+sideBarTitle: 'Python'
+sideBarPosition: 205
+description: Connect to Postgres using Python
+---
+
 It’s important to use `psycopg2-binary` version 2.9 or greater.
 
 

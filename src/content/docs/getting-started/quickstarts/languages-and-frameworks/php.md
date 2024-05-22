@@ -1,5 +1,8 @@
 ---
+title: 'PHP'
 sideBarTitle: 'PHP'
+sideBarPosition: 204
+description: Connect to Postgres using PHP
 ---
 
 The [PHP Postgres database extension](https://www.php.net/manual/en/book.pgsql.php) depends on the Postgres client C libraries, known as **libpq**. Please see [our libpq guide](/docs/getting-started/quickstarts/libpq) to update your version of **libpq**.
