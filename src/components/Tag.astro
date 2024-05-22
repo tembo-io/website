@@ -3,23 +3,34 @@ import { styles } from '../util';
 interface Props {
 	title: string;
 	classNames?: string;
+	isLink?: boolean;
 }
-const { title, classNames } = Astro.props;
+const { title, classNames, isLink = true } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
-<a
-	href={title === 'All' ? '/blog' : `/blog/tags/${title.toLowerCase()}`}
-	class={styles(
-		'flex items-center justify-center border border-otherGrey rounded-full px-4 py-3 h-[40px] text-otherGrey',
-		classNames,
-		currentPath.endsWith(`${title.toLowerCase()}/`) ||
-			currentPath.endsWith(title.toLowerCase()) ||
-			(title === 'All' &&
-				(currentPath === '/blog' || currentPath === '/blog/'))
-			? 'border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10'
-			: '',
-	)}
->
-	<span>{title}</span>
-</a>
+{
+	isLink ? (
+		<a
+			href={
+				title === 'All' ? '/blog' : `/blog/tags/${title.toLowerCase()}`
+			}
+			class={styles(
+				'flex items-center justify-center border border-otherGrey rounded-full px-4 py-3 h-[40px] text-otherGrey',
+				classNames,
+				currentPath.endsWith(`${title.toLowerCase()}/`) ||
+					currentPath.endsWith(title.toLowerCase()) ||
+					(title === 'All' &&
+						(currentPath === '/blog' || currentPath === '/blog/'))
+					? 'border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10'
+					: '',
+			)}
+		>
+			<span>{title}</span>
+		</a>
+	) : (
+		<span class='flex items-center justify-center border rounded-full px-4 py-3 text-xs h-[30px] border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10'>
+			{title}
+		</span>
+	)
+}
