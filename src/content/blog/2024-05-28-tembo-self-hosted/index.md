@@ -35,8 +35,15 @@ In other words, it's now possible to run the Tembo Platform anywhere you have a 
 ### Highly Configurable
 
 ### Use the Cloud Provider of Your Choice
+While deployments on Tembo Cloud have multi-vendor selection on its roadmap, Tembo Self Hosted can be used on any cloud
+service that supports Kubernetes. This means if you prefer a certain cloud vendor, but Tembo Cloud doesn’t support it at
+this time, you can self-deploy Tembo Self Hosted! This extends both to major and minor cloud providers, as long as they
+provide Kubernetes as a service.
 
 ### Your Region, Your Standards
+Standards and compliance are critical for any production-grade operation. While many of these standards are related to
+the technology itself, often the discussion of geographic placement comes to light. Tembo Self Hosted is flexible in the
+region in which it is deployed, offering data residency requirements.
 
 ### Dedicated Support When You Need It
 As part of Self Hosted, users gain access to a dedicated support plan, which is prioritized according to case severity.
