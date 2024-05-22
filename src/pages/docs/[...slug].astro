@@ -51,6 +51,7 @@ const docTitle =
 	sideBarMenuSections={links}
 	title={`${docTitle} | Tembo Docs`}
 	description={doc?.data?.description}
+	keywords={doc?.data?.tags}
 >
 	<div class='flex flex-col relative w-full'>
 		<div id='tembo-document' class='flex justify-between w-full mb-12'>
@@ -102,6 +103,7 @@ const docTitle =
 					<Tag
 						title={tag}
 						classNames='px-2.5 py-[0.4rem] text-center text-[12px] h-max border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10'
+						isLink={false}
 					/>
 				))
 			}

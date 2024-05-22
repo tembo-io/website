@@ -1,7 +1,7 @@
 ---
 title: Standard
 sideBarTitle: Standard
-tags: [postgres, transactional, some]
+tags: [postgres, standard, transactional]
 sideBarPosition: 101
 ---
 
