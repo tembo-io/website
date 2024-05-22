@@ -29,6 +29,32 @@ In other words, it's now possible to run the Tembo Platform anywhere you have a 
 ## What's Included?
 
 ### Tembo Self Hosted Architecture
+Tembo Self Hosted is a derivative of our SaaS, Tembo Cloud, which is summarized in Figure 1. This schematic helps
+illustrate an experience available to you, much of which is powered by open source tools. At its base layer, the key
+orchestrators are Kubernetes Operator, Terraform Provider, and a Helm Chart. These cooperate to… These are connected to
+Trunk; an open source Postgres extension registry that offers 200+ extensions and growing. Combined, these allow us to
+use-case specific Stacks, which range from vector, time series, machine learning, geospatial, OLAP, data warehousing,
+and more. Paired with Stacks are select add-on apps that you can run next to your database, GraphQL, Rest API and even
+an embeddings model from Hugging Face. All of this comes together in a user-friendly interface that both lowers the bar
+and grants more flexibility for you to configure as you like.
+
+![Tembo Self Hosted Architecture](../../../../public/enterprise-software.png)
+_Figure 1. Schematic of the Tembo Self Hosted architecture. All operations run within your cloud account, offering the
+experience of Tembo Cloud; this including the availability of extensions and Stacks, that can be augmented by utilizing
+pre-packaged apps, such as pgAnalyze or postgREST._
+
+Both Tembo Cloud and Self Hosted leverage the same source code, which means that both options share the same interface
+and feature set. However, there are distinguishing factors that allow each offering to excel, according to user criteria.
+
+Take Tembo Cloud, for example. If you prefer to have the least management overhead and the most optimized Tembo
+experience, then this might be the best option for you. In Tembo Cloud, we're working on adding more regions and working
+on SOC2-Type2 compliance to strengthen its capacity  for even more workloads.
+
+Alternatively, Tembo Self Hosted grants users an extra degree of autonomy. This might be best if you or your team want
+more control over your infrastructure. Moreover, if your goals are preferential towards a specific cloud provider
+(other than those supported by Tembo Cloud), then Self Hosted can help you achieve those goals. Finally, if you operate
+within a regulated industry, where data residency and other branches of compliance are paramount, then the flexibility
+of the Self Hosted offering will allow you to meet those requirements.
 
 ## Deploy Tembo As You Choose
 
@@ -36,7 +62,7 @@ In other words, it's now possible to run the Tembo Platform anywhere you have a 
 
 ### Use the Cloud Provider of Your Choice
 While deployments on Tembo Cloud have multi-vendor selection on its roadmap, Tembo Self Hosted can be used on any cloud
-service that supports Kubernetes. This means if you prefer a certain cloud vendor, but Tembo Cloud doesn’t support it at
+service that supports Kubernetes. This means if you prefer a certain cloud vendor, but Tembo Cloud doesn't support it at
 this time, you can self-deploy Tembo Self Hosted! This extends both to major and minor cloud providers, as long as they
 provide Kubernetes as a service.
 
