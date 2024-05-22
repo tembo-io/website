@@ -3,26 +3,27 @@ title: VectorDB
 sideBarTitle: VectorDB
 sideBarPosition: 201
 description: An introduction to the Tembo VectorDB Stack
+tags: [postgres, vectordb, ai]
 ---
 
 The Tembo VectorDB Stack is a platform that simplifies the process of working with embeddings in Postgres.
- It provides tools to automate the process of generating, managing, and working with embeddings from your existing data, giving you vector search capabilities on day one.
+It provides tools to automate the process of generating, managing, and working with embeddings from your existing data, giving you vector search capabilities on day one.
 
 ## Technical specifications
 
 ### Extensions
 
-- `pg_stat_statements` provides statistics on SQL statements executed by the database. It helps users analyze query performance and identify areas for optimization.
-- [pg_vectorize](https://github.com/tembo-io/pg_vectorize) provides a simple interface to generate embeddings from text, store them in Postgres, and then search for similar vectors using `pgvector`.
-- [pgvector](https://github.com/pgvector/pgvector) is a vector similarity search engine for Postgres. It is used to store embeddings, create indexes, and conduct vector searches on that data. `pg_vectorize` relies on `pgvector` for indices and similiary search.
-- [pgmq](https://github.com/tembo-io/pgmq) is used by `pg_vectorize` as a job queue for managing and separating the calculation of embeddings from source data.
-- [pg_cron](https://github.com/citusdata/pg_cron) is used by `pg_vectorize` to schedule recurring updates to embeddings.
-- Extensions from [Trunk](https://pgt.dev) can be installed on-demand.
+-   `pg_stat_statements` provides statistics on SQL statements executed by the database. It helps users analyze query performance and identify areas for optimization.
+-   [pg_vectorize](https://github.com/tembo-io/pg_vectorize) provides a simple interface to generate embeddings from text, store them in Postgres, and then search for similar vectors using `pgvector`.
+-   [pgvector](https://github.com/pgvector/pgvector) is a vector similarity search engine for Postgres. It is used to store embeddings, create indexes, and conduct vector searches on that data. `pg_vectorize` relies on `pgvector` for indices and similiary search.
+-   [pgmq](https://github.com/tembo-io/pgmq) is used by `pg_vectorize` as a job queue for managing and separating the calculation of embeddings from source data.
+-   [pg_cron](https://github.com/citusdata/pg_cron) is used by `pg_vectorize` to schedule recurring updates to embeddings.
+-   Extensions from [Trunk](https://pgt.dev) can be installed on-demand.
 
 ### Container services
 
 The VectorDB Stack deploys a container in the same Kubernetes namespace as your Postgres database to host text embedding models.
- 
+
 When embeddings need to be computed, `pg_vectorize` sends a HTTP request to this container. This container hosts any [SentenceTransformers](https://www.sbert.net/) models as well as any private models uploaded to Hugging Face. The models are downloaded to this container on-demand and cached for all subsequent requests.
 
 The container is private to your Tembo instance.
@@ -257,7 +258,7 @@ select command, jobname from cron.job where jobname = 'my_search_project';
 ```
 
 ```text
-                      command                      |      jobname      
+                      command                      |      jobname
 ---------------------------------------------------+-------------------
  select vectorize.job_execute('my_search_project') | my_search_project
 ```
@@ -300,10 +301,10 @@ SELECT vectorize.table(
 ```text
 postgres=# \d vectorize._embeddings_my_search_project;
             Table "vectorize._embeddings_my_search_project"
-   Column   |           Type           | Collation | Nullable | Default 
+   Column   |           Type           | Collation | Nullable | Default
 ------------+--------------------------+-----------+----------+---------
- product_id | integer                  |           | not null | 
- embeddings | vector(384)              |           | not null | 
+ product_id | integer                  |           | not null |
+ embeddings | vector(384)              |           | not null |
  updated_at | timestamp with time zone |           | not null | now()
 Indexes:
     "_embeddings_my_search_project_product_id_key" UNIQUE CONSTRAINT, btree (product_id)
@@ -332,14 +333,14 @@ Note two new columns: `my_search_project_embeddings` and `my_search_project_upda
 ```text
 postgres=# \d products
                                                              Table "public.products"
-            Column            |           Type           | Collation | Nullable |                            Default                             
+            Column            |           Type           | Collation | Nullable |                            Default
 ------------------------------+--------------------------+-----------+----------+----------------------------------------------------------------
  product_id                   | integer                  |           | not null | nextval('vectorize.example_products_product_id_seq'::regclass)
- product_name                 | text                     |           | not null | 
- description                  | text                     |           |          | 
+ product_name                 | text                     |           | not null |
+ description                  | text                     |           |          |
  last_updated_at              | timestamp with time zone |           |          | CURRENT_TIMESTAMP
- my_search_project_embeddings | vector(384)              |           |          | 
- my_search_project_updated_at | timestamp with time zone |           |          | 
+ my_search_project_embeddings | vector(384)              |           |          |
+ my_search_project_updated_at | timestamp with time zone |           |          |
 Indexes:
     "products_pkey" PRIMARY KEY, btree (product_id)
     "my_search_project_idx" hnsw (my_search_project_embeddings vector_cosine_ops)
@@ -398,14 +399,14 @@ SELECT vectorize.transform_embeddings(
 ### Filtering Results
 
 `vectorize.search()` results can be filtered by supplying a where clause to the `where_sql` parameter in `vectorize.search()`.
- The filter operation happens after the embeddings are searched. To pre-filter the search of embeddings, you will need to separate
- embeddings into multiple tables or deploy a partitioning strategy.
+The filter operation happens after the embeddings are searched. To pre-filter the search of embeddings, you will need to separate
+embeddings into multiple tables or deploy a partitioning strategy.
 
 In the example below, we will filter results to only return the product with `product_id = 3`.
- Note that product_id is unique, so only one result will be returned.
+Note that product_id is unique, so only one result will be returned.
 
 ```sql
-SELECT * FROM vectorize.search( 
+SELECT * FROM vectorize.search(
     job_name        => 'product_search_hf',
     query           => 'accessories for mobile devices',
     return_columns  => ARRAY['product_id', 'product_name'],
@@ -415,7 +416,7 @@ SELECT * FROM vectorize.search(
 ```
 
 ```plaintext
-                                     search_results                                     
+                                     search_results
 ----------------------------------------------------------------------------------------
  {"product_id": 3, "product_name": "Desk Lamp", "similarity_score": 0.6498761419705363}
 ```
@@ -429,7 +430,7 @@ To do this, place the `vectorize.transform_embeddings()::vector` call into your 
 The example below assumes embeddings are in a column named `my_search_project_embeddings` on the `products` table.
 
 ```sql
-SELECT 
+SELECT
     product_name,
     description,
     1 - (
@@ -442,7 +443,7 @@ LIMIT 3;
 ```
 
 ```text
-   product_name    |                        description                         |     similarity      
+   product_name    |                        description                         |     similarity
 -------------------+------------------------------------------------------------+---------------------
  Phone Charger     | Device to replenish the battery of mobile phones           |  0.5351522883863631
  Bluetooth Speaker | Portable audio device with wireless connectivity           | 0.38232471837548787
