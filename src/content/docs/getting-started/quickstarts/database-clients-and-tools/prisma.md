@@ -1,7 +1,8 @@
 ---
-title: Prisma
-description: Connect to Tembo with Prisma
+title: 'Prisma'
 sideBarTitle: 'Prisma'
+sideBarPosition: 204
+description: Connect to Tembo with Prisma
 ---
 
 This guide is based on the [Prisma getting started guide](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases-node-postgresql), and tested to work on Tembo.
