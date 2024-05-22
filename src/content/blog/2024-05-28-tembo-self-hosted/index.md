@@ -59,6 +59,17 @@ of the Self Hosted offering will allow you to meet those requirements.
 ## Deploy Tembo As You Choose
 
 ### Highly Configurable
+When users elect to self-host, they come across an experience that has been pre-configured for convenience. However,
+they can fine-tune their own Kubernetes parameters, including but not limited to node assignments, pod scaling, resource
+limits. More information on the many adjustable parameters can be found here. What’s more is that the components run in
+a single Kubernetes cluster (Fig. 1), keeping the total cost of ownership low and allowing for a simple, easy-to-manage
+deployment.
+
+Users also will have the ability to apply more broad adjustments, such as enabling a private extension registry or using
+existing ingress, monitoring, and logging solutions. Not to mention this all being conducted on-premises, which allows
+for a heightened security profile; this potentially manifesting as integration with a pre-existing authentication
+system, defining custom network policies, or implementing other security protocols.
+
 
 ### Use the Cloud Provider of Your Choice
 While deployments on Tembo Cloud have multi-vendor selection on its roadmap, Tembo Self Hosted can be used on any cloud
