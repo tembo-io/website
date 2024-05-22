@@ -1,8 +1,8 @@
 ---
 import Container from './Container';
-import BlogPost from './BlogPost.astro';
 import Tag from './Tag.astro';
 import type { CollectionEntry } from 'astro:content';
+import { BlogPosts } from './BlogPosts';
 
 interface Props {
 	posts: CollectionEntry<'blog'>[];
@@ -13,6 +13,27 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 	'/src/content/blog/**/*.{jpeg,jpg,png,webp,svg,gif}',
 );
 const { posts } = Astro.props;
+
+const resolvedPosts = await Promise.all(
+	posts.map(async (post) => {
+		const { remarkPluginFrontmatter } = await post.render();
+		const dateString = post.id.substring(0, 10);
+		const parsedDate = post.data?.date || new Date(dateString);
+		const postDirectory = post.id.split('/')[0];
+		const image = `/src/content/blog/${postDirectory}${post.data.image?.replace('.', '')}`;
+
+		return {
+			id: post.id as string,
+			slug: post.slug as string,
+			title: post.data.title,
+			date: parsedDate.toLocaleDateString('en-US', dateOptions as any),
+			author: post.data.authors[0],
+			readingTime: remarkPluginFrontmatter.minutesRead,
+			heroImage: image,
+			body: post.body,
+		};
+	}),
+);
 ---
 
 <Container styles='pb-4'>
@@ -22,56 +43,13 @@ const { posts } = Astro.props;
 				Tembo's Blog
 			</h1>
 		</header>
-		<div class='mt-16'>
-			<div class='flex items-center justify-between'>
-				<div class='flex items-center gap-2 flex-wrap'>
-					<Tag title='All' />
-					<Tag title='Postgres' />
-					<Tag title='Engineering' />
-					<Tag title='Stacks' />
-					<Tag title='Data' />
-					<Tag title='Extensions' />
-				</div>
-			</div>
-			<div class='mt-10 pb-2'>
-				<div class='grid grid-cols-12 lg:gap-6'>
-					{
-						posts.length > 0 ? (
-							posts.map(async (post) => {
-								const { remarkPluginFrontmatter } =
-									await post.render();
-								const dateString = post.id.substring(0, 10);
-								const parsedDate =
-									post.data?.date || new Date(dateString);
-								const postDirectory = post.id.split('/')[0];
-								const image =
-									images[
-										`/src/content/blog/${postDirectory}${post.data.image?.replace('.', '')}`
-									];
-								return (
-									<BlogPost
-										title={post.data.title}
-										slug={post.slug}
-										readingTime={
-											remarkPluginFrontmatter.minutesRead
-										}
-										date={parsedDate.toLocaleDateString(
-											'en-US',
-											dateOptions as any,
-										)}
-										author={post.data.authors[0]}
-										heroImage={image}
-									/>
-								);
-							})
-						) : (
-							<p class='text-salmon font-semibold col-span-2'>
-								No results.
-							</p>
-						)
-					}
-				</div>
-			</div>
-		</div>
+		<BlogPosts posts={resolvedPosts} client:load>
+			<Tag title='All' />
+			<Tag title='Postgres' />
+			<Tag title='Engineering' />
+			<Tag title='Stacks' />
+			<Tag title='Data' />
+			<Tag title='Extensions' />
+		</BlogPosts>
 	</div>
 </Container>
