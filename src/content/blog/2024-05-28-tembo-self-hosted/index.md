@@ -52,6 +52,11 @@ The platform includes the following components and features:
   - **Data Warehousing**: A Postgres instance optimized for data warehousing.
   - **And more!**
 - **Tembo Apps**: Add-on applications that run alongside your Postgres instances.
+  - **pganalyze**: A performance monitoring tool for Postgres.
+  - **postgREST**: A REST API for Postgres.
+  - **GraphQL**: A GraphQL API for Postgres.
+  - **Embeddings**: Create open-source vector embeddings in Postgres.
+  - **And more!**
 
 
 ### One Simple Deployment
@@ -96,16 +101,25 @@ of the Self Hosted offering will allow you to meet those requirements.
 ## Deploy Tembo As You Choose
 
 ### Highly Configurable
+With any self-hosted application, configurability is key. Tembo Self Hosted is no exception. The platform comes with a
+set of default configurations and components for convenience, but you can easily customize the platform to suit your
+needs. Example configurations include:
+- Custom logging, monitoring and alerting configurations
+- Custom auth provider integration
+- Custom network policies
+- Custom resource limits and scaling parameters
+- Custom node assignments
+
+Users will also have the ability to apply more broad adjustments, such as enabling a private extension registry or using
+existing ingress, monitoring, and logging solutions. Not to mention this all being conducted on-premises, which allows
+for a heightened security profile; this potentially manifesting as integration with a pre-existing authentication
+system, defining custom network policies, or implementing other security protocols.
+
 When users elect to self-host, they come across an experience that has been pre-configured for convenience. However,
 they can fine-tune their own Kubernetes parameters, including but not limited to node assignments, pod scaling, resource
 limits. More information on the many adjustable parameters can be found here. What’s more is that the components run in
 a single Kubernetes cluster (Fig. 1), keeping the total cost of ownership low and allowing for a simple, easy-to-manage
 deployment.
-
-Users also will have the ability to apply more broad adjustments, such as enabling a private extension registry or using
-existing ingress, monitoring, and logging solutions. Not to mention this all being conducted on-premises, which allows
-for a heightened security profile; this potentially manifesting as integration with a pre-existing authentication
-system, defining custom network policies, or implementing other security protocols.
 
 
 ### Use the Cloud Provider of Your Choice
