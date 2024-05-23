@@ -2,6 +2,7 @@
 title: Machine Learning
 sideBarTitle: Machine Learning
 sideBarPosition: 203
+tags: [postgres, machine learning, ai]
 ---
 
 The Tembo Machine Learning Stack has several important Postgres extensions that make it easy to train and deploy machine learning models in Postgres.
