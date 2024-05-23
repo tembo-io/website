@@ -43,13 +43,13 @@ The platform includes the following components and features:
 - **Tembo CLI**: The command-line interface for interacting with the Tembo Platform.
 - **Tembo Terraform Provider**: The Terraform provider for managing your Postgres instances as code.
 - **Trunk Extension Registry**: The extension registry that provides access to 200+ Postgres extensions.
-- **Tembo Stacks**: Pre-configured Postgres instances with specific extensions and configurations.
-  - **Vector**: A Postgres instance optimized for vector data.
-  - **Time Series**: A Postgres instance optimized for time series data.
-  - **Machine Learning**: A Postgres instance optimized for machine learning.
-  - **Geospatial**: A Postgres instance optimized for geospatial data.
-  - **OLAP**: A Postgres instance optimized for online analytical processing.
-  - **Data Warehousing**: A Postgres instance optimized for data warehousing.
+- **Tembo Stacks**: 'Flavored' Postgres instances with specific extensions and configurations.
+  - **Vector**: Postgres optimized for vector data.
+  - **Time Series**: Postgres optimized for time series data.
+  - **Machine Learning**: Postgres optimized for machine learning.
+  - **Geospatial**: Postgres optimized for geospatial data.
+  - **OLAP**: Postgres optimized for online analytical processing.
+  - **Data Warehousing**: Postgres optimized for data warehousing.
   - **And more!**
 - **Tembo Apps**: Add-on applications that run alongside your Postgres instances.
   - **pganalyze**: A performance monitoring tool for Postgres.
@@ -58,18 +58,17 @@ The platform includes the following components and features:
   - **Embeddings**: Create open-source vector embeddings in Postgres.
   - **And more!**
 
+Combined, these allow you to make use of use-case specific Stacks, which range from vector, time series, machine
+learning, geospatial, OLAP, data warehousing, and more. Paired with Stacks are select add-on apps that you can run next
+to your database, GraphQL, Rest API and even an embeddings model from Hugging Face. All of this comes together in a
+user-friendly interface that both lowers the bar and grants more flexibility for you to configure as you like.
+
 
 ### One Simple Deployment
 Tembo Self Hosted is designed to run in a single Kubernetes cluster, keeping the total cost of ownership low and making
 for a simple and easy-to-manage deployment. The Tembo Self Hosted installation includes all the components you need to
 run the Tembo Platform, so there's no need to consider things like ingress controllers, monitoring solutions, or logging
 solutions.
-
-Combined, these allow us to
-use-case specific Stacks, which range from vector, time series, machine learning, geospatial, OLAP, data warehousing,
-and more. Paired with Stacks are select add-on apps that you can run next to your database, GraphQL, Rest API and even
-an embeddings model from Hugging Face. All of this comes together in a user-friendly interface that both lowers the bar
-and grants more flexibility for you to configure as you like.
 
 ![Tembo Self Hosted Architecture](../../../../public/enterprise-software.png)
 _Tembo Self Hosted architecture. All operations run within your cloud account, offering the
@@ -93,18 +92,17 @@ branches of compliance are paramount, Self Hosted offers flexibility that allows
 With any self-hosted application, configurability is key. Tembo Self Hosted is no exception. The platform comes with a
 set of default configurations and components for convenience, but you can easily customize them to suit your needs.
 
-Example configurations include:
-- Custom Kubernetes cluster sizing and scaling
-- Custom logging, monitoring and alerting configurations
-- Custom auth provider integration
-- Custom network policies
-- Custom resource limits and scaling parameters
-- Custom node assignments
+Enjoy custom configurations such as:
+- Kubernetes cluster sizing and scaling
+- Monitoring, alerting and logging configurations
+- Auth provider integration
+- Network policies
+- Resource limits and scaling parameters
+- Node assignments
 
 Users will also have the ability to apply more broad adjustments, such as enabling a private extension registry or using
 existing ingress, monitoring, and logging solutions. Not to mention this all being conducted on-premise, which allows
-for a heightened security profile; this potentially manifesting as integration with a pre-existing authentication
-system, defining custom network policies, or implementing other security protocols.
+for a heightened security profile.
 
 
 ### Use the Cloud Provider of Your Choice
