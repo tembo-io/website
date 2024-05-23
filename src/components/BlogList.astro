@@ -17,8 +17,7 @@ const resolvedPosts = await Promise.all(
 		const { remarkPluginFrontmatter } = await post.render();
 		const dateString = post.id.substring(0, 10);
 		const parsedDate = post.data?.date || new Date(dateString);
-		const postDirectory = post.id.split('/')[0];
-		const image = `/src/content/blog/${postDirectory}${post.data.image?.replace('.', '')}`;
+		const image = `${post.data.image?.replace('.', '')}`;
 
 		return {
 			id: post.id as string,
