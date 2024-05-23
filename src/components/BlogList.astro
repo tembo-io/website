@@ -9,9 +9,7 @@ interface Props {
 }
 
 const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
-const images = import.meta.glob<{ default: ImageMetadata }>(
-	'/src/content/blog/**/*.{jpeg,jpg,png,webp,svg,gif}',
-);
+
 const { posts } = Astro.props;
 
 const resolvedPosts = await Promise.all(
