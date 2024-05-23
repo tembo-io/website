@@ -1,7 +1,8 @@
 ---
-sideBarTitle: 'ODBC'
-description: Connect to Postgres using Windows ODBC
 title: 'ODBC'
+sideBarTitle: 'ODBC'
+sideBarPosition: 203
+description: Connect to Postgres using Windows ODBC
 ---
 
 ODBC is a way to connect to data sources from Windows.
@@ -16,3 +17,4 @@ ODBC is a way to connect to data sources from Windows.
 - Click **test** to ensure your connection is successful.
 
 ![odbc.png](./odbc.png)
+

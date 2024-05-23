@@ -1,3 +1,10 @@
+---
+title: 'Drizzle ORM'
+sideBarTitle: 'Drizzle'
+sideBarPosition: 201
+description: Connect to Postgres using Drizzle ORM
+---
+
 It's important to use `pg` version 8.11.3 or greater. Check this value in your `package-lock.json`.
 
 Node.JS requires a CA Certificate. Refer to [this guide](/docs/product/cloud/security/sslmode) to retrieve your certificate.

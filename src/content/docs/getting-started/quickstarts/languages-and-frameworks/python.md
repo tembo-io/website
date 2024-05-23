@@ -1,3 +1,10 @@
+---
+title: 'Python'
+sideBarTitle: 'Python'
+sideBarPosition: 205
+description: Connect to Postgres using Python
+---
+
 It’s important to use `psycopg2-binary` version 2.9 or greater.
 
 
@@ -43,13 +50,13 @@ if __name__ == "__main__":
     main()
 ```
 
-It also works without the `-binary` version of the module if the underlying `libpq` is up to date. Please see [our libpq guide](/docs/getting-started/quickstarts/libpq) to update your version of **libpq**.
+It also works without the `-binary` version of the module if the underlying `libpq` is up to date. Please see [our libpq guide](/docs/getting-started/quickstarts/database-clients-and-tools/libpq) to update your version of **libpq**.
 
 ## psycopg
 
 If you're using Psycopg 3, which is the module named `psycopg`, then you may choose to install the version that includes the packaged dependencies like this `pip install "psycopg[binary,pool]"`, similar to the case of Psycopg 2.
 
-It also works without the `-binary` version of the module if the underlying `libpq` is up to date. Please see [our libpq guide](/docs/getting-started/quickstarts/libpq) to update your version of **libpq**.
+It also works without the `-binary` version of the module if the underlying `libpq` is up to date. Please see [our libpq guide](/docs/getting-started/quickstarts/database-clients-and-tools/libpq) to update your version of **libpq**.
 
 ## Support and Community
 

@@ -1,3 +1,10 @@
+---
+title: 'Golang'
+sideBarTitle: 'Golang'
+sideBarPosition: 201
+description: Connect to Postgres using Golang
+---
+
 **go.mod**: It's important to use lib pq version 1.10.7 or greater
 
 ``` go title="go.mod"

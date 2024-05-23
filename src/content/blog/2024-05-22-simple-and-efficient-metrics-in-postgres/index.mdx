@@ -1,0 +1,211 @@
+---
+slug: prometheus-data-in-postgresql
+title: How Tembo Cloud stores Prometheus metrics data in PostgreSQL
+authors: [steven, vini]
+tags: [postgres, metrics, pg_partman, pg_cron, prometheus, timeseries]
+image: './graphs.png'
+date: 2024-05-22T18:00
+description: |
+    How Tembo Cloud stores Prometheus data in PostgreSQL using pg_partman
+---
+
+import React from 'react';
+
+On [Tembo Cloud](https://cloud.tembo.io), you can see the status of your database with a **Good** or **Error** icon.
+
+![good-status](./good-status.png)
+![error-status](./error-status.png)
+
+In the above image, you can also see the status of the Tembo Cloud instance _over time_. This is an example of a feature that needs [time series data](https://en.wikipedia.org/wiki/Time_series).
+
+Metrics data is a good example of time series and you can efficiently store and query it directly from PostgreSQL. Let's take a look at how this is done in Tembo Cloud.
+
+## Using Prometheus to collect instance metrics
+
+At Tembo, we are using [Prometheus](https://prometheus.io/) to collect metrics data from our systems. Prometheus collects metrics data by performing HTTP GET requests to metric endpoints on a schedule. Metrics endpoints display current metric values, and Prometheus remembers the data collected on each GET request.
+
+```
+pg_isready{"instance_id"="inst_1712807947520_WRlT82_1"} 1
+pg_isready{"instance_id"="inst_1712988060091_zDBrD1_5"} 0
+```
+- _Example metrics endpoint, returning one metric with two sets of labels. This data represents the Postgres availability status at the the current time for two Tembo instances._
+
+Prometheus stores metrics as **time series data**, where each time series is a timestamp and value tuple associated to a set of labels. In the below example, we can see an excerpt of a Prometheus API response, which includes a time series for each instance, each with a timestamp and value.
+
+```json
+[
+  {
+    "metric": {
+      "name": "pg_isready",
+      "instance_id": "inst_1712807947520_WRlT82_1"
+    },
+    "values": [
+      [1711997495, "0"],
+      [1711997595, "1"],
+      [1711997695, "0"]
+    ]
+  },
+  {
+    "metric": {
+      "name": "pg_isready",
+      "instance_id": "inst_1712988060091_zDBrD1_5"
+    },
+    "values": [
+      [1711997495, "0"],
+      [1711997595, "0"],
+      [1711997695, "1"]
+    ]
+  }
+]
+```
+
+## Storing metrics data in Postgres
+
+In order to use the Prometheus metrics data in our system, we needed a simple and efficient way to store it in PostgreSQL.
+
+A simple data model for storing any Prometheus data consists of two tables `metrics_labels` and `metrics_values`:
+
+**metrics_labels**
+
+| id | name         | labels                  |
+|----|--------------|-------------------------|
+| 1  | cpu_seconds  | `{"pod": "pod-1", ...}` |
+| 2  | cpu_seconds  | `{"pod": "pod-2", ...}` |
+| 3  | memory_bytes | `{"pod": "pod-1", ...}` |
+| 4  | memory_bytes | `{"pod": "pod-2", ...}` |
+
+**metrics_values**
+
+| label_id |        time         |   value    |
+|----------|---------------------|------------|
+| 1        | 2024-05-15 10:01:00 | 150000     |
+| 2        | 2024-05-15 10:01:00 | 300000     |
+| 3        | 2024-05-15 10:01:00 | 450000000  |
+| 4        | 2024-05-15 10:01:00 | 600000000  |
+| 1        | 2024-05-15 10:00:00 | 140000     |
+| 2        | 2024-05-15 10:00:00 | 280000     |
+| 3        | 2024-05-15 10:00:00 | 430000000  |
+| 4        | 2024-05-15 10:00:00 | 580000000  |
+
+This data model allows us to store all metrics data in a table **metric_values**, which we can optimize for time series data. Each row includes the timestamp, metric value, and a reference to the set of labels and metric name for that data point.
+
+In the **metric_labels** table, each row is unique by `(name, labels)`, so that we know which metric name and set of labels each data point has. Examples of different labels are instance ID, organization ID, and so on. Each set of labels for a given metric name represents an independent time series history.
+
+### Efficiently managing cardinality
+
+If you're familiar with metrics systems like Prometheus, you are likely familiar with _Cardinality_. Cardinality means how many different sets of labels there may be for any given metric.
+
+For example, consider a hypothetical metric like this
+```
+failed_queries{"instance_id"="inst_1712807947520_WRlT82_1", database="postgres"} 11
+failed_queries{"instance_id"="inst_1712807947520_WRlT82_1", database="foobar"} 1
+failed_queries{"instance_id"="inst_1712807947520_WRlT82_1", database="example"} 1
+failed_queries{"instance_id"="inst_1712807947520_WRlT82_1", database="another-db"} 1
+```
+In this case, the metric is tracking the number of failed queries per instance, per database within each instance. This metric may have high _cardinality_ because of the label **database**. If an instance has a lot of different databases, for example hundreds or thousands, this could be a lot of unique label sets. As there needs to be a unique row for each set of labels, you would get a very high number of rows in the table **metric_labels**.
+
+```
+1 | failed_queries | {"instance_id"="inst_1712807947520_WRlT82_1", database="postgres"}
+2 | failed_queries | {"instance_id"="inst_1712807947520_WRlT82_1", database="foobar"}
+3 | failed_queries | {"instance_id"="inst_1712807947520_WRlT82_1", database="example"}
+4 | failed_queries | {"instance_id"="inst_1712807947520_WRlT82_1", database="another-db"}
+```
+
+We can reduce this cardinality and make our queries efficient by aggregating our data by the dimensions we care about most. In this case, we can aggregate by **instance_id**, so we don't need to have a separate set of labels for each `(instance_id, database)`.
+
+To manage and control cardinality, we focus on specific labels required by our application. Here's our simplified model, only remembering the metric name and instance ID in order to keep our metrics simple:
+
+
+**metric_labels**
+
+| id | name            | instance_id                    |
+|----|-----------------|--------------------------------|
+| 1  | pg_isready      | inst_1712807947520_WRlT82_1    |
+| 2  | pg_failed_queries | inst_1712807947520_WRlT82_1  |
+| 3  | pg_isready      | inst_1712988060091_zDBrD1_5    |
+| 4  | pg_failed_queries | inst_1712988060091_zDBrD1_5  |
+
+**metric_values**
+
+| label_id |        time         |   value  |
+|----------|---------------------|----------|
+| 1        | 2024-05-15 10:01:00 | 1        |
+| 2        | 2024-05-15 10:01:00 | 15       |
+| 3        | 2024-05-15 10:01:00 | 1        |
+| 4        | 2024-05-15 10:01:00 | 0        |
+| 1        | 2024-05-15 10:00:00 | 1        |
+| 2        | 2024-05-15 10:00:00 | 11       |
+| 3        | 2024-05-15 10:00:00 | 0        |
+| 4        | 2024-05-15 10:00:00 | 0        |
+
+### Partitioning for efficient querying
+
+Queries are efficient on [partitioned data](https://www.postgresql.org/docs/current/ddl-partitioning.html) because queries that specify a time-based filter, for example "find instances that have been down in the last day" can skip all the partitions of **metric_values** that are outside of that range. We use [pg_partman](https://pgt.dev/extensions/pg_partman) for easily managing partitions in PostgreSQL.
+
+We will also use [pg_cron](https://pgt.dev/extensions/pg_cron) to delete rows in the **metrics_labels** table that no longer correspond to any metrics data.
+
+Here's how those tables were set up:
+
+```sql
+-- Create the metric_labels table, unique by (metric name, instance ID)
+CREATE TABLE metric_labels (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    instance_id TEXT NOT NULL REFERENCES instances (instance_id),
+    CONSTRAINT unique_metric_label UNIQUE (name, instance_id)
+);
+
+CREATE INDEX idx_metric_labels_name ON metric_labels (name);
+CREATE INDEX idx_metric_labels_instance_id ON metric_labels (instance_id);
+
+CREATE TABLE metric_values (
+    label_id INTEGER REFERENCES metric_labels (id),
+    time TIMESTAMP NOT NULL,
+    value INTEGER NOT NULL
+) PARTITION BY RANGE (time);
+
+-- Index on the partition key
+CREATE INDEX idx_metric_values_time ON metric_values (time);
+CREATE INDEX idx_metric_values_label_id ON metric_values (label_id);
+
+-- Enable automatic partitioning with pg_partman
+SELECT create_parent('public.metric_values', 'time', 'native', '1 day');
+
+-- Configure retention policy for metric_values to keep partitions for 90 days
+UPDATE part_config
+    SET retention = '90 days',
+        retention_keep_table = false,
+        retention_keep_index = false,
+        infinite_time_partitions = true
+    WHERE parent_table = 'public.metric_values';
+```
+
+This **pg_partman** configuration automatically drops `metrics_values` partitions that are older than 90 days old. To keep the `metric_labels` table clean, we schedule a daily job to delete unused labels using **pg_cron**:
+
+```sql
+CREATE OR REPLACE FUNCTION delete_unused_metric_labels() RETURNS void AS $$
+BEGIN
+    DELETE FROM metric_labels
+    WHERE id NOT IN (
+        SELECT DISTINCT label_id
+        FROM metric_values
+    );
+END;
+$$ LANGUAGE plpgsql;
+
+-- Schedule the delete_unused_metric_labels function to run daily at 8:00 AM
+SELECT cron.schedule('0 8 * * *', 'SELECT delete_unused_metric_labels()');
+```
+
+By leveraging **pg_partman** and **pg_cron**, we now have a simple way of efficiently storing metrics.
+
+## Further optimizing with Tembo Time Series Stack
+
+This data model helps us efficiently store time series data for our use case. However, as our dataset gets larger and queries get complex, we'll need more features like compression, long-term retention, and analytical functions.
+
+At Tembo, we recently released our [Time Series Stack](/blog/pg-timeseries) which makes it very easy to work with time series data efficiently with PostgreSQL. To store your own time series data, you can deploy the [Time Series Stack](https://tembo.io/docs/product/stacks/analytical/timeseries) with a single click on Tembo Cloud.
+
+If you'd like to work with Prometheus data from inside of Postgres, you can also look at [prometheus_fdw](https://pgt.dev/extensions/prometheus_fdw) on [GitHub](https://github.com/tembo-io/prometheus_fdw), or read about it in the [blog](/blog/monitoring-with-prometheus-fdw).
+
+We plan to migrate this system to the time series stack to use all the time series features Postgres and it's extensions can provide. You can look forward to our blog covering that journey.
+
