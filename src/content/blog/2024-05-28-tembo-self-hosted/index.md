@@ -95,7 +95,7 @@ set of default configurations and components for convenience, but you can easily
 Enjoy custom configurations such as:
 - Kubernetes cluster sizing and scaling
 - Monitoring, alerting and logging configurations
-- Auth provider integration
+- Auth provider integration, such as Okta or AzureAD
 - Network policies
 - Resource limits and scaling parameters
 - Node assignments
