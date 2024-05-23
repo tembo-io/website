@@ -127,3 +127,6 @@ most.
 
 
 ## Try Tembo Self Hosted Today!
+Tembo Self Hosted is available now! If you're interested in running the Tembo Platform in your own environment, fill out
+the contact form below to get started. Our team will work with you to understand your needs and
+help you get up and running with Tembo Self Hosted.
