@@ -61,24 +61,15 @@ The platform includes the following components and features:
 
 ### One Simple Deployment
 Tembo Self Hosted is designed to run in a single Kubernetes cluster, keeping the total cost of ownership low and making
-for a simple and easy-to-manage deployment. The platform comes with a set of default configurations and components for
-convenience, but you can easily customize the platform to suit your needs. Example configurations include:
+for a simple and easy-to-manage deployment. The Tembo Self Hosted installation includes all the components you need to
+run the Tembo Platform, so there's no need to consider things like ingress controllers, monitoring solutions, or logging
+solutions.
 
-[//]: # (This schematic helps)
-
-[//]: # (illustrate an experience available to you, much of which is powered by open source tools. At its base layer, the key)
-
-[//]: # (orchestrators are Kubernetes Operator, Terraform Provider, and a Helm Chart. These cooperate to… These are connected to)
-
-[//]: # (Trunk; an open source Postgres extension registry that offers 200+ extensions and growing. Combined, these allow us to)
-
-[//]: # (use-case specific Stacks, which range from vector, time series, machine learning, geospatial, OLAP, data warehousing,)
-
-[//]: # (and more. Paired with Stacks are select add-on apps that you can run next to your database, GraphQL, Rest API and even)
-
-[//]: # (an embeddings model from Hugging Face. All of this comes together in a user-friendly interface that both lowers the bar)
-
-[//]: # (and grants more flexibility for you to configure as you like.)
+Combined, these allow us to
+use-case specific Stacks, which range from vector, time series, machine learning, geospatial, OLAP, data warehousing,
+and more. Paired with Stacks are select add-on apps that you can run next to your database, GraphQL, Rest API and even
+an embeddings model from Hugging Face. All of this comes together in a user-friendly interface that both lowers the bar
+and grants more flexibility for you to configure as you like.
 
 ![Tembo Self Hosted Architecture](../../../../public/enterprise-software.png)
 _Tembo Self Hosted architecture. All operations run within your cloud account, offering the
@@ -87,23 +78,23 @@ pre-packaged apps, such as pganalyze or postgREST._
 
 Both Tembo Cloud and Self Hosted leverage the same source code, which means that both options share the same interface
 and feature set. However, there are distinguishing factors that allow each offering to excel, according to user criteria.
-
 Take Tembo Cloud, for example. If you prefer to have the least management overhead and the most optimized Tembo
 experience, then this might be the best option for you. In Tembo Cloud, we're working on adding more regions and working
-on SOC2-Type2 compliance to strengthen its capacity  for even more workloads.
+on SOC2-Type2 compliance to strengthen its capacity for even more workloads.
 
-Alternatively, Tembo Self Hosted grants users an extra degree of autonomy. This might be best if you or your team want
-more control over your infrastructure. Moreover, if your goals are preferential towards a specific cloud provider
-(other than those supported by Tembo Cloud), then Self Hosted can help you achieve those goals. Finally, if you operate
-within a regulated industry, where data residency and other branches of compliance are paramount, then the flexibility
-of the Self Hosted offering will allow you to meet those requirements.
+Alternatively, Tembo Self Hosted grants users an extra degree of autonomy. This is best if you or your team want
+more control over your infrastructure. If your organization prefers a specific cloud provider or region, our Self Hosted
+solution can help you achieve those goals. For those who operate in a regulated industry where data residency and other
+branches of compliance are paramount, Self Hosted offers flexibility that allows for meeting those requirements.
 
 ## Deploy Tembo As You Choose
 
 ### Highly Configurable
 With any self-hosted application, configurability is key. Tembo Self Hosted is no exception. The platform comes with a
-set of default configurations and components for convenience, but you can easily customize the platform to suit your
-needs. Example configurations include:
+set of default configurations and components for convenience, but you can easily customize them to suit your needs.
+
+Example configurations include:
+- Custom Kubernetes cluster sizing and scaling
 - Custom logging, monitoring and alerting configurations
 - Custom auth provider integration
 - Custom network policies
@@ -111,15 +102,9 @@ needs. Example configurations include:
 - Custom node assignments
 
 Users will also have the ability to apply more broad adjustments, such as enabling a private extension registry or using
-existing ingress, monitoring, and logging solutions. Not to mention this all being conducted on-premises, which allows
+existing ingress, monitoring, and logging solutions. Not to mention this all being conducted on-premise, which allows
 for a heightened security profile; this potentially manifesting as integration with a pre-existing authentication
 system, defining custom network policies, or implementing other security protocols.
-
-When users elect to self-host, they come across an experience that has been pre-configured for convenience. However,
-they can fine-tune their own Kubernetes parameters, including but not limited to node assignments, pod scaling, resource
-limits. More information on the many adjustable parameters can be found here. What’s more is that the components run in
-a single Kubernetes cluster (Fig. 1), keeping the total cost of ownership low and allowing for a simple, easy-to-manage
-deployment.
 
 
 ### Use the Cloud Provider of Your Choice
@@ -128,14 +113,17 @@ service that supports Kubernetes. This means if you prefer a certain cloud vendo
 this time, you can self-deploy Tembo Self Hosted! This extends both to major and minor cloud providers, as long as they
 provide Kubernetes as a service.
 
+
 ### Your Region, Your Standards
 Standards and compliance are critical for any production-grade operation. While many of these standards are related to
 the technology itself, often the discussion of geographic placement comes to light. Tembo Self Hosted is flexible in the
 region in which it is deployed, offering data residency requirements.
 
+
 ### Dedicated Support When You Need It
 As part of Self Hosted, users gain access to a dedicated support plan, which is prioritized according to case severity.
 This includes 24/7 coverage on the highest priority items to make sure you and your team have support when it's needed
 most.
+
 
 ## Try Tembo Self Hosted Today!
