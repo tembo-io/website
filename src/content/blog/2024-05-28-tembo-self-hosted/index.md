@@ -56,7 +56,7 @@ for a simple and easy-to-manage deployment. The Tembo Self Hosted installation i
 run the Tembo Platform, so there's no need to consider things like ingress controllers, monitoring solutions, or logging
 solutions.
 
-![Tembo Self Hosted Architecture](../../../../public/enterprise-software.png)
+![Tembo Self Hosted Architecture](./tembo-architecture-diagram.png)
 _Tembo Self Hosted architecture. All operations run within your cloud account, offering the
 experience of Tembo Cloud; this including the availability of extensions and Stacks, that can be augmented by utilizing
 pre-packaged apps, such as pganalyze or postgREST._
