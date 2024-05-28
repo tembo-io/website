@@ -27,9 +27,8 @@ and 10+ Stacks and Apps. All this with flexibility and full control over:
 - Standards Adherence
 - Compliance and Network Security
 
-In other words, it's now possible to run the Tembo Platform anywhere you have a [Kubernetes](https://kubernetes.io/) cluster!
-
-**_Fill out our [contact form](https://forms.gle/8hSZMaNSjZ8gihh77) or [schedule some time with us](https://calendly.com/ian-tembo) to get started!_**
+In other words, it's now possible to run the Tembo Platform anywhere you have a [Kubernetes](https://kubernetes.io/) cluster. **_Fill out
+our [contact form](https://forms.gle/8hSZMaNSjZ8gihh77) to get started!_**
 
 ## Tembo Self Hosted - A new way to consume all Tembo features
 
