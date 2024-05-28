@@ -49,7 +49,7 @@ The platform includes the following components and features:
 - **Tembo Stacks**: 'Flavored' Postgres instances for a variety of use-cases
 - **Tembo Apps**: Add-on applications that run alongside your Postgres instances
 
-All of these features come together in a user-friendly way that both lowers the bar for you
+All of these features come together in a user-friendly way that lowers the bar for you
 to address all your data use cases from [transactional](https://tembo.io/docs/product/stacks/transactional/oltp),
 [vector](https://tembo.io/docs/product/stacks/ai/vectordb), [time series](https://tembo.io/docs/product/stacks/analytical/timeseries),
 [machine learning](https://tembo.io/docs/product/stacks/ai/machine-learning),
@@ -58,7 +58,7 @@ to address all your data use cases from [transactional](https://tembo.io/docs/pr
  
 ### Simple Deployment in a Single Kubernetes Cluster
 Tembo Self Hosted is designed to run in a single Kubernetes cluster, keeping the total cost of ownership low and making
-for a simple and easy-to-manage deployment. The Tembo Self Hosted installation includes all the components you need to
+for a simple and easy-to-manage deployment. The installation includes all the components you need to
 run the Tembo Platform, so there's no need to consider things like ingress controllers, monitoring solutions, or logging
 solutions.
 
@@ -77,7 +77,7 @@ If you prefer to have the least management overhead and the most optimized Tembo
 option. We manage your infrastructure, simplify your costs and wear the pager for when there are issues. 
 
 Alternatively, Tembo Self Hosted might be a better fit if you want high configurability, support for any cloud provider
-or have specific security and compliance expectations. Some key factors which make Tembo Self Hosted the right fit are:
+or have specific security and compliance expectations. With Tembo Self Hosted, you can:
 
 ### Configure your environment
 
@@ -97,7 +97,7 @@ that supports Kubernetes.
 
 ### Your Standards and compliance
 If you're in a regulated industry which has specific expectations around geographic placement, compliance, access
-or data residency, Tembo Self Hosted might be a better fit. You can control who has access to and how environments
+or data residency, Tembo Self Hosted might be a better fit. You can control who has access and how environments
 are setup to meet your specific needs. 
 
 ### Dedicated Support
