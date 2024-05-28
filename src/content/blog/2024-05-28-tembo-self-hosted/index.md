@@ -8,7 +8,6 @@ date: 2024-05-28T09:00
 description: This blog introduces the Tembo Self Hosted product.
 ---
 
-[//]: # (GOOD)
 There are several benefits to running your databases on a fully-managed database platform like [Tembo Cloud](https://cloud.tembo.io/). You don’t
 have to manage the infrastructure, your provider can optimize the database and its operations, and you reduce the amount
 of time and resources you need to spend to run your databases. While this works for a number of users, many still
@@ -107,5 +106,8 @@ and your team can leverage our expertise.
 
 ## Try Tembo Self Hosted Today!
 Tembo Self Hosted is available now and several users are working with us to deploy Tembo in their Kubernetes clusters! If you're interested
-in running the Tembo Platform in your own environment, fill out the contact form below to get started. Our
+in running the Tembo Platform in your own environment, fill out the contact form or schedule time with us below to get started. Our
 team will work with you to understand your needs and help you get up and running.
+
+**_Fill out our [contact form](https://forms.gle/8hSZMaNSjZ8gihh77) or [schedule some time with us](https://calendly.com/ian-tembo) to get started!_**
+
