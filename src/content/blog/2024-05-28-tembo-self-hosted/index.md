@@ -29,6 +29,8 @@ and 10+ Stacks and Apps. All this with flexibility and full control over:
 
 In other words, it's now possible to run the Tembo Platform anywhere you have a [Kubernetes](https://kubernetes.io/) cluster!
 
+**_Fill out our [contact form](https://forms.gle/8hSZMaNSjZ8gihh77) or [schedule some time with us](https://calendly.com/ian-tembo) to get started!_**
+
 ## Tembo Self Hosted - A new way to consume all Tembo features
 
 Tembo Self Hosted is a derivative of our SaaS, Tembo Cloud. Packaged and distributed as a
@@ -106,8 +108,5 @@ and your team can leverage our expertise.
 
 ## Try Tembo Self Hosted Today!
 Tembo Self Hosted is available now and several users are working with us to deploy Tembo in their Kubernetes clusters! If you're interested
-in running the Tembo Platform in your own environment, fill out the contact form or schedule time with us below to get started. Our
+in running the Tembo Platform in your own environment, **_fill out our [contact form](https://forms.gle/8hSZMaNSjZ8gihh77) or [schedule some time with us](https://calendly.com/ian-tembo) to get started!_** Our
 team will work with you to understand your needs and help you get up and running.
-
-**_Fill out our [contact form](https://forms.gle/8hSZMaNSjZ8gihh77) or [schedule some time with us](https://calendly.com/ian-tembo) to get started!_**
-
