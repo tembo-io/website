@@ -251,3 +251,13 @@ SELECT pg_drop_replication_slot('< replication slot name here >');
 <Callout variant='info'>
 Logical replicas or applications such as Debezium that depend on dropped slots may need to be restarted once a new slot is created.
 </Callout>
+
+## Instance Crashlooping
+
+**Description:**  An application within an instance is repeatedly crashing and restarting, indicating a potential issue that needs investigation.
+
+Check application logs:
+
+Follow the [logging](/docs/product/cloud/logs) documentation to view and audit the logs for your instance and check for any errors.
+
+If you can't resolve the issue from looking at the logs, please contact our Support team by either joining our <a href="https://tembocommunity.slack.com" target="_blank" rel="noreferrer">Slack community</a>, emailing us at <a href="mailto:support@tembo.io">support@tembo.io</a>, or use the Intercom “message us” feature on our website. We respond to most messages within 24 hours (and often faster!)
