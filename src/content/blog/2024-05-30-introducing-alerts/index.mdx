@@ -9,9 +9,9 @@ date: 2024-05-30T09:00
 image: './messages.png'
 ---
 
-We at Tembo know it's not always easy to keep track of the many components behind a busy cloud application stack. With Postgres filling the critical role of application data storage, it's important to always know everything is working properly. DBAs, devs, and product owners of all description _need_ the ability to preemptively address potential concerns before they cause an outage.
+We at Tembo know it's not always easy to keep track of the many components behind a busy cloud application stack. With Postgres filling the critical role of application data storage, it's important to always know everything is working properly. DBAs, devs, and product owners of all descriptions _need_ the ability to preemptively address potential concerns before they cause an outage..
 
-So we are proud to announce that we're bringing an alert management UI to our cloud platform. Our [Performance metrics dashboard](/docs/product/cloud/metrics) has been available for a while now, and is crucial to monitoring instances at a glance. Now our library of standard [Alerts](/docs/product/cloud/alerts) will be part of the big, happy family as well.
+So, we are proud to announce that we’re bringing an Alert Management UI to our cloud platform. Our [Performance metrics dashboard](/docs/product/cloud/metrics) has been available for a while now, and is crucial to monitoring instances at a glance. Now our library of standard [Alerts](/docs/product/cloud/alerts) will be part of the big, happy family as well.
 
 Let's discuss a bit of how some of these work - especially some of the more esoteric fare!
 
@@ -23,15 +23,15 @@ Like all good system monitoring and alerting stacks, Tembo provides a common bas
 -   High CPU usage
 -   High RAM usage
 
-These are the normal items admins tend to consider purely as a general measure of health. Is storage running low? Are we saturating the CPU or RAM on the system and need to increase the instance size? No? Great! If any one of these alerts have been triggered, it's probably time to investigate further.
+These are the normal items admins tend to consider purely as a general measure of health. Is storage running low? Are we saturating the CPU or RAM on the system and need to increase the instance size? No? Great! If any one of these alerts has been triggered, it’s probably time to investigate further.
 
 ## Dominant database disclosures
 
-Next we consider the less obvious alerts commonly associated with databases. While not exactly cryptic, those unfamiliar with database engines or Postgres specifically, may need a bit of additional context. So let's discuss a few of these.
+Next, we consider the less obvious alerts commonly associated with databases. While not exactly cryptic, those unfamiliar with database engines or Postgres specifically, may need a bit of additional context. So let's discuss a few of these.
 
 ### Backends waiting
 
-Postgres likes to proclaim that readers cannot block writers, and writers cannot block readers thanks to its implementation of [Multi-Version Concurrency Control](https://www.postgresql.org/docs/current/mvcc-intro.html). Unfortunately for us, writers can still block other writers, and actions that require an exclusive lock such as structurally modifying a table, may need to wait to acquire that lock.
+Postgres likes to proclaim that readers cannot block writers and writers cannot block readers, thanks to its implementation of [Multi-Version Concurrency Control](https://www.postgresql.org/docs/current/mvcc-intro.html). Unfortunately for us, writers can still block other writers, and actions that require an exclusive lock such as structurally modifying a table, may need to wait to acquire that lock.
 
 Left unchecked, this can sometimes lead to a kind of logjam effect where a process waiting for an exclusive lock will block further sessions, and suddenly everything stops. Wouldn't it be nice if the platform told us when that might be happening?
 
@@ -43,7 +43,7 @@ Many clients choose to leverage the Tembo [high availability](/docs/product/clou
 
 But this becomes less and less effective if the standby isn't fully synchronized with the primary. The primary tries to transmit all changes to the standby so it can apply them, but this doesn't always happen in a timely manner. The more lag the standby incurs, the less accurate read-queries on the standby may become. Failing over to a standby with high amounts of lag may also result in data loss.
 
-This alert will let us know if a standby system is over 400s, or just over six minutes behind the primary node. This usually indicates there's a problem that needs intervention.
+This alert will let us know if a standby system is over 400 seconds, or just over six minutes behind the primary node. This usually indicates there's a problem that needs intervention.
 
 ### Failover detected
 
@@ -87,7 +87,7 @@ This alert will go off once the effective XID age reaches 1-billion transactions
 
 ## Viewing your Alerts on Tembo Cloud
 
-The [Tembo Cloud dashboard UI](https://cloud.tembo.io) has a page made specifically for viewing your entire organization's Alerts. Navigate to it via the "bell" icon in the upper right of the dashboard nav:
+The [Tembo Cloud dashboard UI](https://cloud.tembo.io) has a page made specifically for viewing your entire organization's Alerts. Navigate to it via the "bell" icon in the upper right of the dashboard nav.
 
 ![Alerts Org home](./alertsOrgHome.png)
 
