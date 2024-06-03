@@ -2,6 +2,7 @@
 title: Geospatial
 sideBarTitle: Geospatial
 sideBarPosition: 303
+tags: [postgres, geospatial, analytical]
 ---
 
 The Tembo Geospatial Stack is designed to bring spatial database capabilities to PostgreSQL.
@@ -66,6 +67,7 @@ Navigate to your local directory where the data is stored; the path will look si
 For this simple exercise, we'll focus exclusively on shapefiles, but bear in mind that they alone do not represent the entire dataset.
 
 Consider the following files:
+
 -   nyc_cencus_blocks.shp
 -   nyc_homicides.shp
 -   nyc_neighborhoods.shp

@@ -27,10 +27,11 @@ const productionFeatures = [
 	'Apps',
 ];
 
-const enterpriseFeatures = [
+const selfhostedFeatures = [
 	'Private Data Plane',
+	'Fully Extensible',
 	'Private Networking',
-	'Dedicated Technical Support',
+	'24x7 Technical Support',
 	'Advanced Enterprise Security',
 	'All features included in Production tier',
 ];
@@ -129,11 +130,11 @@ const enterpriseFeatures = [
 	<h2
 		class='font-semibold text-pricingLightBlue text-[28px] leading-[35px] tracking-[0.54px]'
 	>
-		Enterprise
+		Self Hosted
 	</h2>
 	<span
 		class='h-[38px] block mt-[15px] font-secondary font-light text-white text-base leading-[19px] opacity-80'
-		>For critical workloads and robust security.</span
+		>For enhanced control over compliance, compatibility, and modularity.</span
 	>
 	<span
 		class='block mobile:mt-2 mt-7 font-semibold text-pricingLightBlue text-[32px] leading-[40px] tracking-[0.54px]'
@@ -150,7 +151,7 @@ const enterpriseFeatures = [
 	<hr class='my-8 h-[1px] w-full bg-white border-none opacity-30' />
 	<ul class='flex flex-col gap-2'>
 		{
-			enterpriseFeatures.map((feature) => (
+			selfhostedFeatures.map((feature) => (
 				<li class='min-h-8 flex'>
 					<div class='flex gap-2 items-start'>
 						<Image src={blueTickCircle} alt='check mark' />

@@ -20,12 +20,6 @@ This document will guide you through the process of enabling and configuring con
 
 3. Patch your existing Tembo instance with connection pooler settings using the [Tembo Cloud Platform API](/docs/development/api):
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs>
-<TabItem value="curl" label="Curl">
-
 ```shell
 curl -X 'PATCH' \
   "https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/instances/$TEMBO_INST" \
@@ -45,9 +39,6 @@ curl -X 'PATCH' \
   }
 }'
 ```
-
-</TabItem>
-</Tabs>
 
 ## Connect to your Tembo Instance's Connection Pooler
 

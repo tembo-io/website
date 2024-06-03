@@ -1,3 +1,10 @@
+---
+title: 'libpq'
+sideBarTitle: 'Libpq'
+sideBarPosition: 202
+description: Update your system version of libpq 
+---
+
 This guide helps users update their system's version of [libpq](https://www.postgresql.org/docs/current/libpq.html).
 
 **libpq** is the C implementation of the Postgres client. Many other languages' Postgres clients depend on **libpq**. Tembo requires a version of **libpq** that supports Server Name Indication (SNI), which was introduced in Postgres version 14.

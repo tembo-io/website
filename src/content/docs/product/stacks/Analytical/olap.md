@@ -2,6 +2,7 @@
 title: OLAP
 sideBarTitle: OLAP
 sideBarPosition: 301
+tags: [postgres, olap, analytical]
 ---
 
 ## Configuration
@@ -30,7 +31,7 @@ The following configurations automatically scale based on the size of CPU, memor
 
 ## Getting started
 
-This guide will walk through setting up an analytical workload on Postgres using [Clickbench's "hits" dataset](https://github.com/ClickHouse/ClickBench?tab=readme-ov-file#history-and-motivation) (representing page views on a system) and the [Hydra](https://github.com/hydradatabase/hydra) Postgres extension. 
+This guide will walk through setting up an analytical workload on Postgres using [Clickbench's "hits" dataset](https://github.com/ClickHouse/ClickBench?tab=readme-ov-file#history-and-motivation) (representing page views on a system) and the [Hydra](https://github.com/hydradatabase/hydra) Postgres extension.
 
 This guide will demonstrate the use of both extensions in optimizing the database for analytical queries.
 

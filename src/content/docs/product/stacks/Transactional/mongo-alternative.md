@@ -2,6 +2,7 @@
 title: MongoAlternative
 sideBarTitle: MongoAlternative
 sideBarPosition: 104
+tags: [postgres, mongo alternative, transactional]
 ---
 
 The Tembo MongoAlternative Stack is designed to offer MongoDB (Mongo) protocol compatibility with PostgreSQL (Postgres).
