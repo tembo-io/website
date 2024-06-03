@@ -566,3 +566,29 @@ count
 (1 row)
 ```
 
+### Query 3 - Geocode
+
+```sql
+SELECT pprint_addy(addy), st_astext(geomout),rating
+FROM geocode_intersection( 'Haverford St','Germania St', 'MA', 'Boston', '02130',1);
+```
+```text
+             pprint_addy             |         st_astext          | rating
+-------------------------------------+----------------------------+--------
+ 3698 Haverford St, Boston, MA 02130 | POINT(-71.101375 42.31376) |      0
+(1 row)
+```
+
+### Query 4 - Reverse Geocode
+
+```sql
+SELECT pprint_addy(r.addy[1]) As st1, pprint_addy(r.addy[2]) As st2, pprint_addy(r.addy[3]) As st3, array_to_string(r.street, ',') As cross_streets
+FROM reverse_geocode(ST_GeomFromText('POINT(-71.057083 42.361145)', 4269), true) As r;
+```
+```text
+              st1              |           st2           | st3 | cross_streets
+-------------------------------+-------------------------+-----+---------------
+ 98 Union St, Boston, MA 02108 | 98 Union St, Boston, MA |     |  North St
+(1 row)
+```
+
