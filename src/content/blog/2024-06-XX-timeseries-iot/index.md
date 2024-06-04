@@ -64,7 +64,7 @@ At this point we're good to tell timeseries about our partition sizes and load t
 SELECT enable_ts_table('states_ts', '1 hour', initial_table_start => '2024-05-12');
 ```
 
-And with the partitions created, data can be loaded:
+And with the partitions created, data can be loaded. Download it from [here](https://tembo-demo-bucket.s3.amazonaws.com/states.csv) and load it with the following:
 
 ```sql
 \copy states_ts from 'states.csv' with (format csv);
@@ -88,7 +88,7 @@ In a future release, the "scheduling" concept will include additional actions, p
 
 ## Additional Tables
 
-In most time-series workloads, only a few tables store time-series data; others may store repetitive metadata, user information, etc. We have a few of those in this workload, so load them up, too…
+In most time-series workloads, only a few tables store time-series data; others may store repetitive metadata, user information, etc. We have a few of those in this workload, so load them up, too. The data can be found [here](https://tembo-demo-bucket.s3.amazonaws.com/states_meta.csv).
 
 ```sql
 \copy states_meta from 'states_meta.csv' with (format csv);
