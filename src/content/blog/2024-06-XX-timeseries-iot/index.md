@@ -167,7 +167,7 @@ SELECT avg(state::numeric), date_trunc('minute', last_updated_ts)
   GROUP BY 2 ORDER BY 2;
 ```
 
-But there's still one problem: our data contains these `NULL` values! By adding in a call to `locf` (_last observation carried forward_), we can fill all `NULL` entries with the most-recent non-`NULL` entry:
+But there's still one problem: our data contains these `NULL` values! By adding in a call to `locf`, we can fill all `NULL` entries with the most-recent non-`NULL` entry:
 
 ```sql
 WITH minute_data AS (
