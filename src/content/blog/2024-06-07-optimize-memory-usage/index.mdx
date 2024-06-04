@@ -6,7 +6,11 @@ description: |
     Best practices for configuring Postgres to maximize RAM use without risking process termination.
 tags: [postgres, alerts, cloud, database, status, memory]
 date: 2024-06-07T09:00
+image: './header.png'
+planetPostgres: true
 ---
+
+import Callout from '../../../components/Callout.astro';
 
 It's no secret that databases use _a lot_ of RAM. When Postgres needs to build a result set, a very common pattern is to match against an index, retrieve associated rows from one or more tables, and finally merge, filter, aggregate, and sort tuples into usable output. Every one of these steps relies on memory, and Postgres may handle thousands of such queries simultaneously.
 
@@ -22,7 +26,11 @@ The first and by far the largest segment of RAM associated with a Postgres servi
 
 It's a static value that must be allocated when Postgres starts, and it won't get any bigger, so we don't have to worry about this contributing to _unexpected_ memory problems. It's important to size this properly, because it can only be changed when Postgres starts or restarts.
 
-The default Postgres page size is 8kb, and each page represents several index records or table rows. Before Postgres can use an index or row, it must first retrieve the corresponding page into RAM. If those pages are in shared buffers, their "score" increases and they're less likely to be evicted later. Given that we want as much data as possible to be cached by Postgres, it may seem that higher settings are _always_ better.
+<Callout variant='warning'>
+While Postgres considers this memory allocated up-front, the operating system might not. As a result, it's possible to specify extremely high values up to the amount of RAM in the instance. This kind of dangerous over-allocation implicitly over-commits RAM since it does not account for other usage described in this article. Doing so will eventually lead to an out-of-memory scenario and a subsequent crash.
+</Callout>
+
+The default Postgres [page size](https://en.wikipedia.org/wiki/Page_\(computer_memory\)) is 8kb, and each page represents several index records or table rows. Before Postgres can use an index or row, it must first retrieve the corresponding page into RAM. If those pages are in shared buffers, their "score" increases and they're less likely to be evicted later. Given that we want as much data as possible to be cached by Postgres, it may seem that higher settings are _always_ better.
 
 The default value Postgres uses for this parameter is 128MB. The most frequently cited recommendation for production systems is to use 25% of available RAM, which also happens to be what we use here at Tembo. This rule of thumb is an excellent starting point and works for most systems because it scales with hardware. A large database is likely exceptionally busy and requires many CPU threads, and these are usually accompanied by lots of RAM, especially in cloud environments. The busiest portion of the database tends to fit comfortably in this 25% in most cases, and everyone is happy.
 
@@ -55,6 +63,10 @@ Each step requires combining only two items, and the product of that combination
 
 If we have a moderately busy server with 100 of these queries running simultaneously, we could use up to 1.6GB of RAM simply to calculate results. More complex queries would require even more RAM depending on how many nodes are necessary to execute the query. The [`max_connections`](https://www.postgresql.org/docs/current/runtime-config-connection.html#GUC-MAX-CONNECTIONS) parameter also plays a part here, as it defines how many concurrent sessions may be executing a query.
 
+<Callout variant='info'>
+Use the [`EXPLAIN`](https://www.postgresql.org/docs/current/sql-explain.html) command to see the execution plan of a query. It will show how Postgres will execute the query and all of the nodes necessary to produce output. Used in conjunction with the `pg_stat_statements` extension, it becomes possible to isolate the most active queries and estimate overall memory use due to `work_mem`.
+</Callout>
+
 This is one of the major reasons behind the 25% recommendation for `shared_buffers`. Until a database is closely profiled for query concurrency and complexity, it may not be safe to allocate a higher value. To do so could risk the operating system rejecting memory requests or terminating Postgres itself.
 
 Conversely, if `work_mem` is set too low, any rows or intermediate results that won't fit in RAM will spill to disk, which is orders of magnitude slower. Thankfully this is easy to detect by checking the `pg_stat_database` view with a query like this:
@@ -85,6 +97,12 @@ The easiest way to reduce memory consumption is to put a logical cap on potentia
 
 Remember, if every session is executing a query, and each node represents one allocation of `work_mem`, our theoretical maximum work memory usage is: `connections * nodes * work_mem`. It's not always possible to reduce query complexity, but we can _usually_ reduce connection count. In cases where applications always open a certain inflated amount of sessions, or a multiple separate microservices rely on Postgres, this may be easier said than done.
 
+<Callout variant='info'>
+Remember this formula: `work_mem * max_connections * 5`
+
+It's a rough estimate of the maximum amount RAM a Postgres instance might allocate to user sessions simply for processing basic queries, assuming all connections are active. If the server doesn't have enough RAM for this value, consider decreasing one of the factors, or increasing RAM.
+</Callout>
+
 That means the next step is to introduce a [connection pooler](/docs/product/cloud/apps/connection-pooler/) like PgBouncer. This decouples client connections from the database and reuses the expensive Postgres sessions between them. When properly configured, several hundred clients can share a few dozen Postgres connections with no impact to the application.
 
 We're left with something like this:
@@ -97,7 +115,11 @@ We've seen PgBouncer multiplex over 1000 connections to 40-50 this way, dramatic
 
 Quite possibly the most difficult aspect of memory usage to track is that of table bloat. Postgres uses Multi-Version Concurrency Control ([MVCC](https://www.postgresql.org/docs/current/mvcc.html)) to represent data in its storage system. This means any time a table row is modified, Postgres creates another copy of the row somewhere in the table, marked with a new version number. The Postgres [`VACUUM`](https://www.postgresql.org/docs/current/routine-vacuuming.html) process marks old row versions as "unused" space so that new row versions can be placed there.
 
-Postgres has an automatic vacuum background process that continuously finds these reusable allocations and tries to make sure tables don't grow without bound. Sometimes the default configuration for this is not sufficient for especially high volume systems however, and such maintenance can fall behind. As a result, tables may slowly fill with more _dead_ rows than _live_ ones, resulting in a table that is "bloated" full of old data. We have an article on [optimizing autovacuum](/blog/optimizing-postgres-auto-vacuum/) for information on addressing this issue.
+Postgres has an automatic vacuum background process that continuously finds these reusable allocations and tries to make sure tables don't grow without bound. Sometimes the default configuration for this is not sufficient for especially high volume systems however, and such maintenance can fall behind. As a result, tables may slowly fill with more _dead_ rows than _live_ ones, resulting in a table that is "bloated" full of old data. 
+
+<Callout variant='info'>
+We have an article on [optimizing autovacuum](/blog/optimizing-postgres-auto-vacuum/) for information on addressing this issue. Properly tuning autovacuum is an incredibly subtle topic that deserves an equally thorough explanation. Even experienced Postgres DBAs could do with an occasional refresher.
+</Callout>
 
 Consider what this means for our shared buffers if a table is extremely bloated. Remember our earlier depiction of shared buffers? What happens if each page only contains one live row and several dead rows? We'd end up in a situation like this:
 
