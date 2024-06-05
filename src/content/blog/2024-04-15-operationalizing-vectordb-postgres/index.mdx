@@ -210,7 +210,7 @@ SELECT
     description,
     1 - (
         product_search_all_MiniLM_L6_v2 <=>
-        vectorize.transform_embeddings('mobile electronic devices', 'sentence-transformers/all-MiniLM-L12-v2')::vector
+        vectorize.transform_embeddings('mobile electronic devices', 'sentence-transformers/all-MiniLM-L6-v2')::vector
     ) as similarity
 FROM products
 ORDER by similarity DESC

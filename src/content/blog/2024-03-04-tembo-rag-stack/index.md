@@ -40,7 +40,7 @@ select vectorize.init_rag(
    table_name => my_documents,
    unique_record_id => 'document_name',
    "column" => 'content',
-   transformer => 'sentence-transformers/all-MiniLM-L12-v2'
+   transformer => 'sentence-transformers/all-MiniLM-L6-v2'
 );
 ```
 
