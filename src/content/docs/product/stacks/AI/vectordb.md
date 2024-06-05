@@ -85,7 +85,7 @@ SELECT vectorize.table(
     primary_key => 'product_id',
     columns => ARRAY['product_name', 'description'],
     schedule => 'realtime',
-    transformer => 'sentence-transformers/all-MiniLM-L12-v2'
+    transformer => 'sentence-transformers/all-MiniLM-L6-v2'
 );
 ```
 
@@ -224,7 +224,7 @@ SELECT vectorize.table(
     "table" => 'products',
     primary_key => 'product_id',
     columns => ARRAY['product_name', 'description'],
-    transformer => 'sentence-transformers/all-MiniLM-L12-v2',
+    transformer => 'sentence-transformers/all-MiniLM-L6-v2',
     schedule => 'realtime'
 );
 ```
@@ -245,7 +245,7 @@ SELECT vectorize.table(
     "table" => 'products',
     primary_key => 'product_id',
     columns => ARRAY['product_name', 'description'],
-    transformer => 'sentence-transformers/all-MiniLM-L12-v2',
+    transformer => 'sentence-transformers/all-MiniLM-L6-v2',
     update_col => 'last_updated_at',
     schedule => '0 * * * *'
 );
@@ -293,7 +293,7 @@ SELECT vectorize.table(
     "table" => 'products',
     primary_key => 'product_id',
     columns => ARRAY['product_name', 'description'],
-    transformer => 'sentence-transformers/all-MiniLM-L12-v2',
+    transformer => 'sentence-transformers/all-MiniLM-L6-v2',
     table_method => 'join'
 );
 ```
@@ -323,7 +323,7 @@ SELECT vectorize.table(
     "table" => 'products',
     primary_key => 'product_id',
     columns => ARRAY['product_name', 'description'],
-    transformer => 'sentence-transformers/all-MiniLM-L12-v2',
+    transformer => 'sentence-transformers/all-MiniLM-L6-v2',
     table_method => 'append'
 );
 ```
@@ -435,7 +435,7 @@ SELECT
     description,
     1 - (
         my_search_project_embeddings <=>
-        vectorize.transform_embeddings('mobile electronic devices', 'sentence-transformers/all-MiniLM-L12-v2')::vector
+        vectorize.transform_embeddings('mobile electronic devices', 'sentence-transformers/all-MiniLM-L6-v2')::vector
     ) as similarity
 FROM products
 ORDER by similarity DESC
