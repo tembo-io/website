@@ -156,9 +156,27 @@ NAME      TYPE           CLUSTER-IP      EXTERNAL-IP                            
 traefik   LoadBalancer   10.200.50.100   abcdef1234567890abcdef1234567890-1234567890abcdef.elb.us-west-1.amazonaws.com   1234:56789/TCP,80:12345/TCP,443:23456/TCP   45m
 ```
 
+If you're using Amazon Route 53, the configuration should look something like the image below. For more detailed information, refer to [Creating Records Using the Amazon Route 53 Console](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-creating.html).
+
+![Configuring-DNS-using-Route-53](./route-53-dns-config.jpeg)
+
 4. **Verify DNS Settings**: After creating the CNAME record, verify that the DNS settings are correctly propagating and resolving.
 
-If you're using Amazon Route 53, refer to the guide [Creating Records Using the Amazon Route 53 Console](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-creating.html) for detailed instructions.
+You can use `nslookup` to check if your DNS settings are working correctly:
+
+```shell
+nslookup test.tembo.mydomain.com
+;; Got recursion not available from 2001:4860:4860::8888, trying next server
+;; Got recursion not available from 2001:4860:4860::8844, trying next server
+Server:		8.8.8.8
+Address:	8.8.8.8#53
+
+Non-authoritative answer:
+Name:	test.tembo.mydomain.com
+Address: 203.0.113.10
+Name:	test.tembo.mydomain.com
+Address: 203.0.113.20
+```
 
 
 ### Step 8: Update the StorageClass to allow for volume expansion
