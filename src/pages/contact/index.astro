@@ -6,6 +6,7 @@ import Footer from '../../components/Footer.astro';
 import { Image } from 'astro:assets';
 import ContactElephant from '../../../public/contact-elephant.svg';
 import Button from '../../components/Button';
+import ConfettiContact from '../../components/ConfettiContact.astro';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -41,19 +42,19 @@ const currentPath = Astro.url.pathname;
 			<div class='flex flex-col gap-6'>
 				<input
 					placeholder='Name'
-					class='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14'
+					class='md:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
 				/>
 				<input
 					placeholder='Company email'
-					class='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14'
+					class='md:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
 				/>
 				<input
 					placeholder='Company'
-					class='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14'
+					class='md:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
 				/>
 				<textarea
-					placeholder='Postgres Situation and Notes'
-					class='w-full rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40'
+					placeholder='Describe your Postgres usage and use case for Tembo Cloud or Tembo Self Hosted'
+					class='md:w-[412px] rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 w-full'
 				></textarea>
 				<!-- TODO: Button link will be changed -->
 				<Button
@@ -62,10 +63,11 @@ const currentPath = Astro.url.pathname;
 					isLinkTag={true}
 					link='https://cloud.tembo.io'
 					client:load
-					styles='flex h-14 justify-center items-center'
+					styles='flex h-14 md:w-[412px] justify-center items-center w-full'
 				>
 					Continue
 				</Button>
+				<ConfettiContact />
 			</div>
 		</div>
 	</Container>
