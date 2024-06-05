@@ -10,10 +10,11 @@ import Button from '../../components/Button';
 const currentPath = Astro.url.pathname;
 ---
 
-<Layout title='Blog | Tembo'>
-	<div class='mt-[120px] mobile:mt-[180px]'></div>
+<Layout title='Contact | Tembo'>
 	<NavBar client:load currentPage={currentPath} />
-	<Container styles='grid md:grid-cols-2 grid-cols-1 relative'>
+	<Container
+		styles='grid md:grid-cols-2 grid-cols-1 relative mt-[120px] mobile:mt-[180px]'
+	>
 		<div class='flex items-center justify-center'>
 			<Image
 				src={ContactElephant}
@@ -54,6 +55,7 @@ const currentPath = Astro.url.pathname;
 					placeholder='Postgres Situation and Notes'
 					class='w-full rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40'
 				></textarea>
+				<!-- TODO: Button link will be changed -->
 				<Button
 					variant='gradient'
 					size='lg'
