@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar';
+import Container from '../../components/Container';
+import Footer from '../../components/Footer.astro';
+import { Image } from 'astro:assets';
+import ContactElephant from '../../../public/contact-elephant.svg';
+import Button from '../../components/Button';
+
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title='Blog | Tembo'>
+	<div class='mt-[120px] mobile:mt-[180px]'></div>
+	<NavBar client:load currentPage={currentPath} />
+	<Container styles='grid md:grid-cols-2 grid-cols-1 relative'>
+		<div class='flex items-center justify-center'>
+			<Image
+				src={ContactElephant}
+				alt='contact elephant image'
+				width={400}
+				height={400}
+				class='min-[1024px]:block hidden'
+			/>
+			<Image
+				src={ContactElephant}
+				alt='contact elephant image'
+				width={200}
+				height={200}
+				class='max-[1024px]:block hidden'
+			/>
+		</div>
+		<div class='flex flex-col gap-12'>
+			<h2 class='text-neon
+			font-primary
+			font-semibold
+			text-5xl'>
+				Contact us
+			</h2>
+			<div class='flex flex-col gap-6'>
+				<input
+					placeholder='Name'
+					class='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14'
+				/>
+				<input
+					placeholder='Company email'
+					class='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14'
+				/>
+				<input
+					placeholder='Company'
+					class='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14'
+				/>
+				<textarea
+					placeholder='Postgres Situation and Notes'
+					class='w-full rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40'
+				></textarea>
+				<Button
+					variant='gradient'
+					size='lg'
+					isLinkTag={true}
+					link='https://cloud.tembo.io'
+					client:load
+					styles='flex h-14 justify-center items-center'
+				>
+					Continue
+				</Button>
+			</div>
+		</div>
+	</Container>
+
+	<div class='relative'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
+		</div>
+		<Container>
+			<div class='mt-16 mobile:mt-24'>
+				<Footer />
+			</div>
+		</Container>
+	</div>
+</Layout>
