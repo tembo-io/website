@@ -98,8 +98,8 @@ const ContactForm: React.FC = () => {
 				],
 				context: {
 					hutk: hubspotId,
-					pageUri: 'https://cloud.tembo.io/',
-					pageName: 'Tembo Sign Up',
+					pageUri: 'https://www.tembo.io/contact',
+					pageName: 'Tembo Contact Us',
 				},
 			};
 
@@ -113,18 +113,21 @@ const ContactForm: React.FC = () => {
 					body: JSON.stringify(hubspotRequestBody),
 				},
 			);
-			toast.promise(
-				hubspotFormPromise,
-				{
-					error: 'There was an error submitting the form. Please try again later.',
-					loading: 'Submitting form...',
-					success:
-						'Thank you for your interest in Tembo! We will be in touch shortly.',
-				},
-				{
-					position: 'bottom-right',
-				},
-			);
+			// toast.promise(
+			// 	hubspotFormPromise,
+			// 	{
+			// 		error: 'There was an error submitting the form. Please try again later.',
+			// 		loading: 'Submitting form...',
+			// 		success:
+			// 			'Thank you for your interest in Tembo! We will be in touch shortly.',
+			// 	},
+			// 	{
+			// 		position: 'bottom-right',
+			// 	},
+			// );
+
+			const res = await hubspotFormPromise;
+			console.log(res);
 
 			// reset all form fields
 			if (firstNameRef.current) firstNameRef.current.value = '';
