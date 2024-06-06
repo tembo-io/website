@@ -113,21 +113,12 @@ const ContactForm: React.FC = () => {
 					body: JSON.stringify(hubspotRequestBody),
 				},
 			);
-			// toast.promise(
-			// 	hubspotFormPromise,
-			// 	{
-			// 		error: 'There was an error submitting the form. Please try again later.',
-			// 		loading: 'Submitting form...',
-			// 		success:
-			// 			'Thank you for your interest in Tembo! We will be in touch shortly.',
-			// 	},
-			// 	{
-			// 		position: 'bottom-right',
-			// 	},
-			// );
-
-			const res = await hubspotFormPromise;
-			console.log(res);
+			toast.promise(hubspotFormPromise, {
+				error: 'There was an error submitting the form. Please try again later.',
+				loading: 'Submitting form...',
+				success:
+					'Thank you for your interest in Tembo! We will be in touch shortly.',
+			});
 
 			// reset all form fields
 			if (firstNameRef.current) firstNameRef.current.value = '';
