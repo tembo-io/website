@@ -12,75 +12,110 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Contact | Tembo'>
-	<NavBar client:load currentPage={currentPath} />
-	<Container
-		styles='grid md:grid-cols-2 grid-cols-1 relative mt-[120px] mobile:mt-[180px]'
-	>
-		<div class='flex items-center justify-center'>
-			<Image
-				src={ContactElephant}
-				alt='contact elephant image'
-				width={400}
-				height={400}
-				class='min-[1024px]:block hidden'
-			/>
-			<Image
-				src={ContactElephant}
-				alt='contact elephant image'
-				width={200}
-				height={200}
-				class='max-[1024px]:block hidden'
-			/>
-		</div>
-		<div class='flex flex-col gap-12'>
-			<h2 class='text-neon
+	<div class='content'>
+		<NavBar client:load currentPage={currentPath} isBanner={false} />
+		<div class='w-full h-[150px] overflow-hidden'></div>
+		<Container styles='relative mb-20'>
+			<div
+				class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'
+			>
+			</div>
+			<div class='grid md:grid-cols-2 grid-cols-1'>
+				<div class='flex items-center justify-center'>
+					<Image
+						src={ContactElephant}
+						alt='contact elephant image'
+						width={400}
+						height={400}
+						class='min-[1024px]:block hidden'
+					/>
+					<Image
+						src={ContactElephant}
+						alt='contact elephant image'
+						width={200}
+						height={200}
+						class='max-[1024px]:block hidden'
+					/>
+				</div>
+				<div class='flex flex-col gap-12'>
+					<h2 class='text-neon
 			font-primary
 			font-semibold
 			text-5xl'>
-				Contact us
-			</h2>
-			<div class='flex flex-col gap-6'>
-				<input
-					placeholder='Name'
-					class='md:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
-				/>
-				<input
-					placeholder='Company email'
-					class='md:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
-				/>
-				<input
-					placeholder='Company'
-					class='md:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
-				/>
-				<textarea
-					placeholder='Describe your Postgres usage and use case for Tembo Cloud or Tembo Self Hosted'
-					class='md:w-[412px] rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 w-full'
-				></textarea>
-				<!-- TODO: Button link will be changed -->
-				<Button
-					variant='gradient'
-					size='lg'
-					isLinkTag={true}
-					link='https://cloud.tembo.io'
-					client:load
-					styles='flex h-14 md:w-[412px] justify-center items-center w-full'
-				>
-					Continue
-				</Button>
+						Contact us
+					</h2>
+					<form class='flex flex-col gap-6'>
+						<input
+							placeholder='Name'
+							type='text'
+							class='md:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
+						/>
+						<input
+							placeholder='Company email'
+							type='email'
+							class='md:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
+							aria-label=''
+						/>
+						<input
+							placeholder='Company'
+							type='text'
+							class='md:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
+						/>
+						<textarea
+							placeholder='Describe your Postgres usage and use case for Tembo Cloud or Tembo Self Hosted'
+							class='md:w-[412px] rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 w-full'
+						></textarea>
+						<!-- NOTE: forms connected to hubspot must use input and not button -->
+						<input
+							type='submit'
+							size='lg'
+							class='flex h-14 md:w-[412px] justify-center items-center w-full bg-gradient-button text-white transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base'
+						/>
+					</form>
+				</div>
 				<ConfettiContact />
 			</div>
-		</div>
-	</Container>
-
-	<div class='relative'>
-		<div
-			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
-		>
-		</div>
-		<Container>
-			<div class='mt-16 mobile:mt-24'>
-				<Footer />
-			</div>
 		</Container>
+
+		<div class='relative z-10 bg-offBlack'>
+			<div
+				class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+			>
+			</div>
+			<Container styles='z-50'>
+				<Footer />
+			</Container>
+		</div>
 	</div>
 </Layout>
+
+<style>
+	.content {
+		background: rgb(0, 0, 0);
+		background-image: url('/pixelBg.svg');
+		width: 100%;
+		height: 100%;
+	}
+
+	.light-gradient {
+		width: 45%;
+		height: 1200px;
+		background: radial-gradient(#ffffff 0px, transparent 35%);
+		-ms-filter: blur(300px) saturate(150%);
+		-webkit-filter: blur(300px) saturate(150%);
+		filter: blur(300px) saturate(150%);
+		transform: translate3d(0, 0, 0);
+	}
+
+	@-moz-document url-prefix() {
+		.light-gradient {
+			width: 45%;
+			height: 1200px;
+			background: radial-gradient(#ffffff 0px, transparent 55%);
+			-ms-filter: blur(300px) saturate(150%);
+			-webkit-filter: blur(300px) saturate(150%);
+			filter: blur(300px) saturate(150%);
+			opacity: 0.1;
+		}
+	}
+</style>
