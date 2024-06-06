@@ -5,8 +5,8 @@ import Container from '../../components/Container';
 import Footer from '../../components/Footer.astro';
 import { Image } from 'astro:assets';
 import ContactElephant from '../../../public/contact-elephant.svg';
-import Button from '../../components/Button';
 import ConfettiContact from '../../components/ConfettiContact.astro';
+import ContactForm from '../../components/ContactForm.tsx';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -37,42 +37,7 @@ const currentPath = Astro.url.pathname;
 						class='max-[1024px]:block hidden'
 					/>
 				</div>
-				<div class='flex flex-col gap-12'>
-					<h2 class='text-neon
-			font-primary
-			font-semibold
-			text-5xl'>
-						Contact us
-					</h2>
-					<form class='flex flex-col gap-6'>
-						<input
-							placeholder='Name'
-							type='text'
-							class='md:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
-						/>
-						<input
-							placeholder='Company email'
-							type='email'
-							class='md:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
-							aria-label=''
-						/>
-						<input
-							placeholder='Company'
-							type='text'
-							class='md:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
-						/>
-						<textarea
-							placeholder='Describe your Postgres usage and use case for Tembo Cloud or Tembo Self Hosted'
-							class='md:w-[412px] rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 w-full'
-						></textarea>
-						<!-- NOTE: forms connected to hubspot must use input and not button -->
-						<input
-							type='submit'
-							size='lg'
-							class='flex h-14 md:w-[412px] justify-center items-center w-full bg-gradient-button text-white transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base cursor-pointer'
-						/>
-					</form>
-				</div>
+				<ContactForm client:load />
 				<ConfettiContact />
 			</div>
 		</Container>
@@ -88,14 +53,6 @@ const currentPath = Astro.url.pathname;
 		</div>
 	</div>
 </Layout>
-
-<script>
-	const button = document.querySelector('input[type="submit"]');
-
-	button?.addEventListener('click', () => {
-		window.location.reload();
-	});
-</script>
 
 <style>
 	.content {
