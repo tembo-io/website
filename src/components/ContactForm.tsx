@@ -145,32 +145,32 @@ const ContactForm: React.FC = () => {
 					name='firstName'
 					ref={firstNameRef}
 					type='text'
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10'
 				/>
 				<input
 					placeholder='Last Name'
 					name='lastName'
 					ref={lastNameRef}
 					type='text'
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10'
 				/>
 				<input
 					placeholder='Company email'
 					type='email'
 					name='email'
 					ref={emailRef}
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10'
 				/>
 				<input
 					placeholder='Company'
 					type='text'
 					name='company'
 					ref={companyRef}
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10'
 				/>
 				<textarea
 					placeholder='Describe your Postgres usage and use case for Tembo Cloud or Tembo Self Hosted'
-					className='min-[840px]:w-[412px] rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 w-full'
+					className='min-[840px]:w-[412px] rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 w-full z-10'
 					name='message'
 					ref={messageRef}
 				></textarea>

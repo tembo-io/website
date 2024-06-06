@@ -70,6 +70,7 @@ const currentPath = Astro.url.pathname;
 		-webkit-filter: blur(300px) saturate(150%);
 		filter: blur(300px) saturate(150%);
 		transform: translate3d(0, 0, 0);
+		z-index: 0;
 	}
 
 	@-moz-document url-prefix() {
@@ -81,6 +82,7 @@ const currentPath = Astro.url.pathname;
 			-webkit-filter: blur(300px) saturate(150%);
 			filter: blur(300px) saturate(150%);
 			opacity: 0.1;
+			z-index: 0;
 		}
 	}
 </style>
