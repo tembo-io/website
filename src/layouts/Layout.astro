@@ -1,5 +1,5 @@
 ---
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'sonner';
 interface Props {
 	title: string;
 	description?: string;
@@ -267,7 +267,12 @@ const {
 			<slot />
 		</main>
 
-		<Toaster position='bottom-right' client:idle />
+		<Toaster
+			position='bottom-right'
+			theme='dark'
+			style={{ background: '#1c1c1c' }}
+			client:idle
+		/>
 	</body>
 </html>
 <style is:global>
