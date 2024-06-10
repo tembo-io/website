@@ -118,7 +118,6 @@ const ContactForm: React.FC = () => {
 				loading: 'Submitting form...',
 				success:
 					'Thank you for your interest in Tembo! We will be in touch shortly.',
-				className: 'bg-mwasi',
 			});
 
 			// reset all form fields

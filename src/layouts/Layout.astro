@@ -270,7 +270,11 @@ const {
 		<Toaster
 			position='bottom-right'
 			theme='dark'
-			style={{ background: '#1c1c1c' }}
+			toastOptions={{
+				classNames: {
+					toast: 'bg-mwasi',
+				},
+			}}
 			client:idle
 		/>
 	</body>
