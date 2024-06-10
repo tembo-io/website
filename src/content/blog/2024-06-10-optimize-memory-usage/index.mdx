@@ -4,6 +4,14 @@ title: 'How to Get the Most out of Postgres Memory Settings'
 authors: [shaun]
 description: |
     Best practices for configuring Postgres to maximize RAM use without risking process termination.
+feedSummary: |
+    It's no secret that databases use _a lot_ of RAM. When Postgres needs to build a result set, a very common pattern is to match against an index, retrieve associated rows from one or more tables, and finally merge, filter, aggregate, and sort tuples into usable output. Every one of these steps relies on memory, and Postgres may handle thousands of such queries simultaneously.
+
+    Given the memory-hungry nature of databases like Postgres, how can we manage that voracious appetite to best utilize what's actually available? How do we tackle the arduous task of wrangling the different types of memory allocation Postgres needs to operate efficiently? How can we prevent the operating system from defensively terminating a Postgres process that is using _too much_?
+
+    Measuring Postgres RAM usage is important, and less trivial than we might expect. Advice for tuning memory is numerous and varied, so it can be difficult to proceed with confidence. So allow us to distill the wisdom of trusted experts on Postgres memory usage into steps you can take to get the best bang for your RAM buck.
+
+    It's extremely tempting to simply reach for that "upgrade instance" button, but there may be _another_ way.
 tags: [postgres, alerts, cloud, database, status, memory]
 date: 2024-06-10T09:00
 image: './header.png'
