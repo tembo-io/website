@@ -64,7 +64,7 @@ LIMIT 10;
 
 **Description:** An instance is near the memory limit.
 
-[Increase instance size](/docs/product/cloud/configuration-and-management/increase-compute), or investigate and resolve the cause of high memory.
+[Increase instance size](/docs/product/cloud/configuration-and-management/increase-compute), or investigate and resolve the cause of the high memory alert.
 
 Postgres configuration parameters that significantly impact memory include `work_mem`, `maintenance_work_mem`, `shared_buffers`, and `max_connections`. You can find the value of a configuration with the `SHOW` command:
 
@@ -72,7 +72,10 @@ Postgres configuration parameters that significantly impact memory include `work
 SHOW shared_buffers;
 ```
 
-Tembo picks default values for these parameters based on your instance size and Stack. You can review and alter them in the instance's [Postgres Configuration](/docs/product/cloud/configuration-and-management/postgres-configuration) settings.
+Tembo initially picks default values for these parameters based on your instance size and Stack. You can review and alter them in the instance's [Postgres Configuration](/docs/product/cloud/configuration-and-management/postgres-configuration) settings.
+
+We also recommend consulting our [guide on optimizing Postgres memory usage](/blog/optimizing-memory-usage/)
+for a more in-depth information regarding long-term management of Postgres memory usage.
 
 ## Backends waiting
 
