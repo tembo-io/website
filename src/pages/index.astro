@@ -35,36 +35,53 @@ import DataWarehouse from '../images/analyticsData.png';
 import AutoApi from '../images/autoAPI.png';
 import LocalSearch from '../images/localSearch.png';
 import Realtime from '../images/realTimeNotifications.png';
+import StackHeroCard from '../components/StackHeroCard.astro';
 const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
 	<div class='main-content'>
+		<div
+			class='w-full bg-cover h-full fixed bg-[url("/hero-gradient.png")] -z-10'
+		>
+		</div>
 		<NavBar client:load currentPage={currentPath} isBanner={false} />
 		<div class='w-full h-[150px] overflow-hidden'></div>
 		<Container styles='relative'>
-			<div
+			<!-- <div
 				class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'
 			>
-			</div>
+			</div> -->
+
 			<section
 				class='tembo-hero-section mt-[25px] customXs:mt-[40px] md:mt-[80px]'
 			>
 				<div
-					class='flex flex-col items-center justify-center z-10 pb-[50px] customXs:pb-[100px] relative'
+					class='flex items-center justify-center z-10 pb-[50px] customXs:pb-[100px] relative'
 				>
 					<header class='text-center slide-enter-content'>
-						<h1
-							class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
+						<!-- min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px]  -->
+						<div
+							class='w-[893px] h-[229px] flex items-center flex-col gap-4'
 						>
-							Goodbye Database Sprawl,
-						</h1>
-						<h2
-							class='text-neon font-extrabold text-[43.52px] min-[500px]:text-[54.4px] min-[600px]:text-[68px] customXs:text-[84px] customSm:text-[92px] z-10 mb-6'
-						>
-							Hello Postgres.
-						</h2>
-						<div>
+							<div class='w-[807px] h-[165px]'>
+								<h1
+									class='text-neon font-normal text-[20px] leading-5
+							
+							z-20'
+								>
+									Goodbye Database Sprawl,
+								</h1>
+								<!-- text-[43.52px] min-[500px]:text-[54.4px] min-[600px]:text-[68px] customXs:text-[84px] customSm:text-[92px]  -->
+								<h2
+									class='text-white font-bold leading-[70px] tracking-[0.47px] text-[56px] text-wrap
+							z-10 mb-6'
+								>
+									Tembo makes it easy for you to just use
+									postgres
+								</h2>
+							</div>
+							<!-- <div> -->
 							<Button
 								variant='gradient'
 								size='lg'
@@ -75,11 +92,13 @@ const currentPath = Astro.url.pathname;
 								Try Free
 							</Button>
 						</div>
+						<!-- </div> -->
 					</header>
 				</div>
 				<Confetti />
+				<StackHeroCard />
 			</section>
-			<section
+			<!-- <section
 				class='tembo-card-stack-section flex items-center justify-center z-10'
 			>
 				<div
@@ -205,7 +224,7 @@ const currentPath = Astro.url.pathname;
 						/>
 					</div>
 				</div>
-			</section>
+			</section> -->
 		</Container>
 		<section
 			class='tembo-build-any-application-section pt-4 customXs:pt-14 pb-[150px] overflow-hidden'
@@ -670,7 +689,7 @@ const currentPath = Astro.url.pathname;
 
 <style>
 	.main-content {
-		background: rgb(0, 0, 0);
+		/* background: rgb(0, 0, 0); */
 		background-image: url('/pixelBg.svg');
 		width: 100%;
 		height: 100%;
