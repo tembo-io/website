@@ -26,11 +26,11 @@ The default behavior is `table_method => 'join'`, and a new table is created in 
 
 ```sql
 SELECT vectorize.table(
-    job_name => 'my_search_project',
-    "table" => 'products',
-    primary_key => 'product_id',
-    columns => ARRAY['product_name', 'description'],
-    transformer => 'sentence-transformers/all-MiniLM-L6-v2',
+    job_name     => 'my_search_project',
+    "table"      => 'products',
+    primary_key  => 'product_id',
+    columns      => ARRAY['product_name', 'description'],
+    transformer  => 'sentence-transformers/all-MiniLM-L6-v2',
     table_method => 'join'
 );
 ```
@@ -56,11 +56,11 @@ To create the embeddings on the same table as the source data, set the `table_me
 
 ```sql
 SELECT vectorize.table(
-    job_name => 'my_search_project',
-    "table" => 'products',
-    primary_key => 'product_id',
-    columns => ARRAY['product_name', 'description'],
-    transformer => 'sentence-transformers/all-MiniLM-L6-v2',
+    job_name     => 'my_search_project',
+    "table"      => 'products',
+    primary_key  => 'product_id',
+    columns      => ARRAY['product_name', 'description'],
+    transformer  => 'sentence-transformers/all-MiniLM-L6-v2',
     table_method => 'append'
 );
 ```
@@ -92,7 +92,7 @@ This works with any of the sentence-transformers:
 ```sql
 SELECT vectorize.encode(
     input => 'the quick brown fox jumped over the lazy dogs',
-    model_name => 'sentence-transformers/multi-qa-MiniLM-L6-dot-v1'
+    model => 'sentence-transformers/all-miniLM-L6-v2'
 );
 ```
 
@@ -104,8 +104,8 @@ Privately hosted models on Hugging Face can be referenced like so:
 
 ```sql
 SELECT vectorize.encode(
-    input => 'the quick brown fox jumped over the lazy dogs',
-    model_name => 'my-private-org/my-private-model',
+    input   => 'the quick brown fox jumped over the lazy dogs',
+    model   => 'my-private-org/my-private-model',
     api_key => 'your Hugging Face key'
 )
 ```
@@ -118,8 +118,8 @@ As an argument:
 
 ```sql
 SELECT vectorize.encode(
-    input => 'the quick brown fox jumped over the lazy dogs',
-    model_name => 'openai/text-embedding-ada-002',
+    input   => 'the quick brown fox jumped over the lazy dogs',
+    model   => 'openai/text-embedding-ada-002',
     api_key => 'your OpenAI API key'
 )
 ```
@@ -129,7 +129,7 @@ You do not need to provide the API key as an argument if it already been set via
 ```sql
 SELECT vectorize.encode(
     input => 'the quick brown fox jumped over the lazy dogs',
-    model_name => 'openai/text-embedding-ada-002'
+    model => 'openai/text-embedding-ada-002'
 )
 ```
 
@@ -207,4 +207,3 @@ Then, restart Postgres to apply the changes and, if you haven't already, enable 
 ```sql
 CREATE EXTENSION vectorize CASCADE;
 ```
-

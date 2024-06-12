@@ -13,22 +13,22 @@ The trigger-based method is just that - it creates triggers on the source table 
 
 The interval-based method uses a cron-like syntax to check for updates on a recurring basis.
 
-In both cases, when there are new records without embeddings or existing records have been updated, jobs are enqueued to pgmq to update the embeddings.
- A background worker handles upsert of the embeddings accordingly, and all the compute of the transform of text to embeddings happens on separate compute infrastructure than Postgres,
+In both cases, when there are new records without embeddings or existing records have been updated, jobs are enqueued to [pgmq](https://github.com/tembo-io/pgmq) to update the embeddings.
+ A background worker handles the upsert of the embeddings accordingly, and all the compute of the transform of text to embeddings happens on separate compute infrastructure than Postgres,
  ensuring that your database resources are not consumed by the compute-intensive task of transforming text to embeddings.
 
-## Using triggers
+## Updating embeddings with triggers
 
 Setting the parameter `schedule => 'realtime'` will create triggers on the table to create embedding update jobs whenever a new row is inserted or an existing row is updated.
 
 ```sql
 SELECT vectorize.table(
-    job_name => 'my_search_project',
-    "table" => 'products',
+    job_name    => 'my_search_project',
+    "table"     => 'products',
     primary_key => 'product_id',
-    columns => ARRAY['product_name', 'description'],
+    columns     => ARRAY['product_name', 'description'],
     transformer => 'sentence-transformers/all-MiniLM-L6-v2',
-    schedule => 'realtime'
+    schedule    => 'realtime'
 );
 ```
 
@@ -44,13 +44,13 @@ Using this method, you will also be required to provide the column that contains
 
 ```sql
 SELECT vectorize.table(
-    job_name => 'my_search_project',
-    "table" => 'products',
+    job_name    => 'my_search_project',
+    "table"     => 'products',
     primary_key => 'product_id',
-    columns => ARRAY['product_name', 'description'],
+    columns     => ARRAY['product_name', 'description'],
     transformer => 'sentence-transformers/all-MiniLM-L6-v2',
-    update_col => 'last_updated_at',
-    schedule => '0 * * * *'
+    update_col  => 'last_updated_at',
+    schedule    => '0 * * * *'
 );
 ```
 

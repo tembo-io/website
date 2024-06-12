@@ -6,7 +6,8 @@ description: An introduction to the Tembo VectorDB Stack
 tags: [postgres, vectordb, ai]
 ---
 
-Earlier we demonstrated how to generate embeddings and then search them using OpenAI, but this can also be done using any of the Sentence Transformers available on Hugging Face.
+Earlier we demonstrated how to generate embeddings and then search them using OpenAI,
+ but this can also be done using the Sentence Transformers available on Hugging Face.
 
 ## Setup
 
@@ -42,11 +43,11 @@ Create a job to vectorize the products table. We'll specify the tables primary k
 
 ```sql
 SELECT vectorize.table(
-    job_name => 'product_search_hf',
-    "table" => 'products',
+    job_name    => 'product_search_hf',
+    "table"     => 'products',
     primary_key => 'product_id',
-    columns => ARRAY['product_name', 'description'],
-    schedule => 'realtime',
+    columns     => ARRAY['product_name', 'description'],
+    schedule    => 'realtime',
     transformer => 'sentence-transformers/all-MiniLM-L6-v2'
 );
 ```
@@ -58,13 +59,13 @@ and pass the API key in as an `arg` to `vectorize.table()`.
 
 ```sql
 SELECT vectorize.table(
-    job_name => 'product_search_hf',
-    "table" => 'products',
+    job_name    => 'product_search_hf',
+    "table"     => 'products',
     primary_key => 'product_id',
-    columns => ARRAY['product_name', 'description'],
+    columns     => ARRAY['product_name', 'description'],
     transformer => 'my-hugging-face-org/my-private-model',
-    schedule => 'realtime',
-    args => '{"api_key": "hf_my_private_api_key"}'
+    schedule    => 'realtime',
+    args        => '{"api_key": "hf_my_private_api_key"}'
 );
 ```
 
@@ -74,10 +75,10 @@ Then search, again specifying the `job_name` as define above and the columns you
 
 ```sql
 SELECT * FROM vectorize.search(
-    job_name => 'product_search_hf',
-    query => 'accessories for mobile devices',
-    return_columns => ARRAY['product_id', 'product_name'],
-    num_results => 3
+    job_name        => 'product_search_hf',
+    query           => 'accessories for mobile devices',
+    return_columns  => ARRAY['product_id', 'product_name'],
+    num_results     => 3
 );
 ```
 
