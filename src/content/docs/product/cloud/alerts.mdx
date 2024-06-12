@@ -16,7 +16,7 @@ import Callout from '../../../../components/Callout.astro';
 It's possible to use the following query to view data volume per Postgres database:
 
 ```sql
-SELECT 
+SELECT
   datname,
   pg_size_pretty(pg_database_size(datname))
 FROM pg_database
@@ -173,7 +173,8 @@ One common cause for replication lag is long-running queries on the standby serv
 Postgres replica servers also only apply streaming changes using a single process. Replicas often have different tables or indexes in local and filesystem cache than the blocks being applied from the primary system. As a result, extremely write-heavy primary servers can also "overload" a replica system by exceeding random disk throughput or the capabilities of the single apply process.
 
 <Callout variant='info'>
-Postgres versions 15 and above will try to prefetch blocks that appear in the replication stream to reduce this effect.
+	Postgres versions 15 and above will try to prefetch blocks that appear in
+	the replication stream to reduce this effect.
 </Callout>
 
 If standby lag is a result of primary write volume, it may be necessary to [increase instance size](/docs/product/cloud/configuration-and-management/increase-compute) for better compute or storage performance.
@@ -235,15 +236,15 @@ If replication slots are being used, these can prevent WAL files from being recy
 
 ```sql
 SELECT
-  slot_name, 
+  slot_name,
   pg_size_pretty(
-    pg_wal_lsn_diff(pg_current_wal_lsn(), 
+    pg_wal_lsn_diff(pg_current_wal_lsn(),
     restart_lsn)) AS slot_lag,
   active
 FROM pg_replication_slots;
 ```
 
-If this is a frequent problem, we recommend setting the `max_slot_wal_keep_size` parameter in [Postgres Configuration](/docs/product/cloud/configuration-and-management/postgres-configuration) settings to a non-zero value. This will drop slots at the specified size to prevent disk exhaustion. 
+If this is a frequent problem, we recommend setting the `max_slot_wal_keep_size` parameter in [Postgres Configuration](/docs/product/cloud/configuration-and-management/postgres-configuration) settings to a non-zero value. This will drop slots at the specified size to prevent disk exhaustion.
 
 It's also possible to manually drop a replication slot in an emergency situation:
 
@@ -252,16 +253,17 @@ SELECT pg_drop_replication_slot('< replication slot name here >');
 ```
 
 <Callout variant='info'>
-Logical replicas or applications such as Debezium that depend on dropped slots may need to be restarted once a new slot is created.
+	Logical replicas or applications such as Debezium that depend on dropped
+	slots may need to be restarted once a new slot is created.
 </Callout>
 
 ## Workload crashing
 
-**Description:**  Tembo offers Apps as a way to run arbitrary workloads near your database, for example the [RestAPI](/docs/product/cloud/apps/rest-api) or [Embeddings](/docs/product/cloud/apps/embeddings), and more. This alert indicates that one of your Apps is crashing.
+**Description:** Tembo offers Apps as a way to run arbitrary workloads near your database, for example the [RestAPI](/docs/product/cloud/apps/rest-api) or [Embeddings](/docs/product/cloud/apps/embeddings), and more. This alert indicates that one of your Apps is crashing.
 
 Check application logs:
 
-Follow the [logging](/docs/product/cloud/logs) documentation to setup Grafana to view your logs.  Once you have the new Data Source setup you will be able to search for logs using your `instance_id` and selecting your Tembo App from the `app` dropdown.
+Follow the [logging](/docs/product/cloud/logs) documentation to setup Grafana to view your logs. Once you have the new Data Source setup you will be able to search for logs using your `instance_id` and selecting your Tembo App from the `app` dropdown.
 
 ![grafana-logging-datasource](./images/logs-grafana.png)
 
