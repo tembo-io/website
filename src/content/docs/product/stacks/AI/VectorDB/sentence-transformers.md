@@ -2,7 +2,7 @@
 title: Sentence Transformers
 sideBarTitle: Embedding Models
 sideBarPosition: 2
-description: An introduction to the Tembo VectorDB Stack
+description: Alternative to OpenAI on Tembo Cloud
 tags: [postgres, vectordb, ai]
 ---
 

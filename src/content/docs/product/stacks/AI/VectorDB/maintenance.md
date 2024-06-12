@@ -2,7 +2,7 @@
 title: Embedding Maintenance
 sideBarTitle: Embedding Maintenance
 sideBarPosition: 3
-description: Configuring the VectorDB Instance
+description: Keeping embeddings up-to-date with pg_vectorize
 tags: [postgres, vectordb, ai]
 ---
 
