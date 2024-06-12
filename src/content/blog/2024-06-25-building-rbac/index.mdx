@@ -14,13 +14,13 @@ Role-Based Access Control (RBAC) is a method of configuring access to resources 
 
 ## Deciding on the resource types
 
-We want users of Tembo Cloud to be able to manage permissions within the account, in an easy to understand way. We also want to be able to grow the system into a fully-featured RBAC system based on future user requests.
+We want users of Tembo Cloud to be able to manage permissions within their account in an easy-to-understand way. We also want to be able to grow the system into a fully-featured RBAC system based on future user requests.
 
-[AWS IAM](https://aws.amazon.com/iam/) is a mature RBAC system, so we started there for inspiration. AWS IAM includes resource types for Users, Groups, Roles, Policies, Actions, Conditions and more.
+[AWS IAM](https://aws.amazon.com/iam/) is a mature RBAC system, so we started there for inspiration. AWS IAM includes resource types for Users, Groups, Roles, Policies, Actions, Conditions, and more.
 
-At Tembo, we are already using an authentication provider called [Clerk](https://clerk.com/). Clerk already has two roles defined by default for our users, Admin and Member. Clerk recently added a feature to support [user-defined roles](https://clerk.com/docs/organizations/roles-permissions#custom-role).
+At Tembo, we are already using an authentication provider called [Clerk](https://clerk.com/). Clerk already has two roles defined by default for our users: Admin and Member. Clerk recently added a feature to support [user-defined roles](https://clerk.com/docs/organizations/roles-permissions#custom-role).
 
-Comparing with AWS IAM, we can start with the minimal set of resource types to support basic RBAC: **Roles**, **Actions**, and **Policies**. Roles will be at first limited to the Admin and Member roles only, then later we can introduce user-defined roles. Actions have the same meaning as in AWS, and Policy is similar in that it connects Actions with Roles.
+Comparing with AWS IAM, we can start with the minimal set of resource types to support basic RBAC: **Roles**, **Actions**, and **Policies**. Roles will at first be limited to the Admin and Member roles only. Later, we can introduce user-defined roles. Actions have the same meaning as in AWS, and Policy is similar in that it connects Actions with Roles.
 
 Example Role:
 ```json
@@ -63,13 +63,13 @@ Because currently Roles and Actions are unchanging, we have them defined as enum
   2 | org_456         | basic_member | DeleteInstance    | f
 ```
 
-In our initial design, we are requiring Policies to be unique by (organization_id, role, action). This differs from the design of AWS IAM, as in IAM you can create multiple policies for the same Role and Action. We believe it is easier to understand Policies when there is only one Policy associated to a particular Role for each Action. This data model better represents a UI that shows a toggle on/off state for each Action, when toggling permissions on or off per Role.
+In our initial design, we are requiring Policies to be unique by (organization_id, role, action). This differs from the design of AWS IAM, as in IAM you can create multiple policies for the same Role and Action. We believe it is easier to understand Policies when there is only one Policy associated with a particular Role for each Action. This data model better represents a UI that shows a toggle on/off state for each Action when toggling permissions on or off per Role.
 
-By default we initialize full permissions for both the Admin and Member roles, for backwards compatibility and so that RBAC is opt-in. Also, we disallow revoking the permission to manage permissions from the Admin role to avoid users locking themselves out on accident.
+By default, we initialize full permissions for both the Admin and Member roles, for backwards compatibility and so that RBAC is opt-in. Also, we disallow revoking the permission to manage permissions from the Admin role to avoid users locking themselves out by accident.
 
 ## Policy conditions
 
-In a future version of RBAC, we will introduce the concept of Policy Conditions, so we need to plan for that ahead of time. For example, a user may wish to configure "my users can delete any instance except for production instances". We picture this feature would be included as a "Configure" button on near where users are toggling on our off permissions to Actions.
+In a future version of RBAC, we will introduce the concept of Policy Conditions, so we need to plan for that ahead of time. For example, a user may wish to configure "my users can delete any instance except for production instances." We picture this feature would be included as a "Configure" button near where users are toggling on or off permissions to Actions.
 
 ![delete-instance](./delete-instance.png)
 
@@ -122,7 +122,7 @@ Both the operator and key columns would be enum types, where Tembo Cloud support
 
 ## Custom roles
 
-Users may want more fine-grained control of specific users or groups of users. For this, we can introduce Custom Roles. Users would be able to add their own Roles, assigning users to those Roles, attaching a different set of Policies to that Role.
+Users may want more fine-grained control of specific users or groups of users. For this, we can introduce Custom Roles. Users would be able to add their own Roles, assigning users to those Roles, and attaching a different set of Policies to that Role.
 
 ## Try it out
 
