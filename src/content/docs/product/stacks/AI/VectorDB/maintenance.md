@@ -1,6 +1,6 @@
 ---
 title: Embedding Maintenance
-sideBarTitle: Maintenance
+sideBarTitle: Embedding Maintenance
 sideBarPosition: 3
 description: Configuring the VectorDB Instance
 tags: [postgres, vectordb, ai]

@@ -1,6 +1,6 @@
 ---
 title: Advanced Configuration
-sideBarTitle: Advanced What??
+sideBarTitle: Configuration
 sideBarPosition: 6
 description: Configuring the VectorDB Instance
 tags: [postgres, vectordb, ai]

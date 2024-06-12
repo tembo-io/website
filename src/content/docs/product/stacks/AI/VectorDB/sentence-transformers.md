@@ -1,6 +1,6 @@
 ---
 title: Sentence Transformers
-sideBarTitle: Sentence Transformers
+sideBarTitle: Embedding Models
 sideBarPosition: 2
 description: An introduction to the Tembo VectorDB Stack
 tags: [postgres, vectordb, ai]
