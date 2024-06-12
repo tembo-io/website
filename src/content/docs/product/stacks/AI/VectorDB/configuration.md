@@ -1,6 +1,6 @@
 ---
 title: Advanced Configuration
-sideBarTitle: Advanced
+sideBarTitle: Advanced What??
 sideBarPosition: 6
 description: Configuring the VectorDB Instance
 tags: [postgres, vectordb, ai]
@@ -207,4 +207,3 @@ Then, restart Postgres to apply the changes and, if you haven't already, enable 
 ```sql
 CREATE EXTENSION vectorize CASCADE;
 ```
-
