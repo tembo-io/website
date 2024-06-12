@@ -1,0 +1,130 @@
+---
+import { Image } from 'astro:assets';
+import CartesianGrid from '../images/cartesian-grid.svg';
+import DashedRectangle from '../images/dashed-rectangle.svg';
+import RagStackElephant from '../images/rag-stack-elephant.svg';
+import MLStackElephant from '../images/ml-stack-elephant.svg';
+import VectorDBStackElephant from '../images/vectordb-stack-elephant.svg';
+import MongoAlternativeStackElephant from '../images/mongoalternative-stack-elephant.svg';
+import GeospatialStackElephant from '../images/geospatial-stack-elephant.svg';
+import DataWareHouseStackElephant from '../images/datawarehouse-stack-elephant.svg';
+import MQStackElephant from '../images/mq-stack-elephant.svg';
+import StandardStackElephant from '../images/standard-stack-elephant.svg';
+import TimeseriesStackElephant from '../images/timeseries-stack-elephant.svg';
+import OLTPStackElephant from '../images/oltp-stack-elephant.svg';
+import OLAPStackElephant from '../images/olap-stack-elephant.svg';
+
+const stackHeroCardDetails = [
+	{
+		title: 'DataWarehouse',
+		description:
+			'Extract, Transform and Load data from external sources. Build centralized datastore for analytical and tactical queries',
+		image: DataWareHouseStackElephant,
+		rotate: '-rotate-[11]',
+	},
+	{
+		title: 'MessageQueue',
+		description:
+			'An alternative to AWS SQS and Redis RSMQ, on Postgres. Interface to Postgres queues using SQL, REST API, and many client libraries including Python, Rust, and Go.',
+		image: MQStackElephant,
+		rotate: '-rotate-[11]',
+	},
+	{
+		title: 'Standard',
+		description:
+			'Balanced for general purpose computing with full control over compute, configuration, and extension installation.',
+		image: StandardStackElephant,
+		rotate: '-rotate-[11]',
+	},
+	{
+		title: 'Timeseries',
+		description:
+			'Efficiently store and query data indexed by time, optimizing performance for chronological data analysis in real-time monitoring and trend forecasting',
+		image: TimeseriesStackElephant,
+		rotate: '-rotate-[11]',
+	},
+	{
+		title: 'OLTP',
+		description:
+			'tuned or handling high volumes of short, atomic transactions that ensure data integrity and concurrency in real-time operational systems.',
+		image: OLTPStackElephant,
+		rotate: '-rotate-[11]',
+	},
+	{
+		title: 'VectorDB',
+		description:
+			'Store, index, and retrieve, and generate embeddings in Postgres.',
+		image: VectorDBStackElephant,
+		rotate: '-rotate-[11]',
+	},
+	{
+		title: 'OLAP',
+		description:
+			'Tuned or handling high volumes of short, atomic transactions that ensure data integrity and concurrency in real-time operational systems.',
+		image: OLAPStackElephant,
+		rotate: '-rotate-[11]',
+	},
+	{
+		title: 'Geospatial',
+		description:
+			'Postgres indices and operations optimized for Geospatial workloads.',
+		image: GeospatialStackElephant,
+		rotate: '-rotate-[11]',
+	},
+	{
+		title: 'Mongo Alternative on Postgres',
+		description: 'Mongo-compatible wire protocol on Postgres.',
+		image: MongoAlternativeStackElephant,
+		rotate: '-rotate-[8]',
+	},
+	{
+		title: 'Retrieval Augmented Generation',
+		description: 'LLM function calling directly from Postgres.',
+		image: RagStackElephant,
+		rotate: 'rotate-0',
+	},
+	{
+		title: 'Machine Learning Stack',
+		description:
+			'Machine learning training and inference directly from Postgres. Built on PostgresML, pg_vector and pg_vectorize.',
+		image: MLStackElephant,
+		rotate: 'rotate-[8]',
+	},
+];
+---
+
+<div class='flex overflow-x-auto w-full gap-4 fade-x-md-both-sides'>
+	{
+		stackHeroCardDetails.map((stackCard) => (
+			<div class='w-[300.86px] h-[334.53px] border-[0.72px] bg-mwasi border-[#FFFFFF0D] rounded-[34.38px] p-4 flex flex-col gap-8'>
+				<div class='w-[270.55px] h-[184.63px] rounded-[28.65px] border-[0.72px] border-[#FFFFFF0D] p-3'>
+					<div class='border-dashed border-[#FFFFFF0D] border-[0.72px] rounded-[28.65px] relative'>
+						<Image
+							src={DashedRectangle}
+							alt={'dashed rectangle'}
+							class='w-full h-full'
+						/>
+						<Image
+							src={CartesianGrid}
+							alt={'cartesian grid'}
+							class='w-full h-full absolute m-auto text-center left-0 right-0 top-0'
+						/>
+						<Image
+							src={stackCard.image}
+							alt={'rag stack elephant'}
+							class='absolute m-auto text-center left-0 right-0 top-6'
+						/>
+					</div>
+				</div>
+				<div class='flex flex-col gap-[7.31px]'>
+					<h3 class='font-bold text-base leading-[17.19px] text-white'>
+						{stackCard.title}
+					</h3>
+					<p class='font-normal text-xs leading-[14.52px] font-["Inter"] text-otherGrey'>
+						{stackCard.description}
+					</p>
+				</div>
+			</div>
+		))
+	}
+</div>

@@ -35,24 +35,18 @@ import DataWarehouse from '../images/analyticsData.png';
 import AutoApi from '../images/autoAPI.png';
 import LocalSearch from '../images/localSearch.png';
 import Realtime from '../images/realTimeNotifications.png';
-import StackHeroCard from '../components/StackHeroCard.astro';
+import WaddlingLogoLight from '../images/waddling-logo-light.png';
+import ArchLogo from '../images/arch-logo.png';
+import ProspectStreamLogo from '../images/prospectstream-logo.png';
+import StackHeroCards from '../components/StackHeroCards.astro';
 const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
 	<div class='main-content'>
-		<div
-			class='w-full bg-cover h-full fixed bg-[url("/hero-gradient.png")] -z-10'
-		>
-		</div>
 		<NavBar client:load currentPage={currentPath} isBanner={false} />
 		<div class='w-full h-[150px] overflow-hidden'></div>
 		<Container styles='relative'>
-			<!-- <div
-				class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'
-			>
-			</div> -->
-
 			<section
 				class='tembo-hero-section mt-[25px] customXs:mt-[40px] md:mt-[80px]'
 			>
@@ -96,7 +90,38 @@ const currentPath = Astro.url.pathname;
 					</header>
 				</div>
 				<Confetti />
-				<StackHeroCard />
+				<StackHeroCards />
+				<div
+					class='flex w-full justify-center items-center text-center flex-col mt-32 gap-6'
+				>
+					<p
+						class='text-white text-xs font-normal leading-[15.59px] tracking-[0.64px]'
+					>
+						Trusted by developers from
+					</p>
+					<div
+						class='flex w-[572px] h-[41px] justify-between items-center mr-6'
+					>
+						<Image
+							src={WaddlingLogoLight}
+							alt='waddling logo'
+							width={155}
+							height={41}
+						/>
+						<Image
+							src={ArchLogo}
+							alt={'arch logo'}
+							width={84}
+							height={22}
+						/>
+						<Image
+							src={ProspectStreamLogo}
+							alt={'prospect stream logo'}
+							width={112}
+							height={35}
+						/>
+					</div>
+				</div>
 			</section>
 			<!-- <section
 				class='tembo-card-stack-section flex items-center justify-center z-10'
@@ -689,7 +714,7 @@ const currentPath = Astro.url.pathname;
 
 <style>
 	.main-content {
-		/* background: rgb(0, 0, 0); */
+		background: rgb(0, 0, 0);
 		background-image: url('/pixelBg.svg');
 		width: 100%;
 		height: 100%;
