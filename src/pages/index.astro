@@ -39,6 +39,7 @@ import WaddlingLogoLight from '../images/waddling-logo-light.png';
 import ArchLogo from '../images/arch-logo.png';
 import ProspectStreamLogo from '../images/prospectstream-logo.png';
 import StackHeroCards from '../components/StackHeroCards.astro';
+import TestimonialSlider from '../components/TestimonialSlider.astro';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -278,6 +279,19 @@ const currentPath = Astro.url.pathname;
 			</Container>
 			<div class='container max-w-stackSlider mx-auto'>
 				<StackSlider client:only='react' />
+			</div>
+			<div class='w-full flex justify-center items-center flex-col mt-48'>
+				<h2 class='text-neon font-light text-xl leading-[25px]'>
+					Join the herd
+				</h2>
+				<h3
+					class='text-white font-bold text-[42px] font-["Bai Jamjuree"] text-center h-[106px]'
+				>
+					Customers trust Tembo <br />for a reason
+				</h3>
+			</div>
+			<div>
+				<TestimonialSlider />
 			</div>
 		</section>
 		<section class='tembo-postgres-section overflow-hidden'>

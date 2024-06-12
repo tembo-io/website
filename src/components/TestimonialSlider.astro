@@ -1,0 +1,99 @@
+---
+import { Image } from 'astro:assets';
+import Caa from '../images/caa.png';
+
+const testimonials = [
+	{
+		description:
+			'"We have loved our experience with Tembo because they offer pre-configured stacks that support our workload, it is extremely easy to manage postgres extensions, and batteries are included in pgBouncer. What we love most about Tembo is the absolutely"',
+		image: Caa,
+		name: 'Sean Price',
+		position: 'CEO of caa',
+	},
+	{
+		description:
+			'"We have loved our experience with Tembo because they offer pre-configured stacks that support our workload, it is extremely easy to manage postgres extensions, and batteries are included in pgBouncer. What we love most about Tembo is the absolutely"',
+		image: Caa,
+		name: 'Sean Price',
+		position: 'CEO of caa',
+	},
+	{
+		description:
+			'"We have loved our experience with Tembo because they offer pre-configured stacks that support our workload, it is extremely easy to manage postgres extensions, and batteries are included in pgBouncer. What we love most about Tembo is the absolutely"',
+		image: Caa,
+		name: 'Sean Price',
+		position: 'CEO of caa',
+	},
+	{
+		description:
+			'"We have loved our experience with Tembo because they offer pre-configured stacks that support our workload, it is extremely easy to manage postgres extensions, and batteries are included in pgBouncer. What we love most about Tembo is the absolutely"',
+		image: Caa,
+		name: 'Sean Price',
+		position: 'CEO of caa',
+	},
+];
+---
+
+<div
+	class='flex flex-nowrap max-w-[1560px] fade-x-md-both-sides overflow-hidden'
+	id='scroller'
+>
+	<div class='flex gap-4 animate-infinite-scroll w-max' id='scrollerInner'>
+		{
+			testimonials.map((testimonial) => (
+				<div class='min-w-[372px] h-[302px] rounded-3xl flex flex-col justify-between p-6 border-[1px] border-solid border-[#FFFFFF1A] bg-[#121212] mt-14 overflow-hidden'>
+					<p class='text-[14px] font-["Inter"] font-normal'>
+						{testimonial.description}
+					</p>
+					<div class='w-full gap-1 flex'>
+						<Image
+							src={testimonial.image}
+							alt={`${testimonial.name} image`}
+							width={40}
+							height={40}
+							class='rounded-full'
+						/>
+						<div class='flex flex-col gap-1'>
+							<span class='text-white font-medium text-[14px] leading-5 font-["Inter"]'>
+								{testimonial.name}
+							</span>
+							<span class='font-["Inter"] text-xs font-medium'>
+								{testimonial.position}
+							</span>
+						</div>
+					</div>
+				</div>
+			))
+		}
+	</div>
+</div>
+
+<script>
+	// Get the 'scroller' and 'scrollerInner' elements by their IDs
+	const scroller = document.getElementById('scroller');
+	const scrollerInner = document.getElementById('scrollerInner');
+
+	function addAnimation() {
+		if (scrollerInner) {
+			// Make an array from the children of `scrollerInner`
+			const scrollerContent = Array.from(scrollerInner.children);
+
+			// For each item in the array, clone it, set `aria-hidden` to "true", and append it to `scrollerInner`
+			scrollerContent.forEach((item) => {
+				const duplicatedItem = item.cloneNode(true); // Ensure `true` is passed to clone child nodes too
+				if (duplicatedItem instanceof HTMLElement) {
+					duplicatedItem.setAttribute('aria-hidden', 'true'); // Correctly set the attribute
+					scrollerInner.appendChild(duplicatedItem);
+				}
+			});
+		}
+
+		// // Optionally set the 'data-animated' attribute to the 'scroller' if needed
+		// if (scroller) {
+		// 	scroller.setAttribute('data-animated', 'true');
+		// }
+	}
+
+	// Consider calling addAnimation() here if it needs to be executed immediately after page load
+	addAnimation();
+</script>
