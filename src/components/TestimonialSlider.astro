@@ -35,13 +35,16 @@ const testimonials = [
 ---
 
 <div
-	class='flex flex-nowrap w-[1560px] fade-x-md-both-sides overflow-hidden'
+	class='w-full mt-14 overflow-hidden flex flex-nowrap fade-x-md-both-sides'
 	id='scroller'
 >
-	<ul class='flex gap-4 animate-infinite-scroll' id='scrollerInner'>
+	<ul
+		class='flex gap-4 animate-infinite-scroll-fast w-full'
+		id='scrollerInner'
+	>
 		{
 			testimonials.map((testimonial) => (
-				<li class='min-w-[372px] h-[302px] rounded-3xl flex flex-col justify-between p-6 border-[1px] border-solid border-[#FFFFFF1A] bg-[#121212] mt-14 overflow-hidden'>
+				<li class='min-w-[372px] h-[302px] rounded-3xl flex flex-col justify-between p-6 border-[1px] border-solid border-[#FFFFFF1A] bg-[#121212]'>
 					<p class='text-[14px] font-["Inter"] font-normal'>
 						{testimonial.description}
 					</p>
@@ -70,7 +73,12 @@ const testimonials = [
 
 <script>
 	// Get the 'scroller' and 'scrollerInner' elements by their IDs
+	const scroller = document.getElementById('scroller');
 	const scrollerInner = document.getElementById('scrollerInner');
+
+	if (scroller) {
+		scroller.setAttribute('data-animated', 'true');
+	}
 
 	function addAnimation() {
 		if (scrollerInner) {
