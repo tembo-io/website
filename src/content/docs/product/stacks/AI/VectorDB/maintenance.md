@@ -7,9 +7,10 @@ tags: [postgres, vectordb, ai]
 ---
 
 Embeddings are immediately computed for your data when `vectorize.table()` is called.
- Inevitably, your data will change over time, and you'll need to keep your embeddings up-to-date. pg_vectorize supports two methods of keeping embeddings up-to-date: trigger-based and on a recurring interval.
+ Inevitably, data changes and embeddings need to be updated.
+ pg_vectorize automates two methods of keeping embeddings up-to-date; trigger-based and on a recurring interval.
 
-The trigger-based method is just that - it creates triggers on the source table which handle generating embeddings for the raw text whenever a new row is inserted or an existing row is updated.
+The trigger-based method is just that - it creates [triggers](https://www.postgresql.org/docs/current/sql-createtrigger.html) on the source table which handle generating embeddings for the raw text whenever a new row is inserted or an existing row is updated.
 
 The interval-based method uses a cron-like syntax to check for updates on a recurring basis.
 
