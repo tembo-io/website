@@ -12,7 +12,7 @@ Embeddings are immediately computed for your data when `vectorize.table()` is ca
 
 The trigger-based method is just that - it creates [triggers](https://www.postgresql.org/docs/current/sql-createtrigger.html) on the source table which handle generating embeddings for the raw text whenever a new row is inserted or an existing row is updated.
 
-The interval-based method uses a cron-like syntax to check for updates on a recurring basis.
+The interval-based method uses a cron-like syntax to check for updates on a recurring basis and is made possible by [pg_cron](https://github.com/citusdata/pg_cron).
 
 In both cases, when there are new records without embeddings or existing records have been updated, jobs are enqueued to [pgmq](https://github.com/tembo-io/pgmq) to update the embeddings.
  A background worker handles the upsert of the embeddings accordingly, and all the compute of the transform of text to embeddings happens on separate compute infrastructure than Postgres,
@@ -75,7 +75,7 @@ If you need to update the embeddings on an ad-hoc basis, you can do so by callin
 SELECT vectorize.job_execute('my_search_project');
 ```
 
-### Summary
+## Summary
 
 In both cases, pg_vectorize relies on existing features of Postgres (triggers) and existing extensions (pg_cron) to handle embedding maintenance.
  As a user of pg_vectorize, these are configured for you depending on how you've called `vectorize.table()`.
