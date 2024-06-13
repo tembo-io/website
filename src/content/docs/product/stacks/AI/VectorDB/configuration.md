@@ -8,7 +8,7 @@ tags: [postgres, vectordb, ai]
 
 There are a number of additional configuration parameters available in `vectorize` that determine the extension's behavior.
 
-### Embedding locations
+## Embedding locations
 
 Embeddings can be created either on the same table as the source data, or on a separate table in the `vectorize` schema.
 
@@ -20,7 +20,7 @@ Alternatively, `pg_vectorize` can be configured to create the embeddings on the 
 
 By setting the `table_method => 'append'`, pg_vectorize will create two columns on the source table: one for the embedding, and one for the updated-at timestamp.
 
-### Separate table
+### Embeddings on a Separate table
 
 The default behavior is `table_method => 'join'`, and a new table is created in the `vectorize` schema to store the embeddings.
 
@@ -50,7 +50,7 @@ Foreign-key constraints:
     "_embeddings_my_search_project_product_id_fkey" FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 ```
 
-### New columns, same table
+### Embeddings in a new column, same table
 
 To create the embeddings on the same table as the source data, set the `table_method` parameter to `append`.
 
@@ -83,7 +83,7 @@ Indexes:
     "my_search_project_idx" hnsw (my_search_project_embeddings vector_cosine_ops)
 ```
 
-### Ad-hoc embedding requests
+## Ad-hoc embedding requests
 
 Any text can be transformed into an embedding using `vectorize.encode()`.
 
@@ -133,7 +133,7 @@ SELECT vectorize.encode(
 )
 ```
 
-### Filtering Results
+## Filtering Results
 
 `vectorize.search()` results can be filtered by supplying a where clause to the `where_sql` parameter in `vectorize.search()`.
 The filter operation happens after the embeddings are searched. To pre-filter the search of embeddings, you will need to separate
@@ -158,7 +158,7 @@ SELECT * FROM vectorize.search(
  {"product_id": 3, "product_name": "Desk Lamp", "similarity_score": 0.6498761419705363}
 ```
 
-### Manually searching embeddings
+## Manually searching embeddings
 
 `vectorize.encode()` can be useful when you want to manually query your embeddings.
 
@@ -187,7 +187,7 @@ LIMIT 3;
  Wireless Mouse    | Pointing device without the need for a physical connection | 0.35592426991011383
 ```
 
-### Changing the configured database
+## Changing the configured database
 
 By default, `vectorize` is configured to run on the `postgres` database, but that can be changed to any database in Postgres.
 
