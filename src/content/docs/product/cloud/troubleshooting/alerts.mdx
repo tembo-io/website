@@ -5,7 +5,7 @@ title: Alerts
 description: Documentation for Tembo Cloud alerts
 ---
 
-import Callout from '../../../../components/Callout.astro';
+import Callout from '../../../../../components/Callout.astro';
 
 ## Running low on storage
 
@@ -16,7 +16,7 @@ import Callout from '../../../../components/Callout.astro';
 It's possible to use the following query to view data volume per Postgres database:
 
 ```sql
-SELECT 
+SELECT
   datname,
   pg_size_pretty(pg_database_size(datname))
 FROM pg_database
@@ -235,15 +235,15 @@ If replication slots are being used, these can prevent WAL files from being recy
 
 ```sql
 SELECT
-  slot_name, 
+  slot_name,
   pg_size_pretty(
-    pg_wal_lsn_diff(pg_current_wal_lsn(), 
+    pg_wal_lsn_diff(pg_current_wal_lsn(),
     restart_lsn)) AS slot_lag,
   active
 FROM pg_replication_slots;
 ```
 
-If this is a frequent problem, we recommend setting the `max_slot_wal_keep_size` parameter in [Postgres Configuration](/docs/product/cloud/configuration-and-management/postgres-configuration) settings to a non-zero value. This will drop slots at the specified size to prevent disk exhaustion. 
+If this is a frequent problem, we recommend setting the `max_slot_wal_keep_size` parameter in [Postgres Configuration](/docs/product/cloud/configuration-and-management/postgres-configuration) settings to a non-zero value. This will drop slots at the specified size to prevent disk exhaustion.
 
 It's also possible to manually drop a replication slot in an emergency situation:
 
@@ -261,8 +261,8 @@ Logical replicas or applications such as Debezium that depend on dropped slots m
 
 Check application logs:
 
-Follow the [logging](/docs/product/cloud/logs) documentation to setup Grafana to view your logs.  Once you have the new Data Source setup you will be able to search for logs using your `instance_id` and selecting your Tembo App from the `app` dropdown.
+Follow the [logging](/docs/product/cloud/troubleshooting/logs) documentation to setup Grafana to view your logs.  Once you have the new Data Source setup you will be able to search for logs using your `instance_id` and selecting your Tembo App from the `app` dropdown.
 
-![grafana-logging-datasource](./images/logs-grafana.png)
+![grafana-logging-datasource](./logs-grafana.png)
 
 If you can't resolve the issue from looking at the logs, please contact our Support team by either joining our <a href="https://tembocommunity.slack.com" target="_blank" rel="noreferrer">Slack community</a>, emailing us at <a href="mailto:support@tembo.io">support@tembo.io</a>, or use the Intercom “message us” feature on our website. We respond to most messages within 24 hours (and often faster!)
