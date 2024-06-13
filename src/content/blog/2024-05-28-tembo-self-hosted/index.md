@@ -51,7 +51,7 @@ The platform includes the following components and features:
 
 All of these features come together in a user-friendly way that lowers the bar for you
 to address all your data use cases from [transactional](https://tembo.io/docs/product/stacks/transactional/oltp),
-[vector](https://tembo.io/docs/product/stacks/ai/vectordb), [time series](https://tembo.io/docs/product/stacks/analytical/timeseries),
+[vector](https://tembo.io/docs/product/stacks/ai/vectordb/getting-started), [time series](https://tembo.io/docs/product/stacks/analytical/timeseries),
 [machine learning](https://tembo.io/docs/product/stacks/ai/machine-learning),
 [geospatial](https://tembo.io/docs/product/stacks/analytical/geospatial),
 [OLAP](https://tembo.io/docs/product/stacks/analytical/olap), [data warehousing](https://tembo.io/docs/product/stacks/analytical/data-warehouse), and more.

@@ -37,7 +37,7 @@ Essentially, we achieve this by running FerretDB’s Docker image in a Kubernete
 
 To provide a bit more detail, this process first required creating a TCP ingress routing in line with [FerretDB's secure connection instructions](https://docs.ferretdb.io/security/tls-connections/).
 Once established, a Kubernetes Service and ingress resource could be created.
-Finally, we generated a template by which we could [load FerretDB via our Kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/mongo_alternative.yaml).
+Finally, we generated a template by which we could [load FerretDB via our Kubernetes operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator).
 
 ![app_service](./app_service.png 'app_service')
 Figure 2. Diagram of Tembo's MongoAlternative Stack-specific appService.
