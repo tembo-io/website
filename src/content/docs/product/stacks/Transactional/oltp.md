@@ -1,8 +1,8 @@
 ---
 title: OLTP
 sideBarTitle: OLTP
-sideBarPosition: 102
 tags: [postgres, oltp, transactional]
+sideBarPosition: 102
 ---
 
 The OLTP stack is a finely-tuned database cluster optimized for transactional workloads, designed to handle concurrency with ease. Built with optimized WAL and auto-vacuum settings, it also includes extensions for debugging and real-time metrics.
@@ -21,5 +21,7 @@ The following configurations automatically scale based on the size of cpu, memor
 
 ## Extensions
 
--   `pg_stat_statements` comes pre-installed and enabled.
+-   `pg_stat_statements` comes pre-installed and enabled. It provides statistics on SQL statements executed by the database, which helps users analyze query performance and identify areas for optimization.
+
 -   Extensions from [Trunk](https://pgt.dev) can be installed on-demand.
+
