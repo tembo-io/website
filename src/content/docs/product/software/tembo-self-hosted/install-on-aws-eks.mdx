@@ -11,7 +11,7 @@ This guide describes the steps to install Tembo Self Hosted on AWS, which allows
 Before starting this tutorial, you must install and configure the following tools and resources that you need to create and manage Tembo Self Hosted on an Amazon EKS cluster.
 
 * The command-line tools for [AWS (awscli)](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and for [Kubernetes (kubectl)](https://kubernetes.io/docs/tasks/tools/).
-* The command-line tool for [Amazon EKS (ekscli)](https://eksctl.io/installation/), used to create and manage your Tembo cluster on EKS.
+* The command-line tool for [Amazon EKS (eksctl)](https://eksctl.io/installation/), used to create and manage your Tembo cluster on EKS.
 * The [Helm CLI](https://helm.sh/docs/intro/install/).
 * Obtain a [Clerk](https://clerk.com/) authentication key from Tembo.
 
@@ -27,7 +27,7 @@ With this setup, your users will be able to access various subdomains to manage,
 * Backend requests: `api.tembo.mydomain.com`
 * Tembo Dataplane: `dataplane.tembo.mydomain.com`
 
-## Step 3: Create an EKS control plane and a Kubernetes cluster
+## Step 3: Create an EKS Kubernetes cluster
 
 To create an EKS cluster named `tembo-cluster` with a minimum of three nodes, run the following command:
 
@@ -37,7 +37,6 @@ eksctl create cluster --name tembo-cluster --nodes-min 3 --nodes-max 6 --node-ty
 
 Feel free to adjust the parameters as needed to suit your requirements.
 
-TODO: recommend minimum size
 
 For further information, see [Getting started with Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html).
 
