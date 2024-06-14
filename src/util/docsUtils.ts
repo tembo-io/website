@@ -226,11 +226,13 @@ export async function getNestedSideBarLinks(
 					: cleanSideBarTitle(split[split.length - 2]),
 				uppercaseParent: false,
 				child: {
-					title: doc.data.uppercase
-						? cleanSideBarTitle(
-								split[split.length - 1],
-							).toUpperCase()
-						: cleanSideBarTitle(split[split.length - 1]),
+					title:
+						doc.data.sideBarTitle ??
+						(doc.data.uppercase
+							? cleanSideBarTitle(
+									split[split.length - 1],
+								).toUpperCase()
+							: cleanSideBarTitle(split[split.length - 1])),
 					slug: `/docs/${doc.slug}`,
 					uppercaseParent: doc.data.uppercaseParent,
 				},

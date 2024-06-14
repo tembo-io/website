@@ -26,16 +26,14 @@ const Accordion: React.FC<Props> = ({ items }) => {
 			{items.map((item, i) => (
 				<li
 					key={`faq-${i}`}
-					className='p-6 rounded-2xl border-[0.5px] border-white border-opacity-20 bg-white bg-opacity-[0.06] customXs:px-6 customXs:py-10 z-100'
+					className='p-6 rounded-2xl border-[0.5px] border-white border-opacity-20 bg-white bg-opacity-[0.06] customXs:px-6 customXs:py-10 z-100 cursor-pointer'
+					onClick={() => handleClick(i)}
 				>
 					<div className='flex justify-between items-center h-full'>
 						<h3 className='font-secondary font-medium text-white text-[15px] leading-[18px] tracking-[0.472px] customXs:text-[23px] customXs:leading-[28px] z-10'>
 							{item.heading}
 						</h3>
-						<button
-							onClick={() => handleClick(i)}
-							className='shrink-0 z-40'
-						>
+						<button className='shrink-0 z-40'>
 							{openIndexes.includes(i) ? (
 								<img src='/minus.svg' alt='minus symbol' />
 							) : (

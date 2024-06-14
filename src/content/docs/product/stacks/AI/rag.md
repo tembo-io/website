@@ -109,10 +109,10 @@ rag.load_documents(chunks)
 
 ### Initialize the agent
 
-Now initialize the RAG project. This starts the process of generating embeddings for each chunk using the `sentence-transformers/all-MiniLM-L12-v2` model. This happens within Postgres on Tembo, and not in the environment where the python scripts are executed. This could take some time depending on how many chunks and documents are in the project.
+Now initialize the RAG project. This starts the process of generating embeddings for each chunk using the `sentence-transformers/all-MiniLM-L6-v2` model. This happens within Postgres on Tembo, and not in the environment where the python scripts are executed. This could take some time depending on how many chunks and documents are in the project.
 
 ```python
-rag.init_rag(transformer="sentence-transformers/all-MiniLM-L12-v2")
+rag.init_rag(transformer="sentence-transformers/all-MiniLM-L6-v2")
 ```
 
 It is safe to close the connection to the Tembo Postgres instance at this point.

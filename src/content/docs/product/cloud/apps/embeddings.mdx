@@ -22,7 +22,7 @@ select * from vectorize.transform_embeddings(
 {0.5988337993621826,-0.12069590389728546, .... -0.11859191209077836}
 ```
 
-One of the most common use cases for embeddings is to perform vector similarity search on your data. In this guide we will walk through using [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) as an alternative to OpenAI's embeddings API to perform vector similarity search on text data in your Postgres instance.
+One of the most common use cases for embeddings is to perform vector similarity search on your data. In this guide we will walk through using [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) as an alternative to OpenAI's embeddings API to perform vector similarity search on text data in your Postgres instance.
 
 ## Enabling embeddings on Tembo Cloud
 
@@ -173,7 +173,7 @@ resp = requests.post(
             "I enjoy taking long walks along the beach with my dog.",
             "I enjoy playing video games."
         ],
-        "model": "all-MiniLM-L12-v2"
+        "model": "sentence-transformers/all-MiniLM-L6-v2"
     }
 )
 ```
@@ -189,6 +189,6 @@ curl -X POST "https://${TEMBO_DATA_DOMAIN}/embeddings/v1/embeddings" \
              "I enjoy taking long walks along the beach with my dog.",
              "I enjoy playing video games."
            ],
-           "model": "all-MiniLM-L12-v2"
+           "model": "sentence-transformers/all-MiniLM-L6-v2"
          }'
 ```
