@@ -37,10 +37,17 @@ eksctl create cluster --name tembo-cluster --nodes-min 3 --nodes-max 6 --node-ty
 
 Feel free to adjust the parameters as needed to suit your requirements.
 
-
 For further information, see [Getting started with Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html).
 
-## Step 4: Creating the Amazon EBS CSI driver IAM role
+## Step 4: Enable IAM OIDC Provider
+
+To enable the [IAM OIDC provider](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html) for your cluster, run the following command:
+
+```shell
+eksctl utils associate-iam-oidc-provider --cluster tembo-cluster --region us-east-1 --approve
+```
+
+## Step 5: Creating the Amazon EBS CSI driver IAM role
 
 To create an IAM role for the [Amazon EBS CSI driver](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html), run the following command:
 
@@ -68,7 +75,7 @@ $ aws iam list-roles | grep AmazonEKS_EBS_CSI_DriverRole_tembo
 This will be necessary for the next step.
 
 
-## Step 5: Add the Amazon EBS CSI driver add-on
+## Step 6: Add the Amazon EBS CSI driver add-on
 
 ```shell
 eksctl create addon \
@@ -81,7 +88,7 @@ eksctl create addon \
 
 For `--service-account-role-arn`, supply the ARN created in Step 4.
 
-## Step 6: Install Helm dependencies
+## Step 7: Install Helm dependencies
 
 1. Install [`cert-manager`](https://github.com/cert-manager/cert-manager)
 
@@ -139,7 +146,7 @@ Finally, install Traefik:
 helm install traefik traefik/traefik --namespace traefik --version 20.8.0 -f traefik-values.yaml
 ```
 
-### Step 7: Configure DNS for Traefik's Load Balancer
+### Step 8: Configure DNS for Traefik's Load Balancer
 
 To properly route traffic to your Traefik load balancer, you need to configure a DNS CNAME record through your DNS provider. Follow the steps below to create a wildcard CNAME record, which is essential because each PostgreSQL instance has its own subdomain for its connection string.
 
@@ -178,7 +185,7 @@ Address: 203.0.113.20
 ```
 
 
-### Step 8: Update the StorageClass to allow for volume expansion
+### Step 9: Update the StorageClass to allow for volume expansion
 
 This is necessary for increasing storage size for Postgres instances.
 
@@ -186,7 +193,7 @@ This is necessary for increasing storage size for Postgres instances.
 kubectl patch storageclass gp2 -p '{"allowVolumeExpansion": true}'
 ```
 
-## Step 9: Install the Tembo Self Hosted Helm chart
+## Step 10: Install the Tembo Self Hosted Helm chart
 
 Clone the Tembo Self Hosted repository:
 
@@ -239,7 +246,7 @@ Upgrade the Self Hosted Helm chart so that changes take effect:
 helm upgrade tembo . -f my-values.yaml -n tembo
 ```
 
-## Step 10: Check the status of the installation
+## Step 11: Check the status of the installation
 
 ```
 ❯ kubectl get po
@@ -261,7 +268,7 @@ tembo-pod-init-74975dbcb8-d9jpk              1/1     Running     0             8
 tembo-tembo-ui-685ccc9996-n8tmv              1/1     Running     0             83m
 ```
 
-## Step 11: Access the Tembo Self Hosted
+## Step 12: Access the Tembo Self Hosted
 
 Access the Tembo Self Hosted UI by visiting http://app.tembo.mydomain.com in your browser. Replace tembo.mydomain.com with your domain name chosen in Step 2.
 
