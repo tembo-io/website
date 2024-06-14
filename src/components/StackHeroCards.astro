@@ -93,38 +93,94 @@ const stackHeroCardDetails = [
 ];
 ---
 
-<div class='flex overflow-x-auto w-full gap-4 fade-x-md-both-sides'>
-	{
-		stackHeroCardDetails.map((stackCard) => (
-			<div class='w-[300.86px] h-[334.53px] border-[0.72px] bg-mwasi border-[#FFFFFF0D] rounded-[34.38px] p-4 flex flex-col gap-8'>
-				<div class='w-[270.55px] h-[184.63px] rounded-[28.65px] border-[0.72px] border-[#FFFFFF0D] p-3'>
-					<div class='border-dashed border-[#FFFFFF0D] border-[0.72px] rounded-[28.65px] relative'>
-						<Image
-							src={DashedRectangle}
-							alt={'dashed rectangle'}
-							class='w-full h-full'
-						/>
-						<Image
-							src={CartesianGrid}
-							alt={'cartesian grid'}
-							class='w-full h-full absolute m-auto text-center left-0 right-0 top-0'
-						/>
-						<Image
-							src={stackCard.image}
-							alt={'rag stack elephant'}
-							class='absolute m-auto text-center left-0 right-0 top-6'
-						/>
+<section
+	class='relative w-full h-[600px] flex justify-center items-center overflow-hidden pt-[750px]'
+	id='slider'
+>
+	<div
+		id='wheel'
+		class='asolute top-0 flex items-center justify-center w-[100vw] h-[100vw] max-w-[1500px] max-h-[1500px] mt-96'
+	>
+		{
+			stackHeroCardDetails.map((stackCard, index) => (
+				<div
+					class='w-[300.86px] h-[334.53px] border-[0.72px] bg-mwasi border-[#FFFFFF0D] rounded-[34.38px] p-4 flex flex-col gap-8
+				 absolute top-0 left-0'
+					data-stack={index}
+				>
+					<div class='w-[270.55px] h-[184.63px] rounded-[28.65px] border-[0.72px] border-[#FFFFFF0D] p-3'>
+						<div class='border-dashed border-[#FFFFFF0D] border-[0.72px] rounded-[28.65px] relative'>
+							<Image
+								src={DashedRectangle}
+								alt={'dashed rectangle'}
+								class='w-full h-full'
+							/>
+							<Image
+								src={CartesianGrid}
+								alt={'cartesian grid'}
+								class='w-full h-full absolute m-auto text-center left-0 right-0 top-0'
+							/>
+							<Image
+								src={stackCard.image}
+								alt={'rag stack elephant'}
+								class='absolute m-auto text-center left-0 right-0 top-6'
+							/>
+						</div>
+					</div>
+					<div class='flex flex-col gap-[7.31px]'>
+						<h3 class='font-bold text-base leading-[17.19px] text-white'>
+							{stackCard.title}
+						</h3>
+						<p class='font-normal text-xs leading-[14.52px] font-["Inter"] text-otherGrey'>
+							{stackCard.description}
+						</p>
 					</div>
 				</div>
-				<div class='flex flex-col gap-[7.31px]'>
-					<h3 class='font-bold text-base leading-[17.19px] text-white'>
-						{stackCard.title}
-					</h3>
-					<p class='font-normal text-xs leading-[14.52px] font-["Inter"] text-otherGrey'>
-						{stackCard.description}
-					</p>
-				</div>
-			</div>
-		))
+			))
+		}
+	</div>
+</section>
+
+<script>
+	import gsap from 'gsap';
+	// gsap.registerPlugin(Draggable, Flip);
+
+	const wheel = document.getElementById('wheel');
+	console.log(wheel);
+	const images = gsap.utils.toArray('div[data-stack]');
+	const cards = gsap.utils.toArray('div[data-stack]');
+
+	function setup() {
+		let radius = wheel?.offsetWidth! / 2,
+			center = radius,
+			slice = 360 / images.length,
+			DEG2RAD = Math.PI / 180;
+		gsap.set(cards, {
+			x: (i) => center + radius * Math.sin(i * slice * DEG2RAD),
+			y: (i) => center - radius * Math.cos(i * slice * DEG2RAD),
+			rotation: (i) => i * slice,
+			xPercent: -50,
+			yPercent: -50,
+		});
 	}
-</div>
+
+	setup();
+
+	gsap.to(wheel, {
+		rotation: -360,
+		ease: 'none',
+		repeat: -1,
+		duration: images.length * 2,
+	});
+
+	// window.addEventListener('resize', setup);
+	// Draggable.create(wheel, {
+	// 	allowContextMenu: true,
+	// 	type: 'rotation',
+	// 	trigger: wheel,
+	// 	inertia: true,
+	// 	snap: {
+	// 		rotation: gsap.utils.snap(360 / images.length),
+	// 	},
+	// });
+</script>
