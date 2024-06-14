@@ -3,7 +3,7 @@ slug: tembo-self-hosted
 title: 'Announcing Tembo Self Hosted: Run Tembo in Your Environment'
 authors: [ian, evan]
 tags: [tembo, kubernetes, self-hosted]
-image: './self-hosted.pngu'
+image: './self-hosted.png'
 date: 2024-05-28T09:00
 description: This blog introduces the Tembo Self Hosted product.
 ---
