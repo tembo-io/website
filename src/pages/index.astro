@@ -47,7 +47,10 @@ const currentPath = Astro.url.pathname;
 	<div class='main-content'>
 		<NavBar client:load currentPage={currentPath} isBanner={false} />
 		<div class='w-full h-[150px] overflow-hidden'></div>
-
+		<div
+			class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'
+		>
+		</div>
 		<section class='mt-[25px] customXs:mt-[40px] md:mt-[60px]'>
 			<Container styles='relative'>
 				<div
