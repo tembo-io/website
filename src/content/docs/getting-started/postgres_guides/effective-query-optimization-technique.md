@@ -14,7 +14,7 @@ ALTER SYSTEM SET log_min_duration_statement = '5s'; -- Adjust the time as needed
 SELECT pg_reload_conf();
 ```
 
-For detailed steps, see [Tembo Managing Logs](/docs/product/cloud/logs).
+For detailed steps, see [Tembo Managing Logs](/docs/product/cloud/troubleshooting/logs).
 
 ### Analyzing Query Plans
 

@@ -21,7 +21,7 @@ Want to know more about something they mentioned? Here’s a starting point:
 * pgrx - https://github.com/pgcentralfoundation/pgrx
 * pg_cron - https://github.com/citusdata/pg_cron
 * Kafka - https://kafka.apache.org/
-* Tembo Stacks - [https://github.com/tembo-io/tembo/tree/main/tembo-operator/src/stacks/templates](https://github.com/tembo-io/tembo/tree/main/tembo-operator/src/stacks/templates); also check out our blog about them - [https://tembo.io/blog/tembo-stacks-intro](https://tembo.io/blog/tembo-stacks-intro)
+* Tembo Stacks - [https://github.com/tembo-io/tembo/tree/main/tembo-stacks/src/stacks/specs](https://github.com/tembo-io/tembo/tree/main/tembo-stacks/src/stacks/specs); also check out our blog about them - [https://tembo.io/blog/tembo-stacks-intro](https://tembo.io/blog/tembo-stacks-intro)
 
 Did you enjoy the episode? Have ideas for someone else we should invite? Let us know your thoughts on X at @tembo_io or share them with the team in our [Slack Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-23o25qt91-AnZoC1jhLMLubwia4GeNGw).
 

@@ -1,6 +1,6 @@
 ---
 title: Tembo Cloud Billing
-sideBarPosition: 0
+sideBarPosition: 1
 ---
 
 You only use what you need, so you should only pay for what you need.
