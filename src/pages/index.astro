@@ -48,19 +48,16 @@ const currentPath = Astro.url.pathname;
 		<NavBar client:load currentPage={currentPath} isBanner={false} />
 		<div class='w-full h-[150px] overflow-hidden'></div>
 
-		<section
-			class='tembo-hero-section mt-[25px] customXs:mt-[40px] md:mt-[80px]'
-		>
+		<section class='mt-[25px] customXs:mt-[40px] md:mt-[60px]'>
 			<Container styles='relative'>
 				<div
 					class='flex items-center justify-center z-10 pb-[50px] customXs:pb-[100px] relative'
 				>
 					<header class='text-center slide-enter-content'>
-						<!-- min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px]  -->
 						<div
 							class='w-[893px] h-[229px] flex items-center flex-col gap-4'
 						>
-							<div class='w-[807px] h-[165px]'>
+							<div class='w-[807px]'>
 								<h1
 									class='text-neon font-normal text-[20px] leading-5
 							
@@ -68,16 +65,14 @@ const currentPath = Astro.url.pathname;
 								>
 									Goodbye Database Sprawl,
 								</h1>
-								<!-- text-[43.52px] min-[500px]:text-[54.4px] min-[600px]:text-[68px] customXs:text-[84px] customSm:text-[92px]  -->
-								<h2
-									class='text-white font-bold leading-[70px] tracking-[0.47px] text-[56px] text-wrap
+								<p
+									class='text-white font-bold tracking-[0.47px] md:text-[56px] text-[32px]
 							z-10 mb-6'
 								>
-									Tembo makes it easy for you to just use
+									Tembo makes it easy for you <br /> to just use
 									postgres
-								</h2>
+								</p>
 							</div>
-							<!-- <div> -->
 							<Button
 								variant='gradient'
 								size='lg'
@@ -88,15 +83,16 @@ const currentPath = Astro.url.pathname;
 								Try Free
 							</Button>
 						</div>
-						<!-- </div> -->
 					</header>
 				</div>
 				<Confetti />
 			</Container>
-			<StackHeroCards />
-			<Container>
+			<div class='container max-w-stackSlider mx-auto'>
+				<StackHeroCards />
+			</div>
+			<Container styles='mt-20'>
 				<div
-					class='flex w-full justify-center items-center text-center flex-col mt-32 gap-6'
+					class='flex w-full justify-center items-center text-center flex-col gap-6 pb-10'
 				>
 					<p
 						class='text-white text-xs font-normal leading-[15.59px] tracking-[0.64px]'
@@ -104,7 +100,7 @@ const currentPath = Astro.url.pathname;
 						Trusted by developers from
 					</p>
 					<div
-						class='flex w-[572px] h-[41px] justify-between items-center mr-6'
+						class='flex justify-between items-center mr-6 w-full md:w-[572px]'
 					>
 						<Image
 							src={WaddlingLogoLight}
@@ -128,136 +124,9 @@ const currentPath = Astro.url.pathname;
 				</div>
 			</Container>
 		</section>
-		<!-- <section
-				class='tembo-card-stack-section flex items-center justify-center z-10'
-			>
-				<div
-					class='flex items-start gap-4 z-10 scale-75 customXs:scale-100'
-				>
-					<div
-						class='flex flex-col justify-center items-center gap-4 mt-[65px]'
-					>
-						<HeroCard
-							title='Auto API Endpoint'
-							description='Instantaneous Backend'
-							subTitle='Use on any Stack'
-							wrapperStyles='bg-lightBlue w-[230px] min-h-[350px] max-h-[350px]'
-							descriptionStyles='text-[#000000]'
-							starFill='#000000'
-						>
-							<Image
-								src={AutoApi}
-								alt='Auto Api'
-								class='w-full rounded-xl'
-							/>
-						</HeroCard>
-						<HeroCard
-							description='Build any workload on Postgres'
-							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px] text-blue'
-						/>
-					</div>
-					<div
-						class='flex flex-col justify-center items-center gap-4'
-					>
-						<HeroCard
-							description='Deploy on our cloud or yours'
-							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px] text-blue'
-						/>
-						<HeroCard
-							title='Local Search & Recommendations'
-							description='Spatial Data Processing'
-							subTitle='Built on GIS Stack'
-							wrapperStyles='bg-salmon w-[230px] min-h-[350px] max-h-[350px]'
-							descriptionStyles='text-[#000000]'
-							starFill='#000000'
-						>
-							<Image
-								src={LocalSearch}
-								alt='Vector Store'
-								class='w-full rounded-xl'
-							/>
-						</HeroCard>
-					</div>
-					<div
-						class='flex flex-col justify-center items-center gap-4 mt-[65px]'
-					>
-						<HeroCard
-							title='Analytics Data Warehouse'
-							description='Columnar Big Data'
-							subTitle='Built on Data Warehouse Stack'
-							starFill={'#ffffff'}
-							wrapperStyles='bg-purple w-[230px] min-h-[350px] max-h-[350px]'
-							descriptionStyles='text-white'
-							titleStyles='text-white'
-							subTitleStyles='text-white'
-						>
-							<Image
-								src={DataWarehouse}
-								alt='Vector Store'
-								class='w-full rounded-xl'
-							/>
-						</HeroCard>
-						<HeroCard
-							description='Ship faster with a lower TCO'
-							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px] text-blue'
-						/>
-					</div>
-					<div
-						class='flex flex-col justify-center items-center gap-4'
-					>
-						<HeroCard
-							description='Deploy sidecar apps & services'
-							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px] text-blue'
-						/>
-						<HeroCard
-							title='Vector Search & RAG'
-							description='Vector Embeddings'
-							subTitle='Built on Vector Stack'
-							wrapperStyles='bg-blue w-[230px] min-h-[350px] max-h-[350px]'
-							starFill={'#ffffff'}
-							descriptionStyles='text-white'
-							titleStyles='text-white'
-							subTitleStyles='text-white'
-						>
-							<Image
-								src={VectorStore}
-								alt='Vector Store'
-								class='w-full rounded-xl'
-							/>
-						</HeroCard>
-					</div>
-					<div
-						class='flex flex-col justify-center items-center gap-4 mt-[65px]'
-					>
-						<HeroCard
-							title='Real-time Notifications'
-							description='High volume message processing'
-							subTitle='Built on Message Queue Stack'
-							wrapperStyles='bg-lightBlue w-[230px] min-h-[350px] max-h-[350px]'
-							descriptionStyles='text-[#000000]'
-							starFill='#000000'
-						>
-							<Image
-								src={Realtime}
-								alt='Vector Store'
-								class='w-full rounded-xl'
-							/>
-						</HeroCard>
-						<HeroCard
-							description='200+ Stacks & Extensions'
-							wrapperStyles='bg-neon w-[195px]'
-							descriptionStyles='text-[10px] text-blue'
-						/>
-					</div>
-				</div>
-			</section> -->
 	</div>
 	<section
-		class='tembo-build-any-application-section pt-4 customXs:pt-14 pb-[150px] overflow-hidden'
+		class='tembo-build-any-application-section pb-[150px] overflow-hidden'
 	>
 		<Container>
 			<div
@@ -293,7 +162,7 @@ const currentPath = Astro.url.pathname;
 				Customers trust Tembo <br />for a reason
 			</h3>
 		</div>
-		<div>
+		<div class='container max-w-stackSlider mx-auto'>
 			<TestimonialSlider />
 		</div>
 	</section>

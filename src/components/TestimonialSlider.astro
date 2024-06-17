@@ -31,20 +31,59 @@ const testimonials = [
 		name: 'Sean Price',
 		position: 'CEO of caa',
 	},
+	{
+		description:
+			'"We have loved our experience with Tembo because they offer pre-configured stacks that support our workload, it is extremely easy to manage postgres extensions, and batteries are included in pgBouncer. What we love most about Tembo is the absolutely"',
+		image: Caa,
+		name: 'Sean Price',
+		position: 'CEO of caa',
+	},
 ];
 ---
 
 <div
-	class='w-full mt-14 overflow-hidden flex flex-nowrap fade-x-md-both-sides'
-	id='scroller'
+	class='mt-14 w-full inline-flex flex-nowrap overflow-hidden fade-x-md gap-4'
 >
 	<ul
-		class='flex gap-4 animate-infinite-scroll-fast w-full'
-		id='scrollerInner'
+		class='flex gap-4 items-center justify-center animate-infinite-scroll-fast'
+		id='scrollInner'
 	>
 		{
 			testimonials.map((testimonial) => (
-				<li class='min-w-[372px] h-[302px] rounded-3xl flex flex-col justify-between p-6 border-[1px] border-solid border-[#FFFFFF1A] bg-[#121212]'>
+				<li class='w-[372px] h-[302px] rounded-3xl flex flex-col justify-between p-6 border-[1px] border-solid border-[#FFFFFF1A] bg-[#121212]'>
+					<p class='text-[14px] font-["Inter"] font-normal'>
+						{testimonial.description}
+					</p>
+					<div class='w-full gap-1 flex'>
+						<Image
+							src={testimonial.image}
+							alt={`${testimonial.name} image`}
+							width={40}
+							height={40}
+							class='rounded-full'
+						/>
+						<div class='flex flex-col gap-1'>
+							<span class='text-white font-medium text-[14px] leading-5 font-["Inter"]'>
+								{testimonial.name}
+							</span>
+							<span class='font-["Inter"] text-xs font-medium'>
+								{testimonial.position}
+							</span>
+						</div>
+					</div>
+				</li>
+			))
+		}
+	</ul>
+
+	<ul
+		class=`flex gap-4 items-center justify-center animate-infinite-scroll-fast`
+		id='scrollInner'
+		aria-hidden='true'
+	>
+		{
+			testimonials.map((testimonial) => (
+				<li class='w-[372px] h-[302px] rounded-3xl flex flex-col justify-between p-6 border-[1px] border-solid border-[#FFFFFF1A] bg-[#121212]'>
 					<p class='text-[14px] font-["Inter"] font-normal'>
 						{testimonial.description}
 					</p>
@@ -70,29 +109,3 @@ const testimonials = [
 		}
 	</ul>
 </div>
-
-<script>
-	// Get the 'scroller' and 'scrollerInner' elements by their IDs
-	const scroller = document.getElementById('scroller');
-	const scrollerInner = document.getElementById('scrollerInner');
-
-	if (scroller) {
-		scroller.setAttribute('data-animated', 'true');
-	}
-
-	function addAnimation() {
-		if (scrollerInner) {
-			const scrollerContent = Array.from(scrollerInner.children);
-
-			scrollerContent.forEach((item) => {
-				const duplicatedItem = item.cloneNode(true); // Ensure `true` is passed to clone child nodes too
-				if (duplicatedItem instanceof HTMLElement) {
-					duplicatedItem.setAttribute('aria-hidden', 'true'); // Correctly set the attribute
-					scrollerInner.appendChild(duplicatedItem);
-				}
-			});
-		}
-	}
-
-	addAnimation();
-</script>
