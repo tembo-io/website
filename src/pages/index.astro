@@ -47,12 +47,12 @@ const currentPath = Astro.url.pathname;
 	<div class='main-content'>
 		<NavBar client:load currentPage={currentPath} isBanner={false} />
 		<div class='w-full h-[150px] overflow-hidden'></div>
-		<div
-			class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'
-		>
-		</div>
 		<section class='mt-[25px]'>
 			<Container styles='relative'>
+				<div
+					class='light-gradient absolute -top-[700px] -right-[100px]'
+				>
+				</div>
 				<div
 					class='flex items-center justify-center z-10 pb-[50px] customXs:pb-[100px] relative'
 				>
@@ -139,7 +139,8 @@ const currentPath = Astro.url.pathname;
 				<h1
 					class='text-white font-medium text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] max-w-5xl text-center leading-normal'
 				>
-					Build any application on Postgres, the everything database
+					Build any application on Postgres, <br />the everything
+					database
 				</h1>
 				<Button
 					variant='gradient'
@@ -195,7 +196,7 @@ const currentPath = Astro.url.pathname;
 						link='https://cloud.tembo.io'
 						client:load
 					>
-						Try Free
+						Deploy now
 					</Button>
 				</div>
 				<div
@@ -465,7 +466,7 @@ const currentPath = Astro.url.pathname;
 				link='https://cloud.tembo.io'
 				client:load
 			>
-				Try Free
+				Deploy now
 			</Button>
 		</div>
 	</section>
@@ -574,7 +575,7 @@ const currentPath = Astro.url.pathname;
 							link='https://cloud.tembo.io'
 							styles='h-[60px] w-full min-[500px]:w-[182px] font-semibold font-primary z-10 flex items-center justify-center'
 						>
-							Try Free
+							Deploy now
 						</Button>
 						<ArrowButton
 							title='Join the team'
