@@ -52,6 +52,7 @@ export default {
 				pricingGreen: '#84EA9A',
 				pricingLightBlue: '#CFF4FF',
 				white: '#FFFFFF',
+				whiteGrey: '#FFFFFF1A',
 			},
 			backgroundImage: {
 				'gradient-rainbow':
