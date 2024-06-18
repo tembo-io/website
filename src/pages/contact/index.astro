@@ -32,9 +32,16 @@ const currentPath = Astro.url.pathname;
 					<Image
 						src={ContactElephant}
 						alt='contact elephant image'
+						width={300}
+						height={300}
+						class='lg:hidden md:block hidden'
+					/>
+					<Image
+						src={ContactElephant}
+						alt='contact elephant image'
 						width={120}
 						height={120}
-						class='max-[1024px]:block hidden'
+						class='max-[768px]:block hidden'
 					/>
 				</div>
 				<ContactForm client:load />
