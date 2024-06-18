@@ -130,7 +130,7 @@ const ContactForm: React.FC = () => {
 		[],
 	);
 	return (
-		<div className='flex flex-col md:gap-12 lg:ml-auto'>
+		<div className='flex flex-col md:gap-12 lg:mx-auto'>
 			<h2
 				className='text-neon
 			font-primary
