@@ -17,25 +17,25 @@ const hobbyFeatures = [
 ];
 
 const productionFeatures = [
-	'All Features in Hobby',
-	'High Compute Stacks',
-	'High Availability',
-	'Toggle Spot Instances',
-	'On-Demand Instance Deployment and Resizing',
+	'All Features in Hobby Tier',
 	'Up to 16 vCPU & 64 GB Memory',
 	'Up to 2 TB Storage',
 	'99.95% SLA',
+	'High Availability',
+	'On-Demand Instance Types',
+	'Dynamically Resize Storage and Compute',
 	'Tembo Team Consultation Support',
 ];
 
 const selfhostedFeatures = [
-	'All Compontents of Tembo Platform',
-	'Control Security, Networking, and Infrastructure',
-	'Run in Your Region and Cloud ',
-	'Private Networking',
+	'Full Power of Tembo',
+	'Enterprise-grade Kubernetes operator',
+	'Run On-Prem or on any Cloud Provider',
 	'Advanced Enterprise Security',
+	'Private Networking',
+	'Custom Infrastructure and Security Configuration',
 	'Dedicated Onboarding Engineer',
-	'24x7 Technical Support',
+	'24x7x365 Technical Support',
 ];
 ---
 
@@ -45,11 +45,11 @@ const selfhostedFeatures = [
 	<h2
 		class='font-semibold text-pricingLightBlue text-[28px] leading-[35px] tracking-[0.54px]'
 	>
-		Cloud: Hobby
+		Hobby Tier
 	</h2>
 	<span
 		class='h-[38px] block mt-[15px] font-secondary font-light text-white text-base leading-[19px] opacity-80'
-		>For personal projects and simple applications.</span
+		>For personal projects, exploration and non-critical applications.</span
 	>
 	<span
 		class='block mobile:mt-2 mt-7 font-semibold text-pricingLightBlue text-[32px] leading-[40px] tracking-[0.54px]'
@@ -94,11 +94,11 @@ const selfhostedFeatures = [
 		<h2
 			class='font-semibold text-pricingGreen text-[28px] leading-[35px] tracking-[0.54px]'
 		>
-			Cloud: Production
+			Production Tier
 		</h2>
 		<span
 			class='h-[38px] block mt-[15px] font-secondary font-light text-white text-base leading-[19px] opacity-80'
-			>For production applications and high traffic.</span
+			>For production applications requiring performance and SLA.</span
 		>
 		<ProductionPricing client:load />
 		<Button
@@ -136,7 +136,7 @@ const selfhostedFeatures = [
 	</h2>
 	<span
 		class='h-[38px] block mt-[15px] font-secondary font-light text-white text-base leading-[19px] opacity-80'
-		>For enhanced control over compliance, compatibility, and modularity.</span
+		>For applications requiring additional control over data residency, hosting or compliance requirements.</span
 	>
 	<span
 		class='block mobile:mt-2 mt-7 font-semibold text-pricingLightBlue text-[32px] leading-[40px] tracking-[0.54px]'
