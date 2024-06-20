@@ -17,11 +17,9 @@ const faqs = [
 		heading: 'Are annual plans available?',
 		content: (
 			<p>
-				Yes, we do provide annual plans, which offer a significant discount over the list price. Please reach out to{' '}
-				<a 
-					href={'mailto:brad@tembo.io'}
-					className='underline'
-				>
+				Yes, we do provide annual plans, which offer a significant
+				discount over the list price. Please reach out to{' '}
+				<a href={'mailto:brad@tembo.io'} className='underline'>
 					brad@tembo.io
 				</a>{' '}
 				to learn more.
@@ -52,15 +50,16 @@ const faqs = [
 			<p>
 				We've designed our{' '}
 				<a
-					href={'https://tembo.io/docs/product/software/tembo-self-hosted/overview/'}
+					href={
+						'https://tembo.io/docs/product/software/tembo-self-hosted/overview/'
+					}
 					className='underline'
 				>
 					Self Hosted
 				</a>{' '}
-				offering to be both modular and
-				flexible. So long as you've got a Kubernetes cluster spun up
-				(which we help implement), you can run the Tembo platform with
-				any cloud provider in any region.
+				offering to be both modular and flexible. So long as you've got
+				a Kubernetes cluster spun up (which we help implement), you can
+				run the Tembo platform with any cloud provider in any region.
 			</p>
 		),
 	},
@@ -68,12 +67,12 @@ const faqs = [
 
 const Faqs: React.FC = () => {
 	return (
-		<div className='z-50'>
-			<h2 className='font-bold text-pricingGreen text-[32px] leading-[40px] tracking-[0.54px] [text-shadow:0px_0px_81px_#000] z-50'>
+		<>
+			<h2 className='font-bold text-pricingGreen text-[32px] leading-[40px] tracking-[0.54px] [text-shadow:0px_0px_81px_#000]'>
 				Frequently Asked Questions
 			</h2>
 			<Accordion items={faqs} />
-		</div>
+		</>
 	);
 };
 
