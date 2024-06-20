@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 interface Item {
 	heading: string;
-	content: string;
+	content: string | React.ReactNode;
 }
 
 interface Props {
@@ -26,7 +26,7 @@ const Accordion: React.FC<Props> = ({ items }) => {
 			{items.map((item, i) => (
 				<li
 					key={`faq-${i}`}
-					className='p-6 rounded-2xl border-[0.5px] border-white border-opacity-20 bg-white bg-opacity-[0.06] customXs:px-6 customXs:py-10 z-100 cursor-pointer'
+					className='p-6 rounded-2xl border-[0.5px] border-white border-opacity-20 bg-white bg-opacity-[0.06] customXs:px-6 customXs:py-10 z-100'
 					onClick={() => handleClick(i)}
 				>
 					<div className='flex justify-between items-center h-full'>

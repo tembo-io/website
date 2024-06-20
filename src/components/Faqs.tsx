@@ -4,7 +4,8 @@ import Accordion from './Accordion';
 const faqs = [
 	{
 		heading: 'When will I be billed?',
-		content: 'Plans on Tembo Cloud are charged based on usage; you will receive your invoice at the end of each month. Self Hosted deployments can vary, which is why we encourage you to contact us so we can work together to find the most appropriate plan.',
+		content:
+			'Plans on Tembo Cloud are charged based on usage; you will receive your invoice at the end of each month. Self Hosted deployments can vary, which is why we encourage you to contact us so we can work together to find the most appropriate plan.',
 	},
 	{
 		heading:
@@ -19,8 +20,20 @@ const faqs = [
 	},
 	{
 		heading: 'Do you have plans specifically for early-stage startups?',
-		content:
-			'Yes! Please visit our Tembo for Startups site (https://tembo.io/for-startups/) and follow the instructions. We offer up to 50% off for the first year, and ongoing discounts for startups who are part of a Partner Organization in our Partner network.',
+		content: (
+			<p>
+				Yes! Please visit our Tembo{' '}
+				<a
+					href={'https://tembo.io/for-startups/'}
+					className='underline'
+				>
+					for startups site
+				</a>{' '}
+				and follow the instructions. We offer up to 50% off for the
+				first year, and ongoing discounts for startups who are part of a
+				Partner Organization in our Partner network.'
+			</p>
+		),
 	},
 	{
 		heading: 'Can Tembo be hosted on my own infrastructure?',
@@ -28,9 +41,10 @@ const faqs = [
 			'Yes, you can self-host our Kubernetes Operator present at https://github.com/tembo-io/tembo/tree/main/tembo-operator or get in touch with brad@tembo.io to explore our private data plane offering.',
 	},
 	{
-		heading: 'I have a preferred cloud provider or region that I don\'t see on Tembo. What can I do?',
+		heading:
+			"I have a preferred cloud provider or region that I don't see on Tembo. What can I do?",
 		content:
-			'We\'ve designed our Self Hosted offering to be both modular and flexible. So long as you\'ve got a Kubernetes cluster spun up (which we help implement), you can run the Tembo platform with any cloud provider in any region.',
+			"We've designed our Self Hosted offering to be both modular and flexible. So long as you've got a Kubernetes cluster spun up (which we help implement), you can run the Tembo platform with any cloud provider in any region.",
 	},
 ];
 
