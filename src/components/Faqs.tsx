@@ -15,8 +15,18 @@ const faqs = [
 	},
 	{
 		heading: 'Are annual plans available?',
-		content:
-			'Yes, we do provide annual plans, which offer a significant discount over the list price. Please reach out to brad@tembo.io to learn more.',
+		content: (
+			<p>
+				Yes, we do provide annual plans, which offer a significant discount over the list price. Please reach out to{' '}
+				<a 
+					href={'mailto:brad@tembo.io'}
+					className='underline'
+				>
+					brad@tembo.io
+				</a>{' '}
+				to learn more.
+			</p>
+		),
 	},
 	{
 		heading: 'Do you have plans specifically for early-stage startups?',
@@ -31,14 +41,24 @@ const faqs = [
 				</a>{' '}
 				and follow the instructions. We offer up to 50% off for the
 				first year, and ongoing discounts for startups who are part of a
-				Partner Organization in our Partner network.'
+				Partner Organization in our Partner network.
 			</p>
 		),
 	},
 	{
 		heading: 'Can Tembo be hosted on my own infrastructure?',
-		content:
-			'Yes, you can self-host our Kubernetes Operator present at https://github.com/tembo-io/tembo/tree/main/tembo-operator or get in touch with brad@tembo.io to explore our private data plane offering.',
+		content: (
+			<p>
+				Absolutely! This is possible with our{' '}
+				<a
+					href={'https://tembo.io/docs/product/software/tembo-self-hosted/overview/'}
+					className='underline'
+				>
+					Self Hosted
+				</a>{' '}
+				deployment option.
+			</p>
+		),
 	},
 	{
 		heading:
