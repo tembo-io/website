@@ -46,25 +46,23 @@ const faqs = [
 		),
 	},
 	{
-		heading: 'Can Tembo be hosted on my own infrastructure?',
+		heading:
+			"I have a preferred cloud provider or region that I don't see on Tembo. What can I do?",
 		content: (
 			<p>
-				Absolutely! This is possible with our{' '}
+				We've designed our{' '}
 				<a
 					href={'https://tembo.io/docs/product/software/tembo-self-hosted/overview/'}
 					className='underline'
 				>
 					Self Hosted
 				</a>{' '}
-				deployment option.
+				offering to be both modular and
+				flexible. So long as you've got a Kubernetes cluster spun up
+				(which we help implement), you can run the Tembo platform with
+				any cloud provider in any region.
 			</p>
 		),
-	},
-	{
-		heading:
-			"I have a preferred cloud provider or region that I don't see on Tembo. What can I do?",
-		content:
-			"We've designed our Self Hosted offering to be both modular and flexible. So long as you've got a Kubernetes cluster spun up (which we help implement), you can run the Tembo platform with any cloud provider in any region.",
 	},
 ];
 
