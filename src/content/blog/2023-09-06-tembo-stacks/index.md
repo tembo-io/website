@@ -44,7 +44,7 @@ A stack is a recipe of how to run an optimized Postgres for a workload, expresse
 * Use-case specific metrics, alerts and recommendations
 * On-instance sidecar - Kubernetes Services to Deploy a containerized application near Postgres to expand capabilities while minimizing network latency
 
-Let’s look at an example of a stack spec for a [Message queue](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/message_queue.yaml) stack - an [SQS](https://aws.amazon.com/sqs/) / [RabbitMQ](https://www.rabbitmq.com/) replacement based on Postgres.
+Let’s look at an example of a stack spec for a [Message queue](https://github.com/tembo-io/tembo/blob/main/tembo-stacks/src/stacks/specs/message_queue.yaml) stack - an [SQS](https://aws.amazon.com/sqs/) / [RabbitMQ](https://www.rabbitmq.com/) replacement based on Postgres.
 
 It has the following components:
 
@@ -57,7 +57,7 @@ It has the following components:
 * Message queue specific metrics like queue length, oldest message age, newest message age
 * (Coming soon) pg_bouncer
 
-This and many other such stack specifications are [open source](https://github.com/tembo-io/tembo/tree/main/tembo-operator/src/stacks/templates) and can be used to deploy a stack locally on a self-managed instance or fully managed on Tembo Cloud. This is a reflection of one of our core values - to always put developers first. We open source our stacks to create the best development experience: locally and on the cloud, and to invite community feedback and collaboration.
+This and many other such stack specifications are [open source](https://github.com/tembo-io/tembo/tree/main/tembo-stacks/src/stacks/specs) and can be used to deploy a stack locally on a self-managed instance or fully managed on Tembo Cloud. This is a reflection of one of our core values - to always put developers first. We open source our stacks to create the best development experience: locally and on the cloud, and to invite community feedback and collaboration.
 
 
 ## Deploying a stack on Tembo Cloud

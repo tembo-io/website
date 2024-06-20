@@ -59,7 +59,7 @@ const MobileMenu = () => {
 							variant='gradient'
 							size='lg'
 							isLinkTag={true}
-							link='https://cloud.tembo.io'
+							link='https://cloud.tembo.io/sign-up'
 						>
 							Sign up
 						</Button>
@@ -67,7 +67,7 @@ const MobileMenu = () => {
 							variant='outline'
 							size='lg'
 							isLinkTag={true}
-							link='https://cloud.tembo.io'
+							link='https://cloud.tembo.io/sign-in'
 						>
 							Login
 						</Button>

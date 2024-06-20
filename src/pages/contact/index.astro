@@ -20,21 +20,28 @@ const currentPath = Astro.url.pathname;
 				class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'
 			>
 			</div>
-			<div class='grid md:grid-cols-2 grid-cols-1'>
-				<div class='flex items-center justify-center'>
+			<div class='grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-8'>
+				<div class='flex items-center md:justify-center'>
 					<Image
 						src={ContactElephant}
 						alt='contact elephant image'
 						width={400}
 						height={400}
-						class='min-[1024px]:block hidden'
+						class='lg:block hidden'
 					/>
 					<Image
 						src={ContactElephant}
 						alt='contact elephant image'
-						width={200}
-						height={200}
-						class='max-[1024px]:block hidden'
+						width={300}
+						height={300}
+						class='lg:hidden md:block hidden'
+					/>
+					<Image
+						src={ContactElephant}
+						alt='contact elephant image'
+						width={120}
+						height={120}
+						class='max-[768px]:block hidden'
 					/>
 				</div>
 				<ContactForm client:load />
