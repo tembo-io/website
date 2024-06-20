@@ -11,31 +11,30 @@ planetPostgres: true
 
 import Callout from '../../../components/Callout.astro';
 
+# What You Need to Know When Building Authentication and Authorization
 
-# What you need to know when building authentication and authorization
+JSON Web Tokens (JWTs) have become a widely adopted standard for application authentication and authorization. In this blog, we'll explore how to use JWT tokens in your backend services, how third parties like Clerk issue JWTs for your users, and various techniques for handling authentication and authorization.
 
-JSON Web Tokens (JWT) have become a widely adopted standard for application authentication and authorization. In this blog, we'll explore how to use JWT tokens in your backend services, how third parties like Clerk issue JWTs for your users, and various techniques for handling authentication and authorization.
+## Identity Provider
 
-## Identity provider
+JWTs are issued by your identity provider. Identity providers can be self-hosted or external services. For example, in the Rails framework, it's common to use [Devise](https://github.com/heartcombo/devise) for self-hosted authentication, while external services like [Clerk](https://clerk.com/) are also popular. The identity provider handles logging in your users and issuing tokens, along with other common user management features like resetting passwords.
 
-JWTs are issued by your identity provider. Identity providers may be self-hosted. For example, it's common in the Rails framework to use [devise](https://github.com/heartcombo/devise), but it's also common to use an external service like [Clerk](https://clerk.com/) as your identity provider. The identity provider handles logging in your users and and issuing tokens, along with other common user management features, like resetting passwords.
-
-## What's in a Json Web Token
+## What's in a JSON Web Token
 
 A JWT consists of three parts: a header, a payload, and a signature.
 
-The header includes metadata about the token, for example which type of token it is, and what algorithm is used for encryption. The signature is a cryptographic means of checking that the content of the token, the payload, has not been modified since the identity provider issued the token. The payload is a JSON [claims](https://jwt.io/introduction). Claims are a [JSON](https://en.wikipedia.org/wiki/JSON) body, hence the name of the token.
+- **Header**: The header includes metadata about the token, such as the token type and the algorithm used for encryption.
+- **Payload**: The payload contains the claims, which are statements about an entity (typically, the user) and additional metadata. Claims can include user information, roles, and other relevant data.
+- **Signature**: The signature is a cryptographic means of verifying that the content of the token (the payload) has not been modified since it was issued by the identity provider.
 
-## Authenticating and authorizing
+## Authenticating and Authorizing
 
-Your users provide JWTs in all their authenticated requests. Your services then need to check the JWTs are valid before allowing the request. This is done by checking that the signature on the token is valid, and that the token is not expired. A request with a valid token that is not expired is an authenticated request. Then separately, the application needs to authorize the request, meaning to understand if that user is allowed to access the resource being requested.
+Your users include JWTs in the Authorization header of all their authenticated requests. Your services need to check that the JWTs are valid before allowing the request. This involves verifying the token's signature and ensuring it hasn't expired. A request with a valid, non-expired token is authenticated. Separately, the application must authorize the request to determine if the user is allowed to access the requested resource.
 
-Authorization is performed using the claims in the token. Claims can include things like the user's role, organization membership, and so on. You application first validates the token, then decodes it to inspect the claims, ensuring the requested resource is permitted by your business logic in accordance with the claims. For example a JWT may include a section like this within the claims:
+Authorization is performed using the claims in the token. Claims can include details like the user's role or organization membership. Your application first validates the token, then decodes it to inspect the claims, ensuring the requested resource is permitted based on these claims. For example, a JWT may include a section like this within the claims:
 
 ```json
-
 {
-  ... omitted ...
   "organizations": {
     "org_abc123": "admin",
     "org_efg456": "basic_member"
@@ -43,15 +42,13 @@ Authorization is performed using the claims in the token. Claims can include thi
 }
 ```
 
-Since server knows the token is valid with the cryptograpic signature, it can trust the content of the token. It can then use the token to check for organizational membership and access level, like shown above.
+Since the server knows the token is valid through its cryptographic signature, it can trust the content of the token and use it to check for organizational membership and access levels.
 
 ## Middleware
 
-It's possible to perform your authentication by writing a function that takes the token from the Authorization header and validates the signature and expiry, placing this function at the top of every web route's function. However, this approach is repetitive and prone to accidental omission from new routes. For that reason, typically auth is imposed on all routes in a shared manner.
+To avoid repetitive and error-prone authentication code in each route, you can use middleware to handle authentication globally. Middleware performs processing ahead of every route's handling. In Rust, for example, it looks like this:
 
-One way to do this is will application middleware. In this method, your backend framework has a way to perform processing ahead of every other route's processing. For example in Rust, it looks like this:
-
-```Rust
+```rust
 App::new()
     .service(
         web::scope("/api")
@@ -65,13 +62,13 @@ App::new()
 })
 ```
 
-In the above example, we connect the authentication middleware in front of any route within `/api/v1/orgs`. This way, each function does not need to handle authentication because it's handled in the same way for all routes.
+In this example, authentication middleware is applied in front of any route within `/api/v1/orgs`, so each function does not need to handle authentication individually.
 
-For authorization, one common practice for simple authorization is path-based authorization. In this case, we may have paths like this `/api/v1/orgs/org_id/instances`. The middleware can inspect the claims within the token to ensure that the user is authorized within the requested org using the path. This works for simple use cases, but for more advanced cases, each route may need to inspect the claims for detailed RBAC.
+For simple authorization, you can use path-based authorization. The middleware inspects the claims within the token to ensure the user is authorized for the requested path. For more complex use cases, each route may need to inspect the claims for detailed Role-Based Access Control (RBAC).
 
 ## Using an Authorization Proxy and Forward Auth Service for Authorization
 
-Similar to using middleware, you can also set up an authorization proxy that runs in front of the entire program. A proxy, such as NGINX or Envoy, can handle authentication and authorization before requests reach your application. A forward auth service can offload the responsibility of validating tokens and enforcing authorization policies. This approach is nice because it can enforce authentication as policy that is not subject to a mistake within the application's code. It can also be used to share a consistent pattern for authentication and authorization across many different services.
+Similar to using middleware, you can set up an authorization proxy that runs in front of your entire application. A proxy, such as NGINX or Envoy, can handle authentication and authorization before requests reach your application. A forward auth service offloads the responsibility of validating tokens and enforcing authorization policies. This approach ensures consistent authentication and authorization across multiple services.
 
 ```plaintext
 server {
@@ -79,7 +76,6 @@ server {
         auth_request /auth;
         proxy_pass http://backend;
     }
-
     location = /auth {
         proxy_pass http://auth-service;
         proxy_set_header Authorization $http_authorization;
@@ -88,13 +84,13 @@ server {
 }
 ```
 
-This works by having a proxy forward relevant information to an auth server, for example the Authorization header, the requested HTTP path, the requested HTTP Action and so on. The auth service can then validate the JWT and perform authorization before allowing the request to the upstream service. Once again, this works well for authentication and basic authorization, but for detailed authorization it may not be possible to consistently perform within a generic for any application auth service, for example to enforce business logic like "this user can delete any instance that is not named starting with 'prod-'" if the instance name is not available in the HTTP Path.
+The proxy forwards relevant information to an auth server, such as the Authorization header and the requested HTTP path. The auth service validates the JWT and performs authorization before allowing the request to proceed. This method works well for authentication and basic authorization, but for more detailed authorization, the application may need to handle specific business logic.
 
 ## Revoking JWTs
 
-Revoking JWTs is challenging because JWTs are valid until they expire, since the token's signature never become cryptographically invalid and the expiry is unchanging after they are signed. The identity provider issues the token but does not perform the authorization, that is perfomed by the backend services using token for auth. So, in order to implement revoking tokens, the backend service needs to remember a set of tokens that have been invalidated, at least until the token expires.
+Revoking JWTs is challenging because JWTs are valid until they expire, and their signatures remain cryptographically valid. The identity provider issues the token, but the backend services perform the authorization. To implement token revocation, the backend service needs to remember which tokens have been invalidated until they expire.
 
-This can be done by remembering the JWT identified (jti) of tokens that have been invalidated, and comparing on every request to ensure a token has not been previously invalidated. It's important to keep in mind that the token is still valid. It's on the backend to remember which tokens to specifically deny even though they are valid tokens.
+This can be done by maintaining a blacklist of invalidated JWT IDs (jti) and checking each request against this list to ensure the token has not been previously invalidated. The backend must remember which tokens to deny, even though they are still technically valid.
 
 ```rust
 async fn is_token_revoked(pool: &PgPool, jti: &str) -> Result<bool, ControlPlaneError> {
@@ -105,8 +101,8 @@ async fn is_token_revoked(pool: &PgPool, jti: &str) -> Result<bool, ControlPlane
 }
 ```
 
-In this example, the `is_token_revoked` function checks if a token has been invalidated by querying a database. As auth is performed for every request, Tembo caches in memory all invalidated JWT IDs in to avoid the extra database query on every request.
+In this example, the `is_token_revoked` function checks if a token has been invalidated by querying a database. To avoid querying the database on every request, you can cache invalidated JWT IDs in memory.
 
-## Why use JWTs
+## Why Use JWTs
 
 JWTs are a simple and widely used method for authenticating and authorizing users in modern web applications. By understanding how to issue, validate, and revoke JWTs, and how to integrate them with middleware and authorization proxies, you can enhance the security and efficiency of your applications. Remember, while JWTs offer many benefits, it's crucial to implement best practices for security and performance, ensuring your systems remain protected and responsive.
