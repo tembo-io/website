@@ -1,0 +1,112 @@
+---
+slug: jwt-authentication
+title: 'What you should know about JSON web tokens'
+authors: [steven]
+description: |
+    Using JSON Web Tokens to authenticate users
+tags: [security, jwt, tokens, api, authentication]
+date: 2024-06-21T09:00
+planetPostgres: true
+---
+
+import Callout from '../../../components/Callout.astro';
+
+
+# What you need to know when building authentication and authorization
+
+JSON Web Tokens (JWT) have become a widely adopted standard for application authentication and authorization. In this blog, we'll explore how to use JWT tokens in your backend services, how third parties like Clerk issue JWTs for your users, and various techniques for handling authentication and authorization.
+
+## Identity provider
+
+JWTs are issued by your identity provider. Identity providers may be self-hosted. For example, it's common in the Rails framework to use [devise](https://github.com/heartcombo/devise), but it's also common to use an external service like [Clerk](https://clerk.com/) as your identity provider. The identity provider handles logging in your users and and issuing tokens, along with other common user management features, like resetting passwords.
+
+## What's in a Json Web Token
+
+A JWT consists of three parts: a header, a payload, and a signature.
+
+The header includes metadata about the token, for example which type of token it is, and what algorithm is used for encryption. The signature is a cryptographic means of checking that the content of the token, the payload, has not been modified since the identity provider issued the token. The payload is a JSON [claims](https://jwt.io/introduction). Claims are a [JSON](https://en.wikipedia.org/wiki/JSON) body, hence the name of the token.
+
+## Authenticating and authorizing
+
+Your users provide JWTs in all their authenticated requests. Your services then need to check the JWTs are valid before allowing the request. This is done by checking that the signature on the token is valid, and that the token is not expired. A request with a valid token that is not expired is an authenticated request. Then separately, the application needs to authorize the request, meaning to understand if that user is allowed to access the resource being requested.
+
+Authorization is performed using the claims in the token. Claims can include things like the user's role, organization membership, and so on. You application first validates the token, then decodes it to inspect the claims, ensuring the requested resource is permitted by your business logic in accordance with the claims. For example a JWT may include a section like this within the claims:
+
+```json
+
+{
+  ... omitted ...
+  "organizations": {
+    "org_abc123": "admin",
+    "org_efg456": "basic_member"
+  }
+}
+```
+
+Since server knows the token is valid with the cryptograpic signature, it can trust the content of the token. It can then use the token to check for organizational membership and access level, like shown above.
+
+## Middleware
+
+It's possible to perform your authentication by writing a function that takes the token from the Authorization header and validates the signature and expiry, placing this function at the top of every web route's function. However, this approach is repetitive and prone to accidental omission from new routes. For that reason, typically auth is imposed on all routes in a shared manner.
+
+One way to do this is will application middleware. In this method, your backend framework has a way to perform processing ahead of every other route's processing. For example in Rust, it looks like this:
+
+```Rust
+App::new()
+    .service(
+        web::scope("/api")
+            .wrap(authentication_middleware)
+            .service(
+                web::scope("/v1/orgs")
+                    .service(instance::get_instance)
+                    .service(instance::create_instance)
+            )
+    )
+})
+```
+
+In the above example, we connect the authentication middleware in front of any route within `/api/v1/orgs`. This way, each function does not need to handle authentication because it's handled in the same way for all routes.
+
+For authorization, one common practice for simple authorization is path-based authorization. In this case, we may have paths like this `/api/v1/orgs/org_id/instances`. The middleware can inspect the claims within the token to ensure that the user is authorized within the requested org using the path. This works for simple use cases, but for more advanced cases, each route may need to inspect the claims for detailed RBAC.
+
+## Using an Authorization Proxy and Forward Auth Service for Authorization
+
+Similar to using middleware, you can also set up an authorization proxy that runs in front of the entire program. A proxy, such as NGINX or Envoy, can handle authentication and authorization before requests reach your application. A forward auth service can offload the responsibility of validating tokens and enforcing authorization policies. This approach is nice because it can enforce authentication as policy that is not subject to a mistake within the application's code. It can also be used to share a consistent pattern for authentication and authorization across many different services.
+
+```plaintext
+server {
+    location / {
+        auth_request /auth;
+        proxy_pass http://backend;
+    }
+
+    location = /auth {
+        proxy_pass http://auth-service;
+        proxy_set_header Authorization $http_authorization;
+        proxy_set_header X-Original-URI $request_uri;
+    }
+}
+```
+
+This works by having a proxy forward relevant information to an auth server, for example the Authorization header, the requested HTTP path, the requested HTTP Action and so on. The auth service can then validate the JWT and perform authorization before allowing the request to the upstream service. Once again, this works well for authentication and basic authorization, but for detailed authorization it may not be possible to consistently perform within a generic for any application auth service, for example to enforce business logic like "this user can delete any instance that is not named starting with 'prod-'" if the instance name is not available in the HTTP Path.
+
+## Revoking JWTs
+
+Revoking JWTs is challenging because JWTs are valid until they expire, since the token's signature never become cryptographically invalid and the expiry is unchanging after they are signed. The identity provider issues the token but does not perform the authorization, that is perfomed by the backend services using token for auth. So, in order to implement revoking tokens, the backend service needs to remember a set of tokens that have been invalidated, at least until the token expires.
+
+This can be done by remembering the JWT identified (jti) of tokens that have been invalidated, and comparing on every request to ensure a token has not been previously invalidated. It's important to keep in mind that the token is still valid. It's on the backend to remember which tokens to specifically deny even though they are valid tokens.
+
+```rust
+async fn is_token_revoked(pool: &PgPool, jti: &str) -> Result<bool, ControlPlaneError> {
+    let result = sqlx::query!("SELECT jti FROM invalidated_tokens WHERE jti = $1", jti)
+        .fetch_optional(pool)
+        .await?;
+    Ok(result.is_some())
+}
+```
+
+In this example, the `is_token_revoked` function checks if a token has been invalidated by querying a database. As auth is performed for every request, Tembo caches in memory all invalidated JWT IDs in to avoid the extra database query on every request.
+
+## Why use JWTs
+
+JWTs are a simple and widely used method for authenticating and authorizing users in modern web applications. By understanding how to issue, validate, and revoke JWTs, and how to integrate them with middleware and authorization proxies, you can enhance the security and efficiency of your applications. Remember, while JWTs offer many benefits, it's crucial to implement best practices for security and performance, ensuring your systems remain protected and responsive.
