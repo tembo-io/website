@@ -57,7 +57,7 @@ const Button: React.FC<Props> = ({
 		<a
 			href={link}
 			className={cx(
-				'transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base',
+				'transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base text-center',
 				getVariantStyles(),
 				getSizeStyles(),
 				styles,
