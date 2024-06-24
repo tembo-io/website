@@ -24,7 +24,7 @@ const DetailSequence: React.FC<Props> = ({
 				<img
 					src={iconPath}
 					alt='Colored Icon'
-					className='w-[56px] h-[56px]'
+					className='w-[40px] h-[40px]'
 				/>
 			)}
 			<h1

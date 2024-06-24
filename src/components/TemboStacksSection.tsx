@@ -3,7 +3,6 @@ import Animation from './Animation';
 import ConfettiAnimationJson from '../animations/Confetti.json';
 import DetailSequence from './DetailSequence';
 import Button from './Button';
-import cx from 'clsx';
 
 const TemboStacksSection = () => {
 	return (
