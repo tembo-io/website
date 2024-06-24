@@ -85,7 +85,7 @@ The proxy forwards relevant information to an auth server, such as the Authoriza
 
 ## Revoking JWTs
 
-Revoking JWTs is challenging because JWTs are valid until they expire, and their signatures remain cryptographically valid. The identity provider issues the token, but the backend services perform the authorization. To implement token revocation, the backend service needs to remember which tokens have been invalidated until they expire.
+[Revoking JWTs](/docs/product/cloud/security/revoke-token) is challenging because JWTs are valid until they expire, and their signatures remain cryptographically valid. The identity provider issues the token, but the backend services perform the authorization. To implement token revocation, the backend service needs to remember which tokens have been invalidated until they expire.
 
 This can be done by maintaining a set of invalidated JWT IDs (jti) and checking each request against this set to ensure the token has not been previously invalidated. The backend must remember which tokens to deny, even though they are still technically valid.
 
