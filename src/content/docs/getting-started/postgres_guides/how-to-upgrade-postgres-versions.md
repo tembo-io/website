@@ -11,7 +11,7 @@ Before diving in, it's good to reference the [official Postgres documentation on
 
 Applying a `pg_dump / pg_restore` workflow works well for small instances, or where cut-over time isn't an issue.
 
-This corresponds to [section 19.6.1](https://www.postgresql.org/docs/current/upgrading.html#UPGRADING-VIA-PGDUMPALL) in the above docs. Further details can be found on our [how-to guide on backups and restores](https://tembo.io/docs/getting-started/postgres_guides/how-to-backup-and-restore-a-postgres-database).
+This corresponds to [section 19.6.1](https://www.postgresql.org/docs/current/upgrading.html#UPGRADING-VIA-PGDUMPALL) in the above docs. Further details can be found in our [how-to guide on backups and restores](https://tembo.io/docs/getting-started/postgres_guides/how-to-backup-and-restore-a-postgres-database).
 
 ## Logical Replication
 
