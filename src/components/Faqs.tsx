@@ -7,7 +7,10 @@ const faqs = [
 		content: (
 			<p>
 				Plans on Tembo Cloud are charged based on usage; you will receive your invoice at the end of each month. Self Hosted deployments can vary, which is why we encourage you to{' '}
-				<a href={'https://tembo.io/contact/'} className='underline'>
+				<a 
+					href={'https://tembo.io/contact/'}
+					className='underline'
+				>
 					contact us
 				</a>{' '}
 				so we can work together to find the most appropriate plan.
@@ -26,7 +29,10 @@ const faqs = [
 			<p>
 				Yes, we do provide annual plans, which offer a significant
 				discount over the list price. Please{' '}
-				<a href={'https://tembo.io/contact'} className='underline'>
+				<a 
+					href={'https://tembo.io/contact'} 
+					className='underline'
+				>
 					contact us
 				</a>{' '}
 				to learn more.
@@ -52,21 +58,17 @@ const faqs = [
 	},
 	{
 		heading:
-			"I have a preferred cloud provider or region that I don't see on Tembo. What can I do?",
+			"I have a preferred cloud provider or region that I don't see on Tembo Cloud. What can I do?",
 		content: (
 			<p>
-				We've designed our{' '}
+				We are continuously adding new regions to our Tembo Cloud offering. Please visit{' '}
 				<a
-					href={
-						'https://tembo.io/docs/product/software/tembo-self-hosted/overview/'
-					}
+					href={'https://roadmap.tembo.io/roadmap'}
 					className='underline'
 				>
-					Self Hosted
+					our roadmap
 				</a>{' '}
-				offering to be both modular and flexible. So long as you've got
-				a Kubernetes cluster spun up (which we help implement), you can
-				run the Tembo platform with any cloud provider in any region.
+				to request the regions or cloud providers you'd like. You can also use our Self Hosted offering, which allows you to run Tembo on any cloud provider or region that supports deploying a Kubernetes cluster.
 			</p>
 		),
 	},
