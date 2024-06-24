@@ -4,8 +4,15 @@ import Accordion from './Accordion';
 const faqs = [
 	{
 		heading: 'When will I be billed?',
-		content:
-			'Plans on Tembo Cloud are charged based on usage; you will receive your invoice at the end of each month. Self Hosted deployments can vary, which is why we encourage you to contact us so we can work together to find the most appropriate plan.',
+		content: (
+			<p>
+				Plans on Tembo Cloud are charged based on usage; you will receive your invoice at the end of each month. Self Hosted deployments can vary, which is why we encourage you to{' '}
+				<a href={'https://tembo.io/contact/'} className='underline'>
+					contact us
+				</a>{' '}
+				so we can work together to find the most appropriate plan.
+			</p>
+		),
 	},
 	{
 		heading:
