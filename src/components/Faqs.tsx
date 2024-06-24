@@ -25,9 +25,9 @@ const faqs = [
 		content: (
 			<p>
 				Yes, we do provide annual plans, which offer a significant
-				discount over the list price. Please reach out to{' '}
-				<a href={'mailto:brad@tembo.io'} className='underline'>
-					brad@tembo.io
+				discount over the list price. Please{' '}
+				<a href={'https://tembo.io/contact'} className='underline'>
+					contact us
 				</a>{' '}
 				to learn more.
 			</p>
