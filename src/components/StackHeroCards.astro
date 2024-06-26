@@ -16,68 +16,79 @@ import OLAPStackElephant from '../images/olap-stack-elephant.svg';
 
 const stackHeroCardDetails = [
 	{
-		title: 'DataWarehouse',
+		title: 'Data Warehouse',
 		description:
 			'Extract, Transform and Load data from external sources. Build centralized datastore for analytical and tactical queries',
 		image: DataWareHouseStackElephant,
+		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
 	{
-		title: 'MessageQueue',
+		title: 'Message Queue',
 		description:
 			'An alternative to AWS SQS and Redis RSMQ, on Postgres. Interface to Postgres queues using SQL, REST API, and many client libraries including Python, Rust, and Go.',
 		image: MQStackElephant,
+		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
 	{
 		title: 'Standard',
 		description:
 			'Balanced for general purpose computing with full control over compute, configuration, and extension installation.',
 		image: StandardStackElephant,
+		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
 	{
 		title: 'Timeseries',
 		description:
 			'Efficiently store and query data indexed by time, optimizing performance for chronological data analysis in real-time monitoring and trend forecasting',
 		image: TimeseriesStackElephant,
+		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
 	{
 		title: 'OLTP',
 		description:
 			'tuned or handling high volumes of short, atomic transactions that ensure data integrity and concurrency in real-time operational systems.',
 		image: OLTPStackElephant,
+		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
 	{
 		title: 'VectorDB',
 		description:
 			'Store, index, and retrieve, and generate embeddings in Postgres.',
 		image: VectorDBStackElephant,
+		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
 	{
 		title: 'OLAP',
 		description:
 			'Tuned or handling high volumes of short, atomic transactions that ensure data integrity and concurrency in real-time operational systems.',
 		image: OLAPStackElephant,
+		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
 	{
 		title: 'Geospatial',
 		description:
 			'Postgres indices and operations optimized for Geospatial workloads.',
 		image: GeospatialStackElephant,
+		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
 	{
 		title: 'Mongo Alternative on Postgres',
 		description: 'Mongo-compatible wire protocol on Postgres.',
 		image: MongoAlternativeStackElephant,
+		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
 	{
 		title: 'Retrieval Augmented Generation',
 		description: 'LLM function calling directly from Postgres.',
 		image: RagStackElephant,
+		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
 	{
 		title: 'Machine Learning Stack',
 		description:
 			'Machine learning training and inference directly from Postgres. Built on PostgresML, pg_vector and pg_vectorize.',
 		image: MLStackElephant,
+		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
 ];
 ---
@@ -85,12 +96,15 @@ const stackHeroCardDetails = [
 <div class='flex flex-row gap-4 overflow-scroll'>
 	{
 		stackHeroCardDetails.map((stackCard, index) => (
-			<div
-				class='w-[300.86px] h-[334.53px] border-[0.72px] bg-mwasi border-[#FFFFFF0D] rounded-[34.38px] p-4 flex flex-col gap-8'
+			<a
+				class='w-[300px] border-[0.72px] bg-mwasi border-[#FFFFFF0D] rounded-[30px] px-4 pt-4 pb-6 flex flex-col gap-8 z-10'
+				href={stackCard.url}
+				target='_blank'
+				rel='noreferrer'
 				data-stack={index}
 			>
-				<div class='w-[270.55px] h-[184.63px] rounded-[28.65px] border-[0.72px] border-[#FFFFFF0D] p-3'>
-					<div class='border-dashed border-[#FFFFFF0D] border-[0.72px] rounded-[28.65px] relative'>
+				<div class='w-[270px] rounded-[28.65px] border-[0.72px] border-[#FFFFFF0D] p-3'>
+					<div class='border-dashed border-[#FFFFFF0D] border rounded-[28.65px] relative'>
 						<Image
 							src={DashedRectangle}
 							alt={'dashed rectangle'}
@@ -108,7 +122,7 @@ const stackHeroCardDetails = [
 						/>
 					</div>
 				</div>
-				<div class='flex flex-col gap-[7.31px]'>
+				<div class='flex flex-col gap-2'>
 					<h3 class='font-bold text-base leading-[17.19px] text-white'>
 						{stackCard.title}
 					</h3>
@@ -116,7 +130,7 @@ const stackHeroCardDetails = [
 						{stackCard.description}
 					</p>
 				</div>
-			</div>
+			</a>
 		))
 	}
 </div>

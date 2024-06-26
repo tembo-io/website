@@ -95,490 +95,497 @@ const currentPath = Astro.url.pathname;
 					Trusted by developers from
 				</p>
 				<div
-					class='flex justify-between items-center mr-6 w-full md:w-[572px]'
+					class='flex gap-12 sm:gap-20 items-center justify-center w-full'
 				>
-					<Image
-						src={WaddlingLogoLight}
-						alt='waddling logo'
-						width={155}
-						height={41}
-					/>
-					<Image
-						src={ArchLogo}
-						alt={'arch logo'}
-						width={84}
-						height={22}
-					/>
-					<Image
-						src={ProspectStreamLogo}
-						alt={'prospect stream logo'}
-						width={112}
-						height={35}
-					/>
+					<div class='flex justify-center w-[166px]'>
+						<Image
+							src={WaddlingLogoLight}
+							alt='waddling logo'
+							class='w-[155px] h-[41px]'
+						/>
+					</div>
+					<div class='flex justify-center w-[166px]'>
+						<Image
+							src={ArchLogo}
+							alt={'arch logo'}
+							class='w-[90px] h-[30px]'
+						/>
+					</div>
+					<div class='flex justify-center w-[166px]'>
+						<Image
+							src={ProspectStreamLogo}
+							alt='prospect stream logo'
+							class='w-[112px] h-[35px]'
+						/>
+					</div>
 				</div>
 			</div>
 		</Container>
 	</div>
-</Layout>
-<section class='tembo-build-any-application-section pb-[150px] overflow-hidden'>
-	<Container>
-		<div
-			class='flex flex-col items-center justify-center mt-9 customXs:mt-36 gap-6'
-		>
-			<h3 class='text-neon font-secondary'>BUILT TO SCALE</h3>
-			<h1
-				class='text-white font-medium text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] max-w-5xl text-center leading-normal'
-			>
-				Build any application on Postgres, <br />the everything database
-			</h1>
-			<Button
-				variant='gradient'
-				size='lg'
-				isLinkTag={true}
-				link='https://cloud.tembo.io'
-				client:load
-			>
-				Try Free
-			</Button>
-		</div>
-	</Container>
-	<div class='container max-w-stackSlider mx-auto'>
-		<StackSlider client:only='react' />
-	</div>
-	<div class='w-full flex justify-center items-center flex-col mt-48'>
-		<h3 class='text-neon font-secondary'>JOIN THE HERD</h3>
-		<h3
-			class='text-white font-bold text-[42px] font-["Bai Jamjuree"] text-center h-[106px]'
-		>
-			Customers trust Tembo <br />for a reason
-		</h3>
-	</div>
-	<Quotes className='mt-14' client:load />
-</section>
-<section class='tembo-postgres-section overflow-hidden'>
-	<Container styles='relative py-28'>
-		<div class='light-gradient absolute -top-[200px] right-[-100px]'></div>
-		<div class='flex flex-col items-center customSm:items-start'>
+	<section
+		class='tembo-build-any-application-section pb-[150px] overflow-hidden'
+	>
+		<Container>
 			<div
-				class='flex flex-col items-center customSm:items-start gap-6 mb-12 customSm:mb-0'
+				class='flex flex-col items-center justify-center mt-9 customXs:mt-36 gap-6'
 			>
+				<h3 class='text-neon font-secondary'>BUILT TO SCALE</h3>
 				<h1
-					class='text-neon font-bold text-4xl customXs:text-5xl customMd:text-[54px] z-10 text-center'
+					class='text-white font-medium text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] max-w-5xl text-center leading-normal'
 				>
-					100% Postgres,
+					Build any application on Postgres, <br />the everything
+					database
 				</h1>
-				<h2
-					class='text-white font-light text-2xl customXs:text-3xl z-10 text-center'
-				>
-					the most beloved database on earth
-				</h2>
 				<Button
 					variant='gradient'
 					size='lg'
-					styles='w-max z-10'
 					isLinkTag={true}
 					link='https://cloud.tembo.io'
 					client:load
 				>
-					Deploy now
+					Try Free
 				</Button>
 			</div>
-			<div
-				class='customSm:absolute customSm:right-0 customSm:top-1/3 customSm:px-[95px] z-10 w-full customSm:w-max'
-			>
-				<Showcase />
-			</div>
-			<Image
-				src={ElephantScene}
-				alt='Three elephants'
-				class='w-[675px]'
-			/>
-			<Image
-				src={Elephant11}
-				alt='Three elephants'
-				class='absolute right-[120px] top-[400px] customSm:top-[50px] customSm:right-[150px] w-[200px]'
-			/>
-			<Image
-				src={Elephant12}
-				alt='Three elephants'
-				class='hidden customXs:block absolute right-[50px] top-[650px] customSm:top-[150px] customSm:right-[500px] w-[150px]'
-			/>
+		</Container>
+		<div class='container max-w-stackSlider mx-auto'>
+			<StackSlider client:only='react' />
 		</div>
-	</Container>
-</section>
-<Container styles='relative overflow-hidden'>
-	<Section3Confetti />
-</Container>
-<TemboStacksSection client:only='react' />
-<section class='tembo-extensions-section pt-28 bg-offBlack overflow-hidden'>
-	<Container>
-		<div class='flex flex-col items-center justify-center'>
-			<h2
-				class='text-white font-bold text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[54px] max-w-5xl text-center leading-normal w-full'
+		<div class='w-full flex justify-center items-center flex-col mt-48'>
+			<h3 class='text-neon font-secondary'>JOIN THE HERD</h3>
+			<h3
+				class='text-white font-bold text-[42px] font-["Bai Jamjuree"] text-center h-[106px]'
 			>
-				Packed with <span
-					class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text text-[36px] customXxs:text-[46px] customXs:text-[57.6px] customSm:text-[72px]'
-					>200+</span
-				> Extensions
-			</h2>
+				What people say about us
+			</h3>
 		</div>
-	</Container>
-	<div
-		class='mt-2 customXs:mt-8 container max-w-stackSlider mx-auto flex flex-col items-center justify-center fade-x-md-both-sides'
-	>
-		<div class='flex gap-[16.8px] customXs:gap-6'>
-			<div class='flex flex-col gap-[16.8px] customXs:gap-6'>
-				<Extension
-					extensionTitle='pg_vector'
-					href='https://pgt.dev/extensions/pgvector'
-				>
-					<Image
-						src={PgVector}
-						alt='Admin Pack'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-				<Extension
-					extensionTitle='postgresml'
-					wrapperStyles='bg-pink'
-					titleStyles='text-neon'
-					href='https://pgt.dev/extensions/postgresml'
-				>
-					<Image
-						src={AdminPack}
-						alt='postgresml'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
+		<Quotes className='mt-14' client:load />
+	</section>
+	<section class='tembo-postgres-section overflow-hidden'>
+		<Container styles='relative py-28'>
+			<div class='light-gradient absolute -top-[200px] right-[-100px]'>
 			</div>
-			<div
-				class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[120px] customXs:mt-[200px]'
-			>
-				<Extension
-					extensionTitle='pg_cron'
-					wrapperStyles='bg-pink'
-					titleStyles='text-neon'
-					href='https://pgt.dev/extensions/pg_cron'
-				>
-					<Image
-						src={PgCron}
-						alt='pg_cron'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-				<Extension
-					extensionTitle='AdminPack'
-					wrapperStyles='bg-white'
-					titleStyles='text-black'
-					href='https://pgt.dev/extensions/adminpack'
-				>
-					<Image
-						src={AdminPack}
-						alt='Admin Pack'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-			</div>
-			<div
-				class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[60px] customXs:mt-[100px]'
-			>
-				<Extension
-					extensionTitle='PGMQ'
-					wrapperStyles='bg-customDarkGrey'
-					titleStyles='text-white'
-					href='https://pgt.dev/extensions/pgmq'
-				>
-					<Image
-						src={PgMQ}
-						alt='pgmq'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-				<Extension
-					extensionTitle='pg_vectorize'
-					wrapperStyles='bg-neon'
-					href='https://pgt.dev/extensions/vectorize'
-				>
-					<Image
-						src={Vectorize}
-						alt='Admin Pack'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-			</div>
-			<div
-				class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[78px] customXs:mt-[130px]'
-			>
-				<Extension
-					extensionTitle='argm'
-					href='https://pgt.dev/extensions/argm'
-				>
-					<Image
-						src={Argm}
-						alt='Argm'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-				<Extension
-					extensionTitle='pg_stat_statements'
-					wrapperStyles='bg-pink'
-					titleStyles='text-neon'
-					href='https://pgt.dev/extensions/pg_stat_statements'
-				>
-					<Image
-						src={PgStats}
-						alt='Admin Pack'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-			</div>
-			<div
-				class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[48px] customXs:mt-[80px]'
-			>
-				<Extension
-					extensionTitle='autoinc'
-					wrapperStyles='bg-white'
-					titleStyles='text-black'
-					href='https://pgt.dev/extensions/autoinc'
-				>
-					<Image
-						src={Autoinc}
-						alt='Autoinc'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-				<Extension
-					extensionTitle='aggs_for_vecs'
-					wrapperStyles='bg-neon'
-					href='https://pgt.dev/extensions/aggs_for_vecs'
-				>
-					<Image
-						src={Aggs_for_vecs}
-						alt='Aggs_for_vecs'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-			</div>
-			<div
-				class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[150px] customXs:mt-[250px]'
-			>
-				<Extension
-					extensionTitle='bloom'
-					wrapperStyles='bg-pink'
-					titleStyles='text-neon'
-					href='https://pgt.dev/extensions/bloom'
-				>
-					<Image
-						src={Bloom}
-						alt='Bloom'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-				<Extension
-					extensionTitle='bool_plperl'
-					wrapperStyles='bg-white'
-					titleStyles='text-black'
-					href='https://pgt.dev/extensions/bool_plperl'
-				>
-					<Image
-						src={Bool_plperl}
-						alt='bool_plperl'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-			</div>
-			<div
-				class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[120px] customXs:mt-[200px]'
-			>
-				<Extension
-					extensionTitle='pg_vector'
-					href='https://pgt.dev/extensions/pgvector'
-				>
-					<Image
-						src={PgVector}
-						alt='Admin Pack'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-				<Extension
-					extensionTitle='postgresml'
-					wrapperStyles='bg-customDarkGrey'
-					titleStyles='text-white'
-					href='https://pgt.dev/extensions/postgresml'
-				>
-					<Image
-						src={AdminPack}
-						alt='Admin Pack'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-			</div>
-			<div
-				class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[156px] customXs:mt-[260px]'
-			>
-				<Extension
-					extensionTitle='amcheck'
-					wrapperStyles='bg-neon'
-					titleStyles='text-blue'
-					href='https://pgt.dev/extensions/amcheck'
-				>
-					<Image
-						src={Amcheck}
-						alt='Amcheck'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-				<Extension
-					extensionTitle='pg_vectorize'
-					wrapperStyles='bg-pink'
-					titleStyles='text-neon'
-					href='https://pgt.dev/extensions/vectorize'
-				>
-					<Image
-						src={Vectorize}
-						alt='Pg_vectorize'
-						class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
-					/>
-				</Extension>
-			</div>
-		</div>
-		<Button
-			variant='gradient'
-			size='lg'
-			styles='mb-2'
-			isLinkTag={true}
-			link='https://cloud.tembo.io'
-			client:load
-		>
-			Deploy now
-		</Button>
-	</div>
-</section>
-<section
-	class='why-tembo-section pt-28 bg-offBlack pb-[50px] md:pb-[170px] overflow-hidden'
->
-	<Container styles='relative'>
-		<div class='flex flex-col'>
-			<h2
-				class='text-5xl customXs:text-5xl customMd:text-6xl text-lightNeon font-bold'
-			>
-				Why Tembo?
-			</h2>
-			<div class='mt-16 z-10'>
+			<div class='flex flex-col items-center customSm:items-start'>
 				<div
-					class='flex flex-col customXs:flex-row customMd:flex-col gap-12 w-fill'
+					class='flex flex-col items-center customSm:items-start gap-6 mb-12 customSm:mb-0'
 				>
-					<div class='flex flex-col gap-12 w-full'>
-						<div
-							class='flex flex-col customMd:flex-row justify-between w-full gap-16'
-						>
-							<DetailSequence
-								header='Reduce Sprawl'
-								text='Consolidate your data stack without cost or lock-in worries.'
-								styles='w-full max-w-none mobile:max-w-[530px]'
-							/>
-							<DetailSequence
-								header='Fully Extensible'
-								text='200+ extensions and counting means Tembo can be whatever you need it to be.'
-								styles='w-full max-w-none mobile:max-w-[530px]'
-							/>
-							<DetailSequence
-								header='External App Support'
-								text='You’re not limited to just extensions—we also enable a growing library of extensions that can be deployed alongside your instance.'
-								styles='w-full max-w-none mobile:max-w-[530px]'
-							/>
-						</div>
-						<div
-							class='flex flex-col customMd:flex-row justify-between w-full gap-16'
-						>
-							<DetailSequence
-								header='Developer Friendly'
-								text='Intuitive interface lets you build data services like you build applications.'
-								styles='w-full max-w-none mobile:max-w-[530px]'
-							/>
-							<DetailSequence
-								header='Postgres, not "Postgres-Compatible"'
-								text='If you can do it on Postgres, you can do it on Tembo.'
-								styles='w-full max-w-none mobile:max-w-[530px]'
-							/>
-							<DetailSequence
-								header='One Vendor, Fully Managed'
-								text='A zero-headache, end-to-end data service right from day one. We give you solutions, not just tools.'
-								styles='w-full max-w-none mobile:max-w-[530px]'
-							/>
-						</div>
-					</div>
-					<div
-						class='flex flex-col customMd:flex-row customMd:justify-between w-full gap-16'
+					<h1
+						class='text-neon font-bold text-4xl customXs:text-5xl customMd:text-[54px] z-10 text-center'
 					>
-						<DetailSequence
-							header='Open Source'
-							text='We’re committed to helping build the future of Postgres.'
-							styles='w-full max-w-none mobile:max-w-[530px]'
-						/>
-						<DetailSequence
-							header='Develop Locally, Unleash Anywhere'
-							text='Develop and deploy your application in a local environment, and easily run it on the cloud.'
-							styles='w-full max-w-none mobile:max-w-[530px]'
-						/>
-						<DetailSequence
-							header='Use-case Optimized'
-							text='Stacks are pre-made, customized “flavors” of Postgres + extensions designed for common application needs.'
-							styles='w-full max-w-none mobile:max-w-[530px]'
-						/>
-					</div>
-				</div>
-			</div>
-		</div>
-	</Container>
-</section>
-<section class='tembo-footer-section mobile:pt-28 relative bg-offBlack'>
-	<div class='container max-w-stackSlider mx-auto relative'>
-		<Animation
-			client:only='react'
-			isFooter={true}
-			styles='z-10 top-[300px] xs:top-[100px] sm:top-[50px] md:-top-[200px] xl:-top-[600px] fade-x-md-both-sides-animation'
-		/>
-		<div
-			class='flex flex-col justify-center pb-[100px] min-[400px]:pb-[200px] z-10'
-		>
-			<Container styles='z-10 pb-24'>
-				<h2
-					class='text-white font-bold text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] text-center leading-normal w-full z-50 mt-28'
-				>
-					Join The Herd
-				</h2>
-				<div
-					class='flex-col min-[500px]:flex-row flex items-center justify-center mt-10 gap-4 z-50'
-				>
+						100% Postgres,
+					</h1>
+					<h2
+						class='text-white font-light text-2xl customXs:text-3xl z-10 text-center'
+					>
+						the most beloved database on earth
+					</h2>
 					<Button
 						variant='gradient'
 						size='lg'
-						client:load
+						styles='w-max z-10'
 						isLinkTag={true}
 						link='https://cloud.tembo.io'
-						styles='h-[60px] w-full min-[500px]:w-[182px] font-semibold font-primary z-10 flex items-center justify-center'
+						client:load
 					>
 						Deploy now
 					</Button>
-					<ArrowButton
-						title='Join the team'
-						link='mailto:careers@tembo.io'
-					/>
 				</div>
+				<div
+					class='customSm:absolute customSm:right-0 customSm:top-1/3 customSm:px-[95px] z-10 w-full customSm:w-max'
+				>
+					<Showcase />
+				</div>
+				<Image
+					src={ElephantScene}
+					alt='Three elephants'
+					class='w-[675px]'
+				/>
+				<Image
+					src={Elephant11}
+					alt='Three elephants'
+					class='absolute right-[120px] top-[400px] customSm:top-[50px] customSm:right-[150px] w-[200px]'
+				/>
+				<Image
+					src={Elephant12}
+					alt='Three elephants'
+					class='hidden customXs:block absolute right-[50px] top-[650px] customSm:top-[150px] customSm:right-[500px] w-[150px]'
+				/>
+			</div>
+		</Container>
+	</section>
+	<Container styles='relative overflow-hidden'>
+		<Section3Confetti />
+	</Container>
+	<TemboStacksSection client:only='react' />
+	<section class='tembo-extensions-section pt-28 bg-offBlack overflow-hidden'>
+		<Container>
+			<div class='flex flex-col items-center justify-center'>
+				<h2
+					class='text-white font-bold text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[54px] max-w-5xl text-center leading-normal w-full'
+				>
+					Packed with <span
+						class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text text-[36px] customXxs:text-[46px] customXs:text-[57.6px] customSm:text-[72px]'
+						>200+</span
+					> Extensions
+				</h2>
+			</div>
+		</Container>
+		<div
+			class='mt-2 customXs:mt-8 container max-w-stackSlider mx-auto flex flex-col items-center justify-center fade-x-md-both-sides'
+		>
+			<div class='flex gap-[16.8px] customXs:gap-6'>
+				<div class='flex flex-col gap-[16.8px] customXs:gap-6'>
+					<Extension
+						extensionTitle='pg_vector'
+						href='https://pgt.dev/extensions/pgvector'
+					>
+						<Image
+							src={PgVector}
+							alt='Admin Pack'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+					<Extension
+						extensionTitle='postgresml'
+						wrapperStyles='bg-pink'
+						titleStyles='text-neon'
+						href='https://pgt.dev/extensions/postgresml'
+					>
+						<Image
+							src={AdminPack}
+							alt='postgresml'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+				</div>
+				<div
+					class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[120px] customXs:mt-[200px]'
+				>
+					<Extension
+						extensionTitle='pg_cron'
+						wrapperStyles='bg-pink'
+						titleStyles='text-neon'
+						href='https://pgt.dev/extensions/pg_cron'
+					>
+						<Image
+							src={PgCron}
+							alt='pg_cron'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+					<Extension
+						extensionTitle='AdminPack'
+						wrapperStyles='bg-white'
+						titleStyles='text-black'
+						href='https://pgt.dev/extensions/adminpack'
+					>
+						<Image
+							src={AdminPack}
+							alt='Admin Pack'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+				</div>
+				<div
+					class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[60px] customXs:mt-[100px]'
+				>
+					<Extension
+						extensionTitle='PGMQ'
+						wrapperStyles='bg-customDarkGrey'
+						titleStyles='text-white'
+						href='https://pgt.dev/extensions/pgmq'
+					>
+						<Image
+							src={PgMQ}
+							alt='pgmq'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+					<Extension
+						extensionTitle='pg_vectorize'
+						wrapperStyles='bg-neon'
+						href='https://pgt.dev/extensions/vectorize'
+					>
+						<Image
+							src={Vectorize}
+							alt='Admin Pack'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+				</div>
+				<div
+					class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[78px] customXs:mt-[130px]'
+				>
+					<Extension
+						extensionTitle='argm'
+						href='https://pgt.dev/extensions/argm'
+					>
+						<Image
+							src={Argm}
+							alt='Argm'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+					<Extension
+						extensionTitle='pg_stat_statements'
+						wrapperStyles='bg-pink'
+						titleStyles='text-neon'
+						href='https://pgt.dev/extensions/pg_stat_statements'
+					>
+						<Image
+							src={PgStats}
+							alt='Admin Pack'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+				</div>
+				<div
+					class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[48px] customXs:mt-[80px]'
+				>
+					<Extension
+						extensionTitle='autoinc'
+						wrapperStyles='bg-white'
+						titleStyles='text-black'
+						href='https://pgt.dev/extensions/autoinc'
+					>
+						<Image
+							src={Autoinc}
+							alt='Autoinc'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+					<Extension
+						extensionTitle='aggs_for_vecs'
+						wrapperStyles='bg-neon'
+						href='https://pgt.dev/extensions/aggs_for_vecs'
+					>
+						<Image
+							src={Aggs_for_vecs}
+							alt='Aggs_for_vecs'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+				</div>
+				<div
+					class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[150px] customXs:mt-[250px]'
+				>
+					<Extension
+						extensionTitle='bloom'
+						wrapperStyles='bg-pink'
+						titleStyles='text-neon'
+						href='https://pgt.dev/extensions/bloom'
+					>
+						<Image
+							src={Bloom}
+							alt='Bloom'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+					<Extension
+						extensionTitle='bool_plperl'
+						wrapperStyles='bg-white'
+						titleStyles='text-black'
+						href='https://pgt.dev/extensions/bool_plperl'
+					>
+						<Image
+							src={Bool_plperl}
+							alt='bool_plperl'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+				</div>
+				<div
+					class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[120px] customXs:mt-[200px]'
+				>
+					<Extension
+						extensionTitle='pg_vector'
+						href='https://pgt.dev/extensions/pgvector'
+					>
+						<Image
+							src={PgVector}
+							alt='Admin Pack'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+					<Extension
+						extensionTitle='postgresml'
+						wrapperStyles='bg-customDarkGrey'
+						titleStyles='text-white'
+						href='https://pgt.dev/extensions/postgresml'
+					>
+						<Image
+							src={AdminPack}
+							alt='Admin Pack'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+				</div>
+				<div
+					class='flex flex-col gap-[16.8px] customXs:gap-6 mt-[156px] customXs:mt-[260px]'
+				>
+					<Extension
+						extensionTitle='amcheck'
+						wrapperStyles='bg-neon'
+						titleStyles='text-blue'
+						href='https://pgt.dev/extensions/amcheck'
+					>
+						<Image
+							src={Amcheck}
+							alt='Amcheck'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+					<Extension
+						extensionTitle='pg_vectorize'
+						wrapperStyles='bg-pink'
+						titleStyles='text-neon'
+						href='https://pgt.dev/extensions/vectorize'
+					>
+						<Image
+							src={Vectorize}
+							alt='Pg_vectorize'
+							class='rounded-[12px] customXs:rounded-[20px] w-full h-full'
+						/>
+					</Extension>
+				</div>
+			</div>
+			<Button
+				variant='gradient'
+				size='lg'
+				styles='mb-2'
+				isLinkTag={true}
+				link='https://cloud.tembo.io'
+				client:load
+			>
+				Deploy now
+			</Button>
+		</div>
+	</section>
+	<section
+		class='why-tembo-section pt-28 bg-offBlack pb-[50px] md:pb-[170px] overflow-hidden'
+	>
+		<Container styles='relative'>
+			<div class='flex flex-col'>
+				<h2
+					class='text-5xl customXs:text-5xl customMd:text-6xl text-lightNeon font-bold'
+				>
+					Why Tembo?
+				</h2>
+				<div class='mt-16 z-10'>
+					<div
+						class='flex flex-col customXs:flex-row customMd:flex-col gap-12 w-fill'
+					>
+						<div class='flex flex-col gap-12 w-full'>
+							<div
+								class='flex flex-col customMd:flex-row justify-between w-full gap-16'
+							>
+								<DetailSequence
+									header='Reduce Sprawl'
+									text='Consolidate your data stack without cost or lock-in worries.'
+									styles='w-full max-w-none mobile:max-w-[530px]'
+								/>
+								<DetailSequence
+									header='Fully Extensible'
+									text='200+ extensions and counting means Tembo can be whatever you need it to be.'
+									styles='w-full max-w-none mobile:max-w-[530px]'
+								/>
+								<DetailSequence
+									header='External App Support'
+									text='You’re not limited to just extensions—we also enable a growing library of extensions that can be deployed alongside your instance.'
+									styles='w-full max-w-none mobile:max-w-[530px]'
+								/>
+							</div>
+							<div
+								class='flex flex-col customMd:flex-row justify-between w-full gap-16'
+							>
+								<DetailSequence
+									header='Developer Friendly'
+									text='Intuitive interface lets you build data services like you build applications.'
+									styles='w-full max-w-none mobile:max-w-[530px]'
+								/>
+								<DetailSequence
+									header='Postgres, not "Postgres-Compatible"'
+									text='If you can do it on Postgres, you can do it on Tembo.'
+									styles='w-full max-w-none mobile:max-w-[530px]'
+								/>
+								<DetailSequence
+									header='One Vendor, Fully Managed'
+									text='A zero-headache, end-to-end data service right from day one. We give you solutions, not just tools.'
+									styles='w-full max-w-none mobile:max-w-[530px]'
+								/>
+							</div>
+						</div>
+						<div
+							class='flex flex-col customMd:flex-row customMd:justify-between w-full gap-16'
+						>
+							<DetailSequence
+								header='Open Source'
+								text='We’re committed to helping build the future of Postgres.'
+								styles='w-full max-w-none mobile:max-w-[530px]'
+							/>
+							<DetailSequence
+								header='Develop Locally, Unleash Anywhere'
+								text='Develop and deploy your application in a local environment, and easily run it on the cloud.'
+								styles='w-full max-w-none mobile:max-w-[530px]'
+							/>
+							<DetailSequence
+								header='Use-case Optimized'
+								text='Stacks are pre-made, customized “flavors” of Postgres + extensions designed for common application needs.'
+								styles='w-full max-w-none mobile:max-w-[530px]'
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</Container>
+	</section>
+	<section class='tembo-footer-section mobile:pt-28 relative bg-offBlack'>
+		<div class='container max-w-stackSlider mx-auto relative'>
+			<Animation
+				client:only='react'
+				isFooter={true}
+				styles='z-10 top-[300px] xs:top-[100px] sm:top-[50px] md:-top-[200px] xl:-top-[600px] fade-x-md-both-sides-animation'
+			/>
+			<div
+				class='flex flex-col justify-center pb-[100px] min-[400px]:pb-[200px] z-10'
+			>
+				<Container styles='z-10 pb-24'>
+					<h2
+						class='text-white font-bold text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] text-center leading-normal w-full z-50 mt-28'
+					>
+						Join The Herd
+					</h2>
+					<div
+						class='flex-col min-[500px]:flex-row flex items-center justify-center mt-10 gap-4 z-50'
+					>
+						<Button
+							variant='gradient'
+							size='lg'
+							client:load
+							isLinkTag={true}
+							link='https://cloud.tembo.io'
+							styles='h-[60px] w-full min-[500px]:w-[182px] font-semibold font-primary z-10 flex items-center justify-center'
+						>
+							Deploy now
+						</Button>
+						<ArrowButton
+							title='Join the team'
+							link='mailto:careers@tembo.io'
+						/>
+					</div>
+				</Container>
+			</div>
+		</div>
+		<div class='relative bg-offBlack z-10'>
+			<div
+				class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+			>
+			</div>
+			<Container styles='z-50'>
+				<Footer />
 			</Container>
 		</div>
-	</div>
-	<div class='relative bg-offBlack z-10'>
-		<div
-			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
-		>
-		</div>
-		<Container styles='z-50'>
-			<Footer />
-		</Container>
-	</div>
-</section>
+	</section>
+</Layout>
 
 <style>
 	.main-content {
