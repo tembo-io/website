@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Container from './Container';
-import Button from './Button';
 import cx from 'classnames';
-import { navigate } from 'astro:transitions/client';
 import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
+import { ClerkProvider } from '@clerk/clerk-react';
+import ClerkButton from './ClerkButton';
+
+const CLERK_PUBLISHABLE_KEY = import.meta.env.PUBLIC_VITE_CLERK_PUBLISHABLE_KEY;
+if (!CLERK_PUBLISHABLE_KEY) {
+	throw new Error('Missing Clerk Publishable Key');
+}
 
 interface Props {
 	currentPage: string;
@@ -181,14 +186,9 @@ const NavBar: React.FC<Props> = ({
 							/>
 							Github
 						</a>
-						<Button
-							variant='neon'
-							styles='z-100'
-							isLinkTag={true}
-							link='https://cloud.tembo.io'
-						>
-							Try Free
-						</Button>
+						<ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY}>
+							<ClerkButton />
+						</ClerkProvider>
 					</div>
 					<button
 						onClick={() => {

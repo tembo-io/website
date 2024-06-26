@@ -2,6 +2,7 @@
 title: RAG
 sideBarTitle: RAG
 sideBarPosition: 202
+tags: [postgres, rag, ai]
 ---
 
 Build LLM applications without deploying new infrastructure or changing your application's language stack. Tembo's RAG Stack gives you a SQL API to building LLM applications using Retrieval Augmented Generation (RAG) techniques. In short, RAG is a technique used to provide your own data as context to a chat model as a means to provide a chat experience tailored to your application's needs.
@@ -14,9 +15,9 @@ Finally, a SQL interface to execute the RAG pipeline will be provided to generat
 
 ## Features
 
-- text to embedding transformers: supports any Hugging Face sentence transformer model, privately hosted Hugging Face model, and OpenAI embedding models
-- define custom prompt templates with SQL
-- mix-and-match embedding models and chat-completion models by changing SQL configurations
+-   text to embedding transformers: supports any Hugging Face sentence transformer model, privately hosted Hugging Face model, and OpenAI embedding models
+-   define custom prompt templates with SQL
+-   mix-and-match embedding models and chat-completion models by changing SQL configurations
 
 ## Build a support agent with Tembo RAG
 
@@ -66,7 +67,7 @@ Generally, using the full context window will achieve a better response, but com
 Load the documents into memory and process them into chunks using the official Python sdk for Tembo, tembo-py. This library's `rag` module currently wraps the major chunking functionality from the llama-index library, but all transformation and
 search functionality is handled within Tembo Postgres.
 
-Install Tembo's python library which contains a convenience wrapper around  the [llama-index](https://docs.llamaindex.ai/en/stable/) library.
+Install Tembo's python library which contains a convenience wrapper around the [llama-index](https://docs.llamaindex.ai/en/stable/) library.
 
 ```bash
 pip install tembo-py
@@ -91,7 +92,7 @@ chunks = rag.prepare_from_directory("./tembo_docs")
 ```
 
 The original documents are now split into many more chunks.
- The number of chunks will depend on the size and number of documents, and can be further configured by passing in the `chunk_size` parameter, or any of llama-index [parameters](https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/modules/?h=sentencespl#sentencesplitter) as kwargs.
+The number of chunks will depend on the size and number of documents, and can be further configured by passing in the `chunk_size` parameter, or any of llama-index [parameters](https://docs.llamaindex.ai/en/stable/module_guides/loading/node_parsers/modules/?h=sentencespl#sentencesplitter) as kwargs.
 
 ```python
 > print("number of chunks: ", len(chunks))
@@ -108,10 +109,10 @@ rag.load_documents(chunks)
 
 ### Initialize the agent
 
-Now initialize the RAG project. This starts the process of generating embeddings for each chunk using the `sentence-transformers/all-MiniLM-L12-v2` model. This happens within Postgres on Tembo, and not in the environment where the python scripts are executed. This could take some time depending on how many chunks and documents are in the project.
+Now initialize the RAG project. This starts the process of generating embeddings for each chunk using the `sentence-transformers/all-MiniLM-L6-v2` model. This happens within Postgres on Tembo, and not in the environment where the python scripts are executed. This could take some time depending on how many chunks and documents are in the project.
 
 ```python
-rag.init_rag(transformer="sentence-transformers/all-MiniLM-L12-v2")
+rag.init_rag(transformer="sentence-transformers/all-MiniLM-L6-v2")
 ```
 
 It is safe to close the connection to the Tembo Postgres instance at this point.
@@ -184,9 +185,9 @@ select vectorize.rag(
 
 RAG can be a very powerful technique for building an LLM application, but the effectiveness of the chat model is highly dependent on a few factors:
 
-- the contextual documents provided in RAG need to be relevant. This means that relevant documents must not only exist, but the similarity search also needs to find them.
-- the prompt needs to be well-crafted to guide the LLM to generate accurate and relevant responses. Even with a highly tailored prompt, chat responses are still subject to "hallucinations".
-- context windows are a constraint, and are costly. Using a chat model with a higher context window is more likely but not guaranteed to generate a better response, and it is guaranteed to be more expensive.
+-   the contextual documents provided in RAG need to be relevant. This means that relevant documents must not only exist, but the similarity search also needs to find them.
+-   the prompt needs to be well-crafted to guide the LLM to generate accurate and relevant responses. Even with a highly tailored prompt, chat responses are still subject to "hallucinations".
+-   context windows are a constraint, and are costly. Using a chat model with a higher context window is more likely but not guaranteed to generate a better response, and it is guaranteed to be more expensive.
 
 ### Support
 

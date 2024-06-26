@@ -10,7 +10,7 @@ In today's world, geographic data stands out for its ability to apply spatial co
 
 Working with geospatial workloads is not new to Postgres. In fact, its most popular geospatial extension, and certainly one of the most popular in general, [PostGIS, has been around since 2001](https://postgis.net/workshops/postgis-intro/introduction.html#a-brief-history-of-postgis). However, installing PostGIS, its dependencies, related extensions, and loading it up with data is hard for new users of the extension.
 
-We recently launched the Geospatial Stack to make this easier. The Geospatial Stack is open source and comes pre-packaged with PostGIS and other related extensions, allowing you to perform geospatial analysis without needing to set up another database! You can try it out on your own by using our [Kubernetes Operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/gis.yaml) or deploy it with a single click on [Tembo Cloud](https://cloud.tembo.io).
+We recently launched the Geospatial Stack to make this easier. The Geospatial Stack is open source and comes pre-packaged with PostGIS and other related extensions, allowing you to perform geospatial analysis without needing to set up another database! You can try it out on your own by using our [Kubernetes Operator](https://github.com/tembo-io/tembo/blob/main/tembo-operator) or deploy it with a single click on [Tembo Cloud](https://cloud.tembo.io).
 
 Let's look at an example of something interesting you could build with Postgres on the Geospatial Stack.
 

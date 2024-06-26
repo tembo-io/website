@@ -2,6 +2,7 @@
 title: Machine Learning
 sideBarTitle: Machine Learning
 sideBarPosition: 203
+tags: [postgres, machine learning, ai]
 ---
 
 The Tembo Machine Learning Stack has several important Postgres extensions that make it easy to train and deploy machine learning models in Postgres.
@@ -150,7 +151,7 @@ select count(*) from titles_training group by is_clickbait;
 ## Transform text to embeddings
 
 Machine learning algorithms work with numbers, not text. So in order to train a model on our text, we need to we need to transform that text into some numbers.
-There are many ways to transform text into numbers, such as [Bag of Words](https://en.wikipedia.org/wiki/Bag-of-words_model), [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf), [any many others](https://medium.com/analytics-vidhya/a-beginners-guide-to-convert-text-data-to-numeric-data-part-1-e0e15666d9e5). The natural language processing domain is rather large and for this example, we will use the [all_MiniLM_L12_v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) sentence transformer from Hugging Face.
+There are many ways to transform text into numbers, such as [Bag of Words](https://en.wikipedia.org/wiki/Bag-of-words_model), [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf), [any many others](https://medium.com/analytics-vidhya/a-beginners-guide-to-convert-text-data-to-numeric-data-part-1-e0e15666d9e5). The natural language processing domain is rather large and for this example, we will use the [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) sentence transformer from Hugging Face.
 
 Let's add the embeddings service to our Tembo instance. You can add it via the API like this, or you can do it in the browser on the "Apps" tab, selecting the "embeddings" app.
 
@@ -169,7 +170,7 @@ ALTER TABLE titles_training ADD COLUMN record_id BIGSERIAL PRIMARY KEY;
 ALTER TABLE titles_training ADD COLUMN embedding double precision[];
 ```
 
-We'll use the [all_MiniLM_L12_v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2), which is hosted in your Tembo instance. This model will transform our text into a 384 dimensional vector. We'll save the vectors in the `embedding` column.
+We'll use the [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), which is hosted in your Tembo instance. This model will transform our text into a 384 dimensional vector. We'll save the vectors in the `embedding` column.
 
 First, create a function using `pl/python` to handle this transformation. Let's enable that extension first.
 

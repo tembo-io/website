@@ -1,4 +1,5 @@
 ---
+import { Toaster } from 'sonner';
 interface Props {
 	title: string;
 	description?: string;
@@ -265,6 +266,17 @@ const {
 		<main class='overflow-clip'>
 			<slot />
 		</main>
+
+		<Toaster
+			position='bottom-right'
+			theme='dark'
+			toastOptions={{
+				classNames: {
+					toast: 'bg-mwasi',
+				},
+			}}
+			client:idle
+		/>
 	</body>
 </html>
 <style is:global>

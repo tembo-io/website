@@ -4,7 +4,18 @@ import Accordion from './Accordion';
 const faqs = [
 	{
 		heading: 'When will I be billed?',
-		content: 'Our Production plan charges based on usage. You will receive your involve at the end of each month.',
+		content: (
+			<p>
+				Plans on Tembo Cloud are charged based on usage; you will receive your invoice at the end of each month. Self Hosted deployments can vary, which is why we encourage you to{' '}
+				<a 
+					href={'https://tembo.io/contact/'}
+					className='underline'
+				>
+					contact us
+				</a>{' '}
+				so we can work together to find the most appropriate plan.
+			</p>
+		),
 	},
 	{
 		heading:
@@ -14,29 +25,63 @@ const faqs = [
 	},
 	{
 		heading: 'Are annual plans available?',
-		content:
-			'Yes, we do provide annual plans which offer a significant discount over the list price. Please reach out to brad@tembo.io to learn more.',
+		content: (
+			<p>
+				Yes, we do provide annual plans, which offer a significant
+				discount over the list price. Please{' '}
+				<a 
+					href={'https://tembo.io/contact'} 
+					className='underline'
+				>
+					contact us
+				</a>{' '}
+				to learn more.
+			</p>
+		),
 	},
 	{
 		heading: 'Do you have plans specifically for early-stage startups?',
-		content:
-			'Yes! please visit our Tembo for Startups site (https://tembo.io/for-startups/) and follow instructions. We offer up to 50% off for the first year, and ongoing discounts for startups who are part of a Partner Organization in our Partner network.',
+		content: (
+			<p>
+				Yes! Please visit our Tembo{' '}
+				<a
+					href={'https://tembo.io/for-startups/'}
+					className='underline'
+				>
+					for startups site
+				</a>{' '}
+				and follow the instructions. We offer up to 50% off for the
+				first year, and ongoing discounts for startups who are part of a
+				Partner Organization in our Partner network.
+			</p>
+		),
 	},
 	{
-		heading: 'Can Tembo be hosted on my own infrastructure?',
-		content:
-			'Yes, you can self-host our Kubernetes Operator present at https://github.com/tembo-io/tembo/tree/main/tembo-operator or get in touch with brad@tembo.io to explore our private data plane offering.',
+		heading:
+			"I have a preferred cloud provider or region that I don't see on Tembo Cloud. What can I do?",
+		content: (
+			<p>
+				We are continuously adding new regions to our Tembo Cloud offering. Please visit{' '}
+				<a
+					href={'https://roadmap.tembo.io/roadmap'}
+					className='underline'
+				>
+					our roadmap
+				</a>{' '}
+				to request the regions or cloud providers you'd like. You can also use our Self Hosted offering, which allows you to run Tembo on any cloud provider or region that supports deploying a Kubernetes cluster.
+			</p>
+		),
 	},
 ];
 
 const Faqs: React.FC = () => {
 	return (
-		<div className='z-50'>
-			<h2 className='font-bold text-pricingGreen text-[32px] leading-[40px] tracking-[0.54px] [text-shadow:0px_0px_81px_#000] z-50'>
+		<>
+			<h2 className='font-bold text-pricingGreen text-[32px] leading-[40px] tracking-[0.54px] [text-shadow:0px_0px_81px_#000]'>
 				Frequently Asked Questions
 			</h2>
 			<Accordion items={faqs} />
-		</div>
+		</>
 	);
 };
 

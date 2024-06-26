@@ -1,0 +1,23 @@
+---
+sideBarTitle: Revoke a token
+title: Revoke a token
+description: Revoke a personal access token for Tembo Cloud
+---
+
+import Callout from '../../../../../components/Callout.astro';
+
+Users can issue long-lived tokens, as described in the [API documentation](/docs/development/api).
+
+To invalidate a token, call the [API endpoint](https://api.tembo.io/swagger-ui/#/tokens/invalidate_token) for deleting tokens using that token as the authorization header.
+
+<Callout variant='info'>
+	It takes up to a minute for an invalidated token to start getting rejected by the API.
+</Callout>
+
+```bash
+export TEMBO_TOKEN="The token you want to invalidate"
+
+curl -X DELETE \
+    -H "Authorization: Bearer ${TEMBO_TOKEN}" \
+    "https://api.tembo.io/api/v1/tokens/invalidate"
+```

@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 interface Item {
 	heading: string;
-	content: string;
+	content: string | React.ReactNode;
 }
 
 interface Props {
@@ -22,20 +22,18 @@ const Accordion: React.FC<Props> = ({ items }) => {
 	};
 
 	return (
-		<ul className='mt-14 flex flex-col gap-4'>
+		<ul className='mt-14 flex flex-col gap-4 z-50'>
 			{items.map((item, i) => (
 				<li
 					key={`faq-${i}`}
-					className='p-6 rounded-2xl border-[0.5px] border-white border-opacity-20 bg-white bg-opacity-[0.06] customXs:px-6 customXs:py-10 z-100'
+					className='p-6 rounded-2xl border-[0.5px] border-white border-opacity-20 bg-white bg-opacity-[0.06] customXs:px-6 customXs:py-10'
+					onClick={() => handleClick(i)}
 				>
 					<div className='flex justify-between items-center h-full'>
 						<h3 className='font-secondary font-medium text-white text-[15px] leading-[18px] tracking-[0.472px] customXs:text-[23px] customXs:leading-[28px] z-10'>
 							{item.heading}
 						</h3>
-						<button
-							onClick={() => handleClick(i)}
-							className='shrink-0 z-40'
-						>
+						<button className='shrink-0 z-40'>
 							{openIndexes.includes(i) ? (
 								<img src='/minus.svg' alt='minus symbol' />
 							) : (
@@ -51,7 +49,7 @@ const Accordion: React.FC<Props> = ({ items }) => {
 								: 'grid-rows-[0fr]',
 						)}
 					>
-						<div className='overflow-hidden'>
+						<div className='overflow-hidden z-10'>
 							<p className='pt-10 font-secondary font-normal text-white text-[15px] leading-[22px] tracking-[0.472px] opacity-80 customXs:text-[18px] customXs:leading-[27px]'>
 								{item.content}
 							</p>

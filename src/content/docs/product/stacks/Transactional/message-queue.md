@@ -2,6 +2,7 @@
 title: Message Queue
 sideBarTitle: Message Queue
 sideBarPosition: 103
+tags: [postgres, message queue, transactional]
 ---
 
 Message queues let you send, read, and retain messages between applications without data loss or requiring all systems in a distributed system to be available. The MQ Stack is powered by [PGMQ](https://github.com/tembo-io/pgmq#sql-examples), a Postgres extension built and maintained by Tembo that provides a simple and consistent interface for creating queues and sending, receiving, deleting and archiving messages.
@@ -42,13 +43,7 @@ The functions can be reached at `https://{TEMBO_DATA_DOMAIN}/pgmq/v1/<function_n
 
 We'll walk through the major functionality of the HTTP interface below.
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 ### Create a Queue
-
-<Tabs>
-<TabItem value="py" label="Python">
 
 ```py
 import requests
@@ -78,17 +73,11 @@ curl -X POST \
   "https://${TEMBO_DATA_DOMAIN}/pgmq/v1/create"
 ```
 
-</TabItem>
-</Tabs>
-
 ---
 
 ### List Queues
 
 List all the queues currently in the database.
-
-<Tabs>
-<TabItem value="py" label="Python">
 
 ```py
 resp = requests.post(
@@ -98,19 +87,12 @@ resp = requests.post(
 print(resp.status_code)
 ```
 
-</TabItem>
-
-<TabItem value="curl" label="Curl">
-
 ```bash
 curl -X POST \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
   -H "Content-Type: application/json" \
   "https://${TEMBO_DATA_DOMAIN}/pgmq/v1/list_queues"
 ```
-
-</TabItem>
-</Tabs>
 
 The existing queues will be returned in the response:
 
@@ -129,9 +111,6 @@ The existing queues will be returned in the response:
 
 ### Send a Message
 
-<Tabs>
-<TabItem value="py" label="Python">
-
 ```py
 resp = requests.post(
     url=f"https://{TEMBO_DATA_DOMAIN}/pgmq/v1/send",
@@ -144,10 +123,6 @@ resp = requests.post(
 resp.json()
 ```
 
-</TabItem>
-
-<TabItem value="curl" label="Curl">
-
 ```bash
 curl -X POST \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
@@ -155,9 +130,6 @@ curl -X POST \
   -d '{"queue_name": "my_demo", "msg": {"hello": "world-0"}}' \
   "https://${TEMBO_DATA_DOMAIN}/pgmq/v1/send"
 ```
-
-</TabItem>
-</Tabs>
 
 The message ID is returned from the request.
 
@@ -171,9 +143,6 @@ The message ID is returned from the request.
 
 To send multiple messages in a single request, use the `send_batch` endpoint.
 The `msg` parameter becomes `msgs`, and accepts a list or array of json messages.
-
-<Tabs>
-<TabItem value="py" label="Python">
 
 ```py
 resp = requests.post(
@@ -193,10 +162,6 @@ resp = requests.post(
 resp.json()
 ```
 
-</TabItem>
-
-<TabItem value="curl" label="Curl">
-
 ```bash
 curl -X POST \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
@@ -204,9 +169,6 @@ curl -X POST \
   -d '{"queue_name": "my_demo", "msgs": [{"hello": "world-1"}, {"hello": "world-02"}, {"hello": "world-03"}, {"hello": "world-04"}, {"hello": "world-05"}]}' \
   "https://${TEMBO_DATA_DOMAIN}/pgmq/v1/send_batch"
 ```
-
-</TabItem>
-</Tabs>
 
 The message IDs for all messages are returned in an array.
 
@@ -219,9 +181,6 @@ The message IDs for all messages are returned in an array.
 ### Read Messages
 
 Read one or many message from the queue. Set the visibility timeout to 30 seconds, which will prevent all consumers from reading that message again for 30 seconds. Specify the number of messages you want to read with `qty`.
-
-<Tabs>
-<TabItem value="py" label="Python">
 
 ```py
 resp = requests.post(
@@ -238,9 +197,6 @@ resp.json()
 
 ---
 
-</TabItem>
-<TabItem value="curl" label="Curl">
-
 ```bash
 curl -X POST \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
@@ -248,9 +204,6 @@ curl -X POST \
   -d '{"queue_name": "my_demo", "vt": 30, "qty": 1}' \
   "https://${TEMBO_DATA_DOMAIN}/pgmq/v1/read"
 ```
-
-</TabItem>
-</Tabs>
 
 The messages are returned in an array. The message response also tells us how many times the message has been read (`read_ct`), and when the message first reached the queue (`enqueued_at`).
 
@@ -276,9 +229,6 @@ Archiving a message will remove it from the queue, but it will still be availabl
 
 Archive messages by passing the `queue_name` and the `msg_id`. We'll archive the message with ID=1.
 
-<Tabs>
-<TabItem value="py" label="Python">
-
 ```py
 resp = requests.post(
     url=f"https://{TEMBO_DATA_DOMAIN}/pgmq/v1/archive",
@@ -291,9 +241,6 @@ resp = requests.post(
 resp.json()
 ```
 
-</TabItem>
-<TabItem value="curl" label="Curl">
-
 ```bash
 curl -X POST \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
@@ -301,9 +248,6 @@ curl -X POST \
   -d '{"queue_name": "my_demo", "msg_id": 1}' \
   "https://${TEMBO_DATA_DOMAIN}/pgmq/v1/archive"
 ```
-
-</TabItem>
-</Tabs>
 
 Single message archive returned a boolean indicating the success or failure of the operation. If the message does not exist it will return `False`, otherwise it is `True`.
 
@@ -317,9 +261,6 @@ true
 
 Same rules apply to batch archive as single message archive. However, you simple pass an array of `msg_ids` to instead of a single `msg_id`.
 
-<Tabs>
-<TabItem value="py" label="Python">
-
 ```py
 resp = requests.post(
     url=f"https://{TEMBO_DATA_DOMAIN}/pgmq/v1/archive",
@@ -332,9 +273,6 @@ resp = requests.post(
 resp.json()
 ```
 
-</TabItem>
-<TabItem value="curl" label="Curl">
-
 ```bash
 curl -X POST \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
@@ -342,9 +280,6 @@ curl -X POST \
   -d '{"queue_name": "my_demo", "msg_ids": [2, 3]}' \
   "https://${TEMBO_DATA_DOMAIN}/pgmq/v1/archive"
 ```
-
-</TabItem>
-</Tabs>
 
 The response will show which message IDs were successfully archived. If a message ID does not exist then it's ID will not be returned.
 
@@ -359,9 +294,6 @@ The response will show which message IDs were successfully archived. If a messag
 Deleting messages removing them completely from the system. Specify the queue name and the message ID that you want to delete.
 If the message does not exist it will return `False`, otherwise it is `True`.
 
-<Tabs>
-<TabItem value="py" label="Python">
-
 ```py
 resp = requests.post(
     url=f"https://{TEMBO_DATA_DOMAIN}/pgmq/v1/delete",
@@ -374,9 +306,6 @@ resp = requests.post(
 resp.json()
 ```
 
-</TabItem>
-<TabItem value="curl" label="Curl">
-
 ```bash
 curl -X POST \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
@@ -384,9 +313,6 @@ curl -X POST \
   -d '{"queue_name": "my_demo", "msg_id": 4}' \
   "https://${TEMBO_DATA_DOMAIN}/pgmq/v1/archive"
 ```
-
-</TabItem>
-</Tabs>
 
 ```json
 true
@@ -397,9 +323,6 @@ true
 ### Delete a batch of Messages
 
 You can delete several messages in one HTTP request similar to a single message request. Simply pass an array of `msg_ids` instead of a single `msg_id`.
-
-<Tabs>
-<TabItem value="py" label="Python">
 
 ```py
 resp = requests.post(
@@ -413,9 +336,6 @@ resp = requests.post(
 resp.json()
 ```
 
-</TabItem>
-<TabItem value="curl" label="Curl">
-
 ```bash
 curl -X POST \
   -H "Authorization: Bearer ${TEMBO_TOKEN}" \
@@ -423,9 +343,6 @@ curl -X POST \
   -d '{"queue_name": "my_demo", "msg_ids": [5, 6]}' \
   "https://${TEMBO_DATA_DOMAIN}/pgmq/v1/archive"
 ```
-
-</TabItem>
-</Tabs>
 
 The response will show which message IDs were successfully deleted. If a message ID does not exist then it's ID will not be returned.
 
