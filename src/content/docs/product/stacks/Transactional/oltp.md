@@ -27,9 +27,9 @@ The following configurations automatically scale based on the size of cpu, memor
 
 ## Getting started
 
-This guide will walk through setting up a transactional workload on Postgres using [Clickbench's "hits" dataset](https://github.com/ClickHouse/ClickBench?tab=readme-ov-file#history-and-motivation) (representing page views on a system) and the [Hydra](https://github.com/hydradatabase/hydra) Postgres extension.
+This guide will walk through setting up a transactional workload on Postgres using [AdventureWorks-for-Postgres](https://github.com/lorint/AdventureWorks-for-Postgres), a free resource available from Microsoft that's recommended for use on the [Postgres wiki](https://wiki.postgresql.org/wiki/Sample_Databases).
 
-This guide will demonstrate the use of both extensions in optimizing the database for analytical queries.
+This example was chosen as it has a wide variety of tables that are designed to imitate what you might actually need or encounter when working with an actual OLTP database. It's also been around long enough that there are a lot of online SQL tutorials that work with this dataset for emulating real-world situations to help with learning SQL.
 
 ### Create a Tembo OLTP Stack instance
 
@@ -65,9 +65,7 @@ CREATE DATABASE Adventureworks;
 
 ### Load a sample dataset
 
-Next, let's set up the sample dataset. In this example, we'll be using [AdventureWorks-for-Postgres](https://github.com/lorint/AdventureWorks-for-Postgres), a free resource available from Microsoft that's recommended for use on the [Postgres wiki](https://wiki.postgresql.org/wiki/Sample_Databases).
-
-This example was chosen as it has a wide variety of tables that are designed to imitate what you might actually need or encounter when working with an actual OLTP database. It's also been around long enough that there are a lot of online SQL tutorials that work with this dataset for emulating real-world situations to help with learning SQL.
+Next, let's set up the sample dataset. In this example, we'll be using [AdventureWorks-for-Postgres](https://github.com/lorint/AdventureWorks-for-Postgres).
 
 #### Enable extensions
 
