@@ -80,7 +80,7 @@ const TemboStacksSection = () => {
 					<img
 						src={'/updatedAppScreenshot.svg'}
 						alt='Tembo Cloud Dashboard'
-						className='mobile:h-[700px] relative mobile:sticky mobile:top-[150px] -right-[50px] mobile:-right-[480px] min-[1300px]:-right-[370px] 2xl:-right-[300px] fade-x-md-always -z-1'
+						className='mobile:h-[700px] relative mobile:sticky mobile:top-[150px] -right-[50px] mobile:-right-[480px] min-[1300px]:-right-[500px] 2xl:-right-[300px] fade-x-md-always -z-1'
 					/>
 				</div>
 			</Container>

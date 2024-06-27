@@ -13,6 +13,7 @@ import StandardStackElephant from '../images/standard-stack-elephant.svg';
 import TimeseriesStackElephant from '../images/timeseries-stack-elephant.svg';
 import OLTPStackElephant from '../images/oltp-stack-elephant.svg';
 import OLAPStackElephant from '../images/olap-stack-elephant.svg';
+import { styles } from '../util';
 
 const stackHeroCardDetails = [
 	{
@@ -30,11 +31,11 @@ const stackHeroCardDetails = [
 		url: 'https://tembo.io/docs/product/stacks/transactional/message-queue',
 	},
 	{
-		title: 'Standard',
+		title: 'VectorDB',
 		description:
-			'Balanced for general purpose computing with full control over compute, configuration, and extension installation.',
-		image: StandardStackElephant,
-		url: 'https://tembo.io/docs/product/stacks/transactional/standard',
+			'Store, index, and retrieve, and generate embeddings in Postgres.',
+		image: VectorDBStackElephant,
+		url: 'https://tembo.io/docs/product/stacks/ai/vectordb/getting-started',
 	},
 	{
 		title: 'Timeseries',
@@ -50,87 +51,109 @@ const stackHeroCardDetails = [
 		image: OLTPStackElephant,
 		url: 'https://tembo.io/docs/product/stacks/transactional/oltp',
 	},
-	{
-		title: 'VectorDB',
-		description:
-			'Store, index, and retrieve, and generate embeddings in Postgres.',
-		image: VectorDBStackElephant,
-		url: 'https://tembo.io/docs/product/stacks/ai/vectordb/getting-started',
-	},
-	{
-		title: 'OLAP',
-		description:
-			'Tuned or handling high volumes of short, atomic transactions that ensure data integrity and concurrency in real-time operational systems.',
-		image: OLAPStackElephant,
-		url: 'https://tembo.io/docs/product/stacks/analytical/olap',
-	},
-	{
-		title: 'Geospatial',
-		description:
-			'Postgres indices and operations optimized for Geospatial workloads.',
-		image: GeospatialStackElephant,
-		url: 'https://tembo.io/docs/product/stacks/analytical/geospatial',
-	},
-	{
-		title: 'Mongo Alternative on Postgres',
-		description: 'Mongo-compatible wire protocol on Postgres.',
-		image: MongoAlternativeStackElephant,
-		url: 'https://tembo.io/docs/product/stacks/transactional/mongo-alternative',
-	},
-	{
-		title: 'Retrieval Augmented Generation',
-		description: 'LLM function calling directly from Postgres.',
-		image: RagStackElephant,
-		url: 'https://tembo.io/docs/product/stacks/ai/rag',
-	},
-	{
-		title: 'Machine Learning Stack',
-		description:
-			'Machine learning training and inference directly from Postgres. Built on PostgresML, pg_vector and pg_vectorize.',
-		image: MLStackElephant,
-		url: 'https://tembo.io/docs/product/stacks/ai/machine-learning',
-	},
+	// {
+	// 	title: 'Machine Learning Stack',
+	// 	description:
+	// 		'Machine learning training and inference directly from Postgres. Built on PostgresML, pg_vector and pg_vectorize.',
+	// 	image: MLStackElephant,
+	// 	url: 'https://tembo.io/docs/product/stacks/ai/machine-learning',
+	// },
+	// {
+	// 	title: 'Standard',
+	// 	description:
+	// 		'Balanced for general purpose computing with full control over compute, configuration, and extension installation.',
+	// 	image: StandardStackElephant,
+	// 	url: 'https://tembo.io/docs/product/stacks/transactional/standard',
+	// },
+	// {
+	// 	title: 'OLAP',
+	// 	description:
+	// 		'Tuned or handling high volumes of short, atomic transactions that ensure data integrity and concurrency in real-time operational systems.',
+	// 	image: OLAPStackElephant,
+	// 	url: 'https://tembo.io/docs/product/stacks/analytical/olap',
+	// },
+	// {
+	// 	title: 'Geospatial',
+	// 	description:
+	// 		'Postgres indices and operations optimized for Geospatial workloads.',
+	// 	image: GeospatialStackElephant,
+	// 	url: 'https://tembo.io/docs/product/stacks/analytical/geospatial',
+	// },
+	// {
+	// 	title: 'Mongo Alternative on Postgres',
+	// 	description: 'Mongo-compatible wire protocol on Postgres.',
+	// 	image: MongoAlternativeStackElephant,
+	// 	url: 'https://tembo.io/docs/product/stacks/transactional/mongo-alternative',
+	// },
+	// {
+	// 	title: 'Retrieval Augmented Generation',
+	// 	description: 'LLM function calling directly from Postgres.',
+	// 	image: RagStackElephant,
+	// 	url: 'https://tembo.io/docs/product/stacks/ai/rag',
+	// },
 ];
+
+const getRotationStyles = (index: number, totalLength: number) => {
+	switch (index) {
+		case 0:
+			return '-rotate-12 mt-[60px]';
+		case 1:
+			return '-rotate-[8deg]';
+		case 2:
+			return '-mt-[25px]';
+		case 3:
+			return 'rotate-[8deg]';
+		case 4:
+			return 'rotate-12 mt-[60px]';
+	}
+};
 ---
 
-<div class='flex flex-row gap-4 overflow-scroll'>
+<div
+	class='flex flex-row gap-12 fade-x-md py-12 absolute left-1/2 transform -translate-x-1/2'
+>
 	{
-		stackHeroCardDetails.map((stackCard, index) => (
-			<a
-				class='w-[300px] border-[0.72px] bg-mwasi border-[#FFFFFF0D] rounded-[30px] px-4 pt-4 pb-6 flex flex-col gap-8 z-10'
-				href={stackCard.url}
-				target='_blank'
-				rel='noreferrer'
-				data-stack={index}
-			>
-				<div class='w-[270px] rounded-[28.65px] border-[0.72px] border-[#FFFFFF0D] p-3'>
-					<div class='border-dashed border-[#FFFFFF0D] border rounded-[28.65px] relative'>
-						<Image
-							src={DashedRectangle}
-							alt={'dashed rectangle'}
-							class='w-full h-full'
-						/>
-						<Image
-							src={CartesianGrid}
-							alt={'cartesian grid'}
-							class='w-full h-full absolute m-auto text-center left-0 right-0 top-0'
-						/>
-						<Image
-							src={stackCard.image}
-							alt={'rag stack elephant'}
-							class='absolute m-auto text-center left-0 right-0 top-6'
-						/>
+		stackHeroCardDetails.map((stackCard, index) => {
+			return (
+				<a
+					class={styles(
+						'w-[300px] h-[350px] border bg-mwasi border-[#FFFFFF0D] rounded-[30px] px-4 pt-4 pb-6 flex flex-col gap-8 z-10 hover:scale-[101.5%] transition-all duration-300 ease-in-out',
+						getRotationStyles(index, stackHeroCardDetails.length),
+					)}
+					href={stackCard.url}
+					target='_blank'
+					rel='noreferrer'
+					data-stack={index}
+				>
+					<div class='w-[270px] rounded-[28.65px] border-[0.72px] border-[#FFFFFF0D] p-3'>
+						<div class='border-dashed border-[#FFFFFF0D] border rounded-[28.65px] relative'>
+							<Image
+								src={DashedRectangle}
+								alt={'dashed rectangle'}
+								class='w-full h-full'
+							/>
+							<Image
+								src={CartesianGrid}
+								alt={'cartesian grid'}
+								class='w-full h-full absolute m-auto text-center left-0 right-0 top-0'
+							/>
+							<Image
+								src={stackCard.image}
+								alt={'rag stack elephant'}
+								class='absolute m-auto text-center left-0 right-0 top-6'
+							/>
+						</div>
 					</div>
-				</div>
-				<div class='flex flex-col gap-2'>
-					<h3 class='font-bold text-base leading-[17.19px] text-white'>
-						{stackCard.title}
-					</h3>
-					<p class='font-normal text-xs leading-[14.52px] font-["Inter"] text-otherGrey'>
-						{stackCard.description}
-					</p>
-				</div>
-			</a>
-		))
+					<div class='flex flex-col gap-2'>
+						<h3 class='font-bold text-base leading-[17.19px] text-white'>
+							{stackCard.title}
+						</h3>
+						<p class='font-normal text-xs leading-[14.52px] font-["Inter"] text-otherGrey'>
+							{stackCard.description}
+						</p>
+					</div>
+				</a>
+			);
+		})
 	}
 </div>
