@@ -4,7 +4,7 @@ import ConfettiAnimationJson from '../animations/Confetti.json';
 import DetailSequence from './DetailSequence';
 import Button from './Button';
 
-const TemboStacksSection = () => {
+const PlatformSection = () => {
 	return (
 		<section className='tembo-stacks-section bg-offBlack relative'>
 			<Container styles='relative h-full'>
@@ -19,7 +19,7 @@ const TemboStacksSection = () => {
 						ALL IN ONE PLATFORM
 					</h2>
 				</div>
-				<div className='flex flex-col-reverse mobile:flex-row justify-between items-start mt-20 gap-[50px] lg:gap-[150px] relative w-full'>
+				<div className='flex flex-col-reverse mobile:flex-row justify-between items-start mt-20 gap-[50px] lg:gap-[300px] relative w-full'>
 					<div className='flex flex-col z-10 gap-10 w-full mobile:w-1/2 items-center mobile:items-start'>
 						<DetailSequence
 							header='100% Open Source & Cloud Native'
@@ -88,4 +88,4 @@ const TemboStacksSection = () => {
 	);
 };
 
-export default TemboStacksSection;
+export default PlatformSection;
