@@ -21,11 +21,7 @@ const DetailSequence: React.FC<Props> = ({
 	return (
 		<div className={cx('flex flex-col gap-4 max-w-[530px]', styles)}>
 			{iconPath && (
-				<img
-					src={iconPath}
-					alt='Colored Icon'
-					className='w-[40px] h-[40px]'
-				/>
+				<img src={iconPath} alt='Colored Icon' className='w-8 h-8' />
 			)}
 			<h1
 				className={cx(
