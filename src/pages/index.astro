@@ -56,21 +56,23 @@ const currentPath = Astro.url.pathname;
 					>
 						<header class='text-center slide-enter-content'>
 							<h1
-								class='text-white font-light text-[20.4px] min-[500px]:text-[25.5px] min-[600px]:text-[32px] customXs:text-[40px] customSm:text-[48px] z-20'
+								class='text-neon font-normal text-[20px] leading-5
+							z-20'
 							>
 								Goodbye Database Sprawl,
 							</h1>
-							<h2
-								class='text-neon font-extrabold text-[43.52px] min-[500px]:text-[54.4px] min-[600px]:text-[68px] customXs:text-[84px] customSm:text-[92px] z-10 mb-6'
+							<p
+								class='text-white font-bold tracking-[0.47px] text-[32px] sm:text-[56px] leading-normal
+							z-10 mb-6'
 							>
-								Hello Postgres.
-							</h2>
+								Tembo makes it easy for you <br /> to Just Use Postgres
+							</p>
 							<div>
 								<Button
 									variant='gradient'
 									size='lg'
 									isLinkTag={true}
-									link='https://cloud.tembo.io'
+									link='https://cloud.tembo.io/sign-up'
 									client:load
 								>
 									Try Free
@@ -140,7 +142,7 @@ const currentPath = Astro.url.pathname;
 					variant='gradient'
 					size='lg'
 					isLinkTag={true}
-					link='https://cloud.tembo.io'
+					link='https://cloud.tembo.io/sign-up'
 					client:load
 				>
 					Try Free
@@ -183,7 +185,7 @@ const currentPath = Astro.url.pathname;
 						size='lg'
 						styles='w-max z-10'
 						isLinkTag={true}
-						link='https://cloud.tembo.io'
+						link='https://cloud.tembo.io/sign-up'
 						client:load
 					>
 						Deploy now
@@ -453,7 +455,7 @@ const currentPath = Astro.url.pathname;
 				size='lg'
 				styles='mb-2'
 				isLinkTag={true}
-				link='https://cloud.tembo.io'
+				link='https://cloud.tembo.io/sign-up'
 				client:load
 			>
 				Deploy now
@@ -562,7 +564,7 @@ const currentPath = Astro.url.pathname;
 							size='lg'
 							client:load
 							isLinkTag={true}
-							link='https://cloud.tembo.io'
+							link='https://cloud.tembo.io/sign-up'
 							styles='h-[60px] w-full min-[500px]:w-[182px] font-semibold font-primary z-10 flex items-center justify-center'
 						>
 							Deploy now
