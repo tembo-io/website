@@ -17,6 +17,7 @@ export interface QuoteData {
 
 const quotes: QuoteData[] = [
 	{
+		name: 'Cody Hanson',
 		role: 'Engineering Manager',
 		company: 'Arch',
 		quote: "Tembo is a foundational part of our platform. We've been able to effortlessly provision, manage, and scale a fleet of databases to run a diverse array of workloads without having to hire a dedicated postgres expert to our team.",
@@ -61,7 +62,7 @@ const quotes: QuoteData[] = [
 		logoUrl: '/elephant1.svg',
 	},
 	{
-		name: 'Engineer',
+		name: 'Neofit Sergeev',
 		role: 'Engineer',
 		company: 'CloudBreezy',
 		quote: 'Tembo offers a great combination of superb products and excellent support.',
