@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperCore } from 'swiper/types';
 import Container from './Container';
+import { styles } from '../util';
 
 export interface QuoteData {
 	name?: string;
@@ -62,12 +63,16 @@ const quotes: QuoteData[] = [
 	},
 ];
 
-const Quotes: React.FC = () => {
+interface Props {
+	className?: string;
+}
+
+const Quotes: React.FC<Props> = ({ className }) => {
 	const swiperRef = useRef<SwiperCore>();
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	return (
-		<section className='relative overflow-hidden mt-[70px] customSm:mt-[85px] customMd:mt-[125px] customLg:mt-[160px]'>
+		<section className={styles('relative overflow-hidden', className)}>
 			<Swiper
 				onBeforeInit={(swiper) => {
 					swiperRef.current = swiper;
@@ -87,7 +92,7 @@ const Quotes: React.FC = () => {
 				}}
 			>
 				{quotes.map((it, i) => (
-					<SwiperSlide key={`${it.name}-${i}`}>
+					<SwiperSlide key={`${it.name}-${i}`} className='!w-[350px]'>
 						<div className='flex flex-col justify-between h-full'>
 							<div>
 								<img

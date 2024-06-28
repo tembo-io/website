@@ -8,7 +8,11 @@ const ClerkButton = () => {
 			variant='neon'
 			styles='z-100'
 			isLinkTag={true}
-			link='https://cloud.tembo.io'
+			link={
+				isSignedIn
+					? 'https://cloud.tembo.io/'
+					: 'https://cloud.tembo.io/sign-up'
+			}
 		>
 			{isSignedIn ? 'Dashboard' : 'Try Free'}
 		</Button>
