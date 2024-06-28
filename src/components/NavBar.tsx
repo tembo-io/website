@@ -4,13 +4,7 @@ import cx from 'classnames';
 import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
-import { ClerkProvider } from '@clerk/clerk-react';
-import ClerkButton from './ClerkButton';
-
-const CLERK_PUBLISHABLE_KEY = import.meta.env.PUBLIC_VITE_CLERK_PUBLISHABLE_KEY;
-if (!CLERK_PUBLISHABLE_KEY) {
-	throw new Error('Missing Clerk Publishable Key');
-}
+import ClerkProviderWithButton from './ClerkButton';
 
 interface Props {
 	currentPage: string;
@@ -186,9 +180,7 @@ const NavBar: React.FC<Props> = ({
 							/>
 							Github
 						</a>
-						<ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY}>
-							<ClerkButton />
-						</ClerkProvider>
+						<ClerkProviderWithButton />
 					</div>
 					<button
 						onClick={() => {

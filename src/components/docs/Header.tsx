@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Button from '../Button';
 import Search from './Search';
 import ProgressBar from '../ProgressBar';
 import LogoLink from './LogoLink';
 import cx from 'classnames';
 import MobileMenu from './MobileMenu';
 import type { SideBarSection } from '../../types';
-import { ClerkProvider } from '@clerk/clerk-react';
-import ClerkButton from '../ClerkButton';
+import ClerkProviderWithButton from '../ClerkButton';
 
 interface Props {
 	isProgressBar?: boolean;
@@ -115,14 +113,7 @@ const Header: React.FC<Props> = ({
 										height={20}
 									/>
 								</a>
-								<ClerkProvider
-									publishableKey={
-										import.meta.env
-											.PUBLIC_VITE_CLERK_PUBLISHABLE_KEY!
-									}
-								>
-									<ClerkButton />
-								</ClerkProvider>
+								<ClerkProviderWithButton />
 							</div>
 						</div>
 					</div>
