@@ -218,7 +218,7 @@ const getRotationStyles = (index: number, totalLength: number) => {
 	const displayTime = 5000;
 	const transitionTime = 300;
 
-	function toggleDivs(currentDiv: any, nextDiv: any) {
+	function getShouldToggle() {
 		let shouldToggle = true;
 		const stackCardElements = [
 			document.getElementById('first-stacks'),
@@ -229,7 +229,11 @@ const getRotationStyles = (index: number, totalLength: number) => {
 				shouldToggle = false;
 			}
 		});
-		if (shouldToggle) {
+		return shouldToggle;
+	}
+
+	function toggleDivs(currentDiv: any, nextDiv: any) {
+		if (getShouldToggle()) {
 			currentDiv.classList.add('opacity-0');
 			setTimeout(() => {
 				currentDiv.classList.add('hidden');
@@ -242,17 +246,7 @@ const getRotationStyles = (index: number, totalLength: number) => {
 	}
 
 	function cycle() {
-		let shouldToggle = true;
-		const stackCardElements = [
-			document.getElementById('first-stacks'),
-			document.getElementById('second-stacks'),
-		];
-		stackCardElements.forEach((element) => {
-			if (element?.matches(':hover')) {
-				shouldToggle = false;
-			}
-		});
-		if (shouldToggle) {
+		if (getShouldToggle()) {
 			toggleDivs(firstDiv, secondDiv);
 			setTimeout(() => {
 				toggleDivs(secondDiv, firstDiv);

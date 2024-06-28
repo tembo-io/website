@@ -17,16 +17,15 @@ export interface QuoteData {
 
 const quotes: QuoteData[] = [
 	{
-		role: 'Director of Engineering',
-		company: 'P&G',
-		quote: 'I like that Tembo databases are deployed with backups and HA settings, simplified deployment and self-service models with the Tembo control plane so I can avoid enterprise ticketing delays, and enjoy an ecosystem of Stacks.',
+		role: 'Engineering Manager',
+		company: 'Arch',
+		quote: "Tembo is a foundational part of our platform. We've been able to effortlessly provision, manage, and scale a fleet of databases to run a diverse array of workloads without having to hire a dedicated postgres expert to our team.",
 		logoUrl: '/elephant1.svg',
 	},
 	{
-		name: 'Dev Agrawal',
-		role: 'Developer Advocate',
-		company: '',
-		quote: "You'd love @tembo_io",
+		name: 'John Madrak',
+		company: 'Waddling',
+		quote: "We like that 'limits' are only tied to the provisioned specs, not arbitrary decisions made by the provider. The automated backup system helps us avoid the stress of finding a reliable backup solution ourselves and the support of all Postgres extensions make this a long-term solution for us. ",
 		logoUrl: '/elephant1.svg',
 	},
 	{
@@ -59,6 +58,13 @@ const quotes: QuoteData[] = [
 		role: 'Engineer',
 		company: 'Arch',
 		quote: 'Tembo makes trying and using Postgres extensions easy, which has unlocked a world of possibilities with regards to the kinds of problems Postgres can solve for you.',
+		logoUrl: '/elephant1.svg',
+	},
+	{
+		name: 'Engineer',
+		role: 'Engineer',
+		company: 'CloudBreezy',
+		quote: 'Tembo offers a great combination of superb products and excellent support.',
 		logoUrl: '/elephant1.svg',
 	},
 ];
