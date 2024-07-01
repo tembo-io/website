@@ -2,6 +2,7 @@
 title: Install Tembo Self Hosted on AWS EKS
 uppercase: false
 sideBarPosition: 11
+sideBarTitle: Install on AWS EKS
 ---
 
 This guide describes the steps to install Tembo Self Hosted on AWS, which allows you to deploy a high-performance, fully-extensible managed Postgres service within an AWS Elastic Kubernetes Service (EKS) cluster.
@@ -32,7 +33,13 @@ With this setup, your users will be able to access various subdomains to manage,
 To create an EKS cluster named `tembo-cluster` with a minimum of three nodes, run the following command:
 
 ```shell
-eksctl create cluster --name tembo-cluster --nodes-min 3 --nodes-max 6 --node-type m5a.large --region us-east-1
+export CLUSTER_NAME=tembo-cluster
+export NODES_MIN=3
+export NODES_MAX=6
+export NODE_TYPE=m5a.large
+export REGION=us-east-1
+
+eksctl create cluster --name $CLUSTER_NAME --nodes-min $NODES_MIN --nodes-max $NODES_MAX --node-type $NODE_TYPE --region $REGION
 ```
 
 Feel free to adjust the parameters as needed to suit your requirements.
@@ -44,7 +51,7 @@ For further information, see [Getting started with Amazon EKS](https://docs.aws.
 To enable the [IAM OIDC provider](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html) for your cluster, run the following command:
 
 ```shell
-eksctl utils associate-iam-oidc-provider --cluster tembo-cluster --region us-east-1 --approve
+eksctl utils associate-iam-oidc-provider --cluster $CLUSTER_NAME --region $REGION --approve
 ```
 
 ## Step 5: Creating the Amazon EBS CSI driver IAM role
@@ -52,14 +59,16 @@ eksctl utils associate-iam-oidc-provider --cluster tembo-cluster --region us-eas
 To create an IAM role for the [Amazon EBS CSI driver](https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html), run the following command:
 
 ```shell
+export IAM_ROLE_NAME=AmazonEKS_EBS_CSI_DriverRole_tembo
+
 eksctl create iamserviceaccount \
     --name ebs-csi-controller-sa \
     --namespace kube-system \
-    --cluster tembo-cluster \
-    --role-name AmazonEKS_EBS_CSI_DriverRole_tembo \
+    --cluster $CLUSTER_NAME \
+    --role-name $IAM_ROLE_NAME \
     --role-only \
     --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
-    --region us-east-1 \
+    --region $REGION \
     --approve
 ```
 
@@ -78,11 +87,13 @@ This will be necessary for the next step.
 ## Step 6: Add the Amazon EBS CSI driver add-on
 
 ```shell
+export SERVICE_ACCOUNT_ROLE_ARN=arn:aws:iam::123456789012:role/AmazonEKS_EBS_CSI_DriverRole_tembo
+
 eksctl create addon \
      --name aws-ebs-csi-driver \
-     --cluster tembo-cluster \
-     --service-account-role-arn arn:aws:iam::123456789012:role/AmazonEKS_EBS_CSI_DriverRole_tembo \
-     --region us-east-1 \
+     --cluster $CLUSTER_NAME \
+     --service-account-role-arn $SERVICE_ACCOUNT_ROLE_ARN \
+     --region $REGION \
      --force
 ```
 
@@ -138,7 +149,7 @@ Now, apply the ConfigMap you desire to use. If the accept-all configuration was 
 kubectl apply -f traefik-postgres-catch-all.yaml
 ```
 
-We now need to configure Traefik to handle Postgres connections appropriately. See the [example values](TODO) for reference.
+We now need to configure Traefik to handle Postgres connections appropriately. See the [example values](https://gist.github.com/vrmiguel/1b62f5e49a3f1c7610eac0fcf352249b#file-traefik-values-yaml) for reference.
 
 Finally, install Traefik:
 
