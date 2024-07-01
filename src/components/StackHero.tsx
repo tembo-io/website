@@ -1,19 +1,3 @@
-import { useEffect, useState } from 'react';
-import CartesianGrid from '../images/cartesian-grid.svg';
-import DashedRectangle from '../images/dashed-rectangle.svg';
-import RagStackElephant from '../images/rag-stack-elephant.svg';
-import MLStackElephant from '../images/ml-stack-elephant.svg';
-import VectorDBStackElephant from '../images/vectordb-stack-elephant.svg';
-import MongoAlternativeStackElephant from '../images/mongoalternative-stack-elephant.svg';
-import GeospatialStackElephant from '../images/geospatial-stack-elephant.svg';
-import DataWareHouseStackElephant from '../images/datawarehouse-stack-elephant.svg';
-import MQStackElephant from '../images/mq-stack-elephant.svg';
-import StandardStackElephant from '../images/standard-stack-elephant.svg';
-import TimeseriesStackElephant from '../images/timeseries-stack-elephant.svg';
-import OLTPStackElephant from '../images/oltp-stack-elephant.svg';
-import OLAPStackElephant from '../images/olap-stack-elephant.svg';
-import { getImage } from 'astro:assets';
-
 const STACK_HERO_CARDS_DETAILS = [
 	{
 		title: 'Data Warehouse',
@@ -193,7 +177,7 @@ const StackHero = () => {
 	const radius = 1350;
 
 	return (
-		<main className='absolute w-full h-[700px] pt-4 flex justify-center items-center bg-transparent overflow-hidden fade-x-md'>
+		<div className='absolute w-full h-[700px] pt-4 flex justify-center items-center bg-transparent overflow-hidden fade-x-md'>
 			<div className='relative w-full h-full'>
 				<div className='circle-container absolute bottom-[-1020px] right-0 left-0 animate-spin-slow flex justify-center items-center'>
 					{STACK_HERO_CARDS_DETAILS.map((stackCard, index) => {
@@ -204,7 +188,7 @@ const StackHero = () => {
 						return (
 							<a
 								className={
-									'absolute w-[300px] h-[350px] border bg-mwasi border-[#FFFFFF0D] rounded-[30px] px-4 pt-4 pb-6 flex flex-col gap-8 z-10 transition-all duration-300 ease-in-out hover:scale-[101.5%]'
+									'stack-card absolute w-[300px] h-[350px] border bg-mwasi border-[#FFFFFF0D] rounded-[30px] px-4 pt-4 pb-6 flex flex-col gap-8 z-10 transition-all duration-300 ease-in-out hover:scale-[101.5%]'
 								}
 								style={{
 									transform: `translate(${x}px, ${y}px) rotate(${angle + Math.PI / 2}rad) translate(0, -${squareSize / 2}px)`,
@@ -212,6 +196,7 @@ const StackHero = () => {
 								href={stackCard.url}
 								target='_blank'
 								rel='noreferrer'
+								key={index}
 								data-stack={index}
 							>
 								<div className='w-[270px] rounded-[28.65px] border-[0.72px] border-[#FFFFFF0D] p-3'>
@@ -246,7 +231,7 @@ const StackHero = () => {
 					})}
 				</div>
 			</div>
-		</main>
+		</div>
 	);
 };
 
