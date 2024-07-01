@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Container from '../components/Container';
 import Button from '../components/Button';
 import Confetti from '../components/Confetti.astro';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import StackSlider from '../components/StackSlider';
 import ElephantScene from '../images/elephantScene.svg';
 import Elephant11 from '../images/elephant11.svg';
@@ -35,6 +35,22 @@ import ProspectStreamLogo from '../images/prospect-stream.svg';
 import StackHeroCards from '../components/StackHeroCards.astro';
 import TestimonialSlider from '../components/TestimonialSlider.astro';
 import Quotes from '../components/Quotes';
+import StackHero from '../components/StackHero';
+import { useEffect, useState } from 'react';
+import CartesianGrid from '../images/cartesian-grid.svg';
+import DashedRectangle from '../images/dashed-rectangle.svg';
+import RagStackElephant from '../images/rag-stack-elephant.svg';
+import MLStackElephant from '../images/ml-stack-elephant.svg';
+import VectorDBStackElephant from '../images/vectordb-stack-elephant.svg';
+import MongoAlternativeStackElephant from '../images/mongoalternative-stack-elephant.svg';
+import GeospatialStackElephant from '../images/geospatial-stack-elephant.svg';
+import DataWareHouseStackElephant from '../images/datawarehouse-stack-elephant.svg';
+import MQStackElephant from '../images/mq-stack-elephant.svg';
+import StandardStackElephant from '../images/standard-stack-elephant.svg';
+import TimeseriesStackElephant from '../images/timeseries-stack-elephant.svg';
+import OLTPStackElephant from '../images/oltp-stack-elephant.svg';
+import OLAPStackElephant from '../images/olap-stack-elephant.svg';
+
 const currentPath = Astro.url.pathname;
 ---
 
@@ -85,9 +101,9 @@ const currentPath = Astro.url.pathname;
 			</Container>
 		</section>
 		<div class='container max-w-stackSlider mx-auto relative'>
-			<StackHeroCards />
+			<StackHero client:load />
 		</div>
-		<Container styles='mt-[550px]'>
+		<Container styles='mt-[600px]'>
 			<div
 				class='flex w-full justify-center items-center text-center flex-col gap-6 pb-10'
 			>
