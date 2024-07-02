@@ -74,7 +74,7 @@ const PlatformSection = () => {
 							size='lg'
 							styles='w-max mt-10'
 						>
-							Deploy now
+							Try Free
 						</Button>
 					</div>
 					<img
