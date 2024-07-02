@@ -2,7 +2,7 @@ const STACK_HERO_CARDS_DETAILS = [
 	{
 		title: 'Data Warehouse',
 		description:
-			'Extract, Transform and Load data from external sources. Build centralized datastore for analytical and tactical queries',
+			'Extract, Transform and Load data from external sources. Build centralized datastore for analytical and tactical queries.',
 		image: '/datawarehouse-stack-elephant.svg',
 		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
@@ -23,7 +23,7 @@ const STACK_HERO_CARDS_DETAILS = [
 	{
 		title: 'Timeseries',
 		description:
-			'Efficiently store and query data indexed by time, optimizing performance for chronological data analysis in real-time monitoring and trend forecasting',
+			'Efficiently store and query data indexed by time, optimizing performance for chronological data analysis in real-time monitoring and trend forecasting.',
 		image: '/timeseries-stack-elephant.svg',
 		url: 'https://tembo.io/docs/product/stacks/analytical/timeseries',
 	},
@@ -70,7 +70,7 @@ const STACK_HERO_CARDS_DETAILS = [
 	{
 		title: 'Data Warehouse',
 		description:
-			'Extract, Transform and Load data from external sources. Build centralized datastore for analytical and tactical queries',
+			'Extract, Transform and Load data from external sources. Build centralized datastore for analytical and tactical queries.',
 		image: '/datawarehouse-stack-elephant.svg',
 		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
@@ -91,7 +91,7 @@ const STACK_HERO_CARDS_DETAILS = [
 	{
 		title: 'Timeseries',
 		description:
-			'Efficiently store and query data indexed by time, optimizing performance for chronological data analysis in real-time monitoring and trend forecasting',
+			'Efficiently store and query data indexed by time, optimizing performance for chronological data analysis in real-time monitoring and trend forecasting.',
 		image: '/timeseries-stack-elephant.svg',
 		url: 'https://tembo.io/docs/product/stacks/analytical/timeseries',
 	},
@@ -138,7 +138,7 @@ const STACK_HERO_CARDS_DETAILS = [
 	{
 		title: 'Data Warehouse',
 		description:
-			'Extract, Transform and Load data from external sources. Build centralized datastore for analytical and tactical queries',
+			'Extract, Transform and Load data from external sources. Build centralized datastore for analytical and tactical queries.',
 		image: '/datawarehouse-stack-elephant.svg',
 		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
@@ -159,7 +159,7 @@ const STACK_HERO_CARDS_DETAILS = [
 	{
 		title: 'Timeseries',
 		description:
-			'Efficiently store and query data indexed by time, optimizing performance for chronological data analysis in real-time monitoring and trend forecasting',
+			'Efficiently store and query data indexed by time, optimizing performance for chronological data analysis in real-time monitoring and trend forecasting.',
 		image: '/timeseries-stack-elephant.svg',
 		url: 'https://tembo.io/docs/product/stacks/analytical/timeseries',
 	},
