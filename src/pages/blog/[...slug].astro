@@ -177,7 +177,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 										</svg>
 									</a>
 									<a
-										href={`https://www.reddit.com/submit?url=https://tembo.io/blog/${encodeURIComponent(post.slug)}&title=${encodeURIComponent(post.data.title)}`}
+										href={`https://www.reddit.com/submit?url=https://tembo.io/blog/${post.slug}&title=${encodeURIComponent(post.data.title)}`}
 										target='_blank'
 									>
 										<svg
