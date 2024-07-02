@@ -1,5 +1,4 @@
 import React, { useCallback, useRef, useState } from 'react';
-import cx from 'classnames';
 import { toast } from 'sonner';
 
 const ContactForm: React.FC = () => {
@@ -130,47 +129,49 @@ const ContactForm: React.FC = () => {
 		[],
 	);
 	return (
-		<div className='flex flex-col gap-12'>
+		<div className='flex flex-col md:gap-12 lg:mx-auto'>
 			<h2
 				className='text-neon
 			font-primary
 			font-semibold
-			text-5xl'
+			md:text-5xl
+			text-[32px]
+			'
 			>
 				Contact us
 			</h2>
-			<form className='flex flex-col gap-6'>
+			<form className='flex flex-col gap-4'>
 				<input
 					placeholder='First Name'
 					name='firstName'
 					ref={firstNameRef}
 					type='text'
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs'
 				/>
 				<input
 					placeholder='Last Name'
 					name='lastName'
 					ref={lastNameRef}
 					type='text'
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs'
 				/>
 				<input
 					placeholder='Company email'
 					type='email'
 					name='email'
 					ref={emailRef}
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs'
 				/>
 				<input
 					placeholder='Company'
 					type='text'
 					name='company'
 					ref={companyRef}
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs'
 				/>
 				<textarea
 					placeholder='Describe your Postgres usage and use case for Tembo Cloud or Tembo Self Hosted'
-					className='min-[840px]:w-[412px] rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 w-full z-10 focus:border-white focus:outline-none'
+					className='min-[840px]:w-[412px] rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs'
 					name='message'
 					ref={messageRef}
 				></textarea>
