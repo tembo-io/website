@@ -9,6 +9,7 @@ import ChevronLeft from '../images/arrow-left.svg';
 import Elephant from '../images/elephant17.svg';
 import Slack from '../images/slack.svg';
 import Button from './Button';
+import SocialShareButtons from './SocialShareButtons.astro';
 interface Props {
 	slug: string;
 	title: string;
@@ -20,6 +21,10 @@ const { slug, title, date } = Astro.props;
 
 <div class='mt-16'>
 	<div class='h-[1px] w-full bg-[#242424]'></div>
+	<div class='block md:hidden'>
+		<SocialShareButtons slug={slug} title={title} />
+	</div>
+
 	<div class='flex flex-col gap-6'>
 		<h3 class='text-white font-bold mt-10'>What's next?</h3>
 		<div class='grid min-[1100px]:grid-cols-2 grid-cols-1 gap-6'>
