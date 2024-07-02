@@ -2,7 +2,7 @@ const STACK_HERO_CARDS_DETAILS = [
 	{
 		title: 'Data Warehouse',
 		description:
-			'Extract, Transform and Load data from external sources. Build centralized datastore for analytical and tactical queries.',
+			'Extract, Transform and Load data from external sources. Build a centralized datastore for analytical and tactical queries.',
 		image: '/datawarehouse-stack-elephant.svg',
 		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
@@ -70,7 +70,7 @@ const STACK_HERO_CARDS_DETAILS = [
 	{
 		title: 'Data Warehouse',
 		description:
-			'Extract, Transform and Load data from external sources. Build centralized datastore for analytical and tactical queries.',
+			'Extract, Transform and Load data from external sources. Build a centralized datastore for analytical and tactical queries.',
 		image: '/datawarehouse-stack-elephant.svg',
 		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},
@@ -138,7 +138,7 @@ const STACK_HERO_CARDS_DETAILS = [
 	{
 		title: 'Data Warehouse',
 		description:
-			'Extract, Transform and Load data from external sources. Build centralized datastore for analytical and tactical queries.',
+			'Extract, Transform and Load data from external sources. Build a centralized datastore for analytical and tactical queries.',
 		image: '/datawarehouse-stack-elephant.svg',
 		url: 'https://tembo.io/docs/product/stacks/analytical/data-warehouse',
 	},

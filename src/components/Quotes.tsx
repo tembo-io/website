@@ -25,7 +25,8 @@ const quotes: QuoteData[] = [
 	},
 	{
 		name: 'John Madrak',
-		company: 'Waddling',
+		role: 'Founder',
+		company: 'Waddling Technology',
 		quote: "We like that 'limits' are only tied to the provisioned specs, not arbitrary decisions made by the provider. The automated backup system helps us avoid the stress of finding a reliable backup solution ourselves and the support of all Postgres extensions make this a long-term solution for us. ",
 		logoUrl: '/elephant1.svg',
 	},
