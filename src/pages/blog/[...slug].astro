@@ -161,6 +161,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 										class='pl-4'
 										href={`https://news.ycombinator.com/submitlink?u=https://tembo.io/blog/${post.slug}&t=${encodeURIComponent(post.data.title)}`}
 										target='_blank'
+										rel='noopener noreferrer'
 									>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
@@ -179,6 +180,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 									<a
 										href={`https://twitter.com/intent/tweet?url=https://tembo.io/blog/${post.slug}&text=${encodeURIComponent(post.data.title)}`}
 										target='_blank'
+										rel='noopener noreferrer'
 									>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
@@ -195,6 +197,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 									<a
 										href={`https://www.reddit.com/r/postgresql/submit?url=https://tembo.io/blog/${post.slug}&title=${encodeURIComponent(post.data.title)}`}
 										target='_blank'
+										rel='noopener noreferrer'
 									>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
@@ -232,6 +235,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 									<a
 										href={`https://www.linkedin.com/sharing/share-offsite/?url=https://tembo.io/blog/${post.slug}`}
 										target='_blank'
+										rel='noopener noreferrer'
 									>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
@@ -254,6 +258,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 									<a
 										href={`https://www.facebook.com/sharer.php?u=https://tembo.io/blog/${post.slug}`}
 										target='_blank'
+										rel='noopener noreferrer'
 									>
 										<svg
 											fill='#E9FC87'
