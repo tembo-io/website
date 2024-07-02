@@ -155,9 +155,10 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 									Share this article
 								</h2>
 								<div
-									class='flex flex-row gap-4 self-start w-max border-l-2 border-[#9EA2A633] gap-4'
+									class='flex flex-row gap-4 items-center w-max border-l-2 border-[#9EA2A633] gap-4'
 								>
 									<a
+										class='pl-4'
 										href={`https://news.ycombinator.com/submitlink?u=https://tembo.io/blog/${post.slug}&t=${encodeURIComponent(post.data.title)}`}
 										target='_blank'
 									>
