@@ -237,7 +237,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 									</a>
 
 									<a
-										href={`https://twitter.com/intent/tweet?url=https://tembo.io/blog/${post.slug}`}
+										href={`https://twitter.com/intent/tweet?url=https://tembo.io/blog/${post.slug}&text=${encodeURIComponent(post.data.title)}`}
 										target='_blank'
 									>
 										<svg
