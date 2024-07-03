@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import Facebook from '../images/facebook.svg';
+import Mastodon from '../images/mastodon.svg';
+import HackerNews from '../images/hacker-news.svg';
+import Twitter from '../images/twitter.svg';
+import LinkedIn from '../images/linkedin.svg';
+import Reddit from '../images/reddit.svg';
+
+interface Props {
+	slug: string;
+	title: string;
+}
+
+const { slug, title } = Astro.props;
+---
+
+<h2 class='text-lightGrey font-bold mt-10 mb-6 text-white'>
+	Share this article
+</h2>
+<div class='flex flex-row items-center w-max gap-3'>
+	<a
+		href={`https://news.ycombinator.com/submitlink?u=https://tembo.io/blog/${slug}&t=${encodeURIComponent(title)}`}
+		target='_blank'
+		rel='noopener noreferrer'
+	>
+		<Image src={HackerNews} height={20} width={20} alt='hacker news icon' />
+	</a>
+	<a
+		href={`https://twitter.com/intent/tweet?url=https://tembo.io/blog/${slug}&text=${encodeURIComponent(title)}`}
+		target='_blank'
+		rel='noopener noreferrer'
+	>
+		<Image src={Twitter} height={16} width={16} alt='twitter icon' />
+	</a>
+	<a
+		href={`https://www.reddit.com/r/postgresql/submit?url=https://tembo.io/blog/${slug}&title=${encodeURIComponent(title)}`}
+		target='_blank'
+		rel='noopener noreferrer'
+	>
+		<Image src={Reddit} height={17} width={19} alt='reddit icon' />
+	</a>
+	<a
+		href={`https://www.linkedin.com/sharing/share-offsite/?url=https://tembo.io/blog/${slug}`}
+		target='_blank'
+		rel='noopener noreferrer'
+	>
+		<Image src={LinkedIn} height={17} width={16} alt='linkedin icon' />
+	</a>
+	<a
+		href={`https://www.facebook.com/sharer.php?u=https://tembo.io/blog/${slug}`}
+		target='_blank'
+		rel='noopener noreferrer'
+	>
+		<Image src={Facebook} height={16} width={17} alt='linkedin icon' />
+	</a>
+	<a
+		href={`https://mastodonshare.com/?text=${encodeURIComponent(title)}t&url=https://tembo.io/blog/${slug}`}
+		target='_blank'
+		rel='noopener noreferrer'
+	>
+		<Image src={Mastodon} height={16} width={17} alt='mastodon icon' />
+	</a>
+</div>
