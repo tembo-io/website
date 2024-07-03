@@ -153,7 +153,6 @@ In the example above, the Load Balancer's external IP would be 4.150.40.100.
 
 ### Step 6.2: Create an `A` record to re-route traffic to Traefik's Load Balancer
 
-
 ```bash
 export RESOURCE_GROUP_NAME="MC_${RESOURCE_GROUP}_${CLUSTER_NAME}_${REGION}"
 # Must have previously set this DNS Zone up in the Azure Portal
@@ -185,11 +184,63 @@ Name:	test.tembo.mydomain.com
 Address: 203.0.113.20
 ```
 
-## Step 7: Update the StorageClass to allow for volume expansion
+## Step 7: Add `ipAllowList` to the Traefik's CRD
 
-This is necessary for increasing storage size for Postgres instances.
+To `middlewaretcps` in `traefik.containo.us`, add:
 
-## Step 8: Install the Tembo Self Hosted Helm chart
+```yaml
+            ipAllowList:
+                description: |-
+                  IPAllowList defines the IPAllowList middleware configuration.
+                  This middleware accepts/refuses connections based on the client IP.
+                  More info: https://doc.traefik.io/traefik/v2.11/middlewares/tcp/ipallowlist/
+                properties:
+                  sourceRange:
+                    description: SourceRange defines the allowed IPs (or ranges of
+                      allowed IPs by using CIDR notation).
+                    items:
+                      type: string
+                    type: array
+                type: object
+```
+
+## Step 8: Configure permissions for the CSI driver
+
+In order to use the `premium-ssd-enc` StorageClass (defined in the next step), we need to configure some permissions.
+This step assumes that the cluster is using a `SystemAssigned` or `UserAssigned` identity (rather than `ServicePrincipal`).
+
+```bash
+# Identify the object ID for this identity
+export OBJECT_ID=$(az aks show --resource-group $RESOURCE_GROUP_NAME --name $AKS_CLUSTER_NAME --query identityProfile.kubeletidentity.objectId -o tsv)
+```
+
+### 8.1. Granting permissions
+
+Create the role assignment:
+
+```bash
+export SUBSCRIPTION_ID="your-subscription-id"
+export RESOURCE_GROUP_NAME="your-resource-group-name"
+export OBJECT_ID="your-object-id"  # Retrieved from the above script
+
+az role assignment create --assignee $OBJECT_ID --role Contributor --scope /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME
+```
+
+Verify the role assignment:
+
+```bash
+az role assignment list --assignee $OBJECT_ID --scope /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME
+```
+
+## Step 9: Create the `premium-ssd-enc` StorageClass
+
+Apply [premium-ssd-enc-storage.yaml]().
+
+```bash
+kubectl apply -f premium-ssd-enc-storage.yaml
+```
+
+## Step 10: Install the Tembo Self Hosted Helm chart
 
 Clone the Tembo Self Hosted repository:
 
@@ -235,3 +286,7 @@ Upgrade the Self Hosted Helm chart so that changes take effect:
 ```shell
 helm upgrade tembo . -f my-values.yaml -n tembo
 ```
+
+## Step 11: Deploy a Tembo Postgres instance through mahout
+
+Access `app.tembo.mydomain.com` and create a Postgres instance through the Tembo UI.
