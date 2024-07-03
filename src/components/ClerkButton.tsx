@@ -1,18 +1,34 @@
-import { useUser } from '@clerk/clerk-react';
+import { ClerkProvider, useOrganization, useUser } from '@clerk/clerk-react';
 import Button from './Button';
 
 const ClerkButton = () => {
 	const { isSignedIn } = useUser();
+	const { organization } = useOrganization();
+
 	return (
 		<Button
 			variant='neon'
 			styles='z-100'
 			isLinkTag={true}
-			link='https://cloud.tembo.io'
+			link={
+				organization?.id
+					? `https://cloud.tembo.io/orgs/${organization.id}/clusters`
+					: 'https://cloud.tembo.io'
+			}
 		>
 			{isSignedIn ? 'Dashboard' : 'Try Free'}
 		</Button>
 	);
 };
 
-export default ClerkButton;
+const ClerkProviderWithButton = () => {
+	return (
+		<ClerkProvider
+			publishableKey={import.meta.env.PUBLIC_VITE_CLERK_PUBLISHABLE_KEY!}
+		>
+			<ClerkButton />
+		</ClerkProvider>
+	);
+};
+
+export default ClerkProviderWithButton;

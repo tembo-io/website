@@ -1,0 +1,30 @@
+---
+sideBarPosition: 9999
+sideBarTitle: Pause or resume
+title: Pause or resume an instance
+description: Pause or resume an instance on Tembo Cloud
+---
+
+import Callout from '../../../../../components/Callout.astro';
+
+## Pausing an instance
+
+Find in **Settings > Instance Settings > (scroll down) Pause Instance**
+
+![pause-instance](./pause-instance.png)
+
+<Callout variant='info'>
+    While an instance is paused, you are only billed for storage.
+</Callout>
+
+## Resuming an instance
+
+Find in **Settings > Instance Settings > (scroll down) Resume Instance**
+
+![resume-instance](./resume-instance.png)
+
+## API
+
+You can pause instances with the [Tembo Cloud API](/docs/development/api), using the [Lifecycle Events endpoint](https://api.tembo.io/redoc#tag/instance/operation/instance_event).
+
+The instance states associated with pausing and resuming are known in the Tembo API as `Stopping`, `Stopped`, and `Starting`.

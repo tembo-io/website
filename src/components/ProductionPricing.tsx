@@ -29,6 +29,7 @@ const monthlyPrices: PriceMatrix = {
 		{ size: '8 vCPU · 32Gi', dollars: '559.92' },
 	],
 	memory: [
+		{ size: '0.25 vCPU · 2Gi', dollars: '21.51' },
 		{ size: '0.5 vCPU · 4Gi', dollars: '43.02' },
 		{ size: '1 vCPU · 8Gi', dollars: '86.03' },
 		{ size: '2 vCPU · 16Gi', dollars: '172.06' },
@@ -52,6 +53,7 @@ const hourlyPrices: PriceMatrix = {
 		{ size: '8 vCPU · 32Gi', dollars: '0.77' },
 	],
 	memory: [
+		{ size: '0.25 vCPU · 2Gi', dollars: '0.03' },
 		{ size: '0.5 vCPU · 4Gi', dollars: '0.06' },
 		{ size: '1 vCPU · 8Gi', dollars: '0.12' },
 		{ size: '2 vCPU · 16Gi', dollars: '0.24' },
