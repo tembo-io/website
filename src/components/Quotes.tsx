@@ -31,24 +31,6 @@ const quotes: QuoteData[] = [
 		logoUrl: '/elephant1.svg',
 	},
 	{
-		name: 'Twitter User',
-		role: 'Machine Learning Engineer',
-		company: '',
-		quote: 'Maaahn...so excited for @tembo_io🔥💯',
-		logoUrl: '/elephant1.svg',
-	},
-	{
-		name: 'Twitter User',
-		quote: `OMG!!
-
-		@tembo_io
-		 is so cool 🔥
-
-		My admiration and respect towards
-		@PostgreSQL quadrupled.`,
-		logoUrl: '/elephant1.svg',
-	},
-	{
 		name: 'Hemanth Soni',
 		role: 'Growth & Partnerships Lead',
 		company: 'Goldsky',
