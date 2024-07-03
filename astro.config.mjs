@@ -10,8 +10,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
 	integrations: [
 		react(),
-		tailwind(),
 		mdx(),
+		tailwind(),
 		astroPluginValidateLinks({ validateAbsoluteLinks: true }),
 		sitemap(),
 	],

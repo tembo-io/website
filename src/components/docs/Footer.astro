@@ -1,5 +1,6 @@
 ---
 import X from '../../images/x.svg';
+import Mastodon from '../../images/mastodon-gradient.svg';
 import GithubGradient from '../../images/githubGradient.svg';
 import Youtube from '../../images/youtube.svg';
 import External from '../../images/export.svg';
@@ -45,6 +46,18 @@ const { editLink } = Astro.props;
 				rel='noreferrer'
 			>
 				<Image src={X} height={18} width={18} alt='X logo' />
+			</a>
+			<a
+				href='https://mastodon.social/@tembo_io'
+				target='_blank'
+				rel='noreferrer'
+			>
+				<Image
+					src={Mastodon}
+					height={18}
+					width={18}
+					alt='Mastodon logo'
+				/>
 			</a>
 			<a
 				href='https://join.slack.com/t/tembocommunity/shared_invite/zt-277pu7chi-NHtvHWvLhHwyK0Y5Y6vTPw'
