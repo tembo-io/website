@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import MastodonGradient from '../images/mastodon-gradient.svg';
 import GithubGradient from '../images/githubGradient.svg';
 import Youtube from '../images/youtube.svg';
 import X from '../images/x.svg';
@@ -9,6 +10,7 @@ import ChevronLeft from '../images/arrow-left.svg';
 import Elephant from '../images/elephant17.svg';
 import Slack from '../images/slack.svg';
 import Button from './Button';
+import SocialShareButtonsMobile from './SocialShareButtonsMobile.astro';
 interface Props {
 	slug: string;
 	title: string;
@@ -20,6 +22,10 @@ const { slug, title, date } = Astro.props;
 
 <div class='mt-16'>
 	<div class='h-[1px] w-full bg-[#242424]'></div>
+	<div class='block md:hidden'>
+		<SocialShareButtonsMobile slug={slug} title={title} />
+	</div>
+
 	<div class='flex flex-col gap-6'>
 		<h3 class='text-white font-bold mt-10'>What's next?</h3>
 		<div class='grid min-[1100px]:grid-cols-2 grid-cols-1 gap-6'>
@@ -89,6 +95,22 @@ const { slug, title, date } = Astro.props;
 					class='font-secondary font-semibold text-grey'
 				>
 					Follow us on X
+				</a>
+			</div>
+			<div class='flex gap-2 items-center'>
+				<Image
+					src={MastodonGradient}
+					height={24}
+					width={24}
+					alt='Mastodon logo'
+				/>
+				<a
+					href='https://mastodon.social/@tembo_io'
+					target='_blank'
+					rel='noreferrer'
+					class='font-secondary font-semibold text-grey'
+				>
+					Follow us on Mastodon
 				</a>
 			</div>
 			<div class='flex gap-2 items-center'>
