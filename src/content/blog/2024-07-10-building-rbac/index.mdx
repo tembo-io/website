@@ -20,7 +20,7 @@ We want users of Tembo Cloud to be able to manage permissions within their accou
 
 [AWS IAM](https://aws.amazon.com/iam/) is a mature RBAC system, so we started there for inspiration. AWS IAM includes resource types for Users, Groups, Roles, Policies, Actions, Conditions, and more.
 
-At Tembo, we are already using an authentication provider called [Clerk](https://clerk.com/). Clerk already has two roles defined by default for our users: Admin and Member. Clerk recently added a feature to support [user-defined roles](https://clerk.com/docs/organizations/roles-permissions#custom-role).
+At Tembo, we are using an authentication provider called [Clerk](https://clerk.com/). Clerk already has two roles defined by default for our users: Admin and Member. Clerk recently added a feature to support [user-defined roles](https://clerk.com/docs/organizations/roles-permissions#custom-role).
 
 Comparing with AWS IAM, we can start with the minimal set of resource types to support basic RBAC: **Roles**, **Actions**, and **Policies**. Roles will at first be limited to the Admin and Member roles only. Later, we can introduce user-defined roles. Actions have the same meaning as in AWS, and Policy is similar in that it connects Actions with Roles.
 
@@ -56,7 +56,7 @@ For the RBAC API, we provide read endpoints for Roles, Actions, and Policies and
 
 ![rbac-api](./rbac-api.png)
 
-Because currently Roles and Actions are unchanging, we have them defined as enum types in our code, only creating a table for Policies. We define a table like this in our Postgres database.
+Because currently Roles and Actions are unchanging, we have them defined as `enum` types in our code, only creating a table for Policies. We define a table like this in our Postgres database.
 
 ```
  id | organization_id |     role     |      action       | allowed
@@ -65,13 +65,13 @@ Because currently Roles and Actions are unchanging, we have them defined as enum
   2 | org_456         | basic_member | DeleteInstance    | f
 ```
 
-In our initial design, we are requiring Policies to be unique by (organization_id, role, action). This differs from the design of AWS IAM, as in IAM you can create multiple policies for the same Role and Action. We believe it is easier to understand Policies when there is only one Policy associated with a particular Role for each Action. This data model better represents a UI that shows a toggle on/off state for each Action when toggling permissions on or off per Role.
+In our initial design, we are requiring Policies to be unique by (`organization_id`, `role`, `action`). This differs from the design of AWS IAM, as in IAM you can create multiple policies for the same Role and Action. We believe it is easier to understand Policies when there is only one Policy associated with a particular Role for each Action. This data model better represents a UI that shows a toggle on/off state for each Action when toggling permissions on or off per Role.
 
 By default, we initialize full permissions for both the Admin and Member roles, for backwards compatibility and so that RBAC is opt-in. Also, we disallow revoking the permission to manage permissions from the Admin role to avoid users locking themselves out by accident.
 
 ## Policy conditions
 
-In a future version of RBAC, we will introduce the concept of Policy Conditions, so we need to plan for that ahead of time. For example, a user may wish to configure "my users can delete any instance except for production instances." We picture this feature would be included as a "Configure" button near where users are toggling on or off permissions to Actions.
+In a future version of Tembo Cloud's RBAC, we will introduce the concept of Policy Conditions, so we need to plan for that ahead of time. For example, you may wish to configure that users can delete any instance except for production instances. We picture this feature would be included as a "Configure" button near where users are toggling on or off permissions to Actions.
 
 ![delete-instance](./delete-instance.png)
 
@@ -112,7 +112,7 @@ In our case, we can use something like this:
 
 When "allow" is true, we would evaluate Conditions with an "AND" operation between all conditions, and when "allow" is false, we would evaluate all Conditions with an "OR" operation between conditions. In this way, when a user toggles permissions off including some Conditions, then the Action is disabled for any matching Condition. When a user toggles permissions on including some Conditions, then the Action is allowed only when all Conditions are matching.
 
-In the data model, we can represent conditions like this, where policy_id is a required foreign key to the policies table.
+In the data model, we can represent conditions like this, where `policy_id` is a required foreign key to the policies table.
 
 ```
  id | policy_id |  operator   |  key           | value
@@ -120,7 +120,7 @@ In the data model, we can represent conditions like this, where policy_id is a r
   1 |  1        |  NotEqual   |  instance_name | production
 ```
 
-Both the operator and key columns would be enum types, where Tembo Cloud supports a specific set of each. The value column would be a user-provided input.
+Both the operator and key columns would be enum types, where Tembo Cloud supports a specific set of each. The `value` column would be a user-provided input.
 
 ## Custom roles
 
