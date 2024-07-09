@@ -14,6 +14,13 @@ export interface PriceMatrix {
 }
 
 const monthlyPrices: PriceMatrix = {
+	compute: [
+		{ size: '0.5 vCPU · 1Gi', dollars: '30.98' },
+		{ size: '1 vCPU · 2Gi', dollars: '61.97' },
+		{ size: '2 vCPU · 4Gi', dollars: '123.94' },
+		{ size: '4 vCPU · 8Gi', dollars: '247.88' },
+		{ size: '8 vCPU · 16Gi', dollars: '495.76' },
+	],
 	general: [
 		{ size: '0.5 vCPU · 2Gi', dollars: '35' },
 		{ size: '1 vCPU · 4Gi', dollars: '69.99' },
@@ -22,21 +29,22 @@ const monthlyPrices: PriceMatrix = {
 		{ size: '8 vCPU · 32Gi', dollars: '559.92' },
 	],
 	memory: [
+		{ size: '0.25 vCPU · 2Gi', dollars: '21.51' },
 		{ size: '0.5 vCPU · 4Gi', dollars: '43.02' },
 		{ size: '1 vCPU · 8Gi', dollars: '86.03' },
 		{ size: '2 vCPU · 16Gi', dollars: '172.06' },
 		{ size: '4 vCPU · 32Gi', dollars: '344.12' },
 	],
-	compute: [
-		{ size: '0.5 vCPU · 1Gi', dollars: '30.98' },
-		{ size: '1 vCPU · 2Gi', dollars: '61.97' },
-		{ size: '2 vCPU · 4Gi', dollars: '123.94' },
-		{ size: '4 vCPU · 8Gi', dollars: '247.88' },
-		{ size: '8 vCPU · 16Gi', dollars: '495.76' },
-	],
 };
 
 const hourlyPrices: PriceMatrix = {
+	compute: [
+		{ size: '0.5 vCPU · 1Gi', dollars: '0.04' },
+		{ size: '1 vCPU · 2Gi', dollars: '0.08' },
+		{ size: '2 vCPU · 4Gi', dollars: '0.17' },
+		{ size: '4 vCPU · 8Gi', dollars: '0.34' },
+		{ size: '8 vCPU · 16Gi', dollars: '0.68' },
+	],
 	general: [
 		{ size: '0.5 vCPU · 2Gi', dollars: '0.05' },
 		{ size: '1 vCPU · 4Gi', dollars: '0.10' },
@@ -45,17 +53,11 @@ const hourlyPrices: PriceMatrix = {
 		{ size: '8 vCPU · 32Gi', dollars: '0.77' },
 	],
 	memory: [
+		{ size: '0.25 vCPU · 2Gi', dollars: '0.03' },
 		{ size: '0.5 vCPU · 4Gi', dollars: '0.06' },
 		{ size: '1 vCPU · 8Gi', dollars: '0.12' },
 		{ size: '2 vCPU · 16Gi', dollars: '0.24' },
 		{ size: '4 vCPU · 32Gi', dollars: '0.47' },
-	],
-	compute: [
-		{ size: '0.5 vCPU · 1Gi', dollars: '0.04' },
-		{ size: '1 vCPU · 2Gi', dollars: '0.08' },
-		{ size: '2 vCPU · 4Gi', dollars: '0.17' },
-		{ size: '4 vCPU · 8Gi', dollars: '0.34' },
-		{ size: '8 vCPU · 16Gi', dollars: '0.68' },
 	],
 };
 

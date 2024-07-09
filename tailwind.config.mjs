@@ -64,8 +64,8 @@ export default {
 					'linear-gradient(68.42deg, #F06B6D 0%, #C927A7 79.07%, #BA61D1 170.36%)',
 			},
 			animation: {
-				'infinite-scroll': 'infinite-scroll 30s linear infinite',
-				'infinite-scroll-fast': 'infinite-scroll 20s linear infinite',
+				'infinite-scroll': 'infinite-scroll 50s linear infinite',
+				'infinite-scroll-fast': 'infinite-scroll 35s linear infinite',
 			},
 			keyframes: {
 				'infinite-scroll': {

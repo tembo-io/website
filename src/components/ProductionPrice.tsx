@@ -17,7 +17,7 @@ interface Props {
 const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 	const [rangeValue, setRangeValue] = useState(0);
 	const [selectValue, setSelectValue] =
-		useState<keyof PriceMatrix>('general');
+		useState<keyof PriceMatrix>('compute');
 
 	const handleSlide = (newValue: number[]) => {
 		setRangeValue(newValue[0]);

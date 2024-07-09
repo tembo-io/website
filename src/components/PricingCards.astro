@@ -8,32 +8,34 @@ import ProductionPricing from '../components/ProductionPricing';
 
 const hobbyFeatures = [
 	'200+ Extensions',
-	'10+ Stacks',
-	'Unlimited Databases',
-	'0.25 vCPU & 1 GB Memory',
-	'5 GB Storage',
+	'10 Stacks',
+	'Apps',
 	'Unlimited Reads/Writes',
+	'0.25 vCPU & 1 GB Memory',
+	'10 GB Storage',
+	'Q&A Chat Support',
 ];
 
 const productionFeatures = [
-	'200+ Extensions',
-	'All Stacks',
-	'Unlimited Databases',
-	'Up to 32 vCPU',
-	'Up to 500 GB Storage',
-	'Unlimited Reads/Writes',
-	'High Availability',
+	'All Features in Hobby Tier',
+	'Up to 16 vCPU & 64 GB Memory',
+	'Up to 2 TB Storage',
 	'99.95% SLA',
-	'Apps',
+	'High Availability',
+	'On-Demand Instance Types',
+	'Dynamically Resize Storage and Compute',
+	'Tembo Team Consultation Support',
 ];
 
 const selfhostedFeatures = [
-	'Private Data Plane',
-	'Fully Extensible',
-	'Private Networking',
-	'24x7 Technical Support',
+	'Full Power of Tembo',
+	'Enterprise-grade Kubernetes operator',
+	'Run On-Prem or on any Cloud Provider',
 	'Advanced Enterprise Security',
-	'All features included in Production tier',
+	'Private Networking',
+	'Custom Infrastructure and Security Configuration',
+	'Dedicated Onboarding Engineer',
+	'24x7x365 Technical Support',
 ];
 ---
 
@@ -43,11 +45,11 @@ const selfhostedFeatures = [
 	<h2
 		class='font-semibold text-pricingLightBlue text-[28px] leading-[35px] tracking-[0.54px]'
 	>
-		Hobby
+		Hobby Tier
 	</h2>
 	<span
 		class='h-[38px] block mt-[15px] font-secondary font-light text-white text-base leading-[19px] opacity-80'
-		>For personal projects and simple applications.</span
+		>For personal projects, exploration and non-critical applications.</span
 	>
 	<span
 		class='block mobile:mt-2 mt-7 font-semibold text-pricingLightBlue text-[32px] leading-[40px] tracking-[0.54px]'
@@ -92,11 +94,11 @@ const selfhostedFeatures = [
 		<h2
 			class='font-semibold text-pricingGreen text-[28px] leading-[35px] tracking-[0.54px]'
 		>
-			Production
+			Production Tier
 		</h2>
 		<span
 			class='h-[38px] block mt-[15px] font-secondary font-light text-white text-base leading-[19px] opacity-80'
-			>For production applications and high traffic.</span
+			>For production applications requiring performance and SLA.</span
 		>
 		<ProductionPricing client:load />
 		<Button
@@ -133,8 +135,8 @@ const selfhostedFeatures = [
 		Self Hosted
 	</h2>
 	<span
-		class='h-[38px] block mt-[15px] font-secondary font-light text-white text-base leading-[19px] opacity-80'
-		>For enhanced control over compliance, compatibility, and modularity.</span
+		class='h-[55px] block mt-[15px] font-secondary font-light text-white text-base leading-[19px] opacity-80'
+		>For applications requiring additional control over data residency, hosting or compliance requirements.</span
 	>
 	<span
 		class='block mobile:mt-2 mt-7 font-semibold text-pricingLightBlue text-[32px] leading-[40px] tracking-[0.54px]'
