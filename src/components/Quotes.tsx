@@ -63,8 +63,8 @@ const quotes: QuoteData[] = [
 		logoUrl: '/elephant1.svg',
 	},
 	{
-		name: 'Neofit Sergeev',
-		role: 'Engineer',
+		name: 'Andrei Sergeev',
+		role: 'Founder',
 		company: 'CloudBreezy',
 		quote: 'Tembo offers a great combination of superb products and excellent support.',
 		logoUrl: '/elephant1.svg',
