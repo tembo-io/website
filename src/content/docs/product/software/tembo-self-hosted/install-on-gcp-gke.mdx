@@ -15,7 +15,19 @@ Before starting this tutorial, you must install and configure the following tool
 * The [Helm CLI](https://helm.sh/docs/intro/install/).
 * Obtain a [Clerk](https://clerk.com/) authentication key from Tembo.
 
-## Step 2: Configure a Google Cloud project
+## Step 2: Choose and setup a base domain
+
+For the Tembo services, you will need to select a base domain, such as `tembo.mydomain.com`.
+
+Once you have chosen your base domain, you must ensure you have the capacity to add and modify DNS records for it.
+
+With this setup, your users will be able to access various subdomains to manage, monitor and run Postgres on the platform:
+
+* Software UI: `app.tembo.mydomain.com`
+* Backend requests: `api.tembo.mydomain.com`
+* Tembo Dataplane: `dataplane.tembo.mydomain.com`
+
+## Step 3: Configure a Google Cloud project
 
 Once you're logged in with either `gcloud auth login` or `gcloud init`, ensure you have a Google Cloud project ID for your Tembo deployment.
 
@@ -61,7 +73,7 @@ export COMPUTE_ZONE=europe-west1-b
 gcloud config set compute/zone $COMPUTE_ZONE
 ```
 
-## Step 3: Create a GCP GKE cluster
+## Step 4: Create a GCP GKE cluster
 
 Enable the Kubernetes Engine API by either running `gcloud services enable container.googleapis.com` or through the [Google Cloud console](https://console.cloud.google.com/apis/library/container.googleapis.com).
 
@@ -75,10 +87,99 @@ export COMPUTE_ZONE=$(gcloud config get-value compute/zone)
 
 gcloud container clusters create $CLUSTER_NAME \
     --zone $COMPUTE_ZONE \
+    --addons=GcePersistentDiskCsiDriver
     --cluster-version $K8S_VERSION \
     --machine-type $MACHINE_TYPE \
     --enable-autoscaling \
     --max-nodes 10 \
     --min-nodes 3
+```
+
+If you wish to use an existing cluster, make sure that the CSI driver is enabled:
+
+```shell
+gcloud container clusters $CLUSTER_NAME --update-addons=GcePersistentDiskCsiDriver=ENABLED
+```
+
+For more details on creating instances, please refer to [Creating a zonal cluster](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-zonal-cluster).
+
+## Step 5: Configure `kubectl` to work with GKE clusters
+
+`gke-gcloud-auth-plugin` must be installed in order to use `kubectl` and other clients to interact with GKE.
+
+Check if it's already installed by running `gke-gcloud-auth-plugin --version`.
+
+### Installing the plugin
+
+```shell 
+gcloud components install gke-gcloud-auth-plugin
+```
+
+### Update `kubectl` to use the plugin
+
+```shell
+gcloud container clusters get-credentials $CLUSTER_NAME \
+    --zone=$COMPUTE_ZONE
+```
+
+### Verify the configuration
+
+You should be able to see output similar to the following:
+
+```shell
+$ kubectl get namespaces
+NAME              STATUS   AGE
+default           Active   51d
+kube-node-lease   Active   51d
+kube-public       Active   51d
+kube-system       Active   51d
+```
+
+## Step 6: Install Traefik and `cert-manager`
+
+TODO(vini): steps removed after the new Helm chart changes?
+
+### Install `cert-manager`
+
+```shell
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.14.4 --set installCRDs=true
+```
+
+### Install `traefik`
+
+```
+kubectl create ns traefik
+
+kubectl apply -f traefik-postgres-catch-all.yaml
+
+helm install traefik traefik/traefik --namespace traefik --version 20.8.0 -f traefik-values.yaml
+```
+
+## Step 6: Configure DNS for Traefik’s Load Balancer
+
+```
+gcloud dns managed-zones create tembo-dns-zone \
+    --description="Tembo DNS zone" \
+    --dns-name="sandbox.plat.cdb-svc.com"
+
+gcloud dns record-sets transaction start --zone=tembo-dns-zone
+
+gcloud dns record-sets transaction add 35.199.84.86 \
+    --name="*.gke1.sandbox.plat.cdb-svc.com." \
+    --ttl=300 \
+    --type=A \
+    --zone=tembo-dns-zone
+
+gcloud dns record-sets transaction execute --zone=tembo-dns-zone
+```
+
+Verify the zone worked:
+
+```shell
+gcloud dns record-sets list --zone=tembo-dns-zone
 ```
 
