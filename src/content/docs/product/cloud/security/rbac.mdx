@@ -13,7 +13,7 @@ Find Organization settings by selecting your profile icon in the top right of th
 
 ![rbac-image](./rbac-image.png)
 
-Manage permissions by selecting which Role you would like you modify permissions for in the Role drop down. You can find the Role assigned to each person on your team in the Members tab.
+Manage permissions by selecting which Role to modify permissions drop down. You can find the Role assigned to each person on your team in the Members tab.
 
 # Tembo RBAC API
 
@@ -59,8 +59,8 @@ You can find the list of Actions on the Permissions tab in the Tembo Cloud UI or
 Example Policy:
 ```json
 {
-  "action": "PostgresReadOnly", # Action ID
-  "role": "admin", # Role ID
+  "action": "PostgresReadOnly",
+  "role": "admin",
   "allowed": true
 }
 ```

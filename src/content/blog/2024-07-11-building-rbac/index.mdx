@@ -44,8 +44,8 @@ Example Action:
 Example Policy, allows admin to access the Postgres readonly password:
 ```json
 {
-  "action": "PostgresReadOnly", # Action ID
-  "role": "admin", # Role ID
+  "action": "PostgresReadOnly",
+  "role": "admin",
   "allowed": true
 }
 ```
@@ -65,13 +65,13 @@ Because currently Roles and Actions are unchanging, we have them defined as `enu
   2 | org_456         | basic_member | DeleteInstance    | f
 ```
 
-In our initial design, we are requiring Policies to be unique by (`organization_id`, `role`, `action`). This differs from the design of AWS IAM, as in IAM you can create multiple policies for the same Role and Action. We believe it is easier to understand Policies when there is only one Policy associated with a particular Role for each Action. This data model better represents a UI that shows a toggle on/off state for each Action when toggling permissions on or off per Role.
+In our initial design, we require Policies to be unique by (`organization_id`, `role`, `action`). This differs from the design of AWS IAM, where you can create multiple policies for the same Role and Action. We believe it is easier to understand Policies when there is only one Policy associated with a particular Role for each Action. This data model better represents a UI that shows a toggle on/off state for each Action when toggling permissions on or off per Role.
 
 By default, we initialize full permissions for both the Admin and Member roles, for backwards compatibility and so that RBAC is opt-in. Also, we disallow revoking the permission to manage permissions from the Admin role to avoid users locking themselves out by accident.
 
 ## Policy conditions
 
-In a future version of Tembo Cloud's RBAC, we will introduce the concept of Policy Conditions, so we need to plan for that ahead of time. For example, you may wish to configure that users can delete any instance except for production instances. We picture this feature would be included as a "Configure" button near where users are toggling on or off permissions to Actions.
+In a future version of Tembo Cloud's RBAC, we will introduce the concept of Policy Conditions, so we need to plan for that ahead of time. For example, you may wish to allow users t odelete any instance except for production instances. We picture this feature as a "Configure" button near the Action toggles.
 
 ![delete-instance](./delete-instance.png)
 
@@ -112,7 +112,7 @@ In our case, we can use something like this:
 
 When "allow" is true, we would evaluate Conditions with an "AND" operation between all conditions, and when "allow" is false, we would evaluate all Conditions with an "OR" operation between conditions. In this way, when a user toggles permissions off including some Conditions, then the Action is disabled for any matching Condition. When a user toggles permissions on including some Conditions, then the Action is allowed only when all Conditions are matching.
 
-In the data model, we can represent conditions like this, where `policy_id` is a required foreign key to the policies table.
+In the data model, we can represent conditions like this, where `policy_id` is a required foreign key to the policies table:
 
 ```
  id | policy_id |  operator   |  key           | value
