@@ -18,6 +18,14 @@ The Tembo website is built using [Astro](https://astro.build) + [React](https://
 $ npm install
 ```
 
+### Environment Variables
+
+You will need the following environment variable in your `.env.local` file:
+
+```
+PUBLIC_VITE_CLERK_PUBLISHABLE_KEY={KEY_VALUE}
+```
+
 ### Local Development
 
 Start the local dev server from the project root:
