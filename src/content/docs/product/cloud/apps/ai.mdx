@@ -2,13 +2,19 @@
 sideBarPosition: 1
 title: Tembo AI
 sideBarTitle: AI
+description: Tembo AI is a managed, OpenAI API compliant, hosting service for Large Language Models.
 ---
 
 import Callout from '../../../../../components/Callout.astro';
 
 Tembo AI is a managed hosting service for Large Language Models with an [OpenAI compliant API](https://platform.openai.com/docs/api-reference/chat/create).
- It hosts open source models on Tembo infrastructure which provides improved latency and enhanced privacy.
+ It hosts open source models on Tembo infrastructure which provides reduced network latency and enhanced privacy.
 
+In Tembo Cloud, LLMs are a shared service that runs within the Tembo Cloud data-plane.
+ There is one instance of Tembo AI per data-plane that is shared across all data-plane users.
+ The service can be reached directly from SQL and from user's applications via HTTP.
+
+![tembo-ai](./tembo-ai.png)
 
 
 ## Activate Tembo AI
