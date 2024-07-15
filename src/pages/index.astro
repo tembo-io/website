@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Container from '../components/Container';
 import Button from '../components/Button';
 import Confetti from '../components/Confetti.astro';
-import { Image, getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import StackSlider from '../components/StackSlider';
 import ElephantScene from '../images/elephantScene.svg';
 import Elephant11 from '../images/elephant11.svg';
@@ -34,6 +34,7 @@ import ProspectStreamLogo from '../images/prospect_logo.svg';
 import Quotes from '../components/Quotes';
 import StackHero from '../components/StackHero';
 import WaddlingLogo from '../images/waddling_logo.svg';
+import AutomizedLogo from '../images/automized.png';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -117,6 +118,9 @@ const currentPath = Astro.url.pathname;
 							alt='prospect stream logo'
 							class='w-[112px] h-[35px]'
 						/>
+					</div>
+					<div class='flex justify-center w-[166px]'>
+						<Image src={AutomizedLogo} alt='prospect stream logo' />
 					</div>
 				</div>
 			</div>
