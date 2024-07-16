@@ -4,13 +4,7 @@ import cx from 'classnames';
 import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
-import { ClerkProvider } from '@clerk/clerk-react';
-import ClerkButton from './ClerkButton';
-
-const CLERK_PUBLISHABLE_KEY = import.meta.env.PUBLIC_VITE_CLERK_PUBLISHABLE_KEY;
-if (!CLERK_PUBLISHABLE_KEY) {
-	throw new Error('Missing Clerk Publishable Key');
-}
+import ClerkProviderWithButton from './ClerkButton';
 
 interface Props {
 	currentPage: string;
@@ -93,13 +87,12 @@ const NavBar: React.FC<Props> = ({
 			)}
 		>
 			{isBanner && !isMenuOpen && (
-				<a href='/blog/pganalyze'>
+				<a href='/blog/series-a'>
 					<div
 						className={`flex items-center text-[12px] min-[400px]:text-sm justify-center gap-2 news-banner-container top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-[20px] mobile:px-[95px] py-3.5 sm:py-2.5 z-50`}
 					>
 						<span className='truncate'>
-							Tembo now supports advanced metrics, alerts and more
-							with pganalyze!
+							Tembo Raises $14M Series A Round
 						</span>
 						<span className='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text font-semibold text-sm whitespace-nowrap'>
 							Read more
@@ -186,9 +179,7 @@ const NavBar: React.FC<Props> = ({
 							/>
 							Github
 						</a>
-						<ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY}>
-							<ClerkButton />
-						</ClerkProvider>
+						<ClerkProviderWithButton />
 					</div>
 					<button
 						onClick={() => {
