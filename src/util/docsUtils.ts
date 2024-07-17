@@ -414,6 +414,7 @@ export function githubEditLink(doc_id: string) {
 	return `${BASE_URL}${doc_id}`;
 }
 
+// utils for postgres guide single links page
 export function getIsPostgresGuide(slug: string) {
 	return slug.split('/').at(1) === 'postgres_guides';
 }
