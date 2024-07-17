@@ -1,7 +1,6 @@
 ---
 description: Introduction to pg_stat_statements and EXPLAIN ANALYZE
 ---
-
 Monitoring and profiling PostgreSQL is essential for identifying performance bottlenecks and optimizing your database for better efficiency. This guide provides a step-by-step approach to enable advanced monitoring and profiling, followed by best practices for performance gains.
 
 ### Enabling the pg_stat_statements Extension

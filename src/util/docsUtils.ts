@@ -413,3 +413,24 @@ export function githubEditLink(doc_id: string) {
 		'https://github.com/tembo-io/website/edit/main/src/content/docs/';
 	return `${BASE_URL}${doc_id}`;
 }
+
+export function getIsPostgresGuide(slug: string) {
+	return slug.split('/').at(1) === 'postgres_guides';
+}
+
+export function getIsGettingStartedPage(slug: string) {
+	const splitSlug = slug.split('/');
+	return (
+		splitSlug.at(0) === 'getting-started' &&
+		splitSlug.at(1) === 'getting_started'
+	);
+}
+
+export function getIsPostgresGuideLinksPage(slug: string) {
+	const splitSlug = slug.split('/');
+	return (
+		splitSlug.length === 2 &&
+		splitSlug.at(0) === 'getting-started' &&
+		splitSlug.at(1) === 'postgres_guides'
+	);
+}
