@@ -28,6 +28,13 @@ If you need help installing `psql`, finding instructions for you platform should
 
 ### Create the time-series table
 
+`pg_timeseries` depends on `pg_cron`, and the Timeseries Stack comes with `pg_cron` pre-configured to run `postgres` database. If you would like to run this guide in another database, simply run the following in the new database:
+
+```sql
+ALTER SYSTEM SET cron.database_name TO 'my_new_db';
+CREATE EXTENSION timeseries CASCADE;
+```
+
 Since we're starting from scratch, begin by making an empty table. We'll load the data into this shortly using a `\copy` command, after which point our application could continue to `INSERT` new trips in an ongoing fashion.
 
 The `timeseries` extension requires three things of your table. It must:
