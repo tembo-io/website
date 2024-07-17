@@ -2,33 +2,39 @@
 sideBarPosition: 0
 ---
 
-Goodbye Database Sprawl, Hello Postgres.
+Welcome to the trailhead of your awesome journey with Tembo! 
+Let this page serve as your quick and easy onboarding process. 
 
-At Tembo, we've created a radically simpler way to build, deploy, and scale data services and applications on top of Postgres. Unlike traditional managed Postgres offerings, Tembo abstracts the complexity of deployment, configuration, management, and optimization, allowing developers to easily build and deploy highly specialized data services without needing to rely on multiple different database platforms, and teams of backend engineers, DevOps teams, database administrators, and data engineers.
+As you continue to explore our platform, feel welcome to dive deeper into the rest of the documentation.
+If anything's unclear, please [contact us](https://tembo.io/contact/) or suggest an update via the [Edit this page on Github](https://github.com/tembo-io/website/edit/main/src/content/docs/getting-started/getting_started.md) button at the bottom of every page.
 
-## What Makes Tembo Unique?
-
-Today, Tembo is differentiated by:
-
--   Expert database management - No need to learn new database systems or hire additional teams in order to get Master DBA-level database performance. Now, get it out-of-the-box.
--   Live extension management — thanks to [Trunk](https://www.pgt.dev), you can easily install a growing list of Postgres extensions into your running Postgres cluster at the click of a button.
--   Use-case specific — Tembo Stacks are productized starting points that include a Postgres cluster, an intentionally curated bundle of Postgres extensions, optimized configuration, and application services. Want to know more? Check out our [Stacks](https://tembo.io/docs/category/tembo-stacks) here.
 
 Ready to get started? Let's do it.
 
-## Creating an Account
+## Create an Account
 
--   Sign in at [cloud.tembo.io](https://cloud.tembo.io/).
+The first step is to create an account, can be achieved with a few simple clicks and without a credit card.
 
-## Creating a Database
+- Sign up at [cloud.tembo.io](https://cloud.tembo.io/).
 
--   Choose a Stack
--   Choose size
--   You may want to edit some configuration options such as `max_connections, shared_buffers, work_mem, maintenance_work_mem, effective_cache_size` (we set these to sensible defaults, but you have full control)
+## Initial Deployment
+
+Once you're set up, you've got the power to deploy an instance right away by following these steps:
+
+- Choose a Stack
+- Configure the following:
+    - Name
+    - Postgres Version
+    - Cloud Provider
+    - Region
+- Select a Compute & Memory tier
+- Click the `Deploy Now` button
 
 ## Connecting to your Database
 
--   Click on the Configurations Section of the database dashboard, then select "Show Connection Strings".
+Now that you've deployed your instance, you can connect to it using the provided connection string.
+
+-   Acquire the connection string by navigating to the main dashboard and selecting the `Show connection strings` button.
 
 ## Enabling Extensions
 
@@ -36,3 +42,11 @@ Ready to get started? Let's do it.
 -   Click the extensions tab while viewing a cluster (the little box icon)
 -   Click "Add new extension”, find the extension, and click “Install”
 -   Click the extensions tab while viewing a cluster to enable any extensions you have installed.
+
+## What's Next?
+
+- Configure your database
+- Getting started with the Tembo CLI
+- Authenticate your API
+- Familiarize yourself with our billing model
+
