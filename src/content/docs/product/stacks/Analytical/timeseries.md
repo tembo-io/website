@@ -28,10 +28,16 @@ If you need help installing `psql`, finding instructions for you platform should
 
 ### Create the time-series table
 
-`pg_timeseries` depends on `pg_cron`, and the Timeseries Stack comes with `pg_cron` pre-configured to run `postgres` database. If you would like to run this guide in another database, simply run the following in the new database:
+`pg_timeseries` depends on `pg_cron`, and the Timeseries Stack comes with `pg_cron` pre-configured to run `postgres` database. If you would like to run this guide in another database, follow this steps:
 
+1. Change `cron.database_name`
 ```sql
 ALTER SYSTEM SET cron.database_name TO 'my_new_db';
+```
+2. Restart the instance so that changes from previous step are taken into effect. In Tembo Cloud you can do it by going to Settings and then clicking the Restart button
+3. After restart connect to your database and create the extension
+```sql
+\connect my_new_db
 CREATE EXTENSION timeseries CASCADE;
 ```
 
