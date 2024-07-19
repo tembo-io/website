@@ -24,8 +24,9 @@ SELECT version();
  PostgreSQL 15.7 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, 64-bit
 (1 row)
 ```
+
+For the purposes of this demonstration, we'll create a simple table and insert some data into it.
 ```sql
--- Create the table
 CREATE TABLE sample_table (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100),
@@ -33,16 +34,17 @@ CREATE TABLE sample_table (
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insert sample data into the table
 INSERT INTO sample_table (name, email) VALUES
 ('Alice', 'alice@example.com'),
 ('Bob', 'bob@example.com'),
 ('Charlie', 'charlie@example.com');
 ```
 
-### Step 2: Create a new instance on Tembo Cloud and 
+### Step 2: Assure the Existance of a Higher Version Instance
 
-Set the passwords of each instance to be the same.
+Once complete, asssure you either have an existing instance of Postgres version 16, or refer to our [getting started guide](https://tembo.io/docs/getting-started/getting_started).
+
+For the purposes of this migration, you'll need to [update password](https://tembo.io/docs/product/cloud/security/update-postgres-password) of both instances to be the same. The most straightforward way is through the [Tembo Cloud UI](https://tembo.io/docs/product/cloud/security/update-postgres-password#:~:text=specified%20security%20requirements.-,Through%20Tembo%20Cloud,-Navigate%20to%20the).
 
 ### Step 3: Run the pg_dumpall command and confirm the successful upgrade
 
