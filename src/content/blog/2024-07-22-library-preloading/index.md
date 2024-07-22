@@ -1,6 +1,6 @@
 ---
 slug: library-preloading
-title: PostgreSQL Shared Library Preloading
+title: To Preload or Not to Preload
 authors: [theory]
 description: |
   When should a Postgres extension be pre-loaded and when should it not?
@@ -11,6 +11,14 @@ date: 2024-07-22T14:00
 # image: './security-pink.png'
 planetPostgres: true
 ---
+
+> To preload, or not to preload, that is the question:
+> Whether 'tis nobler in the ram to suffer
+> The slings and arrows of pointer functions,
+> Or to take arms against a sea of backends,
+> And by alter role limit them: to session, to user
+>
+> William Shakespeare, DBA (probably)
 
 Recently I've been trying to figure out when a Postgres extension shared
 libraries should be preloaded. By "shared libraries" I mean libraries provided
