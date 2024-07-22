@@ -173,7 +173,8 @@ One common cause for replication lag is long-running queries on the standby serv
 Postgres replica servers also only apply streaming changes using a single process. Replicas often have different tables or indexes in local and filesystem cache than the blocks being applied from the primary system. As a result, extremely write-heavy primary servers can also "overload" a replica system by exceeding random disk throughput or the capabilities of the single apply process.
 
 <Callout variant='info'>
-Postgres versions 15 and above will try to prefetch blocks that appear in the replication stream to reduce this effect.
+	Postgres versions 15 and above will try to prefetch blocks that appear in
+	the replication stream to reduce this effect.
 </Callout>
 
 If standby lag is a result of primary write volume, it may be necessary to [increase instance size](/docs/product/cloud/configuration-and-management/increase-compute) for better compute or storage performance.
@@ -206,7 +207,7 @@ SELECT
   transactionid,
   pid,
   mode,
-  granted,
+  granted
 FROM pg_locks
 WHERE NOT granted;
 ```
@@ -252,16 +253,17 @@ SELECT pg_drop_replication_slot('< replication slot name here >');
 ```
 
 <Callout variant='info'>
-Logical replicas or applications such as Debezium that depend on dropped slots may need to be restarted once a new slot is created.
+	Logical replicas or applications such as Debezium that depend on dropped
+	slots may need to be restarted once a new slot is created.
 </Callout>
 
 ## Workload crashing
 
-**Description:**  Tembo offers Apps as a way to run arbitrary workloads near your database, for example the [RestAPI](/docs/product/cloud/apps/rest-api) or [Embeddings](/docs/product/cloud/apps/embeddings), and more. This alert indicates that one of your Apps is crashing.
+**Description:** Tembo offers Apps as a way to run arbitrary workloads near your database, for example the [RestAPI](/docs/product/cloud/apps/rest-api) or [Embeddings](/docs/product/cloud/apps/embeddings), and more. This alert indicates that one of your Apps is crashing.
 
 Check application logs:
 
-Follow the [logging](/docs/product/cloud/troubleshooting/logs) documentation to setup Grafana to view your logs.  Once you have the new Data Source setup you will be able to search for logs using your `instance_id` and selecting your Tembo App from the `app` dropdown.
+Follow the [logging](/docs/product/cloud/troubleshooting/logs) documentation to setup Grafana to view your logs. Once you have the new Data Source setup you will be able to search for logs using your `instance_id` and selecting your Tembo App from the `app` dropdown.
 
 ![grafana-logging-datasource](./logs-grafana.png)
 

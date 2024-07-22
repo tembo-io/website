@@ -1,0 +1,137 @@
+---
+slug: series-a
+title: 'Announcing Tembo Series A'
+authors: [ryw]
+tags: [postgres]
+image: './tembonauts.png'
+date: 2024-07-03T16:00
+description: 'Tembo has raised a $14M Series A round, 
+to fuel our mission to make it as easy as possible for developers 
+to more easily access the entire Postgres open source ecosystem.'
+---
+import Callout from '../../../components/Callout.astro';
+
+We're excited to announce that Tembo has raised a $14M Series A round, 
+to fuel our mission **to make it as easy as possible for developers 
+to more easily access the entire Postgres open source ecosystem**. We 
+are building an exciting alternative to existing universe of 
+relatively-limited managed Postgres offerings, and an alternative to the 
+growing sprawl of databases and database tools offered by the major clouds.
+
+We are thankful to our Series A investors:
+
+* [DJ Patil](https://www.gpv.com/team/dj-patil), 
+  [Ray Lane](https://www.gpv.com/team/ray-lane),
+  and the team at [GreatPoint Ventures](https://www.gpv.com/) who led the round 🔥
+* [Ethan Batraski](https://www.venrock.com/teammember/ethan-batraski/) 
+  and the team at [Venrock](https://www.venrock.com/), who also led our seed round 🔥🔥
+* [Harsh Patel](https://x.com/harsh1) and the team
+  at [Wireframe Ventures](https://www.wireframevc.com/),
+  who also participated in our seed round
+* [Nathan Owen](https://grandvcp.com/team/member/1104)
+  and the team at [Grand Ventures](https://grandvcp.com/)
+* [Mark Trevitt](https://www.linkedin.com/in/marktrevitt)
+  and the team at [Defined](https://www.definedvc.com/)
+* [JB Kropp](https://www.linkedin.com/in/kropp/) 
+  and the team at [Cintrifuse Capital](https://cintrifuse.com/)
+* other prominent angels
+
+<Callout title="Additional coverage" variant='info'>
+  Read more on [Techcrunch](https://techcrunch.com/2024/07/08/database-startup-tembo-lands-new-cash-to-expand/)
+  and [a great post on LinkedIn by DJ Patil](https://www.linkedin.com/pulse/why-were-investing-tembo-dj-patil-glguc/?trackingId=Cf3K0DnwSIuwzeVmOeZhvw%3D%3D).
+</Callout>
+
+
+## Providing an alternative to the growing data tool sprawl
+
+There are now hundreds of databases available in the market, in fact
+[db-engines](https://db-engines.com/en/ranking) lists 421.
+
+[![421 databases at db-engines](./421-databases.png 'db-engines')](https://db-engines.com/en/ranking)
+
+Most developers would prefer an open-source, 
+multi-workload data platform to simplify their lives and work, 
+especially if it doesn't restrict their freedom.
+
+Organizations, meanwhile, want reliability, flexibility, and 
+options instead of spiraling costs and vendor lock-in. 
+There's an obvious solution that ticks all the necessary 
+boxes: **Postgres**.
+
+<Callout title="Postgres is the world's favorite database" variant='info'>
+  Postgres, the world's most beloved database 
+  [according to StackOverflow](https://survey.stackoverflow.co/2023/)
+  with millions of deployments, 
+  features a permissive OSS license, and a huge community. 
+  
+  It efficiently 
+  manages SQL and JSON queries across diverse workloads, handles low 
+  latency, high throughput analytical cases, offering HTAP-lite capabilities 
+  through window functions and foreign data wrappers. Known for its 
+  extensibility and ACID compliance, it stands out as a reliable and 
+  cost-effective system.
+
+  Even better, its extensibility has resulted in a wide ecosystem of 
+  add-ons and plugins for GIS data, image processing, vector databases, 
+  and more, with some extensions evolving into companies like CitusDB 
+  and Timescale. In short, everything you'd want and then some.
+</Callout>
+
+## The AI/LLM explosion demands a data platform rethink
+
+Due to the explosion of AI and its data demands,
+every organization is rethinking their data platform.
+
+So...
+
+## Developers want to choose Postgres
+
+They really do. Postgres grew up as a transactional database, but devs know that
+it can now be used for analytical and AI workloads.
+
+But the sad news is that for non-OLTP use cases, Postgres doesn't win many bake-offs,
+vs. specialized tools. It's a shame. Nobody had been working to give developers the
+product and the ammo they need to choose Postgres for all the newer data use cases.
+
+Until now....
+
+## One Postgres platform to rule them all
+
+Tembo is available as a fully-managed SaaS and as self-hosted Kubernetes-based
+software, providing a single unified platform that comes with unprecedented
+Postgres expertise and support across a wide range of use cases.
+
+And we've added convenience features such as:
+
+-   200+ available Postgres extensions
+-   columnar data storage
+-   tiered storage
+-   in-cluster embedding and LLM services
+-   a lot more
+
+This provides teams the ability to build modern data products with maximum security,
+real time data access, and absolute data sovereignty.
+
+Developers will easily be able to deploy different flavors of Postgres
+to multiple clouds and regions, with advanced options such as auto-scaling,
+auto-pausing, and auto-tuning under active development.
+
+[![cloud.tembo.io](./tembo-ui.svg 'cloud.tembo.io select a stack')](https://cloud.tembo.io)
+
+## Join the movement—some closing talking points
+
+Our vision isn't complete, but it's compelling and includes:
+
+-   Postgres isn't just a database; it's a powerful platform capable of anything
+    from simple applications to complex data ecosystems.
+-   Tembo provides a Postgres-managed service that enables organizations to
+    harness the full power of the popular open-source database Postgres for
+    transactional, analytical and AI workloads across any cloud, anywhere.
+-   By making it easy for developers to access the entire Postgres open source
+    ecosystem, we're also enabling organizations, from Fortune 500 to startups,
+    to feel confident going “all in” on Postgres, achieving unprecedented stability
+    and efficiency across various applications and use cases.
+
+LFG.
+
+-Ry
