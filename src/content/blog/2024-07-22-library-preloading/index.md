@@ -13,7 +13,7 @@ planetPostgres: true
 ---
 
 > To preload, or not to preload, that is the question:<br/>
-> Whether 'tis nobler in the ram to suffer<br/>
+> Whether ’tis nobler in the ram to suffer<br/>
 > The slings and arrows of pointer functions,<br/>
 > Or to take arms against a sea of backends,<br/>
 > And by alter role limit them: to session, to user
