@@ -13,6 +13,8 @@ It's also important to note that, while this exercise utilizes Postgres versions
 
 Running the `pg_dumpall` command works well for small instances, or where cut-over time isn't an issue. The following corresponds to [section 19.6.1](https://www.postgresql.org/docs/current/upgrading.html#UPGRADING-VIA-PGDUMPALL) in the above-mentioned docs. Further information can be found in our [how-to guide on backups and restores](https://tembo.io/docs/getting-started/postgres_guides/how-to-backup-and-restore-a-postgres-database).
 
+Please note that it's recommended that you utilize the `pg_dumpall` program from the newer version of Postgres, to assure the most up-to-date features and compatibility.
+
 ### Step 1: Orientation
 
 Let's start with an instance of Postgres version 15, which we plan to upgrade to version 16. We can check the version via `psql` and later confirm the update by running the following command within Postgres:
@@ -58,12 +60,6 @@ pg_dumpall -d 'postgresql://postgres:<your-password>@<your-current-host>:5432/po
 During this process, you'll be prompted to enter a password that will grant access to both databases.
 
 If we then psql into the upgraded instance, we can confirm the data transfer.
-
-## Logical Replication
-
-Use `logical replication` into a new cluster. Best for medium to large instances, or where downtime needs to be minimized.
-
-This corresponds to [section 19.6.3](https://www.postgresql.org/docs/current/upgrading.html#UPGRADING-VIA-REPLICATION) in the above docs.
 
 ## Support
 
