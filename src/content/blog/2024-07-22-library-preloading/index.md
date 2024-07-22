@@ -7,15 +7,15 @@ description: |
   Should it be loaded in user sessions or at server startup? Read on for
   answers.
 tags: [postgres, extensions, preload]
-date: 2024-07-22T14:00
+date: 2024-07-24T14:00
 # image: './security-pink.png'
 planetPostgres: true
 ---
 
-> To preload, or not to preload, that is the question:
-> Whether 'tis nobler in the ram to suffer
-> The slings and arrows of pointer functions,
-> Or to take arms against a sea of backends,
+> To preload, or not to preload, that is the question:<br/>
+> Whether 'tis nobler in the ram to suffer<br/>
+> The slings and arrows of pointer functions,<br/>
+> Or to take arms against a sea of backends,<br/>
 > And by alter role limit them: to session, to user
 >
 > William Shakespeare, DBA (probably)
