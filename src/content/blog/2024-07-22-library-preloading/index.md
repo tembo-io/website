@@ -18,7 +18,7 @@ planetPostgres: true
 > Or to take arms against a sea of backends,<br/>
 > And by alter role limit them: to session, to user
 >
-> William Shakespeare, DBA (probably)
+> — William Shakespeare, DBA (probably)
 
 Recently I've been trying to figure out when a Postgres extension shared
 libraries should be preloaded. By "shared libraries" I mean libraries provided
