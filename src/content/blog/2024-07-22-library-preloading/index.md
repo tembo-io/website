@@ -1,6 +1,6 @@
 ---
 slug: library-preloading
-title: To Preload or Not to Preload
+title: To Preload, or Not to Preload
 authors: [theory]
 description: |
   When should a Postgres extension be pre-loaded and when should it not?
