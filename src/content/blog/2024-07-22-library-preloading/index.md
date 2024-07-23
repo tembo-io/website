@@ -8,7 +8,7 @@ description: |
   answers.
 tags: [postgres, extensions, preload]
 date: 2024-07-24T14:00
-# image: './security-pink.png'
+image: './shared-library-preloading.png'
 planetPostgres: true
 ---
 
