@@ -2,12 +2,10 @@
 sideBarPosition: 0
 ---
 
-Welcome to the trailhead of your awesome journey with Tembo! 
-Let this page serve as your quick and easy onboarding process. 
+Welcome to the trailhead of your journey with Tembo! 
 
 As you continue to explore our platform, feel welcome to dive deeper into the rest of the documentation.
 If anything's unclear, please [contact us](https://tembo.io/contact/) or suggest an update via the [Edit this page on Github](https://github.com/tembo-io/website/edit/main/src/content/docs/getting-started/getting_started.md) button at the bottom of every page.
-
 
 Ready to get started? Let's do it.
 
