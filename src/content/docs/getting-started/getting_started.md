@@ -45,8 +45,8 @@ Now that you've deployed your instance, you can connect to it using the provided
 
 ## What's Next?
 
-- Configure your database
-- Getting started with the Tembo CLI
-- Authenticate your API
-- Familiarize yourself with our billing model
+- [Configure your database](https://tembo.io/docs/product/cloud/configuration-and-management/postgres-configuration)
+- [Getting started with the Tembo CLI](https://tembo.io/docs/development/cli/getting_started)
+- [Authenticate your API](https://tembo.io/docs/development/api)
+- [Familiarize yourself with our billing model](https://tembo.io/docs/product/cloud/billing)
 
