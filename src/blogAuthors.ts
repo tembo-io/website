@@ -27,6 +27,7 @@ export const authorsEnum = z.array(
 			'joshua',
 			'vini',
 			'shaun',
+			'floor',
 			'jason',
 		])
 		.default('ryw'),
@@ -143,6 +144,13 @@ export const AUTHORS: Record<string, Author> = {
 		title: 'Senior Software Engineer',
 		url: 'https://github.com/bonesmoses',
 		image_url: 'https://github.com/bonesmoses.png',
+	},
+	floor: {
+		name: 'Floor Drees',
+		title: 'Head of Education',
+		url: 'https://github.com/floord',
+		image_url: 'https://github.com/floord.png',
+		email: 'noreply@tembo.io',
 	},
 	jason: {
 		name: 'Jason Petersen',
