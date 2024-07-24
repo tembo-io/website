@@ -1,4 +1,32 @@
-## Advanced Guides
+## Basics
+
+-   [Basic sql queries](/docs/getting-started/postgres_guides/postgres-basics/basic_sql_queries)
+-   [Connection pooling](/docs/getting-started/postgres_guides/postgres-basics/connection-pooling)
+-   [Jsonb](/docs/getting-started/postgres_guides/postgres-basics/jsonb)
+-   [Postgres data types](/docs/getting-started/postgres_guides/postgres-basics/postgres-data-types)
+-   [Postgres overview](/docs/getting-started/postgres_guides/postgres-basics/postgres-overview)
+-   [Row count](/docs/getting-started/postgres_guides/postgres-basics/row-count)
+
+## Extensions
+
+-   [Aggs for vecs](/docs/getting-started/postgres_guides/extensions/aggs_for_vecs)
+-   [Argm](/docs/getting-started/postgres_guides/extensions/argm)
+-   [Autoinc](/docs/getting-started/postgres_guides/extensions/autoinc)
+-   [Bool plperl](/docs/getting-started/postgres_guides/extensions/bool_plperl)
+-   [Btree gin](/docs/getting-started/postgres_guides/extensions/btree_gin)
+-   [Chkpass](/docs/getting-started/postgres_guides/extensions/chkpass)
+-   [Citext](/docs/getting-started/postgres_guides/extensions/citext)
+-   [Count distinct](/docs/getting-started/postgres_guides/extensions/count_distinct)
+-   [Credcheck](/docs/getting-started/postgres_guides/extensions/credcheck)
+-   [Cube](/docs/getting-started/postgres_guides/extensions/cube)
+-   [Dict int](/docs/getting-started/postgres_guides/extensions/dict_int)
+-   [Earthdistance](/docs/getting-started/postgres_guides/extensions/earthdistance)
+-   [Pg cron](/docs/getting-started/postgres_guides/extensions/pg_cron)
+-   [Pg mq](/docs/getting-started/postgres_guides/extensions/pgmq)
+-   [Plr](/docs/getting-started/postgres_guides/extensions/plr)
+-   [Random](/docs/getting-started/postgres_guides/extensions/random)
+
+## Advanced
 
 -   [All possible joins in postgres](/docs/getting-started/postgres_guides/all-possible-joins-in-postgres)
 -   [Advanced monitoring and profiling](/docs/getting-started/postgres_guides/advanced-monitoring-and-profiling)
@@ -28,31 +56,3 @@
 -   [Postgres indexing strategies](/docs/getting-started/postgres_guides/postgres-indexing-strategies)
 -   [Postgres wal configuration](/docs/getting-started/postgres_guides/postgres-wal-configuration)
 -   [Working with json data in postgres](/docs/getting-started/postgres_guides/working-with-json-data-in-postgres)
-
-## Postgres Basics
-
--   [Basic sql queries](/docs/getting-started/postgres_guides/postgres-basics/basic_sql_queries)
--   [Connection pooling](/docs/getting-started/postgres_guides/postgres-basics/connection-pooling)
--   [Jsonb](/docs/getting-started/postgres_guides/postgres-basics/jsonb)
--   [Postgres data types](/docs/getting-started/postgres_guides/postgres-basics/postgres-data-types)
--   [Postgres overview](/docs/getting-started/postgres_guides/postgres-basics/postgres-overview)
--   [Row count](/docs/getting-started/postgres_guides/postgres-basics/row-count)
-
-## Extensions
-
--   [Aggs for vecs](/docs/getting-started/postgres_guides/extensions/aggs_for_vecs)
--   [Argm](/docs/getting-started/postgres_guides/extensions/argm)
--   [Autoinc](/docs/getting-started/postgres_guides/extensions/autoinc)
--   [Bool plperl](/docs/getting-started/postgres_guides/extensions/bool_plperl)
--   [Btree gin](/docs/getting-started/postgres_guides/extensions/btree_gin)
--   [Chkpass](/docs/getting-started/postgres_guides/extensions/chkpass)
--   [Citext](/docs/getting-started/postgres_guides/extensions/citext)
--   [Count distinct](/docs/getting-started/postgres_guides/extensions/count_distinct)
--   [Credcheck](/docs/getting-started/postgres_guides/extensions/credcheck)
--   [Cube](/docs/getting-started/postgres_guides/extensions/cube)
--   [Dict int](/docs/getting-started/postgres_guides/extensions/dict_int)
--   [Earthdistance](/docs/getting-started/postgres_guides/extensions/earthdistance)
--   [Pg cron](/docs/getting-started/postgres_guides/extensions/pg_cron)
--   [Pg mq](/docs/getting-started/postgres_guides/extensions/pgmq)
--   [Plr](/docs/getting-started/postgres_guides/extensions/plr)
--   [Random](/docs/getting-started/postgres_guides/extensions/random)
