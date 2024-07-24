@@ -1,8 +1,8 @@
 ## Advanced Guides
 
+-   [All possible joins in postgres](/docs/getting-started/postgres_guides/all-possible-joins-in-postgres)
 -   [Advanced monitoring and profiling](/docs/getting-started/postgres_guides/advanced-monitoring-and-profiling)
 -   [Advanced postgres queries for performance](/docs/getting-started/postgres_guides/advanced-postgres-queries-for-performance)
--   [All possible joins in postgres](/docs/getting-started/postgres_guides/all-possible-joins-in-postgres)
 -   [Connecting to postgres with c sharp](/docs/getting-started/postgres_guides/connecting-to-postgres-with-c-sharp)
 -   [Connecting to postgres with java](/docs/getting-started/postgres_guides/connecting-to-postgres-with-java)
 -   [Connecting to postgres with nodejs](/docs/getting-started/postgres_guides/connecting-to-postgres-with-nodejs)
@@ -11,6 +11,7 @@
 -   [How to backup and restore a postgres database](/docs/getting-started/postgres_guides/how-to-backup-and-restore-a-postgres-database)
 -   [How to connect to postgres](/docs/getting-started/postgres_guides/how-to-connect-to-postgres)
 -   [How to copy data in postgres](/docs/getting-started/postgres_guides/how-to-copy-data-in-postgres)
+-   [How to create and use materialized views](/docs/getting-started/postgres_guides/how-to-create-and-use-materialized-views)
 -   [How to create views in postgres](/docs/getting-started/postgres_guides/how-to-create-views-in-postgres)
 -   [How to describe tables in postgres](/docs/getting-started/postgres_guides/how-to-describe-tables-in-postgres)
 -   [How to import a csv file in postgres](/docs/getting-started/postgres_guides/how-to-import-a-csv-file-in-postgres)

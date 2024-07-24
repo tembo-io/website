@@ -435,3 +435,16 @@ export function getIsPostgresGuideLinksPage(slug: string) {
 		splitSlug.at(1) === 'postgres_guides'
 	);
 }
+
+export function removeItemByTitleAndSlug(
+	data: SideBarSection[],
+	title: string,
+	slug: string,
+) {
+	return data.map((section) => ({
+		...section,
+		items: section.items.filter(
+			(item) => !(item.title === title && item.slug === slug),
+		),
+	}));
+}
