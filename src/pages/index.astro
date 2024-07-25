@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Container from '../components/Container';
 import Button from '../components/Button';
 import Confetti from '../components/Confetti.astro';
-import { Image, getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import StackSlider from '../components/StackSlider';
 import ElephantScene from '../images/elephantScene.svg';
 import Elephant11 from '../images/elephant11.svg';
@@ -34,13 +34,14 @@ import ProspectStreamLogo from '../images/prospect_logo.svg';
 import Quotes from '../components/Quotes';
 import StackHero from '../components/StackHero';
 import WaddlingLogo from '../images/waddling_logo.svg';
+import AutomizedLogo from '../images/automized.png';
 
 const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Tembo: Goodbye Database Sprawl, Hello Postgres'>
 	<div class='main-content'>
-		<NavBar client:load currentPage={currentPath} isBanner={false} />
+		<NavBar client:load currentPage={currentPath} isBanner={true} />
 		<div class='w-full h-[150px] overflow-hidden'></div>
 		<section class='mt-[25px]'>
 			<Container styles='relative'>
@@ -52,15 +53,15 @@ const currentPath = Astro.url.pathname;
 					<div
 						class='flex flex-col items-center justify-center z-10 pb-8 relative'
 					>
-						<header class='text-center slide-enter-content'>
-							<p
+						<header class='text-center slide-enter-content mt-12'>
+							<h1
 								class='text-white font-bold tracking-[0.47px] text-[32px] sm:text-[56px] md:text-[64px] lg:text-[72px] leading-tight
 							z-10 mb-12'
 							>
 								Tembo makes it easy to <br
 									class='hidden customXs:flex'
 								/> use Postgres
-							</p>
+							</h1>
 							<div>
 								<Button
 									variant='gradient'
@@ -117,6 +118,9 @@ const currentPath = Astro.url.pathname;
 							alt='prospect stream logo'
 							class='w-[112px] h-[35px]'
 						/>
+					</div>
+					<div class='flex justify-center w-[166px]'>
+						<Image src={AutomizedLogo} alt='prospect stream logo' />
 					</div>
 				</div>
 			</div>
@@ -550,9 +554,12 @@ const currentPath = Astro.url.pathname;
 			>
 				<Container styles='z-10 pb-24'>
 					<h2
-						class='text-white font-bold text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] text-center leading-normal w-full z-50 mt-28'
+						class='text-white text-center font-bold tracking-[0.47px] text-[32px] sm:text-[56px] md:text-[64px] lg:text-[72px] leading-tight
+				 mt-28 z-50'
 					>
-						Join The Herd
+						Tembo makes it easy to <br
+							class='hidden customXs:flex'
+						/> use Postgres
 					</h2>
 					<div
 						class='flex-col min-[500px]:flex-row flex items-center justify-center mt-10 gap-4 z-50'
@@ -567,10 +574,6 @@ const currentPath = Astro.url.pathname;
 						>
 							Try Free
 						</Button>
-						<ArrowButton
-							title='Join the team'
-							link='mailto:careers@tembo.io'
-						/>
 					</div>
 				</Container>
 			</div>

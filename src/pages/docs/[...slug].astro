@@ -11,9 +11,9 @@ import {
 	githubEditLink,
 	cleanSideBarTitle,
 } from '../../util/docsUtils';
-import Footer from '../../components/docs/Footer.astro';
 import NextButton from '../../components/NextButton.astro';
 import Tag from '../../components/Tag.astro';
+import CallToAction from '../../components/CallToAction.astro';
 
 export async function getStaticPaths() {
 	const docs = await getCollection('docs');
@@ -97,7 +97,7 @@ const docTitle =
 				</div>
 			</div>
 		</div>
-		<div class='flex items-start gap-2 max-h-full'>
+		<div class='flex items-start gap-2 max-h-full mb-4'>
 			{
 				doc.data.tags?.map((tag) => (
 					<Tag
@@ -108,6 +108,7 @@ const docTitle =
 				))
 			}
 		</div>
-		<Footer editLink={githubEditLink(doc.id)} />
+		<div class='h-[1px] w-full bg-[#242424]'></div>
+		<CallToAction isDoc={true} editLink={githubEditLink(doc.id)} />
 	</div>
 </DocsLayout>

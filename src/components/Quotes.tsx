@@ -63,8 +63,8 @@ const quotes: QuoteData[] = [
 		logoUrl: '/elephant1.svg',
 	},
 	{
-		name: 'Neofit Sergeev',
-		role: 'Engineer',
+		name: 'Andrei Sergeev',
+		role: 'Principal Solutions Architect',
 		company: 'CloudBreezy',
 		quote: 'Tembo offers a great combination of superb products and excellent support.',
 		logoUrl: '/elephant1.svg',
@@ -129,7 +129,7 @@ const Quotes: React.FC<Props> = ({ className }) => {
 									<span className='block font-secondary font-bold text-white text-[15px] leading-[18px] tracking-[0.54px]'>
 										{it?.name ? it.name : 'Anonymous'}
 									</span>
-									<span className='mt-2 block font-secondary font-normal text-white text-[13px] leading-[15px] tracking-[0.54px] opacity-60'>
+									<span className='mt-2 block font-secondary font-normal text-white text-[13px] leading-[18px] tracking-[0.54px] opacity-60'>
 										{it.role}
 										{`${it?.company ? `, ${it.company}` : ''}`}
 									</span>

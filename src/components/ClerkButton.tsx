@@ -13,7 +13,7 @@ const ClerkButton = () => {
 			link={
 				organization?.id
 					? `https://cloud.tembo.io/orgs/${organization.id}/clusters`
-					: 'https://cloud.tembo.io'
+					: 'https://cloud.tembo.io/sign-up'
 			}
 		>
 			{isSignedIn ? 'Dashboard' : 'Try Free'}
