@@ -5,15 +5,15 @@ description: This guide will walk you through the steps to upgrade an instance o
 
 As Postgres continues to publish new releases, and previous iterations are deprecated, you may find yourself needing to upgrade your instance to a newer version. This guide will help you achieve that.
 
-Before diving in, it's good to reference the [official Postgres documentation on upgrading](https://www.postgresql.org/docs/current/upgrading.html).
+Before diving in, it's good to familiarize yourself with the methods presented the [official Postgres documentation on upgrading](https://www.postgresql.org/docs/current/upgrading.html), which this page is based on.
 
 It's also important to note that, while this exercise utilizes Postgres versions 15 and 16, the same workflow applies to other versions.
 
 ## Table of Contents
-- [pg_dumpall](#pg_dumpall)
+- [Logical Backup - `pg_dumpall`](#pg_dumpall)
 - [Logical Replication](#logical-replication)
 
-## `pg_dumpall`
+## pg_dumpall
 
 Running the `pg_dumpall` command works well for small instances, or where cut-over time isn't an issue. The following corresponds to [section 19.6.1](https://www.postgresql.org/docs/current/upgrading.html#UPGRADING-VIA-PGDUMPALL) in the above-mentioned docs. Further information can be found in our [how-to guide on backups and restores](https://tembo.io/docs/getting-started/postgres_guides/how-to-backup-and-restore-a-postgres-database).
 
@@ -21,7 +21,7 @@ Please note that it's recommended that you utilize the `pg_dumpall` program from
 
 ### Step 1: Orientation
 
-Let's start with an instance of Postgres version 15, which we plan to upgrade to version 16. We can check the version via `psql` and later confirm the update by running the following command within Postgres:
+Let's start with an instance of Postgres version 15, which we plan to upgrade to version 16. Right away, we can confirm the version of the Postgres instance, for example, via the following:
 
 ```sql
 SELECT version();
@@ -31,7 +31,7 @@ SELECT version();
 (1 row)
 ```
 
-For the purposes of this demonstration, we'll create a simple table and insert some data into it.
+For the purposes of this demonstration, we'll create an example table, `sample_table`, and insert some data into it:
 
 ```sql
 CREATE TABLE sample_table (
@@ -51,11 +51,11 @@ INSERT INTO sample_table (name, email) VALUES
 
 Once complete, assure you either have an existing Postgres version 16 instance, or refer to our [getting started guide](https://tembo.io/docs/getting-started/getting_started) to create one.
 
-For the purposes of this migration, you'll need to [update the password](https://tembo.io/docs/product/cloud/security/update-postgres-password) of both instances to match one another, which is most straightforward via the [Tembo Cloud UI](https://tembo.io/docs/product/cloud/security/update-postgres-password#:~:text=specified%20security%20requirements.-,Through%20Tembo%20Cloud,-Navigate%20to%20the).
+For the purposes of this procedure, you'll need to [update the password](https://tembo.io/docs/product/cloud/security/update-postgres-password) of both instances to match one another, which is most straightforward via the [Tembo Cloud UI](https://tembo.io/docs/product/cloud/security/update-postgres-password#:~:text=specified%20security%20requirements.-,Through%20Tembo%20Cloud,-Navigate%20to%20the).
 
-### Step 3: Run the pg_dumpall command and confirm the successful upgrade
+### Step 3: Run pg_dumpall and Confirm Success
 
-At this stage you're ready to the simple `pg_dumpall` command from your terminal.
+At this stage you're ready to update the following `pg_dumpall` command template to include your credentials and run from your terminal.
 
 ```bash
 pg_dumpall -d 'postgresql://postgres:<your-password>@<your-current-host>:5432/postgres' | psql 'postgresql://postgres:<your-password>@<your-upgraded-host>:5432/postgres'
@@ -63,7 +63,14 @@ pg_dumpall -d 'postgresql://postgres:<your-password>@<your-current-host>:5432/po
 
 During this process, you'll be prompted to enter a password that will grant access to both databases.
 
-If we then psql into the upgraded instance, we can confirm the data transfer.
+You then then run the following in your higher version instance to confirm the data has been successfully migrated:
+
+```sql
+\dt
+```
+```sql
+SELECT * FROM sample_table;
+```
 
 ## Logical Replication
 
