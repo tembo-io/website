@@ -11,7 +11,14 @@ It's also important to note that, while this exercise utilizes Postgres versions
 
 ## Table of Contents
 - [Logical Backup - `pg_dumpall`](#pg_dumpall)
+    - [Step 1. Orientation](#step-1.-orientation)
+    - [Step 2. Create and Assure Access to a Higher Version Instance](#step-2.-create-and-assure-access-to-a-higher-version-instance)
+    - [Step 3. Run pg_dumpall and Confirm Success](#step-3.-run-pg_dumpall-and-confirm-success)
 - [Logical Replication](#logical-replication)
+    - [Step 1. Configuring the Publisher](#step-1.-configuring-the-publisher)
+    - [Step 2. Configuring the Subscriber](#step-2.-configuring-the-subscriber)
+    - [Step 3. Confirmation and Clean up](#step-3.-confirmation-and-clean-up)
+- [Support](#support)
 
 ## pg_dumpall
 
@@ -19,12 +26,14 @@ Running the `pg_dumpall` command works well for small instances, or where cut-ov
 
 Please note that it's recommended that you utilize the `pg_dumpall` program from the newer version of Postgres, to assure the most up-to-date features and compatibility.
 
-### Step 1: Orientation
+### Step 1. Orientation
 
 Let's start with an instance of Postgres version 15, which we plan to upgrade to version 16. Right away, we can confirm the version of the Postgres instance, for example, via the following:
 
 ```sql
 SELECT version();
+```
+```text
                                                 version
 -------------------------------------------------------------------------------------------------------
  PostgreSQL 15.7 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, 64-bit
@@ -47,13 +56,13 @@ INSERT INTO sample_table (name, email) VALUES
 ('Charlie', 'charlie@example.com');
 ```
 
-### Step 2: Create / Assure Access to a Higher Version Instance
+### Step 2. Create and Assure Access to a Higher Version Instance
 
 Once complete, assure you either have an existing Postgres version 16 instance, or refer to our [getting started guide](https://tembo.io/docs/getting-started/getting_started) to create one.
 
 For the purposes of this procedure, you'll need to [update the password](https://tembo.io/docs/product/cloud/security/update-postgres-password) of both instances to match one another, which is most straightforward via the [Tembo Cloud UI](https://tembo.io/docs/product/cloud/security/update-postgres-password#:~:text=specified%20security%20requirements.-,Through%20Tembo%20Cloud,-Navigate%20to%20the).
 
-### Step 3: Run pg_dumpall and Confirm Success
+### Step 3. Run pg_dumpall and Confirm Success
 
 At this stage you're ready to update the following `pg_dumpall` command template to include your credentials and run from your terminal.
 
@@ -76,28 +85,29 @@ SELECT * FROM sample_table;
 
 Logical replication involves replicating changes at the statement or row level, allowing you to perform the upgrade with minimal downtime. This method is particularly useful for larger databases or when continuous availability is crucial. With logical replication there is a publisher and a subscriber, where the publisher sends changes to the subscriber.
 
-### Configuring the Publisher
+The following corresponds to [section 19.6.3](https://www.postgresql.org/docs/current/upgrading.html#UPGRADING-VIA-REPLICATION) in the official Postgres documentation on upgrading. More information can be found in the extensive [logical replication](https://www.postgresql.org/docs/current/logical-replication.html) section.
 
-On your existing PostgreSQL 15 instance, configure it as the publisher (as superuser):
+### Step 1. Configuring the Publisher
+
+On your existing Postgres version 15 instance, you'll need to enable logical replication and create a publication. 
 
 ```sql
-   -- Enable logical replication on the publisher
-   ALTER SYSTEM SET wal_level = logical;
-   SELECT pg_reload_conf();
+ALTER SYSTEM SET wal_level = logical;
+SELECT pg_reload_conf();
 ```
 
 ```sql
 CREATE PUBLICATION upgrade_pub FOR ALL TABLES;
 ```
 
-we also want to see the information from our previously-created `sample_table`:
+You'll also need to create new table(s) in the higher version Postgres instance to recieve the data. 
+If you need to revisit the table structure, you can do so with the following query:
 
 ```sql
 SELECT column_name, data_type, character_maximum_length
 FROM information_schema.columns
 WHERE table_schema = 'public' and table_name = 'sample_table';
 ```
-
 ```text
     column_name    |          data_type          | character_maximum_length
 -------------------+-----------------------------+--------------------------
@@ -108,7 +118,9 @@ WHERE table_schema = 'public' and table_name = 'sample_table';
 (4 rows)
 ```
 
-### Configuring the Subscriber
+### Step 2. Configuring the Subscriber
+
+As mentioned in the previous step, you'll need to create a new table(s) in the higher version Postgres instance to receive the data:
 
 ```sql
 CREATE TABLE sample_table (
@@ -119,12 +131,7 @@ CREATE TABLE sample_table (
 );
 ```
 
-```sql
-select * from sample_table;
- id | name | email | registration_date
-----+------+-------+-------------------
-(0 rows)
-```
+Once complete, you can create a subscription using the credentials of the instance with the publication:
 
 ```sql
 -- Create a subscription
@@ -133,8 +140,12 @@ CONNECTION 'host=<host> port=5432 user=postgres password=<password> dbname=postg
 PUBLICATION upgrade_pub;
 ```
 
+### Step 3. Confirmation and Clean up
+
 ```sql
-postgres=# postgres=# select * from sample_table;
+SELECT * FROM sample_table;
+```
+```text
  id |  name   |        email        |     registration_date
 ----+---------+---------------------+----------------------------
   1 | Alice   | alice@example.com   | 2024-07-18 10:29:29.211434
@@ -142,8 +153,6 @@ postgres=# postgres=# select * from sample_table;
   3 | Charlie | charlie@example.com | 2024-07-18 10:29:29.211434
 (3 rows)
 ```
-
-### Confirmation and Clean up
 
 ```sql
 SELECT * FROM pg_publication;
