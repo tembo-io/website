@@ -134,13 +134,14 @@ CREATE TABLE sample_table (
 Once complete, you can create a subscription using the credentials of the instance with the publication:
 
 ```sql
--- Create a subscription
 CREATE SUBSCRIPTION upgrade_sub
 CONNECTION 'host=<host> port=5432 user=postgres password=<password> dbname=postgres'
 PUBLICATION upgrade_pub;
 ```
 
 ### Step 3. Confirmation and Clean up
+
+One of the ways to confirm the success of the replication is to query the newly-created table in the higher version instance:
 
 ```sql
 SELECT * FROM sample_table;
@@ -154,6 +155,8 @@ SELECT * FROM sample_table;
 (3 rows)
 ```
 
+From there, you may want to clean up the publication and subscription. At any time, you can query the following to confirm the status of the publication and subscription:
+
 ```sql
 SELECT * FROM pg_publication;
 ```
@@ -165,6 +168,8 @@ SELECT * FROM pg_subscription;
 ```sql
 SELECT * FROM pg_stat_subscription;
 ```
+
+To clean up, you can run the following:
 
 ```sql
 DROP SUBSCRIPTION upgrade_sub;
