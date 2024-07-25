@@ -86,13 +86,13 @@ export K8S_VERSION=1.28
 export COMPUTE_ZONE=$(gcloud config get-value compute/zone)
 
 gcloud container clusters create $CLUSTER_NAME \
+    --enable-autoscaling \
     --zone $COMPUTE_ZONE \
-    --addons=GcePersistentDiskCsiDriver
+    --addons=GcePersistentDiskCsiDriver \
     --cluster-version $K8S_VERSION \
     --machine-type $MACHINE_TYPE \
-    --enable-autoscaling \
     --max-nodes 10 \
-    --min-nodes 3
+    --min-nodes 10
 ```
 
 If you wish to use an existing cluster, make sure that the CSI driver is enabled:
@@ -135,9 +135,7 @@ kube-public       Active   51d
 kube-system       Active   51d
 ```
 
-## Step 6: Install Traefik and `cert-manager`
-
-TODO(vini): steps removed after the new Helm chart changes?
+## Step 6: Install Helm dependencies
 
 ### Install `cert-manager`
 
@@ -149,27 +147,74 @@ helm install \
   --version v1.14.4 --set installCRDs=true
 ```
 
-### Install `traefik`
+## Step 7: Install the Tembo Helm chart
 
-```
-kubectl create ns traefik
+Clone the Tembo Self Hosted repository:
 
-kubectl apply -f traefik-postgres-catch-all.yaml
-
-helm install traefik traefik/traefik --namespace traefik --version 20.8.0 -f traefik-values.yaml
+```shell
+git clone https://github.com/tembo-io/tembo-self-hosted
 ```
 
-## Step 6: Configure DNS for Traefik’s Load Balancer
+Now, within the cloned `tembo-self-hosted` directory, create a file `my-values.yaml` with the following content:
+
+```yaml
+global:
+  baseDomain: tembo.mydomain.com
+  monitoringEnabled: true
+  conductorEnabled: false
+  traefikEnabled: true
+tembo:
+  cpWebserver:
+    env:
+      - name: CLERK_SECRET_KEY
+        value: <secret-key>
+      - name: CLERK_WEBHOOK_SIGNING_SECRET
+        value: <signing-secret>
+      - name: STRIPE_SECRET_KEY
+        value: <secret-key>
+      - name: STRIPE_WEBHOOK_SIGNING_SECRET
+        value: <signing-secret>
+      - name: METRONOME_SECRET_KEY
+        value: <secret-key>
+```
+
+The base domain should be the same one created in Step 2.
+
+Now, let's install the Tembo Self Hosted Helm chart in your EKS cluster:
+
+```shell
+helm install tembo . -f my-values.yaml -n tembo --create-namespace
+```
+
+This will start up some of the required Tembo components, but not all.
+
+## Step 8: Configure DNS for Traefik’s Load Balancer
+
+The Tembo Helm chart, installed in the previous step, will have spun up [Traefik](https://traefik.io/traefik/) as its load balancer.
+
+We can check the external IP assigned to the Traefik's Load Balancer by running the following command:
+
+```shell
+% kubectl get svc -n tembo | grep traefik
+NAME      TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                       AGE
+traefik   LoadBalancer   10.200.50.100   4.150.40.100  1234:56789/TCP,80:12345/TCP   45m
+```
+
+An `A` DNS record must be created to re-route `*.tembo.mydomain.com` to the assigned Traefik external IP. See [Set up DNS records for a domain name with Cloud DNS](https://cloud.google.com/dns/docs/set-up-dns-records-domain-name) for further instructions.
+
+Using the `gcloud` CLI, the process would be:
 
 ```
+export TRAEFIK_EXTERNAL_IP=4.150.40.100
+
 gcloud dns managed-zones create tembo-dns-zone \
     --description="Tembo DNS zone" \
-    --dns-name="sandbox.plat.cdb-svc.com"
+    --dns-name="tembo.mydomain.com"
 
 gcloud dns record-sets transaction start --zone=tembo-dns-zone
 
-gcloud dns record-sets transaction add 35.199.84.86 \
-    --name="*.gke1.sandbox.plat.cdb-svc.com." \
+gcloud dns record-sets transaction add $TRAEFIK_EXTERNAL_IP \
+    --name="*.gke1.tembo.mydomain.com." \
     --ttl=300 \
     --type=A \
     --zone=tembo-dns-zone
@@ -182,4 +227,53 @@ Verify the zone worked:
 ```shell
 gcloud dns record-sets list --zone=tembo-dns-zone
 ```
+
+```shell
+$ nslookup test.tembo.mydomain.com
+```
+
+## Step 9: Start the Tembo Controller
+
+Let's now enable the `conductor` component:
+
+```shell
+global:
+  baseDomain: tembo.mydomain.com
+  monitoringEnabled: true
+  conductorEnabled: true
+  traefikEnabled: true
+```
+
+Upgrade the Self Hosted Helm chart so that changes take effect:
+
+```shell
+helm upgrade tembo . -f my-values.yaml -n tembo
+```
+
+
+## Step 10: Check the status of the installation
+
+```
+❯ kubectl get po
+NAME                                         READY   STATUS      RESTARTS      AGE
+control-plane-1                              1/1     Running     0             82m
+control-plane-queue-1                        1/1     Running     0             79m
+tembo-cloudnative-pg-749dcfc655-756mm        1/1     Running     0             83m
+tembo-conductor-fb7878d7-tvh94               1/1     Running     0             77m
+tembo-conductor-watcher-7ff9547686-6sld8     1/1     Running     0             77m
+tembo-controller-57899fffc4-d4j55            1/1     Running     0             82m
+tembo-cp-reconciler-76bd8777b6-z2nq8         1/1     Running     0             81m
+tembo-cp-service-75bccdddbd-b8xbk            1/1     Running     0             78m
+tembo-cp-webserver-686fb69bb5-w5g6g          1/1     Running     0             78m
+tembo-dataplane-webserver-7f9bd5cbf7-gkk2w   1/1     Running     0             83m
+tembo-init-cp-db-lxl2t                       0/1     Completed   0             83m
+tembo-init-cp-queue-db-lljgr                 0/1     Completed   0             83m
+tembo-label-namespace-ggnml                  0/1     Completed   0             83m
+tembo-pod-init-74975dbcb8-d9jpk              1/1     Running     0             83m
+tembo-tembo-ui-685ccc9996-n8tmv              1/1     Running     0             83m
+```
+
+## Step 11: Access the Tembo Self Hosted
+
+Access the Tembo Self Hosted UI by visiting http://app.tembo.mydomain.com in your browser. Replace tembo.mydomain.com with your domain name chosen in Step 2.
 
