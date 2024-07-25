@@ -207,7 +207,7 @@ SELECT
   transactionid,
   pid,
   mode,
-  granted,
+  granted
 FROM pg_locks
 WHERE NOT granted;
 ```
