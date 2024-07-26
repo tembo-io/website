@@ -4,9 +4,13 @@ sideBarTitle: Overview
 title: Apps Overview
 ---
 
-`Apps` hosted on Tembo are containerized software and are Kubernetes resource specifications.
+Postgres is renowned for its extensibility, and we're excited to leverage Kubernetes and take it a step further by introducing modular, containerized applications!
 
-More specifically, an `App` is a Kubernetes resource specification made possible that is managed by the Tembo platform. The `Deployment` resource specification is a Kubernetes resource that is used to deploy a containerized application.
+These Tembo-hosted Apps can be understood as software that lives next to your Postgres database. More specifically, an App is a Kubernetes resource specification that is managed by the Tembo Operator. Within the [yaml instructions](https://github.com/tembo-io/tembo/tree/main/tembo-stacks/src/apps), you can find some or all of the following:
+
+- Containerized image
+- Trunk-powered extension installation
+- Postgres configurations
 
 ## Available Apps
 
