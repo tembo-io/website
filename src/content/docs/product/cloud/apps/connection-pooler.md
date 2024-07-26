@@ -1,5 +1,5 @@
 ---
-sideBarPosition: 0
+sideBarPosition: 1
 ---
 
 A connection pooler is a tool used to manage database connections that sits between your application and Postgres instance. Because of the way Postgres handles connections, the server may encounter resource constraint issues when managing a few thousand connections. Using a pooler can alleviate these issues by using actual Postgres connections only when necessary, allowing for easier handling of thousands of connections at a lower cost.
