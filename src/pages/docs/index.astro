@@ -2,15 +2,23 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import { Image } from 'astro:assets';
 import HeroImage from '../../images/tembonauts.svg';
-import { getSideBarLinks } from '../../util/docsUtils';
+import {
+	getSideBarLinks,
+	removeItemByTitleAndSlug,
+} from '../../util/docsUtils';
 import DocCard from '../../components/docs/DocCard.astro';
 
 const links = await getSideBarLinks();
+const linksWithoutNestedPostgresGuide = removeItemByTitleAndSlug(
+	links,
+	'Postgres guides',
+	'/docs/getting-started/postgres_guides/all-possible-joins-in-postgres',
+);
 ---
 
 <DocsLayout
 	isNestedDoc={false}
-	sideBarMenuSections={links}
+	sideBarMenuSections={linksWithoutNestedPostgresGuide}
 	isProgressBar={false}
 >
 	<div class='flex flex-col relative'>
