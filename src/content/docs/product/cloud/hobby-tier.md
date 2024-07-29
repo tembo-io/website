@@ -2,6 +2,7 @@
 title: Hobby Tier
 sideBarTitle: Hobby
 sideBarPosition: 3
+description: Tembo Hobby Tier
 ---
 
 The smallest available instances on Tembo Cloud are the Hobby tier instances. These instances are offered for free, with no credit card required, so that users can experiment with [Tembo Cloud](https://cloud.tembo.io).
