@@ -21,7 +21,7 @@ Tembo requires Hobby instances to run on [Spot](/docs/product/cloud/configuratio
 
 ### Limited resources
 
-Hobby instances have limited compute (0.25 CPU & 1GB RAM) and storage (10GiB). Users may upgrade to a paid instance to increase storage or compute.
+Hobby instances have limited compute (0.25 CPU & 1GiB RAM) and storage (10GiB). Users may upgrade to a paid instance to increase storage or compute.
 
 ### Idle instances are automatically paused
 
