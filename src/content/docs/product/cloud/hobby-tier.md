@@ -11,11 +11,11 @@ Tembo Cloud offers a hobby tier for developers so that users can experiment with
 
 While hobby tier instances are good for hobby projects and experimentation, they're not the best fit for running production workloads due to certain limitations. These allow us to provide a feature rich free tier on Tembo Cloud while running it sustainably.
 
-### Spot required enabled
+### Spot is enabled
 
 Tembo requires Hobby instances to run on [Spot](/docs/product/cloud/configuration-and-management/spot-instances). Spot instances can be interrupted with a short heads-up, which means they could be unavailable for about 10 minutes per day. Hobby tier also does not come with uptime SLAs.
 
-### High Availability is disabled
+### High availability is disabled
 
 [High availability](/docs/product/cloud/configuration-and-management/high-availability) cannot be enabled on Hobby tier instances.
 
