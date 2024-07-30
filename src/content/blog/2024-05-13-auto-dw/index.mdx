@@ -17,6 +17,14 @@ I have wanted this badly for years as a dev + data engineer. We aren't sure how 
 
 We've recently partnered with our friend Johnathan Pickard from [Analyzer1](https://www.analyzer1.com/) to iterate with us on this project. Leveraging Large Language Models (LLMs), he will transition his previously built automations to be as fully-automated as possible.
 
+## Why Postgres for Data Warehousing?
+
+Postgres for everything - Postgres has been the de-facto operational store, now people are using it for analytics and DWH (some examples). We also have a stack which enables DWH from Postgres.
+
+Efficient DWH schemas - One of the key things for DWH performance is the data structure and transformations going from operations to analytics. Give example of Kimball (or something else) as good vs bad schemas.
+
+Doing transformations in Postgres - If Postgres is your operational store and your analytics store, why not rely on Postgres to do the transformations. With LLMs today, you should be able to do this automatically.
+
 ## Why Postgres for Data Warehouse Automations?  
 
 We do not believe that automating the creation of data warehousing structures should be offloaded and partitioned at the analytic edge.  Classically, operational data is offloaded at interval to be processed by a dedicated data team. 
@@ -25,10 +33,46 @@ This approach has several disadvantages. Firstly, it makes operational analytics
 
 PostgreSQL stands as the world's most popular, comprehensive, and extensible open-source database, with its growing trend reinforcing its future-proof status.
 
+## How the extension works
+
+> **Note:** Only use the code presented below. Any deviations may cause errors. This demo is for illustrative purposes only. It is currently tested on PGRX using the default PostgreSQL 13 instance.
+
+We want to make building a data warehouse easy.  And, if the source tables are well-structured and appropriately named, constructing a data warehouse can be achieved with a single call to the extension.
+
+1. **Install Extension**
+```SQL
+/* Installing Extension - Installs and creates sample source tables. */
+CREATE EXTENSION pg_auto_dw;
+```
+> **Note:** Installing this extension installs a couple source sample tables in the PUBLIC SCHEMA as well as the PG_CRYPTO extension.
+2. **Build Data Warehouse**
+```SQL
+/* Build me a Data Warehouse for tables that are Ready to Deploy */
+SELECT auto_dw.go();
+```
+> **Note:** This will provide a build ID and some helpful function tips.  Do not implement these tips at this time. They are for illustrative purposes of future functionality.
+3. **Data Warehouse Built**
+```SQL
+/* Data Warehouse Built - No More Code Required */
+```
+
+```mermaid
+flowchart LR
+    Start(("Start")) --> ext["Install Extension"]
+    ext -- #10711; --> build["Build Data Warehouse\nauto_dw.go()"]
+    build -- #10711; --> DW[("DW Created")]
+    DW --> Done(("Done"))
+    style Start stroke-width:1px,fill:#FFFFFF,stroke:#000000
+    style ext color:none,fill:#FFFFFF,stroke:#000000
+    style build fill:#e3fae3,stroke:#000000
+    style DW fill:#FFFFFF,stroke:#000000
+    style Done stroke-width:4px,fill:#FFFFFF,stroke:#000000
+```
+
 ## Join us on the Journey
 
 We are just getting started. The development process is transparent and [open for everyone to see on GitHub](https://github.com/tembo-io/pg_auto_dw). 
 
 We invite developers, data scientists, and technology enthusiasts to join us. Your insights and contributions are invaluable as we push the boundaries of what is possible.
 
-Stay tuned for upcoming product demos and development blogs related to building and using this extension. 
+Stay tuned for upcoming product demos and development blogs related to building and using this extension.
