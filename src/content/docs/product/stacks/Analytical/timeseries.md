@@ -1,5 +1,6 @@
 ---
 title: Time Series
+tags: [postgres, timeseries, analytical]
 ---
 
 Time-series data is data which is organized along a time dimension and which typically grows via recent data being inserted in near real-time. Tembo's Time Series stack makes the creation, operation, and maintenance of databases for storing time-series data simple. The stack is tuned for time-series workloads and helps users with the organization and use of time-series data.
@@ -26,6 +27,19 @@ If you need help installing `psql`, finding instructions for you platform should
 -   Windows — [EDB's installers](https://www.postgresql.org/download/windows/) can help
 
 ### Create the time-series table
+
+`pg_timeseries` depends on `pg_cron`, and the Timeseries Stack comes with `pg_cron` pre-configured to run `postgres` database. If you would like to run this guide in another database, follow this steps:
+
+1. Change `cron.database_name`
+```sql
+ALTER SYSTEM SET cron.database_name TO 'my_new_db';
+```
+2. Restart the instance so that changes from previous step are taken into effect. In Tembo Cloud you can do it by going to Settings and then clicking the Restart button
+3. After restart connect to your database and create the extension
+```sql
+\connect my_new_db
+CREATE EXTENSION timeseries CASCADE;
+```
 
 Since we're starting from scratch, begin by making an empty table. We'll load the data into this shortly using a `\copy` command, after which point our application could continue to `INSERT` new trips in an ongoing fashion.
 

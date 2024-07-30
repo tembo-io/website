@@ -11,6 +11,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	styles?: string;
 	size?: Size;
 	link?: string;
+	isLinkTag?: boolean;
 }
 
 const Button: React.FC<Props> = ({
@@ -19,6 +20,7 @@ const Button: React.FC<Props> = ({
 	styles,
 	size,
 	link,
+	isLinkTag = false,
 	...rest
 }) => {
 	const getSizeStyles = () => {
@@ -51,7 +53,19 @@ const Button: React.FC<Props> = ({
 				return 'bg-pricingGreen text-mwasi';
 		}
 	};
-	return (
+	return isLinkTag ? (
+		<a
+			href={link}
+			className={cx(
+				'transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base text-center',
+				getVariantStyles(),
+				getSizeStyles(),
+				styles,
+			)}
+		>
+			{children}
+		</a>
+	) : (
 		<button
 			className={cx(
 				'transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base',

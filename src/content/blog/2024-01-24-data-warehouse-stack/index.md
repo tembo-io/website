@@ -12,7 +12,7 @@ At Tembo (like every as-a-service provider), we wanted to have a customer data w
 
 ![tembo-dashboard](./tembo_metrics.png 'tembo-dashboard')
 
-Typically, this process requires several orchestration tools and technologies and the end result is a highly complex data ecosystem. However, we built our customer data warehouse completely on Postgres by using foreign data wrappers and other Postgres extensions, enhancing efficiency and simplifying the process. We released all the tools we've built as open source projects which you can host on your own using our [Kubernetes Operator](https://github.com/tembo-io/tembo/tree/main/tembo-operator). We also made it straightforward for anybody to build such a data warehouse on [Tembo Cloud](https://cloud.tembo.io/) by using the [Tembo Data Warehouse](https://github.com/tembo-io/tembo/blob/main/tembo-operator/src/stacks/templates/data_warehouse.yaml/) stack.
+Typically, this process requires several orchestration tools and technologies and the end result is a highly complex data ecosystem. However, we built our customer data warehouse completely on Postgres by using foreign data wrappers and other Postgres extensions, enhancing efficiency and simplifying the process. We released all the tools we've built as open source projects which you can host on your own using our [Kubernetes Operator](https://github.com/tembo-io/tembo/tree/main/tembo-operator). We also made it straightforward for anybody to build such a data warehouse on [Tembo Cloud](https://cloud.tembo.io/) by using the [Tembo Data Warehouse](https://github.com/tembo-io/tembo/blob/main/tembo-stacks/src/stacks/specs//data_warehouse.yaml/) stack.
 
 ## Loading data from several sources
 

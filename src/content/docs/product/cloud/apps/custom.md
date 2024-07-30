@@ -50,13 +50,6 @@ export TEMBO_INST_ID=<your instance id>
 export TEMBO_INST_NAME=<your instance name>
 ```
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs>
-
-<TabItem value="curl" label="Curl">
-
 ```bash
 curl -X PATCH "https://api.tembo.io/api/v1/orgs/${TEMBO_ORG_ID}/instances/${TEMBO_INST_ID}" \
      -H "Authorization: Bearer ${TEMBO_TOKEN}" \
@@ -140,10 +133,6 @@ curl -X PATCH "https://api.tembo.io/api/v1/orgs/${TEMBO_ORG_ID}/instances/${TEMB
 }'
 
 ```
-
-</TabItem>
-
-<TabItem value="py" label="Python">
 
 ```py
 import requests

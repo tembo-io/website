@@ -1,0 +1,107 @@
+---
+slug: jwt-authentication
+title: 'What you should know about JSON web tokens'
+authors: [steven]
+description: |
+    Using JSON Web Tokens to authenticate users
+tags: [security, jwt, tokens, api, authentication]
+date: 2024-06-24T09:00
+image: ./security-green.png
+planetPostgres: false
+---
+
+JSON Web Tokens (JWTs) have become a widely adopted standard for application authentication and authorization. At [Tembo Cloud](https://cloud.tembo.io), we use JWTs to authenticate users to our [API](/docs/development/api). We've received questions about how authentication and authorization work with tokens, so let’s dive into what you need to know about JWTs.
+
+## Identity Provider
+
+JWTs are issued by your identity provider. Identity providers can be self-hosted or external services. For example, in the Rails framework, it's common to use [Devise](https://github.com/heartcombo/devise) for self-hosted authentication, while external services like [Clerk](https://clerk.com/) are also popular. The identity provider handles logging in your users and issuing tokens, along with other common user management features like resetting passwords.
+
+## What's in a JSON Web Token
+
+A JWT consists of three parts: a header, a payload, and a signature.
+
+- **Header**: The header includes metadata about the token, such as the token type and the algorithm used for encryption.
+- **Payload**: The payload contains the claims, which are statements about an entity (typically, the user) and additional metadata. Claims can include user information, roles, and other relevant data.
+- **Signature**: The signature is a cryptographic means of verifying that the content of the token (the payload) has not been modified since it was issued by the identity provider.
+
+## Authenticating and Authorizing
+
+Your users include JWTs in the Authorization header of all their authenticated requests. Your services need to check that the JWTs are valid before allowing the request. This involves verifying the token's signature and ensuring it hasn't expired. A request with a valid, non-expired token is authenticated. Separately, the application must authorize the request to determine if the user is allowed to access the requested resource.
+
+Authorization is performed using the claims in the token. Claims can include details like the user's role or organization membership. Your application first validates the token, then decodes it to inspect the claims, ensuring the requested resource is permitted based on these claims. For example, a JWT may include a section like this within the claims:
+
+```json
+{
+  "organizations": {
+    "org_abc123": "admin",
+    "org_efg456": "basic_member"
+  }
+}
+```
+
+Since the server knows the token is valid through its cryptographic signature, it can trust the content of the token and use it to check for organizational membership and access levels.
+
+## Middleware
+
+To avoid repetitive and error-prone authentication code in each route, you can use middleware to handle authentication globally. Middleware performs processing ahead of every route's handling. In Rust, for example, it looks like this:
+
+```rust
+App::new()
+    .service(
+        web::scope("/api")
+            .wrap(authentication_middleware)
+            .service(
+                web::scope("/v1/orgs")
+                    .service(instance::get_instance)
+                    .service(instance::create_instance)
+            )
+    )
+})
+```
+
+In this example, authentication middleware is applied in front of any route within `/api/v1/orgs`, so each function does not need to handle authentication individually.
+
+For simple authorization, you can use path-based authorization. The middleware inspects the claims within the token to ensure the user is authorized for the requested path. For more complex use cases, each route may need to inspect the claims for detailed Role-Based Access Control (RBAC).
+
+## Using an Authorization Proxy and Forward Auth Service for Authorization
+
+Similar to using middleware, you can set up an authorization proxy that runs in front of your entire application. A proxy, such as NGINX or Envoy, can handle authentication and authorization before requests reach your application. A forward auth service offloads the responsibility of validating tokens and enforcing authorization policies. This approach ensures consistent authentication and authorization across multiple services.
+
+```plaintext
+server {
+    location / {
+        auth_request /auth;
+        proxy_pass http://backend;
+    }
+    location = /auth {
+        proxy_pass http://auth-service;
+        proxy_set_header Authorization $http_authorization;
+        proxy_set_header X-Original-URI $request_uri;
+    }
+}
+```
+
+The proxy forwards relevant information to an auth server, such as the Authorization header and the requested HTTP path. The auth service validates the JWT and performs authorization before allowing the request to proceed. This method works well for authentication and basic authorization, but for more detailed authorization, the application may need to handle specific business logic.
+
+## Revoking JWTs
+
+[Revoking JWTs](/docs/product/cloud/security/revoke-token) is challenging because JWTs are valid until they expire, and their signatures remain cryptographically valid. The identity provider issues the token, but the backend services perform the authorization. To implement token revocation, the backend service needs to remember which tokens have been invalidated until they expire.
+
+This can be done by maintaining a set of invalidated JWT IDs (jti) and checking each request against this set to ensure the token has not been previously invalidated. The backend must remember which tokens to deny, even though they are still technically valid.
+
+```rust
+async fn is_token_revoked(pool: &PgPool, jti: &str) -> Result<bool, ControlPlaneError> {
+    let result = sqlx::query!("SELECT jti FROM invalidated_tokens WHERE jti = $1", jti)
+        .fetch_optional(pool)
+        .await?;
+    Ok(result.is_some())
+}
+```
+
+In this example, the `is_token_revoked` function checks if a token has been invalidated by querying a database. To avoid querying the database on every request, you can cache invalidated JWT IDs in memory.
+
+There are similar challeges related to changing a user's permissions after tokens have been issued. For example, if you revoke access from a user for access within an organization, previously issued tokens still include the outdated organizational membership in their claims.
+
+## Why Use JWTs
+
+JWTs are a simple and widely used method for authenticating and authorizing users in modern web applications. By understanding how to issue, validate, and revoke JWTs, and how to integrate them with middleware and authorization proxies, you can enhance the security and efficiency of your applications. Remember, while JWTs offer many benefits, it's crucial to implement best practices for security.

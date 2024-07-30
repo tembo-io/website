@@ -1,9 +1,9 @@
-* @DarrenBaldwin07
+* @DarrenBaldwin07 @sarahedkins @aishwaryaborkar
 
-src/content/blog/ @samay-sharma
-src/content/blog/** @samay-sharma
-src/content/docs/ @samay-sharma
-src/content/docs/** @samay-sharma
+src/content/blog/ @samay-sharma @FloorD
+src/content/blog/** @samay-sharma @FloorD
+src/content/docs/ @samay-sharma @FloorD
+src/content/docs/** @samay-sharma @FloorD
 src/content/docs/getting-started/quickstarts/ @sjmiller609
 src/content/docs/getting-started/quickstarts/** @sjmiller609
 src/content/docs/development/cli/command-reference.md @sjmiller609 @joshuajerin

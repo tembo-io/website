@@ -11,8 +11,9 @@ import {
 	githubEditLink,
 	cleanSideBarTitle,
 } from '../../util/docsUtils';
-import Footer from '../../components/docs/Footer.astro';
 import NextButton from '../../components/NextButton.astro';
+import Tag from '../../components/Tag.astro';
+import CallToAction from '../../components/CallToAction.astro';
 
 export async function getStaticPaths() {
 	const docs = await getCollection('docs');
@@ -50,6 +51,7 @@ const docTitle =
 	sideBarMenuSections={links}
 	title={`${docTitle} | Tembo Docs`}
 	description={doc?.data?.description}
+	keywords={doc?.data?.tags}
 >
 	<div class='flex flex-col relative w-full'>
 		<div id='tembo-document' class='flex justify-between w-full mb-12'>
@@ -95,6 +97,18 @@ const docTitle =
 				</div>
 			</div>
 		</div>
-		<Footer editLink={githubEditLink(doc.id)} />
+		<div class='flex items-start gap-2 max-h-full mb-4'>
+			{
+				doc.data.tags?.map((tag) => (
+					<Tag
+						title={tag}
+						classNames='px-2.5 py-[0.4rem] text-center text-[12px] h-max border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10'
+						isLink={false}
+					/>
+				))
+			}
+		</div>
+		<div class='h-[1px] w-full bg-[#242424]'></div>
+		<CallToAction isDoc={true} editLink={githubEditLink(doc.id)} />
 	</div>
 </DocsLayout>

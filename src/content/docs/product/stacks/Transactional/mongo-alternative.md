@@ -2,6 +2,7 @@
 title: MongoAlternative
 sideBarTitle: MongoAlternative
 sideBarPosition: 104
+tags: [postgres, mongo alternative, transactional]
 ---
 
 The Tembo MongoAlternative Stack is designed to offer MongoDB (Mongo) protocol compatibility with PostgreSQL (Postgres).
@@ -34,7 +35,7 @@ Similar to `psql`, `mongosh` is a client that is compatible with FerretDB used t
 #### Connecting via mongosh
 
 Once you've established a Tembo MongoAlternative Stack instance, you will need to download a root SSL certificate (this can be found just above the connection string on the right-hand side).
-Then, navigate to the directory containing the freshly-downloaded SSL certificate. You can then copy the connection string from the UI and execute it within the terminal.
+Then, navigate to the directory containing the freshly-downloaded SSL certificate. You can then copy the connection string for `psql` or `mongosh` from the UI and execute it within the terminal.
 As an alternative to copying from the UI, you can fill in and run the following `mongosh` command:
 
 ```bash
@@ -78,9 +79,12 @@ When you conduct these operations, you should see the following automated respon
 {
   acknowledged: true,
   insertedIds: {
-    '0': ObjectId('<your-object-id>'),
-    '1': ObjectId(''),
-    '2': ObjectId('65ba40a7acdca11e00e19ecd')
+    '0': ObjectId('668b4ac427046bb604229d42'),
+    '1': ObjectId('668b4ac427046bb604229d43'),
+    '2': ObjectId('668b4ac427046bb604229d44'),
+    '3': ObjectId('668b4ac427046bb604229d45'),
+    '4': ObjectId('668b4ac427046bb604229d46'),
+    '5': ObjectId('668b4ac427046bb604229d47')
   }
 }
 ```
