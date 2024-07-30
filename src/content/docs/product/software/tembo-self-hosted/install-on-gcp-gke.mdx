@@ -168,17 +168,47 @@ tembo:
     env:
       - name: CLERK_SECRET_KEY
         value: <secret-key>
-      - name: CLERK_WEBHOOK_SIGNING_SECRET
-        value: <signing-secret>
-      - name: STRIPE_SECRET_KEY
-        value: <secret-key>
-      - name: STRIPE_WEBHOOK_SIGNING_SECRET
-        value: <signing-secret>
-      - name: METRONOME_SECRET_KEY
-        value: <secret-key>
+      - name: SELF_HOSTED
+        value: "true"
+  temboUI:
+    image:
+      tag: "aed9151"
+    env:
+      - name: INTERCOM_SECRET
+        value: "xx1XX9AxxTxL46iOWVqmvEIN2dEeE9ASm-XXXXXod"
+      - name: NEXT_PUBLIC_API_BASE_URL
+        value: "https://api.tembo.mydomain.com/api"
+      - name: NEXT_PUBLIC_API_BASE_URL_V1
+        value: "https://api.tembo.mydomain.com/api/v1"
+      - name: NEXT_PUBLIC_INTERCOM_APP_ID
+        value: "xxxxixeb"
+      - name: NEXT_PUBLIC_METRICS_BASE_URL
+        value: "tembo.mydomain.com"
+      - name: NEXT_PUBLIC_SENTRY_DSN
+        value: "https://xxxxxxxxxxxxxx@o4506351478964224.ingest.sentry.io/4506351480668160"
+      - name: NEXT_PUBLIC_SENTRY_ENV
+        value: "local"
+      - name: APP_ENV
+        value: "localhost"
+      - name: NEXT_PUBLIC_POSTHOG_KEY
+        value: "phc_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      - name: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+        value: "pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      - name: CLERK_SECRET_KEY
+        value: "sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      - name: NEXT_PUBLIC_IS_SELF_HOSTED
+        value: "true"
+      - name: NEXT_PUBLIC_BILLING
+        value: "false"
+      - name: NEXT_PUBLIC_SPOT
+        value: "false"
+      - name: NEXT_PUBLIC_CLOUD_PROVIDER
+        value: "false"
+      - name: NEXT_PUBLIC_CUSTOM_DOMAIN
+        value: "false"
 ```
 
-The base domain should be the same one created in Step 2.
+The base domain should be the same one created in Step 2. Please get in support with Tembo if you need any help obtaining these values.
 
 Now, let's install the Tembo Self Hosted Helm chart in your EKS cluster:
 
@@ -254,23 +284,45 @@ helm upgrade tembo . -f my-values.yaml -n tembo
 ## Step 10: Check the status of the installation
 
 ```
-❯ kubectl get po
-NAME                                         READY   STATUS      RESTARTS      AGE
-control-plane-1                              1/1     Running     0             82m
-control-plane-queue-1                        1/1     Running     0             79m
-tembo-cloudnative-pg-749dcfc655-756mm        1/1     Running     0             83m
-tembo-conductor-fb7878d7-tvh94               1/1     Running     0             77m
-tembo-conductor-watcher-7ff9547686-6sld8     1/1     Running     0             77m
-tembo-controller-57899fffc4-d4j55            1/1     Running     0             82m
-tembo-cp-reconciler-76bd8777b6-z2nq8         1/1     Running     0             81m
-tembo-cp-service-75bccdddbd-b8xbk            1/1     Running     0             78m
-tembo-cp-webserver-686fb69bb5-w5g6g          1/1     Running     0             78m
-tembo-dataplane-webserver-7f9bd5cbf7-gkk2w   1/1     Running     0             83m
-tembo-init-cp-db-lxl2t                       0/1     Completed   0             83m
-tembo-init-cp-queue-db-lljgr                 0/1     Completed   0             83m
-tembo-label-namespace-ggnml                  0/1     Completed   0             83m
-tembo-pod-init-74975dbcb8-d9jpk              1/1     Running     0             83m
-tembo-tembo-ui-685ccc9996-n8tmv              1/1     Running     0             83m
+❯ kubectl get po -n tembo
+NAME                                                  READY   STATUS        RESTARTS        AGE
+control-plane-1                                       1/1     Running       0               30m
+control-plane-1-initdb-xxxxx                          0/1     Terminating   0               30m
+control-plane-queue-1                                 1/1     Running       0               30m
+control-plane-queue-1-initdb-xxxxx                    0/1     Terminating   0               30m
+loki-backend-0                                        2/2     Running       0               30m
+loki-backend-1                                        2/2     Running       0               30m
+loki-backend-2                                        2/2     Running       0               30m
+loki-gateway-xxxxxx                                   1/1     Running       0               30m
+loki-read-xxxxxx                                      1/1     Running       0               30m
+loki-read-xxxxxx                                      1/1     Running       0               30m
+loki-write-0                                          1/1     Running       0               30m
+loki-write-1                                          1/1     Running       0               30m
+prometheus-tembo-kube-prometheus-stac-prometheus-0    2/2     Running       0               30m
+tembo-cloudnative-pg-xxxxxx                           1/1     Running       0               30m
+tembo-conductor-xxxxxx                                1/1     Running       0               30m
+tembo-conductor-metrics-xxxxxx                        1/1     Running       0               30m
+tembo-conductor-watcher-xxxxxx                        1/1     Running       0               30m
+tembo-controller-xxxxxx                               1/1     Running       0               30m
+tembo-cp-metrics-watcher-xxxxxx                       1/1     Running       5 (30m ago)     30m
+tembo-cp-reconciler-xxxxxx                            1/1     Running       5 (30m ago)     30m
+tembo-cp-service-xxxxxx                               1/1     Running       5 (30m ago)     30m
+tembo-cp-webserver-xxxxxx                             1/1     Running       0               30m
+tembo-dataplane-webserver-xxxxxx                      1/1     Running       0               30m
+tembo-grafana-xxxxxx                                  3/3     Running       0               30m
+tembo-grafana-agent-operator-xxxxxx                   1/1     Running       0               30m
+tembo-init-cp-db-xxxxx                                0/1     Completed     0               30m
+tembo-init-cp-queue-db-xxxxx                          0/1     Completed     0               30m
+tembo-k8s-event-logger-xxxxxx                         1/1     Running       0               30m
+tembo-kube-prometheus-stac-operator-xxxxxx            1/1     Running       0               30m
+tembo-kube-state-metrics-xxxxxx                       1/1     Running       0               30m
+tembo-label-namespace-xxxxx                           0/1     Completed     0               30m
+tembo-minio-0                                         1/1     Running       0               30m
+tembo-pod-init-xxxxxx                                 1/1     Running       0               30m
+tembo-tembo-ui-xxxxxx                                 1/1     Running       0               30m
+tembo-traefik-xxxxxx                                  1/1     Running       0               30m
+tembo-traefik-xxxxxx                                  1/1     Running       0               30m
+tembo-traefik-xxxxxx                                  1/1     Running       0               30m
 ```
 
 ## Step 11: Access the Tembo Self Hosted
