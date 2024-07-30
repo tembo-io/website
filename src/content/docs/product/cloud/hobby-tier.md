@@ -5,7 +5,7 @@ sideBarPosition: 3
 description: Tembo Hobby Tier
 ---
 
-Tembo Cloud offers a hobby tier for developers so that users can experiment with [Tembo Cloud](https://cloud.tembo.io). This does not require a credit cand is available for free.
+Tembo Cloud offers a hobby tier for developers so that users can experiment with [Tembo Cloud](https://cloud.tembo.io). This does not require a credit card is available for free.
 
 ## Limitations of unpaid Hobby instances
 
@@ -13,7 +13,7 @@ While hobby tier instances are good for hobby projects and experimentation, they
 
 ### Spot required enabled
 
-Tembo requires Hobby instances to run on [Spot](/docs/product/cloud/configuration-and-management/spot-instances). Spot instances can be interrupted with a short heads-up which means they could be unavailable for about 10 minutes per day. Hobby tier also does not come with uptime SLAs.
+Tembo requires Hobby instances to run on [Spot](/docs/product/cloud/configuration-and-management/spot-instances). Spot instances can be interrupted with a short heads-up, which means they could be unavailable for about 10 minutes per day. Hobby tier also does not come with uptime SLAs.
 
 ### High Availability is disabled
 
@@ -21,7 +21,7 @@ Tembo requires Hobby instances to run on [Spot](/docs/product/cloud/configuratio
 
 ### Limited resources
 
-Hobby instances have limited compute (0.25 CPU & 1GB RAM) and storage (10GiB). Users may upgrade to a paid instance in order to increase storage or compute.
+Hobby instances have limited compute (0.25 CPU & 1GB RAM) and storage (10GiB). Users may upgrade to a paid instance to increase storage or compute.
 
 ### Idle instances are automatically paused
 
