@@ -5,15 +5,15 @@ sideBarPosition: 3
 description: Tembo Hobby Tier
 ---
 
-The smallest available instances on Tembo Cloud are the Hobby tier instances. These instances are offered for free, with no credit card required, so that users can experiment with [Tembo Cloud](https://cloud.tembo.io).
+Tembo Cloud offers a hobby tier for developers so that users can experiment with [Tembo Cloud](https://cloud.tembo.io). This does not require a credit cand is available for free.
 
 ## Limitations of unpaid Hobby instances
 
-There are limitations for Hobby tier instances, which have been put in place in order to provide a sustainable free experience on Tembo Cloud.
+While hobby tier instances are good for hobby projects and experimentation, they're not the best fit for running production workloads due to certain limitations. These allow us to provide a feature rich free tier on Tembo Cloud while running it sustainably.
 
 ### Spot required enabled
 
-Tembo requires Hobby instances to run on [Spot](/docs/product/cloud/configuration-and-management/spot-instances), which means they are likely to be unavailable for about 10 minutes per day, and there are no uptime guarantees.
+Tembo requires Hobby instances to run on [Spot](/docs/product/cloud/configuration-and-management/spot-instances). Spot instances can be interrupted with a short heads-up which means they could be unavailable for about 10 minutes per day. Hobby tier also does not come with uptime SLAs.
 
 ### High Availability is disabled
 
@@ -21,11 +21,11 @@ Tembo requires Hobby instances to run on [Spot](/docs/product/cloud/configuratio
 
 ### Limited resources
 
-Hobby instances are limited to the minimium compute and storage size. Users may upgrade to a paid instance in order to increase storage above `10GiB`.
+Hobby instances have limited compute (0.25 CPU & 1GB RAM) and storage (10GiB). Users may upgrade to a paid instance in order to increase storage or compute.
 
 ### Idle instances are automatically paused
 
-In order to avoid wasting resources, idle Hobby tier instances in unpaid organizations are automatically paused.
+In order to avoid wasting resources, *idle* Hobby tier instances in unpaid organizations are automatically paused.
 
 A Hobby tier instance is paused under these conditions:
 
@@ -36,4 +36,4 @@ A Hobby tier instance is paused under these conditions:
 
 ## Contact Support
 
-Tembo Support is here to help. Please reach out in the [Tembo Cloud UI](https://cloud.tembo.io), or by emailing [support@tembo.io](mailto:support@tembo.io).
+Tembo Support is here to help. Please reach out in the [Tembo Cloud UI](https://cloud.tembo.io), or by emailing [support@tembo.io](mailto:support@tembo.io) if you have any questions.
