@@ -7,32 +7,34 @@ description: |
 tags: [postgres, cloud, pausing, cost]
 date: 2024-07-25T09:00
 image: './.png'
-planetPostgres: true
+planetPostgres: false
 ---
 
-We've recently added functionality to Tembo Cloud, including the ability to rename and to temporarily pause instances, to give you greater control. 
-
-You might want to rename your instance to follow naming conventions, or to better reflect the instance's application. Or - and we have all been there - you just made a typo when you first created your Instance. Let's dive in! 
+We've recently added functionality to [Tembo Cloud](https://cloud.tembo.io/), including the ability to rename and to temporarily pause instances, to give you greater control. Let's dive in to learn more about these features! 
 
 ## Rename Instances and Orgs 
 
-You can now change the name of your Tembo Cloud instances and the name of your organization via the [Tembo Cloud UI](https://cloud.tembo.io/). To change the instance name, go into _Settings_, click on the _Name_ field and enter the new name for your instance.
+You can now change the name of your Tembo Cloud instances and the name of your organization via the [Tembo Cloud UI](https://cloud.tembo.io/).
 
-![Renaming your instance](./renaming-organization.png)
+You might want to rename your instance to follow naming conventions, or to better reflect the instance's application. Or - and we have all been there - you just made a typo when you first created your Instance.
+
+To change the instance name, go into _Settings_, click on the _Name_ field and enter the new name for your instance.
+
+![Renaming your instance](./renaming-instance.png)
 
 Don't forget to select the _Save Changes_ button to apply the new name!
 
-Renaming your instance will not cause downtime. Your instance will go into the Configuring status, and once the instance is successfully updated, you will receive a notification confirming the update. Renaming an instance will not require you to update your connection string, your existing connections will continue to work as before.
+Renaming your instance will not cause downtime. Your instance will go into the Configuring status, and once the instance is successfully updated, you will receive a notification confirming the update. Your instances continue to maintain the same connection string after a rename, allowing your existing connection strings to continue to work as before.
 
 For your Organization’s name, that is found in _Organization settings_, which is located by clicking your profile icon in the top right of the screen.
 
-![Renaming your Organization](./renaming-instance.png)
+![Renaming your Organization](./renaming-organization.png)
 
 ## Pause and Resume Instances
 
-Another new feature allows you to pause your Tembo Cloud instances when they are not being used actively. This way you can save costs when you're running experiments or benchmarks during the week that can be turned off during the weekend, or similar ephemeral use cases.
+Another new Tembo Cloud feature allows you to pause your instances when they are not being used actively. Paused instances are not billed for compute but only for storage. This way you can save costs when you're running experiments or benchmarks during the week that can be turned off during the weekend, or similar ephemeral use cases.
 
-Instances can also be resumed with a single click, and resuming is more efficient in terms of setup than creating a new instance.
+Instances can also be resumed with a single click, and resuming allows you to resume your experiments as opposed to creating a new instance and reloading it with data.
 
 To pause an instance, go into Settings, and in Instance Settings select Pause Instance.
 
@@ -41,8 +43,6 @@ To pause an instance, go into Settings, and in Instance Settings select Pause In
 A pop-up screen will ask you to confirm your action.
 
 ![Warning confirm pausing your instance](./pause-warning.png)
-
-While an instance is paused, you are only billed for storage.
 
 To resume an instance, go into Settings, and in Instance Settings select Resume Instance.
 
