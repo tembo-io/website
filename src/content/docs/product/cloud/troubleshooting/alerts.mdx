@@ -64,7 +64,15 @@ LIMIT 10;
 
 **Description:** An instance is near the memory limit.
 
+Also use this section for troubleshooting the **Postgres out of memory** alert.
+
 [Increase instance size](/docs/product/cloud/configuration-and-management/increase-compute), or investigate and resolve the cause of the high memory alert.
+
+The start time of the **Postgres out of memory** alert is not exactly the same time that Postgres ran out of memory. Please check when the server started to determine when Postgres recovered from running out of memory.
+
+```sql
+SELECT pg_postmaster_start_time();
+```
 
 Postgres configuration parameters that significantly impact memory include `work_mem`, `maintenance_work_mem`, `shared_buffers`, and `max_connections`. You can find the value of a configuration with the `SHOW` command:
 
