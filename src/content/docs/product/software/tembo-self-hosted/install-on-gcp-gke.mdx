@@ -9,7 +9,7 @@ This guide describes the steps to install Tembo Self Hosted on GCP, which allows
 
 ## Step 1: Obtain prerequisites
 
-Before starting this tutorial, you must install and configure the following tools and resources that you need to create and manage Tembo Self Hosted on an Amazon EKS cluster.
+Before starting this tutorial, you must install and configure the following tools and resources that you need to create and manage Tembo Self Hosted on an GCP GKE cluster.
 
 * The command-line tools for [Google Cloud](https://cloud.google.com/sdk/docs/install).
 * The [Helm CLI](https://helm.sh/docs/intro/install/).
@@ -171,19 +171,17 @@ tembo:
       - name: SELF_HOSTED
         value: "true"
   temboUI:
-    image:
-      tag: "aed9151"
     env:
       - name: INTERCOM_SECRET
         value: "xx1XX9AxxTxL46iOWVqmvEIN2dEeE9ASm-XXXXXod"
       - name: NEXT_PUBLIC_API_BASE_URL
-        value: "https://api.tembo.mydomain.com/api"
+        value: "http://api.tembo.mydomain.com/api"
       - name: NEXT_PUBLIC_API_BASE_URL_V1
-        value: "https://api.tembo.mydomain.com/api/v1"
+        value: "http://api.tembo.mydomain.com/api/v1"
       - name: NEXT_PUBLIC_INTERCOM_APP_ID
         value: "xxxxixeb"
       - name: NEXT_PUBLIC_METRICS_BASE_URL
-        value: "tembo.mydomain.com"
+        value: "http://dataplane.tembo.mydomain.com"
       - name: NEXT_PUBLIC_SENTRY_DSN
         value: "https://xxxxxxxxxxxxxx@o4506351478964224.ingest.sentry.io/4506351480668160"
       - name: NEXT_PUBLIC_SENTRY_ENV
@@ -210,7 +208,7 @@ tembo:
 
 The base domain should be the same one created in Step 2. Please contact our support team if you need any help obtaining these values.
 
-Now, let's install the Tembo Self Hosted Helm chart in your EKS cluster:
+Now, let's install the Tembo Self Hosted Helm chart in your GKE cluster:
 
 ```shell
 helm install tembo . -f my-values.yaml -n tembo --create-namespace
