@@ -67,20 +67,29 @@ export TEMBO_ORG=<your organization id>
 export TEMBO_INST=<your instance id>
 ```
 
-3. Patch your existing Tembo instance with new configuration values using the [Tembo Cloud Platform API](https://api.tembo.io/redoc):
+3. Create a new instance using the [Tembo Cloud Platform API](https://api.tembo.io/redoc):
 
 ```shell
-curl -X 'PATCH' \
-  "https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/instances/$TEMBO_INST" \
-  -H "accept: application/json" \
-  -H "Authorization: Bearer $TEMBO_TOKEN" \
-  -H "Content-Type: application/json" \
+curl -X 'POST' \
+  'https://api.cdb-dev.com/api/v1/orgs/org_2YW4TYIMI1LeOqJTXIyvkHOHCUo/instances' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer $TEMBO_TOKEN' \
+  -H 'Content-Type: application/json' \
   -d '{
+  "stack_type": "OLTP",
+  "instance_name": "my-tembo-instance",
+  "cpu": "1",
+  "memory": "2Gi",
+  "storage": "10Gi",
+  "replicas": 1,
+  "environment": "dev",
+  "spot": true,
   "experimental": {
     "image": "< your custom image here >"
   }
 }'
 ```
+
 Now, when you connect to your instance, it will have the custom dependencies available. For example:
 
 ```sql
