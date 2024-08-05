@@ -72,9 +72,9 @@ export TEMBO_INST=<your instance id>
 ```shell
 curl -X 'POST' \
   'https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/instances/$TEMBO_INST' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer $TEMBO_TOKEN' \
-  -H 'Content-Type: application/json' \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer $TEMBO_TOKEN" \
+  -H "Content-Type: application/json" \
   -d '{
   "stack_type": "OLTP",
   "instance_name": "my-tembo-instance",
