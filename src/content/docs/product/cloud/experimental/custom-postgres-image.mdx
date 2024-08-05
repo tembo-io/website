@@ -71,7 +71,7 @@ export TEMBO_INST=<your instance id>
 
 ```shell
 curl -X 'POST' \
-  'https://api.cdb-dev.com/api/v1/orgs/org_2YW4TYIMI1LeOqJTXIyvkHOHCUo/instances' \
+  'https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/instances/$TEMBO_INST' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer $TEMBO_TOKEN' \
   -H 'Content-Type: application/json' \
