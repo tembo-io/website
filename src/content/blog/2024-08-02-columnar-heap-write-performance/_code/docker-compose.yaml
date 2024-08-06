@@ -1,0 +1,19 @@
+volumes:
+  timeseries:
+
+services:
+  pgtimeseries:
+    container_name: pg-timeseries
+    image: quay.io/tembo/timeseries-pg:latest
+    command:
+      - -c
+      - shared_buffers=2GB
+      - -c
+      - max_wal_size=200GB
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - timeseries:/var/lib/postgresql/data:rw
+    restart: unless-stopped
