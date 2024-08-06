@@ -14,7 +14,7 @@ planetPostgres: true
 
 ## What are Spot instances?
 
-Tembo Cloud uses AWS EC2 instances as compute for your Postgres instances. [Spot instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-spot-instances-work.html) are EC2 instances which are available for a signficantly cheaper price than the On-demand price. However, the tradeoff is that Amazon EC2 might [interrupt](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html) your Spot instances with two minutes of warning due to capacity, cost or other constraints.
+Tembo Cloud uses AWS EC2 instances as compute for your Postgres instances. [Spot instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-spot-instances-work.html) are EC2 instances which are available for a significantly cheaper price than the On-demand price. However, the trade-off is that Amazon EC2 might [interrupt](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html) your Spot instances with two minutes of warning due to capacity, cost, or other constraints.
 
 ## Spot instances on Tembo Cloud
 
@@ -26,9 +26,9 @@ Our Hobby tier, recommended for prototyping and hobby apps, will now exclusively
 
 ## When to use Spot?
 
-Spot instances are recommended for non-critical or fault-tolerant workloads which can accept upto ~10min occasional downtime when Spot instances get reclaimed. These are a good fit for dev instances, experiments or for occasionally used instances where retrying your queries in ~10 mins in exchange for a cost saving is an option.
+Spot instances are ideal for non-critical or fault-tolerant workloads that can handle brief, occasional downtimes of up to 10 minutes when AWS reclaims the instances. They're perfect for development environments, experimental projects, or infrequently used instances where you can afford to retry queries after a short delay in exchange for significant cost savings.
 
-Please do not use Spot for instances where you are running production or where availability is important.
+Please do not use Spot for instances where you are running production workloads or where availability is critical.
 
 ## Enabling Spot
 
