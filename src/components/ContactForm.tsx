@@ -146,38 +146,38 @@ const ContactForm: React.FC = () => {
 					name='firstName'
 					ref={firstNameRef}
 					type='text'
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
 				/>
 				<input
 					placeholder='Last Name'
 					name='lastName'
 					ref={lastNameRef}
 					type='text'
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
 				/>
 				<input
 					placeholder='Company email'
 					type='email'
 					name='email'
 					ref={emailRef}
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
 				/>
 				<input
 					placeholder='Company'
 					type='text'
 					name='company'
 					ref={companyRef}
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
 				/>
 				<textarea
 					placeholder='Describe your Postgres usage and use case for Tembo Cloud or Tembo Self Hosted'
-					className='min-[840px]:w-[412px] rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs'
+					className='min-[840px]:w-[412px] rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
 					name='message'
 					ref={messageRef}
 				></textarea>
 				<input
 					type='submit'
-					className='flex h-14 min-[840px]:w-[412px] justify-center items-center w-full bg-gradient-button text-white transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base cursor-pointer'
+					className='flex h-14 min-[840px]:w-[412px] justify-center items-center w-full bg-gradient-button text-white transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base cursor-pointer text-white'
 					onClick={(e) => onSubmit(e)}
 				/>
 			</form>
