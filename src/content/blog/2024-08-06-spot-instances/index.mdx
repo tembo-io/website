@@ -5,18 +5,18 @@ authors: [floor, nick]
 description: |
     Opt for Spot instances for your developer instances and pay less for non-critical workloads
 tags: [postgres, cloud, spot, developer]
-date: 2024-07-29T09:00
+date: 2024-08-06T09:00
 image: './spot-instances.png'
 planetPostgres: true
 ---
 
-[Tembo Cloud](https://cloud.tembo.io/) now offers Spot instances for running your non-production workloads at a cheaper cost. [Spot](https://aws.amazon.com/ec2/spot/) is an Amazon Web Services (AWS) feature that offers heavily discounted EC2 instances. 
+[Tembo Cloud](https://cloud.tembo.io/) now offers Spot instances for running your non-production workloads at a cheaper cost. [Spot](https://aws.amazon.com/ec2/spot/) is an Amazon Web Services (AWS) feature that offers heavily discounted EC2 instances.
 
 ## What are Spot instances?
 
 Tembo Cloud uses AWS EC2 instances as compute for your Postgres instances. [Spot instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-spot-instances-work.html) are EC2 instances which are available for a signficantly cheaper price than the On-demand price. However, the tradeoff is that Amazon EC2 might [interrupt](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html) your Spot instances with two minutes of warning due to capacity, cost or other constraints.
 
-## Spot instances on Tembo Cloud 
+## Spot instances on Tembo Cloud
 
 When you run your Tembo instances on Spot, you get charged 30% less for CPU and Memory. [Tembo Apps](https://tembo.io/docs/product/cloud/apps/rest-api) associated with your instance will also run on Spot when Spot is enabled.
 
