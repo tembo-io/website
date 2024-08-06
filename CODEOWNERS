@@ -6,6 +6,7 @@ src/content/docs/ @samay-sharma @FloorD
 src/content/docs/** @samay-sharma @FloorD
 src/content/docs/getting-started/quickstarts/ @sjmiller609
 src/content/docs/getting-started/quickstarts/** @sjmiller609
+src/content/docs/getting-started/quickstarts/postgres_guides/** @samay-sharma @FloorD @bonesmoses
 src/content/docs/development/cli/command-reference.md @sjmiller609 @joshuajerin
 src/content/docs/product/cloud/ @sjmiller609
 src/content/docs/product/cloud/** @sjmiller609
