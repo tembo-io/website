@@ -23,16 +23,15 @@ Tembo requires Hobby instances to run on [Spot](/docs/product/cloud/configuratio
 
 Hobby instances have limited compute (0.25 CPU & 1GiB RAM) and storage (10GiB). Users may upgrade to a paid instance to increase storage or compute.
 
-### Idle instances are automatically paused
+### Idle Hobby instances are automatically paused
 
-In order to avoid wasting resources, *idle* Hobby tier instances in unpaid organizations are automatically paused.
+In order to avoid wasting resources, *idle* Hobby tier instances are automatically paused.
 
 A Hobby tier instance is paused under these conditions:
 
 - More than 2 days old
 - Has not been connected to for over 24 hours
 - Has not been unpaused in the last 24 hours
-- Is not a member of a paid organization
 
 ## Contact Support
 
