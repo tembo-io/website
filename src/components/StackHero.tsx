@@ -104,7 +104,7 @@ const STACK_HERO_CARDS_DETAILS = [
 	{
 		title: 'OLTP',
 		description:
-			'tuned or handling high volumes of short, atomic transactions that ensure data integrity and concurrency in real-time operational systems.',
+			'Tuned for handling high volumes of short, atomic transactions that ensure data integrity and concurrency in real-time operational systems.',
 		image: '/oltp-stack-elephant.svg',
 		url: 'https://tembo.io/docs/product/stacks/transactional/oltp',
 	},
@@ -118,7 +118,7 @@ const STACK_HERO_CARDS_DETAILS = [
 	{
 		title: 'OLAP',
 		description:
-			'Tuned or handling high volumes of short, atomic transactions that ensure data integrity and concurrency in real-time operational systems.',
+			'Tuned for handling high volumes of short, atomic transactions that ensure data integrity and concurrency in real-time operational systems.',
 		image: '/olap-stack-elephant.svg',
 		url: 'https://tembo.io/docs/product/stacks/analytical/olap',
 	},
