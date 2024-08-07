@@ -4,9 +4,10 @@ Understanding and optimizing the performance of your PostgreSQL database is cruc
 
 ```sql
 -- Retrieve query execution statistics
-SELECT query, calls, total_time, rows, 100.0 * shared_blks_hit / nullif(shared_blks_hit + shared_blks_read, 0) AS hit_percent
+SELECT query, calls, total_exec_time, rows,
+  100.0 * shared_blks_hit / nullif(shared_blks_hit + shared_blks_read, 0) AS hit_percent
 FROM pg_stat_statements
-ORDER BY total_time DESC
+ORDER BY total_exec_time DESC
 LIMIT 10;
 ```
 
@@ -20,7 +21,9 @@ Analyzing index usage is key for query optimization.
 ```sql
 -- Analyze index usage
 SELECT relname, seq_scan, idx_scan,
-CASE WHEN seq_scan + idx_scan = 0 THEN 0 ELSE (idx_scan / (seq_scan + idx_scan)) * 100 END AS index_usage
+  CASE WHEN seq_scan + idx_scan = 0 THEN 0 
+       ELSE (idx_scan / (seq_scan + idx_scan)) * 100
+  END AS index_usage
 FROM pg_stat_user_tables
 ORDER BY index_usage;
 ```
@@ -34,10 +37,11 @@ Identify and analyze long-running queries in your database.
 
 ```sql
 -- Find long running queries
-SELECT pid, now() - pg_stat_activity.query_start AS duration, query
+SELECT pid, state, now() - query_start AS duration, query
 FROM pg_stat_activity
-WHERE state = 'active' AND (now() - pg_stat_activity.query_start) > interval '5 minutes';
-
+WHERE state = 'active' 
+AND query_start < now() - INTERVAL '5 minutes'
+ORDER BY duration DESC;
 ```
 
 - Regularly monitor and terminate long-running queries that might be stuck.
@@ -50,7 +54,6 @@ WHERE state = 'active' AND (now() - pg_stat_activity.query_start) > interval '5 
 SELECT relation::regclass, mode, locktype, page, virtualtransaction, pid, granted
 FROM pg_locks
 WHERE relation IS NOT NULL;
-
 ```
 
 - Identify and resolve long-held locks promptly.

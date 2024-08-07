@@ -69,8 +69,14 @@ _tembo.steven.tembo-development.com. 300 IN TXT "org_2T7FJA0DpaNBnELVLU1IS4XzZG0
 
 Next, we configure a CNAME record so that when clients perform DNS resolution on `steven.tembo-development.com`, they are directed to Tembo Cloud.
 
--   Add a CNAME record on the domain name, with the value `cloud.data-1.use1.tembo.io`
-    -   This assumes your database is in `data-1.use1`
+- Add a CNAME record on the domain name, with a value like `cloud.data-1.use1.tembo.io`
+    - This assumes your database is in `data-1.use1`
+
+<Callout variant='info'>
+When configuring DNS, please replace `data-1.use1` to correspond to your database's location. Compare this domain to your existing connection string to find the right domain name to use. For example, if you are in Frankfurt, then your connection subdomain may look like this `data-1.euc1`.
+
+When the CNAME is configured correctly, your custom domain name should resolve to the same IP addresses as the Tembo-provided connection domain.
+</Callout>
 
 Confirming a CNAME record is present:
 
