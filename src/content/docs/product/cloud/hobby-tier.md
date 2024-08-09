@@ -5,7 +5,7 @@ sideBarPosition: 3
 description: Tembo Hobby Tier
 ---
 
-Tembo Cloud offers a hobby tier for developers so that users can experiment with [Tembo Cloud](https://cloud.tembo.io). This does not require a credit card is available for free.
+Tembo Cloud offers a hobby tier for developers so that users can experiment with [Tembo Cloud](https://cloud.tembo.io). This does not require a credit card and is available for free.
 
 ## Limitations of unpaid Hobby instances
 
