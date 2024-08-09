@@ -15,6 +15,8 @@ Using a custom PostgreSQL image can allow users to install custom dependencies o
     Please reach out to Tembo support ([support@tembo.io](mailto:support@tembo.io)) if you would like to use this feature in production.
 
     Please contribute to Tembo Documentation by finding the 'Edit this page on GitHub' link at the bottom of this page.
+
+    Note: installation of extensions is only supported on creating new instances, not on existing instances.
 </Callout>
 
 ## Building an image to use with Tembo Cloud
@@ -81,6 +83,7 @@ curl -X 'PATCH' \
   }
 }'
 ```
+
 Now, when you connect to your instance, it will have the custom dependencies available. For example:
 
 ```sql
@@ -90,4 +93,30 @@ $$ LANGUAGE plpython3u;
 
 
 SELECT use_pandas();
+```
+
+## Installing Extensions with Custom images
+
+Installation of extension is only supported on creating new instances, not on existing instances.
+ To create a new instance with an extension installed in a custom image, you can use the following API call:
+
+```shell
+curl -X 'POST' \
+  'https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/instances/$TEMBO_INST' \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer $TEMBO_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "stack_type": "OLTP",
+  "instance_name": "my-tembo-instance",
+  "cpu": "1",
+  "memory": "2Gi",
+  "storage": "10Gi",
+  "replicas": 1,
+  "environment": "dev",
+  "spot": true,
+  "experimental": {
+    "image": "< your custom image here >"
+  }
+}'
 ```

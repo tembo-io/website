@@ -1,12 +1,12 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import NavBar from '../../components/NavBar';
-import Container from '../../components/Container';
-import Footer from '../../components/Footer.astro';
+import Layout from '../layouts/Layout.astro';
+import NavBar from '@components/NavBar';
+import Container from '@components/Container';
+import Footer from '@components/Footer.astro';
 import { Image } from 'astro:assets';
-import ContactElephant from '../../../public/contact-elephant.svg';
-import ConfettiContact from '../../components/ConfettiContact.astro';
-import ContactForm from '../../components/ContactForm.tsx';
+import ContactElephant from '../../public/contact-elephant.svg';
+import ConfettiContact from '@components/ConfettiContact.astro';
+import ContactForm from '@components/ContactForm.tsx';
 
 const currentPath = Astro.url.pathname;
 ---

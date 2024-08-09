@@ -7,6 +7,15 @@
 -   [Postgres overview](/docs/getting-started/postgres_guides/postgres-basics/postgres-overview)
 -   [Row count](/docs/getting-started/postgres_guides/postgres-basics/row-count)
 
+## Connection
+
+-   [How to connect to postgres](/docs/getting-started/postgres_guides/how-to-connect-to-postgres)
+-   [Connecting to postgres with c sharp](/docs/getting-started/postgres_guides/connecting-to-postgres-with-c-sharp)
+-   [Connecting to postgres with java](/docs/getting-started/postgres_guides/connecting-to-postgres-with-java)
+-   [Connecting to postgres with nodejs](/docs/getting-started/postgres_guides/connecting-to-postgres-with-nodejs)
+-   [Connecting to postgres with python](/docs/getting-started/postgres_guides/connecting-to-postgres-with-python)
+-   [Listing all connections in postgres](/docs/getting-started/postgres_guides/listing-all-connections-in-postgres)
+
 ## Extensions
 
 -   [Aggs for vecs](/docs/getting-started/postgres_guides/extensions/aggs_for_vecs)
@@ -31,13 +40,9 @@
 -   [All possible joins in postgres](/docs/getting-started/postgres_guides/all-possible-joins-in-postgres)
 -   [Advanced monitoring and profiling](/docs/getting-started/postgres_guides/advanced-monitoring-and-profiling)
 -   [Advanced postgres queries for performance](/docs/getting-started/postgres_guides/advanced-postgres-queries-for-performance)
--   [Connecting to postgres with c sharp](/docs/getting-started/postgres_guides/connecting-to-postgres-with-c-sharp)
--   [Connecting to postgres with java](/docs/getting-started/postgres_guides/connecting-to-postgres-with-java)
--   [Connecting to postgres with nodejs](/docs/getting-started/postgres_guides/connecting-to-postgres-with-nodejs)
--   [Connecting to postgres with python](/docs/getting-started/postgres_guides/connecting-to-postgres-with-python)
 -   [Effective query optimization technique](/docs/getting-started/postgres_guides/effective-query-optimization-technique)
 -   [How to backup and restore a postgres database](/docs/getting-started/postgres_guides/how-to-backup-and-restore-a-postgres-database)
--   [How to connect to postgres](/docs/getting-started/postgres_guides/how-to-connect-to-postgres)
+
 -   [How to copy data in postgres](/docs/getting-started/postgres_guides/how-to-copy-data-in-postgres)
 -   [How to create and use materialized views](/docs/getting-started/postgres_guides/how-to-create-and-use-materialized-views)
 -   [How to create views in postgres](/docs/getting-started/postgres_guides/how-to-create-views-in-postgres)
@@ -49,7 +54,6 @@
 -   [How to show tables in postgres](/docs/getting-started/postgres_guides/how-to-show-tables-in-postgres)
 -   [How to use postgresql arrays](/docs/getting-started/postgres_guides/how-to-use-postgresql-arrays)
 -   [How to work with matrices in postgres](/docs/getting-started/postgres_guides/how-to-work-with-matrices-in-postgres)
--   [Listing all connections in postgres](/docs/getting-started/postgres_guides/listing-all-connections-in-postgres)
 -   [Listing indexes in postgres](/docs/getting-started/postgres_guides/listing-indexes-in-postgres)
 -   [Postgres cache optimization](/docs/getting-started/postgres_guides/postgres-cache-optimization)
 -   [Postgres checkpoint tuning](/docs/getting-started/postgres_guides/postgres-checkpoint-tuning)
