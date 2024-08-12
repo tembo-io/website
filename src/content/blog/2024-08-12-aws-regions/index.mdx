@@ -1,6 +1,6 @@
 ---
 slug: aws-regions
-title: 'Tembo’s coming to a Cloud Region close to you'
+title: 'Tembo Cloud: Now available in a region close to you'
 authors: [floor, nick]
 
 description: |
@@ -11,13 +11,13 @@ image: './regions.png'
 planetPostgres: true
 ---
 
-Following customer demand you can now deploy Instances to different Regions in [Tembo Cloud](https://cloud.tembo.io/). This of course is to reduce latency, to keep your data close to where you do your compute, but also because you might have requirements around data residency. 
+Following customer demand, we've now added the ability to deploy Instances to different Regions in [Tembo Cloud](https://cloud.tembo.io/). This of course is to reduce latency, to keep your data close to where you do your compute, but also because you might have requirements around data residency. 
 
-We currently support US East 1 (N Virginia), US West (Oregon), Asia Pacific (Singapore) and Europe (Frankfurt), and plan to support all AWS Regions in time. 
+With this update we've added support for US West (Oregon), Asia Pacific (Singapore) and Europe (Frankfurt), in addition to the already available US East 1 (N Virginia.) We soon plan to add support for all AWS Regions and other major cloud providers in time. 
 
 ## Deploying to Regions
 
-When creating an Instance, pick a Region using the drop-down selector. 
+When creating an Instance, you can pick a Region using the drop-down selector. 
 
 ![Pick a cloud region via the Tembo Cloud UI](./region-dropdown.png)
 
@@ -46,6 +46,6 @@ For more information, please check the [interactive API documentation](https://a
 
 ## What’s next?
 
-When providers other than AWS are supported, we will include the `provider_id` in the domain name for Providers other than AWS. Supporting other clouds is on our immediate roadmap. 
+When providers other than AWS are supported, we will include the `provider_id` in the domain name for Providers other than AWS. Supporting other clouds is on our [immediate roadmap](https://roadmap.tembo.io/roadmap/2798765b-6a5e-41eb-876a-971d360966b4) where you can also upvote for clouds you want us to add.
 
-Tembo Self Hosted on Azure - or: on AKS (Azure Kubernetes Service) - is also coming. [Tembo Self Hosted on AWS](https://tembo.io/blog/tembo-self-hosted) is already available for you today, bringing the full power of Tembo Cloud to your Kubernetes cluster. We’ll focus on adding GCP (Google Cloud Platform) next. 
+In addition, [Tembo Self Hosted](https://tembo.io/blog/tembo-self-hosted) is already available for you today on [EKS](https://tembo.io/docs/product/software/tembo-self-hosted/install-on-aws-eks), [AKS](https://tembo.io/docs/product/software/tembo-self-hosted/install-on-azure) and [GKE](https://tembo.io/docs/product/software/tembo-self-hosted/install-on-gcp-gke) bringing the full power of Tembo Cloud to your Kubernetes cluster.
