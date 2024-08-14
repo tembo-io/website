@@ -1,0 +1,63 @@
+---
+slug: instance-advanced-options
+title: 'Introducing pause and rename for your Tembo Cloud instances'
+authors: [floor, steven]
+description: |
+    Benefit from new Tembo Cloud functionality to rename, pause, and resume instances
+tags: [postgres, cloud, pausing, cost]
+date: 2024-07-31T09:00
+image: './pause-resume.png'
+planetPostgres: false
+---
+
+We've recently added functionality to [Tembo Cloud](https://cloud.tembo.io/), including the ability to rename and temporarily pause instances, to give you greater control. Let's dive in to learn more about these features!
+
+
+## Rename Instances and Orgs
+
+You can now change the name of your Tembo Cloud instances and the name of your organization via the [Tembo Cloud UI](https://cloud.tembo.io/).
+
+You might want to [rename your instance](https://tembo.io/docs/product/cloud/configuration-and-management/rename-an-instance) to follow naming conventions, or to better reflect the instance's application. Or - and we have all been there - you just made a typo when you first created your Instance.
+
+To change the instance name, go into _Settings_, click on the _Name_ field, and enter the new name for your instance.
+
+
+![Renaming your instance](./renaming-instance.png)
+
+Don't forget to select the _Save Changes_ button to apply the new name!
+
+Renaming your instance will not cause downtime. Your instance will go into the Configuring status, and once the instance is successfully updated, you will receive a notification confirming the update. Your instances continue to have the same connection string after a rename, meaning your applications do not need to reconnect or update their connection strings.
+
+
+For your Organization’s name, that is found in _Organization settings_, which is located by clicking your profile icon in the top right of the screen.
+
+![Renaming your Organization](./renaming-organization.png)
+
+## Pause and Resume Instances
+
+Another new Tembo Cloud feature allows you to [pause your instances](https://tembo.io/docs/product/cloud/configuration-and-management/pause-instance) when they are not being used actively. Paused instances are not [billed](https://tembo.io/docs/product/cloud/billing) for compute, but only for storage. This way, you can save costs when you're running experiments or benchmarks during the week that can be turned off during the weekend, or similar ephemeral use cases.
+
+
+Instances can also be resumed with a single click, and resuming allows you to resume your experiments as opposed to creating a new instance and reloading it with data.
+
+To pause an instance, go into Settings, and in Instance Settings, select Pause Instance.
+
+![Pausing your instance](./pause-instance.png)
+
+A pop-up screen will ask you to confirm your action.
+
+![Warning confirm pausing your instance](./pause-warning.png)
+
+To resume an instance, go into Settings, and in Instance Settings, select Resume Instance.
+
+![Resuming your instance](./resume-instance.png)
+
+There’ll be a short wait while Tembo Cloud resumes your instance.
+
+### API actions
+
+You can also pause instances with the [Tembo Cloud API](https://tembo.io/docs/development/api) using the [Lifecycle Events endpoint](https://api.tembo.io/redoc#tag/instance/operation/instance_event).
+
+The instance states associated with pausing and resuming are known in the Tembo API as `Stopping`, `Stopped`, and `Starting`.
+
+We love to hear from you about functionality that will make your life easier. Relevant to the functionality discussed in this blog post, maybe the option to auto-pause an instance is something you’d like to see us work on next. Please suggest and upvote features via [roadmap.tembo.io/roadmap](https://roadmap.tembo.io/roadmap).
