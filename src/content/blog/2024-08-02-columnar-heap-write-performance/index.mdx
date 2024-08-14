@@ -3,18 +3,18 @@ slug: columnar-heap-write-performance
 title: 'Comparing Columnar to Heap Performance in pg_timeseries'
 authors: [shaun]
 description: |
-    The pg_timeseries extension uses Hydra Columnar storage for historical data. Check this out if you want to know how this kind of storage compares to standard Postgres Heap storage during database writes.
-tags: [postgres, pg_timeseries, database, heap, columnar, performance]
+    The pg_timeseries extension uses Hydra Columnar storage for historical data. But how does this kind of storage compare to standard Postgres Heap storage during database writes?
+tags: [postgres, timeseries, database, heap, columnar, performance]
 date: 2024-08-02T09:00
 image: './analysis.png'
 planetPostgres: true
 ---
 
-Tembo were recently invited to do a short presentation of the [pg_timeseries](https://github.com/tembo-io/pg_timeseries) extension to the [Chicago Postgres User Group](https://www.meetup.com/chicago-postgresql-user-group/) last week. As expected, user questions popped up which didn't have an immediate obvious answer, mainly related to performance. Is [Hydra Columnar](https://github.com/hydradatabase/hydra) storage used by `pg_timeseries` faster than Heap when it comes to inserts? How about updates or deletes? Does the overall row count affect these results?
+Tembo were recently invited to do a short presentation of the [pg_timeseries](https://github.com/tembo-io/pg_timeseries) extension to the [Chicago Postgres User Group](https://www.meetup.com/chicago-postgresql-user-group/). As expected, questions popped up which didn't have an immediate obvious answer, mainly related to performance. Is [Hydra Columnar](https://github.com/hydradatabase/hydra) storage used by `pg_timeseries` faster than Heap when it comes to inserts? How about updates or deletes? Does the overall row count affect these results?
 
 So why not run some tests? 
 
-## Building the Harness
+## Building the benchmark
 
 Any proper benchmark needs a testing procedure. We performed a few simple test runs which showed interesting results, but these initial findings were soon erased once the more objective and standardized process emerged.
 
@@ -29,7 +29,7 @@ Here's what we finally came up with as a test harness:
   * The previously mentioned storage switching function.
   * The data-generation function.
 
-And "function" is a bit of a misnomer here, as all code is written as stored procedures. Procedures in Postgres have full transaction control, so we can `COMMIT` after collecting each data point and see progress as it's generated instead of at the end of the entire test run. We can also do things like run `CHECKPOINT` between tests so each test has a fresh starting point and we're unlikely to cause an emergency checkpoint due to write activity.
+"Function" is a bit of a misnomer here, as all code is written as stored procedures. Procedures in Postgres have full transaction control, so we can `COMMIT` after collecting each data point and see progress as it's generated instead of at the end of the entire test run. We can also do things like run `CHECKPOINT` between tests so each test has a fresh starting point and we're unlikely to cause an emergency checkpoint due to write activity.
 
 All code used for these tests is available in [this github directory](https://github.com/tembo-io/website/tree/main/src/content/blog/2024-08-02-columnar-heap-write-performance/_code) rather than inline with the blog. Including it here would be somewhat distracting, as it's a _lot_ of code. But we _can_ explore the function names, if only for amusement sake. The process works like this:
 
