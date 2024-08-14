@@ -163,9 +163,12 @@ Tembo AI hosted LLMs are compatible with the OpenAI SDKs.
 import os
 from openai import OpenAI
 
+your_domain = os.environ["TEMBO_DATA_DOMAIN"]
+token = os.environ["TEMBO_TOKEN"]
+
 client = OpenAI(
-    base_url="https://$TEMBO_DATA_DOMAIN.data-1.use1.tembo.io/ai/v1",
-    api_key=os.environ["TEMBO_TOKEN"],
+    base_url=f"https://{your_domain}/ai/v1",
+    api_key=token,
 )
 
 chat_completion = client.chat.completions.create(
