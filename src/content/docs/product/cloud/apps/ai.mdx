@@ -43,6 +43,7 @@ You can also enable Tembo AI by using the Tembo Platform API.
  Alternatively, you can follow the instructions [here](/docs/development/api).
 
 Set your Tembo token as an environment variable, along with your organization id and the Tembo instance id. Fetch the `TEMBO_DATA_DOMAIN` from the "Host" parameter of your Tembo instance.
+ For example, `astonishingly-sheltering-snipefish.data-1.use1.tembo.io`
 
 ```bash
 export TEMBO_TOKEN=<your token>
@@ -96,7 +97,7 @@ You can call Tembo AI directly with an HTTP requests and from SQL.
 
 
 ```bash
-curl -X POST https://verbally-truthful-lionfish.data-1.use1.tembo.io/ai/v1/chat/completions \
+curl -X POST https://$TEMBO_DATA_DOMAIN/ai/v1/chat/completions \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer $YOUR_AUTH_TOKEN" \
 -d '{
@@ -151,4 +152,31 @@ select vectorize.generate(
 -----------------------------------------------------------------------------------------------------------
  Cats are generally more independent and solitary, while dogs tend to be more social and loyal companions.
 (1 row)
+```
+
+### Compatible with OpenAI SDKs
+
+Tembo AI hosted LLMs are compatible with the OpenAI SDKs.
+ Simply set the base URL to your Tembo instance and use your Tembo API key to authenticate.
+
+```python
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://$TEMBO_DATA_DOMAIN.data-1.use1.tembo.io/ai/v1",
+    api_key=os.environ["TEMBO_TOKEN"],
+)
+
+chat_completion = client.chat.completions.create(
+    messages=[
+        {
+            "role": "user",
+            "content": "Use the word 'apple' in a single sentence.",
+        }
+    ],
+    model="meta-llama/Meta-Llama-3-8B-Instruct",
+)
+
+print(chat_completion.choices[0].message.content)
 ```
