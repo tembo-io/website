@@ -1,0 +1,276 @@
+---
+import NavBar from '../../components/NavBar';
+import Layout from '../../layouts/Layout.astro';
+import Container from '../../components/Container';
+import Footer from '../../components/Footer.astro';
+import { Image } from 'astro:assets';
+import DbGreen from 'src/images/db-green-transactional.png';
+import StackedCardsOrder from 'src/images/stacked-cards-order.png';
+import TemboTransactions from 'src/images/tembo-transactions.png';
+import StackedCardsReservation from 'src/images/stacked-cards-reservation.png';
+import ClipboardWhite from 'src/images/clipboard-white.svg';
+import TaskListWhite from 'src/images/task-list-white.svg';
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title='Tembo Transactional'>
+	<NavBar client:load currentPage={currentPath} />
+	<Container>
+		<section
+			class='tembo-for-startups-section flex flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
+		>
+			<div class='flex flex-col w-1/2'>
+				<div
+					class='text-white font-bold tracking-[0.47px] text-[32px] sm:text-[40px] md:text-[56px] lg:text-[60px] leading-tight mb-6 w-1/2'
+				>
+					Tembo Transactional
+				</div>
+				<p
+					class='text-lightGrey font-normal font-secondary text-sm mb-12'
+				>
+					Tembo Transactional provides Online Transaction Processing
+					(OLTP) capabilities to manage high volumes of transactions
+					quickly and accurately. While your applications may vary in
+					complexity and I/O intensity, our OLTP solution stands out
+					due to its ACID compliance, ensuring reliable and accurate
+					operations, and scalability to grow with application
+					demands.
+				</p>
+			</div>
+			<Image
+				src={DbGreen}
+				width={590}
+				height={600}
+				alt='green database'
+				class='w-1/2'
+			/>
+		</section>
+		<section
+			class='tembo-for-startups-section flex flex-row w-full mt-[120px] mobile:mt-[180px] justify-between'
+		>
+			<div class='flex flex-col w-1/2'>
+				<div
+					class='text-lighterGrey2 font-secondary sm:text-[8px] md:text-[12px] lg:text-[14px] mb-3'
+				>
+					Use Cases
+				</div>
+				<div
+					class='text-white font-bold tracking-[0.47px] sm:text-[16px] md:text-[24px] lg:text-[32px] mb-6'
+				>
+					Retail and E-commerce Transactions
+				</div>
+
+				<div class='flex flex-row'>
+					<div
+						class='flex justify-center rounded-full bg-semiGrey2 p-2 w-8 h-8 mr-3'
+					>
+						<Image
+							src={ClipboardWhite}
+							width={16}
+							height={16}
+							alt='white clipboard'
+						/>
+					</div>
+					<div
+						class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+					>
+						Scenario:
+					</div>
+				</div>
+
+				<p
+					class='text-lightGrey font-normal font-secondary text-sm mb-12'
+				>
+					Managing sales transactions for an online retail platform.
+				</p>
+
+				<div class='flex flex-row'>
+					<div
+						class='flex justify-center rounded-full bg-semiGrey2 p-2 w-8 h-8 mr-3'
+					>
+						<Image
+							src={TaskListWhite}
+							width={16}
+							height={16}
+							alt='white task list'
+						/>
+					</div>
+					<div
+						class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+					>
+						Details:
+					</div>
+				</div>
+				<p
+					class='text-lightGrey font-normal font-secondary text-sm mb-12'
+				>
+					OLTP systems process customer orders, update inventory
+					levels, handle payments, and manage customer data in
+					real-time. This ensures that the e-commerce platform can
+					handle a high volume of transactions simultaneously without
+					delays, providing a seamless shopping experience for
+					customers.
+				</p>
+			</div>
+			<Image
+				src={StackedCardsOrder}
+				width={370}
+				height={220}
+				alt='green database'
+			/>
+		</section>
+		<section
+			class='tembo-for-startups-section flex flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
+		>
+			<Image
+				src={TemboTransactions}
+				width={370}
+				height={210}
+				alt='green database'
+			/>
+			<div class='flex flex-col w-1/2'>
+				<div
+					class='text-lighterGrey2 font-secondary sm:text-[8px] md:text-[12px] lg:text-[14px] mb-3'
+				>
+					Use Cases
+				</div>
+				<div
+					class='text-white font-bold tracking-[0.47px] sm:text-[16px] md:text-[24px] lg:text-[32px] mb-6'
+				>
+					Banking and Financial Services
+				</div>
+
+				<div class='flex flex-row'>
+					<div
+						class='flex justify-center rounded-full bg-semiGrey2 p-2 w-8 h-8 mr-3'
+					>
+						<Image
+							src={ClipboardWhite}
+							width={16}
+							height={16}
+							alt='white clipboard'
+						/>
+					</div>
+					<div
+						class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+					>
+						Scenario:
+					</div>
+				</div>
+				<p
+					class='text-lightGrey font-normal font-secondary text-sm mb-12'
+				>
+					Processing banking transactions such as withdrawals,
+					deposits, and transfers.
+				</p>
+				<div class='flex flex-row'>
+					<div
+						class='flex justify-center rounded-full bg-semiGrey2 p-2 w-8 h-8 mr-3'
+					>
+						<Image
+							src={TaskListWhite}
+							width={16}
+							height={16}
+							alt='white task list'
+						/>
+					</div>
+					<div
+						class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+					>
+						Details:
+					</div>
+				</div>
+				<p
+					class='text-lightGrey font-normal font-secondary text-sm mb-12'
+				>
+					OLTP systems enable banks to manage millions of transactions
+					per day securely and efficiently. They ensure real-time
+					processing of account updates, balance checks, and fund
+					transfers, providing customers with instant access to their
+					financial information and services.
+				</p>
+			</div>
+		</section>
+		<section
+			class='tembo-for-startups-section flex flex-row w-full mt-[120px] mobile:mt-[180px] justify-between'
+		>
+			<div class='flex flex-col w-1/2'>
+				<div
+					class='text-lighterGrey2 font-secondary sm:text-[8px] md:text-[12px] lg:text-[14px] mb-3'
+				>
+					Use Cases
+				</div>
+				<div
+					class='text-white font-bold tracking-[0.47px] sm:text-[16px] md:text-[24px] lg:text-[32px] mb-6'
+				>
+					Airline Reservation Systems
+				</div>
+				<div class='flex flex-row'>
+					<div
+						class='flex justify-center rounded-full bg-semiGrey2 p-2 w-8 h-8 mr-3'
+					>
+						<Image
+							src={ClipboardWhite}
+							width={16}
+							height={16}
+							alt='white clipboard'
+						/>
+					</div>
+					<div
+						class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+					>
+						Scenario:
+					</div>
+				</div>
+				<p
+					class='text-lightGrey font-normal font-secondary text-sm mb-12'
+				>
+					Managing flight bookings and reservations
+				</p>
+				<div class='flex flex-row'>
+					<div
+						class='flex justify-center rounded-full bg-semiGrey2 p-2 w-8 h-8 mr-3'
+					>
+						<Image
+							src={TaskListWhite}
+							width={16}
+							height={16}
+							alt='white task list'
+						/>
+					</div>
+					<div
+						class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+					>
+						Details:
+					</div>
+				</div>
+				<p
+					class='text-lightGrey font-normal font-secondary text-sm mb-12'
+				>
+					OLTP systems handle the real-time processing of flight
+					reservations, ticketing, and seat assignments. They allow
+					airlines to manage availability, pricing, and customer data
+					effectively, ensuring that customers can book flights,
+					change reservations, and check in for flights in real-time.
+				</p>
+			</div>
+			<Image
+				src={StackedCardsReservation}
+				width={370}
+				height={220}
+				alt='green database'
+			/>
+		</section>
+	</Container>
+	<div class='relative'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
+		</div>
+		<Container>
+			<div class='mt-16 mobile:mt-24'>
+				<Footer />
+			</div>
+		</Container>
+	</div>
+</Layout>
