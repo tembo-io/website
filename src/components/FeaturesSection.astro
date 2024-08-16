@@ -1,0 +1,77 @@
+---
+import IconWithBackground from './IconWithBackground';
+import FeatureDetail from './FeatureDetail.astro';
+---
+
+<section
+	class='tembo-for-startups-section flex flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
+>
+	<div class='flex flex-col gap-12 w-full'>
+		<div
+			class='flex justify-center text-white font-bold tracking-[0.47px] sm:text-[16px] md:text-[24px] lg:text-[32px] mb-6'
+		>
+			Features
+		</div>
+		<div
+			class='flex flex-col customMd:flex-row customMd:justify-between w-full gap-16'
+		>
+			<FeatureDetail
+				header='Scalability'
+				description=`Offers the ability to scale resources up or down based on
+				demand, ensuring optimal performance and cost-efficiency.`
+				iconPath='/public/status-up.svg'
+			/>
+			<FeatureDetail
+				header='High Availability'
+				description=`Ensures databases are always available with built-in redundancy
+				and failover mechanisms to minimize downtime.`
+				iconPath='/public/cloud-add-icon.svg'
+			/>
+			<FeatureDetail
+				header='Security'
+				description=`Implements robust security measures, including encryption at
+				rest and in transit, as well as comprehensive access controls
+				and auditing.`
+				iconPath='/public/shield-icon.svg'
+			/>
+		</div>
+		<div
+			class='flex flex-col customMd:flex-row customMd:justify-between w-full gap-16'
+		>
+			<FeatureDetail
+				header='Performance Optimization'
+				description=`Features tools for monitoring and optimizing database performance, including query analysis and performance tuning.`
+				iconPath='/public/keyboard-open.svg'
+			/>
+			<FeatureDetail
+				header='Backup and Recovery'
+				description=`Provides automated backup solutions with options for point-in-time recovery, ensuring data integrity and protection against data loss.`
+				iconPath='/public/folder-connection.svg'
+			/>
+			<FeatureDetail
+				header='Data Migration'
+				description=`Supports seamless data migration tools and services to move data from on-premises or other cloud environments.`
+				iconPath='/public/clipboard-white.svg'
+			/>
+		</div>
+		<div
+			class='flex flex-col customMd:flex-row customMd:justify-between w-full gap-16'
+		>
+			<FeatureDetail
+				header='Monitoring and Alerts'
+				description=`Includes advanced monitoring capabilities and configurable alerts to proactively manage and respond to potential issues.`
+				iconPath='/public/danger.svg'
+			/>
+			<FeatureDetail
+				header='Cost Management'
+				description=`Provides transparent pricing and cost management tools to help organizations optimize their cloud spending.`
+				iconPath='/public/moneys.svg'
+			/>
+			<FeatureDetail
+				header='Support and Documentation'
+				description=`Access to comprehensive support services and detailed documentation to assist with troubleshooting and optimizing use.`
+				iconPath='/public/note-2.svg'
+			/>
+		</div>
+	</div>
+</section>
