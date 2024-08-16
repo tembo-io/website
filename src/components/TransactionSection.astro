@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import IconWithBackground from './IconWithBackground';
+import StackedCardsOrder from 'src/images/stacked-cards-order.png';
+
+interface Props {
+	useCaseText: string;
+	scenarioText: string;
+	detailsText: string;
+	imgMetadata: ImageMetadata;
+}
+
+const { useCaseText, scenarioText, detailsText } = Astro.props;
+---
+
+<section
+	class='tembo-for-startups-section flex flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
+>
+	<div class='flex flex-col w-1/2'>
+		<div
+			class='text-lighterGrey2 font-secondary sm:text-[8px] md:text-[12px] lg:text-[14px] mb-3'
+		>
+			Use Cases
+		</div>
+		<div
+			class='text-white font-bold tracking-[0.47px] sm:text-[16px] md:text-[24px] lg:text-[32px] mb-6'
+		>
+			{useCaseText}
+		</div>
+
+		<div class='flex flex-row'>
+			<IconWithBackground iconPath='/public/clipboard-white.svg' />
+			<div
+				class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+			>
+				Scenario:
+			</div>
+		</div>
+
+		<p class='text-lightGrey font-normal font-secondary text-sm mb-12'>
+			{scenarioText}
+		</p>
+
+		<div class='flex flex-row'>
+			<IconWithBackground iconPath='/public/task-list-white.svg' />
+			<div
+				class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+			>
+				Details:
+			</div>
+		</div>
+		<p class='text-lightGrey font-normal font-secondary text-sm mb-12'>
+			{detailsText}
+		</p>
+	</div>
+	<div class='w-[370px]'>
+		<Image
+			src={StackedCardsOrder}
+			width={370}
+			height={220}
+			alt='green database'
+		/>
+	</div>
+</section>
