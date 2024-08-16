@@ -3,13 +3,14 @@ import NavBar from '../../components/NavBar';
 import Layout from '../../layouts/Layout.astro';
 import Container from '../../components/Container';
 import Footer from '../../components/Footer.astro';
+import Button from '../../components/Button';
+import IconWithBackground from '../../components/IconWithBackground';
 import { Image } from 'astro:assets';
 import DbGreen from 'src/images/db-green-transactional.png';
 import StackedCardsOrder from 'src/images/stacked-cards-order.png';
 import TemboTransactions from 'src/images/tembo-transactions.png';
 import StackedCardsReservation from 'src/images/stacked-cards-reservation.png';
-import ClipboardWhite from 'src/images/clipboard-white.svg';
-import TaskListWhite from 'src/images/task-list-white.svg';
+import TransactionSection from '@components/TransactionSection.astro';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -26,7 +27,7 @@ const currentPath = Astro.url.pathname;
 					Tembo Transactional
 				</div>
 				<p
-					class='text-lightGrey font-normal font-secondary text-sm mb-12'
+					class='text-lightGrey font-normal font-secondary text-sm mb-12 w-3/4'
 				>
 					Tembo Transactional provides Online Transaction Processing
 					(OLTP) capabilities to manage high volumes of transactions
@@ -36,6 +37,26 @@ const currentPath = Astro.url.pathname;
 					operations, and scalability to grow with application
 					demands.
 				</p>
+				<div class='flex flex-row gap-4'>
+					<Button
+						variant='gradient'
+						size='lg'
+						isLinkTag={true}
+						link='https://cloud.tembo.io/sign-up'
+						client:load
+					>
+						Deploy Now
+					</Button>
+					<Button
+						variant='primary'
+						size='lg'
+						isLinkTag={true}
+						link='https://tembo.io/contact/'
+						client:load
+					>
+						Contact Sales
+					</Button>
+				</div>
 			</div>
 			<Image
 				src={DbGreen}
@@ -45,8 +66,8 @@ const currentPath = Astro.url.pathname;
 				class='w-1/2'
 			/>
 		</section>
-		<section
-			class='tembo-for-startups-section flex flex-row w-full mt-[120px] mobile:mt-[180px] justify-between'
+		<!-- <section
+			class='tembo-for-startups-section flex flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
 		>
 			<div class='flex flex-col w-1/2'>
 				<div
@@ -61,16 +82,9 @@ const currentPath = Astro.url.pathname;
 				</div>
 
 				<div class='flex flex-row'>
-					<div
-						class='flex justify-center rounded-full bg-semiGrey2 p-2 w-8 h-8 mr-3'
-					>
-						<Image
-							src={ClipboardWhite}
-							width={16}
-							height={16}
-							alt='white clipboard'
-						/>
-					</div>
+					<IconWithBackground
+						iconPath='/public/clipboard-white.svg'
+					/>
 					<div
 						class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
 					>
@@ -85,16 +99,9 @@ const currentPath = Astro.url.pathname;
 				</p>
 
 				<div class='flex flex-row'>
-					<div
-						class='flex justify-center rounded-full bg-semiGrey2 p-2 w-8 h-8 mr-3'
-					>
-						<Image
-							src={TaskListWhite}
-							width={16}
-							height={16}
-							alt='white task list'
-						/>
-					</div>
+					<IconWithBackground
+						iconPath='/public/task-list-white.svg'
+					/>
 					<div
 						class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
 					>
@@ -112,13 +119,26 @@ const currentPath = Astro.url.pathname;
 					customers.
 				</p>
 			</div>
-			<Image
-				src={StackedCardsOrder}
-				width={370}
-				height={220}
-				alt='green database'
-			/>
-		</section>
+			<div class='w-[370px]'>
+				<Image
+					src={StackedCardsOrder}
+					width={370}
+					height={220}
+					alt='green database'
+				/>
+			</div>
+		</section> -->
+		<TransactionSection
+			useCaseText='Retail and E-commerce Transactions'
+			scenarioText='Managing sales transactions for an online retail platform.'
+			detailsText='OLTP systems process customer orders, update inventory
+					levels, handle payments, and manage customer data in
+					real-time. This ensures that the e-commerce platform can
+					handle a high volume of transactions simultaneously without
+					delays, providing a seamless shopping experience for
+					customers.'
+			imgMetadata={StackedCardsOrder}
+		/>
 		<section
 			class='tembo-for-startups-section flex flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
 		>
@@ -141,16 +161,9 @@ const currentPath = Astro.url.pathname;
 				</div>
 
 				<div class='flex flex-row'>
-					<div
-						class='flex justify-center rounded-full bg-semiGrey2 p-2 w-8 h-8 mr-3'
-					>
-						<Image
-							src={ClipboardWhite}
-							width={16}
-							height={16}
-							alt='white clipboard'
-						/>
-					</div>
+					<IconWithBackground
+						iconPath='/public/clipboard-white.svg'
+					/>
 					<div
 						class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
 					>
@@ -164,16 +177,9 @@ const currentPath = Astro.url.pathname;
 					deposits, and transfers.
 				</p>
 				<div class='flex flex-row'>
-					<div
-						class='flex justify-center rounded-full bg-semiGrey2 p-2 w-8 h-8 mr-3'
-					>
-						<Image
-							src={TaskListWhite}
-							width={16}
-							height={16}
-							alt='white task list'
-						/>
-					</div>
+					<IconWithBackground
+						iconPath='/public/task-list-white.svg'
+					/>
 					<div
 						class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
 					>
@@ -192,7 +198,7 @@ const currentPath = Astro.url.pathname;
 			</div>
 		</section>
 		<section
-			class='tembo-for-startups-section flex flex-row w-full mt-[120px] mobile:mt-[180px] justify-between'
+			class='tembo-for-startups-section flex flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
 		>
 			<div class='flex flex-col w-1/2'>
 				<div
@@ -206,18 +212,11 @@ const currentPath = Astro.url.pathname;
 					Airline Reservation Systems
 				</div>
 				<div class='flex flex-row'>
+					<IconWithBackground
+						iconPath='/public/clipboard-white.svg'
+					/>
 					<div
-						class='flex justify-center rounded-full bg-semiGrey2 p-2 w-8 h-8 mr-3'
-					>
-						<Image
-							src={ClipboardWhite}
-							width={16}
-							height={16}
-							alt='white clipboard'
-						/>
-					</div>
-					<div
-						class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+						class='flex items-center justify-center text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
 					>
 						Scenario:
 					</div>
@@ -228,16 +227,9 @@ const currentPath = Astro.url.pathname;
 					Managing flight bookings and reservations
 				</p>
 				<div class='flex flex-row'>
-					<div
-						class='flex justify-center rounded-full bg-semiGrey2 p-2 w-8 h-8 mr-3'
-					>
-						<Image
-							src={TaskListWhite}
-							width={16}
-							height={16}
-							alt='white task list'
-						/>
-					</div>
+					<IconWithBackground
+						iconPath='/public/task-list-white.svg'
+					/>
 					<div
 						class='text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
 					>
@@ -254,12 +246,72 @@ const currentPath = Astro.url.pathname;
 					change reservations, and check in for flights in real-time.
 				</p>
 			</div>
-			<Image
-				src={StackedCardsReservation}
-				width={370}
-				height={220}
-				alt='green database'
-			/>
+			<div class='w-[370px] h-[220px]'>
+				<Image
+					src={StackedCardsReservation}
+					width={370}
+					height={220}
+					alt='green database'
+				/>
+			</div>
+		</section>
+		<section
+			class='tembo-for-startups-section flex flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
+		>
+			<div
+				class='flex flex-col customMd:flex-row customMd:justify-between w-full gap-16'
+			>
+				<div class='flex flex-col gap-4 max-w-[530px]'>
+					<IconWithBackground
+						iconPath='/public/status-up.svg'
+						bgDimensionsClassName='w-14 h-14'
+						iconDimensionsClassName='w-7 h-7'
+					/>
+					<h1 class='text-white font-semibold font-secondary text-xl'>
+						Scalability
+					</h1>
+					<p
+						class='font-secondary font-normal text-base text-otherGrey opacity-70'
+					>
+						Offers the ability to scale resources up or down based
+						on demand, ensuring optimal performance and
+						cost-efficiency.
+					</p>
+				</div>
+				<div class='flex flex-col gap-4 max-w-[530px]'>
+					<IconWithBackground
+						iconPath='/public/cloud-add-icon.svg'
+						bgDimensionsClassName='w-14 h-14'
+						iconDimensionsClassName='w-7 h-7'
+					/>
+					<h1 class='text-white font-semibold font-secondary text-xl'>
+						High Availability
+					</h1>
+					<p
+						class='font-secondary font-normal text-base text-otherGrey opacity-70'
+					>
+						Ensures databases are always available with built-in
+						redundancy and failover mechanisms to minimize downtime.
+					</p>
+				</div>
+				<div class='flex flex-col gap-4 max-w-[530px]'>
+					<IconWithBackground
+						iconPath='/public/shield-icon.svg'
+						bgDimensionsClassName='w-14 h-14'
+						iconDimensionsClassName='w-7 h-7'
+					/>
+					<h1 class='text-white font-semibold font-secondary text-xl'>
+						Security
+					</h1>
+					<p
+						class='font-secondary font-normal text-base text-otherGrey opacity-70'
+					>
+						Implements robust security measures, including
+						encryption at rest and in transit, as well as
+						comprehensive access controls and auditing.
+					</p>
+				</div>
+			</div>
 		</section>
 	</Container>
 	<div class='relative'>
