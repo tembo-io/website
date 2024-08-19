@@ -16,7 +16,7 @@ Before starting this tutorial, you must install and configure the following tool
 * The [Helm CLI](https://helm.sh/docs/intro/install/).
 * Obtain a [Clerk](https://clerk.com/) authentication key from Tembo.
 
-## Step 2: Choose and setup a base domain
+## Step 2: Choose and set up a base domain
 
 For the Tembo services, you will need to select a base domain, such as `tembo.mydomain.com`.
 
@@ -113,7 +113,7 @@ helm install \
 
 2. Configure [Traefik](https://github.com/traefik/traefik)
 
-Firstly, create the `traefik` namespace:
+First, create the `traefik` namespace:
 
 ```shell
 kubectl create namespace traefik || true
@@ -157,7 +157,95 @@ Finally, install Traefik:
 helm install traefik traefik/traefik --namespace traefik --version 20.8.0 -f traefik-values.yaml
 ```
 
-### Step 8: Configure DNS for Traefik's Load Balancer
+### Step 8: Configure Certificates
+
+To enable HTTPS, you need to configure certificates for your domain. In this example, we will use `cert-manager` and Let's
+Encrypt to automatically generate certificates.
+
+1. Create an AWS IAM policy that allows the `cert-manager` service account to create Route 53 DNS records. Create a file
+named `cert-manager-iam-policy.json` with the following content:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "route53:GetChange",
+            "Resource": "arn:aws:route53:::change/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "route53:ChangeResourceRecordSets",
+                "route53:ListResourceRecordSets"
+            ],
+            "Resource": "arn:aws:route53:::hostedzone/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "route53:ListHostedZonesByName",
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+2. Create a trust relationship policy document named `cert-manager-iam-trust-policy.json` with the following content.
+Fill in the placeholders `<ACCOUNT_ID>` and `<EKS_CLUSTER>`:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::<ACCOUNT_ID>:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/<EKS_CLUSTER_ID>"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "oidc.eks.us-east-1.amazonaws.com/id/<EKS_CLUSTER_ID>:sub": "system:serviceaccount:cert-manager:cert-manager"
+        }
+      }
+    }
+  ]
+}
+```
+
+3. Create an IAM role for the `cert-manager` service account:
+
+```shell
+aws iam create-role --role-name cert-manager-route53 --assume-role-policy-document file://cert-manager-iam-trust-policy.json
+```
+
+4. Attach the IAM policy to the role:
+
+```shell
+aws iam put-role-policy --role-name cert-manager-route53 --policy-name cert-manager-route53 --policy-document file://cert-manager-iam-policy.json
+```
+
+5. Upgrade the `cert-manager` Helm chart to use the new IAM role:
+
+```shell
+helm upgrade cert-manager jetstack/cert-manager --namespace cert-manager --set installCRDs=true --set \
+serviceAccount.annotations.eks\.amazonaws\.com/role-arn=arn:aws:iam::<ACCOUNT_ID>:role/cert-manager-route53
+```
+
+[//]: # (TODO: This step is a placeholder. It will not be necessary once we include this in the helm chart.)
+1. Install the `traefik-https` helm chart:
+    ```shell
+    helm install traefik-https . -f traefik-https.yaml -n traefik
+    ```
+
+[//]: # (TODO: This step is a placeholder. It will not be necessary once we include this in the helm chart.)
+2. Install the `cert-manager-issuer` helm chart:
+    ```shell
+    helm install cert-manager-issuer . -f cert-manager-issuer.yaml -n cert-manager
+    ```
+
+### Step 9: Configure DNS for Traefik's Load Balancer
 
 To properly route traffic to your Traefik load balancer, you need to configure a DNS CNAME record through your DNS provider. Follow the steps below to create a wildcard CNAME record, which is essential because each PostgreSQL instance has its own subdomain for its connection string.
 
@@ -196,7 +284,7 @@ Address: 203.0.113.20
 ```
 
 
-### Step 9: Update the StorageClass to allow for volume expansion
+### Step 10: Update the StorageClass to allow for volume expansion
 
 This is necessary for increasing storage size for Postgres instances.
 
@@ -204,7 +292,7 @@ This is necessary for increasing storage size for Postgres instances.
 kubectl patch storageclass gp2 -p '{"allowVolumeExpansion": true}'
 ```
 
-## Step 10: Install the Tembo Self Hosted Helm chart
+## Step 11: Install the Tembo Self Hosted Helm chart
 
 Clone the Tembo Self Hosted repository:
 
@@ -257,7 +345,7 @@ Upgrade the Self Hosted Helm chart so that changes take effect:
 helm upgrade tembo . -f my-values.yaml -n tembo
 ```
 
-## Step 11: Check the status of the installation
+## Step 12: Check the status of the installation
 
 ```
 ❯ kubectl get po
@@ -279,7 +367,7 @@ tembo-pod-init-74975dbcb8-d9jpk              1/1     Running     0             8
 tembo-tembo-ui-685ccc9996-n8tmv              1/1     Running     0             83m
 ```
 
-## Step 12: Access the Tembo Self Hosted
+## Step 13: Access the Tembo Self Hosted
 
 Access the Tembo Self Hosted UI by visiting http://app.tembo.mydomain.com in your browser. Replace tembo.mydomain.com with your domain name chosen in Step 2.
 
