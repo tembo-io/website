@@ -25,16 +25,16 @@ const currentPath = Astro.url.pathname;
 	<NavBar client:load currentPage={currentPath} />
 	<Container styles='relative'>
 		<section
-			class='tembo-for-startups-section flex flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
+			class='tembo-for-startups-section flex flex-col-reverse md:flex-col-reverse lg:flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
 		>
-			<div class='flex flex-col w-1/2'>
+			<div class='flex flex-col w-full md:w-full lg:w-1/2'>
 				<div
-					class='text-white font-bold tracking-[0.47px] text-[32px] sm:text-[40px] md:text-[56px] lg:text-[60px] leading-tight mb-6 w-1/2'
+					class='text-white font-bold tracking-[0.47px] text-[44px] lg:text-[60px] leading-tight mb-6 w-full lg:w-1/2 text-center lg:text-left'
 				>
 					Tembo Transactional
 				</div>
 				<p
-					class='text-lightGrey font-normal font-secondary text-sm mb-12 w-3/4 leading-6'
+					class='text-lightGrey font-normal font-secondary text-sm mb-12 text-center lg:text-left w-full lg:w-3/4 leading-6'
 				>
 					Tembo Transactional provides Online Transaction Processing
 					(OLTP) capabilities to manage high volumes of transactions
@@ -44,7 +44,9 @@ const currentPath = Astro.url.pathname;
 					operations, and scalability to grow with application
 					demands.
 				</p>
-				<div class='flex flex-row gap-4'>
+				<div
+					class='flex flex-row justify-center align-center lg:justify-start gap-4'
+				>
 					<Button
 						variant='gradient'
 						size='lg'
