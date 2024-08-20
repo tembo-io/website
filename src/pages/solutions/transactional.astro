@@ -29,12 +29,12 @@ const currentPath = Astro.url.pathname;
 		>
 			<div class='flex flex-col w-full md:w-full lg:w-1/2'>
 				<div
-					class='text-white font-bold tracking-[0.47px] text-[44px] lg:text-[60px] leading-tight mb-6 w-full lg:w-1/2 text-center lg:text-left'
+					class='text-white font-bold tracking-[0.47px] text-[44px] lg:text-[60px] leading-tight mb-10 w-full lg:w-1/2 text-center lg:text-left'
 				>
 					Tembo Transactional
 				</div>
 				<p
-					class='text-lightGrey font-normal font-secondary text-sm mb-12 text-center lg:text-left w-full lg:w-3/4 leading-6'
+					class='text-lightGrey font-normal font-secondary text-sm mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
 				>
 					Tembo Transactional provides Online Transaction Processing
 					(OLTP) capabilities to manage high volumes of transactions
@@ -80,7 +80,7 @@ const currentPath = Astro.url.pathname;
 				width={590}
 				height={600}
 				alt='green database'
-				class='w-1/2'
+				class='w-full lg:w-1/2'
 			/>
 		</section>
 		<TransactionSection
@@ -121,7 +121,7 @@ const currentPath = Astro.url.pathname;
 		<FeaturesSection />
 		<Testimonials />
 		<section
-			class='tembo-for-startups-section flex flex-col w-full items-center justify-center mt-[120px] mobile:mt-[180px]'
+			class='tembo-for-startups-section flex flex-col w-full items-center justify-center mt-[100px] mobile:mt-[80px]'
 		>
 			<div
 				class='flex items-center justify-center text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
@@ -129,11 +129,13 @@ const currentPath = Astro.url.pathname;
 				More...
 			</div>
 			<div
-				class='flex text-center text-white font-bold tracking-[0.47px] sm:text-[16px] md:text-[24px] lg:text-[32px] mb-6'
+				class='flex text-center text-white font-bold tracking-[0.47px] text-[32px] mb-6'
 			>
 				Extensions and Add-ons
 			</div>
-			<div class='flex justify-between align-center gap-5'>
+			<div
+				class='flex flex-col lg:flex-row justify-between align-center gap-5'
+			>
 				<div class='flex flex-col w-[230px]'>
 					<Image
 						src={ElephantPgAnalyze}
@@ -212,12 +214,12 @@ const currentPath = Astro.url.pathname;
 			</div>
 		</section>
 		<section
-			class='tembo-for-startups-section flex w-full mt-[120px] mobile:mt-[180px]'
+			class='tembo-for-startups-section flex w-full mt-[100px] mobile:mt-[80px]'
 		>
 			<div
-				class='flex justify-between bg-white/[0.05] w-full rounded-3xl py-9 px-14'
+				class='flex flex-col lg:flex-row justify-between bg-white/[0.05] w-full rounded-3xl px-7 py-9 lg:px-14 gap-8 lg:gap-10'
 			>
-				<div class='flex flex-row'>
+				<div class='flex flex-col lg:flex-row'>
 					<Image
 						src={ElephantStar}
 						width={77}
@@ -227,7 +229,7 @@ const currentPath = Astro.url.pathname;
 					/>
 					<div class='flex flex-col'>
 						<div
-							class='text-white font-bold font-secondary tracking-[0.47px] text-[32px] sm:text-[32px] md:text-[36px] lg:text-[40px] leading-tight mb-6'
+							class='text-white font-bold font-secondary tracking-[0.47px] text-[24px] lg:text-[40px] leading-tight mb-3'
 						>
 							Join Tembo Today
 						</div>
@@ -239,7 +241,7 @@ const currentPath = Astro.url.pathname;
 						</p>
 					</div>
 				</div>
-				<div class='flex self-center'>
+				<div class='flex lg:self-center'>
 					<Button
 						variant='primary'
 						size='lg'
