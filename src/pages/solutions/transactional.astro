@@ -8,16 +8,13 @@ import { Image } from 'astro:assets';
 import DbGreen from 'src/images/db-green-transactional.png';
 import StackedCardsOrder from 'src/images/stacked-cards-order.png';
 import TemboTransactions from 'src/images/tembo-transactions.png';
-import ElephantPgAnalyze from 'src/images/elephant-pganalyze.png';
-import ElephantGraphql from 'src/images/elephant-graphql.png';
-import ElephantPgStatements from 'src/images/elephant-pgstatements.png';
 import ArrowRight from 'src/images/arrow-right-white.svg';
-import ElephantStar from 'src/images/elephant-salmon-star.png';
 import StackedCardsReservation from 'src/images/stacked-cards-reservation.png';
 import TransactionSection from '@components/TransactionSection.astro';
 import FeaturesSection from '@components/FeaturesSection.astro';
 import Testimonials from '@components/Testimonials.astro';
-import ArrowRightButton from '@components/ArrowRightButton';
+import AddOnSection from '@components/AddOnSection.astro';
+import JoinTemboCTA from '@components/JoinTemboCTA.astro';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -120,140 +117,8 @@ const currentPath = Astro.url.pathname;
 		/>
 		<FeaturesSection />
 		<Testimonials />
-		<section
-			class='tembo-for-startups-section flex flex-col w-full items-center justify-center mt-[100px] mobile:mt-[80px]'
-		>
-			<div
-				class='flex items-center justify-center text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
-			>
-				More...
-			</div>
-			<div
-				class='flex text-center text-white font-bold tracking-[0.47px] text-[32px] mb-6'
-			>
-				Extensions and Add-ons
-			</div>
-			<div
-				class='flex flex-col lg:flex-row justify-between align-center gap-5'
-			>
-				<div class='flex flex-col w-[230px]'>
-					<Image
-						src={ElephantPgAnalyze}
-						width={230}
-						height={203}
-						alt='pink elephant with pg analyze logo'
-						class='mb-4'
-					/>
-					<div class='flex flex-row justify-between'>
-						<div
-							class='flex text-center text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px]'
-						>
-							PGAnalyze
-						</div>
-						<ArrowRightButton
-							link='https://tembo.io/docs/product/cloud/apps/pganalyze'
-						/>
-					</div>
-					<p
-						class='text-lightGrey font-normal font-secondary text-sm mb-12'
-					>
-						PGAnalyze is a database monitoring solution that helps
-						you achieve consistent database performance and
-						availability through intelligent tuning advisors and
-						continuous database profiling.
-					</p>
-				</div>
-				<div class='flex flex-col w-[230px]'>
-					<Image
-						src={ElephantGraphql}
-						width={230}
-						height={203}
-						alt='pink elephant with graphql logo'
-						class='mb-4'
-					/>
-					<div class='flex flex-row justify-between'>
-						<div
-							class='flex text-center text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px]'
-						>
-							GraphQL
-						</div>
-						<ArrowRightButton
-							link='https://tembo.io/docs/product/cloud/apps/graphql'
-						/>
-					</div>
-					<p
-						class='text-lightGrey font-normal font-secondary text-sm mb-12'
-					>
-						GraphQL is a query language for APIs.
-					</p>
-				</div>
-				<div class='flex flex-col w-[230px]'>
-					<Image
-						src={ElephantPgStatements}
-						width={230}
-						height={203}
-						alt='pink elephant with pg stat statements logo'
-						class='mb-4'
-					/>
-					<div class='flex flex-row justify-between'>
-						<div
-							class='flex text-center text-white font-bold tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px]'
-						>
-							pg_stat_statements
-						</div>
-						<ArrowRightButton
-							link='https://tembo.io/docs/getting-started/postgres_guides/advanced-monitoring-and-profiling'
-						/>
-					</div>
-					<p
-						class='text-lightGrey font-normal font-secondary text-sm mb-12'
-					>
-						pg_stat_statements comes pre-installed and enabled.
-					</p>
-				</div>
-			</div>
-		</section>
-		<section
-			class='tembo-for-startups-section flex w-full mt-[100px] mobile:mt-[80px]'
-		>
-			<div
-				class='flex flex-col lg:flex-row justify-between bg-white/[0.05] w-full rounded-3xl px-7 py-9 lg:px-14 gap-8 lg:gap-10'
-			>
-				<div class='flex flex-col lg:flex-row'>
-					<Image
-						src={ElephantStar}
-						width={77}
-						height={98}
-						alt='celebratory salmon colored elephant'
-						class='h-[98px] mr-6'
-					/>
-					<div class='flex flex-col'>
-						<div
-							class='text-white font-bold font-secondary tracking-[0.47px] text-[24px] lg:text-[40px] leading-tight mb-3'
-						>
-							Join Tembo Today
-						</div>
-						<p
-							class='text-lightGrey font-normal font-secondary text-sm'
-						>
-							Support for all Postgres workloads—including
-							Transactional, Analytical, and AI
-						</p>
-					</div>
-				</div>
-				<div class='flex lg:self-center'>
-					<Button
-						variant='primary'
-						size='lg'
-						isLinkTag={true}
-						link='https://cloud.tembo.io/sign-up'
-						client:load
-					>
-						Join Tembo
-					</Button>
-				</div>
-			</div>
-		</section>
+		<AddOnSection />
+		<JoinTemboCTA />
 	</Container>
 	<div class='relative'>
 		<div

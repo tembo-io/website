@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import ElephantPgAnalyze from 'src/images/elephant-pganalyze.png';
+import ElephantGraphql from 'src/images/elephant-graphql.png';
+import ElephantPgStatements from 'src/images/elephant-pgstatements.png';
+import ArrowRightButton from '@components/ArrowRightButton';
+import AddOn from './AddOn.astro';
+---
+
+<section
+	class='tembo-for-startups-section flex flex-col w-full items-center justify-center mt-[100px] mobile:mt-[80px]'
+>
+	<div
+		class='flex items-center justify-center text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+	>
+		More...
+	</div>
+	<div
+		class='flex text-center text-white font-bold tracking-[0.47px] text-[32px] mb-6'
+	>
+		Extensions and Add-ons
+	</div>
+	<div class='flex flex-col lg:flex-row justify-between align-center gap-5'>
+		<AddOn
+			imgMetadata={ElephantPgAnalyze}
+			link='https://tembo.io/docs/product/cloud/apps/pganalyze'
+			title='PGAnalyze'
+			description=`PGAnalyze is a database monitoring solution that helps you
+				achieve consistent database performance and availability through
+				intelligent tuning advisors and continuous database profiling.`
+		/>
+		<AddOn
+			imgMetadata={ElephantGraphql}
+			link='https://tembo.io/docs/product/cloud/apps/graphql'
+			title='GraphQL'
+			description=`GraphQL is a query language for APIs.`
+		/>
+		<AddOn
+			imgMetadata={ElephantPgStatements}
+			link='https://tembo.io/docs/getting-started/postgres_guides/advanced-monitoring-and-profiling'
+			title='pg_stat_statements'
+			description=`pg_stat_statements comes pre-installed and enabled.`
+		/>
+	</div>
+</section>
