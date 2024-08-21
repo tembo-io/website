@@ -15,6 +15,7 @@ import FeaturesSection from '@components/FeaturesSection.astro';
 import Testimonials from '@components/Testimonials.astro';
 import AddOnSection from '@components/AddOnSection.astro';
 import JoinTemboCTA from '@components/JoinTemboCTA.astro';
+import ArrowAccordion from '@components/ArrowAccordion';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -170,6 +171,46 @@ const currentPath = Astro.url.pathname;
 						A variety of ecosystem add ons are also available with a
 						click
 					</p>
+				</div>
+			</div>
+
+			<div
+				class='flex flex-col lg:flex-row justify-between my-[100px] mobile:mt-[80px] px-3'
+			>
+				<div
+					class='flex flex-col justify-center align-center w-full lg:w-1/2'
+				>
+					<div
+						class='flex text-left text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+					>
+						More...
+					</div>
+					<div
+						class='flex text-left text-white font-bold tracking-[0.47px] text-[32px] mb-6'
+					>
+						Ask Tembo
+					</div>
+				</div>
+				<div class='w-full lg:w-1/2'>
+					<ArrowAccordion
+						client:load
+						items={[
+							{
+								heading: 'Why on Postgres?',
+								content: `ACID compliance ensures reliable and accurate transaction processing.
+Easy scalability to support your growing application demands.
+Strong out-of-the-box OLTP performance and reliability.
+`,
+							},
+							{
+								heading: 'Why on Tembo?',
+								content: `Automated backups, maintenance and updates.
+High availability options that  ensure reliability and uptime.
+A wide selection of available Postgres extensions relevant to OLTP workloads.
+`,
+							},
+						]}
+					/>
 				</div>
 			</div>
 		</section>
