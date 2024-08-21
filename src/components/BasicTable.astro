@@ -62,8 +62,8 @@ const columnHeadings = ['Hobby', 'Production', 'Self Hosted'];
 						))
 					}
 				</tr>
-			</thead>
-			<tbody>
+				</thead>
+				<tbody>
 				{
 					rows.map((row) => (
 						<tr class='h-16'>
@@ -80,7 +80,7 @@ const columnHeadings = ['Hobby', 'Production', 'Self Hosted'];
 										{content}
 									</td>
 								) : (
-									<td class='b border-white border-opacity-20'>
+									<td class='border-b border-white border-opacity-20'>
 										<Image
 											src={content ? blueCheck : blueX}
 											alt={
