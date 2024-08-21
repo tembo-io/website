@@ -26,9 +26,11 @@ const { imgMetadata, link, title, description } = Astro.props;
 		>
 			{title}
 		</div>
-		<ArrowRightButton link={link} />
+		<div class='flex my-auto'>
+			<ArrowRightButton link={link} />
+		</div>
 	</div>
-	<p class='text-lightGrey font-normal font-secondary text-sm mb-12'>
+	<p class='text-lightGrey font-normal font-secondary text-sm'>
 		{description}
 	</p>
 </div>
