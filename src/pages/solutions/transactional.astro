@@ -23,7 +23,7 @@ const currentPath = Astro.url.pathname;
 	<NavBar client:load currentPage={currentPath} />
 	<Container styles='relative'>
 		<section
-			class='tembo-for-startups-section flex flex-col-reverse md:flex-col-reverse lg:flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
+			class='flex flex-col-reverse md:flex-col-reverse lg:flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
 		>
 			<div class='flex flex-col w-full md:w-full lg:w-1/2'>
 				<div
@@ -52,12 +52,12 @@ const currentPath = Astro.url.pathname;
 						link='https://cloud.tembo.io/sign-up'
 						client:load
 					>
-						<div class='flex flex-row'>
+						<div class='flex flex-row gap-2'>
 							Deploy Now
 							<Image
 								src={ArrowRight}
-								width={24}
-								height={24}
+								width={16}
+								height={16}
 								alt='chevron arrow right'
 							/>
 						</div>

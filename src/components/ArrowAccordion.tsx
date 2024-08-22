@@ -56,7 +56,7 @@ const ArrowAccordion: React.FC<Props> = ({ items }) => {
 							</p>
 						</div>
 					</div>
-					<hr className='my-6 bg-[#EBEAE7]/[0.05]' />
+					<hr className='my-6 border-lightGrey h-[1px]' />
 				</li>
 			))}
 		</ul>
