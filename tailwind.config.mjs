@@ -59,6 +59,7 @@ export default {
 				lighterGrey: '#d9d9d9',
 				lighterGrey2: '#BCBCBC',
 				otherGrey: '#EAEAEA',
+				otherGrey2: '#EBEAE726',
 				offBlack: '#120F0E',
 				offGrey: '#1A1E22',
 				pricingGreen: '#84EA9A',

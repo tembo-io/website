@@ -1,10 +1,21 @@
 ---
-import IconWithBackground from './IconWithBackground';
 import FeatureDetail from './FeatureDetail.astro';
+
+interface Feature {
+	header: string;
+	description: string;
+	iconPath: string;
+}
+
+interface Props {
+	items: Feature[];
+}
+
+const { items } = Astro.props;
 ---
 
 <section
-	class='tembo-for-startups-section flex flex-row w-full items-center justify-center mt-[100px] mobile:mt-[80px] justify-between'
+	class='tembo-for-startups-section flex flex-row w-full items-center justify-center my-[80px] lg:my-[200px] justify-between'
 >
 	<div class='flex flex-col gap-12 w-full'>
 		<div
@@ -12,6 +23,7 @@ import FeatureDetail from './FeatureDetail.astro';
 		>
 			Features
 		</div>
+
 		<div
 			class='flex flex-col customMd:flex-row customMd:justify-between w-full gap-16'
 		>

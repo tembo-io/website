@@ -1,10 +1,19 @@
 ---
 import { Image } from 'astro:assets';
 import Avatar from 'src/images/avatar-default.svg';
+
+interface Props {
+	quote: string;
+	titleQuote: string;
+	customerName: string;
+	customerRole: string;
+}
+
+const { quote, titleQuote, customerName, customerRole } = Astro.props;
 ---
 
 <section
-	class='tembo-for-startups-section flex flex-col w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
+	class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[80px] lg:my-[200px] justify-between px-3'
 >
 	<div
 		class='flex items-center justify-center text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
@@ -14,32 +23,24 @@ import Avatar from 'src/images/avatar-default.svg';
 	<div
 		class='flex items-center justify-center text-white font-bold tracking-[0.47px] sm:text-[16px] md:text-[24px] lg:text-[32px] mb-6'
 	>
-		“Tembo makes Postgres easy for us.”
+		{titleQuote}
 	</div>
 	<div
 		class='flex text-center text-white font-normal font-secondary tracking-[0.47px] text-sm mb-6'
 	>
-		”We don’t have to worry about spinning up or tuning it. We get stacks
-		that just work out of the box, and we know they are going to be tuned
-		without having to do a spike. We now use Tembo to manage a fleet of over
-		20 production instances and a number of non-prod and development
-		environments, and we’re excited to leverage Tembo for larger and larger
-		workloads as our customers ask us for more specialized use cases. Tembo
-		has become so fundamental to our platform that we don’t even think about
-		alternatives anymore. When you’re not spending time thinking about your
-		database, that’s how you know it’s a good solution.”
+		{quote}
 	</div>
 	<div
-		class='flex align-center justify-center rounded-3xl border-white bg-mwasi p-4'
+		class='flex align-center justify-center rounded-3xl border border-otherGrey2 bg-mwasi p-4'
 	>
 		<div class='flex flex-row gap-2.5'>
 			<Image src={Avatar} width={40} height={40} alt='default avatar' />
 			<div class='flex flex-col'>
 				<p class='text-white font-medium font-secondary text-sm'>
-					Cody Hanson
+					{customerName}
 				</p>
 				<p class='text-lightGrey font-normal font-secondary text-xs'>
-					Engineering Manager, Arch.dev
+					{customerRole}
 				</p>
 			</div>
 		</div>
