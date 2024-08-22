@@ -15,7 +15,7 @@ import FeaturesSection from '@components/solutions/FeaturesSection.astro';
 import Testimonials from '@components/solutions/Testimonials.astro';
 import AddOnSection from '@components/solutions/AddOnSection.astro';
 import JoinTemboCTA from '@components/JoinTemboCTA.astro';
-import ArrowAccordion from '@components/ArrowAccordion';
+import Accordion from '@components/Accordion';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -205,8 +205,13 @@ const currentPath = Astro.url.pathname;
 					</div>
 				</div>
 				<div class='w-full lg:w-1/2'>
-					<ArrowAccordion
+					<Accordion
 						client:load
+						buttonIconHidePath='/arrow-down.svg'
+						buttonIconShowPath='/arrow-up.svg'
+						headerStyles='font-bold text-white text-xl'
+						contentStyles='pt-6 text-lightGrey font-normal font-secondary text-sm'
+						showSeparator={true}
 						items={[
 							{
 								heading: 'Why on Postgres?',
