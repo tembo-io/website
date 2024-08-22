@@ -8,7 +8,7 @@ const ArrowRightButton: FC<Props> = ({ link }) => {
 	return (
 		<a href={link} target='_blank'>
 			<img
-				src='/public/arrow-right-white.svg'
+				src='/arrow-right-white.svg'
 				width={24}
 				height={24}
 				alt='chevron arrow right'
