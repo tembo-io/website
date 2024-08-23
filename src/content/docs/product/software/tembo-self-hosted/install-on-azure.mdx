@@ -67,83 +67,7 @@ cert-manager-cainjector-c7d4dbdd9-r96lv   1/1     Running   0          3d
 cert-manager-webhook-847d7676c9-vg2c7     1/1     Running   0          3d
 ```
 
-## Step 5: Configure DNS for Traefik's Load Balancer
-
-To properly route traffic to your Traefik load balancer, you need to configure a DNS CNAME record through your DNS provider. Follow the steps below to create a wildcard CNAME record, which is essential because each PostgreSQL instance has its own subdomain for its connection string.
-
-### Step 5.1: Set up a DNS Zone in Azure Portal
-
-Create a DNS zone for your chosen Tembo Self Hosted subdomain, e.g. `tembo.mydomain.com`.
-
-For more information, see [Create a DNS Zone](https://learn.microsoft.com/en-us/azure/dns/dns-operations-dnszones-portal#create-a-dns-zone).
-
-### Step 5.2: Identify Traefik's Load Balancer external IP
-
-```shell
-kubectl get svc -n traefik
-NAME      TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                       AGE
-traefik   LoadBalancer   10.200.50.100   4.150.40.100  1234:56789/TCP,80:12345/TCP   45m
-```
-
-In the example above, the Load Balancer's external IP would be 4.150.40.100.
-
-
-### Step 5.3: Create an `A` record to re-route traffic to Traefik's Load Balancer
-
-```bash
-export RESOURCE_GROUP_NAME="MC_${RESOURCE_GROUP}_${CLUSTER_NAME}_${REGION}"
-# Must have previously set this DNS Zone up in the Azure Portal
-export DNS_ZONE_NAME="tembo.mydomain.com"
-export RECORD_SET_NAME="*"
-# EXTERNAL-IP as shown in `k get svc -n traefik` 
-export LOAD_BALANCER_PUBLIC_IP="4.150.40.100"
-
-az network dns zone create --resource-group $RESOURCE_GROUP_NAME --name $DNS_ZONE_NAME
-
-az network dns record-set a add-record --resource-group $RESOURCE_GROUP_NAME --zone-name $DNS_ZONE_NAME --record-set-name $RECORD_SET_NAME --ipv4-address $LOAD_BALANCER_PUBLIC_IP
-```
-
-For more detailed information, refer to [Create a DNS zone and record using the Azure portal](https://docs.microsoft.com/en-us/azure/dns/dns-getstarted-portal).
-
-### Step 5.4. Verify DNS settings
-
-After creating the CNAME record, verify that the DNS settings are correctly propagating and resolving.
-
-You can use `nslookup` to check if your DNS settings are working correctly:
-
-```shell
-nslookup test.tembo.mydomain.com
-Server:		8.8.8.8
-Address:	8.8.8.8#53
-
-Non-authoritative answer:
-Name:	test.tembo.mydomain.com
-Address: 203.0.113.10
-Name:	test.tembo.mydomain.com
-Address: 203.0.113.20
-```
-
-## Step 6: Add `ipAllowList` to the Traefik's CRD
-
-To `middlewaretcps` in `traefik.containo.us`, add:
-
-```yaml
-            ipAllowList:
-                description: |-
-                  IPAllowList defines the IPAllowList middleware configuration.
-                  This middleware accepts/refuses connections based on the client IP.
-                  More info: https://doc.traefik.io/traefik/v2.11/middlewares/tcp/ipallowlist/
-                properties:
-                  sourceRange:
-                    description: SourceRange defines the allowed IPs (or ranges of
-                      allowed IPs by using CIDR notation).
-                    items:
-                      type: string
-                    type: array
-                type: object
-```
-
-## Step 7: Configure permissions for the CSI driver
+## Step 5: Configure permissions for the CSI driver
 
 In order to use the `premium-ssd-enc` StorageClass (defined in the next step), we need to configure some permissions.
 This step assumes that the cluster is using a `SystemAssigned` or `UserAssigned` identity (rather than `ServicePrincipal`).
@@ -153,7 +77,7 @@ This step assumes that the cluster is using a `SystemAssigned` or `UserAssigned`
 export OBJECT_ID=$(az aks show --resource-group $RESOURCE_GROUP_NAME --name $AKS_CLUSTER_NAME --query identityProfile.kubeletidentity.objectId -o tsv)
 ```
 
-### 8.1. Granting permissions
+### 5.1. Granting permissions
 
 Create the role assignment:
 
@@ -171,7 +95,7 @@ Verify the role assignment:
 az role assignment list --assignee $OBJECT_ID --scope /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME
 ```
 
-## Step 8: Create the `premium-ssd-enc` StorageClass
+## Step 6: Create the `premium-ssd-enc` StorageClass
 
 Apply [premium-ssd-enc-storage.yaml]().
 
@@ -179,7 +103,7 @@ Apply [premium-ssd-enc-storage.yaml]().
 kubectl apply -f premium-ssd-enc-storage.yaml
 ```
 
-## Step 9: Install the Tembo Self Hosted Helm chart
+## Step 7: Install the Tembo Self Hosted Helm chart
 
 Clone the Tembo Self Hosted repository:
 
@@ -224,6 +148,82 @@ Upgrade the Self Hosted Helm chart so that changes take effect:
 
 ```shell
 helm upgrade tembo . -f my-values.yaml -n tembo
+```
+
+## Step 8: Configure DNS for Traefik's Load Balancer
+
+To properly route traffic to your Traefik load balancer, you need to configure a DNS CNAME record through your DNS provider. Follow the steps below to create a wildcard CNAME record, which is essential because each PostgreSQL instance has its own subdomain for its connection string.
+
+### Step 8.1: Set up a DNS Zone in Azure Portal
+
+Create a DNS zone for your chosen Tembo Self Hosted subdomain, e.g. `tembo.mydomain.com`.
+
+For more information, see [Create a DNS Zone](https://learn.microsoft.com/en-us/azure/dns/dns-operations-dnszones-portal#create-a-dns-zone).
+
+### Step 8.2: Identify Traefik's Load Balancer external IP
+
+```shell
+kubectl get svc -n traefik
+NAME      TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                       AGE
+traefik   LoadBalancer   10.200.50.100   4.150.40.100  1234:56789/TCP,80:12345/TCP   45m
+```
+
+In the example above, the Load Balancer's external IP would be 4.150.40.100.
+
+
+### Step 8.3: Create an `A` record to re-route traffic to Traefik's Load Balancer
+
+```bash
+export RESOURCE_GROUP_NAME="MC_${RESOURCE_GROUP}_${CLUSTER_NAME}_${REGION}"
+# Must have previously set this DNS Zone up in the Azure Portal
+export DNS_ZONE_NAME="tembo.mydomain.com"
+export RECORD_SET_NAME="*"
+# EXTERNAL-IP as shown in `k get svc -n traefik` 
+export LOAD_BALANCER_PUBLIC_IP="4.150.40.100"
+
+az network dns zone create --resource-group $RESOURCE_GROUP_NAME --name $DNS_ZONE_NAME
+
+az network dns record-set a add-record --resource-group $RESOURCE_GROUP_NAME --zone-name $DNS_ZONE_NAME --record-set-name $RECORD_SET_NAME --ipv4-address $LOAD_BALANCER_PUBLIC_IP
+```
+
+For more detailed information, refer to [Create a DNS zone and record using the Azure portal](https://docs.microsoft.com/en-us/azure/dns/dns-getstarted-portal).
+
+### Step 8.4. Verify DNS settings
+
+After creating the CNAME record, verify that the DNS settings are correctly propagating and resolving.
+
+You can use `nslookup` to check if your DNS settings are working correctly:
+
+```shell
+nslookup test.tembo.mydomain.com
+Server:		8.8.8.8
+Address:	8.8.8.8#53
+
+Non-authoritative answer:
+Name:	test.tembo.mydomain.com
+Address: 203.0.113.10
+Name:	test.tembo.mydomain.com
+Address: 203.0.113.20
+```
+
+## Step 9: Add `ipAllowList` to the Traefik's CRD
+
+To `middlewaretcps` in `traefik.containo.us`, add:
+
+```yaml
+            ipAllowList:
+                description: |-
+                  IPAllowList defines the IPAllowList middleware configuration.
+                  This middleware accepts/refuses connections based on the client IP.
+                  More info: https://doc.traefik.io/traefik/v2.11/middlewares/tcp/ipallowlist/
+                properties:
+                  sourceRange:
+                    description: SourceRange defines the allowed IPs (or ranges of
+                      allowed IPs by using CIDR notation).
+                    items:
+                      type: string
+                    type: array
+                type: object
 ```
 
 ## Step 10: Deploy a Tembo Postgres instance through mahout
