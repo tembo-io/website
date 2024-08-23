@@ -99,9 +99,9 @@ eksctl create addon \
 
 For `--service-account-role-arn`, supply the ARN created in Step 5.
 
-## Step 7: Install Helm dependencies
+## Step 7: Install Cert Manager
 
-1. Install [`cert-manager`](https://github.com/cert-manager/cert-manager)
+Install [`cert-manager`](https://github.com/cert-manager/cert-manager)
 
 ```shell
 helm install \
@@ -109,52 +109,6 @@ helm install \
   --namespace cert-manager \
   --create-namespace \
   --version v1.14.4 --set installCRDs=true
-```
-
-2. Configure [Traefik](https://github.com/traefik/traefik)
-
-Firstly, create the `traefik` namespace:
-
-```shell
-kubectl create namespace traefik || true
-```
-
-To configure which connections Traefik should accept, you can create a  [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/). If you want to accept all connections, use a ConfigMap similar to the one below:
-
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: postgres-catch-all
-  namespace: traefik
-data:
-  postgres-catch-all.yaml: |
-    tcp:
-      routers:
-        catchAll:
-          entryPoints:
-            - "postgresql"
-          rule: "HostSNI(`*`)"
-          service: empty
-      services:
-        empty:
-          loadBalancer:
-            servers: {}
-```
-
-Now, apply the ConfigMap you desire to use. If the accept-all configuration was chosen (as shown above), run:
-
-```shell
-kubectl apply -f traefik-postgres-catch-all.yaml
-```
-
-We now need to configure Traefik to handle Postgres connections appropriately. See the [example values](https://gist.github.com/vrmiguel/1b62f5e49a3f1c7610eac0fcf352249b#file-traefik-values-yaml) for reference.
-
-Finally, install Traefik:
-
-```shell
-helm install traefik traefik/traefik --namespace traefik --version 20.8.0 -f traefik-values.yaml
 ```
 
 ### Step 8: Configure DNS for Traefik's Load Balancer

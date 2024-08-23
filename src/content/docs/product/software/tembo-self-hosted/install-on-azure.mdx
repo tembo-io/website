@@ -67,51 +67,6 @@ cert-manager-cainjector-c7d4dbdd9-r96lv   1/1     Running   0          3d
 cert-manager-webhook-847d7676c9-vg2c7     1/1     Running   0          3d
 ```
 
-### 2. Configure [Traefik](https://github.com/traefik/traefik)
-
-Firstly, create the `traefik` namespace:
-
-```shell
-kubectl create namespace traefik || true
-```
-
-To configure which connections Traefik should accept, create a [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/). If you want to accept all connections, use a ConfigMap similar to the one below:
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: postgres-catch-all
-  namespace: traefik
-data:
-  postgres-catch-all.yaml: |
-    tcp:
-      routers:
-        catchAll:
-          entryPoints:
-            - "postgresql"
-          rule: "HostSNI(`*`)"
-          service: empty
-      services:
-        empty:
-          loadBalancer:
-            servers: {}
-```
-
-Now, apply the ConfigMap you desire to use. If the accept-all configuration was chosen (as shown above), run:
-
-```shell
-kubectl apply -f traefik-postgres-catch-all.yaml
-```
-
-We now need to configure Traefik to handle Postgres connections appropriately. See the [example values](TODO) for reference.
-
-Finally, install Traefik:
-
-```shell
-helm install traefik traefik/traefik --namespace traefik --version 20.8.0 -f traefik-values.yaml
-```
-
 ## Step 5: Configure DNS for Traefik's Load Balancer
 
 To properly route traffic to your Traefik load balancer, you need to configure a DNS CNAME record through your DNS provider. Follow the steps below to create a wildcard CNAME record, which is essential because each PostgreSQL instance has its own subdomain for its connection string.
