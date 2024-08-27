@@ -6,33 +6,37 @@ description: Using pg_vectorize with Portkey's platform
 tags: [postgres, vectordb, ai, portkey]
 ---
 
-One of the pre-requisited to doing vector search on Postgres is to have embeddings.
+One of the pre-requisites to conducting vector search on Postgres is to have embeddings.
  There are many providers of embeddings, such as OpenAI, Mistral, and even the Tembo platform itself.
- Portkey is a control plane layer for large language models and provides a router functionality over most providers in the market.
- This provides the convenience of handling model configuration within the Portkey platform, and switching configuration and 
+ [Portkey](https://portkey.ai/) is a control plane layer for large language models and provides a router functionality over most providers in the market.
+ Portkey also provides the additional convenience of providing guardrails and observability into the usage of these models.
 
 ## Getting Started
 
-You'll first need to be running a Tembo VectorDB[link] instance or any Postgres instance with pg_vectorize[link] installed.
+To generate embeddings for your data, you'll first need to [create a Tembo VectorDB](https://tembo.io/docs/product/cloud/configuration-and-management/create-instance) instance or any Postgres instance with [pg_vectorize](https://github.com/tembo-io/pg_vectorize?tab=readme-ov-file#installation) installed.
+
+Once you are connected to Postgres, enable the extension.
 
 ```sql
-CREATE EXTENSION IF NOT EXISTS vectorize;
+CREATE EXTENSION IF NOT EXISTS vectorize CASCADE;
 ```
 
-Then, go to Portkey.ai and[link] sign up for an account. Follow their documentation for setting up a [Virtual Keys](https://docs.portkey.ai/docs/product/ai-gateway-streamline-llm-integrations/virtual-keys).
+Then, go to Portkey.ai and[link] sign up for an account. Follow the Portkey documentation for setting up a [Virtual Keys](https://docs.portkey.ai/docs/product/ai-gateway-streamline-llm-integrations/virtual-keys).
+ Virtual Keys provide you a convenient way to store and rotate your API keys.
 
 Update Postgres with your Portkey.ai API key
 
 ```sql
-ALTER SYSTEM SET vectorize.portkey_api_key TO 'your-api-key';
+ALTER SYSTEM SET vectorize.portkey_api_key TO 'your-portkey-api-key';
 SELECT pg_reload_conf();
 ```
 
-Take note of the Virtual Key that you set up. In the examples below, we'll demonstrate using pg_vectorize with with Portkey for embeddings from both OpenAI and Mistral.
+Take note of the [Virtual Key](https://docs.portkey.ai/docs/product/ai-gateway-streamline-llm-integrations/virtual-keys) that you set up. In the examples below, we'll demonstrate using pg_vectorize with with Portkey for embeddings from both OpenAI and Mistral.
 
 We've set up Virtual Keys for both OpenAI and Mistra. This means we stored our Mistral and OpenAI keys into Portkey's secret vault.
 
 ![alt text](portkey_virtual_keys.png)
+
 Once your Portkey Virtual keys and set up, and your Portkey API key is stored in Postgres, you are ready to get going.
 
 ## Generating Embeddings with Portkey
