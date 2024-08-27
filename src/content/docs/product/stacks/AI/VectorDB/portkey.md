@@ -8,7 +8,7 @@ tags: [postgres, vectordb, ai, portkey]
 
 One of the pre-requisites to conducting vector search on Postgres is to have embeddings.
  There are many providers of embeddings, such as OpenAI, Mistral, and even the Tembo platform itself.
- [Portkey](https://portkey.ai/) is a control plane layer for large language models and provides a router functionality over most providers in the market.
+ [Portkey](https://portkey.ai/) is a control plane layer for large language models and provides a router functionality over most model providers in the market.
  Portkey also provides the additional convenience of providing guardrails and observability into the usage of these models.
 
 ## Getting Started
@@ -21,7 +21,7 @@ Once you are connected to Postgres, enable the extension.
 CREATE EXTENSION IF NOT EXISTS vectorize CASCADE;
 ```
 
-Then, go to Portkey.ai and[link] sign up for an account. Follow the Portkey documentation for setting up a [Virtual Keys](https://docs.portkey.ai/docs/product/ai-gateway-streamline-llm-integrations/virtual-keys).
+Then, go to Portkey.ai and[link] sign up for an account. Follow the Portkey documentation for setting up a [Virtual Key](https://docs.portkey.ai/docs/product/ai-gateway-streamline-llm-integrations/virtual-keys).
  Virtual Keys provide you a convenient way to store and rotate your API keys.
 
 Update Postgres with your Portkey.ai API key
@@ -33,11 +33,11 @@ SELECT pg_reload_conf();
 
 Take note of the [Virtual Key](https://docs.portkey.ai/docs/product/ai-gateway-streamline-llm-integrations/virtual-keys) that you set up. In the examples below, we'll demonstrate using pg_vectorize with with Portkey for embeddings from both OpenAI and Mistral.
 
-We've set up Virtual Keys for both OpenAI and Mistra. This means we stored our Mistral and OpenAI keys into Portkey's secret vault.
+We've set up Virtual Keys for both [OpenAI](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key) and [Mistra](https://console.mistral.ai/api-keys/). Our Mistral and OpenAI API keys are stored securely in Portkey's secret vault.
 
 ![alt text](portkey_virtual_keys.png)
 
-Once your Portkey Virtual keys and set up, and your Portkey API key is stored in Postgres, you are ready to get going.
+Once your Portkey Virtual keys and set up and your Portkey API key is stored in Postgres, you are ready to get going.
 
 ## Generating Embeddings with Portkey
 
