@@ -10,30 +10,34 @@ date: 2024-08-28T09:00
 planetPostgres: false
 ---
 
-When you’re in Tembo’s Cloud UI you might need to look up a thing you’re trying to accomplish. Rather than always having our Docs open in a second window, you can now use our improved search functionality to search our Docs and website straight from [cloud.tembo.io](https://cloud.tembo.io/). 
+When you’re in Tembo’s Cloud UI you might need to look up a thing you’re trying to accomplish. Rather than always having our Docs open in a second window, you can now use our improved search functionality to search our Docs and website straight from [cloud.tembo.io](https://cloud.tembo.io/).
 
-With our improved search capabilities you can also search within your Instances (in your currently selected Organisation - if you have multiple Organisations, you must first navigate to the appropriate Organisation). 
+With our improved search capabilities you can also search within your Instances (in your currently selected Organisation - if you have multiple Organisations, you must first navigate to the appropriate Organisation).
 
-To top it off we’ve introduced an AI agent for your more complex queries. 
+To top it off we’ve introduced an AI agent for your more complex queries.
 
-Search within Tembo Cloud looks like so: 
-![Search in the Tembo Cloud UI)](./tembo-search.gif)
+Search within Tembo Cloud looks like so:
 
-You can use Cmd+K or Ctrl+K to open the search window as well. 
+<img src='/tembo-search.gif' alt='vector search' />
 
-Toggle _Ask Tembo_ to ask our AI assistant a question:  
-![Ask Tembo AI agent](./ask-tembo.gif)
+You can use Cmd+K or Ctrl+K to open the search window as well.
+
+Toggle _Ask Tembo_ to ask our AI assistant a question:
+
+<img src='/ask-tembo.gif' alt='ask tembo' />
 
 Our Search is underpinned by search and command widget tool [cmdk](https://github.com/pacocoursey/cmdk), fuzzy-search library [fuse.js](https://www.fusejs.io/), and vector search. We use vector search for the Docs, dogfooding our [pgvectorize extension](https://pgt.dev/extensions/vectorize), embeddings and [pgvector](https://pgt.dev/extensions/pgvector).
-_Ask Tembo_ uses 2 custom [Tembo Apps](https://tembo.io/docs/product/cloud/apps/overview), deployed and hosted on Tembo Cloud. It uses a LLM hosted on Tembo. If you do a search in the Cloud UI, you're logged in and we understand your context, your results are bound to be most relevant. 
+_Ask Tembo_ uses 2 custom [Tembo Apps](https://tembo.io/docs/product/cloud/apps/overview), deployed and hosted on Tembo Cloud. It uses a LLM hosted on Tembo. If you do a search in the Cloud UI, you're logged in and we understand your context, your results are bound to be most relevant.
 
 “In the olden days” we used Algolia for Docs search, but unsatisfied with the results we wanted to try and roll our own. We are considering releasing our setup as an open source Postgres-powered alternative. Let us know if that’s something you’d be interested in trying out for your product: [roadmap.tembo.io/](https://roadmap.tembo.io/roadmap)
+
 ## Optimization considerations
 
-For Ask Tembo we deliberately only query the backend when you hit enter, querying the backend for every keystroke is not efficient (not to mention CPU intensive). While we considered introducing type ahead completion already in this iteration, we wouldn’t for _Ask Tembo_ for that same reason. We could make an attempt at showing relevant results immediately while processing the query in the backend, and then show more relevant results once the query is completed. But we’d need to make it visually very clear that _Ask Tembo_ is still “thinking”. 
-## What’s next?
-We’ll include search functionality for [our blog](https://tembo.io/blog) soon, but today blog results already show up in _Ask Tembo_.
+For Ask Tembo we deliberately only query the backend when you hit enter, querying the backend for every keystroke is not efficient (not to mention CPU intensive). While we considered introducing type ahead completion already in this iteration, we wouldn’t for _Ask Tembo_ for that same reason. We could make an attempt at showing relevant results immediately while processing the query in the backend, and then show more relevant results once the query is completed. But we’d need to make it visually very clear that _Ask Tembo_ is still “thinking”.
 
+## What’s next?
+
+We’ll include search functionality for [our blog](https://tembo.io/blog) soon, but today blog results already show up in _Ask Tembo_.
 
 In terms of further improvement we want to offer suggestions for queries (FAQs), and show users their recent search queries. We’re also thinking of introducing a feedback mechanism if the selection doesn't match what you were looking for.
 
