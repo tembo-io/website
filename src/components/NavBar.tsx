@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import Container from './Container';
 import cx from 'classnames';
 import MobileMenu from './MobileMenu';
@@ -35,6 +35,27 @@ const NavBar: React.FC<Props> = ({
 		},
 		closed: { opacity: 0 },
 	};
+
+	const ref = useRef<HTMLElement>(null);
+	const [isHovered, setIsHovered] = useState<boolean>(false);
+
+	const handleMouseHover = useCallback(() => {
+		setIsHovered((prevIsHovered) => !prevIsHovered);
+	}, []);
+
+	useEffect(() => {
+		const element = ref.current;
+		if (element) {
+			element.addEventListener('mouseenter', handleMouseHover);
+			element.addEventListener('mouseleave', handleMouseHover);
+		}
+		return () => {
+			if (element) {
+				element.removeEventListener('mouseenter', handleMouseHover);
+				element.removeEventListener('mouseleave', handleMouseHover);
+			}
+		};
+	}, [handleMouseHover]);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -124,6 +145,37 @@ const NavBar: React.FC<Props> = ({
 						>
 							Home
 						</a>
+						<div
+							className={cx(
+								'flex flex-row gap-1 font-secondary font-medium z-10 hover:cursor-pointer relative',
+								currentPage == '/solutions/transactional' ||
+									currentPage == '/solutions/'
+									? 'text-neon'
+									: 'text-white opacity-70',
+							)}
+							ref={ref as React.RefObject<HTMLDivElement>}
+						>
+							Solutions
+							{isHovered ? (
+								<img src='/arrow-up.svg' alt='minus symbol' />
+							) : (
+								<img src='/arrow-down.svg' alt='minus symbol' />
+							)}
+							{isHovered ? (
+								<div className='flex flex-column py-4 px-2 rounded-3xl bg-mwasi border border-otherGrey2 absolute top-8 left-0 w-[214px] z-10'>
+									<a
+										href='/solutions/transactional'
+										className={cx(
+											'font-secondary font-medium text-white opacity-70',
+										)}
+										target='_blank'
+										rel='noreferrer'
+									>
+										Transactional
+									</a>
+								</div>
+							) : null}
+						</div>
 						<a
 							href='/pricing'
 							className={cx(
