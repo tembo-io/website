@@ -14,6 +14,7 @@ import JoinTemboCTA from '@components/JoinTemboCTA.astro';
 import IntroSection from '@components/solutions/IntroSection.astro';
 import Accordion from '@components/Accordion';
 import Benefits from '@components/solutions/Benefits.astro';
+import WhyTembo from '@components/solutions/WhyTembo.astro';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -64,98 +65,16 @@ const currentPath = Astro.url.pathname;
 			customerName='Cody Hanson'
 			customerRole='Engineering Manager, Arch.dev'
 		/>
-		<section
-			class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[80px] lg:my-[200px] px-3'
-		>
-			<div
-				class='flex items-center justify-center text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
-			>
-				More...
-			</div>
-			<div
-				class='flex text-center text-white font-bold tracking-[0.47px] text-[32px] mb-6'
-			>
-				Tembo vs Others
-			</div>
-			<div class='flex flex-col lg:flex-row justify-between gap-16 mt-16'>
-				<div class='flex flex-col gap-4'>
-					<div
-						class='flex text-center text-white font-bold tracking-[0.47px] text-[20px]'
-					>
-						Extensions
-					</div>
-					<p
-						class='text-lightGrey font-normal font-secondary text-sm'
-					>
-						Tembo supports all community AI extensions
-					</p>
-				</div>
-				<div class='flex flex-col gap-4'>
-					<div
-						class='flex text-center text-white font-bold tracking-[0.47px] text-[20px]'
-					>
-						Support
-					</div>
-					<p
-						class='text-lightGrey font-normal font-secondary text-sm'
-					>
-						Support for 100s of open source models on Hugging Face
-					</p>
-				</div>
-				<div class='flex flex-col gap-4'>
-					<div
-						class='flex text-center text-white font-bold tracking-[0.47px] text-[20px]'
-					>
-						Add Ons
-					</div>
-					<p
-						class='text-lightGrey font-normal font-secondary text-sm'
-					>
-						The only Postgres provider that has seamless support for
-						LLMs
-					</p>
-				</div>
-			</div>
-
-			<div
-				class='flex flex-col lg:flex-row justify-between my-[100px] mobile:mt-[80px] px-3'
-			>
-				<div
-					class='flex flex-col justify-center align-center w-full lg:w-1/2'
-				>
-					<div
-						class='flex text-left text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
-					>
-						More...
-					</div>
-					<div
-						class='flex text-left text-white font-bold tracking-[0.47px] text-[32px] mb-6'
-					>
-						Ask Tembo
-					</div>
-				</div>
-				<div class='w-full lg:w-1/2'>
-					<Accordion
-						client:load
-						buttonIconHidePath='/arrow-down.svg'
-						buttonIconShowPath='/arrow-up.svg'
-						headerStyles='font-bold text-white text-xl'
-						contentStyles='pt-6 text-lightGrey font-normal font-secondary text-sm'
-						showSeparator={true}
-						items={[
-							{
-								heading: 'Why on Postgres?',
-								content: `Simplify architecture by using SQL native functions. Atomic updates to embeddings. Community support for vector data types.`,
-							},
-							{
-								heading: 'Why on Tembo?',
-								content: `Highest performing Postrgres SaaS. Lowest operational cost of managing Postgres. World class Postgres support team.`,
-							},
-						]}
-					/>
-				</div>
-			</div>
-		</section>
+		<WhyTembo
+			content={{
+				extensions: `Tembo supports all community AI extensions`,
+				support: `Support for 100s of open source models on Hugging Face`,
+				addons: `The only Postgres provider that has seamless support for
+						LLMs`,
+				postgres: `Simplify architecture by using SQL native functions. Atomic updates to embeddings. Community support for vector data types.`,
+				tembo: `Highest performing Postrgres SaaS. Lowest operational cost of managing Postgres. World class Postgres support team.`,
+			}}
+		/>
 		<JoinTemboCTA />
 	</Container>
 	<div class='relative'>

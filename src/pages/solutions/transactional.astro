@@ -12,7 +12,7 @@ import FeaturesSection from '@components/solutions/FeaturesSection.astro';
 import Testimonials from '@components/solutions/Testimonials.astro';
 import JoinTemboCTA from '@components/JoinTemboCTA.astro';
 import IntroSection from '@components/solutions/IntroSection.astro';
-import Accordion from '@components/Accordion';
+import WhyTembo from '@components/solutions/WhyTembo.astro';
 const currentPath = Astro.url.pathname;
 ---
 
@@ -72,118 +72,22 @@ const currentPath = Astro.url.pathname;
 		<FeaturesSection />
 		<Testimonials
 			titleQuote='“Tembo makes Postgres easy for us.”'
-			quote=` ”We don’t have to worry about spinning up or tuning it. We get stacks
-        that just work out of the box, and we know they are going to be tuned
-        without having to do a spike. We now use Tembo to manage a fleet of over
-        20 production instances and a number of non-prod and development
-        environments, and we’re excited to leverage Tembo for larger and larger
-        workloads as our customers ask us for more specialized use cases. Tembo
-        has become so fundamental to our platform that we don’t even think about
-        alternatives anymore. When you’re not spending time thinking about your
-        database, that’s how you know it’s a good solution.”`
-			customerName='Cody Hanson'
-			customerRole='Engineering Manager, Arch.dev'
+			quote=`”We have loved our experience with Tembo because they offer pre-configured stacks that support our workload, it is extremely easy to manage postgres extensions, and batteries are included in pgBouncer. What we love most about Tembo is the absolutely amazing developer support we have received since coming on. The team really knows their stuff and are very customer focused.”`
+			customerName='Sean Price'
+			customerRole='CTO, Prospect Stream'
 		/>
-		<section
-			class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[80px] lg:my-[200px] px-3'
-		>
-			<div
-				class='flex items-center justify-center text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
-			>
-				More...
-			</div>
-			<div
-				class='flex text-center text-white font-bold tracking-[0.47px] text-[32px] mb-6'
-			>
-				Tembo vs Others
-			</div>
-			<div class='flex flex-col lg:flex-row justify-between gap-16 mt-16'>
-				<div class='flex flex-col gap-4'>
-					<div
-						class='flex text-center text-white font-bold tracking-[0.47px] text-[20px]'
-					>
-						Extensions
-					</div>
-					<p
-						class='text-lightGrey font-normal font-secondary text-sm'
-					>
-						Over 200 extensions that are installable with a click of
-						your ...
-					</p>
-				</div>
-				<div class='flex flex-col gap-4'>
-					<div
-						class='flex text-center text-white font-bold tracking-[0.47px] text-[20px]'
-					>
-						Support
-					</div>
-					<p
-						class='text-lightGrey font-normal font-secondary text-sm'
-					>
-						Support for all Postgres workloads—including
-						Transactional, Analytical, and AI
-					</p>
-				</div>
-				<div class='flex flex-col gap-4'>
-					<div
-						class='flex text-center text-white font-bold tracking-[0.47px] text-[20px]'
-					>
-						Add Ons
-					</div>
-					<p
-						class='text-lightGrey font-normal font-secondary text-sm'
-					>
-						A variety of ecosystem add ons are also available with a
-						click
-					</p>
-				</div>
-			</div>
-
-			<div
-				class='flex flex-col lg:flex-row justify-between my-[100px] mobile:mt-[80px] px-3'
-			>
-				<div
-					class='flex flex-col justify-center align-center w-full lg:w-1/2'
-				>
-					<div
-						class='flex text-left text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
-					>
-						More...
-					</div>
-					<div
-						class='flex text-left text-white font-bold tracking-[0.47px] text-[32px] mb-6'
-					>
-						Ask Tembo
-					</div>
-				</div>
-				<div class='w-full lg:w-1/2'>
-					<Accordion
-						client:load
-						buttonIconHidePath='/arrow-down.svg'
-						buttonIconShowPath='/arrow-up.svg'
-						headerStyles='font-bold text-white text-xl'
-						contentStyles='pt-6 text-lightGrey font-normal font-secondary text-sm'
-						showSeparator={true}
-						items={[
-							{
-								heading: 'Why on Postgres?',
-								content: `ACID compliance ensures reliable and accurate transaction processing.
-Easy scalability to support your growing application demands.
-Strong out-of-the-box OLTP performance and reliability.
-`,
-							},
-							{
-								heading: 'Why on Tembo?',
-								content: `Automated backups, maintenance and updates.
-High availability options that  ensure reliability and uptime.
-A wide selection of available Postgres extensions relevant to OLTP workloads.
-`,
-							},
-						]}
-					/>
-				</div>
-			</div>
-		</section>
+		<WhyTembo
+			content={{
+				extensions: `Over 200 extensions that are installable with a click of
+						your ...`,
+				support: `Support for all Postgres workloads—including
+						Transactional, Analytical, and AI`,
+				addons: `A variety of ecosystem and add ons are also available with a
+						click`,
+				postgres: `ACID compliance ensures reliable and accurate transaction processing. Easy scalability to support your growing application demands. Strong out-of-the-box OLTP performance and reliability.`,
+				tembo: `Automated backups, maintenance and updates. High availability options that  ensure reliability and uptime. A wide selection of available Postgres extensions relevant to OLTP workloads`,
+			}}
+		/>
 		<JoinTemboCTA />
 	</Container>
 	<div class='relative'>
