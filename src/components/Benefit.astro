@@ -4,7 +4,7 @@ import ArrowRightButton from './ArrowRightButton';
 
 interface Props {
 	imgMetadata: ImageMetadata;
-	link: string;
+	link?: string;
 	title: string;
 	description: string;
 }
@@ -20,14 +20,11 @@ const { imgMetadata, link, title, description } = Astro.props;
 		alt='pink elephant with pg analyze logo'
 		class='mb-4'
 	/>
-	<div class='flex flex-row justify-between'>
+	<div class='flex flex-row'>
 		<div
-			class='flex text-center text-white font-bold tracking-[0.47px] text-[20px]'
+			class='flex text-left text-white font-bold tracking-[0.47px] text-[20px]'
 		>
 			{title}
-		</div>
-		<div class='flex my-auto'>
-			<ArrowRightButton link={link} />
 		</div>
 	</div>
 	<p class='text-lightGrey font-normal font-secondary text-sm'>

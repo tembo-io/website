@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import Logo from './Logo';
 import ClerkProviderWithButton from './ClerkButton';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
+import SolutionsNav from './SolutionsNav';
 
 interface Props {
 	currentPage: string;
@@ -155,64 +156,7 @@ const NavBar: React.FC<Props> = ({
 							onMouseEnter={handleMouseEnter}
 							onMouseLeave={handleMouseLeave}
 						>
-							<NavigationMenu.Root
-								orientation='vertical'
-								className='flex relative justify-start'
-							>
-								<NavigationMenu.List className='flex flex-column'>
-									<NavigationMenu.Item>
-										<NavigationMenu.Trigger className='flex flex-row gap-1 justify-between items-center'>
-											Solutions
-											{isOpen ? (
-												<img
-													src='/arrow-up.svg'
-													alt='minus symbol'
-												/>
-											) : (
-												<img
-													src='/arrow-down.svg'
-													alt='minus symbol'
-												/>
-											)}
-										</NavigationMenu.Trigger>
-										{isOpen && (
-											<NavigationMenu.Content className='flex flex-column py-4 px-2 rounded-3xl bg-mwasi border border-otherGrey2 absolute top-8 left-0 w-[214px]'>
-												<ul className='w-full'>
-													<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
-														<NavigationMenu.Link
-															asChild
-														>
-															<a
-																href='/solutions/transactional'
-																target='_self'
-																rel='noreferrer'
-																className='font-secondary font-normal text-sm text-offWhite'
-															>
-																Transactional
-															</a>
-														</NavigationMenu.Link>
-													</li>
-
-													<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
-														<NavigationMenu.Link
-															asChild
-														>
-															<a
-																href='/solutions/ai'
-																target='_self'
-																rel='noreferrer'
-																className='font-secondary font-normal text-sm text-offWhite'
-															>
-																AI
-															</a>
-														</NavigationMenu.Link>
-													</li>
-												</ul>
-											</NavigationMenu.Content>
-										)}
-									</NavigationMenu.Item>
-								</NavigationMenu.List>
-							</NavigationMenu.Root>
+							<SolutionsNav isOpen={isOpen} />
 						</div>
 						<a
 							href='/pricing'
