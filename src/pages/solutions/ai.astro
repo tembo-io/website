@@ -5,11 +5,11 @@ import Container from '../../components/Container';
 import Footer from '../../components/Footer.astro';
 import Button from '../../components/Button';
 import { Image } from 'astro:assets';
-import DbBlue from 'src/images/db-blue-transactional.svg';
+import ElephantAI from 'src/images/elephant-ai.svg';
 import StackedCardsOrder from 'src/images/stacked-cards-order.png';
-import TemboTransactions from 'src/images/tembo-transactions.png';
+import TemboAITransactions from 'src/images/tembo-ai-transactions.svg';
 import ArrowRight from 'src/images/arrow-right-black.svg';
-import StackedCardsReservation from 'src/images/stacked-cards-reservation.png';
+import TemboAIFinancials from 'src/images/tembo-ai-financials.svg';
 import TransactionSection from '@components/solutions/TransactionSection.astro';
 import FeaturesSection from '@components/solutions/FeaturesSection.astro';
 import Testimonials from '@components/solutions/Testimonials.astro';
@@ -19,7 +19,7 @@ import Accordion from '@components/Accordion';
 const currentPath = Astro.url.pathname;
 ---
 
-<Layout title='Tembo Transactional'>
+<Layout title='Tembo AI'>
 	<NavBar client:load currentPage={currentPath} />
 	<Container styles='relative'>
 		<section
@@ -29,7 +29,7 @@ const currentPath = Astro.url.pathname;
 				<div
 					class='text-white font-bold tracking-[0.47px] text-[44px] lg:text-[60px] leading-tight mb-10 w-full lg:w-1/2 text-center lg:text-left'
 				>
-					Tembo Transactional
+					Tembo AI
 				</div>
 				<p
 					class='text-lightGrey font-normal font-secondary text-sm mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
@@ -46,7 +46,7 @@ const currentPath = Astro.url.pathname;
 					class='flex flex-row justify-center align-center lg:justify-start gap-4'
 				>
 					<Button
-						variant='sqlBlue'
+						variant='sqlPink'
 						size='lg'
 						isLinkTag={true}
 						link='https://cloud.tembo.io/sign-up'
@@ -74,46 +74,32 @@ const currentPath = Astro.url.pathname;
 				</div>
 			</div>
 			<Image
-				src={DbBlue}
-				width={590}
-				height={600}
-				alt='green database'
-				class='w-full lg:w-1/2'
+				src={ElephantAI}
+				width={380}
+				height={370}
+				alt='AI tembo elephant'
+				class='w-[380px] h-[370px]'
 			/>
 		</section>
 		<TransactionSection
 			useCaseText='Retail and E-commerce Transactions'
-			scenarioText='Managing sales transactions for an online retail platform.'
-			detailsText=`OLTP systems process customer orders, update inventory
-					levels, handle payments, and manage customer data in
-					real-time. This ensures that the e-commerce platform can
-					handle a high volume of transactions simultaneously without
-					delays, providing a seamless shopping experience for
-					customers.`
+			scenarioText='Enhance customer support and segment customers.'
+			detailsText=`Integrate a chatbot that retrieves relevant information from your company’s knowledge base to provide accurate responses to customer queries about products, orders, and returns. Segment customers based on purchasing behavior and demographics to tailor marketing strategies and improve customer engagement.`
 			imgMetadata={StackedCardsOrder}
 			rightAlignedImg={true}
 		/>
 		<TransactionSection
 			useCaseText='Banking and Financial Services'
-			scenarioText=`Processing banking transactions such as withdrawals,
-					deposits, and transfers.`
-			detailsText=`OLTP systems enable banks to manage millions of transactions
-					per day securely and efficiently. They ensure real-time
-					processing of account updates, balance checks, and fund
-					transfers, providing customers with instant access to their
-					financial information and services.`
-			imgMetadata={TemboTransactions}
+			scenarioText=`PDetect and prevent fraud and analyze documents.`
+			detailsText=`Identify fraudulent transactions and activities by implementing models that detect fraudulent transactions in real-time through the analysis of patterns and anomalies in transaction data.  Identify and group similar documents in large datasets, useful for legal document analysis and contract management.`
+			imgMetadata={TemboAITransactions}
 			leftAlignedImg={true}
 		/>
 		<TransactionSection
-			useCaseText='Airline Reservation Systems'
-			scenarioText='Managing flight bookings and reservations'
-			detailsText=`OLTP systems handle the real-time processing of flight
-					reservations, ticketing, and seat assignments. They allow
-					airlines to manage availability, pricing, and customer data
-					effectively, ensuring that customers can book flights,
-					change reservations, and check in for flights in real-time.`
-			imgMetadata={StackedCardsReservation}
+			useCaseText='Travel'
+			scenarioText='personalized recommendations and travel analytics.'
+			detailsText=`I-powered tools analyze user preferences and past behavior to suggest destinations, accommodations, and activities personalized to travelers. Virtual assistants and chatbots provide 24/7 customer support, answer common queries, and assist with bookings. AI predicts travel demand, helping companies optimize inventory and pricing strategies. Machine learning models predict delays and cancellations to manage disruptions and offer alternative solutions to affected travelers, thus enhancing customer experiences.`
+			imgMetadata={TemboAIFinancials}
 			rightAlignedImg={true}
 		/>
 		<FeaturesSection />
@@ -131,7 +117,6 @@ const currentPath = Astro.url.pathname;
 			customerName='Cody Hanson'
 			customerRole='Engineering Manager, Arch.dev'
 		/>
-		<AddOnSection />
 		<section
 			class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[80px] lg:my-[200px] px-3'
 		>

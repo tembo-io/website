@@ -36,6 +36,7 @@ export default {
 				lightNeon: '#F3FFB6',
 				lightBlue: '#45DEF2',
 				blue: '#432F94',
+				sqlBlue: '#7B7DFF',
 				purple: '#DB39CB',
 				lightPurple: '#CA6FE5',
 				pink: '#FA467B',
@@ -46,6 +47,7 @@ export default {
 				good: '#84EABD',
 				lightGood: '#B0E4CE',
 				lightPink: '#FFC9EA',
+				sqlPink: '#FF99E4',
 				salmon: '#FF7D7F',
 				lightSalmon: '#FF999A',
 				mwasi: '#1C1C1C',
@@ -67,6 +69,8 @@ export default {
 				white: '#FFFFFF',
 				whiteGrey: '#FFFFFF1A',
 				ghostWhite: '#FFFFFF99',
+				offWhite: '#F2F2F2',
+				grayScaleMwasi: '#ffffff0d',
 			},
 			backgroundImage: {
 				'gradient-rainbow':

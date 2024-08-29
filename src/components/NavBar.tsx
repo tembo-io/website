@@ -5,6 +5,7 @@ import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import ClerkProviderWithButton from './ClerkButton';
+import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 
 interface Props {
 	currentPage: string;
@@ -36,26 +37,23 @@ const NavBar: React.FC<Props> = ({
 		closed: { opacity: 0 },
 	};
 
-	const ref = useRef<HTMLElement>(null);
-	const [isHovered, setIsHovered] = useState<boolean>(false);
+	const [isOpen, setIsOpen] = useState(false);
+	const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
-	const handleMouseHover = useCallback(() => {
-		setIsHovered((prevIsHovered) => !prevIsHovered);
-	}, []);
-
-	useEffect(() => {
-		const element = ref.current;
-		if (element) {
-			element.addEventListener('mouseenter', handleMouseHover);
-			element.addEventListener('mouseleave', handleMouseHover);
+	const handleMouseEnter = () => {
+		if (closeTimeoutRef.current) {
+			clearTimeout(closeTimeoutRef.current);
+			closeTimeoutRef.current = null;
 		}
-		return () => {
-			if (element) {
-				element.removeEventListener('mouseenter', handleMouseHover);
-				element.removeEventListener('mouseleave', handleMouseHover);
-			}
-		};
-	}, [handleMouseHover]);
+		setIsOpen(true);
+	};
+
+	const handleMouseLeave = () => {
+		// Set a delay before closing the menu
+		closeTimeoutRef.current = setTimeout(() => {
+			setIsOpen(false);
+		}, 300); // 300ms delay before closing
+	};
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -147,34 +145,74 @@ const NavBar: React.FC<Props> = ({
 						</a>
 						<div
 							className={cx(
-								'flex flex-row gap-1 font-secondary font-medium z-10 hover:cursor-pointer relative',
+								'flex font-secondary font-medium z-10 hover:cursor-pointer relative',
 								currentPage == '/solutions/transactional' ||
+									currentPage == '/solutions/ai' ||
 									currentPage == '/solutions/'
 									? 'text-neon'
 									: 'text-white opacity-70',
 							)}
-							ref={ref as React.RefObject<HTMLDivElement>}
+							onMouseEnter={handleMouseEnter}
+							onMouseLeave={handleMouseLeave}
 						>
-							Solutions
-							{isHovered ? (
-								<img src='/arrow-up.svg' alt='minus symbol' />
-							) : (
-								<img src='/arrow-down.svg' alt='minus symbol' />
-							)}
-							{isHovered ? (
-								<div className='flex flex-column py-4 px-2 rounded-3xl bg-mwasi border border-otherGrey2 absolute top-8 left-0 w-[214px] z-10'>
-									<a
-										href='/solutions/transactional'
-										className={cx(
-											'font-secondary font-medium text-white opacity-70',
+							<NavigationMenu.Root
+								orientation='vertical'
+								className='flex relative justify-start'
+							>
+								<NavigationMenu.List className='flex flex-column'>
+									<NavigationMenu.Item>
+										<NavigationMenu.Trigger className='flex flex-row gap-1 justify-between items-center'>
+											Solutions
+											{isOpen ? (
+												<img
+													src='/arrow-up.svg'
+													alt='minus symbol'
+												/>
+											) : (
+												<img
+													src='/arrow-down.svg'
+													alt='minus symbol'
+												/>
+											)}
+										</NavigationMenu.Trigger>
+										{isOpen && (
+											<NavigationMenu.Content className='flex flex-column py-4 px-2 rounded-3xl bg-mwasi border border-otherGrey2 absolute top-8 left-0 w-[214px]'>
+												<ul>
+													<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
+														<NavigationMenu.Link
+															asChild
+														>
+															<a
+																href='/solutions/transactional'
+																target='_self'
+																rel='noreferrer'
+																className='font-secondary font-normal text-sm text-offWhite'
+															>
+																Transactional
+															</a>
+														</NavigationMenu.Link>
+													</li>
+
+													<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
+														<NavigationMenu.Link
+															asChild
+														>
+															<a
+																href='/solutions/ai'
+																target='_self'
+																rel='noreferrer'
+																className='font-secondary font-normal text-sm text-offWhite'
+															>
+																AI
+															</a>
+														</NavigationMenu.Link>
+													</li>
+												</ul>
+											</NavigationMenu.Content>
 										)}
-										target='_blank'
-										rel='noreferrer'
-									>
-										Transactional
-									</a>
-								</div>
-							) : null}
+									</NavigationMenu.Item>
+								</NavigationMenu.List>
+							</NavigationMenu.Root>
 						</div>
 						<a
 							href='/pricing'
@@ -231,7 +269,7 @@ const NavBar: React.FC<Props> = ({
 							/>
 							Github
 						</a>
-						<ClerkProviderWithButton />
+						<ClerkProviderWithButton currentPage={currentPage} />
 					</div>
 					<button
 						onClick={() => {
