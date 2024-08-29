@@ -1,0 +1,79 @@
+---
+import Button, { type Variant } from '../../components/Button';
+import { Image } from 'astro:assets';
+import ArrowRight from 'src/images/arrow-right-black.svg';
+
+interface Props {
+	title: string;
+	description: string;
+	deployButtonColor: Variant;
+	img: ImageMetadata;
+	imgWidth?: number;
+	imgHeight?: number;
+	imgClassName: string;
+}
+
+const {
+	title,
+	description,
+	deployButtonColor,
+	img,
+	imgWidth,
+	imgHeight,
+	imgClassName,
+} = Astro.props;
+---
+
+<section
+	class='flex flex-col-reverse md:flex-col-reverse lg:flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
+>
+	<div class='flex flex-col w-full md:w-full lg:w-1/2'>
+		<div
+			class='text-white font-bold tracking-[0.47px] text-[44px] lg:text-[60px] leading-tight mb-10 w-full lg:w-1/2 text-center lg:text-left'
+		>
+			{title}
+		</div>
+		<p
+			class='text-lightGrey font-normal font-secondary text-sm mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
+		>
+			{description}
+		</p>
+		<div
+			class='flex flex-row justify-center align-center lg:justify-start gap-4'
+		>
+			<Button
+				variant={deployButtonColor}
+				size='lg'
+				isLinkTag={true}
+				link='https://cloud.tembo.io/sign-up'
+				client:load
+			>
+				<div class='flex flex-row gap-2 my-auto'>
+					Deploy Now
+					<Image
+						src={ArrowRight}
+						width={16}
+						height={16}
+						alt='chevron arrow right'
+					/>
+				</div>
+			</Button>
+			<Button
+				variant='primary'
+				size='lg'
+				isLinkTag={true}
+				link='https://tembo.io/contact/'
+				client:load
+			>
+				Contact Sales
+			</Button>
+		</div>
+	</div>
+	<Image
+		src={img}
+		width={imgWidth}
+		height={imgHeight}
+		alt='hero image'
+		class={imgClassName}
+	/>
+</section>

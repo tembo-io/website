@@ -177,7 +177,7 @@ const NavBar: React.FC<Props> = ({
 										</NavigationMenu.Trigger>
 										{isOpen && (
 											<NavigationMenu.Content className='flex flex-column py-4 px-2 rounded-3xl bg-mwasi border border-otherGrey2 absolute top-8 left-0 w-[214px]'>
-												<ul>
+												<ul className='w-full'>
 													<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
 														<NavigationMenu.Link
 															asChild

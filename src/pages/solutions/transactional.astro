@@ -15,6 +15,7 @@ import FeaturesSection from '@components/solutions/FeaturesSection.astro';
 import Testimonials from '@components/solutions/Testimonials.astro';
 import AddOnSection from '@components/solutions/AddOnSection.astro';
 import JoinTemboCTA from '@components/JoinTemboCTA.astro';
+import IntroSection from '@components/solutions/IntroSection.astro';
 import Accordion from '@components/Accordion';
 const currentPath = Astro.url.pathname;
 ---
@@ -22,65 +23,21 @@ const currentPath = Astro.url.pathname;
 <Layout title='Tembo Transactional'>
 	<NavBar client:load currentPage={currentPath} />
 	<Container styles='relative'>
-		<section
-			class='flex flex-col-reverse md:flex-col-reverse lg:flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
-		>
-			<div class='flex flex-col w-full md:w-full lg:w-1/2'>
-				<div
-					class='text-white font-bold tracking-[0.47px] text-[44px] lg:text-[60px] leading-tight mb-10 w-full lg:w-1/2 text-center lg:text-left'
-				>
-					Tembo Transactional
-				</div>
-				<p
-					class='text-lightGrey font-normal font-secondary text-sm mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
-				>
-					Tembo Transactional provides Online Transaction Processing
+		<IntroSection
+			title='Tembo Transactional'
+			description=`Tembo Transactional provides Online Transaction Processing
 					(OLTP) capabilities to manage high volumes of transactions
 					quickly and accurately. While your applications may vary in
 					complexity and I/O intensity, our OLTP solution stands out
 					due to its ACID compliance, ensuring reliable and accurate
 					operations, and scalability to grow with application
-					demands.
-				</p>
-				<div
-					class='flex flex-row justify-center align-center lg:justify-start gap-4'
-				>
-					<Button
-						variant='sqlBlue'
-						size='lg'
-						isLinkTag={true}
-						link='https://cloud.tembo.io/sign-up'
-						client:load
-					>
-						<div class='flex flex-row gap-2 my-auto'>
-							Deploy Now
-							<Image
-								src={ArrowRight}
-								width={16}
-								height={16}
-								alt='chevron arrow right'
-							/>
-						</div>
-					</Button>
-					<Button
-						variant='primary'
-						size='lg'
-						isLinkTag={true}
-						link='https://tembo.io/contact/'
-						client:load
-					>
-						Contact Sales
-					</Button>
-				</div>
-			</div>
-			<Image
-				src={DbBlue}
-				width={590}
-				height={600}
-				alt='green database'
-				class='w-full lg:w-1/2'
-			/>
-		</section>
+					demands.`
+			deployButtonColor='sqlBlue'
+			img={DbBlue}
+			imgWidth={590}
+			imgHeight={600}
+			imgClassName='w-full lg:w-1/2'
+		/>
 		<TransactionSection
 			useCaseText='Retail and E-commerce Transactions'
 			scenarioText='Managing sales transactions for an online retail platform.'

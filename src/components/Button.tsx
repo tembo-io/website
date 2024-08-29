@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import { navigate } from 'astro:transitions/client';
 
-type Variant =
+export type Variant =
 	| 'primary'
 	| 'neon'
 	| 'gradient'
