@@ -6,10 +6,13 @@ description: Using pg_vectorize with Portkey's platform
 tags: [postgres, vectordb, ai, portkey]
 ---
 
-One of the pre-requisites to conducting vector search on Postgres is to have embeddings.
- There are many providers of embeddings, such as OpenAI, Mistral, and even the Tembo platform itself.
- [Portkey](https://portkey.ai/) is a control plane layer for large language models and provides a router functionality over most model providers in the market.
- Portkey also provides the additional convenience of providing guardrails and observability into the usage of these models.
+
+Vector search in Postgres requires embeddings, which are numerical representations of data that capture semantic meaning. There are many providers of embeddings, such as OpenAI, Mistral, and even the Tembo platform itself. This guide will walk you through setting up vector search capabilities in Tembo using [Portkey](https://portkey.ai)
+
+Portkey's AI Gateway and Observability suite allows you to gain visibility and control over your AI apps. Portkey provides one of the best multimodal AI gateways, enabling seamless integration with 250+ LLMs. In this guide we will be using Portkey's Unified API to create embeddings with multiple providers seamlessly. 
+
+Portkey also helps you control how your application scales with features such as caching, rate limiting, request retries, model fallback, and more.
+
 
 ## Getting Started
 
@@ -21,8 +24,7 @@ Once you are connected to Postgres, enable the extension.
 CREATE EXTENSION IF NOT EXISTS vectorize CASCADE;
 ```
 
-Then, go to Portkey.ai and[link] sign up for an account. Follow the Portkey documentation for setting up a [Virtual Key](https://docs.portkey.ai/docs/product/ai-gateway-streamline-llm-integrations/virtual-keys).
- Virtual Keys provide you a convenient way to store and rotate your API keys.
+[Sign up](https://portkey.ai) for Portkey and create an account. Follow the Portkey documentation for setting up a [Virtual Key](https://docs.portkey.ai/docs/product/ai-gateway-streamline-llm-integrations/virtual-keys). Virtual Keys provide you with a convenient way to store and rotate your API keys
 
 Update Postgres with your Portkey.ai API key
 
@@ -33,11 +35,11 @@ SELECT pg_reload_conf();
 
 Take note of the [Virtual Key](https://docs.portkey.ai/docs/product/ai-gateway-streamline-llm-integrations/virtual-keys) that you set up. In the examples below, we'll demonstrate using pg_vectorize with with Portkey for embeddings from both OpenAI and Mistral.
 
-We've set up Virtual Keys for both [OpenAI](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key) and [Mistra](https://console.mistral.ai/api-keys/). Our Mistral and OpenAI API keys are stored securely in Portkey's secret vault.
+We've set up Virtual Keys for both [OpenAI](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key) and [Mistral](https://console.mistral.ai/api-keys/). Our Mistral and OpenAI API keys are stored securely in Portkey's secret vault.
 
 ![alt text](portkey_virtual_keys.png)
 
-Once your Portkey Virtual keys and set up and your Portkey API key is stored in Postgres, you are ready to get going.
+Once your Portkey Virtual keys and Portkey API key are set up and stored in Postgres, you are ready to get going.
 
 ## Generating Embeddings with Portkey
 
@@ -76,7 +78,7 @@ select vectorize.encode(
 
 ## Embedding Maintenance with Portkey
 
-Embeddings can be generated on-demand using `vectorize.encode`, but you can also ensure that your remain up-to-date as data in Postgres changes and grows.
+Embeddings can be generated on-demand using `vectorize.encode`, but you can also ensure that your embeddings remain up-to-date as data in Postgres changes and grows.
 
 We will use the sample products dataset (included with pg_vectorize) to demonstrate.
 
@@ -149,7 +151,7 @@ VALUES (12345, 'pizza', 'dish of Italian origin consisting of a flattened disk o
 
 Immediately will be generated asynchronously by the pg_vectorize background worker,
  the same as how they were generated during `vectorize.table`.
- Now when we search for "foot items", we can see that embeddings have been updated for our new data.
+ Now when we search for "food items", we can see that embeddings have been updated for our new data.
 
 ```sql
 SELECT * FROM vectorize.search(
