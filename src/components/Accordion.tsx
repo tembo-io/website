@@ -49,14 +49,11 @@ const Accordion: React.FC<Props> = ({
 						</h3>
 						<button className='shrink-0 z-40'>
 							{openIndexes.includes(i) ? (
-								<img
-									src={buttonIconShowPath}
-									alt='minus symbol'
-								/>
+								<img src={buttonIconShowPath} alt='icon open' />
 							) : (
 								<img
 									src={buttonIconHidePath}
-									alt='plus symbol'
+									alt='icon close'
 								/>
 							)}
 						</button>

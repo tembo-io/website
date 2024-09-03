@@ -7,8 +7,6 @@ import Accordion from './Accordion';
 const MobileMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
-	console.log(isOpen);
-
 	return (
 		<div className='bg-offBlack mid:hidden fixed z-10 w-screen h-screen overflow-hidden inset-0'>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
@@ -32,23 +30,25 @@ const MobileMenu = () => {
 								Solutions
 								{isOpen ? (
 									<img
-										src='/arrow-down.svg'
-										alt='minus symbol'
+										src='/arrow-up.svg'
+										alt='arrow up symbol'
 									/>
 								) : (
 									<img
 										src='/arrow-down.svg'
-										alt='plus symbol'
+										alt='arrow down symbol'
 									/>
 								)}
 							</button>
 							{isOpen ? (
 								<div>
-									<li>
-										<a>Tembo Transactional</a>
+									<li className='pl-3 m-4'>
+										<a href='/solutions/transactional'>
+											Tembo Transactional
+										</a>
 									</li>
-									<li>
-										<a>Tembo AI</a>
+									<li className='pl-3 m-4'>
+										<a href='/solutions/ai'>Tembo AI</a>
 									</li>
 								</div>
 							) : null}

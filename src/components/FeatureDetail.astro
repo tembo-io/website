@@ -11,7 +11,7 @@ interface Props {
 const { header, description, iconPath } = Astro.props;
 ---
 
-<div class='flex flex-col gap-4 max-w-[530px]'>
+<div class='flex flex-col gap-4 min-w-[280px] max-w-[386px]'>
 	<IconWithBackground
 		iconPath={iconPath}
 		bgDimensionsClassName='w-14 h-14'

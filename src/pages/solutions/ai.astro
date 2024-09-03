@@ -15,6 +15,29 @@ import IntroSection from '@components/solutions/IntroSection.astro';
 import Benefits from '@components/solutions/Benefits.astro';
 import WhyTembo from '@components/solutions/WhyTembo.astro';
 const currentPath = Astro.url.pathname;
+
+const aiFeatures = [
+	{
+		header: 'Vector Similarity Search',
+		description: `The VectorDB Stack includes pgvector, a powerful engine for storing embeddings and conducting vector searches, making it ideal for applications requiring semantic search and recommendation systems.`,
+		iconPath: `/magnifying-glass-green.svg`,
+	},
+	{
+		header: 'Advanced AI and Machine Learning Capabilities',
+		description: `The Machine Learning Stack is equipped with extensions like postgresml for training and running machine learning models, pgvector for vector similarity search, and pg_vectorize for embedding generation and vector search.`,
+		iconPath: '/AI.svg',
+	},
+	{
+		header: 'Custom Prompt Templates and Embedding Models',
+		description: `The RAG Stack allows users to define custom prompt templates with SQL and supports various embedding models, including those from Hugging Face’s Sentence Transformers, privately hosted models, and OpenAI.`,
+		iconPath: '/code-circle-blue.svg',
+	},
+	{
+		header: 'Asynchronous Query Execution',
+		description: `The pg_later extension enables asynchronous query execution, optimizing resource management and allowing users to perform other tasks while queries are processed. `,
+		iconPath: '/branch-pink.svg',
+	},
+];
 ---
 
 <Layout title='Tembo AI'>
@@ -48,7 +71,7 @@ const currentPath = Astro.url.pathname;
 			imgMetadata={TemboAIFinancials}
 			rightAlignedImg={true}
 		/>
-		<FeaturesSection />
+		<FeaturesSection features={aiFeatures} />
 		<Benefits />
 		<Testimonials
 			titleQuote='“Tembo makes Postgres easy for us.”'

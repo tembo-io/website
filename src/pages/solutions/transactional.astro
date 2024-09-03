@@ -14,6 +14,58 @@ import JoinTemboCTA from '@components/JoinTemboCTA.astro';
 import IntroSection from '@components/solutions/IntroSection.astro';
 import WhyTembo from '@components/solutions/WhyTembo.astro';
 const currentPath = Astro.url.pathname;
+
+const transactionalFeatures = [
+	{
+		header: 'Scalability',
+		description: `Offers the ability to scale resources up or down based on
+		demand, ensuring optimal performance and cost-efficiency.`,
+		iconPath: `/status-up.svg`,
+	},
+	{
+		header: 'High Availability',
+		description: `Ensures databases are always available with built-in redundancy
+		and failover mechanisms to minimize downtime.`,
+		iconPath: '/cloud-add-icon-red.svg',
+	},
+	{
+		header: 'Security',
+		description: `Implements robust security measures, including encryption at
+		rest and in transit, as well as comprehensive access controls
+		and auditing.`,
+		iconPath: '/shield-icon-blue.svg',
+	},
+	{
+		header: 'Performance Optimization',
+		description: `Features tools for monitoring and optimizing database performance, including query analysis and performance tuning.`,
+		iconPath: '/keyboard-open.svg',
+	},
+	{
+		header: 'Backup and Recovery',
+		description: `Provides automated backup solutions with options for point-in-time recovery, ensuring data integrity and protection against data loss.`,
+		iconPath: '/folder-connection.svg',
+	},
+	{
+		header: 'Data Migration',
+		description: `Supports seamless data migration tools and services to move data from on-premises or other cloud environments.`,
+		iconPath: '/clipboard-red.svg',
+	},
+	{
+		header: 'Monitoring and Alerts',
+		description: `Includes advanced monitoring capabilities and configurable alerts to proactively manage and respond to potential issues.`,
+		iconPath: '/danger-red.svg',
+	},
+	{
+		header: 'Cost Management',
+		description: `Provides transparent pricing and cost management tools to help organizations optimize their cloud spending.`,
+		iconPath: '/moneys.svg',
+	},
+	{
+		header: 'Support and Documentation',
+		description: `Access to comprehensive support services and detailed documentation to assist with troubleshooting and optimizing use.`,
+		iconPath: '/note-2.svg',
+	},
+];
 ---
 
 <Layout title='Tembo Transactional'>
@@ -69,7 +121,7 @@ const currentPath = Astro.url.pathname;
 			imgMetadata={StackedCardsReservation}
 			rightAlignedImg={true}
 		/>
-		<FeaturesSection />
+		<FeaturesSection features={transactionalFeatures} />
 		<Testimonials
 			titleQuote='“Tembo makes Postgres easy for us.”'
 			quote=`”We have loved our experience with Tembo because they offer pre-configured stacks that support our workload, it is extremely easy to manage postgres extensions, and batteries are included in pgBouncer. What we love most about Tembo is the absolutely amazing developer support we have received since coming on. The team really knows their stuff and are very customer focused.”`
