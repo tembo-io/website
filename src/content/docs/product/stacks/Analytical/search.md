@@ -1,5 +1,6 @@
 ---
 title: Search
+description: A postgres extension that enables full text search
 tags: [postgres, elasticsearch, textsearch, search, bm25, analytical]
 ---
 
