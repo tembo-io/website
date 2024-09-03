@@ -1,5 +1,4 @@
 ---
-slug: search-stack
 title: Search
 sideBarTitle: Search
 description: A postgres extension that enables full text search
