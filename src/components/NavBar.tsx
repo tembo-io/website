@@ -147,9 +147,7 @@ const NavBar: React.FC<Props> = ({
 						<div
 							className={cx(
 								'flex font-secondary font-medium z-10 hover:cursor-pointer relative',
-								currentPage == '/solutions/transactional' ||
-									currentPage == '/solutions/ai' ||
-									currentPage == '/solutions/'
+								currentPage.includes('/solutions/')
 									? 'text-neon'
 									: 'text-white opacity-70',
 							)}
