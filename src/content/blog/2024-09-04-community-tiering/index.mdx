@@ -1,0 +1,111 @@
+slug: open-source-tiering
+title: 'Open and Accessible Data Tiering'
+authors: []
+description: |
+	Open source data tiering project. 
+tags: [postgres, workloads]
+image: ./TODO.png 
+date:
+planetPostgres: 
+---
+
+While appraising the value of data, one mustn't only consider the their literal measurements, but also the resources dedicated to their lifecycle management.
+Today, users with large data volumes find themselves incurring high costs as their data scales; and what might have started as attractive subscription fees, quickly become difficult to justify. One answer to such a problem focuses not so much on the amount of data, but how such data is stored.
+
+At Tembo, we heard this pain point come up frequently in internal and community discussions. This was such a common topic, in fact, that we decided to built and open sourced a community solution `pg_tier`; a PostgreSQL extension designed to streamline the developer interaction with AWS S3 and other object stores.
+With this tool, users have the power to push a Postgres table to an S3 bucket, for example, while retaining the ability to query it as if it were still in Postgres.
+
+## Everyone can have bottomless storage on Postgres
+
+We love Postgres, but while storage volumes such as Elastic Block Store (in the case of AWS) might appear convenient, they are very costly relative to their object storage alternative (such as S3).
+Not only that, but they are difficult to scale (and typically cannot scale down).
+
+As an organization, it's important to distinguish the data that needs to be "hot and ready" versus tucked away into "colder" storage.
+However, this is already common practice; engineers working with Postgres are already archiving data to S3 in motionas as simple as copying data to S3 and deleting it from Postgres.
+Great! You've decreased storage, while also retaining data in a more cost-effective storage solution to meet your organization's needs.
+
+But what about when you want to query that data?
+There are tools that lead you do this (insert links for duckdb, etc) already.
+These are great tools, but it will be up to you to build that pipeline yourself, including moving the data to S3 then integrating the S3 data into your tool of choice.
+pg_tier's goal is to make this a standardized process, across all object storage formats and cloud providers, with a first class experience on Postgres.
+
+## Contributing to parquet_s3_fdw for a touch-free experience
+
+While pg_tier is a relatively new project, it heavily depends on long-standing and popular project: parquet_s3_fdw. pg_tier uses parquet_s3_fdw to create a foreign data wrapper around data in S3.
+This is the key piece of technology that allows you to query the data in S3 as if it were in Postgres.
+
+In order to make the experience best for cloud users, Tembo contributed the ability for parquet_s3_fdw to fetch cloud credentials from the environment.
+With this feature, you can inject AWS credentials into the Postgres environment, then parquet_s3_fdw will be able to use those credentials to authenticate with and configuring object storage.
+We are currently running a public fork of parquet_s3_fdw in Tembo Cloud so that you can use this feature today.
+
+Here's how you do this on Tembo Cloud:
+
+Create an example table, and give it some data
+
+```sql
+CREATE table people (
+    name text not null,
+    age numeric not null
+);
+```
+```sql
+INSERT into people values ('Alice', 34), ('Bob', 45), ('Charlie', 56);
+```
+
+Call call tier.table() on the table:
+
+```sql
+SELECT tier.table('people');
+```
+
+That table is now a foreign table, with the FDW storage in S3:
+
+```sql
+\d+ people
+```
+```text
+                                      Foreign table "public.people"
+ Column |  Type   | Collation | Nullable | Default | FDW options  | Storage  | Stats target | Description
+--------+---------+-----------+----------+---------+--------------+----------+--------------+-------------
+ name   | text    |           | not null |         | (key 'true') | extended |              |
+ age    | numeric |           | not null |         | (key 'true') | main     |              |
+Server: pg_tier_s3_srv
+FDW options: (dirname 's3://cdb-plat-use1-prod-instance-storage/v2/reservedly-lovable-sheepdog/public_people/')
+```
+
+Every Tembo Cloud instance has it's own private and dedicated S3 bucket.
+When you run tier.table(), the table is written to this bucket in parquet format and the current table converted into a foreign table (via parquet_s3_fdw).
+When you're running on Tembo Cloud, this means you don't need to bring your own AWS account.
+
+## Bring your own bucket
+
+If you're running this extension on your own or want to use your own bucket, you have just one extra-step: set the credentials and bucket configuration.
+
+```sql
+select tier.set_tier_config(
+	'my-storage-bucket',
+	'AWS_ACCESS_KEY', 
+	'AWS_SECRET_KEY',
+	'AWS_REGION'
+);
+``
+```sql
+select tier.table('my-table');
+```
+
+```sql
+\d people
+```
+```text
+                  Foreign table "public.people"
+ Column |  Type   | Collation | Nullable | Default | FDW options
+--------+---------+-----------+----------+---------+--------------
+ name   | text    |           | not null |         | (key 'true')
+ age    | numeric |           | not null |         | (key 'true')
+Server: pg_tier_s3_srv
+FDW options: (dirname 's3://my-storage-bucket/public_people/')
+```
+
+## Try it on Tembo Cloud
+
+pg_tier is PostgreSQL licensed and available today on Tembo Cloud in the Data Warehouse Stack. Try anywhere with Docker, or install it with Trunk or from source, and via .
