@@ -12,22 +12,21 @@ planetPostgres:
 While appraising the value of data, one mustn't only consider the their literal measurements, but also the resources dedicated to their lifecycle management.
 Today, users with large data volumes find themselves incurring high costs as their data scales; and what might have started as attractive subscription fees, quickly become difficult to justify. One answer to such a problem focuses not so much on the amount of data, but how such data is stored.
 
-At Tembo, we heard this pain point come up frequently in internal and community discussions. This was such a common topic, in fact, that we decided to built and open sourced a community solution `pg_tier`; a PostgreSQL extension designed to streamline the developer interaction with AWS S3 and other object stores.
+At Tembo, we've heard this pain point come up frequently in both internal and community discussions. This was such a common topic, in fact, that we decided to build and open sourced a community solution `pg_tier`; a PostgreSQL extension designed to streamline the developer interaction with AWS S3 and other object stores.
 With this tool, users have the power to push a Postgres table to an S3 bucket, for example, while retaining the ability to query it as if it were still in Postgres.
 
 ## Everyone can have bottomless storage on Postgres
 
-We love Postgres, but while storage volumes such as Elastic Block Store (in the case of AWS) might appear convenient, they are very costly relative to their object storage alternative (such as S3).
-Not only that, but they are difficult to scale (and typically cannot scale down).
+We love Postgres, but while storage volumes such as Elastic Block Store (in the case of AWS) might appear convenient, they are very costly relative to their object storage alternatives (such as S3). Not only that, but they are difficult to scale (and typically cannot scale down).
 
-As an organization, it's important to distinguish the data that needs to be "hot and ready" versus tucked away into "colder" storage.
-However, this is already common practice; engineers working with Postgres are already archiving data to S3 in motionas as simple as copying data to S3 and deleting it from Postgres.
-Great! You've decreased storage, while also retaining data in a more cost-effective storage solution to meet your organization's needs.
+As an organization, it's important to distinguish between data that needs to be "hot and ready" versus tucked away into "colder" storage.
+Indeed, this is already common practice; engineers working with Postgres are archiving data via simple copying to S3 and deleting from Postgres.
+Great! Storage utilization is decreased and data is retained in a more cost-effective storage solution.
 
 But what about when you want to query that data?
-There are tools that lead you do this (insert links for duckdb, etc) already.
-These are great tools, but it will be up to you to build that pipeline yourself, including moving the data to S3 then integrating the S3 data into your tool of choice.
-pg_tier's goal is to make this a standardized process, across all object storage formats and cloud providers, with a first class experience on Postgres.
+There are certainly tools that allow you to do this, such as [DuckDB](https://duckdb.org/), [Apache Pinot](https://pinot.apache.org/), or [ClickHouse](https://clickhouse.com/).
+That said, users will find that they will have to build a significant amount of the pipeline themselves, including moving the data to S3, to then integrate the S3 data into their tool of choice.
+The goal of `pg_tier`is to make this a standardized process, across all object storage formats and cloud providers, with a first class experience on Postgres.
 
 ## Contributing to parquet_s3_fdw for a touch-free experience
 
