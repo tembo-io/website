@@ -11,9 +11,9 @@ const ClerkButton: FC<Props> = ({ currentPage }) => {
 	const { organization } = useOrganization();
 
 	const getButtonStyles = () => {
-		if (currentPage === '/solutions/transactional') {
+		if (currentPage.includes('/solutions/transactional')) {
 			return 'sqlBlue';
-		} else if (currentPage === '/solutions/ai') {
+		} else if (currentPage.includes('/solutions/ai')) {
 			return 'sqlPink';
 		}
 

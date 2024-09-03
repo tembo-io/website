@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from './Container';
 import cx from 'classnames';
 import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import ClerkProviderWithButton from './ClerkButton';
-import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import SolutionsNav from './SolutionsNav';
 
 interface Props {
