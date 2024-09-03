@@ -40,6 +40,16 @@ const NavBar: React.FC<Props> = ({
 	const [isOpen, setIsOpen] = useState(false);
 	const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
+	const getButtonStyles = () => {
+		if (currentPage.includes('/solutions/transactional')) {
+			return 'bg-sqlBlue';
+		} else if (currentPage.includes('/solutions/ai')) {
+			return 'bg-sqlPink';
+		}
+
+		return 'bg-neon hover:bg-[#D1E278]';
+	};
+
 	const handleMouseEnter = () => {
 		if (closeTimeoutRef.current) {
 			clearTimeout(closeTimeoutRef.current);
@@ -221,7 +231,8 @@ const NavBar: React.FC<Props> = ({
 							setIsMenuOpen(!isMenuOpen);
 						}}
 						className={cx(
-							'mid:hidden flex flex-col gap-[2.5px] items-center justify-center bg-neon hover:bg-[#D1E278] rounded-full w-[32.57px] h-[32.57px] z-50',
+							'mid:hidden flex flex-col gap-[2.5px] items-center justify-center rounded-full w-[32.57px] h-[32.57px] z-50',
+							getButtonStyles(),
 							isMenuOpen ? 'p-2' : 'p-2.5',
 						)}
 					>

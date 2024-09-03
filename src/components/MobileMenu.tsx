@@ -1,8 +1,14 @@
+import { useState } from 'react';
 import Container from './Container';
 import Button from './Button';
 import { navigate } from 'astro:transitions/client';
+import Accordion from './Accordion';
 
 const MobileMenu = () => {
+	const [isOpen, setIsOpen] = useState(false);
+
+	console.log(isOpen);
+
 	return (
 		<div className='bg-offBlack mid:hidden fixed z-10 w-screen h-screen overflow-hidden inset-0'>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
@@ -15,6 +21,39 @@ const MobileMenu = () => {
 						>
 							Home
 						</a>
+						<img src={'/line.svg'} alt='line' />
+						<ul className='flex flex-col'>
+							<button
+								className='flex flex-start gap-2'
+								onClick={() => {
+									setIsOpen((prevState) => !prevState);
+								}}
+							>
+								Solutions
+								{isOpen ? (
+									<img
+										src='/arrow-down.svg'
+										alt='minus symbol'
+									/>
+								) : (
+									<img
+										src='/arrow-down.svg'
+										alt='plus symbol'
+									/>
+								)}
+							</button>
+							{isOpen ? (
+								<div>
+									<li>
+										<a>Tembo Transactional</a>
+									</li>
+									<li>
+										<a>Tembo AI</a>
+									</li>
+								</div>
+							) : null}
+						</ul>
+
 						<img src={'/line.svg'} alt='line' />
 						<a
 							href='/pricing'
