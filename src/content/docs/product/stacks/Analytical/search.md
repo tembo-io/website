@@ -3,7 +3,7 @@ slug: search-stack
 title: Search
 sideBarTitle: Search
 description: A postgres extension that enables full text search
-tags: [postgres, elasticsearch, textsearch, search, bm25, analytical]
+tags: [postgres, elasticsearch, textsearch, analytical]
 ---
 
 ## Overview
