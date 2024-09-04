@@ -17,9 +17,12 @@ With this tool, users have the power to push a Postgres table to an S3 bucket, f
 
 ## A primer on data lifecycle management
 
-While we find this exciting in its own right, it's important to appreciate the context within which this extension operates. That is to say, the fundamentals of data lifecycle management and some example use cases.
+While we find this exciting in its own right, it's also important to appreciate the context within which this extension operates. That is to say, the fundamentals of data lifecycle management and some example use cases.
 
-Access pattern of the data sets varies over their lifecycle. In general, trends of access frequency decrease over the period of time. Pg_tier is envisioned to provide a substantial solution towards data management when it enters the less accessed usage stage (aged data stage) to rarely accessed stage (archival stage).
+As data progresses through the various stages of its lifecycle, so too do its access patterns change.
+While not always the case, it's safe to assume that as data ages, its frequency of access decreases.
+
+Pg_tier is envisioned to provide a substantial solution towards data management when it enters the less accessed usage stage (aged data stage) to rarely accessed stage (archival stage).
 
 ### Aged Data Stage:
 
