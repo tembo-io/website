@@ -15,6 +15,20 @@ Today, users with large data volumes find themselves incurring high costs as the
 At Tembo, we've heard this pain point come up frequently in both internal and community discussions. This was such a common topic, in fact, that we decided to build and open sourced a community solution `pg_tier`; a PostgreSQL extension designed to streamline the developer interaction with AWS S3 and other object stores.
 With this tool, users have the power to push a Postgres table to an S3 bucket, for example, while retaining the ability to query it as if it were still in Postgres.
 
+## A primer on data lifecycle management
+
+While this is well and good, what exactly is data lifecycle management and what sort of use cases can be found?
+
+Access pattern of the data sets varies over their lifecycle. In general, trends of access frequency decrease over the period of time. Pg_tier is envisioned to provide a substantial solution towards data management when it enters the less accessed usage stage (aged data stage) to rarely accessed stage (archival stage).
+
+### Aged Data Stage:
+
+Older data sets that are not frequently accessed, but are expected to be available for immediate access. Pg_tier moves the data to the object store as a parquet file, generates foreign data wrapper meta to enable transparent access through sql queries. Parquet file is compressed and analytical friendly format.
+
+### Archival Stage:
+
+Object store tiering has evolved as an alternative or complement to traditional data archiving methods. Traditional archive solutions often offer lower storage costs compared to standard storage options, as they are designed for long term retention of data. However, these solutions incur higher cost of data retrieval or access. On the other hand, pg_tier provides bottomless storage with low cost of data access.
+
 ## Everyone can have bottomless storage on Postgres
 
 We love Postgres, but while storage volumes such as Elastic Block Store (in the case of AWS) might appear convenient, they are very costly relative to their object storage alternatives (such as S3). Not only that, but they are difficult to scale (and typically cannot scale down).
