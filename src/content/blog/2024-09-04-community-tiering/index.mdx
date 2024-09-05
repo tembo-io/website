@@ -20,22 +20,22 @@ Before jumping into functionaliy, it's important to appreciate the context withi
 
 As data progresses through the various stages of its lifecycle, so too do its access patterns change. Upon injestion and querying, data is understood to be at the "hot" stage. While the following is of course circumstantial, it's safe to assume that, as this data ages, its frequency of access decreases. Both literally and metaphorically, the data cools and eventually finds itself in "cold" storage.
 
-In addition to access patterns, organizations, such as financial institutions, will likely adhere to certain governance postures that would enforce a data retention period. It simply wouldn't make sense to keep 7 - 10 year old data front and center, when one can store it at much lower costs.
+In addition to access patterns, organizations, such as banks, will likely adhere to certain governance postures that would enforce a data retention period. It simply wouldn't make sense to keep 7 - 10 year old data front and center, when one can store it at much lower costs.
 Moreover, It's important to note that these stages aren't simply where the data is stored, but a combination of its location and formatting.
 
 A good way to visualize these stages would be to break them down as follows:
 
-- Postgres Database (hot storage)
-- Aged Data Stage
-- Archival Stage (cold storage)
+### Postgres Database (hot storage)
 
-Take the Aged Data Stage, for instance. This stage is reserved for older data sets that are not frequently accessed, but are expected to be available for immediate access. Pg_tier moves the data to the object store as a parquet file, generates foreign data wrapper meta to enable transparent access through SQL queries. Parquet file is compressed and analytical friendly format.
+In the initial stage, data is frequently accessed and queried. This is where data is most "active," requiring quick retrieval and processing.
 
-`pg_tier` is designed with the latter two stages is envisioned to provide a substantial solution towards data management when it enters the less accessed usage stage (aged data stage) to rarely accessed stage (archival stage).
+### Aged Data Stage (cool storage)
 
-### Archival Stage:
+As data becomes less frequently accessed over time, it eventually reaches a point where moving it out of Postgres and into an object store becomes more practical. At this stage, the data still requires immediate accessibility, even though it's not accessed as often. It's at this (and the following) stage where `pg_tier` offers the most value by moving the data to an object store, storing it in a Parquet file format, and generating foreign data wrapper metadata.
 
-Object store tiering has evolved as an alternative or complement to traditional data archiving methods. Traditional archive solutions often offer lower storage costs compared to standard storage options, as they are designed for long term retention of data. However, these solutions incur higher cost of data retrieval or access. On the other hand, pg_tier provides bottomless storage with a low cost of data access.
+### Archival Stage (cold storage)
+
+In the final stage, data is rarely accessed but retained for long-term storage and compliance. Object store tiering has evolved as an alternative or complement to traditional data archiving methods. `pg_tier` provides users with bottomless storage and a low cost of data access.
 
 ## Everyone can have bottomless storage on Postgres
 
