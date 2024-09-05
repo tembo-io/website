@@ -175,98 +175,92 @@ const BootcampForm: React.FC = () => {
 	};
 
 	return (
-		<div className='flex flex-col md:gap-12 mx-[100px]'>
-			<h2
-				className='text-neon
-			font-primary
-			font-semibold
-			md:text-5xl
-			text-[32px]
-			'
-			>
+		<div className='flex flex-col w-full lg:w-1/2 justify-center items-center'>
+			<h2 className='text-neon font-primary font-semibold md:text-5xl text-[32px] pb-12'>
 				Schedule a Postgres Bootcamp
 			</h2>
-			<form id='bootcampForm' className='flex flex-col gap-4'>
-				<input
-					placeholder='First Name*'
-					name='firstName'
-					ref={firstNameRef}
-					type='text'
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
-				/>
-				<input
-					placeholder='Last Name*'
-					name='lastName'
-					ref={lastNameRef}
-					type='text'
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
-				/>
-				<input
-					placeholder='Job Title*'
-					type='text'
-					name='jobTitle'
-					ref={jobTitleRef}
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
-				/>
-				<input
-					placeholder='Work Email*'
-					type='email'
-					name='email'
-					ref={emailRef}
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
-				/>
-				<input
-					placeholder='Company*'
-					type='text'
-					name='company'
-					ref={companyRef}
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
-				/>
-				<input
-					placeholder='City*'
-					type='text'
-					name='city'
-					ref={cityRef}
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
-				/>
-				<CountrySelect ref={countryRef} />
-				<div className='relative'>
+			<form id='bootcampForm'>
+				<div className='grid grid-cols-1 lg:grid-cols-2 gap-4 w-full'>
 					<input
-						ref={dateRef}
-						type='date'
-						onFocus={handleFocus}
-						onBlur={handleBlur}
-						onChange={(e) => setHasValue(!!e.target.value)}
-						className={cx(
-							'min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-transparent',
-							!hasValue ? 'text-transparent' : 'text-white',
-						)}
+						placeholder='First Name*'
+						name='firstName'
+						ref={firstNameRef}
+						type='text'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
-					{!hasValue && (
-						<span className='absolute left-3 top-1/2 transform -translate-y-1/2 p-2 text-ghostWhite pointer-events-none transition-opacity duration-200'>
-							Preferred Bootcamp Date*
-						</span>
-					)}
+					<input
+						placeholder='Last Name*'
+						name='lastName'
+						ref={lastNameRef}
+						type='text'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+					/>
+					<input
+						placeholder='Job Title*'
+						type='text'
+						name='jobTitle'
+						ref={jobTitleRef}
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+					/>
+					<input
+						placeholder='Work Email*'
+						type='email'
+						name='email'
+						ref={emailRef}
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+					/>
+					<input
+						placeholder='Company*'
+						type='text'
+						name='company'
+						ref={companyRef}
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+					/>
+					<input
+						placeholder='City*'
+						type='text'
+						name='city'
+						ref={cityRef}
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+					/>
+					<CountrySelect ref={countryRef} />
+					<div className='relative'>
+						<input
+							ref={dateRef}
+							type='date'
+							onFocus={handleFocus}
+							onBlur={handleBlur}
+							onChange={(e) => setHasValue(!!e.target.value)}
+							className={cx(
+								'min-[840px]:w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-transparent',
+								!hasValue ? 'text-transparent' : 'text-white',
+							)}
+						/>
+						{!hasValue && (
+							<span className='absolute left-3 top-1/2 transform -translate-y-1/2 p-2 text-ghostWhite pointer-events-none transition-opacity duration-200'>
+								Preferred Bootcamp Date*
+							</span>
+						)}
+					</div>
 				</div>
 
-				<div className='flex flex-row gap-2'>
+				<div className='flex flex-row gap-2 m-4'>
 					<input
 						ref={optinRef}
 						type='checkbox'
 						id='bootcampOptin'
-						className='flex justify-start items-start rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
+						className='flex justify-start items-start rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<label htmlFor='bootcampOptin'>
 						Opt In for Bootcamp Updates
 					</label>
 				</div>
-
-				<input
-					type='submit'
-					className='flex h-14 min-[840px]:w-[412px] justify-center items-center w-full bg-gradient-button text-white transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base cursor-pointer text-white'
-					onClick={(e) => onSubmit(e)}
-				/>
 			</form>
+			<input
+				type='submit'
+				className='flex h-14 justify-center items-center w-full lg:w-[412px] bg-gradient-button text-white transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base cursor-pointer text-white'
+				onClick={(e) => onSubmit(e)}
+			/>
 		</div>
 	);
 };

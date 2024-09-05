@@ -262,7 +262,7 @@ const CountrySelect = forwardRef<HTMLSelectElement, {}>(
 					id='country'
 					name='country'
 					className={cx(
-						'appearance-none min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none md:text-base text-xs',
+						'appearance-none w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none md:text-base text-xs',
 						selectedCountry === ''
 							? 'text-ghostWhite'
 							: 'text-white',

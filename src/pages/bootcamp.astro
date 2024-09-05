@@ -5,6 +5,7 @@ import Container from '@components/Container';
 import Footer from '@components/Footer.astro';
 import Button from '@components/Button';
 import { Image } from 'astro:assets';
+import Floor from 'src/images/Floor.jpg';
 import Tembonauts from 'src/images/tembonauts.svg';
 import ContactElephant from '../../public/contact-elephant.svg';
 import ArrowRight from 'src/images/arrow-right-white.svg';
@@ -22,14 +23,14 @@ const currentPath = Astro.url.pathname;
 		>
 			<div class='flex flex-col w-full md:w-full lg:w-1/2'>
 				<div
-					class='text-neon font-bold tracking-[0.47px] text-[44px] lg:text-[60px] leading-tight mb-10 w-full lg:w-1/2 text-center lg:text-left'
+					class='text-neon font-bold tracking-[0.47px] text-[44px] lg:text-[60px] leading-tight mb-10 w-full text-center lg:text-left'
 				>
 					Tembo Postgres Bootcamp
 				</div>
 				<p
-					class='text-lightGrey font-normal font-secondary text-sm mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
+					class='text-lightGrey font-normal font-secondary text-md mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
 				>
-					From 0 to use case in a few days.
+					From 0 to use case in 5 days.
 				</p>
 				<div
 					class='flex flex-row justify-center align-center lg:justify-start gap-4'
@@ -53,10 +54,10 @@ const currentPath = Astro.url.pathname;
 					</Button>
 				</div>
 			</div>
-			<Image src={Tembonauts} alt='hero image' />
+			<Image src={Floor} width={500} height={400} alt='hero image' />
 		</section>
 		<section
-			class="class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[100px]"
+			class="class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[100px] px-5 lg:px-0"
 		>
 			<Markdown>
 				<h2>
@@ -115,27 +116,27 @@ const currentPath = Astro.url.pathname;
 				class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'
 			>
 			</div>
-			<div class='grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-8'>
-				<div class='flex items-center md:justify-center'>
+			<div class='flex flex-col lg:flex-row justify-between gap-8'>
+				<div class='flex items-center justify-center'>
 					<Image
-						src={ContactElephant}
+						src={Tembonauts}
 						alt='contact elephant image'
-						width={400}
-						height={400}
-						class='lg:block hidden'
+						width={500}
+						height={300}
+						class='hidden lg:block'
 					/>
 					<Image
-						src={ContactElephant}
+						src={Tembonauts}
 						alt='contact elephant image'
-						width={300}
-						height={300}
+						width={400}
+						height={200}
 						class='lg:hidden md:block hidden'
 					/>
 					<Image
-						src={ContactElephant}
+						src={Tembonauts}
 						alt='contact elephant image'
-						width={120}
-						height={120}
+						width={300}
+						height={100}
 						class='max-[768px]:block hidden'
 					/>
 				</div>
