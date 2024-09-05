@@ -184,7 +184,7 @@ const BootcampForm: React.FC = () => {
 			text-[32px]
 			'
 			>
-				Schedule a Tembo Bootcamp
+				Schedule a Postgres Bootcamp
 			</h2>
 			<form id='bootcampForm' className='flex flex-col gap-4'>
 				<input
