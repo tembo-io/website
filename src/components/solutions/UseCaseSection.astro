@@ -26,15 +26,13 @@ const {
 >
 	{
 		leftAlignedImg && (
-			<div class='w-[370px]'>
-				<Image
-					src={imgMetadata}
-					width={370}
-					height={220}
-					alt='hero image for intro section'
-					class='hidden lg:block'
-				/>
-			</div>
+			<Image
+				src={imgMetadata}
+				width={370}
+				height={220}
+				alt='green database'
+				class='hidden w-[370px] h-[177px] lg:block'
+			/>
 		)
 	}
 	<div class='flex flex-col w-full lg:w-1/2'>
@@ -84,15 +82,13 @@ const {
 	</div>
 	{
 		rightAlignedImg && (
-			<div class='w-[370px]'>
-				<Image
-					src={imgMetadata}
-					width={370}
-					height={220}
-					alt='green database'
-					class='hidden lg:block'
-				/>
-			</div>
+			<Image
+				src={imgMetadata}
+				width={370}
+				height={220}
+				alt='green database'
+				class='hidden w-[370px] h-[177px] lg:block'
+			/>
 		)
 	}
 </section>
