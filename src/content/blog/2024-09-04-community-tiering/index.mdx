@@ -83,7 +83,7 @@ Server: pg_tier_s3_srv
 FDW options: (dirname 's3://cdb-plat-use1-prod-instance-storage/v2/reservedly-lovable-sheepdog/public_people/')
 ```
 
-Every Tembo Cloud instance has it's own private and dedicated S3 bucket.
+Every Tembo Cloud instance has its own private and dedicated S3 bucket.
 When you run tier.table(), the table is written to this bucket in parquet format and the current table converted into a foreign table (via parquet_s3_fdw).
 When you're running on Tembo Cloud, this means you don't need to bring your own AWS account.
 
