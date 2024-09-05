@@ -155,8 +155,8 @@ export const AUTHORS: Record<string, Author> = {
 		email: 'noreply@tembo.io',
 	},
 	ash: {
-		name: 'Ash Kordar',
-		title: 'Head of Education',
+		name: 'Ash Borkar',
+		title: 'Senior Frontend Engineer',
 		url: 'https://github.com/aishwaryaborkar',
 		image_url: 'https://github.com/aishwaryaborkar.png',
 		email: 'noreply@tembo.io',
