@@ -25,39 +25,27 @@ Moreover, It's important to note that these stages aren't simply where the data 
 
 A good way to visualize these stages would be to break them down as follows:
 
-### Postgres Database (hot storage)
+### Postgres Database (Hot Storage)
 
 In the initial stage, data is frequently accessed and queried. This is where data is most "active," requiring quick retrieval and processing.
 
-### Aged Data Stage (cool storage)
+### Aged Data Stage (Cool Storage)
 
 As data becomes less frequently accessed over time, it eventually reaches a point where moving it out of Postgres and into an object store becomes more practical. At this stage, the data still requires immediate accessibility, even though it's not accessed as often. It's at this (and the following) stage where `pg_tier` offers the most value by moving the data to an object store, storing it in a Parquet file format, and generating foreign data wrapper metadata.
 
-### Archival Stage (cold storage)
+### Archival Stage (Cold Storage)
 
-In the final stage, data is rarely accessed but retained for long-term storage and compliance. Object store tiering has evolved as an alternative or complement to traditional data archiving methods. `pg_tier` provides users with bottomless storage and a low cost of data access.
+In the final stage, data is rarely accessed but retained for long-term storage and compliance. Object stores have evolved various tiers, but the lowest tiers still brings unnecessary costs when trying to access your data. `pg_tier` provides users with bottomless storage and a low cost of data access.
 
 ## Everyone can have bottomless storage on Postgres
 
-We love Postgres, but while storage volumes such as Elastic Block Store (in the case of AWS) might appear convenient, they are very costly relative to their object storage alternatives (such as S3). Not only that, but they are difficult to scale (and typically cannot scale down).
-
-As an organization, it's important to distinguish between data that needs to be "hot and ready" versus tucked away into "colder" storage.
-Indeed, this is already common practice; engineers working with Postgres are archiving data via simple copying to S3 and deleting from Postgres.
-Great! Storage utilization is decreased and data is retained in a more cost-effective storage solution.
-
-But what about when you want to query that data?
-There are certainly tools that allow you to do this, such as [DuckDB](https://duckdb.org/), [Apache Pinot](https://pinot.apache.org/), or [ClickHouse](https://clickhouse.com/).
-That said, users will find that they will have to build a significant amount of the pipeline themselves, including moving the data to S3, to then integrate the S3 data into their tool of choice.
-The goal of `pg_tier`is to make this a standardized process, across all object storage formats and cloud providers, with a first class experience on Postgres.
+The need for scalable and affordable storage is clear, and this is where Postgres users can significantly benefit. However, engineers working with Postgres are already archiving data via simple copying to S3 and deleting from Postgres. The issues arise when one wants to query that data. There are certainly tools that allow you to do this, such as [DuckDB](https://duckdb.org/), [Apache Pinot](https://pinot.apache.org/), or [ClickHouse](https://clickhouse.com/). That said, users will find that they will have to build a significant amount of the pipeline themselves, including moving the data to S3, to then integrate the S3 data into their tool of choice. The goal of `pg_tier`is to make this a standardized process, across all object storage formats and cloud providers, with a first class experience on Postgres.
 
 ## Contributing to parquet_s3_fdw for a touch-free experience
 
-While pg_tier is a relatively new project, it heavily depends on long-standing and popular project: parquet_s3_fdw. pg_tier uses parquet_s3_fdw to create a foreign data wrapper around data in S3.
-This is the key piece of technology that allows you to query the data in S3 as if it were in Postgres.
+While `pg_tier` is a relatively new project, it heavily depends on long-standing and popular project: `parquet_s3_fdw`. `pg_tier` uses `parquet_s3_fdw` to create a foreign data wrapper around data in S3. This is the key piece of technology that allows you to query the data in S3 as if it were in Postgres.
 
-In order to make the experience best for cloud users, Tembo contributed the ability for parquet_s3_fdw to fetch cloud credentials from the environment.
-With this feature, you can inject AWS credentials into the Postgres environment, then parquet_s3_fdw will be able to use those credentials to authenticate with and configuring object storage.
-We are currently running a public fork of parquet_s3_fdw in Tembo Cloud so that you can use this feature today.
+In order to make the experience best for cloud users, Tembo contributed the ability for `parquet_s3_fdw` to fetch cloud credentials from the environment. With this feature, you can inject AWS credentials into the Postgres environment, then `parquet_s3_fdw` will be able to use those credentials to authenticate with and configuring object storage. We are currently running a public fork of `parquet_s3_fdw` in Tembo Cloud so that you can use this feature today.
 
 Here's how you do this on Tembo Cloud:
 
@@ -129,4 +117,4 @@ FDW options: (dirname 's3://my-storage-bucket/public_people/')
 
 ## Try it on Tembo Cloud
 
-pg_tier is PostgreSQL licensed and available today on Tembo Cloud in the Data Warehouse Stack. Try anywhere with Docker, or install it with Trunk or from source, and via .
+`pg_tier` is PostgreSQL-licensed and available today on Tembo Cloud in the Data Warehouse Stack. Try anywhere with Docker, or install it with Trunk or from source, and via .
