@@ -9,27 +9,28 @@ date:
 planetPostgres: 
 ---
 
-While appraising the value of data, one mustn't only consider their literal measurements, but the resources dedicated to their lifecycle management as well. Today, users with large data volumes find themselves incurring high costs as their data scales; and what might have started as an attractive subscription fee, quickly becomes difficult to justify. One answer to such a problem focuses not so much on the amount of data, but how the data is stored.
+While appraising the value of data, one mustn't only consider its literal measurements, but also the resources dedicated to their lifecycle management. Today, users with large data volumes find themselves incurring high costs as their data scales. What might have started as an attractive subscription fee, quickly becomes difficult to justify. One answer to such a problem focuses not so much on the amount of data, but how the data is stored.
 
-At Tembo, we've heard this pain point come up frequently, both in internal and community conversations. This was such a pervasive topic, in fact, that we decided to build and open source a community solution, `pg_tier`; a PostgreSQL extension designed to streamline the developer interaction with AWS S3 and other object stores.
+At Tembo, we've frequently heard this pain point, both in internal and community conversations. This was such a pervasive topic, in fact, that we decided to build and open-source a community solution, `pg_tier` - a PostgreSQL extension designed to streamline the developer interaction with AWS S3 and other object stores.
 With this tool, users have the power to push a Postgres table to an S3 bucket, for example, while retaining the ability to query it as if it were still in Postgres.
 
-## A primer on data lifecycle management
+## Data lifecycle management
 
-While we find this exciting in its own right, it's also important to appreciate the context within which this extension operates. That is to say, the fundamentals of data lifecycle management and some example use cases.
+Before jumping into functionaliy, it's important to appreciate the context within which this extension operates - that is, the fundamentals of data lifecycle management.
 
-As data progresses through the various stages of its lifecycle, so too do its access patterns change.
-While not always the case, it's safe to assume that as data ages, its frequency of access decreases.
+As data progresses through the various stages of its lifecycle, so too do its access patterns change. Upon injestion and frequent querying, data is said to be at a "hot" stage. While the following is of course circumstantial, it's safe to assume that as this data ages, its frequency of access decreases. Both literally and metaphorically, the data cools and eventually finds itself in "cold" storage.
+
+It's not simply where the data is stored, but a combination of its location how it is formatted. 
 
 Pg_tier is envisioned to provide a substantial solution towards data management when it enters the less accessed usage stage (aged data stage) to rarely accessed stage (archival stage).
 
 ### Aged Data Stage:
 
-Older data sets that are not frequently accessed, but are expected to be available for immediate access. Pg_tier moves the data to the object store as a parquet file, generates foreign data wrapper meta to enable transparent access through sql queries. Parquet file is compressed and analytical friendly format.
+Older data sets that are not frequently accessed, but are expected to be available for immediate access. Pg_tier moves the data to the object store as a parquet file, generates foreign data wrapper meta to enable transparent access through SQL queries. Parquet file is compressed and analytical friendly format.
 
 ### Archival Stage:
 
-Object store tiering has evolved as an alternative or complement to traditional data archiving methods. Traditional archive solutions often offer lower storage costs compared to standard storage options, as they are designed for long term retention of data. However, these solutions incur higher cost of data retrieval or access. On the other hand, pg_tier provides bottomless storage with low cost of data access.
+Object store tiering has evolved as an alternative or complement to traditional data archiving methods. Traditional archive solutions often offer lower storage costs compared to standard storage options, as they are designed for long term retention of data. However, these solutions incur higher cost of data retrieval or access. On the other hand, pg_tier provides bottomless storage with a low cost of data access.
 
 ## Everyone can have bottomless storage on Postgres
 
