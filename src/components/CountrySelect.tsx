@@ -252,36 +252,36 @@ const countries = [
 	{ code: 'ZW', name: 'Zimbabwe' },
 ];
 
-const CountrySelect = forwardRef<HTMLSelectElement, {}>(
-	(props, ref: Ref<HTMLSelectElement>) => {
-		const [selectedCountry, setSelectedCountry] = useState('');
-		return (
-			<div>
-				<select
-					ref={ref}
-					id='country'
-					name='country'
-					className={cx(
-						'appearance-none w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none md:text-base text-xs',
-						selectedCountry === ''
-							? 'text-ghostWhite'
-							: 'text-white',
-					)}
-					value={selectedCountry}
-					onChange={(e) => setSelectedCountry(e.target.value)}
-				>
-					<option value='' disabled className='text-ghostWhite'>
-						Country*
+const CountrySelect = forwardRef<
+	HTMLSelectElement,
+	{ selectedCountry: string; setSelectedCountry: (country: any) => void }
+>((props, ref: Ref<HTMLSelectElement>) => {
+	return (
+		<div>
+			<select
+				ref={ref}
+				id='country'
+				name='country'
+				className={cx(
+					'appearance-none w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none md:text-base text-xs',
+					props.selectedCountry === ''
+						? 'text-ghostWhite'
+						: 'text-white',
+				)}
+				value={props.selectedCountry}
+				onChange={(e) => props.setSelectedCountry(e.target.value)}
+			>
+				<option value='' disabled className='text-ghostWhite'>
+					Country*
+				</option>
+				{countries.map((country) => (
+					<option key={country.code} value={country.code}>
+						{country.name}
 					</option>
-					{countries.map((country) => (
-						<option key={country.code} value={country.code}>
-							{country.name}
-						</option>
-					))}
-				</select>
-			</div>
-		);
-	},
-);
+				))}
+			</select>
+		</div>
+	);
+});
 
 export default CountrySelect;

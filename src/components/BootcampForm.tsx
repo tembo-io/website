@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 import CountrySelect from '@components/CountrySelect';
 
 const BootcampForm: React.FC = () => {
+	const [selectedCountry, setSelectedCountry] = useState('');
 	const firstNameRef = useRef<HTMLInputElement | null>(null);
 	const lastNameRef = useRef<HTMLInputElement | null>(null);
 	const jobTitleRef = useRef<HTMLInputElement | null>(null);
@@ -155,7 +156,7 @@ const BootcampForm: React.FC = () => {
 			if (emailRef.current) emailRef.current.value = '';
 			if (companyRef.current) companyRef.current.value = '';
 			if (cityRef.current) cityRef.current.value = '';
-			if (countryRef.current) countryRef.current.value = 'Country*';
+			if (countryRef.current) setSelectedCountry('');
 			if (dateRef.current) setHasValue(false);
 			if (optinRef.current?.checked) optinRef.current.checked = false;
 		},
@@ -223,7 +224,11 @@ const BootcampForm: React.FC = () => {
 						ref={cityRef}
 						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
-					<CountrySelect ref={countryRef} />
+					<CountrySelect
+						ref={countryRef}
+						selectedCountry={selectedCountry}
+						setSelectedCountry={setSelectedCountry}
+					/>
 					<div className='relative'>
 						<input
 							ref={dateRef}
