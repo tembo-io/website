@@ -9,10 +9,9 @@ date:
 planetPostgres: 
 ---
 
-While appraising the value of data, one mustn't only consider the their literal measurements, but also the resources dedicated to their lifecycle management.
-Today, users with large data volumes find themselves incurring high costs as their data scales; and what might have started as attractive subscription fees, quickly become difficult to justify. One answer to such a problem focuses not so much on the amount of data, but how such data is stored.
+While appraising the value of data, one mustn't only consider their literal measurements, but the resources dedicated to their lifecycle management as well. Today, users with large data volumes find themselves incurring high costs as their data scales; and what might have started as an attractive subscription fee, quickly becomes difficult to justify. One answer to such a problem focuses not so much on the amount of data, but how the data is stored.
 
-At Tembo, we've heard this pain point come up frequently in both internal and community discussions. This was such a common topic, in fact, that we decided to build and open source a community solution, `pg_tier`; a PostgreSQL extension designed to streamline the developer interaction with AWS S3 and other object stores.
+At Tembo, we've heard this pain point come up frequently, both in internal and community conversations. This was such a pervasive topic, in fact, that we decided to build and open source a community solution, `pg_tier`; a PostgreSQL extension designed to streamline the developer interaction with AWS S3 and other object stores.
 With this tool, users have the power to push a Postgres table to an S3 bucket, for example, while retaining the ability to query it as if it were still in Postgres.
 
 ## A primer on data lifecycle management
