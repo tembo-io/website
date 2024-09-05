@@ -7,7 +7,7 @@ import DbBlue from 'src/images/db-blue-transactional.svg';
 import StackedCardsOrder from 'src/images/stacked-cards-order.png';
 import TemboTransactions from 'src/images/tembo-transactions.png';
 import StackedCardsReservation from 'src/images/stacked-cards-reservation.png';
-import TransactionSection from '@components/solutions/TransactionSection.astro';
+import UseCaseSection from '@components/solutions/UseCaseSection.astro';
 import FeaturesSection from '@components/solutions/FeaturesSection.astro';
 import Testimonials from '@components/solutions/Testimonials.astro';
 import JoinTemboCTA from '@components/JoinTemboCTA.astro';
@@ -82,11 +82,9 @@ const transactionalFeatures = [
 					demands.`
 			deployButtonColor='sqlBlue'
 			img={DbBlue}
-			imgWidth={590}
-			imgHeight={600}
-			imgClassName='w-full lg:w-1/2'
+			imgClassName='w-[440px] h-[450px]'
 		/>
-		<TransactionSection
+		<UseCaseSection
 			useCaseText='Retail and E-commerce Transactions'
 			scenarioText='Managing sales transactions for an online retail platform.'
 			detailsText=`OLTP systems process customer orders, update inventory
@@ -98,7 +96,7 @@ const transactionalFeatures = [
 			imgMetadata={StackedCardsOrder}
 			rightAlignedImg={true}
 		/>
-		<TransactionSection
+		<UseCaseSection
 			useCaseText='Banking and Financial Services'
 			scenarioText=`Processing banking transactions such as withdrawals,
 					deposits, and transfers.`
@@ -110,7 +108,7 @@ const transactionalFeatures = [
 			imgMetadata={TemboTransactions}
 			leftAlignedImg={true}
 		/>
-		<TransactionSection
+		<UseCaseSection
 			useCaseText='Airline Reservation Systems'
 			scenarioText='Managing flight bookings and reservations'
 			detailsText=`OLTP systems handle the real-time processing of flight
@@ -130,11 +128,10 @@ const transactionalFeatures = [
 		/>
 		<WhyTembo
 			content={{
-				extensions: `Over 200 extensions that are installable with a click of
-						your ...`,
+				extensions: `Over 200 extensions that are installable with a click`,
 				support: `Support for all Postgres workloads—including
 						Transactional, Analytical, and AI`,
-				addons: `A variety of ecosystem and add ons are also available with a
+				addons: `A variety of ecosystem and add ons that are also available with a
 						click`,
 				postgres: `ACID compliance ensures reliable and accurate transaction processing. Easy scalability to support your growing application demands. Strong out-of-the-box OLTP performance and reliability.`,
 				tembo: `Automated backups, maintenance and updates. High availability options that  ensure reliability and uptime. A wide selection of available Postgres extensions relevant to OLTP workloads`,

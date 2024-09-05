@@ -7,7 +7,7 @@ import ElephantAI from 'src/images/elephant-ai.svg';
 import StackedCardsOrder from 'src/images/tembo-ai-retail.svg';
 import TemboAITransactions from 'src/images/tembo-ai-transactions.svg';
 import TemboAIFinancials from 'src/images/tembo-ai-financials.svg';
-import TransactionSection from '@components/solutions/TransactionSection.astro';
+import UseCaseSection from '@components/solutions/UseCaseSection.astro';
 import FeaturesSection from '@components/solutions/FeaturesSection.astro';
 import Testimonials from '@components/solutions/Testimonials.astro';
 import JoinTemboCTA from '@components/JoinTemboCTA.astro';
@@ -50,21 +50,21 @@ const aiFeatures = [
 			img={ElephantAI}
 			imgClassName='w-[380px] h-[370px]'
 		/>
-		<TransactionSection
+		<UseCaseSection
 			useCaseText='Retail and E-commerce Transactions'
 			scenarioText='Enhance customer support and segment customers.'
 			detailsText=`Integrate a chatbot that retrieves relevant information from your company’s knowledge base to provide accurate responses to customer queries about products, orders, and returns. Segment customers based on purchasing behavior and demographics to tailor marketing strategies and improve customer engagement.`
 			imgMetadata={StackedCardsOrder}
 			rightAlignedImg={true}
 		/>
-		<TransactionSection
+		<UseCaseSection
 			useCaseText='Banking and Financial Services'
 			scenarioText=`Detect and prevent fraud and analyze documents.`
 			detailsText=`Identify fraudulent transactions and activities by implementing models that detect fraudulent transactions in real-time through the analysis of patterns and anomalies in transaction data. Identify and group similar documents in large datasets, useful for legal document analysis and contract management.`
 			imgMetadata={TemboAITransactions}
 			leftAlignedImg={true}
 		/>
-		<TransactionSection
+		<UseCaseSection
 			useCaseText='Travel'
 			scenarioText='Personalized recommendations and travel analytics.'
 			detailsText=`AI-powered tools analyze user preferences and past behavior to suggest destinations, accommodations, and activities personalized to travelers. Virtual assistants and chatbots provide 24/7 customer support, answer common queries, and assist with bookings. AI predicts travel demand, helping companies optimize inventory and pricing strategies. Machine learning models predict delays and cancellations to manage disruptions and offer alternative solutions to affected travelers, thus enhancing customer experiences.`
@@ -74,18 +74,10 @@ const aiFeatures = [
 		<FeaturesSection features={aiFeatures} />
 		<Benefits />
 		<Testimonials
-			titleQuote='“Tembo makes Postgres easy for us.”'
-			quote=` ”We don’t have to worry about spinning up or tuning it. We get stacks
-        that just work out of the box, and we know they are going to be tuned
-        without having to do a spike. We now use Tembo to manage a fleet of over
-        20 production instances and a number of non-prod and development
-        environments, and we’re excited to leverage Tembo for larger and larger
-        workloads as our customers ask us for more specialized use cases. Tembo
-        has become so fundamental to our platform that we don’t even think about
-        alternatives anymore. When you’re not spending time thinking about your
-        database, that’s how you know it’s a good solution.”`
-			customerName='Cody Hanson'
-			customerRole='Engineering Manager, Arch.dev'
+			titleQuote='“Tembo helps us leverage lower-cost LLMs.”'
+			quote=`“We’re very Open-AI dependent right now, and slowly making our way towards more optionality. One of the reasons Tembo appeals here is that we can build some of our in-house services in a way that takes advantage of lower-cost LLMs – for example, using latest mxbai or nomic embeddings at ollama.com or RAG.”`
+			customerName='Duane Johnson'
+			customerRole='Senior Software Engineer, SchoolAI'
 		/>
 		<WhyTembo
 			content={{
