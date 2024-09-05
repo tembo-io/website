@@ -26,8 +26,7 @@ const BootcampForm: React.FC = () => {
 				!cityRef.current?.value ||
 				!companyRef.current?.value ||
 				!countryRef.current?.value ||
-				!dateRef.current?.value ||
-				!optinRef.current?.value
+				!dateRef.current?.value
 			) {
 				toast.error('Please fill in all fields');
 				return;
@@ -87,7 +86,7 @@ const BootcampForm: React.FC = () => {
 					{
 						objectTypeId: '0-1',
 						name: 'stayinformed',
-						value: optinRef.current?.value,
+						value: optinRef.current?.checked,
 					},
 					{
 						objectTypeId: '0-1',
@@ -156,7 +155,9 @@ const BootcampForm: React.FC = () => {
 			if (emailRef.current) emailRef.current.value = '';
 			if (companyRef.current) companyRef.current.value = '';
 			if (cityRef.current) cityRef.current.value = '';
+			if (countryRef.current) countryRef.current.value = 'Country*';
 			if (dateRef.current) setHasValue(false);
+			if (optinRef.current?.checked) optinRef.current.checked = false;
 		},
 		[],
 	);
@@ -243,7 +244,7 @@ const BootcampForm: React.FC = () => {
 					/>
 					{!hasValue && (
 						<span className='absolute left-3 top-1/2 transform -translate-y-1/2 p-2 text-ghostWhite pointer-events-none transition-opacity duration-200'>
-							Select a date
+							Preferred Bootcamp Date*
 						</span>
 					)}
 				</div>
