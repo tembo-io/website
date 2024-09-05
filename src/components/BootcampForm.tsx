@@ -1,4 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
+import cx from 'classnames';
 import { toast } from 'sonner';
 import CountrySelect from '@components/CountrySelect';
 
@@ -139,10 +140,22 @@ const BootcampForm: React.FC = () => {
 			if (lastNameRef.current) lastNameRef.current.value = '';
 			if (emailRef.current) emailRef.current.value = '';
 			if (companyRef.current) companyRef.current.value = '';
-			// if (messageRef.current) messageRef.current.value = '';
 		},
 		[],
 	);
+
+	const [hasValue, setHasValue] = useState(false); // State to track if the date input has a value
+
+	const handleFocus = () => {
+		setHasValue(true);
+	};
+
+	const handleBlur = (e: any) => {
+		if (!e.target.value) {
+			setHasValue(false); // Only hide placeholder if there's no value
+		}
+	};
+
 	return (
 		<div className='flex flex-col md:gap-12 mx-[100px]'>
 			<h2
@@ -161,35 +174,49 @@ const BootcampForm: React.FC = () => {
 					name='firstName'
 					ref={firstNameRef}
 					type='text'
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 				/>
 				<input
 					placeholder='Last Name*'
 					name='lastName'
 					ref={lastNameRef}
 					type='text'
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 				/>
 				<input
 					placeholder='Work email*'
 					type='email'
 					name='email'
 					ref={emailRef}
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 				/>
 				<input
 					placeholder='Company*'
 					type='text'
 					name='company'
 					ref={companyRef}
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 				/>
 				<CountrySelect ref={countryRef} />
-				<input
-					ref={dateRef}
-					type='date'
-					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
-				/>
+				<div className='relative'>
+					<input
+						ref={dateRef}
+						type='date'
+						onFocus={handleFocus}
+						onBlur={handleBlur}
+						onChange={(e) => setHasValue(!!e.target.value)}
+						className={cx(
+							'min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-transparent',
+							!hasValue ? 'text-transparent' : 'text-white',
+						)}
+					/>
+					{!hasValue && (
+						<span className='absolute left-3 top-1/2 transform -translate-y-1/2 p-2 text-ghostWhite pointer-events-none transition-opacity duration-200'>
+							Select a date
+						</span>
+					)}
+				</div>
+
 				<div className='flex flex-row gap-2'>
 					<input
 						ref={optinRef}

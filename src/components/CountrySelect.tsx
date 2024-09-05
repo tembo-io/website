@@ -259,11 +259,11 @@ const CountrySelect = forwardRef<HTMLSelectElement, {}>(
 					ref={ref}
 					id='country'
 					name='country'
-					className='appearance-none min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
+					className='appearance-none min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none md:text-base text-xs text-white'
 					value={selectedCountry}
 					onChange={(e) => setSelectedCountry(e.target.value)}
 				>
-					<option value='' disabled>
+					<option value='' disabled className='text-ghostWhite'>
 						Country
 					</option>
 					{countries.map((country) => (

@@ -9,6 +9,7 @@ import Tembonauts from 'src/images/tembonauts.svg';
 import ContactElephant from '../../public/contact-elephant.svg';
 import ArrowRight from 'src/images/arrow-right-white.svg';
 import BootcampForm from '@components/BootcampForm';
+import Markdown from '@components/Markdown.astro';
 
 interface Props {
 	title: string;
@@ -40,21 +41,14 @@ const currentPath = Astro.url.pathname;
 		>
 			<div class='flex flex-col w-full md:w-full lg:w-1/2'>
 				<div
-					class='text-white font-bold tracking-[0.47px] text-[44px] lg:text-[60px] leading-tight mb-10 w-full lg:w-1/2 text-center lg:text-left'
+					class='text-neon font-bold tracking-[0.47px] text-[44px] lg:text-[60px] leading-tight mb-10 w-full lg:w-1/2 text-center lg:text-left'
 				>
-					Tembo AI Bootcamp
+					Tembo Postgres Bootcamp
 				</div>
 				<p
 					class='text-lightGrey font-normal font-secondary text-sm mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
 				>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-					do eiusmod tempor incididunt ut labore et dolore magna
-					aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-					ullamco laboris nisi ut aliquip ex ea commodo consequat.
-					Duis aute irure dolor in reprehenderit in voluptate velit
-					esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-					occaecat cupidatat non proident, sunt in culpa qui officia
-					deserunt mollit anim id est laborum.
+					From 0 to use case in a few days.
 				</p>
 				<div
 					class='flex flex-row justify-center align-center lg:justify-start gap-4'
@@ -67,7 +61,7 @@ const currentPath = Astro.url.pathname;
 						client:load
 					>
 						<div class='flex flex-row gap-2 my-auto'>
-							Schedule a Bootcamp
+							Schedule a Postgres Bootcamp
 							<Image
 								src={ArrowRight}
 								width={16}
@@ -79,6 +73,61 @@ const currentPath = Astro.url.pathname;
 				</div>
 			</div>
 			<Image src={Tembonauts} alt='hero image' />
+		</section>
+		<section
+			class="class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[100px]"
+		>
+			<Markdown>
+				<h2>
+					Tembo clients face critical data challenges. Join our
+					Postgres Bootcamp to:
+				</h2>
+				<ul>
+					<li>
+						<b
+							>Leverage PostgreSQL for mission-critical
+							applications:</b
+						>
+						Gain insights into applying PostgreSQL to your most important
+						projects.
+					</li>
+					<li>
+						<b>Develop and refine use cases:</b> Create and enhance initial
+						use cases tailored to your business needs.
+					</li>
+					<li>
+						<b
+							>Efficiently onboard and train users for rollout in
+							operations:</b
+						> Ensure a smooth rollout by effectively training your team
+						for operational success.
+					</li>
+				</ul>
+				<hr class='mt-20' />
+				<p>
+					Unlock the full potential of PostgreSQL with Tembo’s
+					comprehensive bootcamp, tailored to address your company’s
+					specific challenges. Our bootcamp provides personalized,
+					hands-on training to master PostgreSQL’s advanced features
+					and capabilities. From 0 to use case in a few days, you’ll
+					be equipped to confidently tackle real-world challenges.
+				</p>
+				<h2>Why Choose Tembo?</h2>
+				<ul>
+					<li>
+						<b>Expert Instructors:</b>
+						Learn from industry experts with years of experience in PostgreSQL.
+					</li>
+					<li>
+						<b>Customized Training:</b>
+						We tailor the bootcamp to meet your specific needs and goals.
+					</li>
+					<li>
+						<b>Community Support:</b> Join a community of like-minded
+						professionals and get support even after the bootcamp ends.
+					</li>
+				</ul>
+			</Markdown>
 		</section>
 		<section>
 			<div
