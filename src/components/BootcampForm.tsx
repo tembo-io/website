@@ -56,7 +56,7 @@ const BootcampForm: React.FC = () => {
 					},
 					{
 						objectTypeId: '0-1',
-						name: 'jobTitle',
+						name: 'jobtitle',
 						value: jobTitleRef.current?.value,
 					},
 					{
@@ -156,6 +156,7 @@ const BootcampForm: React.FC = () => {
 			if (emailRef.current) emailRef.current.value = '';
 			if (companyRef.current) companyRef.current.value = '';
 			if (cityRef.current) cityRef.current.value = '';
+			if (dateRef.current) setHasValue(false);
 		},
 		[],
 	);
