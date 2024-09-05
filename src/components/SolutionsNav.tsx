@@ -16,9 +16,19 @@ const SolutionsNav: FC<Props> = ({ isOpen }) => {
 					<NavigationMenu.Trigger className='flex flex-row gap-1 justify-between items-center'>
 						Solutions
 						{isOpen ? (
-							<img src='/arrow-up.svg' alt='minus symbol' />
+							<img
+								src='/arrow-up.svg'
+								height={16}
+								width={16}
+								alt='minus symbol'
+							/>
 						) : (
-							<img src='/arrow-down.svg' alt='minus symbol' />
+							<img
+								src='/arrow-down.svg'
+								height={16}
+								width={16}
+								alt='minus symbol'
+							/>
 						)}
 					</NavigationMenu.Trigger>
 					{isOpen && (
