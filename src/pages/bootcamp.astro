@@ -11,25 +11,6 @@ import ArrowRight from 'src/images/arrow-right-white.svg';
 import BootcampForm from '@components/BootcampForm';
 import Markdown from '@components/Markdown.astro';
 
-interface Props {
-	title: string;
-	description: string;
-	deployButtonColor: string;
-	img: ImageMetadata;
-	imgWidth?: number;
-	imgHeight?: number;
-	imgClassName: string;
-}
-const {
-	title,
-	description,
-	deployButtonColor,
-	img,
-	imgWidth,
-	imgHeight,
-	imgClassName,
-} = Astro.props;
-
 const currentPath = Astro.url.pathname;
 ---
 
@@ -56,9 +37,9 @@ const currentPath = Astro.url.pathname;
 					<Button
 						variant='primary'
 						size='lg'
-						isLinkTag={true}
-						link='https://cloud.tembo.io/sign-up'
 						client:load
+						scrollTo={true}
+						scrollToElement='bootcampForm'
 					>
 						<div class='flex flex-row gap-2 my-auto'>
 							Schedule a Postgres Bootcamp

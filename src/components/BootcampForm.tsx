@@ -6,8 +6,10 @@ import CountrySelect from '@components/CountrySelect';
 const BootcampForm: React.FC = () => {
 	const firstNameRef = useRef<HTMLInputElement | null>(null);
 	const lastNameRef = useRef<HTMLInputElement | null>(null);
+	const jobTitleRef = useRef<HTMLInputElement | null>(null);
 	const emailRef = useRef<HTMLInputElement | null>(null);
 	const companyRef = useRef<HTMLInputElement | null>(null);
+	const cityRef = useRef<HTMLInputElement | null>(null);
 	const countryRef = useRef<HTMLSelectElement | null>(null);
 	const dateRef = useRef<HTMLInputElement | null>(null);
 	const optinRef = useRef<HTMLInputElement | null>(null);
@@ -19,7 +21,9 @@ const BootcampForm: React.FC = () => {
 			if (
 				!firstNameRef.current?.value ||
 				!lastNameRef.current?.value ||
+				!jobTitleRef.current?.value ||
 				!emailRef.current?.value ||
+				!cityRef.current?.value ||
 				!companyRef.current?.value ||
 				!countryRef.current?.value ||
 				!dateRef.current?.value ||
@@ -52,6 +56,11 @@ const BootcampForm: React.FC = () => {
 					},
 					{
 						objectTypeId: '0-1',
+						name: 'jobTitle',
+						value: jobTitleRef.current?.value,
+					},
+					{
+						objectTypeId: '0-1',
 						name: 'email',
 						value: emailRef.current?.value,
 					},
@@ -59,6 +68,11 @@ const BootcampForm: React.FC = () => {
 						objectTypeId: '0-1',
 						name: 'company',
 						value: companyRef.current?.value,
+					},
+					{
+						objectTypeId: '0-1',
+						name: 'city',
+						value: cityRef.current?.value,
 					},
 					{
 						objectTypeId: '0-1',
@@ -138,8 +152,10 @@ const BootcampForm: React.FC = () => {
 			// reset all form fields
 			if (firstNameRef.current) firstNameRef.current.value = '';
 			if (lastNameRef.current) lastNameRef.current.value = '';
+			if (jobTitleRef.current) jobTitleRef.current.value = '';
 			if (emailRef.current) emailRef.current.value = '';
 			if (companyRef.current) companyRef.current.value = '';
+			if (cityRef.current) cityRef.current.value = '';
 		},
 		[],
 	);
@@ -168,7 +184,7 @@ const BootcampForm: React.FC = () => {
 			>
 				Schedule a Tembo Bootcamp
 			</h2>
-			<form className='flex flex-col gap-4'>
+			<form id='bootcampForm' className='flex flex-col gap-4'>
 				<input
 					placeholder='First Name*'
 					name='firstName'
@@ -184,7 +200,14 @@ const BootcampForm: React.FC = () => {
 					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 				/>
 				<input
-					placeholder='Work email*'
+					placeholder='Job Title*'
+					type='text'
+					name='jobTitle'
+					ref={jobTitleRef}
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+				/>
+				<input
+					placeholder='Work Email*'
 					type='email'
 					name='email'
 					ref={emailRef}
@@ -195,6 +218,13 @@ const BootcampForm: React.FC = () => {
 					type='text'
 					name='company'
 					ref={companyRef}
+					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+				/>
+				<input
+					placeholder='City*'
+					type='text'
+					name='city'
+					ref={cityRef}
 					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 				/>
 				<CountrySelect ref={countryRef} />
