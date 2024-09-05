@@ -18,15 +18,20 @@ With this tool, users have the power to push a Postgres table to an S3 bucket, f
 
 Before jumping into functionaliy, it's important to appreciate the context within which this extension operates - that is, the fundamentals of data lifecycle management.
 
-As data progresses through the various stages of its lifecycle, so too do its access patterns change. Upon injestion and frequent querying, data is said to be at a "hot" stage. While the following is of course circumstantial, it's safe to assume that as this data ages, its frequency of access decreases. Both literally and metaphorically, the data cools and eventually finds itself in "cold" storage.
+As data progresses through the various stages of its lifecycle, so too do its access patterns change. Upon injestion and querying, data is understood to be at the "hot" stage. While the following is of course circumstantial, it's safe to assume that, as this data ages, its frequency of access decreases. Both literally and metaphorically, the data cools and eventually finds itself in "cold" storage.
 
-It's not simply where the data is stored, but a combination of its location how it is formatted. 
+In addition to access patterns, organizations, such as financial institutions, will likely adhere to certain governance postures that would enforce a data retention period. It simply wouldn't make sense to keep 7 - 10 year old data front and center, when one can store it at much lower costs.
+Moreover, It's important to note that these stages aren't simply where the data is stored, but a combination of its location and formatting.
 
-Pg_tier is envisioned to provide a substantial solution towards data management when it enters the less accessed usage stage (aged data stage) to rarely accessed stage (archival stage).
+A good way to visualize these stages would be to break them down as follows:
 
-### Aged Data Stage:
+- Postgres Database (hot storage)
+- Aged Data Stage
+- Archival Stage (cold storage)
 
-Older data sets that are not frequently accessed, but are expected to be available for immediate access. Pg_tier moves the data to the object store as a parquet file, generates foreign data wrapper meta to enable transparent access through SQL queries. Parquet file is compressed and analytical friendly format.
+Take the Aged Data Stage, for instance. This stage is reserved for older data sets that are not frequently accessed, but are expected to be available for immediate access. Pg_tier moves the data to the object store as a parquet file, generates foreign data wrapper meta to enable transparent access through SQL queries. Parquet file is compressed and analytical friendly format.
+
+`pg_tier` is designed with the latter two stages is envisioned to provide a substantial solution towards data management when it enters the less accessed usage stage (aged data stage) to rarely accessed stage (archival stage).
 
 ### Archival Stage:
 
