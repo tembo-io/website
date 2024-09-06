@@ -17,7 +17,7 @@ With this tool, users have the power to push a Postgres table to an S3 bucket, f
 
 ## Data lifecycle management
 
-Before jumping into functionaliy, it's important to appreciate the context within which this extension operates - that is, the fundamentals of data lifecycle management.
+Before jumping into functionality, it's important to appreciate the context within which this extension operates - that is, the fundamentals of data lifecycle management.
 
 As data progresses through the various stages of its lifecycle, so too do its access patterns change. Upon injestion and querying, data is understood to be at the "hot" stage. While the following is of course circumstantial, it's safe to assume that, as this data ages, its frequency of access decreases. Both literally and metaphorically, the data cools and eventually finds itself in "cold" storage.
 
@@ -44,11 +44,11 @@ The need for scalable and affordable storage is clear, and this is where Postgre
 
 ## Contributing to parquet_s3_fdw for a touch-free experience
 
-While `pg_tier` is a relatively new project, it heavily depends on long-standing and popular project: `parquet_s3_fdw`. `pg_tier` uses `parquet_s3_fdw` to create a foreign data wrapper around data in S3. This is the key piece of technology that allows you to query the data in S3 as if it were in Postgres.
+While `pg_tier` is a relatively new project, it heavily depends on a long-standing and popular project: `parquet_s3_fdw`. `pg_tier` uses `parquet_s3_fdw` to create a foreign data wrapper around data in S3. This is the key piece of technology that allows you to query the data in S3 as if it were in Postgres.
 
-In order to make the experience best for cloud users, Tembo contributed the ability for `parquet_s3_fdw` to fetch cloud credentials from the environment. With this feature, you can inject AWS credentials into the Postgres environment, then `parquet_s3_fdw` will be able to use those credentials to authenticate with and configuring object storage. We are currently running a public fork of `parquet_s3_fdw` in Tembo Cloud so that you can use this feature today.
+In order to make the experience optimal for cloud users, every Tembo instance comes with pre-configured S3 as scratch space. As a result of Tembo's contribution to `parquet_s3_fdw`, users are don't need any AWS credential configuration to access their S3 data. We are currently running a public fork of `parquet_s3_fdw` in Tembo Cloud so that you can use this feature today. Altogether, this grants users the Tembo touch-free experience.
 
-Here's how you do this on Tembo Cloud:
+Here's how you can achieve this on Tembo Cloud:
 
 Create an example table, and give it some data
 
@@ -57,8 +57,7 @@ CREATE table people (
     name text not null,
     age numeric not null
 );
-```
-```sql
+
 INSERT into people values ('Alice', 34), ('Bob', 45), ('Charlie', 56);
 ```
 
@@ -83,7 +82,6 @@ Server: pg_tier_s3_srv
 FDW options: (dirname 's3://cdb-plat-use1-prod-instance-storage/v2/reservedly-lovable-sheepdog/public_people/')
 ```
 
-Every Tembo Cloud instance has its own private and dedicated S3 bucket.
 When you run tier.table(), the table is written to this bucket in parquet format and the current table converted into a foreign table (via parquet_s3_fdw).
 When you're running on Tembo Cloud, this means you don't need to bring your own AWS account.
 
@@ -118,4 +116,4 @@ FDW options: (dirname 's3://my-storage-bucket/public_people/')
 
 ## Try it on Tembo Cloud
 
-`pg_tier` is PostgreSQL-licensed and available today on Tembo Cloud in the Data Warehouse Stack. Try anywhere with Docker, or install it with Trunk or from source, and via .
+`pg_tier` is PostgreSQL-licensed and available today on Tembo Cloud in the Data Warehouse Stack. Try anywhere with Docker, or install it with Trunk or from source.
