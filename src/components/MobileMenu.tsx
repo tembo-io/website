@@ -48,6 +48,11 @@ const MobileMenu = () => {
 										</a>
 									</li>
 									<li className='pl-3 m-4'>
+										<a href='/solutions/ai'>
+											Tembo Bootcamp
+										</a>
+									</li>
+									<li className='pl-3 m-4'>
 										<a href='/solutions/ai'>Tembo AI</a>
 									</li>
 								</div>
