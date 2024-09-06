@@ -31,6 +31,7 @@ export const authorsEnum = z.array(
 			'jason',
 			'nick',
 			'ash',
+			'amy',
 		])
 		.default('ryw'),
 );
@@ -159,6 +160,13 @@ export const AUTHORS: Record<string, Author> = {
 		title: 'Senior Frontend Engineer',
 		url: 'https://github.com/aishwaryaborkar',
 		image_url: 'https://github.com/aishwaryaborkar.png',
+		email: 'noreply@tembo.io',
+	},
+	amy: {
+		name: 'Amy Wong',
+		title: 'Head of Marketing',
+		url: 'https://github.com/amywongmba',
+		image_url: 'https://github.com/amywongmba.png',
 		email: 'noreply@tembo.io',
 	},
 	jason: {
