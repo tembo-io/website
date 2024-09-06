@@ -20,12 +20,12 @@ const { content, extensions, support, addons } = Astro.props;
 	class='flex flex-col w-full items-center justify-center mt-[80px] lg:mt-[100px] px-3'
 >
 	<div
-		class='flex text-center text-white font-bold tracking-[0.47px] text-[32px] mb-6'
+		class='flex text-center text-white font-bold tracking-[0.47px] text-[32px] mb-4'
 	>
 		Tembo vs Others
 	</div>
 	<div class='flex flex-col lg:flex-row justify-between gap-16 mt-16'>
-		<div class='flex flex-col gap-4'>
+		<div class='flex flex-col gap-2 lg:gap-4' '>
 			<div
 				class='flex text-center text-white font-bold tracking-[0.47px] text-[20px]'
 			>
@@ -35,7 +35,7 @@ const { content, extensions, support, addons } = Astro.props;
 				{extensions}
 			</p>
 		</div>
-		<div class='flex flex-col gap-4'>
+		<div class='flex flex-col gap-2 lg:gap-4'>
 			<div
 				class='flex text-center text-white font-bold tracking-[0.47px] text-[20px]'
 			>
@@ -45,7 +45,7 @@ const { content, extensions, support, addons } = Astro.props;
 				{support}
 			</p>
 		</div>
-		<div class='flex flex-col gap-4'>
+		<div class='flex flex-col ggap-2 lg:gap-4'>
 			<div
 				class='flex text-center text-white font-bold tracking-[0.47px] text-[20px]'
 			>
@@ -58,7 +58,7 @@ const { content, extensions, support, addons } = Astro.props;
 	</div>
 
 	<div
-		class='flex flex-col lg:flex-row w-full justify-between my-[100px] mobile:mt-[80px] px-3'
+		class='flex flex-col gap-4 lg:gap-0 lg:flex-row w-full justify-between my-[80px] px-3'
 	>
 		{
 			content.map((item) => {
