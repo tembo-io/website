@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import Container from './Container';
 import Button from './Button';
-import { navigate } from 'astro:transitions/client';
-import Accordion from './Accordion';
 
 const MobileMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -48,8 +46,8 @@ const MobileMenu = () => {
 										</a>
 									</li>
 									<li className='pl-3 m-4'>
-										<a href='/solutions/ai'>
-											Tembo Bootcamp
+										<a href='/solutions/buildcamp'>
+											Tembo Buildcamp
 										</a>
 									</li>
 									<li className='pl-3 m-4'>
