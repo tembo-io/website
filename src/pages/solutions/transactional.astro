@@ -16,7 +16,7 @@ import WhyTembo from '@components/solutions/WhyTembo.astro';
 
 const currentPath = Astro.url.pathname;
 
-const transactionalFeatures = [
+const transactionalBenefits = [
 	{
 		header: 'Scalability',
 		description: `Offers the ability to scale resources up or down based on
@@ -65,6 +65,24 @@ const transactionalFeatures = [
 		header: 'Support and Documentation',
 		description: `Access to comprehensive support services and detailed documentation to assist with troubleshooting and optimizing use.`,
 		iconPath: '/note-2.svg',
+	},
+];
+
+const transactionalFeatures = [
+	{
+		header: 'PGAnalyze',
+		description: `PGAnalyze is a database monitoring solution that helps you achieve consistent database performance and availability through intelligent tuning advisors and continuous database profiling.`,
+		iconPath: `/pganalyze.svg`,
+	},
+	{
+		header: 'GraphQL',
+		description: `GraphQL is a query language for APIs.`,
+		iconPath: '/graphql.svg',
+	},
+	{
+		header: 'pg_stat_statements',
+		description: `pg_stat_statements comes pre-installed and enabled.`,
+		iconPath: '/task-list-red.svg',
 	},
 ];
 ---
@@ -121,7 +139,7 @@ const transactionalFeatures = [
 			rightAlignedImg={true}
 		/>
 		<FeaturesSection
-			features={transactionalFeatures}
+			features={transactionalBenefits}
 			sectionTitle='Benefits'
 		/>
 		<Testimonials
@@ -129,6 +147,10 @@ const transactionalFeatures = [
 			quote=`”We have loved our experience with Tembo because they offer pre-configured stacks that support our workload, it is extremely easy to manage postgres extensions, and batteries are included in pgBouncer. What we love most about Tembo is the absolutely amazing developer support we have received since coming on. The team really knows their stuff and are very customer focused.”`
 			customerName='Sean Price'
 			customerRole='CTO, Prospect Stream'
+		/>
+		<FeaturesSection
+			features={transactionalFeatures}
+			sectionTitle='Features'
 		/>
 		<WhyTembo
 			extensions=`Over 200 extensions that are installable with a click`
