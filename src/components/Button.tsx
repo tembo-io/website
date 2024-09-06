@@ -12,6 +12,8 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	size?: Size;
 	link?: string;
 	isLinkTag?: boolean;
+	scrollTo?: boolean;
+	scrollToElement?: string;
 }
 
 const Button: React.FC<Props> = ({
@@ -21,6 +23,8 @@ const Button: React.FC<Props> = ({
 	size,
 	link,
 	isLinkTag = false,
+	scrollTo,
+	scrollToElement,
 	...rest
 }) => {
 	const getSizeStyles = () => {
@@ -74,11 +78,20 @@ const Button: React.FC<Props> = ({
 				styles,
 			)}
 			onClick={
-				['gradient', 'blue', 'green'].includes(variant)
-					? () => navigate('https://cloud.tembo.io')
-					: link
-						? () => navigate(link)
-						: undefined
+				scrollTo
+					? () => {
+							document
+								.getElementById(scrollToElement || '')
+								?.scrollIntoView({
+									behavior: 'smooth',
+									block: 'center',
+								});
+						}
+					: ['gradient', 'blue', 'green'].includes(variant)
+						? () => navigate('https://cloud.tembo.io')
+						: link
+							? () => navigate(link)
+							: undefined
 			}
 			{...rest}
 		>
