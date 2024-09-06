@@ -2,7 +2,15 @@ import React from 'react';
 import cx from 'classnames';
 import { navigate } from 'astro:transitions/client';
 
-type Variant = 'primary' | 'neon' | 'gradient' | 'outline' | 'blue' | 'green';
+export type Variant =
+	| 'primary'
+	| 'neon'
+	| 'gradient'
+	| 'outline'
+	| 'blue'
+	| 'sqlBlue'
+	| 'green'
+	| 'sqlPink';
 type Size = 'sm' | 'md' | 'lg' | 'xl';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -53,6 +61,10 @@ const Button: React.FC<Props> = ({
 				return 'bg-transparent text-white border border-white';
 			case 'blue':
 				return 'bg-lightBlue text-mwasi';
+			case 'sqlBlue':
+				return 'bg-sqlBlue text-mwasi';
+			case 'sqlPink':
+				return 'bg-sqlPink text-mwasi';
 			case 'green':
 				return 'bg-pricingGreen text-mwasi';
 		}

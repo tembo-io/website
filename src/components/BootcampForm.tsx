@@ -236,7 +236,7 @@ const BootcampForm: React.FC = () => {
 						/>
 						{!hasValue && (
 							<span className='absolute left-3 top-1/2 transform -translate-y-1/2 p-2 text-ghostWhite md:text-base text-xs pointer-events-none transition-opacity duration-200'>
-								Preferred Bootcamp Date*
+								Preferred Buildcamp Date*
 							</span>
 						)}
 					</div>

@@ -1,0 +1,41 @@
+---
+import FeatureDetail from '../FeatureDetail.astro';
+
+interface Feature {
+	header: string;
+	description: string;
+	iconPath: string;
+}
+
+interface Props {
+	features: Feature[];
+	sectionTitle: string;
+}
+
+const { features, sectionTitle } = Astro.props;
+---
+
+<section
+	class='tembo-for-startups-section w-full items-center justify-center my-[80px] lg:my-[100px] justify-between'
+>
+	<div
+		class='flex justify-center text-white font-bold tracking-[0.47px] text-[32px] mb-6'
+	>
+		{sectionTitle}
+	</div>
+	<div
+		class='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'
+	>
+		{
+			features.map((feature) => {
+				return (
+					<FeatureDetail
+						header={feature.header}
+						description={feature.description}
+						iconPath={feature.iconPath}
+					/>
+				);
+			})
+		}
+	</div>
+</section>
