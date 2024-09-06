@@ -119,7 +119,10 @@ const transactionalFeatures = [
 			imgMetadata={StackedCardsReservation}
 			rightAlignedImg={true}
 		/>
-		<FeaturesSection features={transactionalFeatures} />
+		<FeaturesSection
+			features={transactionalFeatures}
+			sectionTitle='Benefits'
+		/>
 		<Testimonials
 			titleQuote='“Tembo makes Postgres easy for us.”'
 			quote=`”We have loved our experience with Tembo because they offer pre-configured stacks that support our workload, it is extremely easy to manage postgres extensions, and batteries are included in pgBouncer. What we love most about Tembo is the absolutely amazing developer support we have received since coming on. The team really knows their stuff and are very customer focused.”`
@@ -127,15 +130,32 @@ const transactionalFeatures = [
 			customerRole='CTO, Prospect Stream'
 		/>
 		<WhyTembo
-			content={{
-				extensions: `Over 200 extensions that are installable with a click`,
-				support: `Support for all Postgres workloads—including
-						Transactional, Analytical, and AI`,
-				addons: `A variety of ecosystem and add ons that are also available with a
-						click`,
-				postgres: `ACID compliance ensures reliable and accurate transaction processing. Easy scalability to support your growing application demands. Strong out-of-the-box OLTP performance and reliability.`,
-				tembo: `Automated backups, maintenance and updates. High availability options that  ensure reliability and uptime. A wide selection of available Postgres extensions relevant to OLTP workloads`,
-			}}
+			extensions=`Over 200 extensions that are installable with a click`
+			,
+			support=`Support for all Postgres workloads—including
+						Transactional, Analytical, and AI`
+			,
+			addons=`A variety of ecosystem and add ons that are also available with a
+						click`
+			,
+			content={[
+				{
+					heading: 'Why Postgres?',
+					points: [
+						`ACID compliance ensures reliable and accurate transaction processing.`,
+						`Easy scalability to support your growing application demands.`,
+						`Strong out-of-the-box OLTP performance and reliability.`,
+					],
+				},
+				{
+					heading: 'Why Tembo?',
+					points: [
+						`Automated backups, maintenance and updates.`,
+						`High availability options that  ensure reliability and uptime.`,
+						`A wide selection of available Postgres extensions relevant to OLTP workloads.`,
+					],
+				},
+			]}
 		/>
 		<JoinTemboCTA />
 	</Container>

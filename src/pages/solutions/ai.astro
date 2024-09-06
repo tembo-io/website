@@ -45,7 +45,7 @@ const aiFeatures = [
 	<Container styles='relative'>
 		<IntroSection
 			title='Tembo AI'
-			description=`Tembo AI offers robust capabilities for integrating advanced AI and machine learning technologies. The versatility and power of Tembo’s Stacksspan across  customer service, predictive analytics and beyond to enhance business operations, improve customer experiences, and drive innovation. These solutions combined make it easier for developers to build and deploy sophisticated AI & ML applications.`
+			description=`Tembo AI offers robust capabilities for integrating advanced AI and machine learning technologies. The versatility and power of Tembo’s Stacks span across customer service, predictive analytics and beyond to enhance business operations, improve customer experiences, and drive innovation. These solutions combined make it easier for developers to build and deploy sophisticated AI & ML applications.`
 			deployButtonColor='sqlPink'
 			img={ElephantAI}
 			imgClassName='w-[380px] h-[370px]'
@@ -71,7 +71,7 @@ const aiFeatures = [
 			imgMetadata={TemboAIFinancials}
 			rightAlignedImg={true}
 		/>
-		<FeaturesSection features={aiFeatures} />
+		<FeaturesSection features={aiFeatures} sectionTitle='Features' />
 		<Benefits />
 		<Testimonials
 			titleQuote='“Tembo helps us leverage lower-cost LLMs.”'
@@ -80,14 +80,31 @@ const aiFeatures = [
 			customerRole='Senior Software Engineer, SchoolAI'
 		/>
 		<WhyTembo
-			content={{
-				extensions: `Tembo supports all community AI extensions`,
-				support: `Support for 100s of open source models on Hugging Face`,
-				addons: `The only Postgres provider that has seamless support for
-						LLMs`,
-				postgres: `Simplify architecture by using SQL native functions. Atomic updates to embeddings. Community support for vector data types.`,
-				tembo: `Highest performing Postrgres SaaS. Lowest operational cost of managing Postgres. World class Postgres support team.`,
-			}}
+			extensions=`Tembo supports all community AI extensions`
+			,
+			support=`Support for 100s of open source models on Hugging Face`
+			,
+			addons=`The only Postgres provider that has seamless support for
+						LLMs`
+			,
+			content={[
+				{
+					heading: 'Why Postgres?',
+					points: [
+						`Simplify architecture by using SQL native functions.`,
+						`Atomic updates to embeddings.`,
+						`Community support for vector data types.`,
+					],
+				},
+				{
+					heading: 'Why Tembo?',
+					points: [
+						`Highest performing Postgres SaaS.`,
+						`Lowest operational cost of managing Postgres.`,
+						`World class Postgres support team.`,
+					],
+				},
+			]}
 		/>
 		<JoinTemboCTA />
 	</Container>

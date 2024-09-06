@@ -1,29 +1,24 @@
 ---
-import Accordion from '@components/Accordion';
+import Markdown from '@components/Markdown.astro';
 
 interface WhyTemboContent {
-	extensions: string;
-	support: string;
-	addons: string;
-	postgres: string;
-	tembo: string;
+	heading: string;
+	points: string[];
 }
 
 interface Props {
-	content: WhyTemboContent;
+	extensions: string;
+	support: string;
+	addons: string;
+	content: WhyTemboContent[];
 }
 
-const { content } = Astro.props;
+const { content, extensions, support, addons } = Astro.props;
 ---
 
 <section
 	class='flex flex-col w-full items-center justify-center mt-[80px] lg:mt-[100px] px-3'
 >
-	<div
-		class='flex items-center justify-center text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
-	>
-		More...
-	</div>
 	<div
 		class='flex text-center text-white font-bold tracking-[0.47px] text-[32px] mb-6'
 	>
@@ -37,7 +32,7 @@ const { content } = Astro.props;
 				Extensions
 			</div>
 			<p class='text-lightGrey font-normal font-secondary text-base'>
-				{content.extensions}
+				{extensions}
 			</p>
 		</div>
 		<div class='flex flex-col gap-4'>
@@ -47,7 +42,7 @@ const { content } = Astro.props;
 				Support
 			</div>
 			<p class='text-lightGrey font-normal font-secondary text-base'>
-				{content.support}
+				{support}
 			</p>
 		</div>
 		<div class='flex flex-col gap-4'>
@@ -57,7 +52,7 @@ const { content } = Astro.props;
 				Add Ons
 			</div>
 			<p class='text-lightGrey font-normal font-secondary text-base'>
-				{content.addons}
+				{addons}
 			</p>
 		</div>
 	</div>
@@ -65,37 +60,27 @@ const { content } = Astro.props;
 	<div
 		class='flex flex-col lg:flex-row w-full justify-between my-[100px] mobile:mt-[80px] px-3'
 	>
-		<div class='flex flex-col justify-center align-center w-full lg:w-1/2'>
-			<div
-				class='flex text-left text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
-			>
-				More...
-			</div>
-			<div
-				class='flex text-left text-white font-bold tracking-[0.47px] text-[32px] mb-6'
-			>
-				Ask Tembo
-			</div>
-		</div>
-		<div class='w-full lg:w-1/2'>
-			<Accordion
-				client:load
-				buttonIconHidePath='/arrow-down.svg'
-				buttonIconShowPath='/arrow-up.svg'
-				headerStyles='font-bold text-white text-xl'
-				contentStyles='pt-6 text-lightGrey font-normal font-secondary text-base'
-				showSeparator={true}
-				items={[
-					{
-						heading: 'Why on Postgres?',
-						content: content.postgres,
-					},
-					{
-						heading: 'Why on Tembo?',
-						content: content.tembo,
-					},
-				]}
-			/>
-		</div>
+		{
+			content.map((item) => {
+				return (
+					<div>
+						<h2 class='font-bold text-white text-xl'>
+							{item.heading}
+						</h2>
+						<Markdown>
+							<ul>
+								{item.points.map((point) => {
+									return (
+										<li class="'pt-6 text-lightGrey font-normal font-secondary text-base'">
+											{point}
+										</li>
+									);
+								})}
+							</ul>
+						</Markdown>
+					</div>
+				);
+			})
+		}
 	</div>
 </section>

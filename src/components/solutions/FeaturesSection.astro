@@ -9,9 +9,10 @@ interface Feature {
 
 interface Props {
 	features: Feature[];
+	sectionTitle: string;
 }
 
-const { features } = Astro.props;
+const { features, sectionTitle } = Astro.props;
 ---
 
 <section
@@ -20,7 +21,7 @@ const { features } = Astro.props;
 	<div
 		class='flex justify-center text-white font-bold tracking-[0.47px] text-[32px] mb-6'
 	>
-		Features
+		{sectionTitle}
 	</div>
 	<div
 		class='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'
