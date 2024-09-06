@@ -44,7 +44,7 @@ const SolutionsNav: FC<Props> = ({ isOpen }) => {
 								</li>
 								<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
 									<NavigationMenu.Link
-										href='/solutions/buildcamp'
+										href='/solutions/bootcamp'
 										className='font-secondary font-normal text-sm text-offWhite w-full'
 									>
 										Tembo Bootcamp
