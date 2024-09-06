@@ -19,7 +19,7 @@ const currentPath = Astro.url.pathname;
 	<NavBar client:load currentPage={currentPath} />
 	<Container>
 		<section
-			class='flex flex-col-reverse md:flex-col-reverse lg:flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] justify-between'
+			class='flex flex-col lg:flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] gap-6 md:gap-4 lg:gap-0'
 		>
 			<div class='flex flex-col w-full md:w-full lg:w-1/2'>
 				<div
@@ -28,7 +28,7 @@ const currentPath = Astro.url.pathname;
 					Tembo Postgres Bootcamp
 				</div>
 				<p
-					class='text-lightGrey font-normal font-secondary text-md mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
+					class='text-lightGrey font-normal font-secondary text-sm lg:text-lg mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
 				>
 					From 0 to use case in 5 days.
 				</p>
@@ -54,10 +54,10 @@ const currentPath = Astro.url.pathname;
 					</Button>
 				</div>
 			</div>
-			<Image src={Floor} width={500} height={400} alt='hero image' />
+			<Image src={Floor} width={600} height={500} alt='hero image' />
 		</section>
 		<section
-			class="class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[100px] px-5 lg:px-0"
+			class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[80px] px-5 lg:px-0'
 		>
 			<Markdown>
 				<h2>
@@ -66,7 +66,7 @@ const currentPath = Astro.url.pathname;
 				</h2>
 				<ul>
 					<li>
-						<b
+						<b class='text-white'
 							>Leverage PostgreSQL for mission-critical
 							applications:</b
 						>
@@ -74,18 +74,18 @@ const currentPath = Astro.url.pathname;
 						projects.
 					</li>
 					<li>
-						<b>Develop and refine use cases:</b> Create and enhance initial
-						use cases tailored to your business needs.
+						<b class='text-white'>Develop and refine use cases:</b> Create
+						and enhance initial use cases tailored to your business needs.
 					</li>
 					<li>
-						<b
+						<b class='text-white'
 							>Efficiently onboard and train users for rollout in
 							operations:</b
 						> Ensure a smooth rollout by effectively training your team
 						for operational success.
 					</li>
 				</ul>
-				<hr class='mt-20' />
+				<hr />
 				<p>
 					Unlock the full potential of PostgreSQL with Tembo’s
 					comprehensive bootcamp, tailored to address your company’s
@@ -97,25 +97,22 @@ const currentPath = Astro.url.pathname;
 				<h2>Why Choose Tembo?</h2>
 				<ul>
 					<li>
-						<b>Expert Instructors:</b>
+						<b class='text-white'>Expert Instructors:</b>
 						Learn from industry experts with years of experience in PostgreSQL.
 					</li>
 					<li>
-						<b>Customized Training:</b>
+						<b class='text-white'>Customized Training:</b>
 						We tailor the bootcamp to meet your specific needs and goals.
 					</li>
 					<li>
-						<b>Community Support:</b> Join a community of like-minded
-						professionals and get support even after the bootcamp ends.
+						<b class='text-white'>Community Support:</b> Join a community
+						of like-minded professionals and get support even after the
+						bootcamp ends.
 					</li>
 				</ul>
 			</Markdown>
 		</section>
 		<section>
-			<div
-				class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'
-			>
-			</div>
 			<div class='flex flex-col lg:flex-row justify-between gap-8'>
 				<div class='flex items-center justify-center'>
 					<Image

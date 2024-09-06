@@ -13,7 +13,6 @@ const BootcampForm: React.FC = () => {
 	const cityRef = useRef<HTMLInputElement | null>(null);
 	const countryRef = useRef<HTMLSelectElement | null>(null);
 	const dateRef = useRef<HTMLInputElement | null>(null);
-	const optinRef = useRef<HTMLInputElement | null>(null);
 
 	const onSubmit = useCallback(
 		async (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
@@ -86,11 +85,6 @@ const BootcampForm: React.FC = () => {
 					},
 					{
 						objectTypeId: '0-1',
-						name: 'stayinformed',
-						value: optinRef.current?.checked,
-					},
-					{
-						objectTypeId: '0-1',
 						name: 'referrer',
 						value: referrer || '',
 					},
@@ -158,7 +152,6 @@ const BootcampForm: React.FC = () => {
 			if (cityRef.current) cityRef.current.value = '';
 			if (countryRef.current) setSelectedCountry('');
 			if (dateRef.current) setHasValue(false);
-			if (optinRef.current?.checked) optinRef.current.checked = false;
 		},
 		[],
 	);
@@ -176,7 +169,7 @@ const BootcampForm: React.FC = () => {
 	};
 
 	return (
-		<div className='flex flex-col w-full lg:w-1/2 justify-center items-center'>
+		<div className='flex flex-col w-full lg:w-2/3 justify-center items-center'>
 			<h2 className='text-neon font-primary font-semibold md:text-5xl text-[32px] pb-12'>
 				Schedule a Postgres Bootcamp
 			</h2>
@@ -248,22 +241,10 @@ const BootcampForm: React.FC = () => {
 						)}
 					</div>
 				</div>
-
-				<div className='flex flex-row gap-2 m-4'>
-					<input
-						ref={optinRef}
-						type='checkbox'
-						id='bootcampOptin'
-						className='flex justify-start items-start rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
-					/>
-					<label htmlFor='bootcampOptin'>
-						Opt In for Bootcamp Updates
-					</label>
-				</div>
 			</form>
 			<input
 				type='submit'
-				className='flex h-14 justify-center items-center w-full lg:w-[412px] bg-gradient-button text-white transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base cursor-pointer text-white'
+				className='flex h-14 justify-center items-center w-full lg:w-[412px] bg-gradient-button text-white transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base cursor-pointer text-white mt-4'
 				onClick={(e) => onSubmit(e)}
 			/>
 		</div>
