@@ -173,7 +173,7 @@ const BootcampForm: React.FC = () => {
 			<h2 className='text-neon font-primary font-semibold md:text-5xl text-[32px] pb-12'>
 				Schedule a Bootcamp
 			</h2>
-			<form id='bootcampForm'>
+			<form id='bootcampForm w-full'>
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-4 w-full'>
 					<input
 						placeholder='First Name*'
@@ -235,7 +235,7 @@ const BootcampForm: React.FC = () => {
 							)}
 						/>
 						{!hasValue && (
-							<span className='absolute left-3 top-1/2 transform -translate-y-1/2 p-2 text-ghostWhite pointer-events-none transition-opacity duration-200'>
+							<span className='absolute left-3 top-1/2 transform -translate-y-1/2 p-2 text-ghostWhite md:text-base text-xs pointer-events-none transition-opacity duration-200'>
 								Preferred Bootcamp Date*
 							</span>
 						)}
