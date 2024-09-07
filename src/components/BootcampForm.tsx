@@ -222,7 +222,7 @@ const BootcampForm: React.FC = () => {
 						selectedCountry={selectedCountry}
 						setSelectedCountry={setSelectedCountry}
 					/>
-					<div className='relative'>
+					<div className='relative w-full'>
 						<input
 							ref={dateRef}
 							type='date'
@@ -230,7 +230,7 @@ const BootcampForm: React.FC = () => {
 							onBlur={handleBlur}
 							onChange={(e) => setHasValue(!!e.target.value)}
 							className={cx(
-								'min-[840px]:w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-transparent',
+								'w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-transparent appearance-none',
 								!hasValue ? 'text-transparent' : 'text-white',
 							)}
 						/>
