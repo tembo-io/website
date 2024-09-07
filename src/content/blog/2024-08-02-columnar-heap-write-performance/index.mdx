@@ -3,18 +3,18 @@ slug: columnar-heap-write-performance
 title: 'Comparing Columnar to Heap Performance in pg_timeseries'
 authors: [shaun]
 description: |
-    The pg_timeseries extension uses Hydra Columnar storage for historical data. But how does this kind of storage compare to standard Postgres Heap storage during database writes?
-tags: [postgres, timeseries, database, heap, columnar, performance]
+    The pg_timeseries extension uses Hydra Columnar storage for historical data. Check this out if you want to know how this kind of storage compares to standard Postgres Heap storage during database writes.
+tags: [postgres, pg_timeseries, database, heap, columnar, performance]
 date: 2024-08-02T09:00
 image: './analysis.png'
 planetPostgres: true
 ---
 
-Tembo were recently invited to do a short presentation of the [pg_timeseries](https://github.com/tembo-io/pg_timeseries) extension to the [Chicago Postgres User Group](https://www.meetup.com/chicago-postgresql-user-group/). As expected, questions popped up which didn't have an immediate obvious answer, mainly related to performance. Is [Hydra Columnar](https://github.com/hydradatabase/hydra) storage used by `pg_timeseries` faster than Heap when it comes to inserts? How about updates or deletes? Does the overall row count affect these results?
+Tembo were recently invited to do a short presentation of the [pg_timeseries](https://github.com/tembo-io/pg_timeseries) extension to the [Chicago Postgres User Group](https://www.meetup.com/chicago-postgresql-user-group/). As expected, user questions popped up which didn't have an immediate obvious answer, mainly related to performance. Is [Hydra Columnar](https://github.com/hydradatabase/hydra) storage used by `pg_timeseries` faster than Heap when it comes to inserts? How about updates or deletes? Does the overall row count affect these results?
 
 So why not run some tests? 
 
-## Building the benchmark
+## Building the Benchmark
 
 Any proper benchmark needs a testing procedure. We performed a few simple test runs which showed interesting results, but these initial findings were soon erased once the more objective and standardized process emerged.
 
@@ -25,13 +25,13 @@ Here's what we finally came up with as a test harness:
 3. An unlogged table to contain generated data prior to writing to the test partitions.
 4. A function to generate test data.
 5. A function to run the tests, which calls:
-  * A separate function for inserts, updates, and deletes.
-  * The previously mentioned storage switching function.
-  * The data-generation function.
+    * A separate function for inserts, updates, and deletes.
+    * The previously mentioned storage switching function.
+    * The data-generation function.
 
-"Function" is a bit of a misnomer here, as all code is written as stored procedures. Procedures in Postgres have full transaction control, so we can `COMMIT` after collecting each data point and see progress as it's generated instead of at the end of the entire test run. We can also do things like run `CHECKPOINT` between tests so each test has a fresh starting point and we're unlikely to cause an emergency checkpoint due to write activity.
+The word "function" is a bit of a misnomer here, as all code is written as stored procedures. Procedures in Postgres have full transaction control, so we can `COMMIT` after collecting each data point and see progress as it's generated instead of at the end of the entire test run. We can also do things like run `CHECKPOINT` between tests so each test has a fresh starting point and we're unlikely to cause an emergency checkpoint due to write activity.
 
-All code used for these tests is available in [this github directory](https://github.com/tembo-io/website/tree/main/src/content/blog/2024-08-02-columnar-heap-write-performance/_code) rather than inline with the blog. Including it here would be somewhat distracting, as it's a _lot_ of code. But we _can_ explore the function names, if only for amusement sake. The process works like this:
+All code used for these tests is available in [this GitHub directory](https://github.com/tembo-io/website/tree/main/src/content/blog/2024-08-02-columnar-heap-write-performance/_code) rather than inline with the blog. Including it here would be somewhat distracting, as it's a _lot_ of code. But we _can_ explore the function names, if only for amusement sake. The process works like this:
 
 1. Create the `divvy_trips` partition tables.
 2. Create the `sample_data` table to hold test results.
@@ -52,7 +52,7 @@ Yes, the data staging table is named `chungus`; depending on the requested chunk
 
 ## Starting Tables
 
-We should begin with the test table. Since the demonstration at the talk used the Chicago Divvy data, we elected to mimic that data for these tests as well. It presumably models a real-world use case rather than some contrived scenario, and it's on-topic for the talk itself.
+We should begin with the test table. As the demonstration at the talk used the Chicago Divvy data, we elected to mimic that data for these tests as well. This approach should more closely reflect the real-world Divvy use case rather than some contrived scenario, and it's on-topic for the talk itself.
 
 ```sql
 CREATE EXTENSION timeseries CASCADE;
@@ -96,7 +96,7 @@ CREATE UNLOGGED TABLE sample_data (
 );
 ```
 
-As previously mentioned, the `chungus` table purely exists for the test procedures to fill with generated data. Then that data is used for the insert step so we avoid adding the generation process to the timing results. The `sample_data` table is meant to track the tests themselves. This lets us categorize tests by row count, the type of test as insert, update, or delete, and whether the storage type is heap or columnar.
+As previously mentioned, the `chungus` table purely exists for the test procedures to fill with generated data. Then that data is used for the insert step so we avoid adding the generation process to the timing results. The `sample_data` table is meant to track the tests themselves. This lets us categorize tests by row count, the type of test&mdash;as insert, update, or delete&mdash;and whether the storage type is heap or columnar.
 
 These various labels give us quite a few options for analyzing the timing data.
 
@@ -146,7 +146,7 @@ SET client_min_messages = 'WARNING';
 CALL sp_run_tests(20, 250000);
 ```
 
-This would run 20 tests starting at 250,000 rows and ending at 5-million rows (250,000 * 20). This lets us see if row count affects timings and to what extent. The results are categorized by row count, storage type, and write action, so we can slice and dice it several different ways as well.
+This would run 20 tests starting at 250,000 rows and ending at five million rows (250,000 * 20). This lets us see if row count affects timings and to what extent. The results are categorized by row count, storage type, and write action, so we can slice and dice it several different ways as well.
 
 Here's an example that will provide an average execution time by row count and storage type, for inserts, updates, and deletes:
 
@@ -169,7 +169,7 @@ Note that we're making use of our favorite [`FILTER` clause](https://www.postgre
 
 ## Performance Explored
 
-The data we collected used the same parameters as in the above example: 20 samples at 250k rows per step, for a total maximum of 5M rows on the last iteration. We split the results into inserts, updates, and deletes for both Heap and Columnar storage types and graphed the results.
+The data we collected used the same parameters as in the above example: 20 samples at 250,000 rows per step, for a total maximum of 5 million rows on the last iteration. We split the results into inserts, updates, and deletes for both Heap and Columnar storage types and graphed the results.
 
 Let's start with inserts:
 
@@ -181,7 +181,7 @@ Update performance is a bit different:
 
 ![Update performance by row count](./update-metrics.png)
 
-Columnar performance is still better, but not by much. This shouldn't really come as a huge surprise as columnar storage isn't really meant to be updated since it's designed for ingesting time-series data. Modifying historical data in columnar storage likely isn't as trivial as the usual delete + insert operation we may see in heap storage.
+Columnar performance is still better, but not by much. Consider the implications here. Insert performance is clearly superior, but what about updates? Columnar data isn't generally designed to accommodate updates, so we observe a smaller margin of improvement over standard heap storage. Regardless, it's _still_ slightly faster.
 
 Delete performance on the other hand, is a significant departure from either inserts or updates:
 
