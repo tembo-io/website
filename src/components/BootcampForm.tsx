@@ -230,7 +230,7 @@ const BootcampForm: React.FC = () => {
 							onBlur={handleBlur}
 							onChange={(e) => setHasValue(!!e.target.value)}
 							className={cx(
-								'rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-transparent',
+								'w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-transparent',
 								!hasValue ? 'text-transparent' : 'text-white',
 							)}
 						/>
