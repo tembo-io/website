@@ -230,12 +230,12 @@ const BootcampForm: React.FC = () => {
 							onBlur={handleBlur}
 							onChange={(e) => setHasValue(!!e.target.value)}
 							className={cx(
-								'w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-transparent',
+								'min-[840px]:w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-transparent',
 								!hasValue ? 'text-transparent' : 'text-white',
 							)}
 						/>
 						{!hasValue && (
-							<span className='absolute left-3 top-1/2 transform -translate-y-1/2 p-2 text-ghostWhite md:text-base text-xs pointer-events-none transition-opacity duration-200'>
+							<span className='w-full absolute left-3 top-1/2 transform -translate-y-1/2 p-2 text-ghostWhite md:text-base text-xs pointer-events-none transition-opacity duration-200'>
 								Preferred Buildcamp Date*
 							</span>
 						)}
