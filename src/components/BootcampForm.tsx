@@ -222,7 +222,7 @@ const BootcampForm: React.FC = () => {
 						selectedCountry={selectedCountry}
 						setSelectedCountry={setSelectedCountry}
 					/>
-					<div className='relative'>
+					<div className='relative w-full'>
 						<input
 							ref={dateRef}
 							type='date'
