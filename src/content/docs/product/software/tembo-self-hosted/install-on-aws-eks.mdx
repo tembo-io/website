@@ -7,7 +7,7 @@ sideBarTitle: Install on AWS EKS
 
 This guide describes the steps to install Tembo Self Hosted on AWS, which allows you to deploy a high-performance, fully-extensible managed Postgres service within an AWS Elastic Kubernetes Service (EKS) cluster.
 
-## Step 1: Obtain prerequisites
+## Step 1: Prerequisites
 
 Before starting this tutorial, you must install and configure the following tools and resources that you need to create and manage Tembo Self Hosted on an Amazon EKS cluster.
 
@@ -114,7 +114,7 @@ Upgrade the Self Hosted Helm chart so that changes take effect:
 helm upgrade tembo . -f my-values.yaml -n tembo
 ```
 
-## Step 8: Check the status of the installation
+## Step 6: Check the status of the installation
 
 ```
 ❯ kubectl get po
@@ -136,7 +136,7 @@ tembo-pod-init-74975dbcb8-d9jpk              1/1     Running     0             8
 tembo-tembo-ui-685ccc9996-n8tmv              1/1     Running     0             83m
 ```
 
-## Step 9: Configure DNS for Traefik's Load Balancer
+## Step 7: Configure DNS for Traefik's Load Balancer
 
 To properly route traffic to your Traefik load balancer, you need to configure a DNS CNAME record through your DNS provider. Follow the steps below to create a wildcard CNAME record, which is essential because each PostgreSQL instance has its own subdomain for its connection string.
 
@@ -174,6 +174,6 @@ Name:	test.tembo.mydomain.com
 Address: 203.0.113.20
 ```
 
-## Step 10: Access the Tembo Self Hosted
+## Step 8: Access the Tembo Self Hosted
 
 Access the Tembo Self Hosted UI by visiting http://app.tembo.mydomain.com in your browser. Replace tembo.mydomain.com with your domain name chosen in Step 2.
