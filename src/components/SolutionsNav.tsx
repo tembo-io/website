@@ -1,11 +1,13 @@
 import { type FC } from 'react';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
+import cx from 'classnames';
 
 interface Props {
 	isOpen: boolean;
+	currentPage: string;
 }
 
-const SolutionsNav: FC<Props> = ({ isOpen }) => {
+const SolutionsNav: FC<Props> = ({ isOpen, currentPage }) => {
 	return (
 		<NavigationMenu.Root
 			orientation='vertical'
@@ -13,7 +15,14 @@ const SolutionsNav: FC<Props> = ({ isOpen }) => {
 		>
 			<NavigationMenu.List className='flex flex-column'>
 				<NavigationMenu.Item>
-					<NavigationMenu.Trigger className='flex flex-row gap-1 justify-between items-center'>
+					<NavigationMenu.Trigger
+						className={cx(
+							'flex flex-row gap-1 justify-between items-center',
+							currentPage.includes('/solutions/')
+								? 'text-neon'
+								: 'text-white opacity-70',
+						)}
+					>
 						Solutions
 						{isOpen ? (
 							<img
