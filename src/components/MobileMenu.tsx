@@ -46,12 +46,22 @@ const MobileMenu = () => {
 										</a>
 									</li>
 									<li className='pl-3 m-4'>
+										<a href='/solutions/ai'>Tembo AI</a>
+									</li>
+									<li className='pl-3 m-4'>
 										<a href='/solutions/buildcamp'>
 											Tembo Buildcamp
 										</a>
 									</li>
 									<li className='pl-3 m-4'>
-										<a href='/solutions/ai'>Tembo AI</a>
+										<a href='/solutions/for-enterprises'>
+											For Enterprises
+										</a>
+									</li>
+									<li className='pl-3 m-4'>
+										<a href='/solutions/for-startups'>
+											For Startups
+										</a>
 									</li>
 								</div>
 							) : null}

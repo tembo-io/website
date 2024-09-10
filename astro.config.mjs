@@ -22,6 +22,8 @@ export default defineConfig({
 		'/blog/introducing-coredb': '/blog/introducing-tembo',
 		'/blog/manifesto': '/blog/tembo-manifesto',
 		'/solutions/bootcamp': '/solutions/buildcamp',
+		'/for-enterprises': '/solutions/for-enterprises',
+		'/for-startups': '/solutions/for-startups',
 		'/waitlist': '/',
 	},
 	markdown: {
