@@ -53,32 +53,13 @@ Prepare Tembo helm chart installation by running a script using the command belo
 * Enables IAM OIDC Provider
 * Creates the Amazon EBS CSI driver IAM role
 * Adds the Amazon EBS CSI driver add-on
+* Update the StorageClass to allow for volume expansion
 
 ```shell
 bash <(curl -s https://raw.githubusercontent.com/tembo-io/tembo-self-hosted/main/scripts/aws/eks-setup.sh)
 ```
 
-## Step 5: Install Cert Manager
-
-Install [`cert-manager`](https://github.com/cert-manager/cert-manager)
-
-```shell
-helm install \
-  cert-manager jetstack/cert-manager \
-  --namespace cert-manager \
-  --create-namespace \
-  --version v1.14.4 --set installCRDs=true
-```
-
-## Step 6: Update the StorageClass to allow for volume expansion
-
-This is necessary for increasing storage size for Postgres instances.
-
-```shell
-kubectl patch storageclass gp2 -p '{"allowVolumeExpansion": true}'
-```
-
-## Step 7: Install the Tembo Self Hosted Helm chart
+## Step 5: Install the Tembo Self Hosted Helm chart
 
 Clone the Tembo Self Hosted repository:
 
@@ -91,8 +72,10 @@ Now, within the cloned `tembo-self-hosted` directory, create a file `my-values.y
 ```yaml
 global:
   baseDomain: tembo.mydomain.com
+  temboEnabled: true
   monitoringEnabled: true
   conductorEnabled: false
+  traefikEnabled: true
 tembo:
   cpWebserver:
     env:
