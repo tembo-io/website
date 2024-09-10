@@ -5,6 +5,7 @@ import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import ClerkProviderWithButton from './ClerkButton';
+import SolutionsNav from './SolutionsNav';
 
 interface Props {
 	currentPage: string;
@@ -34,6 +35,34 @@ const NavBar: React.FC<Props> = ({
 			},
 		},
 		closed: { opacity: 0 },
+	};
+
+	const [isOpen, setIsOpen] = useState(false);
+	const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+
+	const getButtonStyles = () => {
+		if (currentPage.includes('/solutions/transactional')) {
+			return 'bg-sqlBlue';
+		} else if (currentPage.includes('/solutions/ai')) {
+			return 'bg-sqlPink';
+		}
+
+		return 'bg-neon hover:bg-[#D1E278]';
+	};
+
+	const handleMouseEnter = () => {
+		if (closeTimeoutRef.current) {
+			clearTimeout(closeTimeoutRef.current);
+			closeTimeoutRef.current = null;
+		}
+		setIsOpen(true);
+	};
+
+	const handleMouseLeave = () => {
+		// Set a delay before closing the menu
+		closeTimeoutRef.current = setTimeout(() => {
+			setIsOpen(false);
+		}, 300); // 300ms delay before closing
 	};
 
 	useEffect(() => {
@@ -87,12 +116,12 @@ const NavBar: React.FC<Props> = ({
 			)}
 		>
 			{isBanner && !isMenuOpen && (
-				<a href='/blog/series-a'>
+				<a href='/blog/tembo-ai'>
 					<div
 						className={`flex items-center text-[12px] min-[400px]:text-sm justify-center gap-2 news-banner-container top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-[20px] mobile:px-[95px] py-3.5 sm:py-2.5 z-50`}
 					>
 						<span className='truncate'>
-							Tembo Raises $14M Series A Round
+							Introducing Tembo AI
 						</span>
 						<span className='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text font-semibold text-sm whitespace-nowrap'>
 							Read more
@@ -124,6 +153,16 @@ const NavBar: React.FC<Props> = ({
 						>
 							Home
 						</a>
+						<div
+							className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'
+							onMouseEnter={handleMouseEnter}
+							onMouseLeave={handleMouseLeave}
+						>
+							<SolutionsNav
+								isOpen={isOpen}
+								currentPage={currentPage}
+							/>
+						</div>
 						<a
 							href='/pricing'
 							className={cx(
@@ -179,7 +218,7 @@ const NavBar: React.FC<Props> = ({
 							/>
 							Github
 						</a>
-						<ClerkProviderWithButton />
+						<ClerkProviderWithButton currentPage={currentPage} />
 					</div>
 					<button
 						onClick={() => {
@@ -190,7 +229,8 @@ const NavBar: React.FC<Props> = ({
 							setIsMenuOpen(!isMenuOpen);
 						}}
 						className={cx(
-							'mid:hidden flex flex-col gap-[2.5px] items-center justify-center bg-neon hover:bg-[#D1E278] rounded-full w-[32.57px] h-[32.57px] z-50',
+							'mid:hidden flex flex-col gap-[2.5px] items-center justify-center rounded-full w-[32.57px] h-[32.57px] z-50',
+							getButtonStyles(),
 							isMenuOpen ? 'p-2' : 'p-2.5',
 						)}
 					>

@@ -19,7 +19,6 @@ import FeatureCard from '../components/FeatureCard.astro';
 import BasicTable from '../components/BasicTable.astro';
 import TabbedTable from '../components/TabbedTable';
 import PricingCards from '../components/PricingCards.astro';
-import CompetitorTable from '../components/CompetitorTable';
 const currentPath = Astro.url.pathname;
 
 const generalIncluded = [
@@ -50,7 +49,7 @@ const generalRows = [
 ];
 
 const platformRows = [
-	['Number of Instances', '3', 'Unlimited', 'Unlimited'],
+	['Number of Instances', '2', 'Unlimited', 'Unlimited'],
 	['Instance Type', 'Spot', 'On-Demand', 'Custom'],
 	['Log Retention', '30 Days', '30 Days', 'Unlimited'],
 	['SSO', false, true, true],
