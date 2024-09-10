@@ -21,6 +21,7 @@ export default defineConfig({
 		'/product': '/',
 		'/blog/introducing-coredb': '/blog/introducing-tembo',
 		'/blog/manifesto': '/blog/tembo-manifesto',
+		'/solutions/bootcamp': '/solutions/buildcamp',
 		'/waitlist': '/',
 	},
 	markdown: {
