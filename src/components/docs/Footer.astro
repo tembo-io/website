@@ -1,5 +1,6 @@
 ---
 import X from '../../images/x.svg';
+import MastodonGradient from '../../images/mastodon-gradient.svg';
 import GithubGradient from '../../images/githubGradient.svg';
 import Youtube from '../../images/youtube.svg';
 import External from '../../images/export.svg';
@@ -16,7 +17,7 @@ const { editLink } = Astro.props;
 <div class='flex flex-col mt-8'>
 	<div class='h-[1px] w-full bg-[#242424]'></div>
 	<div
-		class='flex flex-col min-[400px]:flex-row w-full min-[400px]:items-center justify-between mt-4 gap-2 min-[400px]:gap-0'
+		class='flex flex-col min-[400px]:flex-row w-full min-[400px]:items-center justify-between my-4 gap-2 min-[400px]:gap-0'
 	>
 		<a href={editLink} class='text-lightGrey flex items-center gap-2'
 			>Edit this page on Github <Image
@@ -47,6 +48,18 @@ const { editLink } = Astro.props;
 				<Image src={X} height={18} width={18} alt='X logo' />
 			</a>
 			<a
+				href='https://mastodon.social/@tembo_io'
+				target='_blank'
+				rel='noreferrer'
+			>
+				<Image
+					src={MastodonGradient}
+					height={18}
+					width={18}
+					alt='Mastodon logo'
+				/>
+			</a>
+			<a
 				href='https://join.slack.com/t/tembocommunity/shared_invite/zt-277pu7chi-NHtvHWvLhHwyK0Y5Y6vTPw'
 				target='_blank'
 				rel='noreferrer'
@@ -67,4 +80,5 @@ const { editLink } = Astro.props;
 			</a>
 		</div>
 	</div>
+	<div class='h-[1px] w-full bg-[#242424]'></div>
 </div>

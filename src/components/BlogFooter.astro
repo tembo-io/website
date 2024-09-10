@@ -1,14 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import GithubGradient from '../images/githubGradient.svg';
-import Youtube from '../images/youtube.svg';
-import X from '../images/x.svg';
-import Rss from '../images/rss.svg';
 import ChevronRight from '../images/arrow-right.svg';
 import ChevronLeft from '../images/arrow-left.svg';
-import Elephant from '../images/elephant17.svg';
-import Slack from '../images/slack.svg';
-import Button from './Button';
+import SocialShareButtonsMobile from './SocialShareButtonsMobile.astro';
+import CallToAction from './CallToAction.astro';
 interface Props {
 	slug: string;
 	title: string;
@@ -20,90 +15,10 @@ const { slug, title, date } = Astro.props;
 
 <div class='mt-16'>
 	<div class='h-[1px] w-full bg-[#242424]'></div>
-	<div class='flex flex-col gap-6'>
-		<h3 class='text-white font-bold mt-10'>What's next?</h3>
-		<div class='grid min-[1100px]:grid-cols-2 grid-cols-1 gap-6'>
-			<Button
-				variant='neon'
-				styles='w-72 flex gap-x-2 items-center'
-				isLinkTag={true}
-				link='https://cloud.tembo.io'
-			>
-				<Image
-					src={Elephant}
-					height={24}
-					width={24}
-					alt='Elephant logo'
-				/>
-				Try Tembo Cloud for free
-			</Button>
-			<div class='flex gap-2 items-center'>
-				<Image
-					src={GithubGradient}
-					height={24}
-					width={24}
-					alt='Github cat logo'
-				/>
-				<a
-					href='https://github.com/tembo-io/tembo'
-					target='_blank'
-					rel='noreferrer'
-					class='font-secondary font-semibold text-grey'
-				>
-					Star us on Github
-				</a>
-			</div>
-			<div class='flex gap-2 items-center'>
-				<Image
-					src={Youtube}
-					height={24}
-					width={24}
-					alt='Youtube play button logo'
-				/>
-				<a
-					href='https://www.youtube.com/@tembo_io/videos'
-					target='_blank'
-					rel='noreferrer'
-					class='font-secondary font-semibold text-grey'
-				>
-					Subscribe to our Youtube Channel
-				</a>
-			</div>
-			<div class='flex gap-2 items-center'>
-				<Image src={Rss} height={24} width={24} alt='Github cat logo' />
-				<a
-					href='https://tembo.io/feed.xml'
-					target='_blank'
-					rel='noreferrer'
-					class='font-secondary font-semibold text-grey'
-				>
-					Subscribe to the RSS feed
-				</a>
-			</div>
-			<div class='flex gap-2 items-center'>
-				<Image src={X} height={24} width={24} alt='X logo' />
-				<a
-					href='https://twitter.com/tembo_io'
-					target='_blank'
-					rel='noreferrer'
-					class='font-secondary font-semibold text-grey'
-				>
-					Follow us on X
-				</a>
-			</div>
-			<div class='flex gap-2 items-center'>
-				<Image src={Slack} height={24} width={24} alt='Slack logo' />
-				<a
-					href='https://join.slack.com/t/tembocommunity/shared_invite/zt-277pu7chi-NHtvHWvLhHwyK0Y5Y6vTPw'
-					target='_blank'
-					rel='noreferrer'
-					class='font-secondary font-semibold text-grey'
-				>
-					Join our Community Slack
-				</a>
-			</div>
-		</div>
+	<div class='block md:hidden'>
+		<SocialShareButtonsMobile slug={slug} title={title} />
 	</div>
+	<CallToAction />
 	<div class='flex flex-col gap-4 mt-10'>
 		<button class='p-4 rounded-lg gradient-next-button blogGoBack'>
 			<div class='flex items-center gap-2'>

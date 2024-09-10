@@ -1,5 +1,6 @@
 ---
 import Checkmark from '../images/checkmark.svg';
+import Logo from '../images/logo.svg';
 import { Image } from 'astro:assets';
 import Status from './Status';
 ---
@@ -11,11 +12,7 @@ import Status from './Status';
 				href='/'
 				class='focus:outline-none transition hover:scale-[102%] duration-300 ease-in-out delay-70 z-40'
 			>
-				<img
-					src='/logoWithText.svg'
-					alt='tembo log'
-					class='w-[105px] mobile:min-w-[124px]'
-				/>
+				<Image src={Logo} alt='colorful elephant logo' width={40} />
 			</a>
 			<Status client:load />
 		</div>
@@ -33,18 +30,10 @@ import Status from './Status';
 						<a href='/pricing' target='_blank' rel='noreferrer'
 							>Pricing</a
 						>
-						<a href='/product' target='_blank' rel='noreferrer'
-							>Product</a
-						>
 						<a
 							href='https://cloud.tembo.io'
 							target='_blank'
-							rel='noreferrer'>Cloud</a
-						>
-						<a
-							href='https://pgt.dev'
-							target='_blank'
-							rel='noreferrer'>Trunk</a
+							rel='noreferrer'>Tembo Cloud</a
 						>
 						<a
 							href='https://roadmap.tembo.io/roadmap'
@@ -74,6 +63,11 @@ import Status from './Status';
 							rel='noreferrer'>Twitter</a
 						>
 						<a
+							href='https://mastodon.social/@tembo_io'
+							target='_blank'
+							rel='noreferrer'>Mastodon</a
+						>
+						<a
 							href='https://www.linkedin.com/company/tembo-inc'
 							target='_blank'
 							rel='noreferrer'>LinkedIn</a
@@ -86,16 +80,9 @@ import Status from './Status';
 						<a
 							href='https://join.slack.com/t/tembocommunity/shared_invite/zt-277pu7chi-NHtvHWvLhHwyK0Y5Y6vTPw'
 							target='_blank'
-							rel='noreferrer'>Tembo Slack</a
+							rel='noreferrer'>Community Slack</a
 						>
-						<a
-							href='https://join.slack.com/t/trunk-community/shared_invite/zt-2by6a65mb-PdYrg0TORwjQq5~L78F2uw'
-							target='_blank'
-							rel='noreferrer'>Trunk Slack</a
-						>
-						<a href='/contact' target='_blank' rel='noreferrer'
-							>Contact us</a
-						>
+						<a href='/contact' rel='noreferrer'>Contact us</a>
 					</div>
 				</div>
 				<div class='flex flex-col gap-6'>
