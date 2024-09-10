@@ -1,0 +1,122 @@
+---
+import NavBar from '../../components/NavBar';
+import Layout from '../../layouts/Layout.astro';
+import Container from '../../components/Container';
+import Footer from '../../components/Footer.astro';
+import ElephantAI from 'src/images/elephant-ai.svg';
+import StackedCardsOrder from 'src/images/tembo-ai-retail.svg';
+import TemboAITransactions from 'src/images/tembo-ai-transactions.svg';
+import TemboAIFinancials from 'src/images/tembo-ai-financials.svg';
+import UseCaseSection from '@components/solutions/UseCaseSection.astro';
+import FeaturesSection from '@components/solutions/FeaturesSection.astro';
+import Testimonials from '@components/solutions/Testimonials.astro';
+import JoinTemboCTA from '@components/JoinTemboCTA.astro';
+import IntroSection from '@components/solutions/IntroSection.astro';
+import Benefits from '@components/solutions/Benefits.astro';
+import WhyTembo from '@components/solutions/WhyTembo.astro';
+const currentPath = Astro.url.pathname;
+
+const aiFeatures = [
+	{
+		header: 'Vector Similarity Search',
+		description: `The VectorDB Stack includes pgvector, a powerful engine for storing embeddings and conducting vector searches, making it ideal for applications requiring semantic search and recommendation systems.`,
+		iconPath: `/magnifying-glass-green.svg`,
+	},
+	{
+		header: 'Advanced AI and Machine Learning Capabilities',
+		description: `The Machine Learning Stack is equipped with extensions like postgresml for training and running machine learning models, pgvector for vector similarity search, and pg_vectorize for embedding generation and vector search.`,
+		iconPath: '/AI.svg',
+	},
+	{
+		header: 'Custom Prompt Templates and Embedding Models',
+		description: `The RAG Stack allows users to define custom prompt templates with SQL and supports various embedding models, including those from Hugging Face’s Sentence Transformers, privately hosted models, and OpenAI.`,
+		iconPath: '/code-circle-blue.svg',
+	},
+	{
+		header: 'Asynchronous Query Execution',
+		description: `The pg_later extension enables asynchronous query execution, optimizing resource management and allowing users to perform other tasks while queries are processed. `,
+		iconPath: '/branch-pink.svg',
+	},
+];
+---
+
+<Layout title='Tembo AI'>
+	<NavBar client:load currentPage={currentPath} />
+	<Container styles='relative'>
+		<IntroSection
+			title='Tembo AI'
+			description=`Tembo AI offers robust capabilities for integrating advanced AI and machine learning technologies. The versatility and power of Tembo’s Stacks span across customer service, predictive analytics and beyond to enhance business operations, improve customer experiences, and drive innovation. These solutions combined make it easier for developers to build and deploy sophisticated AI & ML applications.`
+			deployButtonColor='sqlPink'
+			img={ElephantAI}
+			imgClassName='w-[380px] h-[370px]'
+		/>
+		<UseCaseSection
+			useCaseText='Retail and E-commerce Transactions'
+			scenarioText='Enhance customer support and segment customers.'
+			detailsText=`Integrate a chatbot that retrieves relevant information from your company’s knowledge base to provide accurate responses to customer queries about products, orders, and returns. Segment customers based on purchasing behavior and demographics to tailor marketing strategies and improve customer engagement.`
+			imgMetadata={StackedCardsOrder}
+			rightAlignedImg={true}
+		/>
+		<UseCaseSection
+			useCaseText='Banking and Financial Services'
+			scenarioText=`Detect and prevent fraud and analyze documents.`
+			detailsText=`Identify fraudulent transactions and activities by implementing models that detect fraudulent transactions in real-time through the analysis of patterns and anomalies in transaction data. Identify and group similar documents in large datasets, useful for legal document analysis and contract management.`
+			imgMetadata={TemboAITransactions}
+			leftAlignedImg={true}
+		/>
+		<UseCaseSection
+			useCaseText='Travel'
+			scenarioText='Personalized recommendations and travel analytics.'
+			detailsText=`AI-powered tools analyze user preferences and past behavior to suggest destinations, accommodations, and activities personalized to travelers. Virtual assistants and chatbots provide 24/7 customer support, answer common queries, and assist with bookings. AI predicts travel demand, helping companies optimize inventory and pricing strategies. Machine learning models predict delays and cancellations to manage disruptions and offer alternative solutions to affected travelers, thus enhancing customer experiences.`
+			imgMetadata={TemboAIFinancials}
+			rightAlignedImg={true}
+		/>
+		<FeaturesSection features={aiFeatures} sectionTitle='Features' />
+		<Benefits />
+		<Testimonials
+			titleQuote='“Tembo helps us leverage lower-cost LLMs.”'
+			quote=`“We’re very Open-AI dependent right now, and slowly making our way towards more optionality. One of the reasons Tembo appeals here is that we can build some of our in-house services in a way that takes advantage of lower-cost LLMs – for example, using latest mxbai or nomic embeddings at ollama.com or RAG.”`
+			customerName='Duane Johnson'
+			customerRole='Senior Software Engineer, SchoolAI'
+		/>
+		<WhyTembo
+			extensions=`Tembo supports all community AI extensions`
+			,
+			support=`Support for 100s of open source models on Hugging Face`
+			,
+			addons=`The only Postgres provider that has seamless support for
+						LLMs`
+			,
+			content={[
+				{
+					heading: 'Why Postgres?',
+					points: [
+						`Simplify architecture by using SQL native functions.`,
+						`Atomic updates to embeddings.`,
+						`Community support for vector data types.`,
+					],
+				},
+				{
+					heading: 'Why Tembo?',
+					points: [
+						`Highest performing Postgres SaaS.`,
+						`Lowest operational cost of managing Postgres.`,
+						`World class Postgres support team.`,
+					],
+				},
+			]}
+		/>
+		<JoinTemboCTA />
+	</Container>
+	<div class='relative'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
+		</div>
+		<Container>
+			<div class='mt-16 mobile:mt-24'>
+				<Footer />
+			</div>
+		</Container>
+	</div>
+</Layout>

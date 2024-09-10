@@ -113,7 +113,9 @@ const Header: React.FC<Props> = ({
 										height={20}
 									/>
 								</a>
-								<ClerkProviderWithButton />
+								<ClerkProviderWithButton
+									currentPage={currentPath}
+								/>
 							</div>
 						</div>
 					</div>
