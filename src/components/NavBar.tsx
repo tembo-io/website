@@ -154,16 +154,14 @@ const NavBar: React.FC<Props> = ({
 							Home
 						</a>
 						<div
-							className={cx(
-								'flex font-secondary font-medium z-10 hover:cursor-pointer relative',
-								currentPage.includes('/solutions/')
-									? 'text-neon'
-									: 'text-white opacity-70',
-							)}
+							className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'
 							onMouseEnter={handleMouseEnter}
 							onMouseLeave={handleMouseLeave}
 						>
-							<SolutionsNav isOpen={isOpen} />
+							<SolutionsNav
+								isOpen={isOpen}
+								currentPage={currentPage}
+							/>
 						</div>
 						<a
 							href='/pricing'
