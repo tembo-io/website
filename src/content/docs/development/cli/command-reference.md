@@ -40,7 +40,13 @@ tembo [OPTIONS] <COMMAND>
 **Options:**
 
 * `--markdown-help`
+
+  Possible values: `true`, `false`
+
 * `-v`, `--verbose` — Show more information in command output
+
+  Possible values: `true`, `false`
+
 
 <br />
 
@@ -147,6 +153,9 @@ tembo logs [OPTIONS]
 **Options:**
 
 * `--tail` — Tail your logs
+
+  Possible values: `true`, `false`
+
 * `--app <APP>` — Fetch logs for specific apps
 
 <br />
@@ -181,6 +190,9 @@ tembo top [OPTIONS]
 **Options:**
 
 * `--tail`
+
+  Possible values: `true`, `false`
+
 
 <br />
 
