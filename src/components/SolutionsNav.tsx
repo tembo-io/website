@@ -53,18 +53,34 @@ const SolutionsNav: FC<Props> = ({ isOpen, currentPage }) => {
 								</li>
 								<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
 									<NavigationMenu.Link
-										href='/solutions/bootcamp'
-										className='font-secondary font-normal text-sm text-offWhite w-full'
-									>
-										Tembo Bootcamp
-									</NavigationMenu.Link>
-								</li>
-								<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
-									<NavigationMenu.Link
 										href='/solutions/ai'
 										className='font-secondary font-normal text-sm text-offWhite w-full'
 									>
 										Tembo AI
+									</NavigationMenu.Link>
+								</li>
+								<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
+									<NavigationMenu.Link
+										href='/solutions/buildcamp'
+										className='font-secondary font-normal text-sm text-offWhite w-full'
+									>
+										Tembo Buildcamp
+									</NavigationMenu.Link>
+								</li>
+								<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
+									<NavigationMenu.Link
+										href='/solutions/for-enterprises'
+										className='font-secondary font-normal text-sm text-offWhite w-full'
+									>
+										For Enterprises
+									</NavigationMenu.Link>
+								</li>
+								<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
+									<NavigationMenu.Link
+										href='/solutions/for-startups'
+										className='font-secondary font-normal text-sm text-offWhite w-full'
+									>
+										For Startups
 									</NavigationMenu.Link>
 								</li>
 							</ul>
