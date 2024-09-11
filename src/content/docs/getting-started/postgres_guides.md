@@ -42,6 +42,7 @@
 - [Advanced postgres queries for performance](/docs/getting-started/postgres_guides/advanced-postgres-queries-for-performance)
 - [Effective query optimization technique](/docs/getting-started/postgres_guides/effective-query-optimization-technique)
 - [How to backup and restore a postgres database](/docs/getting-started/postgres_guides/how-to-backup-and-restore-a-postgres-database)
+- [How to upgrade a postgres database](/docs/getting-started/postgres_guides/how-to-upgrade-postgres-versions)
 - [How to copy data in postgres](/docs/getting-started/postgres_guides/how-to-copy-data-in-postgres)
 - [How to create and use materialized views](/docs/getting-started/postgres_guides/how-to-create-and-use-materialized-views)
 - [How to create views in postgres](/docs/getting-started/postgres_guides/how-to-create-views-in-postgres)
