@@ -29,6 +29,9 @@ export const authorsEnum = z.array(
 			'shaun',
 			'floor',
 			'jason',
+			'nick',
+			'ash',
+			'amy',
 		])
 		.default('ryw'),
 );
@@ -152,11 +155,32 @@ export const AUTHORS: Record<string, Author> = {
 		image_url: 'https://github.com/floord.png',
 		email: 'noreply@tembo.io',
 	},
+	ash: {
+		name: 'Ash Borkar',
+		title: 'Senior Frontend Engineer',
+		url: 'https://github.com/aishwaryaborkar',
+		image_url: 'https://github.com/aishwaryaborkar.png',
+		email: 'noreply@tembo.io',
+	},
+	amy: {
+		name: 'Amy Wong',
+		title: 'Head of Marketing',
+		url: 'https://github.com/amywongmba',
+		image_url: 'https://github.com/amywongmba.png',
+		email: 'noreply@tembo.io',
+	},
 	jason: {
 		name: 'Jason Petersen',
 		title: 'Senior Software Engineer',
 		url: 'https://github.com/jasonmp85',
 		image_url: 'https://github.com/jasonmp85.png',
+		email: 'noreply@tembo.io',
+	},
+	nick: {
+		name: 'Nick Hudson',
+		title: 'Senior Software Engineer',
+		url: 'https://github.com/nhudson',
+		image_url: 'https://github.com/nhudson.png',
 		email: 'noreply@tembo.io',
 	},
 };

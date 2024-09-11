@@ -1,0 +1,152 @@
+---
+import NavBar from '@components/NavBar';
+import Layout from 'src/layouts/Layout.astro';
+import Container from '@components/Container';
+import Footer from '@components/Footer.astro';
+import Button from '@components/Button';
+import { Image } from 'astro:assets';
+import Tembonauts from 'src/images/tembonauts.svg';
+import BuildcampHeroImage from 'src/images/buildcamp-hero-image.png';
+import ArrowRight from 'src/images/arrow-right-white.svg';
+import BuildcampForm from '@components/BuildcampForm';
+import Markdown from '@components/Markdown.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title='Tembo Buildcamp'>
+	<NavBar client:load currentPage={currentPath} />
+	<Container>
+		<section
+			class='flex flex-col lg:flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] gap-6 md:gap-4 lg:gap-0'
+		>
+			<div class='flex flex-col w-full md:w-full lg:w-1/2'>
+				<div
+					class='text-neon font-bold tracking-[0.47px] text-[44px] lg:text-[60px] leading-tight mb-10 w-full text-center lg:text-left'
+				>
+					Tembo Buildcamp
+				</div>
+				<p
+					class='text-lightGrey font-normal font-secondary text-sm lg:text-lg mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
+				>
+					From zero to use case in five days
+				</p>
+				<div
+					class='flex flex-row justify-center align-center lg:justify-start gap-4'
+				>
+					<Button
+						variant='primary'
+						size='lg'
+						client:load
+						scrollTo={true}
+						scrollToElement='buildcampForm'
+					>
+						<div class='flex flex-row gap-2 my-auto'>
+							Schedule a Buildcamp
+							<Image
+								src={ArrowRight}
+								width={16}
+								height={16}
+								alt='chevron arrow right'
+							/>
+						</div>
+					</Button>
+				</div>
+			</div>
+			<Image
+				src={BuildcampHeroImage}
+				width={600}
+				height={500}
+				alt='hero image'
+			/>
+		</section>
+		<section
+			class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[80px] px-5 lg:px-0'
+		>
+			<Markdown>
+				<h2>
+					Schedule a Tembo Buildcamp to:
+				</h2>
+				<ul>
+					<li>
+						<b class='text-white'>Leverage Postgres:</b>
+						Leverage the full power of Postgres in your most important projects.
+					</li>
+					<li>
+						<b class='text-white'>Develop and refine use cases:</b> Create
+						and enhance initial use cases tailored to your business needs.
+					</li>
+					<li>
+						<b class='text-white'
+							>Onboard devs to open-source best practices:</b
+						> Level-up your team for operational success.
+					</li>
+				</ul>
+				<hr />
+				<p>
+					Unlock the full potential of Postgres with Tembo Buildcamp, 
+					tailored to address your company's
+					specific challenges. Our buildcamp provides personalized,
+					hands-on training to master Tembo's advanced features and
+					capabilities. From zero to use case in five days, you'll be
+					equipped to confidently put Postgres to work for your company.
+				</p>
+				<h2>Why Choose Tembo?</h2>
+				<ul>
+					<li>
+						<b class='text-white'>Expert Collaborators:</b>
+						Learn from industry experts with many years of experience in Postgres.
+					</li>
+					<li>
+						<b class='text-white'>Customized Agenda:</b>
+						We tailor the buildcamp to meet your specific needs and goals.
+					</li>
+					<li>
+						<b class='text-white'>Ongoing Support:</b> Join our community
+						of like-minded professionals and get support even after the
+						buildcamp ends.
+					</li>
+				</ul>
+			</Markdown>
+		</section>
+		<section>
+			<div class='flex flex-col lg:flex-row justify-between gap-8'>
+				<div class='flex items-center justify-center'>
+					<Image
+						src={Tembonauts}
+						alt='contact elephant image'
+						width={500}
+						height={300}
+						class='hidden lg:block'
+					/>
+					<Image
+						src={Tembonauts}
+						alt='contact elephant image'
+						width={400}
+						height={200}
+						class='lg:hidden md:block hidden'
+					/>
+					<Image
+						src={Tembonauts}
+						alt='contact elephant image'
+						width={300}
+						height={100}
+						class='max-[768px]:block hidden'
+					/>
+				</div>
+				<BuildcampForm client:load />
+			</div>
+		</section>
+	</Container>
+	<div class='relative'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
+		</div>
+		<Container>
+			<div class='mt-16 mobile:mt-24'>
+				<Footer />
+			</div>
+		</Container>
+	</div>
+</Layout>
