@@ -25,28 +25,31 @@ At Tembo, we are using an authentication provider called [Clerk](https://clerk.c
 Comparing with AWS IAM, we can start with the minimal set of resource types to support basic RBAC: **Roles**, **Actions**, and **Policies**. Roles will at first be limited to the Admin and Member roles only. Later, we can introduce user-defined roles. Actions have the same meaning as in AWS, and Policy is similar in that it connects Actions with Roles.
 
 Example Role:
+
 ```json
 {
-  "id": "admin",
-  "name": "Admin"
+	"id": "admin",
+	"name": "Admin"
 }
 ```
 
 Example Action:
+
 ```json
 {
-  "id": "PostgresReadOnly",
-  "name": "Postgres Read Only",
-  "description": "Access to the readonly user password."
+	"id": "PostgresReadOnly",
+	"name": "Postgres Read Only",
+	"description": "Access to the readonly user password."
 }
 ```
 
 Example Policy, allows admin to access the Postgres readonly password:
+
 ```json
 {
-  "action": "PostgresReadOnly",
-  "role": "admin",
-  "allowed": true
+	"action": "PostgresReadOnly",
+	"role": "admin",
+	"allowed": true
 }
 ```
 
@@ -97,16 +100,16 @@ In our case, we can use something like this:
 
 ```json
 {
-  "action": "PostgresReadOnly",
-  "role": "basic_member",
-  "allowed": true,
-  "conditions": [
-    {
-      "operator": "NotEqual",
-      "key": "instance_name",
-      "value": "production"
-    }
-  ]
+	"action": "PostgresReadOnly",
+	"role": "basic_member",
+	"allowed": true,
+	"conditions": [
+		{
+			"operator": "NotEqual",
+			"key": "instance_name",
+			"value": "production"
+		}
+	]
 }
 ```
 

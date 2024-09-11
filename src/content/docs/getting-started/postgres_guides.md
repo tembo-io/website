@@ -1,0 +1,61 @@
+## Basics
+
+- [Basic sql queries](/docs/getting-started/postgres_guides/postgres-basics/basic_sql_queries)
+- [Connection pooling](/docs/getting-started/postgres_guides/postgres-basics/connection-pooling)
+- [Jsonb](/docs/getting-started/postgres_guides/postgres-basics/jsonb)
+- [Postgres data types](/docs/getting-started/postgres_guides/postgres-basics/postgres-data-types)
+- [Postgres overview](/docs/getting-started/postgres_guides/postgres-basics/postgres-overview)
+- [Row count](/docs/getting-started/postgres_guides/postgres-basics/row-count)
+
+## Connection
+
+- [How to connect to postgres](/docs/getting-started/postgres_guides/how-to-connect-to-postgres)
+- [Connecting to postgres with c sharp](/docs/getting-started/postgres_guides/connecting-to-postgres-with-c-sharp)
+- [Connecting to postgres with java](/docs/getting-started/postgres_guides/connecting-to-postgres-with-java)
+- [Connecting to postgres with nodejs](/docs/getting-started/postgres_guides/connecting-to-postgres-with-nodejs)
+- [Connecting to postgres with python](/docs/getting-started/postgres_guides/connecting-to-postgres-with-python)
+- [Listing all connections in postgres](/docs/getting-started/postgres_guides/listing-all-connections-in-postgres)
+
+## Extensions
+
+- [Aggs for vecs](/docs/getting-started/postgres_guides/extensions/aggs_for_vecs)
+- [Argm](/docs/getting-started/postgres_guides/extensions/argm)
+- [Autoinc](/docs/getting-started/postgres_guides/extensions/autoinc)
+- [Bool plperl](/docs/getting-started/postgres_guides/extensions/bool_plperl)
+- [Btree gin](/docs/getting-started/postgres_guides/extensions/btree_gin)
+- [Chkpass](/docs/getting-started/postgres_guides/extensions/chkpass)
+- [Citext](/docs/getting-started/postgres_guides/extensions/citext)
+- [Count distinct](/docs/getting-started/postgres_guides/extensions/count_distinct)
+- [Credcheck](/docs/getting-started/postgres_guides/extensions/credcheck)
+- [Cube](/docs/getting-started/postgres_guides/extensions/cube)
+- [Dict int](/docs/getting-started/postgres_guides/extensions/dict_int)
+- [Earthdistance](/docs/getting-started/postgres_guides/extensions/earthdistance)
+- [Pg cron](/docs/getting-started/postgres_guides/extensions/pg_cron)
+- [Pg mq](/docs/getting-started/postgres_guides/extensions/pgmq)
+- [Plr](/docs/getting-started/postgres_guides/extensions/plr)
+- [Random](/docs/getting-started/postgres_guides/extensions/random)
+
+## Advanced
+
+- [All possible joins in postgres](/docs/getting-started/postgres_guides/all-possible-joins-in-postgres)
+- [Advanced monitoring and profiling](/docs/getting-started/postgres_guides/advanced-monitoring-and-profiling)
+- [Advanced postgres queries for performance](/docs/getting-started/postgres_guides/advanced-postgres-queries-for-performance)
+- [Effective query optimization technique](/docs/getting-started/postgres_guides/effective-query-optimization-technique)
+- [How to backup and restore a postgres database](/docs/getting-started/postgres_guides/how-to-backup-and-restore-a-postgres-database)
+- [How to copy data in postgres](/docs/getting-started/postgres_guides/how-to-copy-data-in-postgres)
+- [How to create and use materialized views](/docs/getting-started/postgres_guides/how-to-create-and-use-materialized-views)
+- [How to create views in postgres](/docs/getting-started/postgres_guides/how-to-create-views-in-postgres)
+- [How to describe tables in postgres](/docs/getting-started/postgres_guides/how-to-describe-tables-in-postgres)
+- [How to import a csv file in postgres](/docs/getting-started/postgres_guides/how-to-import-a-csv-file-in-postgres)
+- [How to load census data with ogr2ogr](/docs/getting-started/postgres_guides/how-to-load-census-data-with-ogr2ogr)
+- [How to quit psql utility](/docs/getting-started/postgres_guides/how-to-quit-psql-utility)
+- [How to select database in postgres](/docs/getting-started/postgres_guides/how-to-select-database-in-postgres)
+- [How to show tables in postgres](/docs/getting-started/postgres_guides/how-to-show-tables-in-postgres)
+- [How to use postgresql arrays](/docs/getting-started/postgres_guides/how-to-use-postgresql-arrays)
+- [How to work with matrices in postgres](/docs/getting-started/postgres_guides/how-to-work-with-matrices-in-postgres)
+- [Listing indexes in postgres](/docs/getting-started/postgres_guides/listing-indexes-in-postgres)
+- [Postgres cache optimization](/docs/getting-started/postgres_guides/postgres-cache-optimization)
+- [Postgres checkpoint tuning](/docs/getting-started/postgres_guides/postgres-checkpoint-tuning)
+- [Postgres indexing strategies](/docs/getting-started/postgres_guides/postgres-indexing-strategies)
+- [Postgres wal configuration](/docs/getting-started/postgres_guides/postgres-wal-configuration)
+- [Working with json data in postgres](/docs/getting-started/postgres_guides/working-with-json-data-in-postgres)

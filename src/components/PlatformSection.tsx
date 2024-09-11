@@ -26,7 +26,7 @@ const PlatformSection = () => {
 							text='The best of both worlds. Enjoy unmodified open source community Postgres and all the benefits of cloud native architecture, such as high availability, rolling updates, resource management, and more.'
 							iconPath='/cloud-add-icon.svg'
 							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start md:min-w-[350px] lg:min-w-[530px]'
-							headerStyles='text-center mobile:text-start'
+							headerStyles='font-secondary text-center mobile:text-start'
 							textStyles='text-center mobile:text-start'
 						/>
 						<DetailSequence
@@ -34,7 +34,7 @@ const PlatformSection = () => {
 							text='Deployment, configuration, management, and optimization are complicated. We handle them so you can focus on your application.'
 							iconPath='/candle-icon.svg'
 							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start md:min-w-[350px] lg:min-w-[530px]'
-							headerStyles='text-center mobile:text-start'
+							headerStyles='font-secondary text-center mobile:text-start'
 							textStyles='text-center mobile:text-start'
 						/>
 						<DetailSequence
@@ -42,15 +42,15 @@ const PlatformSection = () => {
 							text='No two organizations are alike. Run securely in the cloud with with tools like user tiers, ip allow lists, and encrypted at-rest, or deploy in your own environment.'
 							iconPath='/shield-icon.svg'
 							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start md:min-w-[350px] lg:min-w-[530px]'
-							headerStyles='text-center mobile:text-start'
-							textStyles='text-center mobile:text-start'
+							headerStyles='font-secondary text-center mobile:text-start'
+							textStyles='font-secondary text-center mobile:text-start'
 						/>
 						<DetailSequence
 							header='Intuitive Interface'
 							text='Clear, elegant, delightful UI, because developers deserve nice things too. What’s more, our CLI-first system puts the power of Postgres in your hands. '
 							iconPath='/monitor-icon.svg'
 							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start md:min-w-[350px] lg:min-w-[530px]'
-							headerStyles='text-center mobile:text-start'
+							headerStyles='font-secondary text-center mobile:text-start'
 							textStyles='text-center mobile:text-start'
 						/>
 						<DetailSequence
@@ -58,7 +58,7 @@ const PlatformSection = () => {
 							text='Focus on your product, not your database. We optimize your whole environment—hardware, Postgres configs, and relevant extensions—to give you the best performance for your workload.'
 							iconPath='/cpu-charge-icon.svg'
 							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start md:min-w-[350px] lg:min-w-[530px]'
-							headerStyles='text-center mobile:text-start'
+							headerStyles='font-secondary text-center mobile:text-start'
 							textStyles='text-center mobile:text-start'
 						/>
 						<DetailSequence
@@ -66,7 +66,7 @@ const PlatformSection = () => {
 							text='No hidden costs or surprise up-charges. You only pay for what you actually use. Store as much as you need, query as much as you want.'
 							iconPath='/coin-icon.svg'
 							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start md:min-w-[350px] lg:min-w-[530px]'
-							headerStyles='text-center mobile:text-start'
+							headerStyles='font-secondary text-center mobile:text-start'
 							textStyles='text-center mobile:text-start'
 						/>
 						<Button

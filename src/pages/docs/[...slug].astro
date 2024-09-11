@@ -10,10 +10,16 @@ import {
 	nextDoc,
 	githubEditLink,
 	cleanSideBarTitle,
+	getIsPostgresGuide,
+	getIsGettingStartedPage,
+	getIsPostgresGuideLinksPage,
+	removeItemByTitleAndSlug,
 } from '../../util/docsUtils';
 import NextButton from '../../components/NextButton.astro';
 import Tag from '../../components/Tag.astro';
 import CallToAction from '../../components/CallToAction.astro';
+import { Image } from 'astro:assets';
+import MoveArrowLeftIcon from '../../images/move-left.svg';
 
 export async function getStaticPaths() {
 	const docs = await getCollection('docs');
@@ -35,12 +41,23 @@ const { Content, headings } = await doc.render();
 const slug = doc.slug;
 const normalLinks = await getSideBarLinks();
 const nestedLinks = await getNestedSideBarLinks(slug);
+const isPostgresGuide = getIsPostgresGuide(slug);
+const isGettingStartedPage = getIsGettingStartedPage(slug);
+const isPostgresGuideHomePage = getIsPostgresGuideLinksPage(slug);
 // If a document is nested, we need to check if it has more than one nested document
 // Directories that have only one doc (e.g /docs/cloud/cloud.md) should not have a nested sidebar
 const hasEnoughNestedDocs =
 	nestedLinks.length > 1 || nestedLinks[0].items.length > 1;
-const isNestedSideBar = isNested(slug) && hasEnoughNestedDocs;
-const links = isNestedSideBar ? nestedLinks : normalLinks;
+const isNestedSideBar = isPostgresGuide
+	? false
+	: isNested(slug) && hasEnoughNestedDocs;
+const links = isNestedSideBar
+	? nestedLinks
+	: removeItemByTitleAndSlug(
+			normalLinks,
+			'Postgres guides',
+			'/docs/getting-started/postgres_guides/all-possible-joins-in-postgres',
+		);
 const nextDocument = await nextDoc(`/docs/${slug}`, links);
 const docTitle =
 	doc?.data?.title || cleanSideBarTitle(slug.split('/').at(-1) as string);
@@ -58,22 +75,47 @@ const docTitle =
 			<div
 				class='flex flex-col gap-12 w-full mobile:mr-16 xl:mr-28 overflow-x-hidden max-w-[900px]'
 			>
+				{
+					isPostgresGuide && !isPostgresGuideHomePage && (
+						<a
+							href='/docs/getting-started/postgres_guides'
+							class='flex gap-x-1 text-lightGrey hover:text-white -mb-4'
+						>
+							<Image
+								src={MoveArrowLeftIcon}
+								alt='arrow left'
+								width={18}
+								height={18}
+								class='move-left-icon'
+							/>{' '}
+							Go Back
+						</a>
+					)
+				}
 				<h1
-					class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl'
+					class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl flex items-center gap-x-2'
 				>
 					{docTitle}
 				</h1>
 				<Markdown classNames='max-w-none'>
 					<Content />
 				</Markdown>
-				<NextButton
-					title={nextDocument.title}
-					label='Next'
-					subTitle={nextDocument.parentLabel}
-					slug={nextDocument.slug}
-					classNames='max-w-[450px] w-full self-end'
-					subTitleStyles='text-neon'
-				/>
+				{
+					isPostgresGuide ? null : (
+						<NextButton
+							title={nextDocument.title}
+							label='Next'
+							subTitle={nextDocument.parentLabel}
+							slug={
+								isGettingStartedPage
+									? '/docs/getting-started/postgres_guides'
+									: nextDocument.slug
+							}
+							classNames='max-w-[450px] w-full self-end'
+							subTitleStyles='text-neon'
+						/>
+					)
+				}
 			</div>
 			<div>
 				<div

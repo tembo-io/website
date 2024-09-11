@@ -48,7 +48,7 @@ Browse the free and open source PostgreSQL extension project, [Trunk](https://pg
 
 If you want a programmatic means to find which extensions are supported on which Postgres versions, or other metadata about extensions, you can query the [Trunk API](https://registry.pgtrunk.io/swagger-ui/#/).
 
-## Join the Herd
+## Try Tembo Cloud for Free
 
 [Sign up](https://cloud.tembo.io) to use Tembo Cloud for free, with no credit card required.
 

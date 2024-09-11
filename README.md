@@ -8,7 +8,10 @@
 
 <br />
 
-The Tembo website is built using [Astro](https://astro.build) + [React](https://react.dev), a modern static website generator.
+The Tembo website leverages:
+
+* [Astro](https://astro.build), a modern static website generator
+* [React](https://react.dev)
 
 ### Installation
 
