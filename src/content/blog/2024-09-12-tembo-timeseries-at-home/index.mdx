@@ -1,6 +1,17 @@
+---
+slug: tembo-timeseries-at-home
+title: Using Tembo's Time-Series Stack at Home
+description: Tembo's Time-Series Stack is now available, but as an author of its underlying extension, I've struggled with the same problem...
+authors: [jason]
+tags: [postgres, timeseries]
+image: ./tembonauts.png
+date: 2024-09-12T09:00
+planetPostgres: false
+---
+
 # Using Tembo's Time-Series Stack at Home
 
-Tembo's Time-Series Stack is now available, but as an author of its underlying extension, I've struggled with the same problem I hit any time I contribute to a [time-series](CloudWatch) or [database project](Citus): I've spent more time making and testing this tool than I will spend using it.
+The [Tembo Time Series stack](/docs/product/stacks/analytical/timeseries) is now available, but as an author of its underlying extension, I've struggled with the same problem I hit any time I contribute to a [time-series](CloudWatch) or [database project](Citus): I've spent more time making and testing this tool than I will spend using it.
 
 Sure, there are public data sets at places like [Kaggle](https://www.kaggle.com/datasets), and I like the bike-sharing data set we use in [our time-series guide](https://tembo.io/docs/product/stacks/analytical/timeseries), but really digging into the data becomes much easier when it's something of personal interest.
 
@@ -59,7 +70,7 @@ As a vague rule of thumb, it's best to size your time partitions so that the act
 
 ## Time-Series Enable and Load Data
 
-At this point we're good to tell timeseries about our partition sizes and load the data set. We'll start by creating enough partitions to cover the date range of our data… 
+At this point we're good to tell timeseries about our partition sizes and load the data set. We'll start by creating enough partitions to cover the date range of our data…
 ```sql
 SELECT enable_ts_table('states_ts', '1 hour', initial_table_start => '2024-05-12');
 ```
@@ -232,4 +243,4 @@ Using `LEAD` (and its corresponding function `LAG`) can be syntactically challen
 
 If you've made it to this point, I hope you can see the potential uses of Tembo's Time-Series Stack and its corresponding extension. We started with an unknown time-series data set, created a time-series stack, set it up for use with an existing application, and wrote several queries to reach important conclusions from our data.
 
-Time-Series is under active development and we are always looking for the next feature that will help our users most. Keep an eye on this space to make sure you're the first to know about what's added next!
+[Tembo Time Series stack](/docs/product/stacks/analytical/timeseries) is under active development and we are always looking for the next feature that will help our users most. Keep an eye on this space to make sure you're the first to know about what's added next!
