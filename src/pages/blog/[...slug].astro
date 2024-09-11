@@ -12,6 +12,7 @@ import { getCollection } from 'astro:content';
 import { AUTHORS } from '../../blogAuthors';
 import { Image } from 'astro:assets';
 import BlogFooter from '../../components/BlogFooter.astro';
+import SocialShareButtonsDesktop from '../../components/SocialShareButtonsDesktop.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -150,28 +151,11 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 									<Toc headings={headings} client:load />
 								)
 							}
-							<div class='flex flex-col gap-4 self-start w-max'>
-								<h2 class='text-lightGrey font-bold'>
-									Share this article
-								</h2>
-								<a
-									href={`https://news.ycombinator.com/submitlink?u=https://tembo.io/blog/${post.slug}&t=${encodeURIComponent(post.data.title)}`}
-									target='_blank'
-								>
-									<svg
-										xmlns='http://www.w3.org/2000/svg'
-										height='25px'
-										width='25px'
-										viewBox='4 4 188 188'
-									>
-										<path
-											d='m4 4h188v188h-188z'
-											fill='#E9FC87'></path>
-										<path
-											d='m73.2521756 45.01 22.7478244 47.39130083 22.7478244-47.39130083h19.56569631l-34.32352071 64.48661468v41.49338532h-15.98v-41.49338532l-34.32352071-64.48661468z'
-											fill='#120F0E'></path>
-									</svg>
-								</a>
+							<div class='flex flex-col gap-4 self-start w-full'>
+								<SocialShareButtonsDesktop
+									title={post.data.title}
+									slug={post.slug}
+								/>
 							</div>
 						</div>
 					</div>

@@ -1,0 +1,329 @@
+---
+title: Install Tembo Self Hosted on GCP GKE
+uppercase: false
+sideBarPosition: 204
+sideBarTitle: Install on GCP GKE
+---
+
+This guide describes the steps to install Tembo Self Hosted on GCP, which allows you to deploy a high-performance, fully-extensible managed Postgres service within a [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) cluster.
+
+## Step 1: Obtain prerequisites
+
+Before starting this tutorial, you must install and configure the following tools and resources that you need to create and manage Tembo Self Hosted on an GCP GKE cluster.
+
+* The command-line tools for [Google Cloud](https://cloud.google.com/sdk/docs/install).
+* The [Helm CLI](https://helm.sh/docs/intro/install/).
+* Obtain a [Clerk](https://clerk.com/) authentication key from Tembo.
+
+## Step 2: Choose and setup a base domain
+
+For the Tembo services, you will need to select a base domain, such as `tembo.mydomain.com`.
+
+Once you have chosen your base domain, you must ensure you have the capacity to add and modify DNS records for it.
+
+With this setup, your users will be able to access various subdomains to manage, monitor and run Postgres on the platform:
+
+* Software UI: `app.tembo.mydomain.com`
+* Backend requests: `api.tembo.mydomain.com`
+* Tembo Dataplane: `dataplane.tembo.mydomain.com`
+
+## Step 3: Configure a Google Cloud project
+
+Once you're logged in with either `gcloud auth login` or `gcloud init`, ensure you have a Google Cloud project ID for your Tembo deployment.
+
+### Creating a new project:
+
+```shell
+export PROJECT_ID=your-project-id
+
+gcloud projects create $PROJECT_ID --name="tembo-self-hosted"
+```
+
+### Ensure your project was created
+
+```shell
+$ gcloud projects list
+
+PROJECT_ID           NAME               PROJECT_NUMBER
+your-project-id      tembo-self-hosted  123456789101
+```
+
+### Set `gcloud` to use your new project
+
+```shell
+gcloud config set project $PROJECT_ID
+```
+
+### Set a compute zone for your cluster
+
+Check the list of all compute zones through `gcloud` or in [Regions and zones](https://cloud.google.com/compute/docs/regions-zones):
+
+```shell
+$ gcloud compute zones list
+NAME                       REGION                   STATUS  NEXT_MAINTENANCE  TURNDOWN_DATE
+us-east1-b                 us-east1                 UP
+us-east1-c                 us-east1                 UP
+```
+
+Then set your preferred compute zone for your project:
+
+```shell
+export COMPUTE_ZONE=europe-west1-b
+
+gcloud config set compute/zone $COMPUTE_ZONE
+```
+
+## Step 4: Create a GCP GKE cluster
+
+Enable the Kubernetes Engine API by either running `gcloud services enable container.googleapis.com` or through the [Google Cloud console](https://console.cloud.google.com/apis/library/container.googleapis.com).
+
+### Create a Kubernetes cluster
+
+```shell
+export CLUSTER_NAME=your-cluster-name
+export MACHINE_TYPE=n4-standard-4
+export K8S_VERSION=1.28
+export COMPUTE_ZONE=$(gcloud config get-value compute/zone)
+
+gcloud container clusters create $CLUSTER_NAME \
+    --enable-autoscaling \
+    --zone $COMPUTE_ZONE \
+    --addons=GcePersistentDiskCsiDriver \
+    --cluster-version $K8S_VERSION \
+    --machine-type $MACHINE_TYPE \
+    --max-nodes 10 \
+    --min-nodes 10
+```
+
+If you wish to use an existing cluster, make sure that the CSI driver is enabled:
+
+```shell
+gcloud container clusters $CLUSTER_NAME --update-addons=GcePersistentDiskCsiDriver=ENABLED
+```
+
+For more details on creating instances, please refer to [Creating a zonal cluster](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-zonal-cluster).
+
+## Step 5: Configure `kubectl` to work with GKE clusters
+
+`gke-gcloud-auth-plugin` must be installed in order to use `kubectl` and other clients to interact with GKE.
+
+Check if it's already installed by running `gke-gcloud-auth-plugin --version`.
+
+### Installing the plugin
+
+```shell 
+gcloud components install gke-gcloud-auth-plugin
+```
+
+### Update `kubectl` to use the plugin
+
+```shell
+gcloud container clusters get-credentials $CLUSTER_NAME \
+    --zone=$COMPUTE_ZONE
+```
+
+### Verify the configuration
+
+You should be able to see output similar to the following:
+
+```shell
+$ kubectl get namespaces
+NAME              STATUS   AGE
+default           Active   51d
+kube-node-lease   Active   51d
+kube-public       Active   51d
+kube-system       Active   51d
+```
+
+## Step 6: Install Helm dependencies
+
+### Install `cert-manager`
+
+```shell
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.14.4 --set installCRDs=true
+```
+
+## Step 7: Install the Tembo Helm chart
+
+Clone the Tembo Self Hosted repository:
+
+```shell
+git clone https://github.com/tembo-io/tembo-self-hosted
+```
+
+Now, within the cloned `tembo-self-hosted` directory, create a file `my-values.yaml` with the following content:
+
+```yaml
+global:
+  baseDomain: tembo.mydomain.com
+  monitoringEnabled: true
+  conductorEnabled: false
+  traefikEnabled: true
+tembo:
+  cpWebserver:
+    env:
+      - name: CLERK_SECRET_KEY
+        value: <secret-key>
+      - name: SELF_HOSTED
+        value: "true"
+  temboUI:
+    env:
+      - name: INTERCOM_SECRET
+        value: "xx1XX9AxxTxL46iOWVqmvEIN2dEeE9ASm-XXXXXod"
+      - name: NEXT_PUBLIC_API_BASE_URL
+        value: "http://api.tembo.mydomain.com/api"
+      - name: NEXT_PUBLIC_API_BASE_URL_V1
+        value: "http://api.tembo.mydomain.com/api/v1"
+      - name: NEXT_PUBLIC_INTERCOM_APP_ID
+        value: "xxxxixeb"
+      - name: NEXT_PUBLIC_METRICS_BASE_URL
+        value: "http://dataplane.tembo.mydomain.com"
+      - name: NEXT_PUBLIC_SENTRY_DSN
+        value: "https://xxxxxxxxxxxxxx@o4506351478964224.ingest.sentry.io/4506351480668160"
+      - name: NEXT_PUBLIC_SENTRY_ENV
+        value: "local"
+      - name: APP_ENV
+        value: "localhost"
+      - name: NEXT_PUBLIC_POSTHOG_KEY
+        value: "phc_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      - name: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+        value: "pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      - name: CLERK_SECRET_KEY
+        value: "sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      - name: NEXT_PUBLIC_IS_SELF_HOSTED
+        value: "true"
+      - name: NEXT_PUBLIC_BILLING
+        value: "false"
+      - name: NEXT_PUBLIC_SPOT
+        value: "false"
+      - name: NEXT_PUBLIC_CLOUD_PROVIDER
+        value: "false"
+      - name: NEXT_PUBLIC_CUSTOM_DOMAIN
+        value: "false"
+```
+
+The base domain should be the same one created in Step 2. Please contact our support team if you need any help obtaining these values.
+
+Now, let's install the Tembo Self Hosted Helm chart in your GKE cluster:
+
+```shell
+helm install tembo . -f my-values.yaml -n tembo --create-namespace
+```
+
+This will start up some of the required Tembo components, but not all.
+
+## Step 8: Configure DNS for Traefik’s Load Balancer
+
+The Tembo Helm chart, installed in the previous step, will have spun up [Traefik](https://traefik.io/traefik/) as its load balancer.
+
+We can check the external IP assigned to the Traefik's Load Balancer by running the following command:
+
+```shell
+% kubectl get svc -n tembo | grep traefik
+NAME      TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                       AGE
+traefik   LoadBalancer   10.200.50.100   4.150.40.100  1234:56789/TCP,80:12345/TCP   45m
+```
+
+An `A` DNS record must be created to re-route `*.tembo.mydomain.com` to the assigned Traefik external IP. See [Set up DNS records for a domain name with Cloud DNS](https://cloud.google.com/dns/docs/set-up-dns-records-domain-name) for further instructions.
+
+Using the `gcloud` CLI, the process would be:
+
+```
+export TRAEFIK_EXTERNAL_IP=4.150.40.100
+
+gcloud dns managed-zones create tembo-dns-zone \
+    --description="Tembo DNS zone" \
+    --dns-name="tembo.mydomain.com"
+
+gcloud dns record-sets transaction start --zone=tembo-dns-zone
+
+gcloud dns record-sets transaction add $TRAEFIK_EXTERNAL_IP \
+    --name="*.gke1.tembo.mydomain.com." \
+    --ttl=300 \
+    --type=A \
+    --zone=tembo-dns-zone
+
+gcloud dns record-sets transaction execute --zone=tembo-dns-zone
+```
+
+Verify the zone worked:
+
+```shell
+gcloud dns record-sets list --zone=tembo-dns-zone
+```
+
+```shell
+$ nslookup test.tembo.mydomain.com
+```
+
+## Step 9: Start the Tembo Controller
+
+Let's now enable the `conductor` component:
+
+```shell
+global:
+  baseDomain: tembo.mydomain.com
+  monitoringEnabled: true
+  conductorEnabled: true
+  traefikEnabled: true
+```
+
+Upgrade the Self Hosted Helm chart so that changes take effect:
+
+```shell
+helm upgrade tembo . -f my-values.yaml -n tembo
+```
+
+
+## Step 10: Check the status of the installation
+
+```
+❯ kubectl get po -n tembo
+NAME                                                  READY   STATUS        RESTARTS        AGE
+control-plane-1                                       1/1     Running       0               30m
+control-plane-1-initdb-xxxxx                          0/1     Terminating   0               30m
+control-plane-queue-1                                 1/1     Running       0               30m
+control-plane-queue-1-initdb-xxxxx                    0/1     Terminating   0               30m
+loki-backend-0                                        2/2     Running       0               30m
+loki-backend-1                                        2/2     Running       0               30m
+loki-backend-2                                        2/2     Running       0               30m
+loki-gateway-xxxxxx                                   1/1     Running       0               30m
+loki-read-xxxxxx                                      1/1     Running       0               30m
+loki-read-xxxxxx                                      1/1     Running       0               30m
+loki-write-0                                          1/1     Running       0               30m
+loki-write-1                                          1/1     Running       0               30m
+prometheus-tembo-kube-prometheus-stac-prometheus-0    2/2     Running       0               30m
+tembo-cloudnative-pg-xxxxxx                           1/1     Running       0               30m
+tembo-conductor-xxxxxx                                1/1     Running       0               30m
+tembo-conductor-metrics-xxxxxx                        1/1     Running       0               30m
+tembo-conductor-watcher-xxxxxx                        1/1     Running       0               30m
+tembo-controller-xxxxxx                               1/1     Running       0               30m
+tembo-cp-metrics-watcher-xxxxxx                       1/1     Running       5 (30m ago)     30m
+tembo-cp-reconciler-xxxxxx                            1/1     Running       5 (30m ago)     30m
+tembo-cp-service-xxxxxx                               1/1     Running       5 (30m ago)     30m
+tembo-cp-webserver-xxxxxx                             1/1     Running       0               30m
+tembo-dataplane-webserver-xxxxxx                      1/1     Running       0               30m
+tembo-grafana-xxxxxx                                  3/3     Running       0               30m
+tembo-grafana-agent-operator-xxxxxx                   1/1     Running       0               30m
+tembo-init-cp-db-xxxxx                                0/1     Completed     0               30m
+tembo-init-cp-queue-db-xxxxx                          0/1     Completed     0               30m
+tembo-k8s-event-logger-xxxxxx                         1/1     Running       0               30m
+tembo-kube-prometheus-stac-operator-xxxxxx            1/1     Running       0               30m
+tembo-kube-state-metrics-xxxxxx                       1/1     Running       0               30m
+tembo-label-namespace-xxxxx                           0/1     Completed     0               30m
+tembo-minio-0                                         1/1     Running       0               30m
+tembo-pod-init-xxxxxx                                 1/1     Running       0               30m
+tembo-tembo-ui-xxxxxx                                 1/1     Running       0               30m
+tembo-traefik-xxxxxx                                  1/1     Running       0               30m
+tembo-traefik-xxxxxx                                  1/1     Running       0               30m
+tembo-traefik-xxxxxx                                  1/1     Running       0               30m
+```
+
+## Step 11: Access the Tembo Self Hosted
+
+Access the Tembo Self Hosted UI by visiting http://app.tembo.mydomain.com in your browser. Replace tembo.mydomain.com with your domain name chosen in Step 2.
+

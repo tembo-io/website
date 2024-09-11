@@ -19,7 +19,6 @@ import FeatureCard from '../components/FeatureCard.astro';
 import BasicTable from '../components/BasicTable.astro';
 import TabbedTable from '../components/TabbedTable';
 import PricingCards from '../components/PricingCards.astro';
-import CompetitorTable from '../components/CompetitorTable';
 const currentPath = Astro.url.pathname;
 
 const generalIncluded = [
@@ -32,33 +31,35 @@ const generalIncluded = [
 const platformIncluded = [
 	'Apps Support',
 	'REST Endpoint',
-	'Read Replicas',
-	'High Availability',
+	'Role-Based Access Control',
+	'Metrics & Alerts',
 ];
 
 const generalRows = [
-	['App support', true, true, true],
 	['200+ extensions', true, true, true],
-	['Point in time recovery', true, true, true],
+	['Stacks', true, true, true],
+	['App support', true, true, true],
 	['Monitoring & Alerting', true, true, true],
 	['High Availability', false, true, true],
-	['Scale up storage', false, true, true],
-	['Instance Re-sizing', false, true, true],
-	['Uptime SLA', 'N/A', '99.95% with HA', '99.95% with HA'],
+	['Scale Storage & Compute', false, true, true],
+	['Uptime SLA', 'N/A', '99.95% with HA', 'Custom'],
+	['Fully-Managed', true, true, false],
+	['Cloud Provider Support', 'AWS', 'AWS', 'All'],
+	['Customizable Security and Compliance', false, false, true],
 ];
 
 const platformRows = [
-	['Hobby Tier Instances', '3', 'Unlimited', 'Unlimited'],
+	['Number of Instances', '2', 'Unlimited', 'Unlimited'],
+	['Instance Type', 'Spot', 'On-Demand', 'Custom'],
 	['Log Retention', '30 Days', '30 Days', 'Unlimited'],
-	['Access Control', 'Owner, User', 'Owner, User', 'RBAC'],
 	['SSO', false, true, true],
 ];
 
 const supportRows = [
 	['Community Support', true, true, true],
-	['Email Support', true, true, true],
+	['Email / Chat Support', true, true, true],
 	['Support SLA', false, true, true],
-	['Onboarding Support', false, false, true],
+	['Onboarding Support', false, true, true],
 	['Dedicated Customer Engineer', false, false, true],
 ];
 ---
@@ -190,9 +191,12 @@ const supportRows = [
 				class='w-[29px] h-[29px] customXs:h-[56px] customXs:w-[32px]'
 			/>
 		</TabbedTable>
-		<Quotes client:load />
+		<Quotes
+			className='mt-[70px] customSm:mt-[85px] customMd:mt-[125px] customLg:mt-[160px]'
+			client:load
+		/>
 		<Container
-			styles='mt-[150px] customSm:mt-[150px] customMd:mt-[130px] customLg:mt-[125px]  pb-[50px] md:pb-[170px] z-100'
+			styles='mt-[150px] customSm:mt-[150px] customMd:mt-[130px] customLg:mt-[125px] pb-[50px] md:pb-[170px] z-100'
 		>
 			<Faqs client:load />
 		</Container>

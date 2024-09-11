@@ -22,7 +22,7 @@ Put simply, time-series data is a collection of data points, each with a timesta
 
 We believe that PostgreSQL can be used to [power any data workload](https://tembo.io/blog/tembo-manifesto) thanks to its extensions and ecosystem tools. Therefore, at Tembo, we aim to make it easy for users to [use the entire PostgreSQL ecosystem](https://tembo.io/blog/ga) to reduce the complexity of the modern data stack.
 
-In the last year, we’ve built several [stacks](https://tembo.io/docs/product/stacks/intro-to-stacks) and extensions that help you run [analytics](https://tembo.io/docs/product/stacks/analytical/data-warehouse), [AI](https://tembo.io/docs/product/stacks/ai/vectordb), and [operational](https://tembo.io/docs/product/stacks/transactional/oltp) workloads on PostgreSQL. However, our customers’ most requested stack has been one able to store and act upon their time-series data. That way, they can store all of their data with a single PostgreSQL provider who can meet all their needs.
+In the last year, we’ve built several [stacks](https://tembo.io/docs/product/stacks/intro-to-stacks) and extensions that help you run [analytics](https://tembo.io/docs/product/stacks/analytical/data-warehouse), [AI](https://tembo.io/docs/product/stacks/ai/vectordb/getting-started), and [operational](https://tembo.io/docs/product/stacks/transactional/oltp) workloads on PostgreSQL. However, our customers’ most requested stack has been one able to store and act upon their time-series data. That way, they can store all of their data with a single PostgreSQL provider who can meet all their needs.
 
 You may already be asking: "why not just power the stack using [TimescaleDB](https://github.com/timescale/timescaledb)?" The Timescale License would restrict our use of features such as compression, incremental materialized views, and bottomless storage. With these missing, we felt that what remained would not provide an adequate basis for our customers’ time-series needs. Therefore, we decided to build our own PostgreSQL-licensed extension.
 
@@ -37,7 +37,7 @@ To efficiently store and query time-series data, there are a few requirements:
 * Efficiently store large amounts of data
 * Run complex analytics functions
 
-PostgreSQL has several features that provide the right building blocks to solve these requirements. Features such as [native partitioning](https://www.postgresql.org/docs/current/ddl-partitioning.html), variety of [indexes](https://www.postgresql.org/docs/current/indexes.html), [materialized views](https://www.postgresql.org/docs/current/rules-materializedviews.html), and [window / analytics functions](https://www.postgresql.org/docs/current/tutorial-window.html) provide the main functionality. Several extensions add additional features to PostgreSQL to make it even better: [pg_partman](https://github.com/pgpartman/pg_partman) for partition management, [pg_cron](https://github.com/citusdata/pg_cron) for scheduling jobs, [columnar](https://github.com/hydradatabase/hydra/tree/main/columnar) for compression, [pg_ivm](https://github.com/sraoss/pg_ivm) for incremental materialized views, and [pg_tier](https://github.com/tembo-io/pg_tier) for long-term offloading of older partitions.
+PostgreSQL has several features that provide the right building blocks to solve these requirements. Features such as [native partitioning](https://www.postgresql.org/docs/current/ddl-partitioning.html), variety of [indexes](https://www.postgresql.org/docs/current/indexes.html), [materialized views](https://www.postgresql.org/docs/current/rules-materializedviews.html), and [window / analytics functions](https://www.postgresql.org/docs/current/tutorial-window.html) provide the main functionality. Several extensions add additional features to PostgreSQL to make it even better: [pg_partman](https://github.com/pgpartman/pg_partman) for partition management, [pg_cron](https://github.com/citusdata/pg_cron) for scheduling jobs, [columnar](https://github.com/hydradatabase/hydra/tree/main/columnar) for compression, and [pg_ivm](https://github.com/sraoss/pg_ivm) for incremental materialized views.
 
 Making all of these components work together cohesively is a tall order, and is hard for most users. pg_timeseries aims to solve this problem.
 
@@ -142,7 +142,7 @@ We know building a full-featured time-series extension for PostgreSQL requires a
 * Roll-up and roll-off of older partitions
 * Additional analytics helper functions
 
-The entire planned roadmap is present on the [GitHub README](https://github.com/tembo-io/pg_timeseries/tree/main?tab=readme-ov-file#roadmap) and features will be prioritized based on demand from users. Our next addition is going to be plugging in [pg_tier](https://github.com/tembo-io/pg_tier) with pg_timeseries to allow offloading older tables to cold storage such as S3.
+The entire planned roadmap is present on the [GitHub README](https://github.com/tembo-io/pg_timeseries/tree/main?tab=readme-ov-file#roadmap) and features will be prioritized based on demand from users. 
 
 The simplest way to try out pg_timeseries is spinning up a free instance of the Timeseries stack on Tembo Cloud. We look forward to your feedback!
 

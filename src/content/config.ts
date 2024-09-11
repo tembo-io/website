@@ -41,6 +41,7 @@ const blog = defineCollection({
 		tags: z.array(z.string()),
 		feedSummary: z.string().optional(),
 		authors: authorsEnum,
+		planetPostgres: z.boolean().default(false)
 	}),
 });
 export const ROOT_SIDEBAR_DOCS_ORDER = {

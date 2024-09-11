@@ -2,7 +2,15 @@ import React from 'react';
 import cx from 'classnames';
 import { navigate } from 'astro:transitions/client';
 
-type Variant = 'primary' | 'neon' | 'gradient' | 'outline' | 'blue' | 'green';
+export type Variant =
+	| 'primary'
+	| 'neon'
+	| 'gradient'
+	| 'outline'
+	| 'blue'
+	| 'sqlBlue'
+	| 'green'
+	| 'sqlPink';
 type Size = 'sm' | 'md' | 'lg' | 'xl';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -12,6 +20,8 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	size?: Size;
 	link?: string;
 	isLinkTag?: boolean;
+	scrollTo?: boolean;
+	scrollToElement?: string;
 }
 
 const Button: React.FC<Props> = ({
@@ -21,6 +31,8 @@ const Button: React.FC<Props> = ({
 	size,
 	link,
 	isLinkTag = false,
+	scrollTo,
+	scrollToElement,
 	...rest
 }) => {
 	const getSizeStyles = () => {
@@ -49,6 +61,10 @@ const Button: React.FC<Props> = ({
 				return 'bg-transparent text-white border border-white';
 			case 'blue':
 				return 'bg-lightBlue text-mwasi';
+			case 'sqlBlue':
+				return 'bg-sqlBlue text-mwasi';
+			case 'sqlPink':
+				return 'bg-sqlPink text-mwasi';
 			case 'green':
 				return 'bg-pricingGreen text-mwasi';
 		}
@@ -57,7 +73,7 @@ const Button: React.FC<Props> = ({
 		<a
 			href={link}
 			className={cx(
-				'transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base',
+				'transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base text-center',
 				getVariantStyles(),
 				getSizeStyles(),
 				styles,
@@ -74,11 +90,20 @@ const Button: React.FC<Props> = ({
 				styles,
 			)}
 			onClick={
-				['gradient', 'blue', 'green'].includes(variant)
-					? () => navigate('https://cloud.tembo.io')
-					: link
-						? () => navigate(link)
-						: undefined
+				scrollTo
+					? () => {
+							document
+								.getElementById(scrollToElement || '')
+								?.scrollIntoView({
+									behavior: 'smooth',
+									block: 'center',
+								});
+						}
+					: ['gradient', 'blue', 'green'].includes(variant)
+						? () => navigate('https://cloud.tembo.io')
+						: link
+							? () => navigate(link)
+							: undefined
 			}
 			{...rest}
 		>
