@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets';
+import ChevronRight from '../images/arrow-right.svg';
+import ChevronLeft from '../images/arrow-left.svg';
+import SocialShareButtonsMobile from './SocialShareButtonsMobile.astro';
+import CallToAction from './CallToAction.astro';
+interface Props {
+	slug: string;
+	title: string;
+	date: string;
+}
+
+const { slug, title, date } = Astro.props;
+---
+
+<div class='mt-16'>
+	<div class='h-[1px] w-full bg-[#242424]'></div>
+	<div class='block md:hidden'>
+		<SocialShareButtonsMobile slug={slug} title={title} />
+	</div>
+	<CallToAction />
+	<div class='flex flex-col gap-4 mt-10'>
+		<button class='p-4 rounded-lg gradient-next-button blogGoBack'>
+			<div class='flex items-center gap-2'>
+				<Image
+					src={ChevronLeft}
+					height={14}
+					width={14}
+					alt='Github cat logo'
+				/>
+				<p class='text-lightGrey font-semibold text-sm'>Go back</p>
+			</div>
+		</button>
+		<a href={`/blog/${slug}`} class='p-4 rounded-lg gradient-next-button'>
+			<div class='flex flex-col items-end gap-2'>
+				<div class='flex items-center gap-[5px]'>
+					<p class='text-lightGrey font-semibold text-sm'>
+						Next post
+					</p>
+					<Image
+						src={ChevronRight}
+						height={14}
+						width={14}
+						alt='Github cat logo'
+					/>
+				</div>
+				<h4 class='text-white text-end'>{title}</h4>
+				<p class='text-lightGrey font-semibold text-xs'>{date}</p>
+			</div>
+		</a>
+	</div>
+</div>

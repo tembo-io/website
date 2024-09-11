@@ -1,0 +1,179 @@
+---
+title: Install Tembo Self Hosted on AWS EKS
+uppercase: false
+sideBarPosition: 202
+sideBarTitle: Install on AWS EKS
+---
+
+This guide describes the steps to install Tembo Self Hosted on AWS, which allows you to deploy a high-performance, fully-extensible managed Postgres service within an AWS Elastic Kubernetes Service (EKS) cluster.
+
+## Step 1: Prerequisites
+
+Before starting this tutorial, you must install and configure the following tools and resources that you need to create and manage Tembo Self Hosted on an Amazon EKS cluster.
+
+* The command-line tools for [AWS (awscli)](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) and for [Kubernetes (kubectl)](https://kubernetes.io/docs/tasks/tools/).
+* The command-line tool for [Amazon EKS (eksctl)](https://eksctl.io/installation/), used to create and manage your Tembo cluster on EKS.
+* The [Helm CLI](https://helm.sh/docs/intro/install/).
+* Obtain a [Clerk](https://clerk.com/) authentication key from Tembo.
+
+## Step 2: Choose and setup a base domain
+
+For the Tembo services, you will need to select a base domain, such as `tembo.mydomain.com`.
+
+Once you have chosen your base domain, you must ensure you have the capacity to add and modify DNS records for it.
+
+With this setup, your users will be able to access various subdomains to manage, monitor and run Postgres on the platform:
+
+* Software UI: `app.tembo.mydomain.com`
+* Backend requests: `api.tembo.mydomain.com`
+* Tembo Dataplane: `dataplane.tembo.mydomain.com`
+
+## Step 3: Create an EKS Kubernetes cluster
+
+To create an EKS cluster named `tembo-cluster` with a minimum of three nodes, run the following command:
+
+```shell
+export CLUSTER_NAME=tembo-cluster
+export NODES_MIN=3
+export NODES_MAX=6
+export NODE_TYPE=m5a.large
+export REGION=us-east-1
+
+eksctl create cluster --name $CLUSTER_NAME --nodes-min $NODES_MIN --nodes-max $NODES_MAX --node-type $NODE_TYPE --region $REGION
+```
+
+Feel free to adjust the parameters as needed to suit your requirements.
+
+For further information, see [Getting started with Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html).
+
+## Step 4: Prepare for Tembo installation
+
+Prepare Tembo helm chart installation by running a script using the command below. It does following:
+
+* Enables IAM OIDC Provider
+* Creates the Amazon EBS CSI driver IAM role
+* Adds the Amazon EBS CSI driver add-on
+* Update the StorageClass to allow for volume expansion
+
+```shell
+bash <(curl -s https://raw.githubusercontent.com/tembo-io/tembo-self-hosted/main/scripts/aws/eks-setup.sh)
+```
+
+## Step 5: Install the Tembo Self Hosted Helm chart
+
+Clone the Tembo Self Hosted repository:
+
+```shell
+git clone https://github.com/tembo-io/tembo-self-hosted
+```
+
+Now, within the cloned `tembo-self-hosted` directory, create a file `my-values.yaml` with the following content:
+
+```yaml
+global:
+  baseDomain: tembo.mydomain.com
+  temboEnabled: true
+  monitoringEnabled: true
+  conductorEnabled: false
+  traefikEnabled: true
+tembo:
+  cpWebserver:
+    env:
+      - name: CLERK_SECRET_KEY
+        value: <secret-key>
+      - name: CLERK_WEBHOOK_SIGNING_SECRET
+        value: <signing-secret>
+      - name: STRIPE_SECRET_KEY
+        value: <secret-key>
+      - name: STRIPE_WEBHOOK_SIGNING_SECRET
+        value: <signing-secret>
+      - name: METRONOME_SECRET_KEY
+        value: <secret-key>
+```
+
+The base domain should be the same one created in Step 2.
+
+Now, let's install the Tembo Self Hosted Helm chart in your EKS cluster:
+
+```shell
+helm install tembo . -f my-values.yaml -n tembo --create-namespace
+```
+
+Let's now enable the `conductor` component:
+
+```shell
+global:
+  baseDomain: tembo.mydomain.com
+  monitoringEnabled: true
+  conductorEnabled: true
+```
+
+Upgrade the Self Hosted Helm chart so that changes take effect:
+
+```shell
+helm upgrade tembo . -f my-values.yaml -n tembo
+```
+
+## Step 6: Check the status of the installation
+
+```
+❯ kubectl get po
+NAME                                         READY   STATUS      RESTARTS      AGE
+control-plane-1                              1/1     Running     0             82m
+control-plane-queue-1                        1/1     Running     0             79m
+tembo-cloudnative-pg-749dcfc655-756mm        1/1     Running     0             83m
+tembo-conductor-fb7878d7-tvh94               1/1     Running     0             77m
+tembo-conductor-watcher-7ff9547686-6sld8     1/1     Running     0             77m
+tembo-controller-57899fffc4-d4j55            1/1     Running     0             82m
+tembo-cp-reconciler-76bd8777b6-z2nq8         1/1     Running     0             81m
+tembo-cp-service-75bccdddbd-b8xbk            1/1     Running     0             78m
+tembo-cp-webserver-686fb69bb5-w5g6g          1/1     Running     0             78m
+tembo-dataplane-webserver-7f9bd5cbf7-gkk2w   1/1     Running     0             83m
+tembo-init-cp-db-lxl2t                       0/1     Completed   0             83m
+tembo-init-cp-queue-db-lljgr                 0/1     Completed   0             83m
+tembo-label-namespace-ggnml                  0/1     Completed   0             83m
+tembo-pod-init-74975dbcb8-d9jpk              1/1     Running     0             83m
+tembo-tembo-ui-685ccc9996-n8tmv              1/1     Running     0             83m
+```
+
+## Step 7: Configure DNS for Traefik's Load Balancer
+
+To properly route traffic to your Traefik load balancer, you need to configure a DNS CNAME record through your DNS provider. Follow the steps below to create a wildcard CNAME record, which is essential because each PostgreSQL instance has its own subdomain for its connection string.
+
+1. **Access Your DNS Provider**: Log in to your DNS provider's management console.
+
+2. **Create a Wildcard CNAME Record**: Set up a wildcard CNAME record (e.g., `*.tembo.mydomain.com`). This will cover all subdomains for your PostgreSQL instances.
+
+3. **Use the External IP**: Point the wildcard CNAME record to the external IP of your Traefik load balancer. This external IP can be found using the command below.
+
+```shell
+kubectl get svc -n traefik
+NAME      TYPE           CLUSTER-IP      EXTERNAL-IP                                                                      PORT(S)                                     AGE
+traefik   LoadBalancer   10.200.50.100   abcdef1234567890abcdef1234567890-1234567890abcdef.elb.us-west-1.amazonaws.com   1234:56789/TCP,80:12345/TCP,443:23456/TCP   45m
+```
+
+If you're using Amazon Route 53, the configuration should look something like the image below. For more detailed information, refer to [Creating Records Using the Amazon Route 53 Console](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-creating.html).
+
+![Configuring-DNS-using-Route-53](./route-53-dns-config.jpeg)
+
+4. **Verify DNS Settings**: After creating the CNAME record, verify that the DNS settings are correctly propagating and resolving.
+
+You can use `nslookup` to check if your DNS settings are working correctly:
+
+```shell
+nslookup test.tembo.mydomain.com
+;; Got recursion not available from 2001:4860:4860::8888, trying next server
+;; Got recursion not available from 2001:4860:4860::8844, trying next server
+Server:		8.8.8.8
+Address:	8.8.8.8#53
+
+Non-authoritative answer:
+Name:	test.tembo.mydomain.com
+Address: 203.0.113.10
+Name:	test.tembo.mydomain.com
+Address: 203.0.113.20
+```
+
+## Step 8: Access the Tembo Self Hosted
+
+Access the Tembo Self Hosted UI by visiting http://app.tembo.mydomain.com in your browser. Replace tembo.mydomain.com with your domain name chosen in Step 2.

@@ -1,0 +1,122 @@
+---
+sidebarTitle: Custom PostgreSQL image
+title: Custom image (experimental)
+description: Install pip modules, linux packages, or other custom dependencies in your Tembo Cloud instance
+sideBarPosition: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+
+Using a custom PostgreSQL image can allow users to install custom dependencies on their PostgreSQL server. For example, a user may be using **PL/Python** and wants to use a specific pip module that is not installed by default.
+
+<Callout variant='warning'>
+    Custom image is an **experimental** feature and may be unstable. A user could send an invalid image such as incorrect architecture, PostgreSQL version, wrong base image, etc. Tembo Cloud may be unable to pull your custom image if the tag disappears, or if Tembo Cloud is rate limited by the provided image registry. While Tembo Cloud will seek to keep this feature working, Tembo Cloud may ship changes that break this feature. Some other features, for example status reporting, may not work properly when using custom images.
+
+    Please reach out to Tembo support ([support@tembo.io](mailto:support@tembo.io)) if you would like to use this feature in production.
+
+    Please contribute to Tembo Documentation by finding the 'Edit this page on GitHub' link at the bottom of this page.
+
+    Note: installation of extensions is only supported on creating new instances, not on existing instances.
+</Callout>
+
+## Building an image to use with Tembo Cloud
+
+1. Determine the image base
+
+Build a container image based `FROM` the Tembo Cloud image. Find Tembo Cloud postgres image versions [here](https://quay.io/repository/tembo/standard-cnpg?tab=tags), or fetch it from the API, like this, after [generating an API token](/docs/development/api).
+
+```bash
+export TEMBO_TOKEN=<your token>
+export TEMBO_ORG=<your organization id>
+export TEMBO_INST=<your instance id>
+
+curl -X 'GET' \
+  "https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/instances/$TEMBO_INST" \
+  -H "Authorization: Bearer $TEMBO_TOKEN" \
+  | jq '.image'
+```
+
+Note that when fetching from the API, you will get back an image hosted in a private registry, so find the matching image tag on our public registry at [Quay.io](https://quay.io/organization/tembo).
+
+For example, from the API we may have found this image `387894460527.dkr.ecr.us-east-1.amazonaws.com/tembo-io/standard-cnpg:15-ed6e9e9`. For that image, here is a sample Dockerfile:
+
+```Dockerfile
+FROM quay.io/tembo/standard-cnpg:15-ed6e9e9
+
+# Example installing the "pandas" library in pip
+RUN pip install pandas
+```
+
+2. Build your image, and upload it to a registry
+
+Next, we need to build our image and upload it to a container registry. Please refer to the [Dockerhub documentation](https://docs.docker.com/guides/walkthroughs/publish-your-image/).
+
+Here is an example of building and uploading to Quay:
+```bash
+docker build -t quay.io/< your Quay organization >/standard-cnpg:15-custom-image-example .
+docker push quay.io/< your Quay organization >/standard-cnpg:15-custom-image-example
+```
+
+## Configuring a custom PostgreSQL image via the Tembo Cloud API
+
+1. [Generate an API token](/docs/development/api)
+
+2. Set the following environment variables:
+
+```sh
+export TEMBO_TOKEN=<your token>
+export TEMBO_ORG=<your organization id>
+export TEMBO_INST=<your instance id>
+```
+
+3. Patch your existing Tembo instance with new configuration values using the [Tembo Cloud Platform API](https://api.tembo.io/redoc):
+
+```shell
+curl -X 'PATCH' \
+  "https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/instances/$TEMBO_INST" \
+  -H "accept: application/json" \
+  -H "Authorization: Bearer $TEMBO_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "experimental": {
+    "image": "< your custom image here >"
+  }
+}'
+```
+
+Now, when you connect to your instance, it will have the custom dependencies available. For example:
+
+```sql
+CREATE FUNCTION use_pandas() RETURNS void AS $$
+import pandas
+$$ LANGUAGE plpython3u;
+
+
+SELECT use_pandas();
+```
+
+## Installing Extensions with Custom images
+
+Installation of extension is only supported on creating new instances, not on existing instances.
+ To create a new instance with an extension installed in a custom image, you can use the following API call:
+
+```shell
+curl -X 'POST' \
+  'https://api.tembo.io/api/v1/orgs/$TEMBO_ORG/instances/$TEMBO_INST' \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer $TEMBO_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "stack_type": "OLTP",
+  "instance_name": "my-tembo-instance",
+  "cpu": "1",
+  "memory": "2Gi",
+  "storage": "10Gi",
+  "replicas": 1,
+  "environment": "dev",
+  "spot": true,
+  "experimental": {
+    "image": "< your custom image here >"
+  }
+}'
+```

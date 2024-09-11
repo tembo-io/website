@@ -1,0 +1,88 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { Image } from 'astro:assets';
+import HeroImage from '../../images/tembonauts.svg';
+import {
+	getSideBarLinks,
+	removeItemByTitleAndSlug,
+} from '../../util/docsUtils';
+import DocCard from '../../components/docs/DocCard.astro';
+
+const links = await getSideBarLinks();
+const linksWithoutNestedPostgresGuide = removeItemByTitleAndSlug(
+	links,
+	'Postgres guides',
+	'/docs/getting-started/postgres_guides/all-possible-joins-in-postgres',
+);
+---
+
+<DocsLayout
+	isNestedDoc={false}
+	sideBarMenuSections={linksWithoutNestedPostgresGuide}
+	isProgressBar={false}
+>
+	<div class='flex flex-col relative'>
+		<div
+			class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'
+		>
+		</div>
+		<div class='flex flex-col xl:flex-row justify-between gap-8'>
+			<div class='flex flex-col gap-6'>
+				<h1
+					class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl'
+				>
+					Tembo Docs
+				</h1>
+				<p class='max-w-xl text-lightGrey'>
+					Tembo is the Postgres developer platform for building every
+					data service. We collapse database sprawl and empower users
+					with a high-performance, fully-extensible managed Postgres
+					service that's tailored for specific needs.
+				</p>
+			</div>
+			<Image
+				src={HeroImage}
+				alt='tembo elephants on the moon'
+				class='flex rounded-2xl w-full max-w-[600px]'
+			/>
+		</div>
+		<ul class='w-full mt-16 grid grid-cols-12 gap-6 z-[5]'>
+			<DocCard
+				url='/docs/getting-started/getting_started'
+				icon='/icons/cloud.svg'
+				title='Tembo Cloud'
+				description='Tembo provides Tembo Cloud, a fully managed Postgres service with support for over 200+ extensions.'
+			/>
+			<DocCard
+				url='/docs/product/stacks/intro-to-stacks'
+				icon='/icons/stacks.svg'
+				title='Stacks'
+				description='A Tembo Stack is a pre-built, use case specific Postgres deployment which enables you to quickly deploy specialized data services that can replace external, non-Postgres data services.'
+			/>
+			<DocCard
+				url='/docs/getting-started/postgres_guides/all-possible-joins-in-postgres'
+				icon='/icons/book.svg'
+				title='Postgres Guides'
+				description='Postgres specific guides crafted for you by the Tembo team!'
+			/>
+			<DocCard
+				url='/docs/getting-started/quickstarts/languages-and-frameworks/java'
+				icon='/icons/code.svg'
+				title='Connection Examples'
+				description='Learn how to connect to your new Tembo database with your favorite programming language or ORM/framework.'
+			/>
+		</ul>
+	</div>
+</DocsLayout>
+
+<style>
+	.light-gradient {
+		width: 45%;
+		height: 1200px;
+		background: radial-gradient(#ffffff 0px, transparent 35%);
+		-ms-filter: blur(300px) saturate(150%);
+		-webkit-filter: blur(300px) saturate(150%);
+		filter: blur(300px) saturate(150%);
+		transform: translate3d(0, 0, 0);
+	}
+</style>

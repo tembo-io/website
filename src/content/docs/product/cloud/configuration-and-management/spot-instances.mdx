@@ -1,0 +1,28 @@
+---
+sideBarPosition: 1000
+sideBarTitle: Spot
+title: Spot
+description: Running Tembo Cloud instances on Spot servers
+---
+
+import Callout from '../../../../../components/Callout.astro';
+
+Find in **Settings > Instance Settings**
+
+<Callout variant='warning'>
+    Not recommended for production instances.
+</Callout>
+
+In the Instance Settings view, toggle the **Spot** setting, then click **Save**.
+
+## What is Spot?
+
+[Spot](https://aws.amazon.com/ec2/spot/) is an Amazon Web Services (AWS) feature that offers discounted [EC2](https://aws.amazon.com/ec2/) instances for fault-tolerant workloads. Amazon will provide the user with an EC2 server, but may reclaim the server with two minutes of warning. This means any workload running on a Spot server might get moved to a different server with only two minutes of warning from AWS.
+
+## How does this work on Tembo Cloud?
+
+[Tembo Cloud](https://cloud.tembo.io) offers the Spot option for running at a cheaper cost. Tembo charges 30% less for CPU and Memory on instances with Spot enabled. If Spot instances are not available from AWS, Tembo will automatically move your servers with Spot enabled to an on-demand EC2 instance with no additional charge.
+
+[Tembo Apps](/docs/product/cloud/apps/rest-api) associated with your instance will also run on Spot when Spot is enabled.
+
+The downtime associated with a Spot relocation is typically less than 10 minutes, usually 3-5 minutes when [High Availability](/docs/product/cloud/configuration-and-management/high-availability) is disabled.

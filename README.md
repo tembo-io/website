@@ -8,7 +8,10 @@
 
 <br />
 
-The Tembo website is built using [Astro](https://astro.build) + [React](https://react.dev) and [Docusaurus 2](https://docusaurus.io/), both are modern static website and docs generators.
+The Tembo website leverages:
+
+* [Astro](https://astro.build), a modern static website generator
+* [React](https://react.dev)
 
 ### Installation
 
@@ -18,46 +21,31 @@ The Tembo website is built using [Astro](https://astro.build) + [React](https://
 $ npm install
 ```
 
+### Environment Variables
+
+You will need the following environment variable in your `.env.local` file:
+
+```
+PUBLIC_VITE_CLERK_PUBLISHABLE_KEY={KEY_VALUE}
+```
+
 ### Local Development
 
-> Landing page:
-
-1. Install dependencies first:
+Start the local dev server from the project root:
 
 ```
-cd landing
-npm install
+$ npm run dev
 ```
 
-2. Start the local dev server from the project root:
+A dev server will spin up on `localhost:4321` by default. All changes are reflected live without having to restart the server.
+
+### Simulate a production build locally (optional)
+
+> This will build the site into `/dist` and serve the artifact on `localhost:4321`
 
 ```
-npm run landing
+$ npm run build && npm run preview
 ```
-
-> Docs:
-
-```
-$ npm run docs
-```
-
-These command(s) start local dev servers and open up browsers on `localhost:3000` and `localhost:4321` by default. All changes are reflected live without having to restart the server.
-
-### Build
-
-> Landing:
-
-```
-$ npm run build-landing
-```
-
-> Docs:
-
-```
-$ npm run build-docs
-```
-
-This commands will generate static content into the associated `build` directory and can be served using any static contents hosting service.
 
 ### Deployment
 
@@ -67,27 +55,27 @@ This commands will generate static content into the associated `build` directory
 ### Recommended Workflow
 
 -   Checkout new branch
--   `npm run docs` or `npm run landing`
+-   `npm run dev`
     -   commits locally... looking at site in browser
     -   push to remote each commit (opened draft PR)
 -   Ready to go?
     -   Review preview environment
-    -   Squash and merge and get approval from Darren/Samay
+    -   Squash and merge and get approval from @DarrenBaldwin07 or anyone in [CODEOWNERS](https://github.com/tembo-io/website/blob/main/CODEOWNERS)
 
 ## Writing a blog post ✍️
 
-> Refer to this [example post](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-07-05-tembo-manifesto) as needed
+> Refer to this [example post](https://github.com/tembo-io/website/tree/main/src/content/blog/2023-07-05-tembo-manifesto) as needed
 
-#### 1. Create a new folder inside [/landing/src/content/blog](https://github.com/tembo-io/website/tree/main/landing/src/content/blog) directory
+#### 1. Create a new folder inside [/src/content/blog](https://github.com/tembo-io/website/tree/main/src/content/blog) directory
 
 ```bash
-mkdir -p landing/src/content/blog/2024-09-20-example-post
+mkdir -p src/content/blog/2024-09-20-example-post
 ```
 
 #### 2. Make a new markdown file inside the same directory (this is where you will write your blogpost)
 
 ```bash
-touch landing/src/content/blog/2024-09-20-example-post/index.md
+touch src/content/blog/2024-09-20-example-post/index.md
 ```
 
 #### 3. Frontmatter
@@ -112,11 +100,11 @@ description: Walk through using pg_vectorize to automate the vector search workf
 
 -   `title` is the title of the blog post. This will be displayed at the top of each post, on the main card list page, and in the `title` meta tag.
 
--   `authors` is an array of the authors of the post. Each author should be a string that matches the key of an author in the `AUTHORS` object inside of [here](https://github.com/tembo-io/website/blob/31ed5fdedd11579c83dbf7e151aa42287726685f/landing/src/content/config.ts#L31).
+-   `authors` is an array of the authors of the post. Each author should be a string that matches the key of an author in the `AUTHORS` object inside of [here](https://github.com/tembo-io/website/blob/0a887c61a8e6165a6ea0c13d4c84db255d04ad31/src/blogAuthors.ts#L9).
 
 -   `tags` is an array of tags that the post is associated with. Each tag will be displayed inside of the left sidebar in each post and will also be used inside of the `keywords` meta tag. The main tags that we use are `postgres`. `extensions`, `stacks`, `engineering`, and `data`.
 
--   `image` is the path to the image that will be displayed at the top of the post and in the `og:image` meta tags. This MUST be duplicated in the local blog folder and inside of the [public folder](https://github.com/tembo-io/website/tree/main/landing/public) for it to work properly. Please contact the Tembo design team for the optimal size + branding for these images.
+-   `image` is the path to the image that will be displayed at the top of the post and in the `og:image` meta tags. This MUST be duplicated in the local blog folder and inside of the [public folder](https://github.com/tembo-io/website/tree/main/public) for it to work properly. Please contact the Tembo design team for the optimal size + branding for these images.
 
 -   `date` is the date that the post was published. This will be displayed at the top of the post and used inside of the `pubDate` field in the RSS feed.
 
@@ -132,7 +120,7 @@ Code blocks can be done as you usually would in typical markdown and will be aut
 
 #### 5. Adding images
 
-Images can be added to the post by using relative paths to any image files (`.jpg`, `.png`, `.svg`, etc are all supported) that are placed inside of the `content/blog/2024-09-20-example-post` directory (identical to how our old blog worked). An example post with images can be found [here](https://github.com/tembo-io/website/tree/main/landing/src/content/blog/2023-12-06-mq-benchmarks).
+Images can be added to the post by using relative paths to any image files (`.jpg`, `.png`, `.svg`, etc are all supported) that are placed inside of the `content/blog/2024-09-20-example-post` directory (identical to how our old blog worked). An example post with images can be found [here](https://github.com/tembo-io/website/tree/main/src/content/blog/2023-12-06-mq-benchmarks).
 
 #### 6. Admonitions (callouts)
 
@@ -167,6 +155,7 @@ import Tweet from '../../../components/Tweet'; // the `Tweet` component must be 
 
 ```mdx
 {' '}
+
 <iframe
 	style={{ position: 'absolute', top: '10px', width: '100%', height: '100%' }}
 	width='900'
@@ -182,3 +171,15 @@ import Tweet from '../../../components/Tweet'; // the `Tweet` component must be 
 #### 8. RSS feed
 
 The RSS feed for the Tembo Blog gets generated on ever new merge to main and can be found at https://tembo.io/feed.xml.
+
+#### 9. Blog Post in the NewsBanner (Optional)
+
+To feature a blog post or announcement in the NavBar banner:
+
+1. Ensure `isBanner` is set to `true` in the `NavBar` component.
+2. Update the link (`href`) to point to your blog post or announcement page.
+3. Customize the banner message as desired.
+
+![News-banner](https://github.com/tembo-io/website/blob/main/src/components/NavBar.tsx)
+
+> This feature is optional but recommended only for highlighting significant updates or releases.

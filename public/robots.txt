@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tembo.io/sitemap-index.xml
