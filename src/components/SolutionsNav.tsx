@@ -1,11 +1,13 @@
 import { type FC } from 'react';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
+import cx from 'classnames';
 
 interface Props {
 	isOpen: boolean;
+	currentPage: string;
 }
 
-const SolutionsNav: FC<Props> = ({ isOpen }) => {
+const SolutionsNav: FC<Props> = ({ isOpen, currentPage }) => {
 	return (
 		<NavigationMenu.Root
 			orientation='vertical'
@@ -13,7 +15,14 @@ const SolutionsNav: FC<Props> = ({ isOpen }) => {
 		>
 			<NavigationMenu.List className='flex flex-column'>
 				<NavigationMenu.Item>
-					<NavigationMenu.Trigger className='flex flex-row gap-1 justify-between items-center'>
+					<NavigationMenu.Trigger
+						className={cx(
+							'flex flex-row gap-1 justify-between items-center',
+							currentPage.includes('/solutions/')
+								? 'text-neon'
+								: 'text-white opacity-70',
+						)}
+					>
 						Solutions
 						{isOpen ? (
 							<img
@@ -44,18 +53,34 @@ const SolutionsNav: FC<Props> = ({ isOpen }) => {
 								</li>
 								<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
 									<NavigationMenu.Link
-										href='/solutions/bootcamp'
-										className='font-secondary font-normal text-sm text-offWhite w-full'
-									>
-										Tembo Bootcamp
-									</NavigationMenu.Link>
-								</li>
-								<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
-									<NavigationMenu.Link
 										href='/solutions/ai'
 										className='font-secondary font-normal text-sm text-offWhite w-full'
 									>
 										Tembo AI
+									</NavigationMenu.Link>
+								</li>
+								<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
+									<NavigationMenu.Link
+										href='/solutions/buildcamp'
+										className='font-secondary font-normal text-sm text-offWhite w-full'
+									>
+										Tembo Buildcamp
+									</NavigationMenu.Link>
+								</li>
+								<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
+									<NavigationMenu.Link
+										href='/solutions/for-enterprises'
+										className='font-secondary font-normal text-sm text-offWhite w-full'
+									>
+										For Enterprises
+									</NavigationMenu.Link>
+								</li>
+								<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
+									<NavigationMenu.Link
+										href='/solutions/for-startups'
+										className='font-secondary font-normal text-sm text-offWhite w-full'
+									>
+										For Startups
 									</NavigationMenu.Link>
 								</li>
 							</ul>
