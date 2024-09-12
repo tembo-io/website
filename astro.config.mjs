@@ -3,6 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import { remarkReadingTime } from './remark-reading-time.mjs';
+import { mermaid } from './remark-mermaid';
 import astroPluginValidateLinks from './validate-links-integration';
 import sitemap from '@astrojs/sitemap';
 
@@ -10,8 +11,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
 	integrations: [
 		react(),
-		tailwind(),
 		mdx(),
+		tailwind(),
 		astroPluginValidateLinks({ validateAbsoluteLinks: true }),
 		sitemap(),
 	],
@@ -23,7 +24,7 @@ export default defineConfig({
 		'/waitlist': '/',
 	},
 	markdown: {
-		remarkPlugins: [remarkReadingTime],
+		remarkPlugins: [remarkReadingTime, mermaid],
 		shikiConfig: {
 			wrap: true,
 		},

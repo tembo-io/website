@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Button from '../Button';
 import Search from './Search';
 import ProgressBar from '../ProgressBar';
 import LogoLink from './LogoLink';
 import cx from 'classnames';
 import MobileMenu from './MobileMenu';
 import type { SideBarSection } from '../../types';
+import ClerkProviderWithButton from '../ClerkButton';
 
 interface Props {
 	isProgressBar?: boolean;
@@ -113,12 +113,9 @@ const Header: React.FC<Props> = ({
 										height={20}
 									/>
 								</a>
-								<Button
-									variant='neon'
-									link='https://cloud.tembo.io'
-								>
-									Try Free
-								</Button>
+								<ClerkProviderWithButton
+									currentPage={currentPath}
+								/>
 							</div>
 						</div>
 					</div>

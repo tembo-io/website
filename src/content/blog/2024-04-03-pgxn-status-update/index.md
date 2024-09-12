@@ -117,6 +117,7 @@ of the extensions ecosystem.
 [tools to fulfill the jobs]: https://gist.github.com/theory/898c8802937ad8361ccbcc313054c29d#tools 'Extension Ecosystem: Tools'
 [A contemplation of decentralized extension publishing]: https://justatheory.com/2024/02/decentralized-extension-publishing/
 [Go centralized publishing]: https://go.dev/doc/modules/developing#decentralized 'go.dev: Developing and publishing modules'
+[A meditation on extension versioning]: https://justatheory.com/2024/02/extension-versioning/ 'The History and Future of Extension Versioning'
 [semantic versioning]: https://semver.org
 [extension metadata typology]: https://justatheory.com/2024/02/extension-metadata-typology/
 [extension registry namespacing RFC]: https://justatheory.com/2024/03/extension-namespace-rfc/
@@ -140,3 +141,4 @@ of the extensions ecosystem.
 [Devrim Gündüz]: https://github.com/devrimgunduz
 [Jonathan Katz]: https://jkatz05.com
 [Yurii Rashkovskii]: https://ca.linkedin.com/in/yrashk
+[David Wheeler]: https://justatheory.com

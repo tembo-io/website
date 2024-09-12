@@ -1,0 +1,94 @@
+---
+import { Image } from 'astro:assets';
+import IconWithBackground from '../IconWithBackground';
+
+interface Props {
+	useCaseText: string;
+	scenarioText: string;
+	detailsText: string;
+	imgMetadata: ImageMetadata;
+	leftAlignedImg?: boolean;
+	rightAlignedImg?: boolean;
+}
+
+const {
+	useCaseText,
+	scenarioText,
+	detailsText,
+	imgMetadata,
+	leftAlignedImg,
+	rightAlignedImg,
+} = Astro.props;
+---
+
+<section
+	class='flex flex-col-reverse md:flex-col-reverse lg:flex-row w-full items-center justify-center mt-[100px] justify-between px-3'
+>
+	{
+		leftAlignedImg && (
+			<Image
+				src={imgMetadata}
+				width={370}
+				height={220}
+				alt='green database'
+				class='hidden  lg:block'
+			/>
+		)
+	}
+	<div class='flex flex-col w-full lg:w-1/2'>
+		<div
+			class='text-lighterGrey2 font-secondary sm:text-[8px] md:text-[12px] lg:text-[14px] mb-3 text-center lg:text-left'
+		>
+			Use Case
+		</div>
+		<div
+			class='text-white font-bold tracking-[0.47px] text-[28px] lg:text-[32px] mb-6 text-center lg:text-left'
+		>
+			{useCaseText}
+		</div>
+
+		<div class='w-full mx-auto'>
+			<Image
+				src={imgMetadata}
+				width={370}
+				height={220}
+				alt='green database'
+				class='block lg:hidden'
+			/>
+		</div>
+
+		<div class='flex flex-row mt-5 mb-3'>
+			<IconWithBackground iconPath='/clipboard-white.svg' />
+			<div class='text-white font-bold tracking-[0.47px] text-[20px]'>
+				Scenario:
+			</div>
+		</div>
+
+		<p class='text-lightGrey font-normal font-secondary text-base mb-6'>
+			{scenarioText}
+		</p>
+
+		<div class='flex flex-row mb-3'>
+			<IconWithBackground iconPath='/task-list-white.svg' />
+			<div class='text-white font-bold tracking-[0.47px] text-[20px]'>
+				Details:
+			</div>
+		</div>
+		<p
+			class='text-lightGrey font-normal font-secondary text-base mb-5 lg:mb-12'
+		>
+			{detailsText}
+		</p>
+	</div>
+	{
+		rightAlignedImg && (
+			<Image
+				src={imgMetadata}
+				width={370}
+				height={220}
+				alt='green database'
+				class='hidden lg:block'
+			/>
+		)
+	}
+</section>

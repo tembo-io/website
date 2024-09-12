@@ -21,17 +21,10 @@ const DetailSequence: React.FC<Props> = ({
 	return (
 		<div className={cx('flex flex-col gap-4 max-w-[530px]', styles)}>
 			{iconPath && (
-				<img
-					src={iconPath}
-					alt='Colored Icon'
-					className='w-[56px] h-[56px]'
-				/>
+				<img src={iconPath} alt='Colored Icon' className='w-8 h-8' />
 			)}
 			<h1
-				className={cx(
-					'text-white font-semibold font-secondary text-xl',
-					headerStyles,
-				)}
+				className={cx('text-white font-semibold text-xl', headerStyles)}
 			>
 				{header}
 			</h1>

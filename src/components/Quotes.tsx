@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperCore } from 'swiper/types';
 import Container from './Container';
+import { styles } from '../util';
 
 export interface QuoteData {
 	name?: string;
@@ -16,16 +17,17 @@ export interface QuoteData {
 
 const quotes: QuoteData[] = [
 	{
-		role: 'Director of Engineering',
-		company: 'P&G',
-		quote: 'I like that Tembo databases are deployed with backups and HA settings, simplified deployment and self-service models with the Tembo control plane so I can avoid enterprise ticketing delays, and enjoy an ecosystem of Stacks.',
+		name: 'Cody Hanson',
+		role: 'Engineering Manager',
+		company: 'Arch',
+		quote: "Tembo is a foundational part of our platform. We've been able to effortlessly provision, manage, and scale a fleet of databases to run a diverse array of workloads without having to hire a dedicated postgres expert to our team.",
 		logoUrl: '/elephant1.svg',
 	},
 	{
-		name: 'Dev Agrawal',
-		role: 'Developer Advocate',
-		company: '',
-		quote: "You'd love @tembo_io",
+		name: 'John Madrak',
+		role: 'Founder',
+		company: 'Waddling Technology',
+		quote: "We like that 'limits' are only tied to the provisioned specs, not arbitrary decisions made by the provider. The automated backup system helps us avoid the stress of finding a reliable backup solution ourselves and the support of all Postgres extensions make this a long-term solution for us. ",
 		logoUrl: '/elephant1.svg',
 	},
 	{
@@ -60,14 +62,25 @@ const quotes: QuoteData[] = [
 		quote: 'Tembo makes trying and using Postgres extensions easy, which has unlocked a world of possibilities with regards to the kinds of problems Postgres can solve for you.',
 		logoUrl: '/elephant1.svg',
 	},
+	{
+		name: 'Andrei Sergeev',
+		role: 'Principal Solutions Architect',
+		company: 'CloudBreezy',
+		quote: 'Tembo offers a great combination of superb products and excellent support.',
+		logoUrl: '/elephant1.svg',
+	},
 ];
 
-const Quotes: React.FC = () => {
+interface Props {
+	className?: string;
+}
+
+const Quotes: React.FC<Props> = ({ className }) => {
 	const swiperRef = useRef<SwiperCore>();
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	return (
-		<section className='relative overflow-hidden mt-[70px] customSm:mt-[85px] customMd:mt-[125px] customLg:mt-[160px]'>
+		<section className={styles('relative overflow-hidden', className)}>
 			<Swiper
 				onBeforeInit={(swiper) => {
 					swiperRef.current = swiper;
@@ -87,7 +100,7 @@ const Quotes: React.FC = () => {
 				}}
 			>
 				{quotes.map((it, i) => (
-					<SwiperSlide key={`${it.name}-${i}`}>
+					<SwiperSlide key={`${it.name}-${i}`} className='!w-[350px]'>
 						<div className='flex flex-col justify-between h-full'>
 							<div>
 								<img
@@ -116,7 +129,7 @@ const Quotes: React.FC = () => {
 									<span className='block font-secondary font-bold text-white text-[15px] leading-[18px] tracking-[0.54px]'>
 										{it?.name ? it.name : 'Anonymous'}
 									</span>
-									<span className='mt-2 block font-secondary font-normal text-white text-[13px] leading-[15px] tracking-[0.54px] opacity-60'>
+									<span className='mt-2 block font-secondary font-normal text-white text-[13px] leading-[18px] tracking-[0.54px] opacity-60'>
 										{it.role}
 										{`${it?.company ? `, ${it.company}` : ''}`}
 									</span>

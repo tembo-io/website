@@ -10,7 +10,7 @@ description: Walk through using pg_vectorize to automate the vector search workf
 
 Sentence transformers make it easy to convert raw text into numerical vectors, enabling applications like vector similarity searches and semantic search. With [pg_vectorize](https://github.com/tembo-io/pg_vectorize), an open source extension for Postgres, you have a seamless link to do vector search using over 120 open-source [Sentence Transformers](https://huggingface.co/sentence-transformers) from [Hugging Face](https://huggingface.co), directly from Postgres.
 
-pg_vectorize is completely open source, and you can run it locally or in your own environment by following the project’s [quick-start guide](https://github.com/tembo-io/pg_vectorize?tab=readme-ov-file#pg_vectorize). It is also available by default on the Tembo [VectorDB Stack](/docs/product/stacks/ai/vectordb) in [Tembo Cloud](https://tembo.io) and can be added to any Tembo Postgres instance.
+pg_vectorize is completely open source, and you can run it locally or in your own environment by following the project’s [quick-start guide](https://github.com/tembo-io/pg_vectorize?tab=readme-ov-file#pg_vectorize). It is also available by default on the Tembo [VectorDB Stack](/docs/product/stacks/ai/vectordb/getting-started) in [Tembo Cloud](https://tembo.io) and can be added to any Tembo Postgres instance.
 
 ## What are sentence-transformers?
 
@@ -18,18 +18,18 @@ Machine learning and artificial intelligence models ultimately perform mathemati
 
 ## Picking the right sentence transformer for your use case
 
-While OpenAI’s embedding API endpoint is commonly used, there are over [120 open-source](https://huggingface.co/sentence-transformers) sentence transformers available on Hugging Face. The right model to use depends on your data and your use case. For example, the [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) model is a general purpose transformer useful for a wide variety of use cases such as training a supervised classification model or performing similarity search. Conversely, the [multi-qa-MiniLM-L6-dot-v1](https://huggingface.co/sentence-transformers/multi-qa-MiniLM-L6-dot-v1) model was built specifically for semantic search.
+While OpenAI’s embedding API endpoint is commonly used, there are over [120 open-source](https://huggingface.co/sentence-transformers) sentence transformers available on Hugging Face. The right model to use depends on your data and your use case. For example, the [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) model is a general purpose transformer useful for a wide variety of use cases such as training a supervised classification model or performing similarity search. Conversely, the [multi-qa-MiniLM-L6-dot-v1](https://huggingface.co/sentence-transformers/multi-qa-MiniLM-L6-dot-v1) model was built specifically for semantic search.
 
 Model selection is a large area of research, so experimenting with transformers is highly recommended. Different models have different constraints on inputs, and produce different dimensionality of outputs. Theoretically, larger outputs can encode more information, but that is an area of active research. The tradeoff with larger dimensionality embeddings is that they require more storage and longer query times. Read more in [sbert's list of pre-trained models](https://www.sbert.net/docs/pretrained_models.html).
 
 ## Direct SQL hooks to Hugging Face sentence transformers via pg_vectorize
 
-pg_vectorize allows you to use any of Hugging Face’s sentence transformer models via SQL. It can be configured by simply changing the `model_name` parameter in the `transform_embeddings` function. For example, to use this the [all-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2) model:
+pg_vectorize allows you to use any of Hugging Face’s sentence transformer models via SQL. It can be configured by simply changing the `model_name` parameter in the `transform_embeddings` function. For example, to use this the [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) model:
 
 ```sql
 SELECT * FROM vectorize.transform_embeddings(
    input => 'the quick brown fox jumped over the lazy dogs',
-   model_name => 'sentence-transformers/all-MiniLM-L12-v2'
+   model_name => 'sentence-transformers/all-MiniLM-L6-v2'
 );
 ```
 
@@ -128,6 +128,6 @@ Machine learning workloads typically have very different compute requirements th
 
 In Tembo Cloud, we run this workload on Kubernetes and manage it with the [tembo-operator](https://github.com/tembo-io/tembo/tree/main/tembo-operator) instead of `docker-compose`. This gives us the flexibility to assign and change the compute allocated to the transformer container.
 
-The container hosting the transformers is a simple python http server built with FastAPI running the [SentenceTransformer](https://pypi.org/project/sentence-transformers/) library. It saves general-purpose all-MiniLM-L12-v2 model in the image, so when the container starts the model is immediately loaded into memory. When you call the container for any other model, it is downloaded and cached on the fly.
+The container hosting the transformers is a simple python http server built with FastAPI running the [SentenceTransformer](https://pypi.org/project/sentence-transformers/) library. It saves general-purpose all-MiniLM-L6-v2 model in the image, so when the container starts the model is immediately loaded into memory. When you call the container for any other model, it is downloaded and cached on the fly.
 
 Clone the [repo](https://github.com/tembo-io/pg_vectorize), give it a star, then run `docker-compose up` to get started. Or, try our managed service at [cloud.tembo.io](https://cloud.tembo.io).

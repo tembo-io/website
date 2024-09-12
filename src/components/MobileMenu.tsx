@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import Container from './Container';
 import Button from './Button';
-import { navigate } from 'astro:transitions/client';
 
 const MobileMenu = () => {
+	const [isOpen, setIsOpen] = useState(false);
+
 	return (
 		<div className='bg-offBlack mid:hidden fixed z-10 w-screen h-screen overflow-hidden inset-0'>
 			<div className='bg-gradient-rainbow h-[4px] w-full' />
@@ -15,6 +17,56 @@ const MobileMenu = () => {
 						>
 							Home
 						</a>
+						<img src={'/line.svg'} alt='line' />
+						<ul className='flex flex-col'>
+							<button
+								className='flex flex-start gap-2'
+								onClick={() => {
+									setIsOpen((prevState) => !prevState);
+								}}
+							>
+								Solutions
+								{isOpen ? (
+									<img
+										src='/arrow-up.svg'
+										alt='arrow up symbol'
+									/>
+								) : (
+									<img
+										src='/arrow-down.svg'
+										alt='arrow down symbol'
+									/>
+								)}
+							</button>
+							{isOpen ? (
+								<div>
+									<li className='pl-3 m-4'>
+										<a href='/solutions/transactional'>
+											Tembo Transactional
+										</a>
+									</li>
+									<li className='pl-3 m-4'>
+										<a href='/solutions/ai'>Tembo AI</a>
+									</li>
+									<li className='pl-3 m-4'>
+										<a href='/solutions/buildcamp'>
+											Tembo Buildcamp
+										</a>
+									</li>
+									<li className='pl-3 m-4'>
+										<a href='/solutions/for-enterprises'>
+											For Enterprises
+										</a>
+									</li>
+									<li className='pl-3 m-4'>
+										<a href='/solutions/for-startups'>
+											For Startups
+										</a>
+									</li>
+								</div>
+							) : null}
+						</ul>
+
 						<img src={'/line.svg'} alt='line' />
 						<a
 							href='/pricing'
@@ -59,7 +111,7 @@ const MobileMenu = () => {
 							variant='gradient'
 							size='lg'
 							isLinkTag={true}
-							link='https://cloud.tembo.io'
+							link='https://cloud.tembo.io/sign-up'
 						>
 							Sign up
 						</Button>
@@ -67,7 +119,7 @@ const MobileMenu = () => {
 							variant='outline'
 							size='lg'
 							isLinkTag={true}
-							link='https://cloud.tembo.io'
+							link='https://cloud.tembo.io/sign-in'
 						>
 							Login
 						</Button>
