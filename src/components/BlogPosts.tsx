@@ -25,12 +25,12 @@ export function BlogPosts({ posts, children }: BlogPostsProps) {
 			setFilteredPosts(posts);
 			return;
 		}
-		const filteredPosts_ = posts.filter(
+		const searchedPosts = posts.filter(
 			(post) =>
 				post.title.toLowerCase().includes(query.trim().toLowerCase()) ||
 				post.body.toLowerCase().includes(query.trim().toLowerCase()),
 		);
-		setFilteredPosts(filteredPosts_);
+		setFilteredPosts(searchedPosts);
 	};
 
 	return (
