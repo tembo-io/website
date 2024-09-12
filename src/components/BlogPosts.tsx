@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BlogPost } from './BlogPost';
+import { AUTHORS } from 'src/blogAuthors';
 
 interface Post {
 	id: string;
@@ -21,14 +22,19 @@ export function BlogPosts({ posts, children }: BlogPostsProps) {
 	const [filteredPosts, setFilteredPosts] = useState<Post[]>(posts);
 
 	const search = (query: string) => {
-		if (query.trim() === '') {
+		const trimmedQuery = query.trim();
+		if (trimmedQuery === '') {
 			setFilteredPosts(posts);
 			return;
 		}
+
 		const searchedPosts = posts.filter(
 			(post) =>
-				post.title.toLowerCase().includes(query.trim().toLowerCase()) ||
-				post.body.toLowerCase().includes(query.trim().toLowerCase()),
+				post.title.toLowerCase().includes(trimmedQuery.toLowerCase()) ||
+				post.body.toLowerCase().includes(trimmedQuery.toLowerCase()) ||
+				AUTHORS[post.author || 'ryw'].name
+					.toLowerCase()
+					.includes(trimmedQuery.toLowerCase()),
 		);
 		setFilteredPosts(searchedPosts);
 	};
