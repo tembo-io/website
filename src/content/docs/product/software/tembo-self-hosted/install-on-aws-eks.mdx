@@ -108,11 +108,11 @@ tembo-tembo-ui-685ccc9996-n8tmv              1/1     Running     0             8
 
 ## Step 5: Configure DNS for Traefik's Load Balancer
 
-To properly route traffic to your Traefik load balancer, you need to configure a DNS A record through your DNS provider. Follow the steps below to create a wildcard A record, which is essential because each PostgreSQL instance has its own subdomain for its connection string.
+To properly route traffic to your Traefik load balancer, you need to configure a DNS CNAME record through your DNS provider. Follow the steps below to create a wildcard CNAME record, which is essential because each PostgreSQL instance has its own subdomain for its connection string.
 
-1. **Create a Wildcard A Record**: Set up a wildcard A record (e.g., `*.tembo.mydomain.com`). This will cover all subdomains for your PostgreSQL instances.
+1. **Create a Wildcard CNAME Record**: Set up a wildcard CNAME record (e.g., `*.tembo.mydomain.com`). This will cover all subdomains for your PostgreSQL instances.
 
-2. **Use the External IP**: Point the wildcard A record to the external IP of your Traefik load balancer. This external IP can be found using the command below.
+2. **Use the External IP**: Point the wildcard CNAME record to the external IP of your Traefik load balancer. This external IP can be found using the command below.
 
 ```shell
 kubectl get svc -n traefik
@@ -124,7 +124,7 @@ If you're using Amazon Route 53, the configuration should look something like th
 
 ![Configuring-DNS-using-Route-53](./route-53-dns-config.jpeg)
 
-4. **Verify DNS Settings**: After creating the A record, verify that the DNS settings are correctly propagating and resolving.
+4. **Verify DNS Settings**: After creating the CNAME record, verify that the DNS settings are correctly propagating and resolving.
 
 You can use `nslookup` to check if your DNS settings are working correctly:
 
