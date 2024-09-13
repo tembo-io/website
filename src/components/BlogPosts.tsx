@@ -41,14 +41,15 @@ export function BlogPosts({ posts, children }: BlogPostsProps) {
 
 	return (
 		<div className='mt-16'>
-			<div className='flex justify-between max-[720px]:flex-col-reverse max-[720px]:gap-y-4'>
+			<div className='flex justify-between max-[720px]:flex-col-reverse max-[720px]:gap-y-4 gap-x-4'>
 				<div className='flex items-center gap-2 flex-wrap'>
 					{children}
 				</div>
 				<div className='relative'>
 					<input
-						className='bg-mwasi border border-[#EAEAEA33] rounded-full px-[6px] pl-11 py-[6px] w-[400px] h-[42.57px] max-[720px]:w-full [@media(min-width:600px)]:h-[45px] flex items-center justify-between hover:cursor-pointer'
+						className='bg-mwasi border border-[#EAEAEA33] rounded-full px-[6px] pl-11 py-[6px] w-[400px] h-[42.57px] max-[720px]:w-full [@media(min-width:600px)]:h-[45px] flex items-center justify-between hover:cursor-pointer focus:border-white focus:outline-none'
 						onChange={(e) => search(e.target.value)}
+						placeholder='Search blog'
 					/>
 					<div className='bg-white w-max p-2 rounded-full absolute top-2 left-2'>
 						<img

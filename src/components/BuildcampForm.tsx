@@ -180,42 +180,42 @@ const BuildcampForm: React.FC = () => {
 						name='firstName'
 						ref={firstNameRef}
 						type='text'
-						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<input
 						placeholder='Last Name*'
 						name='lastName'
 						ref={lastNameRef}
 						type='text'
-						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<input
 						placeholder='Job Title*'
 						type='text'
 						name='jobTitle'
 						ref={jobTitleRef}
-						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<input
 						placeholder='Work Email*'
 						type='email'
 						name='email'
 						ref={emailRef}
-						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<input
 						placeholder='Company*'
 						type='text'
 						name='company'
 						ref={companyRef}
-						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<input
 						placeholder='City*'
 						type='text'
 						name='city'
 						ref={cityRef}
-						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<CountrySelect
 						ref={countryRef}
