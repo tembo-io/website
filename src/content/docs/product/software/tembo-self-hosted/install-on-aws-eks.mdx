@@ -54,6 +54,7 @@ Prepare Tembo helm chart installation by running a script using the command belo
 * Creates the Amazon EBS CSI driver IAM role
 * Adds the Amazon EBS CSI driver add-on
 * Update the StorageClass to allow for volume expansion
+* Give Cluster Node IAM role permission to ChangeResourceRecordSets & ListResourceRecordSets for Route53
 
 ```shell
 bash <(curl -s https://raw.githubusercontent.com/tembo-io/tembo-self-hosted/main/scripts/aws/eks-setup.sh)
@@ -72,10 +73,6 @@ Now, within the cloned `tembo-self-hosted` directory, create a file `my-values.y
 ```yaml
 global:
   baseDomain: tembo.mydomain.com
-  temboEnabled: true
-  monitoringEnabled: true
-  conductorEnabled: false
-  traefikEnabled: true
 tembo:
   cpWebserver:
     env:
@@ -97,21 +94,6 @@ Now, let's install the Tembo Self Hosted Helm chart in your EKS cluster:
 
 ```shell
 helm install tembo . -f my-values.yaml -n tembo --create-namespace
-```
-
-Let's now enable the `conductor` component:
-
-```shell
-global:
-  baseDomain: tembo.mydomain.com
-  monitoringEnabled: true
-  conductorEnabled: true
-```
-
-Upgrade the Self Hosted Helm chart so that changes take effect:
-
-```shell
-helm upgrade tembo . -f my-values.yaml -n tembo
 ```
 
 ## Step 6: Check the status of the installation
