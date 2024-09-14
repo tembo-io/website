@@ -2,6 +2,7 @@
 sideBarPosition: 1
 sideBarTitle: Dedicated Networking
 title: Dedicated Networking
+description: Learn about Dedicated Networking, its benefits, and how to enable it for your Tembo instance.
 ---
 
 import Callout from '../../../../../components/Callout.astro';
@@ -10,9 +11,9 @@ import Callout from '../../../../../components/Callout.astro';
 
 Dedicated Networking ensures your instance operates within an isolated network environment, offering enhanced security and optimized performance. By enabling this feature, you gain:
 
-- **Network isolation**, which significantly enhances security by separating your instance from shared networks.
-- **Performance improvements**, as Dedicated Networking allocates exclusive network resources to your instance, reducing latency and improving reliability.
-- **Custom networking options**, including the ability to include a standby server for high availability if **High Availability** is enabled.
+- **Workaround for SNI Limitations**: Dedicated Networking assigns each instance a unique IP address, eliminating the need for SNI (Server Name Indication). This simplifies SSL/TLS configuration and ensures compatibility with older clients.
+- **Network Isolation**: Enhances security by operating your instance in an isolated network environment, separate from shared networks.
+- **Performance Improvements**: Allocates exclusive network resources to your instance, reducing latency and improving reliability.
 
 <Callout variant='info'>
   Dedicated Networking is highly recommended for production environments where security, performance, and uptime are critical.
