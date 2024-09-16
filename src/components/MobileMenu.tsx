@@ -11,12 +11,12 @@ const MobileMenu = () => {
 			<Container styles='h-[100%] pb-12'>
 				<nav className='flex flex-col gap-[20px] h-full justify-between w-full'>
 					<div className='flex flex-col gap-[20px] mt-28 w-full'>
-						<a
+						{/* <a
 							href='/'
 							className='font-secondary font-normal z-10 text-white text-[16px]'
 						>
 							Home
-						</a>
+						</a> */}
 						<img src={'/line.svg'} alt='line' />
 						<ul className='flex flex-col'>
 							<button
@@ -66,6 +66,13 @@ const MobileMenu = () => {
 								</div>
 							) : null}
 						</ul>
+						<img src={'/line.svg'} alt='line' />
+						<a
+							href='/pricing'
+							className='font-secondary font-normal z-10 text-white text-[16px]'
+						>
+							Case Studies
+						</a>
 
 						<img src={'/line.svg'} alt='line' />
 						<a

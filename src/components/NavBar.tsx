@@ -120,9 +120,7 @@ const NavBar: React.FC<Props> = ({
 					<div
 						className={`flex items-center text-[12px] min-[400px]:text-sm justify-center gap-2 news-banner-container top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-[20px] mobile:px-[95px] py-3.5 sm:py-2.5 z-50`}
 					>
-						<span className='truncate'>
-							Introducing Tembo AI
-						</span>
+						<span className='truncate'>Introducing Tembo AI</span>
 						<span className='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text font-semibold text-sm whitespace-nowrap'>
 							Read more
 						</span>
@@ -142,7 +140,7 @@ const NavBar: React.FC<Props> = ({
 				>
 					<Logo />
 					<div className='mid:flex hidden items-center gap-12 m-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
-						<a
+						{/* <a
 							href='/'
 							className={cx(
 								'font-secondary font-medium z-10',
@@ -152,7 +150,7 @@ const NavBar: React.FC<Props> = ({
 							)}
 						>
 							Home
-						</a>
+						</a> */}
 						<div
 							className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'
 							onMouseEnter={handleMouseEnter}
@@ -163,6 +161,20 @@ const NavBar: React.FC<Props> = ({
 								currentPage={currentPage}
 							/>
 						</div>
+						<a
+							href='/case-studies'
+							className={cx(
+								'font-secondary font-medium z-10',
+								currentPage == '/case-studies' ||
+									currentPage == '/case-studies/'
+									? 'text-neon'
+									: 'text-white opacity-70',
+							)}
+							target='_blank'
+							rel='noreferrer'
+						>
+							Case Studies
+						</a>
 						<a
 							href='/pricing'
 							className={cx(
