@@ -248,12 +248,12 @@ const BuildcampForm: React.FC = () => {
 							</span>
 						)}
 					</div>
-					<textarea
-						ref={useCaseRef}
-						placeholder='Please provide a brief description on the specific use case you would like to work on during the Buildcamp.*'
-						className='w-full rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
-					/>
 				</div>
+				<textarea
+					ref={useCaseRef}
+					placeholder='Please provide a brief description on the specific use case you would like to work on during the Buildcamp.*'
+					className='w-full rounded-3xl border-[1px] p-4 mt-4 bg-mwasi border-whiteGrey h-40 z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+				/>
 			</form>
 			<input
 				type='submit'
