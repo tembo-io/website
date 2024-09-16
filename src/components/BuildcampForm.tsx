@@ -13,6 +13,7 @@ const BuildcampForm: React.FC = () => {
 	const cityRef = useRef<HTMLInputElement | null>(null);
 	const countryRef = useRef<HTMLSelectElement | null>(null);
 	const dateRef = useRef<HTMLInputElement | null>(null);
+	const useCaseRef = useRef<HTMLTextAreaElement | null>(null);
 
 	const onSubmit = useCallback(
 		async (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
@@ -26,7 +27,8 @@ const BuildcampForm: React.FC = () => {
 				!cityRef.current?.value ||
 				!companyRef.current?.value ||
 				!countryRef.current?.value ||
-				!dateRef.current?.value
+				!dateRef.current?.value ||
+				!useCaseRef.current?.value
 			) {
 				toast.error('Please fill in all fields');
 				return;
@@ -80,8 +82,13 @@ const BuildcampForm: React.FC = () => {
 					},
 					{
 						objectTypeId: '0-1',
-						name: 'message',
+						name: 'buildcamp_preferred_dates',
 						value: dateRef.current?.value,
+					},
+					{
+						objectTypeId: '0-1',
+						name: 'buildcamp_use_case',
+						value: useCaseRef.current?.value,
 					},
 					{
 						objectTypeId: '0-1',
@@ -152,6 +159,7 @@ const BuildcampForm: React.FC = () => {
 			if (cityRef.current) cityRef.current.value = '';
 			if (countryRef.current) setSelectedCountry('');
 			if (dateRef.current) setHasValue(false);
+			if (useCaseRef.current) useCaseRef.current.value = '';
 		},
 		[],
 	);
@@ -241,10 +249,10 @@ const BuildcampForm: React.FC = () => {
 						)}
 					</div>
 					<textarea
+						ref={useCaseRef}
 						placeholder='Please provide a brief description on the specific use case you would like to work on during the Buildcamp.*'
 						className='w-full rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
-						name='message'
-					></textarea>
+					/>
 				</div>
 			</form>
 			<input
