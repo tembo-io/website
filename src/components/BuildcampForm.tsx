@@ -173,7 +173,7 @@ const BuildcampForm: React.FC = () => {
 			<h2 className='text-neon font-primary font-semibold md:text-5xl text-[32px] pb-12'>
 				Schedule a Buildcamp
 			</h2>
-			<form id='buildcampForm w-full'>
+			<form id='buildcampForm' className='w-full'>
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-4 w-full'>
 					<input
 						placeholder='First Name*'
@@ -240,6 +240,11 @@ const BuildcampForm: React.FC = () => {
 							</span>
 						)}
 					</div>
+					<textarea
+						placeholder='Please provide a brief description on the specific use case you would like to work on during the Buildcamp.*'
+						className='w-full rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						name='message'
+					></textarea>
 				</div>
 			</form>
 			<input
