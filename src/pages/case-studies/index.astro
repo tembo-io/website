@@ -3,21 +3,41 @@ import Layout from '../../layouts/Layout.astro';
 import NavBar from '../../components/NavBar';
 import Container from '../../components/Container';
 import Footer from '../../components/Footer.astro';
+import { Image } from 'astro:assets';
+import ElephantCaseStudy from 'src/images/elephant-case-study.png';
+import JoinTemboCTA from '@components/JoinTemboCTA.astro';
 
 const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Case Studies | Tembo'>
 	<NavBar client:load currentPage={currentPath} />
-	<div class='relative'>
-		<div
-			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+	<Container styles='relative'>
+		<section
+			class='flex flex-col w-full items-center justify-center mt-[180px]'
 		>
-		</div>
-		<Container>
-			<div class='mt-16 mobile:mt-24'>
-				<Footer />
+			<div
+				class='flex items-center justify-center text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+			>
+				Case Studies
 			</div>
-		</Container>
-	</div>
+			<div
+				class='text-white font-bold tracking-[0.47px] text-[44px] lg:text-[68px] leading-tight mb-10 w-full text-center'
+			>
+				Tembo Customer Stories
+			</div>
+			<JoinTemboCTA />
+		</section>
+		<!-- <Image
+			class='absolute top-0'
+			src={ElephantCaseStudy}
+			alt='elephant looking at cellphone'
+		/> -->
+	</Container>
+
+	<Container>
+		<div class='mt-16 mobile:mt-24'>
+			<Footer />
+		</div>
+	</Container>
 </Layout>
