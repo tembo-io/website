@@ -24,10 +24,7 @@ const DetailSequence: React.FC<Props> = ({
 				<img src={iconPath} alt='Colored Icon' className='w-8 h-8' />
 			)}
 			<h1
-				className={cx(
-					'text-white font-semibold font-secondary text-xl',
-					headerStyles,
-				)}
+				className={cx('text-white font-semibold text-xl', headerStyles)}
 			>
 				{header}
 			</h1>

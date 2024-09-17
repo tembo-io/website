@@ -6,11 +6,10 @@ const faqs = [
 		heading: 'When will I be billed?',
 		content: (
 			<p>
-				Plans on Tembo Cloud are charged based on usage; you will receive your invoice at the end of each month. Self Hosted deployments can vary, which is why we encourage you to{' '}
-				<a 
-					href={'https://tembo.io/contact/'}
-					className='underline'
-				>
+				Plans on Tembo Cloud are charged based on usage; you will
+				receive your invoice at the end of each month. Self Hosted
+				deployments can vary, which is why we encourage you to{' '}
+				<a href={'https://tembo.io/contact/'} className='underline'>
 					contact us
 				</a>{' '}
 				so we can work together to find the most appropriate plan.
@@ -29,10 +28,7 @@ const faqs = [
 			<p>
 				Yes, we do provide annual plans, which offer a significant
 				discount over the list price. Please{' '}
-				<a 
-					href={'https://tembo.io/contact'} 
-					className='underline'
-				>
+				<a href={'https://tembo.io/contact'} className='underline'>
 					contact us
 				</a>{' '}
 				to learn more.
@@ -61,14 +57,18 @@ const faqs = [
 			"I have a preferred cloud provider or region that I don't see on Tembo Cloud. What can I do?",
 		content: (
 			<p>
-				We are continuously adding new regions to our Tembo Cloud offering. Please visit{' '}
+				We are continuously adding new regions to our Tembo Cloud
+				offering. Please visit{' '}
 				<a
 					href={'https://roadmap.tembo.io/roadmap'}
 					className='underline'
 				>
 					our roadmap
 				</a>{' '}
-				to request the regions or cloud providers you'd like. You can also use our Self Hosted offering, which allows you to run Tembo on any cloud provider or region that supports deploying a Kubernetes cluster.
+				to request the regions or cloud providers you'd like. You can
+				also use our Self Hosted offering, which allows you to run Tembo
+				on any cloud provider or region that supports deploying a
+				Kubernetes cluster.
 			</p>
 		),
 	},
@@ -80,7 +80,14 @@ const Faqs: React.FC = () => {
 			<h2 className='font-bold text-pricingGreen text-[32px] leading-[40px] tracking-[0.54px] [text-shadow:0px_0px_81px_#000]'>
 				Frequently Asked Questions
 			</h2>
-			<Accordion items={faqs} />
+			<Accordion
+				itemContainerStyles='p-6 rounded-2xl border-[0.5px] border-white border-opacity-20 bg-white bg-opacity-[0.06] customXs:px-6 customXs:py-10'
+				buttonIconHidePath='/plus.svg'
+				buttonIconShowPath='/minus.svg'
+				headerStyles='font-secondary font-medium text-white text-[15px] leading-[18px] tracking-[0.472px] customXs:text-[23px] customXs:leading-[28px]'
+				contentStyles='pt-10 font-secondary font-normal text-white text-[15px] leading-[22px] tracking-[0.472px] opacity-80 customXs:text-[18px] customXs:leading-[27px]'
+				items={faqs}
+			/>
 		</>
 	);
 };

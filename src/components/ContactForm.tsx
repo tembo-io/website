@@ -170,7 +170,7 @@ const ContactForm: React.FC = () => {
 					className='min-[840px]:w-[412px] rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
 				/>
 				<textarea
-					placeholder='Describe your Postgres usage and use case for Tembo Cloud or Tembo Self Hosted*'
+					placeholder='Describe an overview of your use case*'
 					className='min-[840px]:w-[412px] rounded-3xl border-[1px] p-4 bg-mwasi border-whiteGrey h-40 w-full z-10 focus:border-white focus:outline-none text-ghostWhite md:text-base text-xs text-white'
 					name='message'
 					ref={messageRef}

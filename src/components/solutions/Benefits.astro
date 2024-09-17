@@ -1,0 +1,39 @@
+---
+import ElephantCostSavings from 'src/images/elephant-cost-savings.svg';
+import ElephantScalableSolutions from 'src/images/elephant-scalable-solutions.svg';
+import ElephantEnhancedEffiency from 'src/images/elephant-enhanced-effiency.svg';
+import ElephantCX from 'src/images/elephant-improved-cx.svg';
+import Benefit from '../Benefit.astro';
+---
+
+<section
+	class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[80px] lg:my-[100px]'
+>
+	<div
+		class='flex text-center text-white font-bold tracking-[0.47px] text-[32px] mb-6'
+	>
+		Benefits
+	</div>
+	<div class='flex flex-col lg:flex-row justify-between align-center gap-5'>
+		<Benefit
+			imgMetadata={ElephantCX}
+			title='Improved Customer Experience'
+			description=`Deliver personalized and timely responses to customer inquiries, enhancing customer satisfaction and loyalty.`
+		/>
+		<Benefit
+			imgMetadata={ElephantScalableSolutions}
+			title='Scalable Solutions'
+			description=`Easily scale AI and ML applications to meet growing business demands without extensive infrastructure changes.`
+		/>
+		<Benefit
+			imgMetadata={ElephantEnhancedEffiency}
+			title='Enhanced Efficiency'
+			description=`Streamline operations and reduce manual effort with AI-powered automation and predictive analytics.`
+		/>
+		<Benefit
+			imgMetadata={ElephantCostSavings}
+			title='Cost Savings'
+			description=`Optimize resource usage and reduce operational costs through efficient AI and ML integrations.`
+		/>
+	</div>
+</section>

@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { toast } from 'sonner';
 import CountrySelect from '@components/CountrySelect';
 
-const BootcampForm: React.FC = () => {
+const BuildcampForm: React.FC = () => {
 	const [selectedCountry, setSelectedCountry] = useState('');
 	const firstNameRef = useRef<HTMLInputElement | null>(null);
 	const lastNameRef = useRef<HTMLInputElement | null>(null);
@@ -13,6 +13,7 @@ const BootcampForm: React.FC = () => {
 	const cityRef = useRef<HTMLInputElement | null>(null);
 	const countryRef = useRef<HTMLSelectElement | null>(null);
 	const dateRef = useRef<HTMLInputElement | null>(null);
+	const useCaseRef = useRef<HTMLTextAreaElement | null>(null);
 
 	const onSubmit = useCallback(
 		async (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
@@ -26,7 +27,8 @@ const BootcampForm: React.FC = () => {
 				!cityRef.current?.value ||
 				!companyRef.current?.value ||
 				!countryRef.current?.value ||
-				!dateRef.current?.value
+				!dateRef.current?.value ||
+				!useCaseRef.current?.value
 			) {
 				toast.error('Please fill in all fields');
 				return;
@@ -80,8 +82,13 @@ const BootcampForm: React.FC = () => {
 					},
 					{
 						objectTypeId: '0-1',
-						name: 'message',
+						name: 'buildcamp_preferred_dates',
 						value: dateRef.current?.value,
+					},
+					{
+						objectTypeId: '0-1',
+						name: 'buildcamp_use_case',
+						value: useCaseRef.current?.value,
 					},
 					{
 						objectTypeId: '0-1',
@@ -121,8 +128,8 @@ const BootcampForm: React.FC = () => {
 				],
 				context: {
 					hutk: hubspotId,
-					pageUri: 'https://www.tembo.io/bootcamp',
-					pageName: 'Tembo Bootcamp',
+					pageUri: 'https://www.tembo.io/buildcamp',
+					pageName: 'Tembo Buildcamp',
 				},
 			};
 
@@ -152,6 +159,7 @@ const BootcampForm: React.FC = () => {
 			if (cityRef.current) cityRef.current.value = '';
 			if (countryRef.current) setSelectedCountry('');
 			if (dateRef.current) setHasValue(false);
+			if (useCaseRef.current) useCaseRef.current.value = '';
 		},
 		[],
 	);
@@ -171,58 +179,58 @@ const BootcampForm: React.FC = () => {
 	return (
 		<div className='flex flex-col w-full lg:w-2/3 justify-center items-center'>
 			<h2 className='text-neon font-primary font-semibold md:text-5xl text-[32px] pb-12'>
-				Schedule a Bootcamp
+				Schedule a Buildcamp
 			</h2>
-			<form id='bootcampForm w-full'>
+			<form id='buildcampForm' className='w-full'>
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-4 w-full'>
 					<input
 						placeholder='First Name*'
 						name='firstName'
 						ref={firstNameRef}
 						type='text'
-						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<input
 						placeholder='Last Name*'
 						name='lastName'
 						ref={lastNameRef}
 						type='text'
-						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<input
 						placeholder='Job Title*'
 						type='text'
 						name='jobTitle'
 						ref={jobTitleRef}
-						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<input
 						placeholder='Work Email*'
 						type='email'
 						name='email'
 						ref={emailRef}
-						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<input
 						placeholder='Company*'
 						type='text'
 						name='company'
 						ref={companyRef}
-						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<input
 						placeholder='City*'
 						type='text'
 						name='city'
 						ref={cityRef}
-						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+						className='w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
 					/>
 					<CountrySelect
 						ref={countryRef}
 						selectedCountry={selectedCountry}
 						setSelectedCountry={setSelectedCountry}
 					/>
-					<div className='relative'>
+					<div className='relative w-full'>
 						<input
 							ref={dateRef}
 							type='date'
@@ -230,17 +238,22 @@ const BootcampForm: React.FC = () => {
 							onBlur={handleBlur}
 							onChange={(e) => setHasValue(!!e.target.value)}
 							className={cx(
-								'min-[840px]:w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 w-full focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-transparent',
+								'w-full rounded-full border-[1px] p-4 bg-mwasi border-whiteGrey h-14 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-transparent appearance-none',
 								!hasValue ? 'text-transparent' : 'text-white',
 							)}
 						/>
 						{!hasValue && (
 							<span className='absolute left-3 top-1/2 transform -translate-y-1/2 p-2 text-ghostWhite md:text-base text-xs pointer-events-none transition-opacity duration-200'>
-								Preferred Bootcamp Date*
+								Preferred Buildcamp Date*
 							</span>
 						)}
 					</div>
 				</div>
+				<textarea
+					ref={useCaseRef}
+					placeholder='Please provide a brief description on the specific use case you would like to work on during the Buildcamp.*'
+					className='w-full rounded-3xl border-[1px] p-4 mt-4 bg-mwasi border-whiteGrey h-40 z-10 focus:border-white focus:outline-none placeholder:text-ghostWhite md:text-base text-xs text-white'
+				/>
 			</form>
 			<input
 				type='submit'
@@ -251,4 +264,4 @@ const BootcampForm: React.FC = () => {
 	);
 };
 
-export default BootcampForm;
+export default BuildcampForm;

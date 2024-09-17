@@ -2,7 +2,7 @@
 
 Effective cache optimization is crucial for enhancing the performance of PostgreSQL databases, especially when working with Tembo's enhanced platform. Properly configured cache settings can significantly reduce disk I/O, leading to faster query responses. This guide provides a detailed approach to optimize cache settings in Tembo, covering both how to enable and configure this feature, and best practices for fine-tuning it according to your workload.
 
-With [Tembo Stacks](http://localhost:4321/docs/product/stacks/intro-to-stacks), optimal PostgreSQL settings are automatically configured. Please refer to the [Stacks Documentation](http://localhost:4321/docs/product/stacks/intro-to-stacks) for more details.
+With [Tembo Stacks](http://tembo.io/docs/product/stacks/intro-to-stacks), optimal PostgreSQL settings are automatically configured. Please refer to the [Stacks Documentation](http://tembo.io/docs/product/stacks/intro-to-stacks) for more details.
 
 ## **Enabling and Configuring Cache Settings in Tembo**
 
@@ -61,4 +61,4 @@ systemctl restart postgresql
 7. **Tuning According to Workload**:
     - Different workloads may benefit from different cache settings. Regularly review and adjust these settings based on the current workload.
 
-With [Tembo Stacks](http://localhost:4321/docs/product/stacks/intro-to-stacks), optimal PostgreSQL settings are automatically configured. Please refer to the [Stacks Documentation](http://localhost:4321/docs/product/stacks/intro-to-stacks) for more details.
+With [Tembo Stacks](http://tembo.io/docs/product/stacks/intro-to-stacks), optimal PostgreSQL settings are automatically configured. Please refer to the [Stacks Documentation](http://tembo.io/docs/product/stacks/intro-to-stacks) for more details.
