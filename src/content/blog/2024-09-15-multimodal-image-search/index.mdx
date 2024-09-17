@@ -1,30 +1,40 @@
 ---
 slug: image-search
-title: 'Multi-modal Image Search on Postgres'
+title: 'Build an image search engine on Postgres'
 authors: [adam]
 description: |
-    Search images with text and other images using Postgres and the Tembo AI.
+    Search images with text and existing images using Postgres.
 tags: [postgres, ai, vector-search, vector]
 image: ./tembo-ai-launch.png
 date: 2024-09-22T09:00
 planetPostgres: true
 ---
 
-Postgres does not typically come to mind when working with images or video media.
- If you're working with numerical data, or text data, there are a lot of guides and solutions out there to help you out.
- However, with the help of a few Postgres extensions and some open source models, we can build an image search engine on Postgres.
- If we can frame a problem as a vector similarity search problem, then Postgres could becomes a powerful and viable solution.
+One of the more interesting e-commerce features I've seen recently is the ability to search for products that look like an image I have on my phone.
+ For example, I can take a picture of a pair of shoes or other product then search a product catalog to find similar items.
+ Getting started with a feature like this can be a fairly straight forward project the right tools,
+ and if we can frame a problem as a vector search problem, then we can use Postgres to solve it.
+
+In this blog we'll build a basic image search engine using Postgres.
+ We'll use a pre-trained model to generate embeddings for images and text, then store those embeddings in Postgres.
+ We'll use the `pgvector` extension to conduct similarity searches on these embeddings.
+ Finally we'll use the `pgvector` extension to conduct similarity searches on these embeddings using both images and raw-text as queries.
+
+
+## Image Search with CLIP
 
 In 2021, OpenAI published a [paper](https://arxiv.org/abs/2103.00020) and model weights for [CLIP (Contrastive Language-Image Pre-Training)](https://github.com/OpenAI/CLIP), a model trained to predict
  the most relevant text snipped given an image. With some clever implementation, this model can also be used as the backbone for a search engine that accepts both image or raw text as input queries.
  We can transform images into vectors (embeddings), store the image's embeddings in Postgres and use extensions to conduct similarity searches on these vectors, and use this to build an image search engine on Postgres.
+ There are many open source variants of [CLIP models](https://huggingface.co/models?other=clip) available on Hugging Face but we will use OpenAI's [clip-vit-base-patch32 mode](https://huggingface.co/openai/clip-vit-base-patch32) for this demonstration.
 
 ## Generating Embeddings for Multi-Modal Search
 
 In previous blogs, we've [written](https://tembo.io/blog/sentence-transformers) about generating embeddings for semantic text search.
- Some of those principles also apply here. We'll generate embeddings for our repository of data (images), then store those embeddings in Postgres.
+ Some of those principles also apply here. We'll generate embeddings for our repository of data which in this case is a directory of images.
+ We will then store those embeddings in Postgres.
  When we query the data, we need to use the same model to generate embeddings for the query.
- The difference is that in this case, the model we use needs to accept both text and embeddings as input.
+ The difference is that in this case, our model will generate embeddings for both text and images.
 
 For this example, we'll use one of OpenAI's open source [CLIP](https://huggingface.co/openai/clip-vit-base-patch32) models available on Hugging Face.
  Note, the stated [limitations](https://github.com/openai/CLIP/blob/main/model-card.md#limitations) to the use of CLIP for production use.
@@ -32,32 +42,68 @@ For this example, we'll use one of OpenAI's open source [CLIP](https://huggingfa
 
 ### Setup
 
-For this example, we'll use a minimal [Amazon Products](https://www.kaggle.com/datasets/spypsc07/amazon-products?resource=download).
- This will give us product IDs along with links to the product images.
+All the code in this blog is available in a notebook in the [Tembo Github repository](https://github.com/tembo-io/tembo/blob/main/examples/image-search/demo.ipynb).
+ We'll run through the code in that notebook here.
+ It works best to clone the repository, and the easiest way to follow along is to run Postgres and the accompanying Jupyter notebook in Docker.
 
-Download all the images for all the products in the dataset using the following python script.
+```bash
+git clone https://github.com/tembo-io/tembo.git
+
+cd examples/image-search
+
+docker compose up
+```
+
+Navigate to http://localhost:8888 and open the `demo.ipynb` notebook.
+
+
+## Loading Postgres with Image Embeddings
+
+First we need to acquire the raw images.
+ We are using an [Amazon Products](https://www.kaggle.com/datasets/spypsc07/amazon-products?resource=download) dataset from Kaggle.
+ The dataset contains urls to the images for each of the example products, so we'll download the images and store them in a directory.
 
 ```python
 import pandas as pd
 
-df = pd.read_csv("./amazon_product.csv")
-# create a directory to store images
-os.makedirs("./images", exist_ok=True)
+df = pd.read_csv("data/amazon_product.csv")
+
 for i, row in df.iterrows():
     url = row["product_photo"]
     asin = row["asin"]
-    os.system(f"wget {url} -O ./images/{asin}.jpg")
+    response = requests.get(url)
+    img = Image.open(BytesIO(response.content))
+    if img.mode == 'RGBA':
+        img = img.convert('RGB')
+
+    img.save(f"./data/{asin}.jpg")
 ```
 
-### Embeddings for images
+Now that we have acquired our sample images, we need to generate embeddings for them.
+ We'll setup a table in Postgres to store the embeddings.
 
-Now that all our images are in a directory at `./images`, we are ready to generate embeddings.
- Read them into memory, generate embeddings, then store embeddings and the image's product id in Postgres. 
- We'll set up a Pydantic model as a intermediary container to carry embeddings and product id.
+```sql
+CREATE TABLE IF NOT EXISTS image_embeddings (
+    image_id TEXT PRIMARY KEY,
+    embeddings VECTOR(512)
+);
+```
 
+We'll use the CLIP model to generate embeddings for each image, and save them into a Postgres table.
+ We'll create a few helper functions for loading our images, generating embeddings, and getting them inserted into Postgres.
 
 ```python
 from pydantic import BaseModel
+from transformers import (
+    CLIPImageProcessor,
+    CLIPModel,
+)
+
+MODEL = "openai/clip-vit-base-patch32"
+
+image_processor = CLIPImageProcessor.from_pretrained(MODEL)
+image_model = CLIPModel.from_pretrained(MODEL)
+
 
 class ImageEmbedding(BaseModel):
     image_id: str
@@ -88,6 +134,7 @@ def get_image_embeddings(
             )
         )
     return image_embeddings
+
 
 def list_jpg_files(directory):
     # List to hold the full paths of files
@@ -120,24 +167,21 @@ def pg_insert_embeddings(images: list[ImageEmbedding]):
                 cur.execute(insert_query, (image.image_id, image.embeddings))
 ```
 
-If you haven't already, run a local instance of Tembo Postgres with docker.
-
-```bash
-docker run -p 5432:5432 -e POSTGRES_PASSWORD=postgres quay.io/tembo/vectorize-pg:latest
-```
-
-Finally, execute the scripts from above to generate embeddings and store them in Postgres.
+Now that the helper functions are in place, we can execute them sequentially.
 
 ```python
+# get the paths to all our jpg images
 images = list_jpg_files("./images")
+# generate embeddings
 image_embeddings = get_image_embeddings(images)
+# insert them into Postgres
 pg_insert_embeddings(image_embeddings)
 ```
 
-Now there should be a table in Postgres containing our image embeddings.
+Quickly verify that the embeddings were inserted into Postgres.
 
 ```bash
-psql postgres://postgres:postgres@localhost:5432/postgres
+psql postgres://postgres:postgres@localhost:5433/postgres
 
 select * from image_embeddings limit 1;
 ```
@@ -147,13 +191,38 @@ image_id   | B086QB7WZ1
 embeddings | [0.01544646,0.062326625,-0.03682831,0 ...
 ```
 
+### Searching for Similar images
+
+Similar to conducting vector search on data with raw-text, we will use embeddings to search for similar images.
+ Let's grab an image of [Cher](https://en.wikipedia.org/wiki/Cher), we can use the image from her Wikipedia page.
+ Save it to `./cher_wikipedia.jpg`.
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Cher_in_2019_cropped_1.jpg/752px-Cher_in_2019_cropped_1.jpg" alt="cher_wikipedia.jpg" style="width:200px;"/>
+
+Now we can simply pass that single image into our `get_image_embeddings` function and then search for similar images.
+
+```python
+search_embeddings = get_image_embeddings(["./cher_wikipedia.jpg"])[0].embeddings
+results = similarity_search(search_embeddings)
+
+for product_id, score in results[:2]:
+    print((product_id, score))
+```
+
+```text
+('B0DBQY1PKS', 0.5851975926639095)
+('B0DBR4KDRF', 0.5125825695644287)
+```
+
+Products `B0DBQY1PKS` and `B0DBR4KDRF`, (Cher's Forever album) which are  were the top two products most similar to our image of Cher.
+
+![image1](./cher.png)
+
 ### Querying for Images with Raw Text
 
-Up to this point we've only exercised a single modality of the model -- image to embeddings.
- However, if we want to search for images using text, we need to generate embeddings for text as well.
- This is where the "multi-modal" part of the search comes in.
- We will use the same CLIP model to generate embeddings for text.
- `transformers` provides a convenient text tokenizer that helps make this easy.
+Searching for images that are similar to one another can be very helpful when searching for products.
+ However, sometimes people will want to search for images given a raw text string.
+ For example, Google has for a long time had the ability to search for images of cats.
 
 ```python
 from transformers import (
@@ -203,14 +272,15 @@ def similarity_search(txt_embedding: list[float]) -> list[tuple[str, float]]:
 ```
 
 Finally, we can use these functions to generate the embeddings and then search our images with a raw text query.
+ We'll search our product catalog for images of "telephones".
 
 ```python
 text_embeddings = get_text_embeddings("telephones")
 
 results: list[tuple[str, float]] = similarity_search(search_embeddings)
 
-for result in results:
-    print(result)
+for product_id, score in results[:2]:
+    print((product_id, score))
 ```
 
 ```text
@@ -218,42 +288,13 @@ for result in results:
 ('B00FRSYS12', 0.2626421138474824)
 ```
 
-Not bad, these two images are the most similar to the text query "telephones".
+Products `B086QB7WZ1` and `B00FRSYS12` are the top two most similar images to the text query "telephones".
 
 ![image1](./phones.png)
 
-
-### Searching for Similar images
-
-We can also use an image as our search query.
-
-Let's grab an image of [Cher](https://en.wikipedia.org/wiki/Cher), we can use the image from her Wikipedia page.
- Save it to `./cher_wikipedia.jpg`.
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Cher_in_2019_cropped_1.jpg/752px-Cher_in_2019_cropped_1.jpg" alt="cher_wikipedia.jpg" style="width:200px;"/>
-
-
-Now we can simply pass that single image into our `get_image_embeddings` function and then search for similar images.
-
-```python
-search_embeddings = get_image_embeddings(["./cher_wikipedia.jpg"])[0].embeddings
-results: list[tuple[str, float]] = similarity_search(search_embeddings)
-
-for result in results[:2]:
-    print(result)
-```
-
-```text
-('B0DBQY1PKS', 0.5851975926639095)
-('B0DBR4KDRF', 0.5125825695644287)
-```
-
-![image1](./cher.png)
-
-
 ## Multi-Modal Search on Postgres
 
-In this blog, we've shown how to build a multi-modal search engine on Postgres.
+We've shown how to build a multi-modal search engine on Postgres.
  We used the CLIP model to generate embeddings for both images and text, then stored those embeddings in Postgres.
  We used the `pgvector` extension to conduct similarity searches on these embeddings.
  This is a powerful tool for building search engines that can accept both text and image queries.
