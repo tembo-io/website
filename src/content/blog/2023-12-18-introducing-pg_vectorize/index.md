@@ -1,11 +1,10 @@
 ---
 slug: introducing-pg_vectorize
-title: "Introducing pg_vectorize: Vector Search in 60 Seconds on Postgres"
+title: 'Introducing pg_vectorize: Vector Search in 60 Seconds on Postgres'
 authors: [adam]
 tags: [postgres, vector, pg_vectorize, tembo-only]
-image: './intro-pg_vectorize.png'
+image: './blogFallbackImage.svg'
 ---
-
 
 That’s right. You could have vector searches running on your existing Postgres database in less time than it takes to read this blog. Let’s see how it works:
 
@@ -78,7 +77,6 @@ Then we get our results, along with the cosine similarity score for each records
 No management, no migrating data, no extra services or teams to hire. You can add vector search right now, with none of the hassle.
 
 And if you don't like the defaults that have been supplied by pg_vectorize, you can override just about everything. You can transform your search query data manually via `vectorize.transform_embeddings()`, change the index on the table, and craft your own similarity search using pgvector directly. It's all open source, and you can use it the way that fits best for you.
-
 
 ## What Else Can It Do?
 
