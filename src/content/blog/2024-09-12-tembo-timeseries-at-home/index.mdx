@@ -1,7 +1,7 @@
 ---
 slug: tembo-timeseries-at-home
-title: Using Tembo's Time-Series Stack at Home
-description: Tembo's Time-Series Stack is now available, but as an author of its underlying extension, I've struggled with the same problem...
+title: Using Tembo's Time Series Stack at Home
+description: Tembo's Time Series Stack is now available, but as an author of its underlying extension, I've struggled with the same problem...
 authors: [jason]
 tags: [postgres, timeseries]
 image: ./tembonauts.png
@@ -9,19 +9,19 @@ date: 2024-09-12T09:00
 planetPostgres: false
 ---
 
-# Using Tembo's Time-Series Stack at Home
+# Using Tembo's Time Series Stack at Home
 
 The [Tembo Time Series stack](/docs/product/stacks/analytical/timeseries) is now available, but as an author of its underlying extension, I've struggled with the same problem I hit any time I contribute to a [time-series](CloudWatch) or [database project](Citus): I've spent more time making and testing this tool than I will spend using it.
 
-Sure, there are public data sets at places like [Kaggle](https://www.kaggle.com/datasets), and I like the bike-sharing data set we use in [our time-series guide](https://tembo.io/docs/product/stacks/analytical/timeseries), but really digging into the data becomes much easier when it's something of personal interest.
+Sure, there are public data sets at places like [Kaggle](https://www.kaggle.com/datasets), and I like the bike-sharing data set we use in [our Time Series guide](https://tembo.io/docs/product/stacks/analytical/timeseries), but really digging into the data becomes much easier when it's something of personal interest.
 
 Suddenly it dawned on me: I have a novel IoT use-case of my own… I _live_ in this use-case. My personal hobby of home automation has resulted in a [Home Assistant](https://www.home-assistant.io) installation with around 350 entities, and I have over a year of statistics!
 
-## Upgrading to Tembo Time-Series
+## Upgrading to Tembo Time Series
 
-So now the goal is clear: we'll be migrating an existing time-series system over to a Tembo Time-Series stack. So readers can follow along, I'm providing a [sanitized version of my IoT dataset](tbd). Once we have our stack up and running, we'll cover some interesting time-series queries and finish with some stack benchmarks.
+So now the goal is clear: we'll be migrating an existing time-series system over to a Tembo Time Series Stack. So readers can follow along, I'm providing a [sanitized version of my IoT dataset](tbd). Once we have our stack up and running, we'll cover some interesting time-series queries and finish with some stack benchmarks.
 
-To get started, we'll need an instance of the [Tembo Time-Series Stack](tbd), so launch one if you haven't already. We'll use a GP-4 instance, but the data should fit just fine in the Hobby tier as well.
+To get started, we'll need an instance of the [Tembo Time Series Stack](tbd), so launch one if you haven't already. We'll use a GP-4 instance, but the data should fit just fine in the Hobby tier as well.
 
 ## Creating the Time-Series Tables
 
@@ -62,20 +62,20 @@ This application stores metric attributes in a separate table from the actual ti
 
 Additionally, Home Assistant—like _many_ time-series applications—"pre-aggregates" rows, "rolling up" raw data (`states`) first into five-minute data (`statistics_short_term`) and eventually into hourly rows (`statistics`). Automatically handling this rollup is on the `timeseries` extension's roadmap, but for now, we'll let Home Assistant do its thing.
 
-The data set contains ten days of `states`… we'll leave analyzing pre aggregated data for another time.
+The data set contains ten days of `states`… we'll leave analyzing pre-aggregated data for another time.
 
 ### Time-Series Partition Sizing
 
 As a vague rule of thumb, it's best to size your time partitions so that the active set (from all tables) fills roughly one quarter of the PostgreSQL server memory. Because this is a demo data set of raw state data, we'll just use hourly partitions, but in real-world use it is always good to tune your partition size.
 
-## Time-Series Enable and Load Data
+## Enabling Time-Series and Loading Data
 
-At this point we're good to tell timeseries about our partition sizes and load the data set. We'll start by creating enough partitions to cover the date range of our data…
+At this point we're good to tell timeseries about our partition sizes and to load the data set. We'll start by creating enough partitions to cover the date range of our data…
 ```sql
 SELECT enable_ts_table('states_ts', '1 hour', initial_table_start => '2024-05-12');
 ```
 
-And with the partitions created, data can be loaded. Download it from [here](https://tembo-demo-bucket.s3.amazonaws.com/states.csv) and load it with the following:
+… and now that the partitions have been created, the data can be loaded. Download it from [here](https://tembo-demo-bucket.s3.amazonaws.com/states.csv) and load it with the following:
 
 ```sql
 \copy states_ts from 'states.csv' with (format csv);
@@ -85,7 +85,7 @@ And with the partitions created, data can be loaded. Download it from [here](htt
 
 Our `states` table only carries ten days of data, max, before rows are rolled up into hourly rows for statistics. Wouldn't it be nice if PostgreSQL could stay on top of this rule for us?
 
-The time-series stack is designed to do just that! If you imagine your partitions as being created at the present moment and then shifting leftward as they "age", the principle is pretty easy to understand. At a given offset from `now`, `timeseries` can take certain actions. At the moment, these actions are "compress" or "drop" (retention policy). You can imagine partitions "aging out" by shifting away from "now" until they hit their policy (such as the "drop" policy depicted below):
+The Time Series Stack is designed to do just that! If you imagine your partitions as being created at the present moment and then shifting leftward as they "age", the principle is pretty easy to understand. At a given offset from `now`, `timeseries` can take certain actions. At the moment, these actions are "compress" or "drop" (retention policy). You can imagine partitions "aging out" by shifting away from "now" until they hit their policy (such as the "drop" policy depicted below):
 
 ![Partitions aging until they drop into a trash can](./retention-policies.png)
 
@@ -95,11 +95,11 @@ We'll set the ten-day retention on `states`:
 SELECT set_ts_retention_policy('states_ts', '10 days');
 ```
 
-In a future release, the "scheduling" concept will include additional actions, perhaps aggregating rows, or even moving partitions to "cold storage" in some cloud solution.
+In a future release, the "scheduling" concept may be extended to include additional actions such as aggregating rows, reorganizing old partitions along an index, etc.
 
 ## Additional Tables
 
-In most time-series workloads, only a few tables store time-series data; others may store repetitive metadata, user information, etc. We have a few of those in this workload, so load them up, too. The data can be found [here](https://tembo-demo-bucket.s3.amazonaws.com/states_meta.csv).
+In most time-series workloads only a few tables store time-series data. Common metadata—user information, etc.—is often normalized into plain table. We have a few of those in this workload, so load them, too. The data can be found [here](https://tembo-demo-bucket.s3.amazonaws.com/states_meta.csv).
 
 ```sql
 \copy states_meta from 'states_meta.csv' with (format csv);
@@ -107,7 +107,7 @@ In most time-series workloads, only a few tables store time-series data; others 
 
 ## Exploring the Data
 
-Now that everything is loaded up, we can finally get to the important task of exploring our data. As I work from home, it can sometimes be annoying when my office is outside of my comfort zone. Let's find the hours of the day when my upper floor landing is above 75°F or beneath 65°F…
+Now that everything is loaded, we can finally get to the important task of exploring our data. As I work from home, it can sometimes be annoying when my office is outside of my comfort zone. Let's find the hours of the day when my upper floor landing is above 75°F or beneath 65°F…
 
 ```sql
 WITH metadata_ids AS (
@@ -129,7 +129,7 @@ SELECT *
   ORDER BY max DESC, min ASC, hour;
 ```
 
-But if my office is uncomfortable, where should I go? If I had a list of which rooms were hottest and coldest during each hour, answering this question would be easy…
+Knowing the uncomfortable times of day is one thing, but to do something about it I'll need to know what rooms are more comfortable: if my office is hot, where should I go? Armed with a list of which rooms are hottest and coldest during each hour, answering this question will be easy…
 
 ### `first` and `last`
 
@@ -157,7 +157,7 @@ One thing you may notice in this data set is all sensors only emit data every on
 
 So what if we wanted to produce a dense (having no gaps) data series at a finer-granularity than most of our sensors, say, every minute? This is where the `date_bin_table` and `locf` (_last observation carried forward_) functions come in handy.
 
-First, write a `SELECT` query against `states_ts`, but in the `FROM` clause, wrap `states_ts` with a call to `date_bin_table`. The second and third arguments are the desired granularity and a range for the start and end of the date range.
+First, write a `SELECT` query against `states_ts`, then modify the `FROM` clause by wrapping `states_ts` in a call to `date_bin_table`. The second and third arguments are the desired granularity and a range for the start and end of the date range.
 
 ```sql
 SELECT * FROM date_bin_table(NULL::states_ts, '1 second', '[2024-05-20,2024-05-21]') LIMIT 100;
@@ -197,9 +197,9 @@ Now our data series is ready for immediate use in a dashboard.
 
 ### `LEAD` use
 
-Apart from the "poll"-like sensors in an IoT workload, "event"-like sensors are also common. These only emit a record any time an event occurs. Examples in this application might be opening doors, turning on lights, setting a security system, or starting the coffee maker.
+Apart from the "poll"-like sensors in an IoT workload, "event"-like sensors are also common. These only emit a records when an event occurs. Examples in this application might be opening doors, turning on lights, arming a security system, or starting the coffee maker.
 
-Let's say we want to see the longest times a door or window has been open in the recent past. How would we do that? A simple approach is using the `LEAD` aggregate function in a window clause.
+Let's say we want to see the periods a door or window has been open the longest in the recent past. How would we do that? A simple approach is using the `LEAD` aggregate function in a window clause.
 
 To understand how `LEAD` works, consider the following query:
 
@@ -214,7 +214,7 @@ If it's not yet clear, this query generates the first 100 square numbers and dis
 
 ![How LEAD groups rows in an IoT use case](./using-lead-sql.png)
 
-For our event-oriented system, these rows might correspond to a door being opened or closed. With this understanding, it becomes trivial to write a query turning events at points in time into the interval those states were active:
+For our event-oriented system, these rows might correspond to a door being opened or closed. With this understanding, it becomes straightforward to write a query that transforms events at points in time into the interval those states were active:
 
 ```sql
 WITH doors AS (
@@ -237,10 +237,10 @@ SELECT * FROM durations
   ORDER BY state_duration DESC;
 ```
 
-Using `LEAD` (and its corresponding function `LAG`) can be syntactically challenging, but being able to wield it against an IoT workload is very powerful.
+Using `LEAD`—and its corresponding function `LAG`—can be syntactically challenging, but being able to wield them against an IoT workload is very powerful.
 
 ## Wrap-Up
 
-If you've made it to this point, I hope you can see the potential uses of Tembo's Time-Series Stack and its corresponding extension. We started with an unknown time-series data set, created a time-series stack, set it up for use with an existing application, and wrote several queries to reach important conclusions from our data.
+If you've made it to this point, I hope you can see the potential uses of Tembo's Time Series Stack and its corresponding extension. We started with an unknown time-series data set, created a Time Series Stack, set it up for use with an existing application, and wrote several queries to reach important conclusions from our data.
 
-[Tembo Time Series stack](/docs/product/stacks/analytical/timeseries) is under active development and we are always looking for the next feature that will help our users most. Keep an eye on this space to make sure you're the first to know about what's added next!
+The [Tembo Time Series stack](/docs/product/stacks/analytical/timeseries) is under active development and we are always looking for the next feature that will help our users most. Keep an eye on this space to make sure you're the first to know about what's added next!
