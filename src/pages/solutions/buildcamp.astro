@@ -27,15 +27,15 @@ const currentPath = Astro.url.pathname;
 					Tembo Buildcamp
 				</div>
 				<p
-					class='text-lightGrey font-normal font-secondary text-sm lg:text-lg mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
+					class='text-white font-normal font-secondary text-md lg:text-xl mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
 				>
-					From zero to use case in five days
+					From zero to use case in 5 days.
 				</p>
 				<div
 					class='flex flex-row justify-center align-center lg:justify-start gap-4'
 				>
 					<Button
-						variant='primary'
+						variant='gradient'
 						size='lg'
 						client:load
 						scrollTo={true}
@@ -64,38 +64,38 @@ const currentPath = Astro.url.pathname;
 			class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[80px] px-5 lg:px-0'
 		>
 			<Markdown>
-				<h2>
-					Schedule a Tembo Buildcamp to:
-				</h2>
+				<h2>Schedule a Tembo Buildcamp to:</h2>
 				<ul>
 					<li>
 						<b class='text-white'>Leverage Postgres:</b>
-						Leverage the full power of Postgres in your most important projects.
+						Leverage the full power of Postgres in your most important
+						projects.
 					</li>
 					<li>
-						<b class='text-white'>Develop and refine use cases:</b> Create
+						<b class='text-white'>Develop and Refine Use Cases:</b> Create
 						and enhance initial use cases tailored to your business needs.
 					</li>
 					<li>
 						<b class='text-white'
-							>Onboard devs to open-source best practices:</b
+							>Onboard Devs to Open-Source Best Practices:</b
 						> Level-up your team for operational success.
 					</li>
 				</ul>
 				<hr />
 				<p>
-					Unlock the full potential of Postgres with Tembo Buildcamp, 
-					tailored to address your company's
-					specific challenges. Our buildcamp provides personalized,
-					hands-on training to master Tembo's advanced features and
-					capabilities. From zero to use case in five days, you'll be
-					equipped to confidently put Postgres to work for your company.
+					Unlock the full potential of Postgres with Tembo Buildcamp,
+					tailored to address your company's specific challenges. Our
+					buildcamp provides personalized, hands-on training to master
+					Tembo's advanced features and capabilities. From zero to use
+					case in five days, you'll be equipped to confidently put
+					Postgres to work for your company.
 				</p>
 				<h2>Why Choose Tembo?</h2>
 				<ul>
 					<li>
 						<b class='text-white'>Expert Collaborators:</b>
-						Learn from industry experts with many years of experience in Postgres.
+						Learn from industry experts with many years of experience
+						in Postgres.
 					</li>
 					<li>
 						<b class='text-white'>Customized Agenda:</b>
@@ -109,8 +109,8 @@ const currentPath = Astro.url.pathname;
 				</ul>
 			</Markdown>
 		</section>
-		<section>
-			<div class='flex flex-col lg:flex-row justify-between gap-8'>
+		<section class='flex flex-col w-full items-center justify-center'>
+			<!-- <div class='flex flex-col lg:flex-row justify-between gap-8'>
 				<div class='flex items-center justify-center'>
 					<Image
 						src={Tembonauts}
@@ -134,8 +134,8 @@ const currentPath = Astro.url.pathname;
 						class='max-[768px]:block hidden'
 					/>
 				</div>
-				<BuildcampForm client:load />
-			</div>
+			</div> -->
+			<BuildcampForm client:load />
 		</section>
 	</Container>
 	<div class='relative'>
