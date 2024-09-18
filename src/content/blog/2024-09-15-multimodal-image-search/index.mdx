@@ -43,7 +43,7 @@ For this example, we'll use one of OpenAI's open source [CLIP](https://huggingfa
 ### Setup
 
 All the code in this blog is available in a notebook in the [Tembo Github repository](https://github.com/tembo-io/tembo/blob/main/examples/image-search/demo.ipynb).
- We'll run through some of that notebook code in this blog, but the easiest way to follow along is to run Postgres and the accompanying Jupyter notebook on your machine.
+ We'll run through some snippets of that notebook code in this blog, but the easiest way to follow along is to run Postgres and the accompanying Jupyter notebook on your machine.
 
 ```bash
 git clone https://github.com/tembo-io/tembo.git
@@ -83,13 +83,13 @@ Now that we have acquired our sample images, we need to generate embeddings for 
 
 ```sql
 CREATE TABLE IF NOT EXISTS image_embeddings (
-    image_id TEXT PRIMARY KEY,
+    image_path TEXT PRIMARY KEY,
     embeddings VECTOR(512)
 );
 ```
 
 We'll use the CLIP model to generate embeddings for each image, and save them into a Postgres table.
- We'll create a few helper functions for loading our images, generating embeddings, and getting them inserted into Postgres.
+ And create a few helper functions for loading our images, generating embeddings, and getting them inserted into Postgres.
 
 ```python
 from pydantic import BaseModel
@@ -105,7 +105,7 @@ image_model = CLIPModel.from_pretrained(MODEL)
 
 
 class ImageEmbedding(BaseModel):
-    image_id: str
+    image_path: str
     embeddings: list[float]
 
 
@@ -128,7 +128,7 @@ def get_image_embeddings(
             embeds = embedding
         image_embeddings.append(
             ImageEmbedding(
-                image_id=image_p.split("/")[-1].split(".jpg")[0],
+                image_path=image_p,
                 embeddings=embeds.tolist(),
             )
         )
@@ -183,7 +183,7 @@ Quickly verify that the embeddings were inserted into Postgres.
 
 ```bash
 psql postgres://postgres:postgres@localhost:5433/postgres
-
+\x
 select * from image_embeddings limit 1;
 ```
 
@@ -200,19 +200,19 @@ Similar to conducting vector search on data with raw-text, we will use embedding
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Cher_in_2019_cropped_1.jpg/752px-Cher_in_2019_cropped_1.jpg" alt="cher_wikipedia.jpg" style="width:200px;"/>
 
-Now we can simply pass that single image into our `get_image_embeddings` function and then search for similar images.
+Now we can pass that single image into our `get_image_embeddings` function and then search for similar images.
 
 ```python
 search_embeddings = get_image_embeddings(["./cher_wikipedia.jpg"])[0].embeddings
 results = similarity_search(search_embeddings)
 
-for product_id, score in results[:2]:
-    print((product_id, score))
+for image_path, score in results[:2]:
+    print((image_path, score))
 ```
 
 ```text
-('B0DBQY1PKS', 0.5851975926639095)
-('B0DBR4KDRF', 0.5125825695644287)
+('B0DBQY1PKS.jpg', 0.5851975926639095)
+('B0DBR4KDRF.jpg', 0.5125825695644287)
 ```
 
 Products `B0DBQY1PKS` and `B0DBR4KDRF`, (Cher's Forever album) which are  were the top two products most similar to our image of Cher.
@@ -278,13 +278,13 @@ text_embeddings = get_text_embeddings("telephones")
 
 results: list[tuple[str, float]] = similarity_search(search_embeddings)
 
-for product_id, score in results[:2]:
-    print((product_id, score))
+for image_path, score in results[:2]:
+    print((image_path, score))
 ```
 
 ```text
-('B086QB7WZ1', 0.26320752344041964)
-('B00FRSYS12', 0.2626421138474824)
+('B086QB7WZ1.jpg', 0.26320752344041964)
+('B00FRSYS12.jpg', 0.2626421138474824)
 ```
 
 Products `B086QB7WZ1` and `B00FRSYS12` are the top two most similar images to the text query "telephones".
@@ -294,6 +294,7 @@ Products `B086QB7WZ1` and `B00FRSYS12` are the top two most similar images to th
 ## Multi-Modal Search on Postgres
 
 We've shown how to build a multi-modal search engine on Postgres.
+ As a reminder, of the code in this blog is available in [Tembo Github repository](https://github.com/tembo-io/tembo/blob/main/examples/image-search/demo.ipynb).
  We used the CLIP model to generate embeddings for both images and text, then stored those embeddings in Postgres.
  We used the `pgvector` extension to conduct similarity searches on these embeddings.
  This is a powerful tool for building search engines that can accept both text and image queries.
