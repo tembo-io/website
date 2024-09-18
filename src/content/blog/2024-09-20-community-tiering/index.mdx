@@ -1,9 +1,9 @@
 ---
 slug: open-source-tiering
-title: 'Open and Accessible Data Tiering'
+title: 'Open source Data Tiering now available for Postgres'
 authors: [adam, shahnawaz]
 description: |
-  Open source data tiering project
+  We built and open-sourced pg_tier, a Postgres extension that simplifies integration with AWS S3 and other object stores
 tags: [postgres, workloads]
 date: 2024-09-20T09:00
 image: './community-tiering.png'
@@ -13,28 +13,22 @@ planetPostgres: false
 
 When evaluating data value, it's crucial to look beyond its literal measurements and consider the resources required for lifecycle management. As data scales, users often face increasing costs, turning an initially appealing subscription into a burden. One answer to such a problem focuses not so much on the amount of data, but how the data is stored.
 
-At Tembo, we heard this challenge echoed repeatedly from both internal teams and the community. To address it, we built and open-sourced `pg_tier`, a Postgres extension that simplifies integration with AWS S3 and other object stores. With `pg_tier`, users can move Postgres tables to S3 while retaining the ability to query them as if they were still in Postgres.
+At Tembo, we heard this challenge echoed repeatedly from both internal teams and the community. To address it, we built and open-sourced [pg_tier](https://github.com/tembo-io/pg_tier), a Postgres extension that simplifies integration with AWS S3 and other object stores. With `pg_tier`, users can move Postgres tables to S3 while retaining the ability to query them as if they were still in Postgres.
 
 ## Data lifecycle management
 
-Before jumping into functionality, it's important to appreciate the context within which this extension operates - that is, the fundamentals of data lifecycle management.
-
-As data progresses through the various stages of its lifecycle, so too do its access patterns change. Upon injestion and querying, data is understood to be at the "hot" stage. While the following is of course circumstantial, it's safe to assume that, as this data ages, its frequency of access decreases. Metaphorically, the data continues to cool and eventually finds itself in "cold" storage.
+As data progresses through the various stages of its lifecycle, so too do its access patterns change. Upon injestion and querying, data is understood to be at the "hot" stage. As data ages, its frequency of access decreases. Metaphorically, the data continues to cool and eventually finds itself in "cold" storage.
 
 In addition to access patterns, organizations, such as banks, will likely adhere to certain governance postures that would enforce a data retention period. For these financial institutions, It simply wouldn't make sense to keep 7 - 10 year old data front and center, when they can store it at much lower costs.
 Moreover, it's important to note that these stages aren't simply where the data is stored, but a combination of its location and formatting.
 
 A good way to visualize these stages would be to break them down as follows:
 
-### Postgres Database (Hot Storage)
-
-In the initial stage, data is frequently accessed and queried. This is where data is most "active," requiring quick retrieval and processing.
-
-### Aged Data Stage (Cool Storage)
-
-As data becomes less frequently accessed over time, it eventually reaches a point where moving it out of Postgres and into an object store becomes more practical. At this stage, the data still requires immediate accessibility, even though it's not accessed as often. It's at this (and the following) stage where `pg_tier` offers the most value by moving the data to an object store, storing it in a Parquet file format, and generating foreign data wrapper metadata.
-
-### Archival Stage (Cold Storage)
+| **Stage** | **Description** |
+|-------------------|-----------------|
+| **Hot**   | The data lives in the Postgres database, is frequently accessed, and requires quick retrieval and processing. |
+| **Cool**  | The data is at an aged stage and is less frequently accessed, but must remain easily accessible. By this point it has been moved from Postgres to an object store (Parquet format), for example, by means of `pg_tier`. |
+| **Cold**  | The data is considered to be at the archival stage, where it is rarely accessed and kept in long-term storage for reasons such as compliance. `pg_tier` offers low-cost, bottomless storage, minimizing the expenses associated with infrequent access. |
 
 In the final stage, data is rarely accessed but retained for long-term storage and compliance. Object stores have evolved various tiers, but the lowest tiers still brings unnecessary costs when trying to access your data. `pg_tier` addresses this and provides users with bottomless storage and a low cost of data access.
 
@@ -99,3 +93,5 @@ You should see something similar to this output:
 Server: pg_tier_s3_srv
 FDW options: (dirname 's3://my-storage-bucket/public_people/')
 ```
+
+We would love for you to try out [pg_tier](https://github.com/tembo-io/pg_tier) for yourself. You can get started with `pg_tier` [on Tembo Cloud](https://cloud.tembo.io/sign-up) in no time!
