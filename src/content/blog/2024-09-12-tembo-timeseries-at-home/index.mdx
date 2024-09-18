@@ -128,6 +128,34 @@ SELECT *
   WHERE min < 65 OR max > 75
   ORDER BY max DESC, min ASC, hour;
 ```
+```
+┌─────────────────────┬──────┬──────┐
+│        hour         │ min  │ max  │
+├─────────────────────┼──────┼──────┤
+│ 2024-05-19 21:00:00 │ 75.2 │ 79.0 │
+│ 2024-05-18 02:00:00 │ 76.3 │ 77.5 │
+│ 2024-05-18 00:00:00 │ 76.1 │ 77.2 │
+│ 2024-05-18 01:00:00 │ 76.1 │ 77.0 │
+│ 2024-05-19 22:00:00 │ 75.7 │ 76.6 │
+│ 2024-05-18 03:00:00 │ 75.7 │ 76.5 │
+│ 2024-05-17 23:00:00 │ 75.9 │ 76.5 │
+│ 2024-05-18 04:00:00 │ 75.9 │ 76.5 │
+│ 2024-05-20 00:00:00 │ 76.3 │ 76.5 │
+│ 2024-05-20 01:00:00 │ 73.9 │ 76.3 │
+│ 2024-05-19 23:00:00 │ 75.9 │ 76.3 │
+│ 2024-05-17 22:00:00 │ 75.4 │ 75.9 │
+│ 2024-05-18 05:00:00 │ 75.6 │ 75.9 │
+│ 2024-05-18 06:00:00 │ 75.0 │ 75.7 │
+│ 2024-05-17 21:00:00 │ 74.5 │ 75.4 │
+│ 2024-05-15 00:00:00 │ 73.4 │ 75.2 │
+│ 2024-05-19 20:00:00 │ 74.1 │ 75.2 │
+│ 2024-05-20 12:00:00 │   32 │ 70.9 │
+│ 2024-05-13 14:00:00 │ 64.9 │ 66.6 │
+│ 2024-05-13 11:00:00 │ 64.8 │ 66.0 │
+│ 2024-05-13 09:00:00 │ 64.9 │ 66.0 │
+│ 2024-05-13 10:00:00 │ 64.8 │ 65.5 │
+└─────────────────────┴──────┴──────┘
+```
 
 Knowing the uncomfortable times of day is one thing, but to do something about it I'll need to know what rooms are more comfortable: if my office is hot, where should I go? Armed with a list of which rooms are hottest and coldest during each hour, answering this question will be easy…
 
@@ -150,6 +178,25 @@ SELECT EXTRACT(HOUR FROM last_updated_ts) as hour,
   GROUP BY 1
   ORDER BY 1;
 ```
+```
+┌──────┬────────────────────────────────────────────────────┬────────────────────────────────────────┐
+│ hour │                      coldest                       │                hottest                 │
+├──────┼────────────────────────────────────────────────────┼────────────────────────────────────────┤
+│    0 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
+│    1 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
+│    2 │ sensor.theater_sensor_temperature                  │ sensor.theater_sensor_temperature      │
+│    3 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
+│    4 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
+│    5 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
+│    6 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
+│    7 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
+│    8 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
+│    9 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
+│   10 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
+│   11 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
+…
+└──────┴────────────────────────────────────────────────────┴────────────────────────────────────────┘
+```
 
 ### Fine Granularity/Imputation
 
@@ -161,6 +208,50 @@ First, write a `SELECT` query against `states_ts`, then modify the `FROM` clause
 
 ```sql
 SELECT * FROM date_bin_table(NULL::states_ts, '1 second', '[2024-05-20,2024-05-21]') LIMIT 100;
+```
+```
+┌─[ RECORD 1 ]──────────┬────────────────────────────────────┐
+│ state_id              │ 16051868                           │
+│ entity_id             │ ∅                                  │
+│ state                 │ on                                 │
+│ attributes            │ ∅                                  │
+│ event_id              │ ∅                                  │
+│ last_changed          │ ∅                                  │
+│ last_changed_ts       │ 2024-03-29 20:58:44.777981         │
+│ last_updated          │ ∅                                  │
+│ last_updated_ts       │ 2024-05-20 00:00:00                │
+│ old_state_id          │ 16051863                           │
+│ attributes_id         │ 14507                              │
+│ context_id            │ ∅                                  │
+│ context_user_id       │ ∅                                  │
+│ context_parent_id     │ ∅                                  │
+│ origin_idx            │ 0                                  │
+│ context_id_bin        │ \x018f934c44b1ebb945a801f9186a3a45 │
+│ context_user_id_bin   │ ∅                                  │
+│ context_parent_id_bin │ ∅                                  │
+│ metadata_id           │ 295                                │
+├─[ RECORD 2 ]──────────┼────────────────────────────────────┤
+│ state_id              │ 16051864                           │
+│ entity_id             │ ∅                                  │
+│ state                 │ 83.9                               │
+│ attributes            │ ∅                                  │
+│ event_id              │ ∅                                  │
+│ last_changed          │ ∅                                  │
+│ last_changed_ts       │ ∅                                  │
+│ last_updated          │ ∅                                  │
+│ last_updated_ts       │ 2024-05-20 00:00:00                │
+│ old_state_id          │ 16051821                           │
+│ attributes_id         │ 14517                              │
+│ context_id            │ ∅                                  │
+│ context_user_id       │ ∅                                  │
+│ context_parent_id     │ ∅                                  │
+│ origin_idx            │ 0                                  │
+│ context_id_bin        │ \x018f934c45b14bc425554919bd824bf3 │
+│ context_user_id_bin   │ ∅                                  │
+│ context_parent_id_bin │ ∅                                  │
+│ metadata_id           │ 296                                │
+…
+└───────────────────────┴────────────────────────────────────┘
 ```
 
 If you run this query, you'll notice two things:
@@ -177,6 +268,31 @@ SELECT avg(state::numeric), date_trunc('minute', last_updated_ts)
   WHERE metadata_id IS NULL OR metadata_id = 229
   GROUP BY 2 ORDER BY 2;
 ```
+```
+┌─────────────────────┬─────────────────────┐
+│         avg         │     date_trunc      │
+├─────────────────────┼─────────────────────┤
+│                   ∅ │ 2024-05-20 00:00:00 │
+│ 80.2000000000000000 │ 2024-05-20 00:01:00 │
+│ 80.0000000000000000 │ 2024-05-20 00:02:00 │
+│ 79.6000000000000000 │ 2024-05-20 00:03:00 │
+│                   ∅ │ 2024-05-20 00:04:00 │
+│ 79.1500000000000000 │ 2024-05-20 00:05:00 │
+│ 78.8000000000000000 │ 2024-05-20 00:06:00 │
+│ 78.5000000000000000 │ 2024-05-20 00:07:00 │
+│ 78.2000000000000000 │ 2024-05-20 00:08:00 │
+│                   ∅ │ 2024-05-20 00:09:00 │
+│ 77.9000000000000000 │ 2024-05-20 00:10:00 │
+│ 77.7000000000000000 │ 2024-05-20 00:11:00 │
+│                   ∅ │ 2024-05-20 00:12:00 │
+│ 77.5000000000000000 │ 2024-05-20 00:13:00 │
+│ 77.4000000000000000 │ 2024-05-20 00:14:00 │
+│ 77.2000000000000000 │ 2024-05-20 00:15:00 │
+│ 76.9000000000000000 │ 2024-05-20 00:16:00 │
+│ 76.6000000000000000 │ 2024-05-20 00:17:00 │
+…
+└─────────────────────┴─────────────────────┘
+```
 
 But there's still one problem: our data contains these `NULL` values! By adding in a call to `locf`, we can fill all `NULL` entries with the most-recent non-`NULL` entry:
 
@@ -191,6 +307,31 @@ WITH minute_data AS (
 SELECT locf(avg) OVER (ORDER BY reported_at),
        reported_at
   FROM minute_data;
+```
+```
+┌─────────────────────┬─────────────────────┐
+│        locf         │     reported_at     │
+├─────────────────────┼─────────────────────┤
+│                   ∅ │ 2024-05-20 00:00:00 │
+│ 80.2000000000000000 │ 2024-05-20 00:01:00 │
+│ 80.0000000000000000 │ 2024-05-20 00:02:00 │
+│ 79.6000000000000000 │ 2024-05-20 00:03:00 │
+│ 79.6000000000000000 │ 2024-05-20 00:04:00 │
+│ 79.1500000000000000 │ 2024-05-20 00:05:00 │
+│ 78.8000000000000000 │ 2024-05-20 00:06:00 │
+│ 78.5000000000000000 │ 2024-05-20 00:07:00 │
+│ 78.2000000000000000 │ 2024-05-20 00:08:00 │
+│ 78.2000000000000000 │ 2024-05-20 00:09:00 │
+│ 77.9000000000000000 │ 2024-05-20 00:10:00 │
+│ 77.7000000000000000 │ 2024-05-20 00:11:00 │
+│ 77.7000000000000000 │ 2024-05-20 00:12:00 │
+│ 77.5000000000000000 │ 2024-05-20 00:13:00 │
+│ 77.4000000000000000 │ 2024-05-20 00:14:00 │
+│ 77.2000000000000000 │ 2024-05-20 00:15:00 │
+│ 76.9000000000000000 │ 2024-05-20 00:16:00 │
+│ 76.6000000000000000 │ 2024-05-20 00:17:00 │
+…
+└─────────────────────┴─────────────────────┘
 ```
 
 Now our data series is ready for immediate use in a dashboard.
@@ -207,7 +348,21 @@ To understand how `LEAD` works, consider the following query:
 WITH squares AS (
   SELECT i * i s FROM generate_series(1, 100) gs(i)
 )
-SELECT LEAD (s, 1) OVER (ORDER BY s) - s FROM squares;
+SELECT LEAD (s, 1) OVER (ORDER BY s) - s AS diff FROM squares;
+```
+```
+┌──────┐
+│ diff │
+├──────┤
+│    3 │
+│    5 │
+│    7 │
+│    9 │
+│   11 │
+│   13 │
+│   15 │
+…
+└──────┘
 ```
 
 If it's not yet clear, this query generates the first 100 square numbers and displays the differences between consecutive squares. This allows users to do arithmetic and other operations between these two rows.
@@ -235,6 +390,36 @@ durations AS (
 SELECT * FROM durations
   WHERE state = 'on'
   ORDER BY state_duration DESC;
+```
+```
+┌────────────────────────────┬─────────────────┬───────┬─────────────────┐
+│         start_time         │      door       │ state │ state_duration  │
+├────────────────────────────┼─────────────────┼───────┼─────────────────┤
+│ 2024-05-17 21:21:10.741532 │ entry_door      │ on    │ 00:14:34.315965 │
+│ 2024-05-20 13:29:17.464323 │ entry_door      │ on    │ 00:13:10.718978 │
+│ 2024-05-19 00:59:41.552397 │ entry_door      │ on    │ 00:11:07.896871 │
+│ 2024-05-16 22:54:59.610229 │ entry_door      │ on    │ 00:09:37.804972 │
+│ 2024-05-16 23:56:59.580461 │ kitchen_door    │ on    │ 00:05:58.254165 │
+│ 2024-05-22 14:54:18.349535 │ garage_man_door │ on    │ 00:03:12.540568 │
+│ 2024-05-16 02:59:00.612372 │ kitchen_door    │ on    │ 00:02:58.732146 │
+│ 2024-05-21 19:03:36.531727 │ garage_man_door │ on    │ 00:02:46.525454 │
+│ 2024-05-19 00:48:47.66089  │ kitchen_door    │ on    │ 00:02:16.415797 │
+│ 2024-05-15 16:42:15.990206 │ garage_man_door │ on    │ 00:01:51.023388 │
+│ 2024-05-17 21:32:47.341022 │ kitchen_door    │ on    │ 00:01:27.297059 │
+│ 2024-05-15 15:10:32.388369 │ entry_door      │ on    │ 00:01:09.023076 │
+│ 2024-05-21 18:11:48.077492 │ kitchen_door    │ on    │ 00:01:08.939645 │
+│ 2024-05-17 21:33:01.198929 │ garage_man_door │ on    │ 00:01:01.258107 │
+│ 2024-05-20 16:08:19.426007 │ entry_door      │ on    │ 00:00:56.590429 │
+│ 2024-05-16 14:48:52.866601 │ entry_door      │ on    │ 00:00:49.007447 │
+│ 2024-05-17 14:31:47.196024 │ kitchen_door    │ on    │ 00:00:46.792687 │
+│ 2024-05-18 16:32:14.869863 │ kitchen_door    │ on    │ 00:00:46.70439  │
+│ 2024-05-19 16:22:55.368629 │ kitchen_door    │ on    │ 00:00:45.024278 │
+│ 2024-05-22 14:52:09.358009 │ kitchen_door    │ on    │ 00:00:44.145899 │
+│ 2024-05-20 21:48:00.563764 │ garage_man_door │ on    │ 00:00:43.689353 │
+│ 2024-05-20 14:14:25.849879 │ kitchen_door    │ on    │ 00:00:42.935742 │
+│ 2024-05-15 16:42:42.092641 │ kitchen_door    │ on    │ 00:00:42.0176   │
+…
+└────────────────────────────┴─────────────────┴───────┴─────────────────┘
 ```
 
 Using `LEAD`—and its corresponding function `LAG`—can be syntactically challenging, but being able to wield them against an IoT workload is very powerful.
