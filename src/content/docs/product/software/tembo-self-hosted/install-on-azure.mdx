@@ -9,158 +9,94 @@ sideBarTitle: Install on Azure AKS
 
 This guide describes the steps to install Tembo Self Hosted on Azure, enabling you to deploy a high-performance, fully-extensible managed Postgres service within an Azure Kubernetes Service (AKS) cluster.
 
-## Step 1: Obtain prerequisites
+## Step 1: Prerequisites
 
 Before starting this tutorial, you must install and configure the following tools and resources necessary to create and manage Tembo Self Hosted on an Azure AKS cluster.
 
-* The command-line tools for [Azure CLI (az)](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) and for [Kubernetes (kubectl)](https://kubernetes.io/docs/tasks/tools/).
-* The [Helm CLI](https://helm.sh/docs/intro/install/).
-* Obtain a [Clerk](https://clerk.com/) authentication key from Tembo.
+* [AKS Cluster](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli)
+* [Kubernetes (kubectl)](https://kubernetes.io/docs/tasks/tools/)
+* [Azure CLI (az)](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+* [Helm CLI](https://helm.sh/docs/intro/install/)
+* Obtain a [Clerk](https://clerk.com/) authentication key from Tembo
 
-## Step 2: Choose and set up a base domain
+## Step 2: Prepare for Tembo installation
 
-For the Tembo services, you will need to select a base domain, such as `tembo.mydomain.com`.
-
-Once you have chosen your base domain, ensure you have the capacity to add and modify DNS records for it.
-
-With this setup, your users will be able to access various subdomains to manage, monitor, and run Postgres on the platform:
-
-* Software UI: `app.tembo.mydomain.com`
-* Backend requests: `api.tembo.mydomain.com`
-* Tembo Dataplane: `dataplane.tembo.mydomain.com`
-
-## Step 3: Create an AKS control plane and a Kubernetes cluster
-
-To create an AKS cluster named `tembo-cluster` with a minimum of three nodes, run the following command:
+Prepare Tembo helm chart installation by running a script using the command below.
 
 ```shell
-export RESOURCE_GROUP=yourResourceGroup
-export CLUSTER_NAME=your-cluster-name
-
-az aks create --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME --node-count 3 --node-vm-size Standard_D4s_v3 --enable-managed-identity --enable-disk-driver --location eastus
+bash <(curl -s https://raw.githubusercontent.com/tembo-io/tembo-self-hosted/main/scripts/azure/aks-setup.sh)
 ```
 
-Feel free to adjust the parameters as needed to suit your requirements.
+## Step 3: Install the Tembo Self Hosted Helm chart
 
-For further information, see [Quickstart: Deploy an Azure Kubernetes Service (AKS) cluster](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-cli).
-
-## Step 4: Install Helm dependencies
-
-### 1. Install [`cert-manager`](https://github.com/cert-manager/cert-manager)
+Add Helm repo for Tembo & do an update
 
 ```shell
-helm install \
-  cert-manager jetstack/cert-manager \
-  --namespace cert-manager \
-  --create-namespace \
-  --version v1.14.4 --set installCRDs=true
+helm repo add tembo https://tembo-io.github.io/tembo
+helm repo update
 ```
 
-#### 1.1. Verify `cert-manager` installation
-
-```bash
-$ k get pods -n cert-manager
-
-NAME                                      READY   STATUS    RESTARTS   AGE
-cert-manager-6dc66985d4-vm2p8             1/1     Running   0          3d
-cert-manager-cainjector-c7d4dbdd9-r96lv   1/1     Running   0          3d
-cert-manager-webhook-847d7676c9-vg2c7     1/1     Running   0          3d
-```
-
-## Step 5: Configure permissions for the CSI driver
-
-In order to use the `premium-ssd-enc` StorageClass (defined in the next step), we need to configure some permissions.
-This step assumes that the cluster is using a `SystemAssigned` or `UserAssigned` identity (rather than `ServicePrincipal`).
-
-```bash
-# Identify the object ID for this identity
-export OBJECT_ID=$(az aks show --resource-group $RESOURCE_GROUP_NAME --name $AKS_CLUSTER_NAME --query identityProfile.kubeletidentity.objectId -o tsv)
-```
-
-### 5.1. Granting permissions
-
-Create the role assignment:
-
-```bash
-export SUBSCRIPTION_ID="your-subscription-id"
-export RESOURCE_GROUP_NAME="your-resource-group-name"
-export OBJECT_ID="your-object-id"  # Retrieved from the above script
-
-az role assignment create --assignee $OBJECT_ID --role Contributor --scope /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME
-```
-
-Verify the role assignment:
-
-```bash
-az role assignment list --assignee $OBJECT_ID --scope /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME
-```
-
-## Step 6: Create the `premium-ssd-enc` StorageClass
-
-Apply [premium-ssd-enc-storage.yaml]().
-
-```bash
-kubectl apply -f premium-ssd-enc-storage.yaml
-```
-
-## Step 7: Install the Tembo Self Hosted Helm chart
-
-Clone the Tembo Self Hosted repository:
-
-```shell
-git clone https://github.com/tembo-io/tembo-self-hosted
-```
-
-Now, within the cloned `tembo-self-hosted` directory, create a file `my-values.yaml` with the following content:
+Now, create a file `my-values.yaml` with the following content:
 
 ```yaml
 global:
   baseDomain: tembo.mydomain.com
-  monitoringEnabled: true
-  conductorEnabled: false
 tembo:
   cpWebserver:
     env:
+      - name: CLERK_SECRET_KEY
+        value: <secret-key>
+      - name: CLERK_WEBHOOK_SIGNING_SECRET
+        value: <signing-secret>
       - name: STRIPE_SECRET_KEY
         value: <secret-key>
       - name: STRIPE_WEBHOOK_SIGNING_SECRET
         value: <signing-secret>
+      - name: METRONOME_SECRET_KEY
+        value: <secret-key>
 ```
 
-The base domain should be the same one created in Step 2.
+The basedomain is used to access tembo ui, api, dataplane & instances provisioned so you must set that up first.
 
-Now, let's install the Tembo Self Hosted Helm chart in your AKS cluster:
+Now, let's install the Tembo Self Hosted Helm chart in your EKS cluster:
 
 ```shell
-helm install tembo . -f my-values.yaml -n tembo --create-namespace
+helm install tembo tembo/tembo -f my-values.yaml -n tembo --create-namespace
 ```
 
-Let's now enable the `conductor` component:
+Check the status of installation:
 
-```yaml
-global:
-  baseDomain: tembo.mydomain.com
-  monitoringEnabled: true
-  conductorEnabled: true
+```
+❯ kubectl get po
+NAME                                         READY   STATUS      RESTARTS      AGE
+control-plane-1                              1/1     Running     0             82m
+control-plane-queue-1                        1/1     Running     0             79m
+tembo-cloudnative-pg-749dcfc655-756mm        1/1     Running     0             83m
+tembo-conductor-fb7878d7-tvh94               1/1     Running     0             77m
+tembo-conductor-watcher-7ff9547686-6sld8     1/1     Running     0             77m
+tembo-controller-57899fffc4-d4j55            1/1     Running     0             82m
+tembo-cp-reconciler-76bd8777b6-z2nq8         1/1     Running     0             81m
+tembo-cp-service-75bccdddbd-b8xbk            1/1     Running     0             78m
+tembo-cp-webserver-686fb69bb5-w5g6g          1/1     Running     0             78m
+tembo-dataplane-webserver-7f9bd5cbf7-gkk2w   1/1     Running     0             83m
+tembo-init-cp-db-lxl2t                       0/1     Completed   0             83m
+tembo-init-cp-queue-db-lljgr                 0/1     Completed   0             83m
+tembo-label-namespace-ggnml                  0/1     Completed   0             83m
+tembo-pod-init-74975dbcb8-d9jpk              1/1     Running     0             83m
+tembo-tembo-ui-685ccc9996-n8tmv              1/1     Running     0             83m
 ```
 
-Upgrade the Self Hosted Helm chart so that changes take effect:
-
-```shell
-helm upgrade tembo . -f my-values.yaml -n tembo
-```
-
-## Step 8: Configure DNS for Traefik's Load Balancer
+## Step 4: Configure DNS for Traefik's Load Balancer
 
 To properly route traffic to your Traefik load balancer, you need to configure a DNS CNAME record through your DNS provider. Follow the steps below to create a wildcard CNAME record, which is essential because each PostgreSQL instance has its own subdomain for its connection string.
 
-### Step 8.1: Set up a DNS Zone in Azure Portal
+### Step 4.1: Set up a DNS Zone in Azure Portal
 
 Create a DNS zone for your chosen Tembo Self Hosted subdomain, e.g. `tembo.mydomain.com`.
 
 For more information, see [Create a DNS Zone](https://learn.microsoft.com/en-us/azure/dns/dns-operations-dnszones-portal#create-a-dns-zone).
 
-### Step 8.2: Identify Traefik's Load Balancer external IP
+### Step 4.2: Identify Traefik's Load Balancer external IP
 
 ```shell
 kubectl get svc -n traefik
@@ -170,8 +106,7 @@ traefik   LoadBalancer   10.200.50.100   4.150.40.100  1234:56789/TCP,80:12345/T
 
 In the example above, the Load Balancer's external IP would be 4.150.40.100.
 
-
-### Step 8.3: Create an `A` record to re-route traffic to Traefik's Load Balancer
+### Step 4.3: Create an `A` record to re-route traffic to Traefik's Load Balancer
 
 ```bash
 export RESOURCE_GROUP_NAME="MC_${RESOURCE_GROUP}_${CLUSTER_NAME}_${REGION}"
@@ -188,7 +123,7 @@ az network dns record-set a add-record --resource-group $RESOURCE_GROUP_NAME --z
 
 For more detailed information, refer to [Create a DNS zone and record using the Azure portal](https://docs.microsoft.com/en-us/azure/dns/dns-getstarted-portal).
 
-### Step 8.4. Verify DNS settings
+### Step 4.4. Verify DNS settings
 
 After creating the CNAME record, verify that the DNS settings are correctly propagating and resolving.
 
@@ -206,26 +141,6 @@ Name:	test.tembo.mydomain.com
 Address: 203.0.113.20
 ```
 
-## Step 9: Add `ipAllowList` to the Traefik's CRD
-
-To `middlewaretcps` in `traefik.containo.us`, add:
-
-```yaml
-            ipAllowList:
-                description: |-
-                  IPAllowList defines the IPAllowList middleware configuration.
-                  This middleware accepts/refuses connections based on the client IP.
-                  More info: https://doc.traefik.io/traefik/v2.11/middlewares/tcp/ipallowlist/
-                properties:
-                  sourceRange:
-                    description: SourceRange defines the allowed IPs (or ranges of
-                      allowed IPs by using CIDR notation).
-                    items:
-                      type: string
-                    type: array
-                type: object
-```
-
-## Step 10: Deploy a Tembo Postgres instance through mahout
+## Step 5: Deploy a Tembo Postgres instance through mahout
 
 Access `app.tembo.mydomain.com` and create a Postgres instance through the Tembo UI.
