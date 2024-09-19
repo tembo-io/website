@@ -28,10 +28,15 @@ const currentPath = Astro.url.pathname;
 			>
 				Tembo Customer Stories
 			</div>
+			<Image
+				class='mb-[200px]'
+				src={ElephantCaseStudy}
+				alt='elephant looking at cellphone'
+			/>
 		</section>
 		<section>
 			<div
-				class='mt-[250px] lg:mt-[500px] mb-[100px] grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-10'
+				class='mb-[100px] grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-10'
 			>
 				<a class='flex flex-col' href='/customers/arch'>
 					<div class='rounded-2xl'>
@@ -78,11 +83,6 @@ const currentPath = Astro.url.pathname;
 
 		<JoinTemboCTA />
 	</Container>
-	<Image
-		class='absolute top-[400px] md:top-[220px] lg:top-[240px] xl:top-[200px] left-0'
-		src={ElephantCaseStudy}
-		alt='elephant looking at cellphone'
-	/>
 	<Container>
 		<div class='mt-16 mobile:mt-24'>
 			<Footer />

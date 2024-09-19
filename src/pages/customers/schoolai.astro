@@ -52,20 +52,47 @@ const currentPath = Astro.url.pathname;
 					class='mt-12 mobile:mt-36 mobile:flex mobile:justify-between w-full'
 				>
 					<div id='tembo-customer' class='m-0 mobile:mr-12'></div>
-					<div class='hidden mobile:flex flex-col gap-12'>
+					<div class='hidden mobile:flex flex-col'>
 						<div
-							class='flex flex-wrap gap-4 items-start max-w-[180px]'
+							class='flex flex-col w-max items-start mobile:sticky mobile:top-[100px]'
 						>
-						</div>
-						<div
-							class='flex flex-col gap-12 w-max items-start mobile:sticky mobile:top-[100px]'
-						>
-							<div class='flex flex-col gap-4 self-start w-full'>
-								<SocialShareButtonsDesktop
-									title='School AI Customer Story'
-									slug='/customers/schoolai'
-								/>
-							</div>
+							<p
+								class='font-white font-secondary text-sm font-semibold'
+							>
+								SchoolAI
+							</p>
+							<a
+								href='https://schoolai.com/'
+								class='bg-gradient-button text-transparent text-sm font-secondary'
+								style='background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;'
+								>schoolai.com</a
+							>
+							<hr
+								class='my-4 w-full bg-otherGrey2 border-0 h-[1px]'
+							/>
+							<p
+								class='font-white font-secondary text-sm font-semibold'
+							>
+								Founded
+							</p>
+							<hr
+								class='my-4 w-full bg-otherGrey2 border-0 h-[1px]'
+							/>
+							<p
+								class='font-white font-secondary text-sm font-semibold'
+							>
+								Investors
+							</p>
+							<hr
+								class='my-4 w-full bg-otherGrey2 border-0 h-[1px]'
+							/>
+							<p
+								class='font-white font-secondary text-sm font-semibold'
+							>
+								Building with Tembo since
+							</p>
 						</div>
 					</div>
 				</div>
