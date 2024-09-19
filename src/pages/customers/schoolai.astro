@@ -1,0 +1,105 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer.astro';
+
+import Container from '../../components/Container';
+import BackButton from '../../components/BackButton.astro';
+
+import { Image } from 'astro:assets';
+import SocialShareButtonsDesktop from '../../components/SocialShareButtonsDesktop.astro';
+import SchoolAILogo from 'src/images/schoolai-logo.svg';
+
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title='School AI | Tembo' htmlClasses='scroll-pt-[120px]'>
+	<NavBar client:load currentPage={currentPath} />
+	<Container styles='pb-10 w-full'>
+		<div class='mt-[120px] mobile:mt-[180px] w-full relative'>
+			<div class='flex flex-col w-full'>
+				<div
+					class='flex flex-col min-[1200px]:flex-row items-start justify-between w-full gap-8'
+				>
+					<header class='flex flex-col gap-8'>
+						<BackButton />
+						<div class='flex flex-col gap-6'>
+							<div>
+								<p class='text-white mt-4'>
+									Sept 19, 2023 • 5 Min Read
+								</p>
+								<h1
+									class='text-white font-extrabold text-3xl lg:text-4xl xl:text-5xl z-10 max-w-[600px] my-4'
+								>
+									SchoolAI's Success with Tembo
+								</h1>
+								<p
+									class='text-xl font-secondary text-grey font-normal'
+								>
+									How Tembo Helped SchoolAI
+								</p>
+							</div>
+						</div>
+					</header>
+
+					<Image
+						src={SchoolAILogo}
+						alt='blog post hero image'
+						class='flex rounded-2xl w-full max-h-[400px] min-[1200px]:w-[650px] min-[1200px]:max-h-[300px]'
+					/>
+				</div>
+				<div
+					class='mt-12 mobile:mt-36 mobile:flex mobile:justify-between w-full'
+				>
+					<div id='tembo-customer' class='m-0 mobile:mr-12'></div>
+					<div class='hidden mobile:flex flex-col gap-12'>
+						<div
+							class='flex flex-wrap gap-4 items-start max-w-[180px]'
+						>
+						</div>
+						<div
+							class='flex flex-col gap-12 w-max items-start mobile:sticky mobile:top-[100px]'
+						>
+							<div class='flex flex-col gap-4 self-start w-full'>
+								<SocialShareButtonsDesktop
+									title='School AI Customer Story'
+									slug='/customers/schoolai'
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</Container>
+	<div class='relative bg-offBlack'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
+		</div>
+		<Container>
+			<div class='mt-16 mobile:mt-24'>
+				<Footer />
+			</div>
+		</Container>
+	</div>
+</Layout>
+
+<style is:global>
+	@media screen and (max-width: 500px) {
+		.tembo-blog-post-content tr {
+			display: grid !important;
+		}
+	}
+</style>
+<script>
+	const buttons = document.querySelectorAll('button.blogGoBack');
+
+	buttons.forEach((button) => {
+		button.addEventListener('click', () => {
+			!document.referrer.includes('tembo.io')
+				? (window.location.href = '/customers')
+				: window.history.back();
+		});
+	});
+</script>

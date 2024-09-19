@@ -1,0 +1,91 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar';
+import Container from '../../components/Container';
+import Footer from '../../components/Footer.astro';
+import { Image } from 'astro:assets';
+import ElephantCaseStudy from 'src/images/elephant-customer-stories.svg';
+import JoinTemboCTA from '../../components/JoinTemboCTA.astro';
+import SchoolAILogo from 'src/images/schoolai-logo.svg';
+import ArchLogo from 'src/images/arch-logo.svg';
+
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title='Customers | Tembo'>
+	<NavBar client:load currentPage={currentPath} />
+	<Container styles='relative'>
+		<section
+			class='flex flex-col w-full items-center justify-center mt-[180px]'
+		>
+			<div
+				class='flex items-center justify-center text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+			>
+				Customers
+			</div>
+			<div
+				class='text-white font-bold tracking-[0.47px] text-[44px] lg:text-[68px] leading-tight mb-10 w-full text-center'
+			>
+				Tembo Customer Stories
+			</div>
+		</section>
+		<section>
+			<div
+				class='mt-[250px] lg:mt-[500px] mb-[100px] grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-10'
+			>
+				<a class='flex flex-col' href='/customers/arch'>
+					<div class='rounded-2xl'>
+						<Image
+							src={ArchLogo}
+							alt='arch company logo'
+							class='w-full'
+						/>
+					</div>
+					<div
+						class='flex flex-col bg-mwasi px-4 pb-8 pt-4 rounded-b-2xl'
+					>
+						<h4
+							class='text-white font-secondary font-bold text-base'
+						>
+							Arch
+						</h4>
+						<p class='text-white text-xs font-secondary w-full'>
+							Let's get started on your analytics journey.
+						</p>
+					</div>
+				</a>
+				<a class='flex flex-col' href='/customers/schoolai'>
+					<div class='rounded-2xl'>
+						<Image
+							src={SchoolAILogo}
+							alt='schoolai company logo'
+							class='w-full'
+						/>
+					</div>
+					<div class='bg-mwasi px-4 pb-8 pt-4 rounded-b-2xl'>
+						<h4
+							class='text-white font-secondary font-bold text-base'
+						>
+							School AI
+						</h4>
+						<p class='text-white text-xs font-secondary w-full'>
+							Let's get started on your analytics journey.
+						</p>
+					</div>
+				</a>
+			</div>
+		</section>
+
+		<JoinTemboCTA />
+	</Container>
+	<Image
+		class='absolute top-[400px] md:top-[220px] lg:top-[240px] xl:top-[200px] left-0'
+		src={ElephantCaseStudy}
+		alt='elephant looking at cellphone'
+	/>
+	<Container>
+		<div class='mt-16 mobile:mt-24'>
+			<Footer />
+		</div>
+	</Container>
+</Layout>

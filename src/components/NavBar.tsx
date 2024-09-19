@@ -5,7 +5,7 @@ import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import ClerkProviderWithButton from './ClerkButton';
-import SolutionsNav from './SolutionsNav';
+import NavMenu from './NavMenu';
 
 interface Props {
 	currentPage: string;
@@ -25,6 +25,34 @@ const NavBar: React.FC<Props> = ({
 		isScreenGreaterThanOrEqualTo900px,
 		setIsScreenGreaterThanOrEqualTo900px,
 	] = useState(false);
+
+	const solutionsOptions = [
+		{
+			displayName: 'Tembo Transactional',
+			link: '/solutions/transactional',
+		},
+		{
+			displayName: 'Tembo AI',
+			link: '/solutions/ai',
+		},
+		{
+			displayName: 'Tembo Buildcamp',
+			link: '/solutions/buildcamp',
+		},
+		{
+			displayName: 'For Enterprises',
+			link: '/solutions/for-enterprises',
+		},
+		{
+			displayName: 'For Startups',
+			link: '/solutions/for-startups',
+		},
+	];
+
+	const customerOptions = [
+		{ displayName: 'Arch', link: '/customers/arch' },
+		{ displayName: 'SchoolAI', link: '/customers/schoolai' },
+	];
 
 	const variants = {
 		open: {
@@ -140,41 +168,32 @@ const NavBar: React.FC<Props> = ({
 				>
 					<Logo />
 					<div className='mid:flex hidden items-center gap-12 m-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
-						{/* <a
-							href='/'
-							className={cx(
-								'font-secondary font-medium z-10',
-								currentPage == '/'
-									? 'text-neon'
-									: 'text-white opacity-70',
-							)}
-						>
-							Home
-						</a> */}
 						<div
 							className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'
 							onMouseEnter={handleMouseEnter}
 							onMouseLeave={handleMouseLeave}
 						>
-							<SolutionsNav
+							<NavMenu
 								isOpen={isOpen}
 								currentPage={currentPage}
+								selectedPage='/solutions'
+								selectedPageDisplayName='Solutions'
+								options={solutionsOptions}
 							/>
 						</div>
-						<a
-							href='/case-studies'
-							className={cx(
-								'font-secondary font-medium z-10',
-								currentPage == '/case-studies' ||
-									currentPage == '/case-studies/'
-									? 'text-neon'
-									: 'text-white opacity-70',
-							)}
-							target='_blank'
-							rel='noreferrer'
+						<div
+							className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'
+							onMouseEnter={handleMouseEnter}
+							onMouseLeave={handleMouseLeave}
 						>
-							Case Studies
-						</a>
+							<NavMenu
+								isOpen={isOpen}
+								currentPage={currentPage}
+								selectedPage='/customers'
+								selectedPageDisplayName='Customers'
+								options={customerOptions}
+							/>
+						</div>
 						<a
 							href='/pricing'
 							className={cx(
