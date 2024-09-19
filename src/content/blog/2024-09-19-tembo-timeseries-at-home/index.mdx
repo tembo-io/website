@@ -166,36 +166,38 @@ This is where the `first` and `last` functions come in: we want to group tempera
 ```sql
 WITH temp_sensors AS (
   SELECT metadata_id,
-         entity_id
+         entity_id,
+         replace(replace(entity_id, 'sensor.', ''),
+                 '_sensor_temperature', '') AS room_name
     FROM states_meta
     WHERE entity_id LIKE '%temperature' AND
           entity_id NOT SIMILAR TO '%(attic|backyard|coffee|garage)%' )
 SELECT EXTRACT(HOUR FROM last_updated_ts) as hour,
-       first(ts.entity_id, state::numeric) as coldest,
-       last(ts.entity_id, state::numeric) as hottest
+       first(ts.room_name, state::numeric) as coldest,
+       last(ts.room_name, state::numeric) as hottest
   FROM states_ts s JOIN temp_sensors ts ON (s.metadata_id = ts.metadata_id)
   WHERE s.state <> 'unavailable'
   GROUP BY 1
   ORDER BY 1;
 ```
 ```
-┌──────┬────────────────────────────────────────────────────┬────────────────────────────────────────┐
-│ hour │                      coldest                       │                hottest                 │
-├──────┼────────────────────────────────────────────────────┼────────────────────────────────────────┤
-│    0 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
-│    1 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
-│    2 │ sensor.theater_sensor_temperature                  │ sensor.theater_sensor_temperature      │
-│    3 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
-│    4 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
-│    5 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
-│    6 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
-│    7 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
-│    8 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
-│    9 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
-│   10 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
-│   11 │ sensor.theater_sensor_temperature                  │ sensor.main_bedroom_sensor_temperature │
+┌──────┬─────────┬──────────────┐
+│ hour │ coldest │   hottest    │
+├──────┼─────────┼──────────────┤
+│    0 │ theater │ main_bedroom │
+│    1 │ theater │ main_bedroom │
+│    2 │ theater │ theater      │
+│    3 │ theater │ main_bedroom │
+│    4 │ theater │ main_bedroom │
+│    5 │ theater │ main_bedroom │
+│    6 │ theater │ main_bedroom │
+│    7 │ theater │ main_bedroom │
+│    8 │ theater │ main_bedroom │
+│    9 │ theater │ main_bedroom │
+│   10 │ theater │ main_bedroom │
+│   11 │ theater │ main_bedroom │
 …
-└──────┴────────────────────────────────────────────────────┴────────────────────────────────────────┘
+└──────┴─────────┴──────────────┘
 ```
 
 ### Fine Granularity/Imputation
