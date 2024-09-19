@@ -15,11 +15,9 @@ One of the more interesting e-commerce features I've seen recently is the abilit
  Getting started with [a feature like this](https://www.aboutamazon.com/news/retail/how-to-use-amazon-lens) can be a fairly straight forward project the right tools.
  And if we can frame a problem as a vector search problem, then we can use Postgres to solve it!
 
-In this blog we'll build a basic image search engine using Postgres.
- We'll use a pre-trained model to generate embeddings for images and text, then store those embeddings in Postgres.
- We'll use the `pgvector` extension to conduct similarity searches on these embeddings.
- Finally we'll use the `pgvector` extension to conduct similarity searches on these embeddings using both images and raw-text as queries.
-
+In this blog we'll build a basic image search engine using [Postgres](https://www.postgresql.org/).
+ We'll use a [pre-trained model](https://huggingface.co/openai/clip-vit-base-patch32) to generate embeddings for images and text, then store those embeddings in Postgres.
+ The [pgvector](https://github.com/pgvector/pgvector) extension will enable us to conduct similarity searches on these embeddings using both images and raw-text as queries.
 
 ## Image Search with CLIP and Postgres
 
