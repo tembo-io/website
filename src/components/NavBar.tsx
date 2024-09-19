@@ -65,9 +65,6 @@ const NavBar: React.FC<Props> = ({
 		closed: { opacity: 0 },
 	};
 
-	const [isOpen, setIsOpen] = useState(false);
-	const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-
 	const getButtonStyles = () => {
 		if (currentPage.includes('/solutions/transactional')) {
 			return 'bg-sqlBlue';
@@ -76,21 +73,6 @@ const NavBar: React.FC<Props> = ({
 		}
 
 		return 'bg-neon hover:bg-[#D1E278]';
-	};
-
-	const handleMouseEnter = () => {
-		if (closeTimeoutRef.current) {
-			clearTimeout(closeTimeoutRef.current);
-			closeTimeoutRef.current = null;
-		}
-		setIsOpen(true);
-	};
-
-	const handleMouseLeave = () => {
-		// Set a delay before closing the menu
-		closeTimeoutRef.current = setTimeout(() => {
-			setIsOpen(false);
-		}, 300); // 300ms delay before closing
 	};
 
 	useEffect(() => {
@@ -168,26 +150,18 @@ const NavBar: React.FC<Props> = ({
 				>
 					<Logo />
 					<div className='mid:flex hidden items-center gap-12 m-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
-						<div
-							className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'
-							onMouseEnter={handleMouseEnter}
-							onMouseLeave={handleMouseLeave}
-						>
+						<div className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'>
 							<NavMenu
-								isOpen={isOpen}
+								id={1}
 								currentPage={currentPage}
 								selectedPage='/solutions'
 								selectedPageDisplayName='Solutions'
 								options={solutionsOptions}
 							/>
 						</div>
-						<div
-							className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'
-							onMouseEnter={handleMouseEnter}
-							onMouseLeave={handleMouseLeave}
-						>
+						<div className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'>
 							<NavMenu
-								isOpen={isOpen}
+								id={2}
 								currentPage={currentPage}
 								selectedPage='/customers'
 								selectedPageDisplayName='Customers'
