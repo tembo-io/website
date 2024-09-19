@@ -11,7 +11,7 @@ planetPostgres: false
 
 # Using Tembo's Time Series Stack at Home
 
-The [Tembo Time Series stack](/docs/product/stacks/analytical/timeseries) is now available, but as an author of its underlying extension, I've struggled with the same problem I hit any time I contribute to a [time-series](CloudWatch) or [database project](Citus): I've spent more time making and testing this tool than I will spend using it.
+The [Tembo Time Series stack](/docs/product/stacks/analytical/timeseries) is now available, but as an author of its [underlying extension](https://github.com/tembo-io/pg_timeseries/), I've struggled with the same problem I hit any time I contribute to a [time-series](CloudWatch) or [database project](Citus): I've spent more time making and testing this tool than I will spend using it.
 
 Sure, there are public data sets at places like [Kaggle](https://www.kaggle.com/datasets), and I like the bike-sharing data set we use in [our Time Series guide](https://tembo.io/docs/product/stacks/analytical/timeseries), but really digging into the data becomes much easier when it's something of personal interest.
 
@@ -19,9 +19,9 @@ Suddenly it dawned on me: I have a novel IoT use-case of my own… I _live_ in t
 
 ## Upgrading to Tembo Time Series
 
-So now the goal is clear: we'll be migrating an existing time-series system over to a Tembo Time Series Stack. So readers can follow along, I'm providing a [sanitized version of my IoT dataset](tbd). Once we have our stack up and running, we'll cover some interesting time-series queries and finish with some stack benchmarks.
+So now the goal is clear: we'll be migrating an existing time-series system over to a Tembo Time Series Stack. So readers can follow along, I'm providing a [sanitized version of my IoT dataset](https://tembo-demo-bucket.s3.amazonaws.com/states.csv). Once we have our stack up and running, we'll cover some interesting time-series queries and finish with some stack benchmarks.
 
-To get started, we'll need an instance of the [Tembo Time Series Stack](tbd), so launch one if you haven't already. We'll use a GP-4 instance, but the data should fit just fine in the Hobby tier as well.
+To get started, we'll need an instance of the [Tembo Time Series Stack](https://tembo.io/docs/product/stacks/analytical/timeseries), so launch one if you haven't already. We'll use a GP-4 instance, but the data should fit just fine in the Hobby tier as well.
 
 ## Creating the Time-Series Tables
 
@@ -60,7 +60,7 @@ This application stores metric attributes in a separate table from the actual ti
 
 ### Time-Series "Rollups"
 
-Additionally, Home Assistant—like _many_ time-series applications—"pre-aggregates" rows, "rolling up" raw data (`states`) first into five-minute data (`statistics_short_term`) and eventually into hourly rows (`statistics`). Automatically handling this rollup is on the `timeseries` extension's roadmap, but for now, we'll let Home Assistant do its thing.
+Additionally, Home Assistant—like _many_ time-series applications—"pre-aggregates" rows, "rolling up" raw data (`states`) first into five-minute data (`statistics_short_term`) and eventually into hourly rows (`statistics`). Automatically handling this rollup is on the [`pg_timeseries` extension's roadmap](https://github.com/tembo-io/pg_timeseries/tree/ba218b8793945a2323504c6e0408fa8059648e2f?tab=readme-ov-file#roadmap), but for now, we'll let Home Assistant do its thing.
 
 The data set contains ten days of `states`… we'll leave analyzing pre-aggregated data for another time.
 
@@ -70,7 +70,7 @@ As a vague rule of thumb, it's best to size your time partitions so that the act
 
 ## Enabling Time-Series and Loading Data
 
-At this point we're good to tell timeseries about our partition sizes and to load the data set. We'll start by creating enough partitions to cover the date range of our data…
+At this point we're good to tell timeseries about our partition sizes and to load the data set. We'll start by creating enough partitions to cover the date range of our data using the convenience function provided by [`pg_timeseries`](https://github.com/tembo-io/pg_timeseries/)…
 ```sql
 SELECT enable_ts_table('states_ts', '1 hour', initial_table_start => '2024-05-12');
 ```
@@ -85,7 +85,7 @@ SELECT enable_ts_table('states_ts', '1 hour', initial_table_start => '2024-05-12
 
 Our `states` table only carries ten days of data, max, before rows are rolled up into hourly rows for statistics. Wouldn't it be nice if PostgreSQL could stay on top of this rule for us?
 
-The Time Series Stack is designed to do just that! If you imagine your partitions as being created at the present moment and then shifting leftward as they "age", the principle is pretty easy to understand. At a given offset from `now`, `timeseries` can take certain actions. At the moment, these actions are "compress" or "drop" (retention policy). You can imagine partitions "aging out" by shifting away from "now" until they hit their policy (such as the "drop" policy depicted below):
+The Time Series Stack is designed to do just that! If you imagine your partitions as being created at the present moment and then shifting leftward as they "age", the principle is pretty easy to understand. At a given offset from `now`, [`pg_timeseries`](https://github.com/tembo-io/pg_timeseries/) can take certain actions. At the moment, these actions are "compress" or "drop" (retention policy). You can imagine partitions "aging out" by shifting away from "now" until they hit their policy (such as the "drop" policy depicted below):
 
 ![Partitions aging until they drop into a trash can](./retention-policies.png)
 
@@ -426,6 +426,6 @@ Using `LEAD`—and its corresponding function `LAG`—can be syntactically chall
 
 ## Wrap-Up
 
-If you've made it to this point, I hope you can see the potential uses of Tembo's Time Series Stack and its corresponding extension. We started with an unknown time-series data set, created a Time Series Stack, set it up for use with an existing application, and wrote several queries to reach important conclusions from our data.
+If you've made it to this point, I hope you can see the potential uses of Tembo's Time Series Stack and [its corresponding extension](https://github.com/tembo-io/pg_timeseries). We started with an unknown time-series data set, created a Time Series Stack, set it up for use with an existing application, and wrote several queries to reach important conclusions from our data.
 
 The [Tembo Time Series stack](/docs/product/stacks/analytical/timeseries) is under active development and we are always looking for the next feature that will help our users most. Keep an eye on this space to make sure you're the first to know about what's added next!
