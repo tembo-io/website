@@ -7,8 +7,11 @@ import Container from '../../components/Container';
 import BackButton from '../../components/BackButton.astro';
 
 import { Image } from 'astro:assets';
-import SocialShareButtonsDesktop from '../../components/SocialShareButtonsDesktop.astro';
 import ArchLogo from 'src/images/arch-logo-hero.svg';
+import ArchTembo from 'src/images/arch-tembo.png';
+import Vector from 'src/images/tembo_vector.png';
+import Tag from '@components/Tag.astro';
+import JoinTemboCTA from '@components/JoinTemboCTA.astro';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -25,9 +28,18 @@ const currentPath = Astro.url.pathname;
 						<BackButton />
 						<div class='flex flex-col gap-6'>
 							<div>
-								<p class='text-white mt-4'>
-									Sept 19, 2023 • 5 Min Read
-								</p>
+								<div class='flex flex-col lg:flex-row gap-4'>
+									<Tag
+										title='Arch Customer Story'
+										tagStyles='border-otherGrey2 bg-mwasi'
+									/>
+									<p
+										class='text-white font-secondary my-auto'
+									>
+										Sept 19, 2023 • 5 Min Read
+									</p>
+								</div>
+
 								<h1
 									class='text-white font-extrabold text-3xl lg:text-4xl xl:text-5xl z-10 max-w-[600px] my-4'
 								>
@@ -49,60 +61,222 @@ const currentPath = Astro.url.pathname;
 						class='flex rounded-2xl w-full max-h-[400px] min-[1200px]:w-[650px] min-[1200px]:max-h-[300px]'
 					/>
 				</div>
-				<div
-					class='mt-12 mobile:mt-36 mobile:flex mobile:justify-between w-full'
-				>
-					<div id='tembo-customer' class='m-0 mobile:mr-12'></div>
-					<div class='hidden mobile:flex flex-col'>
-						<div
-							class='flex flex-wrap gap-4 items-start max-w-[180px]'
-						>
-						</div>
-						<div
-							class='flex flex-col w-max items-start mobile:sticky mobile:top-[100px]'
-						>
-							<p
-								class='font-white font-secondary text-sm font-semibold'
-							>
-								Arch
-							</p>
-							<a
-								href='https://arch.dev/'
-								class='bg-gradient-button text-transparent text-sm font-secondary'
-								style='background-clip: text; 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent;'
-								>arch.dev</a
-							>
-							<hr
-								class='my-4 w-full bg-otherGrey2 border-0 h-[1px]'
-							/>
-							<p
-								class='font-white font-secondary text-sm font-semibold'
-							>
-								Founded
-							</p>
-							<hr
-								class='my-4 w-full bg-otherGrey2 border-0 h-[1px]'
-							/>
-							<p
-								class='font-white font-secondary text-sm font-semibold'
-							>
-								Investors
-							</p>
-							<hr
-								class='my-4 w-full bg-otherGrey2 border-0 h-[1px]'
-							/>
-							<p
-								class='font-white font-secondary text-sm font-semibold'
-							>
-								Building with Tembo since
-							</p>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
+		<section>
+			<div
+				class='mt-40 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						About Arch
+					</div>
+					<p class='text-base font-secondary text-grey font-normal'>
+						Arch empowers data teams, consultancies, and anyone
+						needing data solutions—from ELT to
+						visualizations—without the time, expertise, or budget
+						for a dedicated team. Evolving from Meltano, an
+						open-source project spun out of GitLab, Arch provides a
+						complete data platform launched in October 2023. This
+						shift coincided with our decision to choose Tembo as our
+						data warehouse provider.
+					</p>
+				</div>
+			</div>
+			<div
+				class='mt-14 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						Why Arch Chose Tembo Tembo Simplifies Database
+						Operations for Arch
+					</div>
+					<p class='text-base font-secondary text-grey font-normal'>
+						We opted for Postgres as our database foundation due to
+						its robust support for data loading, transformation
+						tools like dbt and cube, and seamless integration with
+						various BI tools. Postgres excels in the data ecosystem,
+						allowing users with SQL skills to leverage existing
+						knowledge.
+					</p>
+				</div>
+			</div>
+			<Image
+				src={ArchTembo}
+				alt='arrow connecting arch and tembo logos'
+				class='mt-14'
+			/>
+			<div
+				class='mt-14 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						Choosing the Right Database for Arch’s Analytics
+						Platform
+					</div>
+					<p class='text-base font-secondary text-grey font-normal'>
+						Arch empowers data teams, consultancies, and anyone
+						needing analytical data solutions—from ELT to
+						visualizations—without the time, expertise, or budget
+						for a dedicated team. To power this ambitious vision,
+						they needed a database that would support connectivity
+						to various tools, allowing <b
+							>easy provisioning of a fleet of instances</b
+						> and <b>support for diverse use cases</b> and data needs
+						on their platform. With limited internal database expertise,
+						whatever database solution they chose needed to allow them
+						to power a variety of use cases while “outsourcing” database
+						expertise (tuning, alerts, etc.) to their database provider.
+					</p>
+				</div>
+			</div>
+
+			<div
+				class='mt-14 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						Tembo Simplifies Database Operations on Postgres
+					</div>
+					<p class='text-base font-secondary text-grey font-normal'>
+						Postgres was a natural choice as the database foundation
+						for Arch’s developers due to its support for a variety
+						of use cases and integration with data-loading
+						transformation tools like dbt and Cube and visualization
+						tools. Postgres also excels in the data ecosystem,
+						allowing users who want direct query access to use all
+						of their existing skills. For internal applications,
+						Arch considered NoSQL for rapid development; however,
+						PostgreSQL offered the flexibility and power required
+						for all their use cases. Tembo's API-driven approach,
+						with individual instance customization and access via
+						REST API, allows for effortless scaling without manual
+						configuration. This ensures each customer receives a
+						pre-configured and tuned Tembo instance (i.e. stack),
+						avoiding delays and errors during implementation.
+					</p>
+				</div>
+			</div>
+			<div
+				class='mt-14 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						Tembo’s Data Warehouse Stack: Rapid Iteration and
+						Efficient Setup
+					</div>
+					<p class='text-base font-secondary text-grey font-normal'>
+						Predictable billing is crucial for a software-focused
+						company like Arch. The Tembo platform provides a
+						cost-effective and manageable alternative to providers
+						such as Amazon RDS and Snowflake, helping Arch avoid the
+						high costs of alternative data warehouse providers.
+						Arch’s product requires spinning up data warehouses of
+						all sizes for their customers. Tembo gives Arch a
+						variety of instance sizes they can deploy instantly,
+						which gives them predictability and flexibility, to
+						upgrade and downgrade as needed. For advanced use cases
+						and larger customers, Arch can leverage Tembo's data
+						warehouse stack for optimized columnar storage without
+						needing to change their database provider or introduce
+						an “overkill” tool like Snowflake into their
+						architecture.
+					</p>
+				</div>
+			</div>
+			<Image
+				src={Vector}
+				alt='vector image'
+				width={808}
+				height={319}
+				class='mt-14'
+			/>
+			<div
+				class='mt-14 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						Arch + Tembo: Streamlined Cost-effective Workflow
+					</div>
+					<p class='text-base font-secondary text-grey font-normal'>
+						Tembo allows Arch to easily spin up a fleet of databases
+						of any size, in less than 2 minutes, eliminating the
+						need for frequent re-platforming as different customers
+						have different needs. Additionally, Tembo streamlines
+						operations and keeps costs down by avoiding the need for
+						specialized expertise for each data platform. Arch has
+						used both Terraform and the Tembo API for fast
+						programmatic provisioning and has now built a custom API
+						client based on Tembo's open API specifications. Once
+						onboarded, each Arch customer receives a Tembo instance
+						(or set of instances) tailored to their specific needs.
+						Customers often transition their proof-of-value
+						instances to production after contracting. Arch also
+						offers dedicated development instances for specific
+						customer requirements.
+					</p>
+				</div>
+			</div>
+			<div
+				class='mt-14 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						Conclusion: A Strong Foundation
+					</div>
+					<p class='text-base font-secondary text-grey font-normal'>
+						Tembo has been instrumental in building our platform. An
+						ideal database operates quietly and efficiently,
+						handling complex tasks without constant intervention.
+						While no database achieves absolute perfection, Tembo
+						comes remarkably close.  Through its robust
+						functionality and ease of use, Tembo empowers Arch to
+						deliver exceptional value to our customers.
+					</p>
+				</div>
+			</div>
+			<div
+				class='mt-14 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						About Tembo
+					</div>
+					<p
+						class='text-base font-secondary text-grey font-normal pb-14'
+					>
+						Tembo provides a Postgres managed service that enables
+						organizations to harness the full power of the popular
+						open-source database Postgres for transactional,
+						analytical and AI workloads across any cloud, anywhere.
+						The company enables organizations, from Fortune 500 to
+						startups, to feel confident going “all in” on Postgres,
+						achieving unprecedented stability and efficiency across
+						various applications and use cases. With Tembo,
+						customers get the open-source reliability and
+						extensibility of Postgres with enhanced observability,
+						compliance, and developer experience.
+					</p>
+				</div>
+			</div>
+		</section>
+		<JoinTemboCTA />
 	</Container>
 	<div class='relative bg-offBlack'>
 		<div

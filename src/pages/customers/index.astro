@@ -19,11 +19,6 @@ const currentPath = Astro.url.pathname;
 			class='flex flex-col w-full items-center justify-center mt-[180px]'
 		>
 			<div
-				class='flex items-center justify-center text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
-			>
-				Customers
-			</div>
-			<div
 				class='text-white font-bold tracking-[0.47px] text-[44px] lg:text-[68px] leading-tight mb-10 w-full text-center'
 			>
 				Tembo Customer Stories
@@ -36,19 +31,25 @@ const currentPath = Astro.url.pathname;
 		</section>
 		<section>
 			<div
+				class='text-white font-bold tracking-[0.47px] text-[28px] lg:text-[32px] mb-6 text-center lg:text-left'
+			>
+				Read More
+			</div>
+			<div
 				class='mb-[100px] grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-10'
 			>
-				<a class='flex flex-col' href='/customers/arch'>
-					<div class='rounded-2xl'>
+				<a
+					class='flex flex-col bg-mwasi px-6 pb-8 pt-6 rounded-2xl'
+					href='/customers/arch'
+				>
+					<div class='w-[541px] h-[277px] rounded-2xl'>
 						<Image
 							src={ArchLogo}
 							alt='arch company logo'
-							class='w-full'
+							class='w-full h-full'
 						/>
 					</div>
-					<div
-						class='flex flex-col bg-mwasi px-4 pb-8 pt-4 rounded-b-2xl'
-					>
+					<div class='flex flex-col'>
 						<h4
 							class='text-white font-secondary font-bold text-base'
 						>
@@ -59,15 +60,18 @@ const currentPath = Astro.url.pathname;
 						</p>
 					</div>
 				</a>
-				<a class='flex flex-col' href='/customers/schoolai'>
-					<div class='rounded-2xl'>
+				<a
+					class='flex flex-col bg-mwasi px-6 pb-8 pt-6 rounded-2xl'
+					href='/customers/schoolai'
+				>
+					<div class='w-[541px] h-[277px] rounded-2xl'>
 						<Image
 							src={SchoolAILogo}
 							alt='schoolai company logo'
-							class='w-full'
+							class='w-full h-full'
 						/>
 					</div>
-					<div class='bg-mwasi px-4 pb-8 pt-4 rounded-b-2xl'>
+					<div class='flex flex-col'>
 						<h4
 							class='text-white font-secondary font-bold text-base'
 						>

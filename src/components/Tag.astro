@@ -1,11 +1,18 @@
 ---
 import { styles } from '../util';
+import cx from 'classnames';
 interface Props {
 	title: string;
 	classNames?: string;
 	isLink?: boolean;
+	tagStyles?: string;
 }
-const { title, classNames, isLink = true } = Astro.props;
+const {
+	title,
+	classNames,
+	isLink = true,
+	tagStyles = 'border-salmon text-lightSalmon bg-salmon',
+} = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -29,7 +36,12 @@ const currentPath = Astro.url.pathname;
 			<span>{title}</span>
 		</a>
 	) : (
-		<span class='flex items-center justify-center border rounded-full px-4 py-3 text-xs h-[30px] border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10'>
+		<span
+			class={cx(
+				'flex items-center justify-center border rounded-full px-4 py-3 text-xs h-[30px] font-semibold bg-opacity-10',
+				tagStyles,
+			)}
+		>
 			{title}
 		</span>
 	)
