@@ -86,7 +86,12 @@ const NavMenu: FC<Props> = ({
 							<ul className='w-full'>
 								{options.map((option) => {
 									return (
-										<li className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'>
+										<li
+											className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'
+											onClick={() =>
+												navigate(option.link)
+											}
+										>
 											<NavigationMenu.Link
 												className='font-secondary font-normal text-sm text-offWhite w-full'
 												href={option.link}
