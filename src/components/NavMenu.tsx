@@ -49,11 +49,6 @@ const NavMenu: FC<Props> = ({
 					key={id}
 					onMouseEnter={() => handleMouseEnter(id)}
 					onMouseLeave={handleMouseLeave}
-					onClick={
-						selectedPageDisplayName === 'Customers'
-							? () => navigate('/customers')
-							: undefined
-					}
 				>
 					<NavigationMenu.Trigger
 						className={cx(
@@ -62,6 +57,11 @@ const NavMenu: FC<Props> = ({
 								? 'text-neon'
 								: 'text-white opacity-70',
 						)}
+						onClick={
+							selectedPageDisplayName === 'Customers'
+								? () => navigate('/customers')
+								: undefined
+						}
 					>
 						{selectedPageDisplayName}
 
