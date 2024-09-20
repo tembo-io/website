@@ -62,42 +62,12 @@ const MobileMenu = () => {
 							) : null}
 						</ul>
 						<img src={'/line.svg'} alt='line' />
-						<ul className='flex flex-col'>
-							<button
-								className='flex flex-start gap-2 font-secondary font-normal text-white text-[16px]'
-								onClick={() => {
-									setIsCustomersMenuOpen(
-										(prevState) => !prevState,
-									);
-								}}
-							>
-								Customers
-								{isCustomersMenuOpen ? (
-									<img
-										src='/arrow-up.svg'
-										alt='arrow up symbol'
-									/>
-								) : (
-									<img
-										src='/arrow-down.svg'
-										alt='arrow down symbol'
-									/>
-								)}
-							</button>
-							{isCustomersMenuOpen ? (
-								<div>
-									<li className='pl-3 m-4'>
-										<a href='/customers/arch'>Arch</a>
-									</li>
-									<li className='pl-3 m-4'>
-										<a href='/customers/schoolai'>
-											SchoolAI
-										</a>
-									</li>
-								</div>
-							) : null}
-						</ul>
-
+						<a
+							href='/customers'
+							className='font-secondary font-normal z-10 text-white text-[16px]'
+						>
+							Customers
+						</a>
 						<img src={'/line.svg'} alt='line' />
 						<a
 							href='/pricing'
