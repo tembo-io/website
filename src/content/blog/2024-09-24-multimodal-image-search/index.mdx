@@ -38,16 +38,16 @@ For this example, we'll use one of OpenAI's open source [CLIP](https://huggingfa
 
 ### Setup
 
-All the code in this blog is available in a notebook in the [Tembo Github repository](https://github.com/tembo-io/tembo/blob/main/examples/image-search/demo.ipynb).
+All the code in this blog is available in a notebook in the [Tembo Github repository](https://github.com/tembo-io/tembo-labs/blob/main/image-search/demo.ipynb).
  We'll run through some snippets of that notebook code in this blog, but the easiest way to follow along is to run Postgres and the accompanying Jupyter notebook on your machine.
 
 ```bash
-git clone https://github.com/tembo-io/tembo.git
+git clone https://github.com/tembo-io/tembo-labs.git
 
 cd examples/image-search
 ```
 
-Refer to the setup instructions in the project [README](https://github.com/tembo-io/tembo/blob/main/examples/image-search/README.md) and follow the [notebook](https://github.com/tembo-io/tembo/blob/main/examples/image-search/demo.ipynb).
+Refer to the setup instructions in the project [README](https://github.com/tembo-io/tembo-labs/blob/main/image-search/README.md) and follow the [notebook](https://github.com/tembo-io/tembo-labs/blob/main/image-search/demo.ipynb).
 
 ## Loading Postgres with Image Embeddings
 
@@ -290,7 +290,7 @@ Products `B086QB7WZ1` and `B00FRSYS12` are the top two most similar images to th
 ## Multi-Modal Search on Postgres
 
 We've shown conceptually how to build a multi-modal search engine on Postgres.
- As a reminder, of the code in this blog is available in [Tembo Github repository](https://github.com/tembo-io/tembo/blob/main/examples/image-search/demo.ipynb).
+ As a reminder, of the code in this blog is available in [Tembo Github repository](https://github.com/tembo-io/tembo-labs/blob/main/image-search/demo.ipynb).
  We used the CLIP model to generate embeddings for both images and text, then stored those embeddings in Postgres.
  We used the `pgvector` extension to conduct similarity searches on these embeddings.
  This is a powerful tool for building search engines that can accept both text and image queries.
