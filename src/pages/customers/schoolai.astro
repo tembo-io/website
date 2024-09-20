@@ -28,9 +28,17 @@ const currentPath = Astro.url.pathname;
 						<BackButton />
 						<div class='flex flex-col gap-6'>
 							<div>
-								<p class='text-white mt-4'>
-									Sept 19, 2023 • 5 Min Read
-								</p>
+								<div class='flex flex-col lg:flex-row gap-4'>
+									<Tag
+										title='SchoolAI Customer Story'
+										tagStyles='border-otherGrey2 bg-mwasi'
+									/>
+									<p
+										class='text-white font-secondary my-auto'
+									>
+										Sept 19, 2023 • 5 Min Read
+									</p>
+								</div>
 								<h1
 									class='text-white font-extrabold text-3xl lg:text-4xl xl:text-5xl z-10 max-w-[600px] my-4'
 								>
