@@ -1,0 +1,348 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer.astro';
+
+import Container from '../../components/Container';
+import BackButton from '../../components/BackButton.astro';
+
+import { Image } from 'astro:assets';
+import SchoolAILogo from 'src/images/schoolai-hero-logo.svg';
+import JoinTemboCTA from '@components/JoinTemboCTA.astro';
+import SchoolAITembo from 'src/images/schoolai-tembo.png';
+import Vector from 'src/images/tembo_vector.png';
+import Tag from '@components/Tag.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title='School AI | Tembo' htmlClasses='scroll-pt-[120px]'>
+	<NavBar client:load currentPage={currentPath} />
+	<Container styles='pb-10 w-full'>
+		<div class='mt-[120px] mobile:mt-[180px] w-full relative'>
+			<div class='flex flex-col w-full'>
+				<div
+					class='flex flex-col min-[1200px]:flex-row items-start justify-between w-full gap-8'
+				>
+					<header class='flex flex-col gap-8'>
+						<BackButton />
+						<div class='flex flex-col gap-6'>
+							<div>
+								<div class='flex flex-col lg:flex-row gap-4'>
+									<Tag
+										title='SchoolAI Customer Story'
+										tagStyles='border-offGrey bg-mwasiOpaque text-grey text-xs font-secondary font-medium'
+										isLink={false}
+									/>
+									<p
+										class='text-white font-secondary my-auto'
+									>
+										Sept 19, 2024 • 5 Min Read
+									</p>
+								</div>
+								<h1
+									class='text-white font-extrabold text-3xl lg:text-4xl xl:text-5xl z-10 max-w-[600px] my-4'
+								>
+									SchoolAI's Success with Tembo
+								</h1>
+								<p
+									class='text-xl font-secondary text-grey font-normal'
+								>
+									How Tembo Helped SchoolAI
+								</p>
+							</div>
+						</div>
+					</header>
+
+					<Image
+						src={SchoolAILogo}
+						alt='blog post hero image'
+						class='flex rounded-2xl w-full max-h-[400px] min-[1200px]:w-[650px] min-[1200px]:max-h-[300px]'
+					/>
+				</div>
+			</div>
+		</div>
+		<section>
+			<div
+				class='mt-40 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						SchoolAI’s Database Management Challenges
+					</div>
+					<p class='text-base font-secondary text-grey font-normal'>
+						SchoolAI wants to build a future where every student's
+						learning journey is as unique as they are. Designed for
+						K12 students with built-in monitoring and controls for
+						teachers, more than 12,000 teachers across 1,500
+						districts nationwide have adopted SchoolAI. The platform
+						offers AI tutors, interactive games, simulations,
+						well-being check-ins, a library of grade and
+						subject-specific activities, and dashboards offering
+						real-time feedback and moderation. <br />
+						<br />
+						Due to ElephantSQL closing its doors, SchoolAI found themselves
+						shopping for a database provider, specifically one that was
+						well integrated with Pgvector. They were looking for a reliable
+						database service and were attracted to the Postgres offerings
+						that Tembo provides. SchoolAI initially started exploring
+						Tembo’s capabilities in late February of 2024 and were impressed
+						by the product and the level of help they received while
+						exploring possibilities. By early March, they decided to
+						fully migrate their databaseTembo for all their PostgreSQL
+						needs.
+					</p>
+				</div>
+			</div>
+			<Image
+				src={SchoolAITembo}
+				alt='arrow connecting arch and tembo logos'
+				class='mt-14'
+			/>
+			<div
+				class='mt-14 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						How Tembo Simplifies SchoolAI’s Stack
+					</div>
+					<p class='text-base font-secondary text-grey font-normal'>
+						SchoolAI considers themselves a strong advocate for
+						simplifying the data stack and using Postgres for
+						hosting critical services wherever possible. So far,
+						they have implemented pgvector and pg_trgm extensions
+						for RAG-based documents and website search. While they
+						have yet to leverage some of the advanced features of
+						Tembo, such as pgvectorize, they are excited to continue
+						moving forward with this strategic partnership and
+						exploring more Tembo products for future integrations.
+					</p>
+				</div>
+			</div>
+			<div
+				class='flex align-center justify-center flex-col md:flex-col lg:flex-row rounded-3xl border border-otherGrey2 bg-mwasi p-4 w-full lg:w-9/12 mt-14'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='flex text-center text-white font-normal font-secondary italic tracking-[0.47px] text-sm mb-6'
+					>
+						“We’re very Open-AI dependent right now, and slowly
+						making our way towards more optionality. One of the
+						reasons Tembo appeals here is that we can build some of
+						our in-house services in a way that takes advantage of
+						lower-cost LLMs – for example, using latest mxbai or
+						nomic embeddings at ollama.com or RAG.”
+					</div>
+					<div class='flex flex-col text-center'>
+						<p
+							class='text-white font-medium font-secondary text-sm'
+						>
+							Duane Johnson
+						</p>
+						<p
+							class='text-lightGrey font-normal font-secondary text-xs'
+						>
+							Senior Software Engineer, SchoolAI
+						</p>
+					</div>
+				</div>
+			</div>
+			<div
+				class='mt-14 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						Results and Benefits
+					</div>
+					<p class='text-base font-secondary text-grey font-normal'>
+						SchoolAI has been impressed with the reliability of the
+						service and the level and promptness of assistance
+						provided by Tembo. For instance, when they required a
+						read-only replica, Tembo delivered it within days.
+						Furthermore, another example of Tembo's exceptional
+						support was when the Tembo support team identified and
+						resolved a barrier SchoolAI had with Posthog. By
+						submitting a PR to Posthog's open-source repository,
+						Tembo’s team ensured that all SNI users, including
+						Tembo's, benefited from the fix.
+					</p>
+				</div>
+			</div>
+			<div
+				class='flex align-center justify-center flex-col md:flex-col lg:flex-row rounded-3xl border border-otherGrey2 bg-mwasi p-4 w-full lg:w-9/12 mt-14'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='flex text-center text-white font-normal font-secondary italic tracking-[0.47px] text-sm mb-6'
+					>
+						“We're very happy with Tembo’s reliability. When our
+						service had a small outage (of our own making) the Tembo
+						team reached out to report what they were seeing and
+						offer support without having to pick up the phone. I've
+						also seen the team proactively report outages that
+						haven't affected us. That just reassures me, all the
+						more, that Tembo's priorities align with our highest
+						priority: uptime for our production service.”
+					</div>
+					<div class='flex flex-col text-center'>
+						<p
+							class='text-white font-medium font-secondary text-sm'
+						>
+							Duane Johnson
+						</p>
+						<p
+							class='text-lightGrey font-normal font-secondary text-xs'
+						>
+							Senior Software Engineer, SchoolAI
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class='mt-14 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						Outcomes
+					</div>
+					<p class='text-base font-secondary text-grey font-normal'>
+						Postgres was a natural choice as the database foundation
+						for Arch’s developers due to its support for a variety
+						of use cases and integration with data-loading
+						transformation tools like dbt and Cube and visualization
+						tools. Postgres also excels in the data ecosystem,
+						allowing users who want direct query access to use all
+						of their existing skills. For internal applications,
+						Arch considered NoSQL for rapid development; however,
+						PostgreSQL offered the flexibility and power required
+						for all their use cases. Tembo's API-driven approach,
+						with individual instance customization and access via
+						REST API, allows for effortless scaling without manual
+						configuration. This ensures each customer receives a
+						pre-configured and tuned Tembo instance (i.e. stack),
+						avoiding delays and errors during implementation.
+					</p>
+				</div>
+			</div>
+
+			<div
+				class='flex align-center justify-center flex-col md:flex-col lg:flex-row rounded-3xl border border-otherGrey2 bg-mwasi p-4 w-full lg:w-9/12 mt-14'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='flex text-center text-white font-normal font-secondary italic tracking-[0.47px] text-sm mb-6'
+					>
+						“Easily being able to spin up point in time copies of
+						our database has given us confidence in another
+						direction - when bringing contractors on, for example,
+						we spun up a 300 GB instance for their private use. I’ve
+						also explored several naming schemes, tmp databases, and
+						test databases. The ease of use here makes it feel like
+						a database can be as ephemeral or permanent as we need.”
+					</div>
+					<div class='flex flex-col text-center'>
+						<p
+							class='text-white font-medium font-secondary text-sm'
+						>
+							Duane Johnson
+						</p>
+						<p
+							class='text-lightGrey font-normal font-secondary text-xs'
+						>
+							Senior Software Engineer, SchoolAI
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class='mt-14 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						Future Plans
+					</div>
+					<p class='text-base font-secondary text-grey font-normal'>
+						SchoolAI is experiencing solid growth, with data
+						increasing by approximately 1 GB per day. They’ve
+						recently increased their storage and compute to
+						accommodate this growth. Moving forward, SchoolAI aims
+						to better leverage Tembo-specific value propositions in
+						AI and other services.
+					</p>
+				</div>
+			</div>
+			<Image
+				src={Vector}
+				alt='vector image'
+				width={808}
+				height={319}
+				class='mt-14'
+			/>
+			<div
+				class='mt-14 w-full lg:w-9/12 flex flex-col md:flex-col lg:flex-row'
+			>
+				<div class='flex flex-col'>
+					<div
+						class='text-white font-secondary font-semibold leading-10 text-[24px] pb-4'
+					>
+						Conclusion
+					</div>
+					<p
+						class='text-base font-secondary text-grey font-normal pb-14'
+					>
+						SchoolAI's journey with Tembo has been marked by
+						reliability, proactive support, and expert assistance.
+						As they continue to grow and explore new possibilities,
+						Tembo remains a trusted partner in their database
+						management needs. With a few improvements and continued
+						collaboration, SchoolAI looks forward to unlocking even
+						more potential with Tembo.
+					</p>
+				</div>
+			</div>
+		</section>
+		<JoinTemboCTA />
+	</Container>
+	<div class='relative bg-offBlack'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
+		</div>
+		<Container>
+			<div class='mt-16 mobile:mt-24'>
+				<Footer />
+			</div>
+		</Container>
+	</div>
+</Layout>
+
+<style is:global>
+	@media screen and (max-width: 500px) {
+		.tembo-blog-post-content tr {
+			display: grid !important;
+		}
+	}
+</style>
+<script>
+	const buttons = document.querySelectorAll('button.blogGoBack');
+
+	buttons.forEach((button) => {
+		button.addEventListener('click', () => {
+			!document.referrer.includes('tembo.io')
+				? (window.location.href = '/customers')
+				: window.history.back();
+		});
+	});
+</script>

@@ -1,0 +1,75 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar';
+import Container from '../../components/Container';
+import Footer from '../../components/Footer.astro';
+import { Image } from 'astro:assets';
+import ElephantCaseStudy from 'src/images/elephant-customer-stories.svg';
+import JoinTemboCTA from '../../components/JoinTemboCTA.astro';
+import SchoolAILogo from 'src/images/schoolai-logo.svg';
+import ArchLogo from 'src/images/arch-logo.svg';
+
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title='Customers | Tembo'>
+	<NavBar client:load currentPage={currentPath} />
+	<Container styles='relative'>
+		<section
+			class='flex flex-col w-full items-center justify-center mt-[180px]'
+		>
+			<div
+				class='text-white font-bold tracking-[0.47px] text-[44px] lg:text-[68px] leading-tight mb-10 w-full text-center'
+			>
+				Tembo Customer Stories
+			</div>
+			<Image
+				class='mb-[200px]'
+				src={ElephantCaseStudy}
+				alt='elephant looking at cellphone'
+			/>
+		</section>
+		<section>
+			<div
+				class='text-white font-bold tracking-[0.47px] text-[28px] lg:text-[32px] mb-6 text-center lg:text-left'
+			>
+				Read More
+			</div>
+			<div
+				class='mb-[100px] grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-10'
+			>
+				<a
+					class='flex flex-col bg-mwasi px-6 pb-8 pt-6 rounded-2xl'
+					href='/customers/arch'
+				>
+					<div class='lg:max-w-[541px] lg:max-h-[277px] rounded-2xl'>
+						<Image
+							src={ArchLogo}
+							alt='arch company logo'
+							class='w-full h-full'
+						/>
+					</div>
+				</a>
+				<a
+					class='flex flex-col bg-mwasi px-6 pb-8 pt-6 rounded-2xl'
+					href='/customers/schoolai'
+				>
+					<div class='lg:max-w-[541px] lg:max-h-[277px] rounded-2xl'>
+						<Image
+							src={SchoolAILogo}
+							alt='schoolai company logo'
+							class='w-full h-full object-cover'
+						/>
+					</div>
+				</a>
+			</div>
+		</section>
+
+		<JoinTemboCTA />
+	</Container>
+	<Container>
+		<div class='mt-16 mobile:mt-24'>
+			<Footer />
+		</div>
+	</Container>
+</Layout>

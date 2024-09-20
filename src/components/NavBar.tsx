@@ -5,7 +5,7 @@ import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import ClerkProviderWithButton from './ClerkButton';
-import SolutionsNav from './SolutionsNav';
+import NavMenu from './NavMenu';
 
 interface Props {
 	currentPage: string;
@@ -26,6 +26,29 @@ const NavBar: React.FC<Props> = ({
 		setIsScreenGreaterThanOrEqualTo900px,
 	] = useState(false);
 
+	const solutionsOptions = [
+		{
+			displayName: 'Tembo Transactional',
+			link: '/solutions/transactional',
+		},
+		{
+			displayName: 'Tembo AI',
+			link: '/solutions/ai',
+		},
+		{
+			displayName: 'Tembo Buildcamp',
+			link: '/solutions/buildcamp',
+		},
+		{
+			displayName: 'For Enterprises',
+			link: '/solutions/for-enterprises',
+		},
+		{
+			displayName: 'For Startups',
+			link: '/solutions/for-startups',
+		},
+	];
+
 	const variants = {
 		open: {
 			opacity: 1,
@@ -37,9 +60,6 @@ const NavBar: React.FC<Props> = ({
 		closed: { opacity: 0 },
 	};
 
-	const [isOpen, setIsOpen] = useState(false);
-	const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-
 	const getButtonStyles = () => {
 		if (currentPage.includes('/solutions/transactional')) {
 			return 'bg-sqlBlue';
@@ -48,21 +68,6 @@ const NavBar: React.FC<Props> = ({
 		}
 
 		return 'bg-neon hover:bg-[#D1E278]';
-	};
-
-	const handleMouseEnter = () => {
-		if (closeTimeoutRef.current) {
-			clearTimeout(closeTimeoutRef.current);
-			closeTimeoutRef.current = null;
-		}
-		setIsOpen(true);
-	};
-
-	const handleMouseLeave = () => {
-		// Set a delay before closing the menu
-		closeTimeoutRef.current = setTimeout(() => {
-			setIsOpen(false);
-		}, 300); // 300ms delay before closing
 	};
 
 	useEffect(() => {
@@ -120,9 +125,7 @@ const NavBar: React.FC<Props> = ({
 					<div
 						className={`flex items-center text-[12px] min-[400px]:text-sm justify-center gap-2 news-banner-container top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-[20px] mobile:px-[95px] py-3.5 sm:py-2.5 z-50`}
 					>
-						<span className='truncate'>
-							Introducing Tembo AI
-						</span>
+						<span className='truncate'>Introducing Tembo AI</span>
 						<span className='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text font-semibold text-sm whitespace-nowrap'>
 							Read more
 						</span>
@@ -142,27 +145,29 @@ const NavBar: React.FC<Props> = ({
 				>
 					<Logo />
 					<div className='mid:flex hidden items-center gap-12 m-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
+						<div className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'>
+							<NavMenu
+								id={1}
+								currentPage={currentPage}
+								selectedPage='/solutions'
+								selectedPageDisplayName='Solutions'
+								options={solutionsOptions}
+							/>
+						</div>
 						<a
-							href='/'
+							href='/customers'
 							className={cx(
 								'font-secondary font-medium z-10',
-								currentPage == '/'
+								currentPage == '/customers' ||
+									currentPage == '/customers/'
 									? 'text-neon'
 									: 'text-white opacity-70',
 							)}
+							target='_blank'
+							rel='noreferrer'
 						>
-							Home
+							Customers
 						</a>
-						<div
-							className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'
-							onMouseEnter={handleMouseEnter}
-							onMouseLeave={handleMouseLeave}
-						>
-							<SolutionsNav
-								isOpen={isOpen}
-								currentPage={currentPage}
-							/>
-						</div>
 						<a
 							href='/pricing'
 							className={cx(
