@@ -49,11 +49,6 @@ const NavBar: React.FC<Props> = ({
 		},
 	];
 
-	const customerOptions = [
-		{ displayName: 'Arch', link: '/customers/arch' },
-		{ displayName: 'SchoolAI', link: '/customers/schoolai' },
-	];
-
 	const variants = {
 		open: {
 			opacity: 1,
@@ -159,15 +154,20 @@ const NavBar: React.FC<Props> = ({
 								options={solutionsOptions}
 							/>
 						</div>
-						<div className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'>
-							<NavMenu
-								id={2}
-								currentPage={currentPage}
-								selectedPage='/customers'
-								selectedPageDisplayName='Customers'
-								options={customerOptions}
-							/>
-						</div>
+						<a
+							href='/customers'
+							className={cx(
+								'font-secondary font-medium z-10',
+								currentPage == '/customers' ||
+									currentPage == '/customers/'
+									? 'text-neon'
+									: 'text-white opacity-70',
+							)}
+							target='_blank'
+							rel='noreferrer'
+						>
+							Customers
+						</a>
 						<a
 							href='/pricing'
 							className={cx(
