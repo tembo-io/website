@@ -52,6 +52,7 @@ export default {
 				lightSalmon: '#FF999A',
 				mwasi: '#1C1C1C',
 				lightMwasi: '#161616',
+				mwasiOpaque: '#1c1c1ccc',
 				customDarkGrey: '#414141',
 				customDarkerGrey: '#2D2D2D',
 				semiGrey: '#3E4243',
