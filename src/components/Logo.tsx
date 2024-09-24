@@ -9,12 +9,7 @@ const Logo = () => {
 			<img
 				src='/logoWithText.svg'
 				alt='tembo logo'
-				className='w-[105px] mobile:w-[124px]'
-			/>
-			<img
-				src='/trademark.svg'
-				alt='trademark'
-				className='mt-5 lg:mt-6 h-[5px] w-[7px]'
+				className='w-[105px] mobile:w-[130px]'
 			/>
 		</a>
 	);
