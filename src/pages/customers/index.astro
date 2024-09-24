@@ -67,9 +67,15 @@ const currentPath = Astro.url.pathname;
 
 		<JoinTemboCTA />
 	</Container>
-	<Container>
-		<div class='mt-16 mobile:mt-24'>
-			<Footer />
+	<div class='relative'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
 		</div>
-	</Container>
+		<Container>
+			<div class='mt-16 mobile:mt-24'>
+				<Footer />
+			</div>
+		</Container>
+	</div>
 </Layout>
