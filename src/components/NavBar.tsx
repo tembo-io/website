@@ -64,9 +64,9 @@ const NavBar: React.FC<Props> = ({
 	};
 
 	const getButtonStyles = () => {
-		if (currentPage.includes('/solutions/transactional')) {
+		if (currentPage.includes('/platform/online-transactional-processing')) {
 			return 'bg-sqlBlue';
-		} else if (currentPage.includes('/solutions/ai')) {
+		} else if (currentPage.includes('/platform/ai')) {
 			return 'bg-sqlPink';
 		}
 
