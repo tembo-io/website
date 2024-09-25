@@ -98,11 +98,9 @@ MODEL = "openai/clip-vit-base-patch32"
 image_processor = CLIPImageProcessor.from_pretrained(MODEL)
 image_model = CLIPModel.from_pretrained(MODEL)
 
-
 class ImageEmbedding(BaseModel):
     image_path: str
     embeddings: list[float]
-
 
 def get_image_embeddings(
     image_paths: list[str], normalize=True
@@ -219,7 +217,8 @@ Similar to conducting vector search on data with raw-text, we will use embedding
  Let's grab an image of [Cher](https://en.wikipedia.org/wiki/Cher), we can use the image from her Wikipedia page.
  Save it to `./cher_wikipedia.jpg`.
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Cher_in_2019_cropped_1.jpg/800px-Cher_in_2019_cropped_1.jpg" style="width:200px;"/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Cher_in_2019_cropped_1.jpg" alt="Cher" width="200px" />
+
 
 Now we can pass that single image into our `get_image_embeddings()` function and then search for similar images using `similarity_search().
 
