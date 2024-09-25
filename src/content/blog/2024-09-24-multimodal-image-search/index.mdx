@@ -98,11 +98,9 @@ MODEL = "openai/clip-vit-base-patch32"
 image_processor = CLIPImageProcessor.from_pretrained(MODEL)
 image_model = CLIPModel.from_pretrained(MODEL)
 
-
 class ImageEmbedding(BaseModel):
     image_path: str
     embeddings: list[float]
-
 
 def get_image_embeddings(
     image_paths: list[str], normalize=True
