@@ -34,10 +34,10 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 
 	const monthlyPrice =
 		parseFloat(priceMatrix[selectValue][rangeValue].dollars) +
-		0.0002 * 730 * 50;
+		0.0002 * 730 * 10;
 
 	const hourlyPrice =
-		parseFloat(priceMatrix[selectValue][rangeValue].dollars) + 0.0002 * 50;
+		parseFloat(priceMatrix[selectValue][rangeValue].dollars) + 0.0002 * 10;
 
 	return (
 		<div className='mt-8'>
@@ -60,7 +60,7 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 					{priceInterval === 'month' ? (
 						<p>{monthlyPrice.toFixed(2)}</p>
 					) : (
-						<p> {hourlyPrice.toFixed(2)}</p>
+						<p>{hourlyPrice.toFixed(2)}</p>
 					)}
 				</span>
 				<span className='opacity-50 font-semibold text-pricingGreen text-[23px] leading-[29px] tracking-[0.54px]'>
@@ -91,7 +91,7 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 				{priceMatrix[selectValue][rangeValue].size}
 			</label>
 			<label className='block mt-4 font-secondary font-normal text-white opacity-80 text-[12px] leading-[24px]'>
-				* This pricing estimate assumes 50Gi of storage.
+				* This pricing estimate assumes 10Gi of storage.
 			</label>
 
 			<Select.Root value={selectValue} onValueChange={handleSelection}>
