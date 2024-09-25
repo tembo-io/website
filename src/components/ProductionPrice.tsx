@@ -58,9 +58,9 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 
 				<span className='font-semibold text-pricingGreen text-[40px] leading-[50px] tracking-[0.54px] customXs:text-[48px] customXs:leading-10'>
 					{priceInterval === 'month' ? (
-						<p>{monthlyPrice}</p>
+						<p>{monthlyPrice.toFixed(2)}</p>
 					) : (
-						<p> {hourlyPrice}</p>
+						<p> {hourlyPrice.toFixed(2)}</p>
 					)}
 				</span>
 				<span className='opacity-50 font-semibold text-pricingGreen text-[23px] leading-[29px] tracking-[0.54px]'>
