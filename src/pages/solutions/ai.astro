@@ -12,7 +12,6 @@ import FeaturesSection from '@components/solutions/FeaturesSection.astro';
 import Testimonials from '@components/solutions/Testimonials.astro';
 import JoinTemboCTA from '@components/JoinTemboCTA.astro';
 import IntroSection from '@components/solutions/IntroSection.astro';
-import Benefits from '@components/solutions/Benefits.astro';
 import WhyTembo from '@components/solutions/WhyTembo.astro';
 const currentPath = Astro.url.pathname;
 
@@ -36,6 +35,29 @@ const aiFeatures = [
 		header: 'Asynchronous Query Execution',
 		description: `The pg_later extension enables asynchronous query execution, optimizing resource management and allowing users to perform other tasks while queries are processed. `,
 		iconPath: '/branch-pink.svg',
+	},
+];
+
+const aiBenefits = [
+	{
+		header: 'Improved Customer Experience',
+		description: `Deliver personalized and timely responses to customer inquiries, enhancing customer satisfaction and loyalty.`,
+		iconPath: `/telephone-red.svg`,
+	},
+	{
+		header: 'Scalable Solutions',
+		description: `Easily scale AI and ML applications to meet growing business demands without extensive infrastructure changes.`,
+		iconPath: '/lightbulb-yellow.svg',
+	},
+	{
+		header: 'Enhanced Efficiency',
+		description: `Streamline operations and reduce manual effort with AI-powered automation and predictive analytics.`,
+		iconPath: '/chart-blue.svg',
+	},
+	{
+		header: 'Cost Savings',
+		description: `Optimize resource usage and reduce operational costs through efficient AI and ML integrations.`,
+		iconPath: '/money-green.svg',
 	},
 ];
 ---
@@ -72,7 +94,7 @@ const aiFeatures = [
 			rightAlignedImg={true}
 		/>
 		<FeaturesSection features={aiFeatures} sectionTitle='Features' />
-		<Benefits />
+		<FeaturesSection features={aiBenefits} sectionTitle='Benefits' />
 		<Testimonials
 			titleQuote='“Tembo helps us leverage lower-cost LLMs.”'
 			quote=`“We’re very Open-AI dependent right now, and slowly making our way towards more optionality. One of the reasons Tembo appeals here is that we can build some of our in-house services in a way that takes advantage of lower-cost LLMs – for example, using latest mxbai or nomic embeddings at ollama.com or RAG.”`
