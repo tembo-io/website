@@ -1,0 +1,46 @@
+---
+import Button from '@components/Button';
+import { Image } from 'astro:assets';
+import ElephantStar from 'src/images/elephant-salmon-star.png';
+---
+
+<section
+	class='tembo-for-startups-section flex w-full mb-[80px] lg:mb-[100px] px-3'
+>
+	<div
+		class='flex flex-col lg:flex-row justify-between bg-white/[0.05] w-full rounded-3xl px-7 py-9 lg:px-14 gap-8 lg:gap-10'
+	>
+		<div class='flex flex-col lg:flex-row'>
+			<Image
+				src={ElephantStar}
+				width={77}
+				height={98}
+				alt='celebratory salmon colored elephant'
+				class='h-[98px] mr-6 mb-6 lg:mb-0'
+			/>
+			<div class='flex flex-col'>
+				<div
+					class='text-white font-bold font-secondary tracking-[0.47px] text-[24px] lg:text-[40px] leading-tight mb-3'
+				>
+					Try Tembo Cloud for Free
+				</div>
+				<p class='text-lightGrey font-normal font-secondary text-sm'>
+					Support for all Postgres workloads—including Transactional,
+					Analytical, and AI
+				</p>
+			</div>
+		</div>
+		<div class='flex lg:self-center'>
+			<Button
+				variant='gradient'
+				size='lg'
+				isLinkTag={true}
+				link='https://cloud.tembo.io/sign-up'
+				client:load
+				styles='w-full'
+			>
+				Try Free
+			</Button>
+		</div>
+	</div>
+</section>

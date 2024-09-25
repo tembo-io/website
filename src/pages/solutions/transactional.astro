@@ -1,0 +1,196 @@
+---
+import NavBar from '../../components/NavBar';
+import Layout from '../../layouts/Layout.astro';
+import Container from '../../components/Container';
+import Footer from '../../components/Footer.astro';
+import DbBlue from 'src/images/db-blue-transactional.svg';
+import StackedCardsOrder from 'src/images/transactional-order.svg';
+import TemboTransactions from 'src/images/tembo-transactions.png';
+import StackedCardsReservation from 'src/images/transactional-reservations.svg';
+import UseCaseSection from '@components/solutions/UseCaseSection.astro';
+import FeaturesSection from '@components/solutions/FeaturesSection.astro';
+import Testimonials from '@components/solutions/Testimonials.astro';
+import JoinTemboCTA from '@components/JoinTemboCTA.astro';
+import IntroSection from '@components/solutions/IntroSection.astro';
+import WhyTembo from '@components/solutions/WhyTembo.astro';
+
+const currentPath = Astro.url.pathname;
+
+const transactionalBenefits = [
+	{
+		header: 'Scalability',
+		description: `Offers the ability to scale resources up or down based on
+		demand, ensuring optimal performance and cost-efficiency.`,
+		iconPath: `/status-up.svg`,
+	},
+	{
+		header: 'High Availability',
+		description: `Ensures databases are always available with built-in redundancy
+		and failover mechanisms to minimize downtime.`,
+		iconPath: '/cloud-add-icon-red.svg',
+	},
+	{
+		header: 'Security',
+		description: `Implements robust security measures, including encryption at
+		rest and in transit, as well as comprehensive access controls
+		and auditing.`,
+		iconPath: '/shield-icon-blue.svg',
+	},
+	{
+		header: 'Performance Optimization',
+		description: `Features tools for monitoring and optimizing database performance, including query analysis and performance tuning.`,
+		iconPath: '/keyboard-open.svg',
+	},
+	{
+		header: 'Backup and Recovery',
+		description: `Provides automated backup solutions with options for point-in-time recovery, ensuring data integrity and protection against data loss.`,
+		iconPath: '/folder-connection.svg',
+	},
+	{
+		header: 'Data Migration',
+		description: `Supports seamless data migration tools and services to move data from on-premises or other cloud environments.`,
+		iconPath: '/clipboard-red.svg',
+	},
+	{
+		header: 'Monitoring and Alerts',
+		description: `Includes advanced monitoring capabilities and configurable alerts to proactively manage and respond to potential issues.`,
+		iconPath: '/danger-red.svg',
+	},
+	{
+		header: 'Cost Management',
+		description: `Provides transparent pricing and cost management tools to help organizations optimize their cloud spending.`,
+		iconPath: '/money-green.svg',
+	},
+	{
+		header: 'Support and Documentation',
+		description: `Access to comprehensive support services and detailed documentation to assist with troubleshooting and optimizing use.`,
+		iconPath: '/note-2.svg',
+	},
+];
+
+const transactionalFeatures = [
+	{
+		header: 'PGAnalyze',
+		description: `PGAnalyze is a database monitoring solution that helps you achieve consistent database performance and availability through intelligent tuning advisors and continuous database profiling.`,
+		iconPath: `/pganalyze.svg`,
+	},
+	{
+		header: 'GraphQL',
+		description: `GraphQL is a query language for APIs.`,
+		iconPath: '/graphql.svg',
+	},
+	{
+		header: 'pg_stat_statements',
+		description: `pg_stat_statements comes pre-installed and enabled.`,
+		iconPath: '/task-list-red.svg',
+	},
+];
+---
+
+<Layout title='Tembo Transactional'>
+	<NavBar client:load currentPage={currentPath} />
+	<Container styles='relative'>
+		<IntroSection
+			title='Tembo Transactional'
+			description=`Tembo Transactional provides Online Transaction Processing
+					(OLTP) capabilities to manage high volumes of transactions
+					quickly and accurately. While your applications may vary in
+					complexity and I/O intensity, our OLTP solution stands out
+					due to its ACID compliance, ensuring reliable and accurate
+					operations, and scalability to grow with application
+					demands.`
+			deployButtonColor='sqlBlue'
+			img={DbBlue}
+			imgClassName='w-[440px] h-[450px]'
+		/>
+		<UseCaseSection
+			useCaseText='Retail and E-commerce Transactions'
+			scenarioText='Managing sales transactions for an online retail platform.'
+			detailsText=`OLTP systems process customer orders, update inventory
+					levels, handle payments, and manage customer data in
+					real-time. This ensures that the e-commerce platform can
+					handle a high volume of transactions simultaneously without
+					delays, providing a seamless shopping experience for
+					customers.`
+			imgMetadata={StackedCardsOrder}
+			rightAlignedImg={true}
+		/>
+		<UseCaseSection
+			useCaseText='Banking and Financial Services'
+			scenarioText=`Processing banking transactions such as withdrawals,
+					deposits, and transfers.`
+			detailsText=`OLTP systems enable banks to manage millions of transactions
+					per day securely and efficiently. They ensure real-time
+					processing of account updates, balance checks, and fund
+					transfers, providing customers with instant access to their
+					financial information and services.`
+			imgMetadata={TemboTransactions}
+			leftAlignedImg={true}
+		/>
+		<UseCaseSection
+			useCaseText='Airline Reservation Systems'
+			scenarioText='Managing flight bookings and reservations.'
+			detailsText=`OLTP systems handle the real-time processing of flight
+					reservations, ticketing, and seat assignments. They allow
+					airlines to manage availability, pricing, and customer data
+					effectively, ensuring that customers can book flights,
+					change reservations, and check in for flights in real-time.`
+			imgMetadata={StackedCardsReservation}
+			rightAlignedImg={true}
+		/>
+		<FeaturesSection
+			features={transactionalFeatures}
+			sectionTitle='Features'
+		/>
+		<FeaturesSection
+			features={transactionalBenefits}
+			sectionTitle='Benefits'
+		/>
+		<Testimonials
+			titleQuote='“Tembo makes Postgres easy for us.”'
+			quote=`”We have loved our experience with Tembo because they offer pre-configured stacks that support our workload, it is extremely easy to manage postgres extensions, and batteries are included in pgBouncer. What we love most about Tembo is the absolutely amazing developer support we have received since coming on. The team really knows their stuff and are very customer focused.”`
+			customerName='Sean Price'
+			customerRole='CTO, Prospect Stream'
+		/>
+		<WhyTembo
+			extensions=`Over 200 extensions that are installable with a click`
+			,
+			support=`Support for all Postgres workloads—including
+						Transactional, Analytical, and AI`
+			,
+			addons=`A variety of ecosystem and add ons that are also available with a
+						click`
+			,
+			content={[
+				{
+					heading: 'Why Postgres?',
+					points: [
+						`ACID compliance ensures reliable and accurate transaction processing.`,
+						`Easy scalability to support your growing application demands.`,
+						`Strong out-of-the-box OLTP performance and reliability.`,
+					],
+				},
+				{
+					heading: 'Why Tembo?',
+					points: [
+						`Automated backups, maintenance and updates.`,
+						`High availability options that  ensure reliability and uptime.`,
+						`A wide selection of available Postgres extensions relevant to OLTP workloads.`,
+					],
+				},
+			]}
+		/>
+		<JoinTemboCTA />
+	</Container>
+	<div class='relative'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
+		</div>
+		<Container>
+			<div class='mt-16 mobile:mt-24'>
+				<Footer />
+			</div>
+		</Container>
+	</div>
+</Layout>

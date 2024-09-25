@@ -1,13 +1,28 @@
+import { type FC } from 'react';
 import { ClerkProvider, useOrganization, useUser } from '@clerk/clerk-react';
 import Button from './Button';
 
-const ClerkButton = () => {
+interface Props {
+	currentPage: string;
+}
+
+const ClerkButton: FC<Props> = ({ currentPage }) => {
 	const { isSignedIn } = useUser();
 	const { organization } = useOrganization();
 
+	const getButtonStyles = () => {
+		if (currentPage.includes('/solutions/transactional')) {
+			return 'sqlBlue';
+		} else if (currentPage.includes('/solutions/ai')) {
+			return 'sqlPink';
+		}
+
+		return 'neon';
+	};
+
 	return (
 		<Button
-			variant='neon'
+			variant={getButtonStyles()}
 			styles='z-100'
 			isLinkTag={true}
 			link={
@@ -21,12 +36,12 @@ const ClerkButton = () => {
 	);
 };
 
-const ClerkProviderWithButton = () => {
+const ClerkProviderWithButton: FC<Props> = ({ currentPage }) => {
 	return (
 		<ClerkProvider
 			publishableKey={import.meta.env.PUBLIC_VITE_CLERK_PUBLISHABLE_KEY!}
 		>
-			<ClerkButton />
+			<ClerkButton currentPage={currentPage} />
 		</ClerkProvider>
 	);
 };
