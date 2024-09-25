@@ -4,7 +4,6 @@ import Button from './Button';
 
 const MobileMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [isCustomersMenuOpen, setIsCustomersMenuOpen] = useState(false);
 
 	return (
 		<div className='bg-offBlack mid:hidden fixed z-10 w-screen h-screen overflow-hidden inset-0'>
@@ -36,12 +35,12 @@ const MobileMenu = () => {
 							{isOpen ? (
 								<div>
 									<li className='pl-3 m-4'>
-										<a href='/solutions/transactional'>
+										<a href='/platform/transactional'>
 											Tembo Transactional
 										</a>
 									</li>
 									<li className='pl-3 m-4'>
-										<a href='/solutions/ai'>Tembo AI</a>
+										<a href='/platform/ai'>Tembo AI</a>
 									</li>
 									<li className='pl-3 m-4'>
 										<a href='/solutions/buildcamp'>

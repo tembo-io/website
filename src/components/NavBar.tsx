@@ -26,15 +26,18 @@ const NavBar: React.FC<Props> = ({
 		setIsScreenGreaterThanOrEqualTo900px,
 	] = useState(false);
 
-	const solutionsOptions = [
+	const platformOptions = [
 		{
 			displayName: 'Tembo Transactional',
-			link: '/solutions/transactional',
+			link: '/platform/online-transactional-processing',
 		},
 		{
 			displayName: 'Tembo AI',
-			link: '/solutions/ai',
+			link: '/platform/ai',
 		},
+	];
+
+	const solutionsOptions = [
 		{
 			displayName: 'Tembo Buildcamp',
 			link: '/solutions/buildcamp',
@@ -148,6 +151,15 @@ const NavBar: React.FC<Props> = ({
 						<div className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'>
 							<NavMenu
 								id={1}
+								currentPage={currentPage}
+								selectedPage='/platform'
+								selectedPageDisplayName='Platform'
+								options={platformOptions}
+							/>
+						</div>
+						<div className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'>
+							<NavMenu
+								id={2}
 								currentPage={currentPage}
 								selectedPage='/solutions'
 								selectedPageDisplayName='Solutions'
