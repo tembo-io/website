@@ -14,8 +14,6 @@ import Section3Confetti from '../components/Section3Confetti.astro';
 import PlatformSection from '../components/PlatformSection';
 import Extension from '../components/Extension.astro';
 import DetailSequence from '../components/DetailSequence';
-import ArrowButton from '../components/ArrowButton.astro';
-import Animation from '../components/Animation';
 import Footer from '../components/Footer.astro';
 import AdminPack from '../images/adminPack.svg';
 import Vectorize from '../images/vectorize.svg';
@@ -35,6 +33,7 @@ import Quotes from '../components/Quotes';
 import StackHero from '../components/StackHero';
 import WaddlingLogo from '../images/waddling_logo.svg';
 import AutomizedLogo from '../images/automized.png';
+import JoinTemboCTA from '@components/JoinTemboCTA.astro';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -58,9 +57,9 @@ const currentPath = Astro.url.pathname;
 								class='text-white font-bold tracking-[0.47px] text-[32px] sm:text-[56px] md:text-[64px] lg:text-[72px] leading-tight
 							z-10 mb-12'
 							>
-								Tembo makes it easy to <br
+								Tembo Makes It Easy to <br
 									class='hidden customXs:flex'
-								/> use Postgres
+								/> Use Postgres
 							</h1>
 							<div>
 								<Button
@@ -137,8 +136,8 @@ const currentPath = Astro.url.pathname;
 				<h1
 					class='text-white font-medium text-2xl customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] max-w-5xl text-center leading-normal z-10'
 				>
-					Build any application on Postgres, <br />the everything
-					database
+					Build Any Application on Postgres, <br />the Everything
+					Database
 				</h1>
 				<Button
 					variant='gradient'
@@ -155,11 +154,10 @@ const currentPath = Astro.url.pathname;
 			<StackSlider client:only='react' />
 		</div>
 		<div class='w-full flex justify-center items-center flex-col mt-48'>
-			<h3 class='text-neon font-secondary'>JOIN THE HERD</h3>
 			<h3
 				class='text-white font-bold text-[42px] font-["Bai Jamjuree"] text-center h-[106px]'
 			>
-				What people say about us
+				What People Say About Us
 			</h3>
 		</div>
 		<Quotes className='mt-14' client:load />
@@ -464,9 +462,7 @@ const currentPath = Astro.url.pathname;
 			</Button>
 		</div>
 	</section>
-	<section
-		class='why-tembo-section pt-28 bg-offBlack pb-[50px] md:pb-[170px] overflow-hidden'
-	>
+	<section class='why-tembo-section pt-28 bg-offBlack overflow-hidden'>
 		<Container styles='relative'>
 			<div class='flex flex-col'>
 				<h2
@@ -549,44 +545,13 @@ const currentPath = Astro.url.pathname;
 					</div>
 				</div>
 			</div>
+			<div class='mt-20'>
+				<JoinTemboCTA />
+			</div>
 		</Container>
 	</section>
-	<section class='tembo-footer-section mobile:pt-28 relative bg-offBlack'>
-		<div class='container max-w-stackSlider mx-auto relative'>
-			<Animation
-				client:only='react'
-				isFooter={true}
-				styles='z-10 top-[300px] xs:top-[100px] sm:top-[50px] md:-top-[200px] xl:-top-[600px] fade-x-md-both-sides-animation'
-			/>
-			<div
-				class='flex flex-col justify-center pb-[100px] min-[400px]:pb-[200px] z-10'
-			>
-				<Container styles='z-10 pb-24'>
-					<h2
-						class='text-white text-center font-bold tracking-[0.47px] text-[32px] sm:text-[56px] md:text-[64px] lg:text-[72px] leading-tight
-				 mt-28 z-50'
-					>
-						Tembo makes it easy to <br
-							class='hidden customXs:flex'
-						/> use Postgres
-					</h2>
-					<div
-						class='flex-col min-[500px]:flex-row flex items-center justify-center mt-10 gap-4 z-50'
-					>
-						<Button
-							variant='gradient'
-							size='lg'
-							client:load
-							isLinkTag={true}
-							link='https://cloud.tembo.io/sign-up'
-							styles='h-[60px] w-full min-[500px]:w-[182px] font-semibold font-primary z-10 flex items-center justify-center'
-						>
-							Try Free
-						</Button>
-					</div>
-				</Container>
-			</div>
-		</div>
+	<section class='tembo-footer-section relative bg-offBlack'>
+		<div class='container max-w-stackSlider mx-auto relative'></div>
 		<div class='relative bg-offBlack z-10'>
 			<div
 				class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
