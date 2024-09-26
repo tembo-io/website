@@ -44,13 +44,13 @@ By self hosting, you gain full control over your data, infrastructure, and secur
 
 We provide Helm Charts for a straight forward installation of Tembo Self Hosted.
 
-Step 1: Install prerequisites in our docs & prepare for installation by running the following script
+Step 1: Install prerequisites from our docs & run the following script
 
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/tembo-io/tembo-self-hosted/main/scripts/aws/eks-setup.sh)
 ```
 
-Step 2: Install the Tembo Self Hosted Helm chart
+Step 2: Install the Tembo Self Hosted helm chart
 
 ```bash
 helm install tembo tembo/tembo -f my-values.yaml -n tembo --create-namespace
