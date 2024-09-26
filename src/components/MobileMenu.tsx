@@ -38,7 +38,7 @@ const MobileMenu = () => {
 							{isPlatformMenuOpen ? (
 								<div>
 									<li className='pl-3 m-4'>
-										<a href='/platform/transactional'>
+										<a href='/platform/online-transactional-processing'>
 											Tembo Transactional
 										</a>
 									</li>
