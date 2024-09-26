@@ -1,0 +1,71 @@
+---
+slug: self-hosted-ga
+title: 'Announcing Tembo Self Hosted GA'
+authors: [adarsh]
+
+description: |
+    All-in-one platform that allows you to run the best of the Postgres ecosystem within your own infrastructure
+tags: [tembo, kubernetes, self-hosted]
+date: 2024-09-25T09:00
+image: './self-hosted.png'
+planetPostgres: true
+---
+
+Back in May, [we introduced](https://tembo.io/blog/tembo-self-hosted) Tembo Self Hosted with the goal of providing a seamless solution for organizations requiring a self hosted Postgres experience. After months of refinement and customer feedback, we’re excited to announce that Tembo Self Hosted is now generally available (GA).
+
+Check out the full documentation, including installation steps, [here](https://tembo.io/docs/product/software/tembo-self-hosted/overview). You can also explore the [GitHub repo](https://github.com/tembo-io/tembo-self-hosted) with our Helm chart for seamless deployment.
+
+## What’s included in GA?
+
+This GA release brings full out-of-the-box support for the three major cloud providers: AWS, Azure, and GCP. Since it’s built on Kubernetes, Tembo Self Hosted can also be deployed on any cloud or on-premise environment.
+
+This release ensures feature parity with [Tembo Cloud](https://tembo.io/docs/product/cloud/overview), so you get the same powerful functionality across both platforms.
+
+Key Features of Tembo Self Hosted:
+
+- **Intuitive User Interface:** Clear, elegant & delightful UI to manage Postgres.
+- **Built-in High Availability (HA)**: Ensuring reliability, with automated backups.
+- **Enhanced Security**: Fine-grained control over your infrastructure and data.
+- **Powerful CLI**: Develop locally and deploy effortlessly to the cloud.
+- **Comprehensive API**: Enabling smooth integrations and automation.
+- **Helm Chart & Easy Deployment Tools**: Simplifying installation and upgrades.
+- **Unlock New Use Cases**: Machine learning, OLTP, Vector DB, and Retrieval-Augmented Generation (RAG) using [Stacks](https://tembo.io/docs/product/stacks/intro-to-stacks).
+- **Full Support**: Installation, configuration, and operational assistance from our team.
+
+## Why Tembo Self Hosted?
+
+While many of our customers enjoy the ease of using Postgres with Tembo Cloud, some organizations require self hosting due to security and compliance concerns. However, managing a self hosted Postgres database can often be both time-consuming and costly. That's where Tembo Self Hosted steps in — simplifying self hosting while delivering all the powerful features you know and love from Tembo Cloud.
+
+Tembo Self Hosted is an all-in-one Postgres platform that allows you to run the best of the Postgres ecosystem within your own infrastructure. It offers the perfect balance of convenience and control, eliminating the complexity of setting up and managing Postgres on your own.
+
+By self hosting, you gain full control over your data, infrastructure, and security, ensuring your data remains in your environment. You can customize configurations, boost performance, and meet even the most stringent compliance requirements. Plus, Tembo Self Hosted is cost-effective, optimizing CPU and memory usage, which is valuable for organizations with heavy or complex data workloads.
+
+## Installation
+
+Tembo Self Hosted installation is pretty straight forward using Helm charts we provide. Once you have the prerequisites in our docs you just need to follow there steps:
+
+Step 1: Prepare for installation by running following script
+
+```bash
+bash <(curl -s https://raw.githubusercontent.com/tembo-io/tembo-self-hosted/main/scripts/aws/eks-setup.sh)
+```
+
+Step 2: Install the Tembo Self Hosted Helm chart
+
+```bash
+helm install tembo tembo/tembo -f my-values.yaml -n tembo --create-namespace
+```
+
+Step 3:  Configure DNS for Traefik’s Load Balancer
+
+If you’d like to see this in action, you can also look at the below demo or find the installation guide [here](https://tembo.io/docs/product/software/tembo-self-hosted/install-on-aws-eks).
+
+## Demo
+
+Curious to see Tembo Self Hosted in action? Check out our demo below:
+
+[[ Demo goes here ]]
+
+## Next steps
+
+If you’re ready to experience the flexibility and control of Tembo Self Hosted in your own environment, fill out [our contact form](https://tembo.io/contact/) to schedule a demo with our team. We’re here to help you tailor Tembo Self Hosted to your needs and get it up and running in no time.
