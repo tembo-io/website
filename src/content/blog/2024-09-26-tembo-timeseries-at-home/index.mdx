@@ -1,0 +1,433 @@
+---
+slug: tembo-timeseries-at-home
+title: Using Tembo's Time Series Stack at Home
+description: Tembo's Time Series Stack is now available, but as an author of its underlying extension, I've struggled with the same problem...
+authors: [jason]
+tags: [postgres, timeseries]
+image: ./tembonauts.png
+date: 2024-09-26T09:00
+planetPostgres: false
+---
+
+# Using Tembo's Time Series Stack at Home
+
+The [Tembo Time Series stack](/docs/product/stacks/analytical/timeseries) is now available, but as an author of its [underlying extension](https://github.com/tembo-io/pg_timeseries/), I've struggled with the same problem I hit any time I contribute to a [time-series](https://aws.amazon.com/cloudwatch/) or [database project](https://github.com/citusdata/citus): I've spent more time making and testing this tool than I will spend using it.
+
+Sure, there are public data sets at places like [Kaggle](https://www.kaggle.com/datasets), and I like the bike-sharing data set we use in [our Time Series guide](https://tembo.io/docs/product/stacks/analytical/timeseries), but really digging into the data becomes much easier when it's something of personal interest.
+
+Suddenly it dawned on me: I have a novel IoT use-case of my own… I _live_ in this use-case. My personal hobby of home automation has resulted in a [Home Assistant](https://www.home-assistant.io) installation with around 350 entities, and I have over a year of statistics!
+
+## Upgrading to Tembo Time Series
+
+So now the goal is clear: we'll be migrating an existing time-series system over to a Tembo Time Series Stack. So readers can follow along, I'm providing a [sanitized version of my IoT dataset](https://tembo-demo-bucket.s3.amazonaws.com/states.csv). Once we have our stack up and running, we'll cover some interesting time-series queries and finish with some stack benchmarks.
+
+To get started, we'll need an instance of the [Tembo Time Series Stack](https://tembo.io/docs/product/stacks/analytical/timeseries), so launch one if you haven't already. We'll use a GP-4 instance, but the data should fit just fine in the Hobby tier as well.
+
+## Creating the Time-Series Tables
+
+The two tables you'll need to create are as follows:
+
+```sql
+CREATE TABLE public.states_ts (
+    state_id bigint NOT NULL,
+    entity_id text,
+    state text,
+    attributes text,
+    event_id bigint,
+    last_changed timestamp with time zone,
+    last_changed_ts timestamp without time zone,
+    last_updated timestamp with time zone,
+    last_updated_ts timestamp without time zone NOT NULL,
+    old_state_id bigint,
+    attributes_id bigint,
+    context_id text,
+    context_user_id text,
+    context_parent_id text,
+    origin_idx smallint,
+    context_id_bin bytea,
+    context_user_id_bin bytea,
+    context_parent_id_bin bytea,
+    metadata_id bigint
+) PARTITION BY RANGE (last_updated_ts);
+
+CREATE TABLE public.states_meta (
+    metadata_id bigint NOT NULL,
+    entity_id text
+);
+```
+
+This application stores metric attributes in a separate table from the actual time-series data, a fairly common approach. Specifically, while `states` stores state transition information, `state_attributes` and `states_meta` are used to keep track of event names, device descriptions, etc. As these tables are not time-series data, they can remain regular PostgreSQL tables.
+
+### Time-Series "Rollups"
+
+Additionally, Home Assistant—like _many_ time-series applications—"pre-aggregates" rows, "rolling up" raw data (`states`) first into five-minute data (`statistics_short_term`) and eventually into hourly rows (`statistics`). Automatically handling this rollup is on the [`pg_timeseries` extension's roadmap](https://github.com/tembo-io/pg_timeseries/tree/ba218b8793945a2323504c6e0408fa8059648e2f?tab=readme-ov-file#roadmap), but for now, we'll let Home Assistant do its thing.
+
+The data set contains ten days of `states`… we'll leave analyzing pre-aggregated data for another time.
+
+### Time-Series Partition Sizing
+
+As a vague rule of thumb, it's best to size your time partitions so that the active set (from all tables) fills roughly one quarter of the PostgreSQL server memory. Because this is a demo data set of raw state data, we'll just use hourly partitions, but in real-world use it is always good to tune your partition size.
+
+## Enabling Time-Series and Loading Data
+
+At this point we're good to tell timeseries about our partition sizes and to load the data set. We'll start by creating enough partitions to cover the date range of our data using the convenience function provided by [`pg_timeseries`](https://github.com/tembo-io/pg_timeseries/)…
+```sql
+SELECT enable_ts_table('states_ts', '1 hour', initial_table_start => '2024-05-12');
+```
+
+… and now that the partitions have been created, the data can be loaded. Download it from [here](https://tembo-demo-bucket.s3.amazonaws.com/states.csv) and load it with the following:
+
+```sql
+\copy states_ts from 'states.csv' with (format csv);
+```
+
+## Time-Series Scheduling
+
+Our `states` table only carries ten days of data, max, before rows are rolled up into hourly rows for statistics. Wouldn't it be nice if PostgreSQL could stay on top of this rule for us?
+
+The Time Series Stack is designed to do just that! If you imagine your partitions as being created at the present moment and then shifting leftward as they "age", the principle is pretty easy to understand. At a given offset from `now`, [`pg_timeseries`](https://github.com/tembo-io/pg_timeseries/) can take certain actions. At the moment, these actions are "compress" or "drop" (retention policy). You can imagine partitions "aging out" by shifting away from "now" until they hit their policy (such as the "drop" policy depicted below):
+
+![Partitions aging until they drop into a trash can](./retention-policies.png)
+
+We'll set the ten-day retention on `states`:
+
+```sql
+SELECT set_ts_retention_policy('states_ts', '10 days');
+```
+
+In a future release, the "scheduling" concept may be extended to include additional actions such as aggregating rows, reorganizing old partitions along an index, etc.
+
+## Additional Tables
+
+In most time-series workloads only a few tables store time-series data. Common metadata—user information, etc.—is often normalized into plain table. We have a few of those in this workload, so load them, too. The data can be found [here](https://tembo-demo-bucket.s3.amazonaws.com/states_meta.csv).
+
+```sql
+\copy states_meta from 'states_meta.csv' with (format csv);
+```
+
+## Exploring the Data
+
+Now that everything is loaded, we can finally get to the important task of exploring our data. As I work from home, it can sometimes be annoying when my office is outside of my comfort zone. Let's find the hours of the day when my upper floor landing is above 75°F or beneath 65°F…
+
+```sql
+WITH metadata_ids AS (
+  SELECT metadata_id
+    FROM states_meta
+    WHERE entity_id = 'sensor.upstairs_landing_ecobee_current_temperature' ),
+temp_stats AS (
+  SELECT date_trunc('hour', last_updated_ts) as hour,
+         MIN(state::numeric) AS min,
+         MAX(state::numeric) AS max
+    FROM states_ts
+    WHERE metadata_id IN (
+      SELECT metadata_id
+        FROM metadata_ids )
+    GROUP BY 1 )
+SELECT *
+  FROM temp_stats
+  WHERE min < 65 OR max > 75
+  ORDER BY max DESC, min ASC, hour;
+```
+```
+┌─────────────────────┬──────┬──────┐
+│        hour         │ min  │ max  │
+├─────────────────────┼──────┼──────┤
+│ 2024-05-19 21:00:00 │ 75.2 │ 79.0 │
+│ 2024-05-18 02:00:00 │ 76.3 │ 77.5 │
+│ 2024-05-18 00:00:00 │ 76.1 │ 77.2 │
+│ 2024-05-18 01:00:00 │ 76.1 │ 77.0 │
+│ 2024-05-19 22:00:00 │ 75.7 │ 76.6 │
+│ 2024-05-18 03:00:00 │ 75.7 │ 76.5 │
+│ 2024-05-17 23:00:00 │ 75.9 │ 76.5 │
+│ 2024-05-18 04:00:00 │ 75.9 │ 76.5 │
+│ 2024-05-20 00:00:00 │ 76.3 │ 76.5 │
+│ 2024-05-20 01:00:00 │ 73.9 │ 76.3 │
+│ 2024-05-19 23:00:00 │ 75.9 │ 76.3 │
+│ 2024-05-17 22:00:00 │ 75.4 │ 75.9 │
+│ 2024-05-18 05:00:00 │ 75.6 │ 75.9 │
+│ 2024-05-18 06:00:00 │ 75.0 │ 75.7 │
+│ 2024-05-17 21:00:00 │ 74.5 │ 75.4 │
+│ 2024-05-15 00:00:00 │ 73.4 │ 75.2 │
+│ 2024-05-19 20:00:00 │ 74.1 │ 75.2 │
+│ 2024-05-20 12:00:00 │   32 │ 70.9 │
+│ 2024-05-13 14:00:00 │ 64.9 │ 66.6 │
+│ 2024-05-13 11:00:00 │ 64.8 │ 66.0 │
+│ 2024-05-13 09:00:00 │ 64.9 │ 66.0 │
+│ 2024-05-13 10:00:00 │ 64.8 │ 65.5 │
+└─────────────────────┴──────┴──────┘
+```
+
+Knowing the uncomfortable times of day is one thing, but to do something about it I'll need to know what rooms are more comfortable: if my office is hot, where should I go? Armed with a list of which rooms are hottest and coldest during each hour, answering this question will be easy…
+
+### `first` and `last`
+
+This is where the `first` and `last` functions come in: we want to group temperature readings by hour, but within each hour we want to select the room name corresponding to the highest and lowest value of temperature. In other words, we're sorting the groups by temperature and selecting the _first_ or _last_ row within each group, based on that sub-sort.
+
+```sql
+WITH temp_sensors AS (
+  SELECT metadata_id,
+         entity_id,
+         replace(replace(entity_id, 'sensor.', ''),
+                 '_sensor_temperature', '') AS room_name
+    FROM states_meta
+    WHERE entity_id LIKE '%temperature' AND
+          entity_id NOT SIMILAR TO '%(attic|backyard|coffee|garage)%' )
+SELECT EXTRACT(HOUR FROM last_updated_ts) as hour,
+       first(ts.room_name, state::numeric) as coldest,
+       last(ts.room_name, state::numeric) as hottest
+  FROM states_ts s JOIN temp_sensors ts ON (s.metadata_id = ts.metadata_id)
+  WHERE s.state <> 'unavailable'
+  GROUP BY 1
+  ORDER BY 1;
+```
+```
+┌──────┬─────────┬──────────────┐
+│ hour │ coldest │   hottest    │
+├──────┼─────────┼──────────────┤
+│    0 │ theater │ main_bedroom │
+│    1 │ theater │ main_bedroom │
+│    2 │ theater │ theater      │
+│    3 │ theater │ main_bedroom │
+│    4 │ theater │ main_bedroom │
+│    5 │ theater │ main_bedroom │
+│    6 │ theater │ main_bedroom │
+│    7 │ theater │ main_bedroom │
+│    8 │ theater │ main_bedroom │
+│    9 │ theater │ main_bedroom │
+│   10 │ theater │ main_bedroom │
+│   11 │ theater │ main_bedroom │
+…
+└──────┴─────────┴──────────────┘
+```
+
+### Fine Granularity/Imputation
+
+One thing you may notice in this data set is all sensors only emit data every once in a while, even for continuous properties such as temperature. This may vary by sensor type, software integration, and even things such as sensor availability. Even things such as server updates might result in gaps in our data.
+
+So what if we wanted to produce a dense (having no gaps) data series at a finer-granularity than most of our sensors, say, every minute? This is where the `date_bin_table` and `locf` (_last observation carried forward_) functions come in handy.
+
+First, write a `SELECT` query against `states_ts`, then modify the `FROM` clause by wrapping `states_ts` in a call to `date_bin_table`. The second and third arguments are the desired granularity and a range for the start and end of the date range.
+
+```sql
+SELECT * FROM date_bin_table(NULL::states_ts, '1 second', '[2024-05-20,2024-05-21]') LIMIT 100;
+```
+```
+┌─[ RECORD 1 ]──────────┬────────────────────────────────────┐
+│ state_id              │ 16051868                           │
+│ entity_id             │ ∅                                  │
+│ state                 │ on                                 │
+│ attributes            │ ∅                                  │
+│ event_id              │ ∅                                  │
+│ last_changed          │ ∅                                  │
+│ last_changed_ts       │ 2024-03-29 20:58:44.777981         │
+│ last_updated          │ ∅                                  │
+│ last_updated_ts       │ 2024-05-20 00:00:00                │
+│ old_state_id          │ 16051863                           │
+│ attributes_id         │ 14507                              │
+│ context_id            │ ∅                                  │
+│ context_user_id       │ ∅                                  │
+│ context_parent_id     │ ∅                                  │
+│ origin_idx            │ 0                                  │
+│ context_id_bin        │ \x018f934c44b1ebb945a801f9186a3a45 │
+│ context_user_id_bin   │ ∅                                  │
+│ context_parent_id_bin │ ∅                                  │
+│ metadata_id           │ 295                                │
+├─[ RECORD 2 ]──────────┼────────────────────────────────────┤
+│ state_id              │ 16051864                           │
+│ entity_id             │ ∅                                  │
+│ state                 │ 83.9                               │
+│ attributes            │ ∅                                  │
+│ event_id              │ ∅                                  │
+│ last_changed          │ ∅                                  │
+│ last_changed_ts       │ ∅                                  │
+│ last_updated          │ ∅                                  │
+│ last_updated_ts       │ 2024-05-20 00:00:00                │
+│ old_state_id          │ 16051821                           │
+│ attributes_id         │ 14517                              │
+│ context_id            │ ∅                                  │
+│ context_user_id       │ ∅                                  │
+│ context_parent_id     │ ∅                                  │
+│ origin_idx            │ 0                                  │
+│ context_id_bin        │ \x018f934c45b14bc425554919bd824bf3 │
+│ context_user_id_bin   │ ∅                                  │
+│ context_parent_id_bin │ ∅                                  │
+│ metadata_id           │ 296                                │
+…
+└───────────────────────┴────────────────────────────────────┘
+```
+
+If you run this query, you'll notice two things:
+
+  - All rows' time values are binned to the specified granularity
+  - Any missing time ranges will have a row emitted with `NULLs`
+
+With the above characteristics, it becomes possible to add aggregates and end up with a row for every date bin. Let's filter for `metadata_id` 229, my backyard weather sensor.
+
+```sql
+SELECT avg(state::numeric), date_trunc('minute', last_updated_ts)
+  FROM date_bin_table(NULL::states_ts, '1 second',
+                      '[2024-05-20,2024-05-21]')
+  WHERE metadata_id IS NULL OR metadata_id = 229
+  GROUP BY 2 ORDER BY 2;
+```
+```
+┌─────────────────────┬─────────────────────┐
+│         avg         │     date_trunc      │
+├─────────────────────┼─────────────────────┤
+│                   ∅ │ 2024-05-20 00:00:00 │
+│ 80.2000000000000000 │ 2024-05-20 00:01:00 │
+│ 80.0000000000000000 │ 2024-05-20 00:02:00 │
+│ 79.6000000000000000 │ 2024-05-20 00:03:00 │
+│                   ∅ │ 2024-05-20 00:04:00 │
+│ 79.1500000000000000 │ 2024-05-20 00:05:00 │
+│ 78.8000000000000000 │ 2024-05-20 00:06:00 │
+│ 78.5000000000000000 │ 2024-05-20 00:07:00 │
+│ 78.2000000000000000 │ 2024-05-20 00:08:00 │
+│                   ∅ │ 2024-05-20 00:09:00 │
+│ 77.9000000000000000 │ 2024-05-20 00:10:00 │
+│ 77.7000000000000000 │ 2024-05-20 00:11:00 │
+│                   ∅ │ 2024-05-20 00:12:00 │
+│ 77.5000000000000000 │ 2024-05-20 00:13:00 │
+│ 77.4000000000000000 │ 2024-05-20 00:14:00 │
+│ 77.2000000000000000 │ 2024-05-20 00:15:00 │
+│ 76.9000000000000000 │ 2024-05-20 00:16:00 │
+│ 76.6000000000000000 │ 2024-05-20 00:17:00 │
+…
+└─────────────────────┴─────────────────────┘
+```
+
+But there's still one problem: our data contains these `NULL` values! By adding in a call to `locf`, we can fill all `NULL` entries with the most-recent non-`NULL` entry:
+
+```sql
+WITH minute_data AS (
+  SELECT avg(state::numeric) avg,
+         date_trunc('minute', last_updated_ts) reported_at
+  FROM date_bin_table(NULL::states_ts, '1 second',
+                      '[2024-05-20,2024-05-21]')
+  WHERE metadata_id IS NULL OR metadata_id = 229
+  GROUP BY 2 ORDER BY 2 )
+SELECT locf(avg) OVER (ORDER BY reported_at),
+       reported_at
+  FROM minute_data;
+```
+```
+┌─────────────────────┬─────────────────────┐
+│        locf         │     reported_at     │
+├─────────────────────┼─────────────────────┤
+│                   ∅ │ 2024-05-20 00:00:00 │
+│ 80.2000000000000000 │ 2024-05-20 00:01:00 │
+│ 80.0000000000000000 │ 2024-05-20 00:02:00 │
+│ 79.6000000000000000 │ 2024-05-20 00:03:00 │
+│ 79.6000000000000000 │ 2024-05-20 00:04:00 │
+│ 79.1500000000000000 │ 2024-05-20 00:05:00 │
+│ 78.8000000000000000 │ 2024-05-20 00:06:00 │
+│ 78.5000000000000000 │ 2024-05-20 00:07:00 │
+│ 78.2000000000000000 │ 2024-05-20 00:08:00 │
+│ 78.2000000000000000 │ 2024-05-20 00:09:00 │
+│ 77.9000000000000000 │ 2024-05-20 00:10:00 │
+│ 77.7000000000000000 │ 2024-05-20 00:11:00 │
+│ 77.7000000000000000 │ 2024-05-20 00:12:00 │
+│ 77.5000000000000000 │ 2024-05-20 00:13:00 │
+│ 77.4000000000000000 │ 2024-05-20 00:14:00 │
+│ 77.2000000000000000 │ 2024-05-20 00:15:00 │
+│ 76.9000000000000000 │ 2024-05-20 00:16:00 │
+│ 76.6000000000000000 │ 2024-05-20 00:17:00 │
+…
+└─────────────────────┴─────────────────────┘
+```
+
+Now our data series is ready for immediate use in a dashboard.
+
+### `LEAD` use
+
+Apart from the "poll"-like sensors in an IoT workload, "event"-like sensors are also common. These only emit a records when an event occurs. Examples in this application might be opening doors, turning on lights, arming a security system, or starting the coffee maker.
+
+Let's say we want to see the periods a door or window has been open the longest in the recent past. How would we do that? A simple approach is using the `LEAD` aggregate function in a window clause.
+
+To understand how `LEAD` works, consider the following query:
+
+```sql
+WITH squares AS (
+  SELECT i * i s FROM generate_series(1, 100) gs(i)
+)
+SELECT LEAD (s, 1) OVER (ORDER BY s) - s AS diff FROM squares;
+```
+```
+┌──────┐
+│ diff │
+├──────┤
+│    3 │
+│    5 │
+│    7 │
+│    9 │
+│   11 │
+│   13 │
+│   15 │
+…
+└──────┘
+```
+
+If it's not yet clear, this query generates the first 100 square numbers and displays the differences between consecutive squares. This allows users to do arithmetic and other operations between these two rows.
+
+![How LEAD groups rows in an IoT use case](./using-lead-sql.png)
+
+For our event-oriented system, these rows might correspond to a door being opened or closed. With this understanding, it becomes straightforward to write a query that transforms events at points in time into the interval those states were active:
+
+```sql
+WITH doors AS (
+  SELECT metadata_id,
+         replace(entity_id, 'binary_sensor.', '') AS sensor
+    FROM states_meta
+    WHERE entity_id LIKE 'binary_sensor.%door_sensor' ),
+durations AS (
+  SELECT s.last_updated_ts AS start_time,
+         replace(d.sensor, '_sensor', '') AS door,
+         s.state AS state,
+         LEAD(s.last_updated_ts, 1) OVER (
+           PARTITION BY d.metadata_id
+           ORDER BY s.last_updated_ts
+         ) - s.last_updated_ts state_duration
+    FROM states_ts s
+    JOIN doors d ON (s.metadata_id = d.metadata_id) )
+SELECT * FROM durations
+  WHERE state = 'on'
+  ORDER BY state_duration DESC;
+```
+```
+┌────────────────────────────┬─────────────────┬───────┬─────────────────┐
+│         start_time         │      door       │ state │ state_duration  │
+├────────────────────────────┼─────────────────┼───────┼─────────────────┤
+│ 2024-05-17 21:21:10.741532 │ entry_door      │ on    │ 00:14:34.315965 │
+│ 2024-05-20 13:29:17.464323 │ entry_door      │ on    │ 00:13:10.718978 │
+│ 2024-05-19 00:59:41.552397 │ entry_door      │ on    │ 00:11:07.896871 │
+│ 2024-05-16 22:54:59.610229 │ entry_door      │ on    │ 00:09:37.804972 │
+│ 2024-05-16 23:56:59.580461 │ kitchen_door    │ on    │ 00:05:58.254165 │
+│ 2024-05-22 14:54:18.349535 │ garage_man_door │ on    │ 00:03:12.540568 │
+│ 2024-05-16 02:59:00.612372 │ kitchen_door    │ on    │ 00:02:58.732146 │
+│ 2024-05-21 19:03:36.531727 │ garage_man_door │ on    │ 00:02:46.525454 │
+│ 2024-05-19 00:48:47.66089  │ kitchen_door    │ on    │ 00:02:16.415797 │
+│ 2024-05-15 16:42:15.990206 │ garage_man_door │ on    │ 00:01:51.023388 │
+│ 2024-05-17 21:32:47.341022 │ kitchen_door    │ on    │ 00:01:27.297059 │
+│ 2024-05-15 15:10:32.388369 │ entry_door      │ on    │ 00:01:09.023076 │
+│ 2024-05-21 18:11:48.077492 │ kitchen_door    │ on    │ 00:01:08.939645 │
+│ 2024-05-17 21:33:01.198929 │ garage_man_door │ on    │ 00:01:01.258107 │
+│ 2024-05-20 16:08:19.426007 │ entry_door      │ on    │ 00:00:56.590429 │
+│ 2024-05-16 14:48:52.866601 │ entry_door      │ on    │ 00:00:49.007447 │
+│ 2024-05-17 14:31:47.196024 │ kitchen_door    │ on    │ 00:00:46.792687 │
+│ 2024-05-18 16:32:14.869863 │ kitchen_door    │ on    │ 00:00:46.70439  │
+│ 2024-05-19 16:22:55.368629 │ kitchen_door    │ on    │ 00:00:45.024278 │
+│ 2024-05-22 14:52:09.358009 │ kitchen_door    │ on    │ 00:00:44.145899 │
+│ 2024-05-20 21:48:00.563764 │ garage_man_door │ on    │ 00:00:43.689353 │
+│ 2024-05-20 14:14:25.849879 │ kitchen_door    │ on    │ 00:00:42.935742 │
+│ 2024-05-15 16:42:42.092641 │ kitchen_door    │ on    │ 00:00:42.0176   │
+…
+└────────────────────────────┴─────────────────┴───────┴─────────────────┘
+```
+
+Using `LEAD`—and its corresponding function `LAG`—can be syntactically challenging, but being able to wield them against an IoT workload is very powerful.
+
+## Wrap-Up
+
+If you've made it to this point, I hope you can see the potential uses of Tembo's Time Series Stack and [its corresponding extension](https://github.com/tembo-io/pg_timeseries). We started with an unknown time-series data set, created a Time Series Stack, set it up for use with an existing application, and wrote several queries to reach important conclusions from our data.
+
+The [Tembo Time Series stack](/docs/product/stacks/analytical/timeseries) is under active development and we are always looking for the next feature that will help our users most. Keep an eye on this space to make sure you're the first to know about what's added next!
