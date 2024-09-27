@@ -42,7 +42,7 @@ async fn main() -> Result<(), sqlx::Error> {
         .max_connections(5)
         .connect("postgresql://postgres:your-password@your-host:5432/postgres").await?;
 
-    // Make a simple query to return the given parameter (use a question mark `?` instead of `$1` for MySQL/MariaDB)
+    // Make a simple query with a bind parameter
     let row: (i64,) = sqlx::query_as("SELECT $1")
         .bind(150_i64)
         .fetch_one(&pool).await?;
