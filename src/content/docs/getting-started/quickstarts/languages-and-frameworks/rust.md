@@ -18,6 +18,9 @@ cargo new tembo_rust
 cd tembo_rust
 ```
 
+
+## SQLx
+
 Install [SQLx](https://github.com/launchbadge/sqlx) and [Tokio](https://github.com/tokio-rs/tokio) into the project.
 
 ```toml
