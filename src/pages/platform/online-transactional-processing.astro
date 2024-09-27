@@ -4,9 +4,9 @@ import Layout from '../../layouts/Layout.astro';
 import Container from '../../components/Container';
 import Footer from '../../components/Footer.astro';
 import DbBlue from 'src/images/db-blue-transactional.svg';
-import StackedCardsOrder from 'src/images/stacked-cards-order.png';
+import StackedCardsOrder from 'src/images/transactional-order.svg';
 import TemboTransactions from 'src/images/tembo-transactions.png';
-import StackedCardsReservation from 'src/images/stacked-cards-reservation.png';
+import StackedCardsReservation from 'src/images/transactional-reservations.svg';
 import UseCaseSection from '@components/solutions/UseCaseSection.astro';
 import FeaturesSection from '@components/solutions/FeaturesSection.astro';
 import Testimonials from '@components/solutions/Testimonials.astro';
@@ -59,7 +59,7 @@ const transactionalBenefits = [
 	{
 		header: 'Cost Management',
 		description: `Provides transparent pricing and cost management tools to help organizations optimize their cloud spending.`,
-		iconPath: '/moneys.svg',
+		iconPath: '/money-green.svg',
 	},
 	{
 		header: 'Support and Documentation',
@@ -129,7 +129,7 @@ const transactionalFeatures = [
 		/>
 		<UseCaseSection
 			useCaseText='Airline Reservation Systems'
-			scenarioText='Managing flight bookings and reservations'
+			scenarioText='Managing flight bookings and reservations.'
 			detailsText=`OLTP systems handle the real-time processing of flight
 					reservations, ticketing, and seat assignments. They allow
 					airlines to manage availability, pricing, and customer data
@@ -137,6 +137,10 @@ const transactionalFeatures = [
 					change reservations, and check in for flights in real-time.`
 			imgMetadata={StackedCardsReservation}
 			rightAlignedImg={true}
+		/>
+		<FeaturesSection
+			features={transactionalFeatures}
+			sectionTitle='Features'
 		/>
 		<FeaturesSection
 			features={transactionalBenefits}
@@ -147,10 +151,6 @@ const transactionalFeatures = [
 			quote=`”We have loved our experience with Tembo because they offer pre-configured stacks that support our workload, it is extremely easy to manage postgres extensions, and batteries are included in pgBouncer. What we love most about Tembo is the absolutely amazing developer support we have received since coming on. The team really knows their stuff and are very customer focused.”`
 			customerName='Sean Price'
 			customerRole='CTO, Prospect Stream'
-		/>
-		<FeaturesSection
-			features={transactionalFeatures}
-			sectionTitle='Features'
 		/>
 		<WhyTembo
 			extensions=`Over 200 extensions that are installable with a click`

@@ -110,37 +110,35 @@ import Status from './Status';
 					</div>
 				</div>
 			</div>
-			<div
-				class='flex flex-col-reverse min-[470px]:flex-row min-[470px]:items-center justify-between mt-16 font-medium text-grey text-[13px] w-full'
-			>
-				<div class='flex items-center justify-stretch gap-6'>
-					<a
-						href='https://cloud.tembo.io/privacy-policy'
-						target='_blank'
-						rel='noreferrer'>Privacy policy</a
-					>
-					<a
-						href='https://cloud.tembo.io/terms-of-service'
-						target='_blank'
-						rel='noreferrer'>Terms of service</a
-					>
-				</div>
-				<a
-					href='/soc2.pdf'
-					target='_blank'
-					rel='noreferrer'
-					class='inline-flex gap-2 font-secondary mb-2 min-[470px]:mb-0 bg-gradient-rainbow text-transparent bg-clip-text'
-				>
-					<Image
-						src={Checkmark}
-						alt='checkmark'
-						width={14}
-						height={16}
-					/>
-					SOC2 Type 1 compliant
-				</a>
-			</div>
 		</div>
+	</div>
+	<div
+		class='flex flex-col-reverse min-[470px]:flex-row min-[470px]:items-center justify-between mt-16 font-medium text-grey text-[13px] w-full'
+	>
+		<div
+			class='flex flex-col min-[470px]:flex-row items-start lg:items-center justify-stretch gap-3 lg:gap-6'
+		>
+			<a
+				href='https://cloud.tembo.io/privacy-policy'
+				target='_blank'
+				rel='noreferrer'>Privacy Policy</a
+			>
+			<a
+				href='https://cloud.tembo.io/terms-of-service'
+				target='_blank'
+				rel='noreferrer'>Terms of Service</a
+			>
+			<p>© 2024 Tembo Data Systems, Inc. All Rights Reserved.</p>
+		</div>
+		<a
+			href='/soc2.pdf'
+			target='_blank'
+			rel='noreferrer'
+			class='inline-flex gap-2 font-secondary mb-2 min-[470px]:mb-0 bg-gradient-rainbow text-transparent bg-clip-text'
+		>
+			<Image src={Checkmark} alt='checkmark' width={14} height={16} />
+			SOC2 Type 1 compliant
+		</a>
 	</div>
 </footer>
 
