@@ -18,7 +18,7 @@ cargo new tembo_rust
 cd tembo_rust
 ```
 
-Install [SQLx](https://github.com/launchbadge/sqlx) into the project.
+Install [SQLx](https://github.com/launchbadge/sqlx) and [Tokio](https://github.com/tokio-rs/tokio) into the project.
 
 ```toml
 [package]
@@ -63,3 +63,9 @@ cargo run
 ```text
 The value is: 150
 ```
+
+## Support and Community
+
+If you encounter any issues, please check out our [troubleshooting guide](/docs/product/cloud/troubleshooting/connectivity) or contact [support@tembo.io](mailto:support@tembo.io).
+
+You're also welcome to join our [Tembo Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-293gc1k0k-3K8z~eKW1SEIfrqEI~5_yw) to meet and collaborate with other Tembo users.
