@@ -1,39 +1,52 @@
 ---
-title: Search
-sideBarTitle: Search
-description: A postgres extension that enables full text search
-tags: [postgres, elasticsearch, textsearch, analytical]
+title: ParadeDB
+sideBarTitle: ParadeDB
+description: Postgres for Search and Analytics
+tags: [postgres, elasticsearch, analytical, paradedb]
 ---
 
 ## Overview
 
-`pg_search` is a Postgres extension that enables full text search over heap tables using the BM25 algorithm. It is built on top of Tantivy, the Rust-based alternative to Apache Lucene, using `pgrx`.
+[ParadeDB](https://docs.paradedb.com/welcome/introduction) is an Elasticsearch alternative built on Postgres. Built for real-time, update-heavy workloads.
 
-`pg_search` is supported on all versions supported by the PostgreSQL Global Development Group, which includes PostgreSQL 12+.
+## Getting Started
 
-## Usage
+### Full Text Search
 
-### Indexing
-
-`pg_search` comes with a helper function that creates a test table that you can use for quick experimentation.
+`ParadeDB` comes with a helpful procedure that creates a table populated with mock data to help you get started. Once connected with psql, run the following commands to create and inspect this table.
 
 ```sql
 CALL paradedb.create_bm25_test_table(
   schema_name => 'public',
   table_name => 'mock_items'
 );
+
+SELECT description, rating, category
+FROM mock_items
+LIMIT 3;
 ```
 
-To index the table, use the following SQL command:
+```plaintext
+       description        | rating |  category
+--------------------------+--------+-------------
+ Ergonomic metal keyboard |      4 | Electronics
+ Plastic Keyboard         |      4 | Electronics
+ Sleek running shoes      |      5 | Footwear
+(3 rows)
+```
+
+Next, let’s create a BM25 index called search_idx on this table. A BM25 index is a covering index, which means that multiple columns can be included in the same index. The following code block demonstrates the various Postgres types that can be combined inside a single index.
 
 ```sql
 CALL paradedb.create_bm25(
   index_name => 'search_idx',
-  schema_name => 'public',
   table_name => 'mock_items',
   key_field => 'id',
   text_fields => paradedb.field('description') || paradedb.field('category'),
-  numeric_fields => paradedb.field('rating')
+  numeric_fields => paradedb.field('rating'),
+  boolean_fields => paradedb.field('in_stock'),
+  datetime_fields => paradedb.field('created_at'),
+  json_fields => paradedb.field('metadata')
 );
 ```
 
