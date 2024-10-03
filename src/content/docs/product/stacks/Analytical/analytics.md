@@ -131,7 +131,7 @@ INSERT INTO local_trips SELECT * FROM trips;
 ```
 
 Then run the same query on the local Postgres table.
- Notice the execution time being approximately 3x faster it is enabled by DuckDB.
+ Notice the execution time being nearly 5x faster it is enabled by DuckDB.
 
 ```sql
 SELECT 
@@ -182,8 +182,6 @@ Though the above example specifies a [Parquet](https://docs.paradedb.com/ingest/
 - [Delta](https://docs.paradedb.com/ingest/import/delta) — Delta tables, enhanced Parquet tables with transactional capabilities
 - [Iceberg](https://docs.paradedb.com/ingest/import/iceberg) — from the Apache Iceberg project, designed for large analytic data sets
 - [Spatial](https://docs.paradedb.com/ingest/import/spatial) — for querying `geojson` or similar
-
-## Other Stores
 
 By varying the URI scheme in the `files` option provided when creating a `FOREIGN TABLE`, users can easily make use of alternate object stores. `s3` (AWS), `az` (Azure), `r2` (Cloudflare), `gs` (Google Cloud Storage), `https`, and `hf` (Hugging Face data sets) are all easily supported.
 
