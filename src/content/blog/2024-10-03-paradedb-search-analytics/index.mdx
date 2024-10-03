@@ -9,29 +9,72 @@ image: './paradedb_partner.png'
 planetPostgres: true
 ---
 
-We're excited to announce the launch of two new Tembo stacks, powered by ParadeDB.
+Today, We're excited to announce the launch of two new Tembo stacks, powered by ParadeDB.
 
--   The ParadeDB Stack — Designed as a search stack, it is powered by the ParadeDB extensions and is designed as an Elasticsearch alternative for customers needing high-quality full-text search over Postgres data.
+-   The ParadeDB Stack — Designed as a search stack, it is powered by the ParadeDB extensions ([pg_search](https://github.com/paradedb/paradedb/tree/dev/pg_search) and [pg_analytics](https://github.com/paradedb/paradedb/tree/dev/pg_search)) and is designed as an Elasticsearch alternative for customers needing high-quality full-text search over Postgres data.
 -   The Analytics Stack — Designed as a data lake stack, it is powered by the ParadeDB pg_analytics DuckDB-in-Postgres extension and is designed for high-performance analytics over object storages like S3 and table formats like Iceberg.
 
 ## What is ParadeDB?
 
 [ParadeDB](https://www.paradedb.com/) is an Elasticsearch alternative built on Postgres. ParadeDB is built as two extensions, pg_search and pg_analytics, which together bring fast full-text search and high-performance analytics to Postgres.
 
-## Why we're partnering?
+## ParadeDB and Tembo Stacks - A match made in heaven
 
-Tembo is on a mission to enable developers to do more (dare we say, everything?) on Postgres. Adding different technology to your stack to handle specific use cases introduces complexity and costs. We haven’t met a problem yet that Postgres couldn’t solve.
+Tembo is on a mission to enable developers to do more (dare we say, everything?) on Postgres. Every time developers bring in a new technologies, it becomes a piece of software that needs to be learned, mastered and maintained. This becomes a huge cost in the form of cognitive overhead for the team in addition to the time and resources it takes to set up, manage and maintain it. The system also gets expensive and much harder to debug due to the sheer number of tools involved.
 
-[ParadeDB is one of the fastest-growing open source database projects on GitHub](https://github.com/paradedb/paradedb), with over 50,000 deployments. Their extensions are deployed with some of the largest organizations in the world powering production workloads at scale.
+However, just using a use-case optimized flavor of Postgres, which is already deployed in most organizations is a much better fit. That's why we created [Tembo Stacks](https://tembo.io/blog/tembo-stacks-intro) - which are Postgres instances with configurations and extensions which optimize Postgres for a particular workload. And ParadeDB does exactly that for search, allowing users to use Postgres instead of Elastic Search. 
 
-Our teams share a joint vision for the future of the Postgres ecosystem and we couldn't imagine a better partnership than to combine the Tembo Cloud platform and our operational expertise with ParadeDB's feature rich extensions. Our joint customers will now be able to access a fully hosted version of ParadeDB directly on the Tembo platform.
+[ParadeDB is one of the fastest-growing open source database projects on GitHub](https://github.com/paradedb/paradedb), with over 50,000 deployments. Their extensions are deployed with some of the largest organizations in the world powering production workloads at [scale](https://www.paradedb.com/blog/case_study_alibaba).
 
-## Getting started?
+Our teams share a joint vision for the future of the Postgres ecosystem and we couldn't imagine a better partnership than to combine the Tembo Cloud platform, UX and our operational expertise with ParadeDB's feature rich extensions. Our joint customers will now be able to access a fully hosted version of ParadeDB directly on the Tembo platform.
 
-Log into [cloud.tembo.io](https://cloud.tembo.io/) and select either the ParadeDB or the Analytics stack to get started. These stacks are not available to Hobby Tiers. Check out our Docs for a [quickstart]().
+## ParadeDB Stack
+
+The ParadeDB stack allows you to create efficient full-text search indexes powered by the BM25 algorithm. That helps you get a much more performant and feature rich full-text search experience compared to the Postgres native `tsquery` and a much simpler experience compared to adding something as complicated as Elastic Search to your stack.
+
+To get started, you can simply deploy the ParadeDB stack on Tembo and create indexes using the `paradedb.create_bm25` function and run searches via the `search_idx.search` function. Please refer to the docs for full instructions.
+
+```sql
+
+CALL paradedb.create_bm25(
+  index_name => 'search_idx',
+  schema_name => 'public',
+  table_name => 'mock_items',
+  key_field => 'id',
+  text_fields => paradedb.field('description') || paradedb.field('category'),
+  numeric_fields => paradedb.field('rating')
+);
+
+SELECT description, rating, category
+FROM search_idx.search(
+  '(description:keyboard OR category:electronics) AND rating:>2',
+  limit_rows => 5
+);
+
+```
+
+## Analytics Stack
+
+In today's world, S3 has become a common destination to store your non-operational data. But, traditionally, it's been pretty hard for Postgres users to query their S3 data efficiently. However, thanks to Postgres extensibility and DuckDB's high performance analytical query engine, this can now be done via the [pg_analytics](https://github.com/paradedb/pg_analytics) extension. This extension allows you to run efficient queries on parquet or Iceberg data stored in object stores like S3.
+
+The Tembo Analytics Stack ships with pg_analytics and other extensions optimized for analytics workloads such as hydra_columnar allowing you to run efficient analytics queries right from Postgres.
+
+To get started, you can simply deploy the Analytics stack on Tembo and create a foreign table which points to your S3 data. Then, you should be able to immediately query the data without needing to define the columns and types for the table.
+
+```sql
+
+CREATE FOREIGN TABLE trips ()
+  SERVER parquet_server
+  OPTIONS (files 's3://tembo-demo-bucket/yellow_tripdata_2024-01.parquet');
+
+SELECT vendorid, passenger_count, trip_distance FROM trips LIMIT 1;
+
+```  
+
+## Get started!
+
+Log into [cloud.tembo.io](https://cloud.tembo.io/) and select either the ParadeDB or the Analytics stack to get started. These stacks are not available to Hobby Tiers, but are still available to try out under our [free trial](https://tembo.io/docs/product/cloud/free-trial).
 
 <img src='/paradedb.png' alt='Select a ParadeDB Stack on Tembo Cloud' />
 
-We’re excited for you to try the new ParadeDB-powered Stacks - let us know what you think!
-
-As always, we love to hear from you about functionality that will make your life easier. Please suggest and upvote features via [our roadmap](https://roadmap.tembo.io/)!
+We’re excited for you to try the new ParadeDB-powered Stacks - let us know what you think! In upcoming weeks, we will be sharing benchmarks around how ParadeDB makes search and analytics faster for Postgres users.
