@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import Avatar from 'src/images/avatar-default.svg';
+
+interface Props {
+	quote: string;
+	titleQuote: string;
+	customerName: string;
+	customerRole: string;
+}
+
+const { quote, titleQuote, customerName, customerRole } = Astro.props;
+---
+
+<section
+	class='tembo-for-startups-section flex flex-col w-full items-center justify-center my-[80px] lg:my-[100px] justify-between px-3'
+>
+	<div
+		class='flex items-center justify-center text-neon font-light tracking-[0.47px] sm:text-[12px] md:text-[16px] lg:text-[20px] mb-6'
+	>
+		Customer Testimonial
+	</div>
+	<div
+		class='flex items-center justify-center text-white font-bold tracking-[0.47px] sm:text-[16px] md:text-[24px] lg:text-[32px] mb-6'
+	>
+		{titleQuote}
+	</div>
+	<div
+		class='flex text-center text-white font-normal font-secondary tracking-[0.47px] text-sm mb-6'
+	>
+		{quote}
+	</div>
+	<div
+		class='flex align-center justify-center rounded-3xl border border-otherGrey2 bg-mwasi p-4'
+	>
+		<div class='flex flex-row gap-2.5'>
+			<Image src={Avatar} width={40} height={40} alt='default avatar' />
+			<div class='flex flex-col'>
+				<p class='text-white font-medium font-secondary text-sm'>
+					{customerName}
+				</p>
+				<p class='text-lightGrey font-normal font-secondary text-xs'>
+					{customerRole}
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
