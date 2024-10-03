@@ -13,8 +13,6 @@ tags: [postgres, elasticsearch, analytical, paradedb]
 
 Visit the [Official ParadeDB documentation](https://docs.paradedb.com/documentation) for an in-depth and complete guide on [ParadeDB](https://www.paradedb.com/).
 
-### Full Text Search
-
 `ParadeDB` comes with a helpful procedure that creates a table populated with mock data to help you get started. Once connected with psql, run the following commands to create and inspect this table.
 
 ```sql
@@ -56,7 +54,7 @@ Note the mandatory `key_field` option in the `WITH` code. Every `bm25` index nee
 
 Once the [indexing](https://docs.paradedb.com/documentation/indexing/create_index) is complete, you can run various search functions on it.
 
-### Basic Search
+## Basic Search
 
 Execute a search query on your indexed table:
 
