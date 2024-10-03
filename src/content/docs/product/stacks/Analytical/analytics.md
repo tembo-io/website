@@ -5,11 +5,12 @@ sideBarPosition: 305
 tags: [postgresql, paradedb, analytics]
 ---
 
-Tembo's Analytics stack enables you to efficiently query large amounts of "off-site" data (such as S3 parquet files) easily. The stack is tuned for analytics workloads.
+Tembo's Analytics Stack enables you to efficiently query large amounts of "off-site" data (such as S3 parquet files) easily.
+ The Stack powered by [ParadeDB's](https://github.com/paradedb/paradedb) [pg_analytics](https://github.com/paradedb/paradedb/tree/dev/pg_analytics) extension and is tuned for analytics workloads.
 
 ## Extensions
 
-- [pg_lakehouse](https://pgt.dev/extensions/pg_lakehouse) - provides implementations of various foreign data wrappers for querying diverse table formats (Iceberg, Delta lake, etc.) in S3 and other backing stores. DuckDB ensures efficient query plans
+- [pg_analytics](https://github.com/paradedb/paradedb/tree/dev/pg_analytics) - provides implementations of various foreign data wrappers for querying diverse table formats (Iceberg, Delta lake, etc.) in S3 and other backing stores. DuckDB ensures efficient query plans
 - [pg_partman](https://pgt.dev/extensions/pg_partman) - simplifies and automates partitioning of large database tables
 - [pg_cron](https://pgt.dev/extensions/pg_cron) - for scheduling maintenance operations
 
@@ -53,7 +54,8 @@ After creating the table, querying can begin immediately. Note that the column n
 ```sql
 SELECT vendorid, passenger_count, trip_distance FROM trips LIMIT 1;
 ```
-```
+
+```plaintext
 ┌──────────┬─────────────────┬───────────────┐
 │ vendorid │ passenger_count │ trip_distance │
 ├──────────┼─────────────────┼───────────────┤
@@ -64,7 +66,8 @@ SELECT vendorid, passenger_count, trip_distance FROM trips LIMIT 1;
 ```sql
 SELECT COUNT(*) FROM trips;
 ```
-```
+
+```plaintext
 ┌──────────┐
 │  count   │
 ├──────────┤
@@ -72,14 +75,115 @@ SELECT COUNT(*) FROM trips;
 └──────────┘
 ```
 
+### Aggregating data
+
+Executing aggregates and analytics queries on the data that is in S3 works exactly the same as if that data were in Postgres.
+ For example, the business time of time of day when the most trips are taken can be determined with a simple query:
+
+```sql
+SELECT 
+  EXTRACT(HOUR FROM tpep_pickup_datetime) AS pickup_hour,
+  COUNT(*) AS total_records
+FROM trips
+GROUP BY pickup_hour
+ORDER BY pickup_hour;
+```
+
+```timing
+ pickup_hour | total_records 
+-------------+---------------
+           0 |         79094
+           1 |         53627
+           2 |         37517
+           3 |         24811
+           4 |         16742
+           5 |         18764
+           6 |         41429
+           7 |         83719
+           8 |        117209
+           9 |        128970
+          10 |        138778
+          11 |        150542
+          12 |        164559
+          13 |        169903
+          14 |        182898
+          15 |        189359
+          16 |        190201
+          17 |        206257
+          18 |        212788
+          19 |        184032
+          20 |        159989
+          21 |        160888
+          22 |        143261
+          23 |        109287
+(24 rows)
+
+Time: 694.308 ms
+```
+
+### Performance enabled by DuckDB
+
+We can quickly compare this to running the same query but with the data locally in Postgres and without using ParadeDB's DuckDB powered extensions.
+
+First, create a local table and populate it with the same data from S3.
+
+```sql
+CREATE TABLE local_trips (LIKE trips INCLUDING ALL);
+INSERT INTO local_trips SELECT * FROM trips;
+```
+
+Then run the same query on the local Postgres table.
+ Notice the execution time being approximately 3x faster it is powered by DuckDB.
+
+```sql
+SELECT 
+  EXTRACT(HOUR FROM tpep_pickup_datetime) AS pickup_hour,
+  COUNT(*) AS total_records
+FROM trips
+GROUP BY pickup_hour
+ORDER BY pickup_hour;
+```
+
+```plaintext
+ pickup_hour | total_records 
+-------------+---------------
+           0 |         79094
+           1 |         53627
+           2 |         37517
+           3 |         24811
+           4 |         16742
+           5 |         18764
+           6 |         41429
+           7 |         83719
+           8 |        117209
+           9 |        128970
+          10 |        138778
+          11 |        150542
+          12 |        164559
+          13 |        169903
+          14 |        182898
+          15 |        189359
+          16 |        190201
+          17 |        206257
+          18 |        212788
+          19 |        184032
+          20 |        159989
+          21 |        160888
+          22 |        143261
+          23 |        109287
+(24 rows)
+
+Time: 3317.911 ms (00:03.318)
+```
+
 ## Other Formats
 
 Though the above example specifies a [Parquet](https://docs.paradedb.com/ingest/import/parquet) file for use, `pg_lakehouse` supports several different formats, each with its own `FOREIGN DATA WRAPPER`:
 
-  - [CSV](https://docs.paradedb.com/ingest/import/csv) — comma-separated values, the classic
-  - [Delta](https://docs.paradedb.com/ingest/import/delta) — Delta tables, enhanced Parquet tables with transactional capabilities
-  - [Iceberg](https://docs.paradedb.com/ingest/import/iceberg) — from the Apache Iceberg project, designed for large analytic data sets
-  - [Spatial](https://docs.paradedb.com/ingest/import/spatial) — for querying `geojson` or similar
+- [CSV](https://docs.paradedb.com/ingest/import/csv) — comma-separated values, the classic
+- [Delta](https://docs.paradedb.com/ingest/import/delta) — Delta tables, enhanced Parquet tables with transactional capabilities
+- [Iceberg](https://docs.paradedb.com/ingest/import/iceberg) — from the Apache Iceberg project, designed for large analytic data sets
+- [Spatial](https://docs.paradedb.com/ingest/import/spatial) — for querying `geojson` or similar
 
 ## Other Stores
 
