@@ -6,7 +6,7 @@ tags: [postgresql, paradedb, analytics]
 ---
 
 Tembo's Analytics Stack enables you to efficiently query large amounts of "off-site" data (such as S3 parquet files) easily.
- The Stack powered by [ParadeDB's](https://github.com/paradedb/paradedb) [pg_analytics](https://github.com/paradedb/paradedb/tree/dev/pg_analytics) extension and is tuned for analytics workloads.
+ The Stack is powered by [ParadeDB's](https://github.com/paradedb/paradedb) [pg_analytics](https://github.com/paradedb/paradedb/tree/dev/pg_analytics) extension and is tuned for analytics workloads.
 
 ## Extensions
 
@@ -20,7 +20,7 @@ This guide will demonstrate how to query a parquet table stored in an S3 bucket.
 
 ## Preparing your database
 
-Simply launch an Analytics stack in Tembo Cloud and wait for the database to be ready in the UI.
+Simply [launch](https://tembo.io/docs/product/cloud/configuration-and-management/create-instance) an Analytics stack in Tembo Cloud and wait for the database to be ready in the UI.
 
 Once that's up and running, you'll need a client machine with `psql` (to connect to your database). Our parquet file is available in a public S3 bucket.
 
@@ -49,18 +49,17 @@ CREATE FOREIGN TABLE trips ()
   OPTIONS (files 's3://tembo-demo-bucket/yellow_tripdata_2024-01.parquet');
 ```
 
-After creating the table, querying can begin immediately. Note that the column names and types for this table have automatically been inferred from the parquet file itself…
+After creating the table, querying can begin immediately. Note that the column names and types for this table have automatically been inferred from the parquet file itself.
 
 ```sql
 SELECT vendorid, passenger_count, trip_distance FROM trips LIMIT 1;
 ```
 
 ```plaintext
-┌──────────┬─────────────────┬───────────────┐
-│ vendorid │ passenger_count │ trip_distance │
-├──────────┼─────────────────┼───────────────┤
-│        2 │               1 │          1.72 │
-└──────────┴─────────────────┴───────────────┘
+ vendorid | passenger_count | trip_distance 
+----------+-----------------+---------------
+        2 |               1 |          1.72
+(1 row)
 ```
 
 ```sql
@@ -68,14 +67,13 @@ SELECT COUNT(*) FROM trips;
 ```
 
 ```plaintext
-┌──────────┐
-│  count   │
-├──────────┤
-│  2964624 │
-└──────────┘
+  count  
+---------
+ 2964624
+(1 row)
 ```
 
-### Aggregating data
+## Executing Analytical Queries
 
 Executing aggregates and analytics queries on the data that is in S3 works exactly the same as if that data were in Postgres.
  For example, the business time of time of day when the most trips are taken can be determined with a simple query:
@@ -121,7 +119,7 @@ ORDER BY pickup_hour;
 Time: 694.308 ms
 ```
 
-### Performance enabled by DuckDB
+## Performance enabled by DuckDB
 
 We can quickly compare this to running the same query but with the data locally in Postgres and without using ParadeDB's DuckDB powered extensions.
 
@@ -133,7 +131,7 @@ INSERT INTO local_trips SELECT * FROM trips;
 ```
 
 Then run the same query on the local Postgres table.
- Notice the execution time being approximately 3x faster it is powered by DuckDB.
+ Notice the execution time being approximately 3x faster it is enabled by DuckDB.
 
 ```sql
 SELECT 
@@ -178,7 +176,7 @@ Time: 3317.911 ms (00:03.318)
 
 ## Other Formats
 
-Though the above example specifies a [Parquet](https://docs.paradedb.com/ingest/import/parquet) file for use, `pg_lakehouse` supports several different formats, each with its own `FOREIGN DATA WRAPPER`:
+Though the above example specifies a [Parquet](https://docs.paradedb.com/ingest/import/parquet) file for use, `pg_analytics` supports several different formats, each with its own `FOREIGN DATA WRAPPER`:
 
 - [CSV](https://docs.paradedb.com/ingest/import/csv) — comma-separated values, the classic
 - [Delta](https://docs.paradedb.com/ingest/import/delta) — Delta tables, enhanced Parquet tables with transactional capabilities
@@ -191,7 +189,7 @@ By varying the URI scheme in the `files` option provided when creating a `FOREIG
 
 ### Authentication
 
-`pg_lakehouse` relies on the use of the SQL-standard [`CREATE USER MAPPING` command](https://www.postgresql.org/docs/current/sql-createusermapping.html) to specify credentials to be used when connecting to remote object stores. For instance, one might configure S3 credentials like so:
+`pg_analytics` relies on the use of the SQL-standard [`CREATE USER MAPPING` command](https://www.postgresql.org/docs/current/sql-createusermapping.html) to specify credentials to be used when connecting to remote object stores. For instance, one might configure S3 credentials like so:
 
 ```sql
 CREATE USER MAPPING FOR marketing_analytics
@@ -204,8 +202,8 @@ OPTIONS (
 );
 ```
 
-PostgreSQL has support for a special `PUBLIC` user, which will be the fallback if no specific user is found. See `pg_lakehouse`'s documentation for individual object stores (for instance, [S3's object store](https://docs.paradedb.com/ingest/object_stores/s3)) for full information about supported parameters.
+PostgreSQL has support for a special `PUBLIC` user, which will be the fallback if no specific user is found. See `pg_analytics`'s documentation for individual object stores (for instance, [S3's object store](https://docs.paradedb.com/ingest/object_stores/s3)) for full information about supported parameters.
 
 ## Additional Reading
 
-ParadeDB's [data ingest documentation](https://docs.paradedb.com/ingest/quickstart) has complete information about the configuration and use of `pg_lakehouse`.
+ParadeDB's [data ingest documentation](https://docs.paradedb.com/ingest/quickstart) has complete information about the configuration and use of `pg_analytics`.
