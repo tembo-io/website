@@ -5,7 +5,7 @@ authors: [shaun]
 description: |
     The pg_timeseries extension uses Hydra Columnar storage for historical data. Check this out if you want to know how this kind of storage compares to standard Postgres Heap storage during database writes.
 tags: [postgres, pg_timeseries, database, heap, columnar, performance]
-date: 2024-08-02T09:00
+date: 2024-10-10T09:00
 image: './analysis.png'
 planetPostgres: true
 ---
@@ -17,8 +17,6 @@ So why not run some tests?
 ## Benchmark Procedure
 
 Any proper benchmark needs a testing procedure. We performed a few simple test runs which showed interesting results, but these initial findings were soon erased once the more objective and standardized process emerged.
-
-All code used for these tests is available in this GitHub directory rather than inline with the blog. Including it here would be somewhat distracting, as it’s a lot of code. But we can explore the function names, if only for amusement sake. The process works like this:
 
 All code used for these tests is available in [this GitHub directory](https://github.com/tembo-io/tembo-labs/tree/main/blog-code/columnar-heap-benchmark/) rather than inline with the blog. Including it here would be somewhat distracting, as it's a _lot_ of code. But we _can_ explore the function names, if only for amusement sake. 
 
@@ -36,7 +34,7 @@ The process works like this:
      - Call `sp_update_test` for update timings.
      - Call `sp_delete_test` for delete timings.
      - Repeat all insert, update, delete tests 5 times for accuracy.
-   - Repeat entire test process for columnar storage.
+   - Repeat the entire test process for columnar storage.
 5. Wait.
 6. Check the `sample_data` table for results.
 
