@@ -1,12 +1,17 @@
 ---
-import NavBar from '../components/NavBar';
-import Layout from '../layouts/Layout.astro';
-import Container from '../components/Container';
-import Footer from '../components/Footer.astro';
-import Callout from '../components/Callout.astro';
+import NavBar from '@components/NavBar';
+import Layout from 'src/layouts/Layout.astro';
+import Container from '@components/Container';
+import Footer from '@components/Footer.astro';
+import Callout from '@components/Callout.astro';
 import { Image } from 'astro:assets';
-import ArchitectureImage from '../images/tembo-for-enterprises.png';
-import Markdown from '../components/Markdown.astro';
+import ArchitectureImage from 'src/images/tembo-for-enterprises.png';
+import Markdown from '@components/Markdown.astro';
+
+import ContactForm from '@components/ContactForm.tsx';
+import ContactElephant from 'public/contact-elephant.svg';
+import ConfettiContact from '@components/ConfettiContact.astro';
+
 const currentPath = Astro.url.pathname;
 ---
 
@@ -206,20 +211,39 @@ const currentPath = Astro.url.pathname;
 					</li>
 				</ol>
 
-				<h2>Contact</h2>
-
-				<p>
-					If you'd like to schedule a walk-through or consultation,
-					please reach out to:
-				</p>
-
-				<p>
-					<a href='https://calendly.com/rbk-tembo/tembo-chat'
-						>Brad Kirn</a
+				<Container styles='relative mb-20'>
+					<div
+						class='light-gradient absolute -top-[700px] -right-[100px] overflow-hidden'
 					>
-					<br />
-					Head of Growth, Tembo
-				</p>
+					</div>
+					<div class='grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-8'>
+						<div class='flex items-center md:justify-center'>
+							<Image
+								src={ContactElephant}
+								alt='contact elephant image'
+								width={400}
+								height={400}
+								class='lg:block hidden'
+							/>
+							<Image
+								src={ContactElephant}
+								alt='contact elephant image'
+								width={300}
+								height={300}
+								class='lg:hidden md:block hidden'
+							/>
+							<Image
+								src={ContactElephant}
+								alt='contact elephant image'
+								width={120}
+								height={120}
+								class='max-[768px]:block hidden'
+							/>
+						</div>
+						<ContactForm client:load />
+						<ConfettiContact />
+					</div>
+				</Container>
 			</Markdown>
 		</section>
 	</Container>

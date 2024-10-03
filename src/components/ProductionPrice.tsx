@@ -32,6 +32,13 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 		}
 	};
 
+	const monthlyPrice =
+		parseFloat(priceMatrix[selectValue][rangeValue].dollars) +
+		0.0002 * 730 * 10;
+
+	const hourlyPrice =
+		parseFloat(priceMatrix[selectValue][rangeValue].dollars) + 0.0002 * 10;
+
 	return (
 		<div className='mt-8'>
 			<div className='flex items-baseline gap-2.5 customMd:gap-1.5'>
@@ -50,10 +57,14 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 				</svg>
 
 				<span className='font-semibold text-pricingGreen text-[40px] leading-[50px] tracking-[0.54px] customXs:text-[48px] customXs:leading-10'>
-					{priceMatrix[selectValue][rangeValue].dollars}
+					{priceInterval === 'month' ? (
+						<p>{monthlyPrice.toFixed(2)}</p>
+					) : (
+						<p>{hourlyPrice.toFixed(2)}</p>
+					)}
 				</span>
 				<span className='opacity-50 font-semibold text-pricingGreen text-[23px] leading-[29px] tracking-[0.54px]'>
-					/{priceInterval}
+					/{priceInterval}*
 				</span>
 			</div>
 			<Slider.Root
@@ -78,6 +89,9 @@ const ProductionPrice: React.FC<Props> = ({ priceMatrix, priceInterval }) => {
 				htmlFor={`${priceInterval}-slider`}
 			>
 				{priceMatrix[selectValue][rangeValue].size}
+			</label>
+			<label className='block mt-4 font-secondary font-normal text-white opacity-80 text-[12px] leading-[24px]'>
+				* This pricing estimate assumes 10Gi of storage.
 			</label>
 
 			<Select.Root value={selectValue} onValueChange={handleSelection}>
