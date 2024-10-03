@@ -11,6 +11,8 @@ tags: [postgres, elasticsearch, analytical, paradedb]
 
 ## Getting Started
 
+Visit the [Official ParadeDB documentation](https://docs.paradedb.com/documentation) for an in-depth and complete guide on [ParadeDB](https://www.paradedb.com/).
+
 ### Full Text Search
 
 `ParadeDB` comes with a helpful procedure that creates a table populated with mock data to help you get started. Once connected with psql, run the following commands to create and inspect this table.
@@ -52,7 +54,7 @@ CALL paradedb.create_bm25(
 
 Note the mandatory `key_field` option in the `WITH` code. Every `bm25` index needs a `key_field`, which should be the name of a column that will function as a row's unique identifier within the index. Usually, the `key_field` can just be the name of your table's primary key column.
 
-Once the indexing is complete, you can run various search functions on it.
+Once the [indexing](https://docs.paradedb.com/documentation/indexing/create_index) is complete, you can run various search functions on it.
 
 ### Basic Search
 
