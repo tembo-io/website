@@ -9,10 +9,10 @@ image: './paradedb_partner.png'
 planetPostgres: true
 ---
 
-Today, We're excited to announce the launch of two new Tembo stacks, powered by ParadeDB.
+Today, we're excited to announce the launch of two new Tembo stacks, powered by ParadeDB.
 
--   The ParadeDB Stack — Designed as a search stack, it is powered by the ParadeDB extensions ([pg_search](https://github.com/paradedb/paradedb/tree/dev/pg_search) and [pg_analytics](https://github.com/paradedb/paradedb/tree/dev/pg_search)) and is designed as an Elasticsearch alternative for customers needing high-quality full-text search over Postgres data.
--   The Analytics Stack — Designed as a data lake stack, it is powered by the ParadeDB pg_analytics DuckDB-in-Postgres extension and is designed for high-performance analytics over object storages like S3 and table formats like Iceberg.
+-   The [ParadeDB Stack](https://tembo.io/docs/product/stacks/analytical/paradedb) — Designed as a search stack, it is powered by the ParadeDB extensions ([pg_search](https://github.com/paradedb/paradedb/tree/main/pg_search) and [pg_analytics](https://github.com/paradedb/paradedb/tree/main/pg_search)) and is designed as an Elasticsearch alternative for customers needing high-quality full-text search over Postgres data.
+-   The [Analytics Stack](https://tembo.io/docs/product/stacks/analytical/analytics) — Gives developers a data lake experience on Postgres. It is powered by the ParadeDB pg_analytics extension that brings DuckDB into Postgres and is designed for high-performance analytics over object storages like S3 and table formats like Iceberg.
 
 ## ParadeDB is Search and Analytics for Postgres 
 
@@ -73,7 +73,12 @@ SELECT vendorid, passenger_count, trip_distance FROM trips LIMIT 1;
 
 ## Get started!
 
-Log into [cloud.tembo.io](https://cloud.tembo.io/) and select either the ParadeDB or the Analytics stack to get started. These stacks are not available to Hobby Tiers, but are still available to try out under our [free trial](https://tembo.io/docs/product/cloud/free-trial).
+Log into [cloud.tembo.io](https://cloud.tembo.io/) and select either the ParadeDB or the Analytics stack to get started.
+ You can try these Stacks under our [free trial](https://tembo.io/docs/product/cloud/free-trial) or jump right into a paid plan.
+ Check out the getting-started guides for both of these Stacks:
+
+- [ParadeDB Stack](https://tembo.io/docs/product/stacks/analytical/paradedb)
+— [Analytics Stack](https://tembo.io/docs/product/stacks/analytical/analytics)
 
 <img src='/paradedb.png' alt='Select a ParadeDB Stack on Tembo Cloud' />
 
