@@ -87,7 +87,7 @@ GROUP BY pickup_hour
 ORDER BY pickup_hour;
 ```
 
-```timing
+```plaintext
  pickup_hour | total_records 
 -------------+---------------
            0 |         79094
