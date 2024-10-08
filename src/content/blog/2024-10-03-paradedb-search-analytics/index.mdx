@@ -24,7 +24,7 @@ Today, we're excited to announce the launch of two new Tembo stacks, powered by 
 
 Tembo is on a mission to enable developers to do more (dare we say, everything?) on Postgres. Every time developers bring in a new technologies, it becomes a piece of software that needs to be learned, mastered and maintained. This becomes a huge cost in the form of cognitive overhead for the team in addition to the time and resources it takes to set up, manage and maintain it. The system also gets expensive and much harder to debug due to the sheer number of tools involved.
 
-However, just using a use-case optimized flavor of Postgres, which is already deployed in most organizations is a much better fit. That's why we created [Tembo Stacks](https://tembo.io/blog/tembo-stacks-intro) - which are Postgres instances with configurations and extensions which optimize Postgres for a particular workload. And ParadeDB does exactly that for search, allowing users to use Postgres instead of Elastic Search. 
+However, just using a use-case optimized flavor of Postgres, which is already deployed in most organizations is a much better fit. That's why we created [Tembo Stacks](https://tembo.io/blog/tembo-stacks-intro) - which are Postgres instances with configurations and extensions which optimize Postgres for a particular workload. And ParadeDB does exactly that for search, allowing users to use Postgres instead of Elasticsearch. 
 
 [ParadeDB is one of the fastest-growing open source database projects on GitHub](https://github.com/paradedb/paradedb), with over 50,000 deployments. Their extensions are deployed with some of the largest organizations in the world powering production workloads at [scale](https://www.paradedb.com/blog/case_study_alibaba).
 
@@ -32,7 +32,7 @@ Our teams share a joint vision for the future of the Postgres ecosystem and we c
 
 ## ParadeDB Stack
 
-The ParadeDB stack allows you to create efficient full-text search indexes powered by the BM25 algorithm. That helps you get a much more performant and feature rich full-text search experience compared to the Postgres native `tsquery` and a much simpler experience compared to adding something as complicated as Elastic Search to your stack.
+The ParadeDB stack allows you to create efficient full-text search indexes powered by the BM25 algorithm. That helps you get a much more performant and feature rich full-text search experience compared to the Postgres native `tsquery` and a much simpler experience compared to adding something as complicated as Elasticsearch to your stack.
 
 To get started, you can simply deploy the ParadeDB stack on Tembo and create indexes using the `paradedb.create_bm25` function and run searches via the `search_idx.search` function. Please refer to the docs for full instructions.
 
