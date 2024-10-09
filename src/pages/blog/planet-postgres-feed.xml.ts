@@ -12,7 +12,7 @@ export async function GET() {
 	);
 	const posts: any[] = Object.values(postImportResult).reverse();
 	const feed = new Feed({
-		title: "Tembo's Blog",
+		title: "Tembo’s Blog",
 		description:
 			'Latest news and technical blog posts from members of the Tembo team and community!',
 		id: 'https://tembo.io/blog',
