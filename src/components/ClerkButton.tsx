@@ -27,7 +27,7 @@ const ClerkButton: FC<Props> = ({ currentPage }) => {
 			isLinkTag={true}
 			link={
 				organization?.id
-					? `https://cloud.tembo.io/orgs/${organization.id}/clusters`
+					? `https://cloud.tembo.io/orgs/${organization.id}/instances`
 					: 'https://cloud.tembo.io/sign-up'
 			}
 		>
