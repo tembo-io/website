@@ -220,21 +220,6 @@ const NavBar: React.FC<Props> = ({
 						</a>
 					</div>
 					<div className='hidden mid:flex gap-8 items-center self-end'>
-						<a
-							href='https://github.com/tembo-io/tembo'
-							target='_blank'
-							className={cx(
-								'font-secondary font-medium z-10 flex items-center gap-2 ',
-								'text-white opacity-70',
-							)}
-						>
-							<img
-								src='/github.svg'
-								alt='github icon'
-								className='w-[20px] h-[20px]'
-							/>
-							Github
-						</a>
 						<ClerkProviderWithButton currentPage={currentPage} />
 					</div>
 					<button
