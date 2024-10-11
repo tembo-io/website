@@ -1,0 +1,25 @@
+---
+import NavBar from '@components/NavBar';
+import Footer from '@components/Footer.astro';
+import Layout from '@layouts/Layout.astro';
+import Container from '@components/Container';
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title='University | Tembo'>
+	<NavBar client:load currentPage={currentPath} isBanner={false} />
+	<Container>
+		<section class='mt-[120px]'>
+			<div>Hello World</div>
+		</section>
+	</Container>
+	<div class='relative z-10 bg-offBlack'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
+		</div>
+		<Container styles='z-50'>
+			<Footer />
+		</Container>
+	</div>
+</Layout>
