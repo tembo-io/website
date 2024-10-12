@@ -1,0 +1,97 @@
+---
+slug: open-source-tiering
+title: 'Open source Data Tiering now available for Postgres'
+authors: [adam, shahnawaz]
+description: |
+  We built and open-sourced pg_tier, a Postgres extension that simplifies integration with AWS S3 and other object stores
+tags: [postgres, workloads]
+date: 2024-09-20T09:00
+image: './community-tiering.png'
+planetPostgres: false
+---
+
+
+When evaluating data value, it's crucial to look beyond its literal measurements and consider the resources required for lifecycle management. As data scales, users often face increasing costs, turning an initially appealing subscription into a burden. One answer to such a problem focuses not so much on the amount of data, but how the data is stored.
+
+At Tembo, we heard this challenge echoed repeatedly from both internal teams and the community. To address it, we built and open-sourced [pg_tier](https://github.com/tembo-io/pg_tier), a Postgres extension that simplifies integration with AWS S3 and other object stores. With `pg_tier`, users can move Postgres tables to S3 while retaining the ability to query them as if they were still in Postgres.
+
+## Data lifecycle management
+
+As data progresses through the various stages of its lifecycle, so too do its access patterns change. Upon injestion and querying, data is understood to be at the "hot" stage. As data ages, its frequency of access decreases. Metaphorically, the data continues to cool and eventually finds itself in "cold" storage.
+
+In addition to access patterns, organizations, such as banks, will likely adhere to certain governance postures that would enforce a data retention period. For these financial institutions, It simply wouldn't make sense to keep 7 - 10 year old data front and center, when they can store it at much lower costs.
+Moreover, it's important to note that these stages aren't simply where the data is stored, but a combination of its location and formatting.
+
+A good way to visualize these stages would be to break them down as follows:
+
+| **Stage** | **Description** |
+|-------------------|-----------------|
+| **Hot**   | The data lives in the Postgres database, is frequently accessed, and requires quick retrieval and processing. |
+| **Cool**  | The data is at an aged stage and is less frequently accessed, but must remain easily accessible. By this point it has been moved from Postgres to an object store (Parquet format), for example, by means of `pg_tier`. |
+| **Cold**  | The data is considered to be at the archival stage, where it is rarely accessed and kept in long-term storage for reasons such as compliance. `pg_tier` offers low-cost, bottomless storage, minimizing the expenses associated with infrequent access. |
+
+In the final stage, data is rarely accessed but retained for long-term storage and compliance. Object stores have evolved various tiers, but the lowest tiers still brings unnecessary costs when trying to access your data. `pg_tier` addresses this and provides users with bottomless storage and a low cost of data access.
+
+## Everyone can have bottomless storage on Postgres
+
+The need for scalable and affordable storage is clear, and this is where Postgres users can significantly benefit. While engineers often archive data by copying it to S3 and deleting it from Postgres, querying that archived data presents challenges. Tools like [DuckDB](https://duckdb.org/), [Apache Pinot](https://pinot.apache.org/), or [ClickHouse](https://clickhouse.com/) offer solutions, but users typically need to build custom pipelines to move data to S3 and integrate it into these systems. The goal of `pg_tier`is to make this a standardized process, across all object storage formats and cloud providers, with a first class experience on Postgres.
+
+## Enhancing parquet_s3_fdw for a touch-free experience
+
+`pg_tier` builds on the established `parquet_s3_fdw` project, which enables the creation of a foreign data wrapper around S3 data, allowing users to query it as if it were still in Postgres. This integration eliminates the need for manual AWS credential configuration, offering a streamlined experience for working with S3 data directly from Postgres.
+
+## Using `pg_tier` for Data Tiering
+
+### Create a Table and Insert Data
+
+Start by creating a table and populating it with some data:
+
+```sql
+CREATE TABLE people (
+    name text not null,
+    age numeric not null
+);
+INSERT INTO people VALUES ('Alice', 34), ('Bob', 45), ('Charlie', 56);
+```
+
+### Set Up Your S3 Credentials and Bucket
+
+```sql
+SELECT tier.set_tier_config(
+    'my-storage-bucket',
+    'AWS_ACCESS_KEY',
+    'AWS_SECRET_KEY',
+    'AWS_REGION'
+);
+```
+
+### Tier the Table to S3
+
+After setting up your S3 configuration, you can tier the table by moving it to S3 and converting it into a foreign table:
+
+```sql
+SELECT tier.table('people');
+```
+This command will move the people table to S3 and convert it into a foreign table that PostgreSQL can still query.
+
+### Check the Table's Foreign Status
+
+Once tiered, the table becomes a foreign table stored in S3. You can verify this by checking its schema:
+
+```text
+\d+ people
+```
+
+You should see something similar to this output:
+
+```text
+                                      Foreign table "public.people"
+ Column |  Type   | Collation | Nullable | Default | FDW options  | Storage  | Stats target | Description
+--------+---------+-----------+----------+---------+--------------+----------+--------------+-------------
+ name   | text    |           | not null |         | (key 'true') | extended |              |
+ age    | numeric |           | not null |         | (key 'true') | main     |              |
+Server: pg_tier_s3_srv
+FDW options: (dirname 's3://my-storage-bucket/public_people/')
+```
+
+We would love for you to try out [pg_tier](https://github.com/tembo-io/pg_tier) for yourself. You can get started with `pg_tier` [on Tembo Cloud](https://cloud.tembo.io/sign-up) in no time!
