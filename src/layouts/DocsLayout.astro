@@ -12,6 +12,7 @@ interface Props {
 	isProgressBar?: boolean;
 	image?: string;
 	keywords?: string[];
+	logoTitle?: string;
 }
 const {
 	title = 'Documentation | Tembo',
@@ -21,6 +22,7 @@ const {
 	isProgressBar = true,
 	image = 'docs-og-image.png',
 	keywords,
+	logoTitle = 'Docs',
 }: Props = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
@@ -43,6 +45,7 @@ const currentPath = Astro.url.pathname;
 				<SideBar
 					isNestedSideBar={isNestedDoc}
 					sideBarMenuSections={sideBarMenuSections}
+					logoTitle={logoTitle}
 				/>
 				<div
 					class='w-full overflow-auto scroll-pt-[120px]'

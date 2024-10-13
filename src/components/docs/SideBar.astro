@@ -12,9 +12,10 @@ import { getNestedSideBarLinks } from '../../util/docsUtils';
 interface Props {
 	sideBarMenuSections: SideBarSection[];
 	isNestedSideBar: boolean;
+	logoTitle?: string;
 }
 
-const { sideBarMenuSections, isNestedSideBar } = Astro.props;
+const { sideBarMenuSections, isNestedSideBar, logoTitle = 'Docs' } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -24,7 +25,7 @@ const currentPath = Astro.url.pathname;
 	<div class='h-screen relative w-full overflow-y-scroll'>
 		<div class='sticky top-0 px-8 z-10 mb-2'>
 			<a
-				href='/docs'
+				href={logoTitle === 'Docs' ? '/docs' : '/university'}
 				class='flex items-center gap-2 bg-offBlack pt-8 pb-6'
 			>
 				<Image
@@ -33,8 +34,8 @@ const currentPath = Astro.url.pathname;
 					width={120}
 				/>
 				<span
-					class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text'
-					>Docs</span
+					class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text text-xs uppercase'
+					>{logoTitle}</span
 				>
 			</a>
 			<div
@@ -106,7 +107,7 @@ const currentPath = Astro.url.pathname;
 											? await hasEnoughLinks()
 											: false;
 
-									
+
 
 									return (
 										<SideBarItem

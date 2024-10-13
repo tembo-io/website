@@ -16,10 +16,6 @@ export interface BlogCollection {
 	authors: string[];
 }
 
-export interface DocsCollection {
-	title?: string;
-}
-
 export const TAGS = [
 	'All',
 	'Postgres',
@@ -114,4 +110,4 @@ export async function getTags() {
 	];
 }
 
-export const collections = { blog, docs };
+export const collections = { blog, docs, university };

@@ -70,11 +70,13 @@ const filterDuplicates = (
 	return result;
 };
 
-const isUpperCase = (rootDocs: CollectionEntry<'docs'>[]) => {
+const isUpperCase = (rootDocs: CollectionEntry<'docs' | 'university'>[]) => {
 	return getSideBarItems(rootDocs).some((doc) => doc.uppercaseParent);
 };
 
-const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
+const getSideBarItems = (
+	rootDocs: CollectionEntry<'docs' | 'university'>[],
+) => {
 	const items = rootDocs
 		.sort((docA, docB) => {
 			const aOrder = docA?.data?.sideBarPosition;
@@ -95,7 +97,7 @@ const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
 
 			return {
 				title: doc.data.uppercase ? title.toUpperCase() : title,
-				slug: `/docs/${doc.slug}`,
+				slug: `/${doc.collection}/${doc.slug}`,
 				uppercaseParent: doc.data.uppercaseParent,
 			};
 		});
@@ -103,8 +105,10 @@ const getSideBarItems = (rootDocs: CollectionEntry<'docs'>[]) => {
 };
 
 // This function gets sideBar links for any doc that isnt nested down one level
-export async function getSideBarLinks(): Promise<SideBarSection[]> {
-	const docs = await getCollection('docs');
+export async function getSideBarLinks(
+	collection: 'docs' | 'university' = 'docs',
+): Promise<SideBarSection[]> {
+	const docs = await getCollection(collection);
 	const sideBarLinks: SideBarSection[] = [];
 	const sideBarRoots = new Set();
 
@@ -162,8 +166,9 @@ export async function getSideBarLinks(): Promise<SideBarSection[]> {
 
 export async function getNestedSideBarLinks(
 	slug: string,
+	collection: 'docs' | 'university' = 'docs',
 ): Promise<SideBarSection[]> {
-	const docs = await getCollection('docs');
+	const docs = await getCollection(collection);
 	const sideBarLinks: SideBarSection[] = [];
 	// Filter by docs that are 2nd parents of the slug (n: ones that include product/stacks out of all docs)
 	const rootDocs = docs.filter((doc) =>
