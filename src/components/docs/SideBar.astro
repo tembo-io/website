@@ -47,7 +47,7 @@ const currentPath = Astro.url.pathname;
 			class='flex flex-col px-8 pb-8 transition-all duration-200 ease-out z-1'
 		>
 			<a
-				href='/docs'
+				href={`/${logoTitle === 'Docs' ? 'docs' : 'university'}`}
 				class='font-secondary font-extrabold flex items-center gap-4'
 			>
 				<Image src={Home} alt='home' width={20} />
