@@ -51,13 +51,7 @@ const hasEnoughNestedDocs =
 const isNestedSideBar = isPostgresGuide
 	? false
 	: isNested(slug) && hasEnoughNestedDocs;
-const links = isNestedSideBar
-	? nestedLinks
-	: removeItemByTitleAndSlug(
-			normalLinks,
-			'Postgres guides',
-			'/docs/getting-started/postgres_guides/all-possible-joins-in-postgres',
-		);
+const links = isNestedSideBar ? nestedLinks : normalLinks;
 const nextDocument = await nextDoc(`/docs/${slug}`, links);
 const docTitle =
 	doc?.data?.title || cleanSideBarTitle(slug.split('/').at(-1) as string);
