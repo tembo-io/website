@@ -12,6 +12,8 @@ interface Props {
 	sideBarMenuSections: SideBarSection[];
 	isNestedSideBar: boolean;
 	currentPath: string;
+	showSearch?: boolean;
+	logoTitle?: string;
 }
 
 const Header: React.FC<Props> = ({
@@ -19,6 +21,8 @@ const Header: React.FC<Props> = ({
 	sideBarMenuSections,
 	isNestedSideBar,
 	currentPath,
+	showSearch = true,
+	logoTitle = 'Docs',
 }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [isScreenLessThan1000px, setIsScreenLessThan1000px] = useState(false);
@@ -51,10 +55,11 @@ const Header: React.FC<Props> = ({
 						<div className='flex items-center justify-between'>
 							<div className='flex items-center gap-6 w-full min-[1000px]:w-max justify-between min-[1000px]:justify-start'>
 								<div className='flex min-[1000px]:hidden'>
-									<LogoLink width={100} />
+									<LogoLink width={100} text={logoTitle} />
 								</div>
 								<div className='flex items-center gap-4'>
-									{!isMenuOpen || !isScreenLessThan1000px ? (
+									{(!isMenuOpen || !isScreenLessThan1000px) &&
+									showSearch ? (
 										<Search />
 									) : null}
 

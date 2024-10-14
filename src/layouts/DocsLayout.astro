@@ -13,6 +13,7 @@ interface Props {
 	image?: string;
 	keywords?: string[];
 	logoTitle?: string;
+	showSearch?: boolean;
 }
 const {
 	title = 'Documentation | Tembo',
@@ -23,6 +24,7 @@ const {
 	image = 'docs-og-image.png',
 	keywords,
 	logoTitle = 'Docs',
+	showSearch = true,
 }: Props = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
@@ -57,6 +59,8 @@ const currentPath = Astro.url.pathname;
 							isNestedSideBar={isNestedDoc}
 							sideBarMenuSections={sideBarMenuSections}
 							currentPath={currentPath}
+							logoTitle={logoTitle}
+							showSearch={showSearch}
 							client:load
 						/>
 						<div
