@@ -1,0 +1,208 @@
+---
+sideBarPosition: 4
+title: Better, Faster, Stronger!
+sideBarTitle: Better, Faster, Stronger!
+---
+
+import Callout from '../../../../../components/Callout.astro';
+
+The application we've built is relatively simple in the grand scheme. There are only two database calls, and a single form in the entire thing. There are no dynamic buttons, AJAX, or explicit DOM manipulations anywhere. It is what it says on the tin: an URL shortener, and nothing more.
+
+But that doesn't mean there are no enhancements to consider or mistakes to rectify!
+
+## The Ballad of the ORM
+
+More practiced readers may have asked themselves why we didn't use an Object Relational Mapper (ORM) such as [Drizzle](https://orm.drizzle.team/), [Prisma](https://www.prisma.io/docs), [Sequelize](https://sequelize.org/), or any others. It's not that we hold any particular prejudice against these tools, but we _do_ want to convey a certain amount of understanding as part of these lessons.
+
+Take a look at this block of Drizzle code:
+
+```ts
+const shortUrl = pgTable('short_url', {
+  slug: text('slug').primaryKey(),
+  url: text('url').notNull().unique(),
+  createDt: timestamp('create_dt', {withTimezone: true}).defaultNow(),
+  expireDt: timestamp('expire_dt', {withTimezone: true}),
+});
+
+const result = await db.select({url: shortUrl.url})
+    .from(shortUrl)
+    .where(eq(shortUrl.slug, 'abc'));
+```
+
+And then compare this to the raw SQL equivalent:
+
+```sql
+CREATE TABLE short_url (
+  slug       TEXT NOT NULL PRIMARY KEY,
+  url        TEXT NOT NULL UNIQUE,
+  create_dt  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  expire_dt  TIMESTAMPTZ NULL
+);
+
+SELECT url FROM short_url WHERE slug = 'abc';
+```
+
+Not only is the ORM syntax _considerably_ more verbose, but we have to _redefine_ tables that already exist on the database in order to interact with them. Some ORMs provide a mechanism called "reflection" which will cause them to create the object mappings automatically based on the source tables, but most don't.
+
+<Callout variant="Info">
+Reflection is pretty handy, but is also computationally expensive in some cases. Each database connection or pool must retrieve object definitions and convert them to internal structures so ORM operations work properly. Sometimes ORMs provide an extraction utility to generate a reflected object mapping for future use, but this must be updated any time the database objects are modified. Either way, it's not uncommon for ORMs and schemas to fall out of sync, so be wary!
+</Callout>
+
+Despite those particular drawbacks, many developers would rather do this than maintain fluency in _yet another language_ such as SQL. Interactions tend to be tailored to the primary language for that ORM. Sometimes native objects or structures can be passed around the application code, and implicit methods like '.save()' which are equivalent to `UPDATE` are provided to persist changes. Sometimes such methods are even called automatically once an object leaves scope, meaning nobody has to remember to explicitly save their work.
+
+Regardless of the pros or cons, at least for the first few lessons, we want to make _sure_ you understand exactly what is happening behind the scenes. When we add new data, you should see the exact `INSERT` statement. When we make changes, the `UPDATE` being executed is very important. When we introduce transactions, those are even more important to control manually until the fundamentals are firmly established.
+
+This way you'll be well equipped to make the transition to more abstract code inherent to ORMs. They often do a great job of hiding what they're doing, but _you'll_ know their tricks.
+
+## A Better Mouse Trap
+
+Our slug generator is simple. Perhaps _too_ simple. Why? One of the problems associated with converting a monotonic sequential value to an equivalent string is that it's trivial to _reverse_ the process. Even without access to the code, someone could easily derive our full character set and reverse-engineer the algorithm after submitting a few consecutive URLs and examining the resulting slugs.
+
+Theoretically every URL is private until the user shares it. But this implicitly leaks _all of the URLs_ in the system. Once the attacker figures out the numbering system, they could generate all possible slugs and retrieve the associated URL. This doesn't really matter for our toy application, but it might in a real-world system. 
+
+One might argue that this is _precisely_ the nature of an URL shortener. Even without using a number as a basis for generating slugs, a 7-character slug has a limit of about 3.5 trillion outcomes. But consider the true scale of that! Even at a rate of 1000 per second, it would take 110 _years_ to check every possible slug. Most attack mitigation systems would kick in _long_ before that and block the source.
+
+So can we derive a safer _non consecutive_ generator that takes advantage of this?
+
+Our original list of possible algorithms included this one:
+
+> Produce a string randomly and check the database to see if it's already in use.
+
+We discounted that option at the time, but let's revisit it. If we can really generate 1000 slugs per second for over 100 years using only seven characters, chances of a collision are very low in general. What if we simply used one of the cryptographic functions in Postgres to generate a random string, and extract the first seven characters?
+
+The formula for encountering _any_ duplicate does increase with the number of values we generate, and is defined as:
+
+e^(-k * (k−1) / 2N)
+
+Where:
+
+* N = possible hash values = 62^7
+* k = numbers generated
+
+Once we've generated 10-million rows, there is a cumulative 99.99% chance of producing _at least one duplicate_. Well, we knew that already! Luckily, the chance of _further duplicates_ is the size of the problem space, which we know is about 3.5 trillion. If we change our character-set to base-64 and replace forward-slashes with hyphens, that bumps our total over 4-trillion.
+
+So what's the chance of another duplicate after 10-million values?
+
+About 10,000,000 / (4-trillion - 10,000,000), or around 0.0002%. After 1-billion records? A mere 0.02%. It's not _zero_, but we don't need it to be. This could be a problem the closer we get to our record limit, but that's potentially decades from now.
+
+Based on that, we could revise our generator function to this:
+
+```sql
+CREATE OR REPLACE FUNCTION f_insert_url(p_url TEXT)
+RETURNS TEXT AS $$
+DECLARE
+  v_slug TEXT;
+BEGIN
+  -- Return the slug immediately if this URL already exists.
+
+  SELECT slug INTO v_slug FROM short_url WHERE url = p_url;
+
+  IF FOUND THEN
+    RETURN v_slug;
+  END IF;
+
+  -- Generate a new slug and try to insert the URL. If we ignore URL duplicates
+  -- using ON CONFLICT, we can focus on slug collisions. If we get one, just
+  -- try again with a new slug until successful.
+
+  LOOP
+    BEGIN
+      v_slug := substring(
+        replace(
+          encode(sha256(now()::TEXT::BYTEA), 'base64'), 
+          '/', '-'), 
+        1, 7
+      );
+
+      INSERT INTO short_url (slug, url) VALUES (v_slug, p_url)
+      ON CONFLICT (url) DO NOTHING;
+
+      SELECT slug INTO v_slug FROM short_url WHERE url = p_url;
+      IF FOUND THEN
+        EXIT;
+      END IF;
+
+    EXCEPTION WHEN unique_violation THEN
+      CONTINUE;
+    END;
+  END LOOP;
+
+  RETURN v_slug;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+The `LOOP` is the most critical part of the new function. It generates a slug with every iteration, and attempts to insert the URL as well. _Immediately_ afterwards, it retrieves the inserted slug in case a parallel session inserted the same URL first. The `EXCEPTION` is the magic that makes it work: by ignoring duplicate slugs, we start the process again with a new slug. Since our chances of a duplicate are so very low, success is only 1-3 iterations away in most cases.
+
+<Callout variant="Info">
+The _other_ magic in this sample is the embedded `BEGIN ... END` [block-structure](https://www.postgresql.org/docs/current/plpgsql-structure.html). These can be embedded several levels deep, and _each one_ can have its own individual `EXCEPTION` block. This is how we're able to trap the duplicate key violation for slug conflicts and remain in the loop.
+</Callout>
+
+There are [other ways to solve this](https://www.depesz.com/2017/02/06/generate-short-random-textual-ids/) using [advisory locks](https://www.postgresql.org/docs/current/functions-admin.html#FUNCTIONS-ADVISORY-LOCKS) and different string generation methods. Feel free to try different variants!
+
+This approach will also allow us to deprecate the sequence which previously supplied numeric values to convert to base-62. While our insert function is slightly more complicated, having fewer moving parts is often beneficial.
+
+## The Principle of Least Access
+
+The last element we want to cover is one of privileges. Earlier in this chapter, we granted certain rights to the `short_user` account with these statements:
+
+```sql
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE short_url TO short_rw;
+GRANT EXECUTE ON FUNCTION f_insert_url(TEXT) TO short_rw;
+GRANT short_rw TO short_user;
+```
+
+The application user clearly requires access to the `f_insert_url` function, and inserts are also necessary, but do they actually need update and delete access as well? No, and so we can restrict user privileges further for a safer overall codebase. Rather than purely relying on a simple read/write role, let's impose a more stringent division of duties.
+
+Let's itemize the actual privileges the `short_user` actually needs for the application to work:
+
+1. Ability to call the `f_insert_url` function.
+2. View the contents of the `short_url` table.
+
+That's it? So what do we do? The `short_rw` role exists to provide read and write access to users who need it. _This_ particular user does not. So let's create a role specifically for API access:
+
+```sql
+CREATE ROLE short_api;
+
+GRANT USAGE ON SCHEMA shorten TO short_api;
+GRANT SELECT ON TABLE short_url TO short_api;
+GRANT EXECUTE ON FUNCTION f_insert_url(TEXT) TO short_api;
+
+REVOKE short_rw FROM short_user;
+GRANT short_api TO short_user;
+```
+
+Now we have a `short_api` role that can call the `f_insert_url` and _only_ select from the `short_url` table. That's _almost_ what we want. The problem is that the function _also_ writes to the table, and does so as the user who invoked the function. We can fix this by changing the function definition slightly:
+
+```sql
+CREATE OR REPLACE FUNCTION f_insert_url(p_url TEXT)
+RETURNS TEXT AS $$
+  -- Function body
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+```
+
+Postgres [CREATE FUNCTION](https://www.postgresql.org/docs/current/sql-createfunction.html) syntax has an option to specify `SECURITY DEFINER`, which tells the function to execute as the _function owner_. So long as the deployment script defines the function as a user who either owns the table or has write access, so does the function.
+
+<Callout variant="Warning">
+Functions defined this way are _particularly vulnerable_ because they provide elevated privileges to callers. **Always** revoke public access from such functions!
+
+```sql
+REVOKE EXECUTE ON FUNCTION my_func( ... ) FROM PUBLIC;
+```
+</Callout>
+
+The function hides yet another potential vulnerability. There have been numerous issues related to search paths, such as [CVE-2020-14350](https://nvd.nist.gov/vuln/detail/CVE-2020-14350). It may also be possible to abuse `SECURITY DEFINER` functions [using custom operators](https://www.cybertec-postgresql.com/en/abusing-security-definer-functions/). The easiest way to defend against this is to explicitly set the search path of any function.
+
+For example:
+
+```sql
+CREATE OR REPLACE FUNCTION f_insert_url(p_url TEXT)
+RETURNS TEXT AS $$
+  -- Function body
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER
+SET search_path TO pg_catalog,shorten;
+```
+
+These changes will make Postgres more secure and restrict privileges to the lowest level possible. The application user can _only_ do what we explicitly allow, precisely where the action is valid, and no more.
