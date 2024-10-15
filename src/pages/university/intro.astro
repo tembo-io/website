@@ -1,0 +1,25 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+
+import {
+	getSideBarLinks,
+	removeItemByTitleAndSlug,
+} from '../../util/docsUtils';
+
+const links = await getSideBarLinks('university');
+const linksWithoutNestedPostgresGuide = removeItemByTitleAndSlug(
+	links,
+	'Postgres guides',
+	'/docs/getting-started/postgres_guides/all-possible-joins-in-postgres',
+);
+---
+
+<DocsLayout
+	isNestedDoc={false}
+	sideBarMenuSections={linksWithoutNestedPostgresGuide}
+	isProgressBar={false}
+	showSearch={false}
+	logoTitle='University'
+>
+	<div class='flex flex-col relative'>Hello world</div>
+</DocsLayout>

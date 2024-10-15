@@ -43,9 +43,10 @@ async function validateLinks(
 				return { link, status: 'ok' };
 			} catch (error: any) {
 				if (error?.response && error?.response?.status === 404) {
-					logger.error(`404 Not Found: ${link}`);
-					return { link, status: 'not found' };
+					logger.error(`404 not found: ${link}`);
+					return { link, status: '404 not found' };
 				}
+				logger.error(`invalid link: ${link}`);
 				return { link, status: 'error', error };
 			}
 		});

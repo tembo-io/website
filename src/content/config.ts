@@ -16,10 +16,6 @@ export interface BlogCollection {
 	authors: string[];
 }
 
-export interface DocsCollection {
-	title?: string;
-}
-
 export const TAGS = [
 	'All',
 	'Postgres',
@@ -41,7 +37,7 @@ const blog = defineCollection({
 		tags: z.array(z.string()),
 		feedSummary: z.string().optional(),
 		authors: authorsEnum,
-		planetPostgres: z.boolean().default(false)
+		planetPostgres: z.boolean().default(false),
 	}),
 });
 export const ROOT_SIDEBAR_DOCS_ORDER = {
@@ -57,6 +53,19 @@ export const ROOT_SIDEBAR_DOCS_ICONS = {
 };
 
 const docs = defineCollection({
+	schema: z.object({
+		title: z.string().optional(),
+		description: z.string().optional(),
+		tableOfContents: z.boolean().default(true),
+		sideBarPosition: z.number().default(Infinity),
+		sideBarTitle: z.string().optional(),
+		uppercase: z.boolean().default(false),
+		uppercaseParent: z.boolean().default(false),
+		tags: z.array(z.string()).max(4).optional(),
+	}),
+});
+
+const university = defineCollection({
 	schema: z.object({
 		title: z.string().optional(),
 		description: z.string().optional(),
@@ -101,4 +110,4 @@ export async function getTags() {
 	];
 }
 
-export const collections = { blog, docs };
+export const collections = { blog, docs, university };
