@@ -124,29 +124,31 @@ const docTitle =
 					{
 						headings.filter((heading) => heading.depth > 1).length >
 							0 && (
-							<Toc
-								headings={headings.filter(
-									(heading) => heading.depth !== 1,
-								)}
-								titleStyles='bg-gradient-to-r from-salmon via-purple to-lightPurple text-transparent bg-clip-text text-sm'
-								title='ON THIS PAGE'
-								isDocs
-								offset={60}
-								client:load
-							/>
+							<>
+								<Toc
+									headings={headings.filter(
+										(heading) => heading.depth !== 1,
+									)}
+									titleStyles='bg-gradient-to-r from-salmon via-purple to-lightPurple text-transparent bg-clip-text text-sm'
+									title='ON THIS PAGE'
+									isDocs
+									offset={60}
+									client:load
+								/>
+								<div class='flex gap-2 text-lightGrey'>
+									<img
+										src={'/icons/book-grey.svg'}
+										alt='book'
+										width={16}
+										height={16}
+									/>
+									<p class='text-lightGrey text-sm'>
+										{remarkPluginFrontmatter.minutesRead}
+									</p>
+								</div>
+							</>
 						)
 					}
-					<div class='flex gap-2 text-lightGrey'>
-						<img
-							src={'/icons/book-grey.svg'}
-							alt='book'
-							width={16}
-							height={16}
-						/>
-						<p class='text-lightGrey text-sm'>
-							{remarkPluginFrontmatter.minutesRead}
-						</p>
-					</div>
 				</div>
 			</div>
 		</div>
