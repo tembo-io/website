@@ -42,6 +42,11 @@ To connect your Grafana server to Tembo's logging server, [add a new data source
 
 -   Select "Loki" as the data source type
 -   For URL, configure your data plane domain name. For example, `https://api.data-1.use1.tembo.io/`.
+    - Supported data plane domain names:
+      -  AWS `us-east-1`: `https://api.data-1.use1.tembo.io/`
+      -  AWS `us-west-2`: `https://api.data-1.usw2.tembo.io/`
+      -  AWS `eu-central-1`: `https://api.data-1.euc1.tembo.io/`
+      -  AWS `ap-southeast-1`: `https://api.data-1.apse1.tembo.io/`
 -   Add two HTTP Headers configurations:
     -   Header: `X-Scope-OrgID`, Value: `your-tembo-org-here`
     -   Header: `Authorization`, Value: `Bearer your-tembo-cloud-token-here`
