@@ -1,0 +1,56 @@
+---
+slug: algora-code-bounties
+title: 'Work on Tembo Open Source for Fun and Profit'
+authors: [floor, adam]
+description: We're partnering with Algora to award bounties for some of our open source Postgres extensions written in Rust. 
+tags: [postgresql, open-source, bounties, github, hacktoberfest, rust]
+date: 2024-10-03T09:00
+image: './.png'
+planetPostgres: true
+---
+
+At Tembo we’re very invested in open source. We built with, and on top of open source, and we release extensions and tooling for others to use as they wish. Occasionally we’ll receive feature requests for projects we’ve developed, and we have ideas for these projects as well. Unfortunately there are only so many hours in the day. And some ideas need specialized skills. 
+
+That’s where we hope to lean on the community, but not without offering something in return.
+
+[Algora](https://algora.io) is a platform around code bounties. They publish open source projects looking for contributions and their community picks up challenges for a cash reward. At the time of writing Algora awarded 2,177 bounties totaling $267,962.00 to 497 contributors. We decided to partner with Algora to get external feedback on some of the projects we’re working on. 
+
+## About the projects
+
+We selected 2 projects that we think are very fit for external contributions.
+
+1. [pgmq](https://github.com/tembo-io/pgmq ) - A lightweight message queue. Like AWS SQS and RSMQ but on Postgres. 
+2. [pg_vectorize](https://github.com/tembo-io/pg_vectorize) - A Postgres extension that automates the transformation and orchestration of text to embeddings and provides hooks into the most popular LLMs.  
+
+## About the Issues 
+
+**pgmq**
+* [feature request: possible to have send() use a specific date time not a delay](https://github.com/tembo-io/pgmq/issues/315) #315 
+* [drop queue should infer queue type](https://github.com/tembo-io/pgmq/issues/302) #302 
+* [pgmq.purge(queue_name text) performance](https://github.com/tembo-io/pgmq/issues/298) #298 
+* [Feature Request: Conditional reading for PGMQ](https://github.com/tembo-io/pgmq/issues/288) #288 
+* [Installation guide for multiple platforms](https://github.com/tembo-io/pgmq/issues/238) #238 
+
+**pg_vectorize** 
+* [increase embedding provider support](https://github.com/tembo-io/pg_vectorize/issues/152) #152
+* [update transformers version in vector-serve](https://github.com/tembo-io/pg_vectorize/issues/150) #150 
+* [bring your own embeddings](https://github.com/tembo-io/pg_vectorize/issues/149) #149 
+* [drop table event triggers for vectorize.jobs](https://github.com/tembo-io/pg_vectorize/issues/148) #148 
+* [drop deprecated parameters from vectorize.table()](https://github.com/tembo-io/pg_vectorize/issues/146) #146 
+* [rename vectorize.table "table" parameter](https://github.com/tembo-io/pg_vectorize/issues/145) #145 
+* [pg17 support](https://github.com/tembo-io/pg_vectorize/issues/144) #144
+* [documentation and examples for filtering](https://github.com/tembo-io/pg_vectorize/issues/143) #143 
+* [chunking support to vectorize.table()](https://github.com/tembo-io/pg_vectorize/issues/142) #142 
+
+## Start with Algora and collect your bounty
+
+1. Sign up for Algora https://console.algora.io/ 
+2. Find our Projects on the platform
+3. Find an Issue you would like to work on
+4. Profit!!
+
+## Two birds, one stone
+
+It’s also [Hacktoberfest](https://hacktoberfest.com/) time, a month-long celebration of all things open-source. This year, Hacktoberfest is sponsored by DigitalOcean, Cloudflare, and Quira. When Hacktoberfest started in 2014, 676 participants showed up to contribute. In 2023, nearly 98,000 people participated.
+
+Sign up on the Hacktoberfest website, and your pull requests on the projects mentioned above will count towards your Hacktoberfest goal as well. Happy hacking!
