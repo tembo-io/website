@@ -1,0 +1,80 @@
+---
+slug: pg-analytics-bench
+title: 'pg_analytics from ParadeDB: Performance and Use Cases'
+authors: [jason]
+description: |
+    Learn how to best leverage the powerful analytics capabilities of pg_analytics!
+tags: [tembo, analytics, paradedb, benchmarking]
+date: 2024-10-17T09:00
+planetPostgres: false
+---
+
+# ParadeDB's `pg_analytics`: Performance and Use Cases
+
+With [the launch of ParadeDB's products](https://tembo.io/blog/paradedb-search-analytics) on Tembo Cloud, the `pg_analytics` extension is now available for use in Tembo's [Analytics Stack](https://tembo.io/docs/product/stacks/analytical/analytics). It puts DuckDB's advanced analytic query engine directly inside PostgreSQL, enabling users to efficiently query data stored in many formats across many locations.
+
+For instance, a user might store their data in [Parquet](https://parquet.apache.org) format in S3, or in [Iceberg](https://iceberg.apache.org) format in a local file. This flexibility is powerful, but not every combination will make sense for most users. In particular, we at Tembo have found that because analytics workloads often involve _large_ amounts of data (more than a typical PostgreSQL database would store), storing this data in an object store such as S3 will be the most cost effective for many users. Additionally, analytics data is usually write-once, and infrequently queried by a small number of readers, properties in line with what object stores offer.
+
+You may be wondering how it could possibly be efficient to store e.g. 100GB of analytics data in a flat file a network hop away. Well, DuckDB supports [partial reading](https://duckdb.org/docs/extensions/httpfs/https.html#partial-reading) of Parquet files: after planning a query, metadata within the Parquet file is used with range requests to minimize bandwidth as much as possible.
+
+So if your analytics data is costing an arm and leg to store in a live PostgreSQL database, it may be worthwhile to consider switching to keeping those "hot" tables where they are but moving colder/"slower" tables out to S3!
+
+## Performance
+
+Of course, this flexibility in storage isn't free: certain queries will suffer from the network hops; it will depend on your specific use-case. The table below illustrates the differences between a local Parquet and S3 in the well-known [ClickBench](https://benchmark.clickhouse.com) suite of benchmarks. All tests were performed on CI-32 Tembo Cloud instances (16vCPU, 32GB RAM).
+
+| Query | Local | S3 |
+| ----- | ----- | -- |
+| Q0. | 	0.135s |	0.443s |
+| Q1. | 	0.159s |	1.455s |
+| Q2. | 	0.209s |	2.296s |
+| Q3. | 	0.194s |	1.492s |
+| Q4. | 	0.569s |	1.538s |
+| Q5. | 	0.764s |	1.706s |
+| Q6. | 	0.164s |	1.054s |
+| Q7. | 	0.160s |	1.180s |
+| Q8. | 	0.680s |	1.520s |
+| Q9. | 	0.908s |	2.884s |
+| Q10. | 	0.288s |	1.950s |
+| Q11. | 	0.337s |	1.986s |
+| Q12. | 	0.692s |	1.685s |
+| Q13. | 	1.036s |	2.460s |
+| Q14. | 	0.753s |	1.695s |
+| Q15. | 	0.622s |	1.399s |
+| Q16. | 	1.265s |	2.616s |
+| Q17. | 	1.264s |	2.626s |
+| Q18. | 	2.163s |	3.868s |
+| Q19. | 	0.192s |	1.051s |
+| Q20. | 	2.163s |	3.821s |
+| Q21. | 	2.075s |	4.526s |
+| Q22. | 	3.804s |	8.482s |
+| Q23. | 	12.030s |	18.358s |
+| Q24. | 	0.562s |	2.698s |
+| Q25. | 	0.440s |	1.560s |
+| Q26. | 	0.574s |	2.418s |
+| Q27. | 	2.082s |	4.505s |
+| Q28. | 	4.449s |	5.426s |
+| Q29. | 	0.605s |	1.544s |
+| Q30. | 	0.860s |	4.305s |
+| Q31. | 	0.959s |	5.202s |
+| Q32. | 	2.541s |	4.998s |
+| Q33. | 	3.151s |	4.200s |
+| Q34. | 	3.193s |	4.272s |
+| Q35. | 	0.713s |	1.523s |
+| Q36. | 	0.277s |	0.978s |
+| Q37. | 	0.212s |	0.869s |
+| Q38. | 	0.216s |	1.142s |
+| Q39. | 	0.427s |	1.295s |
+| Q40. | 	0.144s |	0.678s |
+| Q41. | 	0.143s |	0.848s |
+| Q42. | 	0.160s |	0.704s |
+
+Though some of these queries are substantially slower, note that non-S3 storage will cost anywhere between 5x and 30x what "attached" storage (EBS, EFS) may cost.
+
+### Caching
+
+Because repeated queries can benefit from caching data or metadata accessed by DuckDB, Tembo is working with ParadeDB toward adding caching to a future `pg_analytics` release. It is likely queries using this cache will perform significantly closer to the local file performance and will likewise reduce network traffic.
+
+## Give `pg_analytics` a try!
+
+Log into cloud.tembo.io and select either the Analytics stack to get started. You can try this stack under our free trial or jump right into a paid plan. Check out the [getting started guide](https://tembo.io/docs/product/stacks/analytical/analytics) for more information.
