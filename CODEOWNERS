@@ -4,14 +4,14 @@ src/content/blog/ @samay-sharma @FloorD
 src/content/blog/** @samay-sharma @FloorD
 src/content/docs/ @samay-sharma @FloorD
 src/content/docs/** @samay-sharma @FloorD
-src/content/docs/getting-started/quickstarts/ @sjmiller609
-src/content/docs/getting-started/quickstarts/** @sjmiller609
+src/content/docs/getting-started/quickstarts/ @shahadarsh
+src/content/docs/getting-started/quickstarts/** @shahadarsh
 src/content/docs/getting-started/quickstarts/postgres_guides/** @samay-sharma @FloorD @bonesmoses
-src/content/docs/development/cli/command-reference.md @sjmiller609 @joshuajerin @shahadarsh
-src/content/docs/product/cloud/ @sjmiller609
-src/content/docs/product/cloud/** @sjmiller609
-src/content/docs/development/ @sjmiller609 @shahadarsh
-src/content/docs/development/** @sjmiller609 @shahadarsh
+src/content/docs/development/cli/command-reference.md @shahadarsh @joshuajerin @shahadarsh
+src/content/docs/product/cloud/ @shahadarsh
+src/content/docs/product/cloud/** @shahadarsh
+src/content/docs/development/ @shahadarsh
+src/content/docs/development/** @shahadarsh
 src/content/docs/product/cloud/apps/ @ChuckHend
 src/content/docs/product/cloud/apps/** @ChuckHend
 src/content/docs/product/stacks/ @ChuckHend

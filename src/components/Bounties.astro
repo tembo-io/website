@@ -1,0 +1,38 @@
+---
+import { algora } from '@algora/sdk';
+import { Spotlight } from './Spotlight';
+
+const bounties = await algora.bounty.list.query({
+	org: 'tembo',
+	limit: 6,
+	status: 'active',
+});
+---
+
+{
+	bounties.items.length > 0 && (
+		<div class='grid sm:grid-cols-2 xl:grid-cols-3 gap-4'>
+			{bounties.items.map((bounty) => (
+				<a
+					href={bounty.task.url}
+					rel='noopener'
+					class='block group relative h-full rounded-lg border border-pink/50 transition-colors hover:border-pink bg-purple/5 hover:bg-purple/15 !no-underline'
+				>
+					<Spotlight className='bg-purple/20'>
+						<div class='p-4'>
+							<div class='text-2xl font-bold text-green-400 group-hover:text-green-300 transition-colors'>
+								{bounty.reward_formatted}
+							</div>
+							<div class='mt-0.5 text-sm text-white transition-colors'>
+								{bounty.task.repo_name}#{bounty.task.number}
+							</div>
+							<div class='mt-3 line-clamp-2 break-words text-lg font-medium leading-tight text-white group-hover:text-white'>
+								{bounty.task.title}
+							</div>
+						</div>
+					</Spotlight>
+				</a>
+			))}
+		</div>
+	)
+}
