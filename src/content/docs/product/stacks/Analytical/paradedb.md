@@ -12,6 +12,7 @@ tags: [postgres, elasticsearch, analytical, paradedb]
 ## Getting Started
 
 Visit the [Official ParadeDB documentation](https://docs.paradedb.com/documentation) for an in-depth and complete guide on [ParadeDB](https://www.paradedb.com/).
+ See also the [ParadeDB Changelog](https://docs.paradedb.com/changelog) for the latest updates!
 
 `ParadeDB` comes with a helpful procedure that creates a table populated with mock data to help you get started. Once connected with psql, run the following commands to create and inspect this table.
 
@@ -60,22 +61,22 @@ Execute a search query on your indexed table:
 
 ```sql
 SELECT description, rating, category
-FROM search_idx.search(
-  '(description:keyboard OR category:electronics) AND rating:>2',
-  limit_rows => 5
-);
+FROM mock_items
+WHERE (description @@@ 'shoes' OR category @@@ 'footwear') AND rating @@@ '>2'
+ORDER BY description
+LIMIT 5;
 ```
 
 This will return:
 
-```csv
-         description         | rating |  category
------------------------------+--------+-------------
- Plastic Keyboard            |      4 | Electronics
- Ergonomic metal keyboard    |      4 | Electronics
- Innovative wireless earbuds |      5 | Electronics
- Fast charging power bank    |      4 | Electronics
- Bluetooth-enabled speaker   |      3 | Electronics
+```plaintext
+     description      | rating | category 
+----------------------+--------+----------
+ Comfortable slippers |      3 | Footwear
+ Generic shoes        |      4 | Footwear
+ Sleek running shoes  |      5 | Footwear
+ Sturdy hiking boots  |      4 | Footwear
+ White jogging shoes  |      3 | Footwear
 (5 rows)
 ```
 
