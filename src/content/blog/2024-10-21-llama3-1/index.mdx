@@ -1,0 +1,53 @@
+---
+slug: llama-3.1
+title: 'Llama 3.1 and 3.2'
+authors: [chuck]
+description: |
+    We've upgraded Tembo Cloud to support Llama 3.1-8B-Instruct
+tags: [tembo, ai]
+date: 2024-10-21T09:00
+planetPostgres: false
+---
+
+A couple months ago we announced support for LLM and embedding model hosting on Tembo AI.
+ We are continuing the development of that platform and today are announcing support for two models; [meta-llama/Llama-3.2-3B](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct) and [meta-llama/Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct).
+ We have discontinued support for Meta-Llama-3-8B-Instruct and requests for that model will be routed to Llama-3.1-8B-Instruct without interruption.
+
+## Overview of Llama 3.1 and 3.2
+
+Meta released a [collection](https://huggingface.co/collections/meta-llama/llama-32-66f448ffc8c32f949b04c8cf) of models in their 3.2 series.
+ The 3.2 series includes text-only models of 1B and 3B parameters which are intended to be deployed in resource constrained environments such as mobile or edge devices.
+ The 3.2 series also includes multi-model models, of 11B and 90B variants.
+ The 3.2 11B is roughly equivalent to the 3.1 8B model in terms of its text-text capabilities, but also includes image capabilities.
+
+In summary - the Llama 3.2 series introduced new capabilities, but not necessarily and improvement to text-text performance. It introduced vision capabilities on top of the text capabilities of the 3.1 series.
+ It also introduced smaller models for resource constrained environments.
+
+## Model Performance
+
+While Tembo Cloud hosts the Llama 3.1 8B-Instruct model for all users, self-hosted users can run any of these models.
+ There is a [formula](https://training.continuumlabs.ai/infrastructure/data-and-memory/calculating-gpu-memory-for-serving-llms) for estimating how much GPU memory is required to host a model, and its been heavily written about before.
+ So roughly, to host a 70B parameter model you will need 168GB of GPU memory, while an 8B parameter model will need 19GB of GPU memory.
+
+It is a large jump in memory requirements to go from the 8B to the 70B models, but is it worth it?
+ We can look at some [benchmarks](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) to get a sense for how these models perform.
+ The leader board evaluates models across a number tasks involving mathematical reasoning, language understanding, world knowledge, and ability to follow instructions.
+ Depending on your use case, you might care more about one of the evaluations than the other.
+ The average is a good indicator overall though.
+
+We've extracted all the `meta-llama` from the [Open LLM Leader Board](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) and visualized below.
+
+![bench](./image.png)
+
+The 70B parameter models are the highest performing overall, but they are also significantly more resource intensive compared to the 8B models.
+ You'll be able to run an 8B parameter model and an Nvidia A10 or L4, while the 70B models will most likely require an H100 unless you explore quantization.
+
+## Run this on Tembo
+
+```bash
+curl example
+```
+
+```sql
+select * from vectorize.generate()
+```
