@@ -60,7 +60,7 @@ export const AUTHORS: Record<string, Author> = {
 		email: 'noreply@tembo.io',
 	},
 	chuck: {
-		name: 'Adam Hendel',
+		name: 'A. Hendel',
 		title: 'Founding Engineer',
 		url: 'https://github.com/ChuckHend',
 		image_url: 'https://github.com/chuckhend.png',
