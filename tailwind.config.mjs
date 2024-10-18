@@ -72,6 +72,7 @@ export default {
 				ghostWhite: '#FFFFFF99',
 				offWhite: '#F2F2F2',
 				grayScaleMwasi: '#ffffff0d',
+				charcoal: '#F9F6F41A',
 			},
 			backgroundImage: {
 				'gradient-rainbow':
