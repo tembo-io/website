@@ -1,7 +1,10 @@
 ---
-sideBarPosition: 0
 title: Welcome to Tembo University Courses
+description: A comprehensive series of courses focused on building real things with Postgres
+tableOfContents: true
+sideBarPosition: 0
 sideBarTitle: Welcome
+tags: [postgres, university]
 ---
 
 We at Tembo know that there are a myriad of ways to leverage the power of Postgres to build a site, app, microservice, or whatever else you can imagine. Whether it's in the back-end, front-end, shim, layer, or library, we believe Postgres is an integral part to any well-regarded software stack.

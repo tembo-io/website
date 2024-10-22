@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { CollectionEntry } from 'astro:content';
-
+import sidebarConfig from './sidebarConfig.json';
 interface SidebarItem {
 	title: string;
 	entry?: CollectionEntry<'university'>;
@@ -21,11 +21,12 @@ const SidebarItems: React.FC<SidebarItemsProps> = ({
 	structure,
 	currentPath,
 }) => {
+	console.log(structure);
 	const [openItems, setOpenItems] = useState<Set<string>>(new Set());
 
 	useEffect(() => {
 		// Open items based on the current path
-		const pathParts = currentPath.split('/').filter(Boolean);
+		const pathParts = currentPath.split('/').filter(Boolean).slice(1);
 		let currentItem = structure;
 		const newOpenItems = new Set<string>();
 
@@ -46,13 +47,22 @@ const SidebarItems: React.FC<SidebarItemsProps> = ({
 		value: SidebarItem,
 		path: string[] = [],
 	) => {
-		const slug = value.indexEntry?.slug || value.entry?.slug || '';
-		const isActive = currentPath.includes(slug);
+		const slug = value.indexEntry?.slug || value.entry?.slug;
+		console.log(slug);
+		const isActive = currentPath.includes(slug || '#');
 		const hasChildren = Object.keys(value).some(
 			(key) => key !== 'title' && key !== 'indexEntry' && key !== 'entry',
 		);
 		const itemPath = [...path, key];
 		const isOpen = openItems.has(key);
+
+		const displayTitle =
+			value.entry?.data.title ||
+			value.title ||
+			sidebarConfig.folderTitles[
+				key as keyof typeof sidebarConfig.folderTitles
+			] ||
+			key;
 
 		const toggleOpen = (e: React.MouseEvent) => {
 			e.stopPropagation();
@@ -67,15 +77,30 @@ const SidebarItems: React.FC<SidebarItemsProps> = ({
 			});
 		};
 
+		const handleClick = (e: React.MouseEvent) => {
+			if (hasChildren && !slug) {
+				toggleOpen(e);
+			}
+		};
+
 		return (
 			<li key={itemPath.join('/')} className='flex flex-col w-full'>
 				<div className='flex items-center w-full'>
-					<a
-						href={`/university/${slug}`}
-						className={`font-secondary text-lightGrey hover:text-white transition-all duration-100 text-sm flex-grow py-1 ${isActive ? 'text-white' : ''}`}
-					>
-						{value.title || key}
-					</a>
+					{slug ? (
+						<a
+							href={`/university/${slug}`}
+							className={`font-secondary text-lightGrey hover:text-white transition-all duration-100 text-sm flex-grow py-1 ${isActive ? 'text-white' : ''}`}
+						>
+							{displayTitle}
+						</a>
+					) : (
+						<span
+							onClick={handleClick}
+							className={`font-secondary text-lightGrey hover:text-white transition-all duration-100 text-sm flex-grow py-1 cursor-pointer ${isActive ? 'text-white' : ''}`}
+						>
+							{displayTitle}
+						</span>
+					)}
 					{hasChildren && (
 						<button
 							onClick={toggleOpen}

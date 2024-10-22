@@ -6,6 +6,7 @@ import { Image } from 'astro:assets';
 import Home from '../../../images/home.svg';
 import SidebarItems from './SidebarItems';
 import Line from '../Line.astro';
+import sidebarConfig from './sidebarConfig.json';
 
 const allUniversityContent = await getCollection('university');
 
@@ -38,7 +39,12 @@ function buildSidebarStructure(
 				});
 			} else {
 				if (!current[part]) {
-					current[part] = { title: part };
+					const customTitle =
+						sidebarConfig.folderTitles[
+							part as keyof typeof sidebarConfig.folderTitles
+						] || part;
+					current[part] = { title: customTitle };
+					// current[part] = { title: part };
 				}
 				if (index === parts.length - 1) {
 					Object.assign(current[part] as SidebarItem, { entry });
