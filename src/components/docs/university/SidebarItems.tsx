@@ -4,7 +4,6 @@ import sidebarConfig from './sidebarConfig.json';
 interface SidebarItem {
 	title: string;
 	entry?: CollectionEntry<'university'>;
-	indexEntry?: CollectionEntry<'university'>;
 	[key: string]:
 		| SidebarItem
 		| string
@@ -15,13 +14,14 @@ interface SidebarItem {
 interface SidebarItemsProps {
 	structure: SidebarItem;
 	currentPath: string;
+	isTopLevel: boolean;
 }
 
 const SidebarItems: React.FC<SidebarItemsProps> = ({
 	structure,
 	currentPath,
+	isTopLevel,
 }) => {
-	console.log(structure);
 	const [openItems, setOpenItems] = useState<Set<string>>(new Set());
 
 	useEffect(() => {
@@ -47,8 +47,7 @@ const SidebarItems: React.FC<SidebarItemsProps> = ({
 		value: SidebarItem,
 		path: string[] = [],
 	) => {
-		const slug = value.indexEntry?.slug || value.entry?.slug;
-		console.log(slug);
+		const slug = value.entry?.slug;
 		const isActive = currentPath.includes(slug || '#');
 		const hasChildren = Object.keys(value).some(
 			(key) => key !== 'title' && key !== 'indexEntry' && key !== 'entry',
@@ -57,7 +56,7 @@ const SidebarItems: React.FC<SidebarItemsProps> = ({
 		const isOpen = openItems.has(key);
 
 		const displayTitle =
-			value.entry?.data.title ||
+			value.entry?.data.sideBarTitle ||
 			value.title ||
 			sidebarConfig.folderTitles[
 				key as keyof typeof sidebarConfig.folderTitles
@@ -89,9 +88,24 @@ const SidebarItems: React.FC<SidebarItemsProps> = ({
 					{slug ? (
 						<a
 							href={`/university/${slug}`}
-							className={`font-secondary text-lightGrey hover:text-white transition-all duration-100 text-sm flex-grow py-1 ${isActive ? 'text-white' : ''}`}
+							className={`flex justify-between items-center font-secondary text-lightGrey hover:text-white transition-all duration-100 text-sm flex-grow py-1 ${isActive ? 'text-white' : ''}`}
 						>
 							{displayTitle}
+							{slug.split('/').length > 1 &&
+								slug.split('/')[0] === 'courses' &&
+								isTopLevel && (
+									<img
+										src={
+											isOpen
+												? '/arrow-down.svg'
+												: '/arrow-right.svg'
+										}
+										height={14}
+										width={14}
+										alt='chevron arrow'
+										className='transition-all duration-150 ease-in-out opacity-100'
+									/>
+								)}
 						</a>
 					) : (
 						<span

@@ -13,7 +13,6 @@ const allUniversityContent = await getCollection('university');
 interface SidebarItem {
 	title: string;
 	entry?: CollectionEntry<'university'>;
-	indexEntry?: CollectionEntry<'university'>;
 	[key: string]:
 		| SidebarItem
 		| string
@@ -29,10 +28,13 @@ function buildSidebarStructure(
 	entries.forEach((entry) => {
 		const parts = entry.slug.split('/');
 		let current: SidebarItem = structure;
+		// console.log('current', entry);
+		console.log(parts);
 
 		parts.forEach((part, index) => {
 			if (index === parts.length - 1 && part === 'index') {
 				// This is an index.md file
+				console.log('hello', entry.data.title, current.title, part);
 				Object.assign(current, {
 					indexEntry: entry,
 					title: entry.data.title || current.title || part,
@@ -61,6 +63,37 @@ function buildSidebarStructure(
 const sidebarStructure = buildSidebarStructure(allUniversityContent);
 
 const currentPath = Astro.url.pathname;
+const pathParts = currentPath.split('/').filter(Boolean);
+
+let displayStructure: SidebarItem;
+if (pathParts.length > 2 && pathParts[1] === 'courses') {
+	displayStructure = {
+		courses: sidebarStructure['courses'] as SidebarItem,
+	} as unknown as SidebarItem;
+} else {
+	displayStructure = {
+		...Object.fromEntries(
+			Object.entries(sidebarStructure).filter(
+				([key]) => key !== 'courses',
+			),
+		),
+		courses: {
+			title: 'Courses',
+			entry: (sidebarStructure.courses as SidebarItem)?.['entry'],
+			...Object.fromEntries(
+				Object.entries(sidebarStructure.courses || {})
+					.filter(([key]) => key !== 'entry' && key !== 'title')
+					.map(([key, value]) => [
+						key,
+						{
+							title: (value as SidebarItem).title,
+							entry: (value as SidebarItem).entry,
+						},
+					]),
+			),
+		},
+	} as unknown as SidebarItem;
+}
 ---
 
 <nav
@@ -95,145 +128,18 @@ const currentPath = Astro.url.pathname;
 				class='font-secondary font-extrabold flex items-center gap-4'
 			>
 				<Image src={Home} alt='home' width={20} />
-				Home
+				University
 			</a>
 
 			<div class='my-6'>
 				<Line />
 			</div>
 			<SidebarItems
-				structure={sidebarStructure}
+				structure={displayStructure}
 				currentPath={currentPath}
+				isTopLevel={pathParts.length <= 2}
 				client:load
 			/>
 		</div>
 	</div>
 </nav>
-
-<!-- ---
-import Logo from '../../images/logoWithText.svg';
-import { Image } from 'astro:assets';
-import Home from '../../images/home.svg';
-import Line from './Line.astro';
-import type { SideBarSection } from '../../types';
-import { styles } from '../../util';
-import { isNested as isNestedHelper } from '../../util/docsUtils';
-import SideBarItem from './SideBarItem';
-import { getNestedSideBarLinks } from '../../util/docsUtils';
-
-interface Props {
-	sideBarMenuSections: SideBarSection[];
-	logoTitle?: string;
-}
-
-const { sideBarMenuSections, logoTitle = 'Docs' } = Astro.props;
-const currentPath = Astro.url.pathname;
----
-
-<nav
-	class='border-r border-r-[#EAEAEA33] max-w-[280px] w-full hidden min-[1000px]:flex transition-all duration-150 ease-in'
->
-	<div class='h-screen relative w-full overflow-y-scroll'>
-		<div class='sticky top-0 px-8 z-10 mb-2'>
-			<a
-				href={logoTitle === 'Docs' ? '/docs' : '/university'}
-				class='flex items-center gap-2 bg-offBlack pt-8 pb-6'
-			>
-				<Image
-					src={Logo}
-					alt='tembo elephant logo and name'
-					width={120}
-				/>
-				<span
-					class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text text-xs uppercase'
-					>{logoTitle}</span
-				>
-			</a>
-			<div
-				class='bg-gradient-to-b from-offBlack to-transparent h-4 w-full'
-			>
-			</div>
-		</div>
-		<div
-			class='flex flex-col px-8 pb-8 transition-all duration-200 ease-out z-1'
-		>
-			<a
-				href={`/${logoTitle === 'Docs' ? 'docs' : 'university'}`}
-				class='font-secondary font-extrabold flex items-center gap-4'
-			>
-				<Image src={Home} alt='home' width={20} />
-				Home
-			</a>
-			{
-				sideBarMenuSections.map((section, index) => {
-					const isBeyondFirstSection = isNestedSideBar && index > 0;
-					return (
-						<div class='flex flex-col'>
-							<div class='my-6'>
-								<Line />
-							</div>
-							<div class='flex items-center gap-2'>
-								{!isBeyondFirstSection &&
-									<img
-										src={section?.icon ? `/icons/${section.icon}` : '/icons/docsElephant.svg'}}
-										alt={section.label}
-										width={18}
-										height={18}
-									/>
-								}
-								<span
-									class={styles(
-										'text-[15px]',
-										isBeyondFirstSection
-											? 'text-white uppercase text-xs'
-											: 'text-neon',
-									)}
-								>
-									{section.label}
-								</span>
-							</div>
-							<ul class='mt-4 flex flex-col gap-2'>
-								{section.items.map(async (item) => {
-									const cleanedSlug = item.slug.replace(
-										'/docs/',
-										'',
-									);
-									const hasEnoughLinks = async () => {
-										const nestedLinks = isNestedHelper(
-											cleanedSlug,
-										)
-											? await getNestedSideBarLinks(
-													cleanedSlug,
-												)
-											: [];
-										return (
-											nestedLinks.length > 1 ||
-											nestedLinks[0].items.length > 1
-										);
-									};
-
-									const isRootNested =
-										!isNestedSideBar &&
-										isNestedHelper(cleanedSlug)
-											? await hasEnoughLinks()
-											: false;
-
-
-
-									return (
-										<SideBarItem
-											isRootNested={isRootNested}
-											item={item}
-											currentPath={currentPath}
-											client:load
-										/>
-									);
-								})}
-							</ul>
-						</div>
-					);
-				})
-			}
-		</div>
-	</div>
-</nav> -->

@@ -3,12 +3,12 @@ import { Image } from 'astro:assets';
 import ArrowRightWhiteIcon from '../../images/arrow-right-white.svg';
 import { getCollection } from 'astro:content';
 
-// Get all valid page paths
 const allPages = await getCollection('university');
 const validPaths = new Set(allPages.map((page) => '/university/' + page.slug));
 
 const currentPath = Astro.url.pathname;
 const pathSegments = currentPath.split('/').filter((segment) => segment !== '');
+pathSegments.shift();
 
 interface BreadcrumbItem {
 	label: string;

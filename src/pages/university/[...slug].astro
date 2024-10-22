@@ -70,7 +70,7 @@ const { Content, headings, remarkPluginFrontmatter } = await doc.render();
 			</div>
 			<div>
 				<div
-					class='hidden min-[1150px]:flex flex-col items-start w-max min-[1150px]:sticky min-[1150px]:top-[133px]'
+					class={`hidden min-[1150px]:flex flex-col items-start w-max min-[1150px]:sticky min-[1150px]:top-[133px] ${doc.data.tableOfContents ? 'gap-y-6' : ''}`}
 				>
 					{
 						doc.data.tableOfContents && (
