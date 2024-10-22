@@ -4,11 +4,13 @@ import ArrowRightWhiteIcon from '../../images/arrow-right-white.svg';
 import { getCollection } from 'astro:content';
 
 const currentPath = Astro.url.pathname;
-const docsType = currentPath.split('/')[0] === 'docs' ? 'docs' : 'university';
-const allPages = await getCollection(docsType);
-const validPaths = new Set(allPages.map((page) => '/docs/' + page.slug));
-
 const pathSegments = currentPath.split('/').filter((segment) => segment !== '');
+const docsType = pathSegments[0] === 'docs' ? 'docs' : 'university';
+const allPages = await getCollection(docsType);
+const validPaths = new Set(
+	allPages.map((page) => '/' + docsType + '/' + page.slug),
+);
+
 pathSegments.shift();
 
 interface BreadcrumbItem {
@@ -27,7 +29,6 @@ const breadcrumbs: BreadcrumbItem[] = pathSegments.map((segment, index) => {
 		isValidPage: validPaths.has(path),
 	};
 });
-console.log(breadcrumbs, allPages);
 ---
 
 <div class='flex items-center gap-x-4'>
@@ -52,7 +53,7 @@ console.log(breadcrumbs, allPages);
 						href={item.href}
 						class='text-white font-semibold text-sm leading-6'
 					>
-						{item.label} hello
+						{item.label}
 					</a>
 				) : (
 					<span class='text-white font-semibold text-sm leading-6'>
