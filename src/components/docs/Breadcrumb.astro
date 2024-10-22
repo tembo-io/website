@@ -31,7 +31,7 @@ const breadcrumbs: BreadcrumbItem[] = pathSegments.map((segment, index) => {
 });
 ---
 
-<div class='flex items-center gap-x-4'>
+<div class='flex items-center gap-x-2 overflow-x-auto'>
 	{
 		breadcrumbs.map((item, index) => (
 			<>
@@ -41,22 +41,22 @@ const breadcrumbs: BreadcrumbItem[] = pathSegments.map((segment, index) => {
 						alt='arrow right'
 						width='16'
 						height='16'
-						class='move-right-icon'
+						class='flex-shrink-0'
 					/>
 				)}
 				{index === breadcrumbs.length - 1 ? (
-					<span class='bg-charcoal text-white font-medium leading-6 text-sm rounded-full py-1 px-3'>
+					<span class='bg-charcoal text-white font-medium leading-6 text-sm rounded-full py-1 px-3 whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] md:max-w-none md:overflow-visible md:text-clip'>
 						{item.label}
 					</span>
 				) : item.isValidPage ? (
 					<a
 						href={item.href}
-						class='text-white font-semibold text-sm leading-6'
+						class='text-white font-semibold text-sm leading-6 whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] md:max-w-none md:overflow-visible md:text-clip'
 					>
 						{item.label}
 					</a>
 				) : (
-					<span class='text-white font-semibold text-sm leading-6'>
+					<span class='text-white font-semibold text-sm leading-6 whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] md:max-w-none md:overflow-visible md:text-clip'>
 						{item.label}
 					</span>
 				)}
