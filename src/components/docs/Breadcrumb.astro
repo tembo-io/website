@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import ArrowRightWhiteIcon from '../../images/arrow-right-white.svg';
+import { getCollection } from 'astro:content';
+
+const currentPath = Astro.url.pathname;
+const docsType = currentPath.split('/')[0] === 'docs' ? 'docs' : 'university';
+const allPages = await getCollection(docsType);
+const validPaths = new Set(allPages.map((page) => '/docs/' + page.slug));
+
+const pathSegments = currentPath.split('/').filter((segment) => segment !== '');
+pathSegments.shift();
+
+interface BreadcrumbItem {
+	label: string;
+	href: string;
+	isValidPage: boolean;
+}
+
+const breadcrumbs: BreadcrumbItem[] = pathSegments.map((segment, index) => {
+	const path = '/' + pathSegments.slice(0, index + 1).join('/');
+	return {
+		label:
+			segment.charAt(0).toUpperCase() +
+			segment.slice(1).replace(/-/g, ' '),
+		href: path,
+		isValidPage: validPaths.has(path),
+	};
+});
+console.log(breadcrumbs, allPages);
+---
+
+<div class='flex items-center gap-x-4'>
+	{
+		breadcrumbs.map((item, index) => (
+			<>
+				{index > 0 && (
+					<Image
+						src={ArrowRightWhiteIcon}
+						alt='arrow right'
+						width='16'
+						height='16'
+						class='move-right-icon'
+					/>
+				)}
+				{index === breadcrumbs.length - 1 ? (
+					<span class='bg-charcoal text-white font-medium leading-6 text-sm rounded-full py-1 px-3'>
+						{item.label}
+					</span>
+				) : item.isValidPage ? (
+					<a
+						href={item.href}
+						class='text-white font-semibold text-sm leading-6'
+					>
+						{item.label} hello
+					</a>
+				) : (
+					<span class='text-white font-semibold text-sm leading-6'>
+						{item.label}
+					</span>
+				)}
+			</>
+		))
+	}
+</div>
