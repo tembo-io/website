@@ -32,7 +32,6 @@ export async function getStaticPaths() {
 
 const { doc } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await doc.render();
-const slug = doc.slug;
 ---
 
 <UniversityDocsLayout
@@ -56,29 +55,35 @@ const slug = doc.slug;
 				<Markdown classNames='max-w-none'>
 					<Content />
 				</Markdown>
-				<!-- <NextButton
-					title={nextDocument.title}
-					label='Next'
-					subTitle={nextDocument.parentLabel}
-					slug={nextDocument.slug}
-					classNames='max-w-[450px] w-full self-end'
-					subTitleStyles='text-neon'
-				/> -->
+				{
+					doc.data.nextDoc && (
+						<NextButton
+							title={doc.data.nextDoc.title}
+							label='Next'
+							subTitle={doc.data.nextDoc.subTitle}
+							slug={doc.data.nextDoc.slug}
+							classNames='max-w-[450px] w-full self-end'
+							subTitleStyles='text-neon'
+						/>
+					)
+				}
 			</div>
 			<div>
 				<div
 					class='hidden min-[1150px]:flex flex-col items-start w-max min-[1150px]:sticky min-[1150px]:top-[133px]'
 				>
-					<Toc
-						headings={headings.filter(
-							(heading) => heading.depth !== 1,
-						)}
-						titleStyles='bg-gradient-to-r from-salmon via-purple to-lightPurple text-transparent bg-clip-text text-sm'
-						title='ON THIS PAGE'
-						isDocs
-						offset={60}
-						client:load
-					/>
+					{
+						doc.data.tableOfContents && (
+							<Toc
+								headings={headings}
+								titleStyles='bg-gradient-to-r from-salmon via-purple to-lightPurple text-transparent bg-clip-text text-sm'
+								title='ON THIS PAGE'
+								isDocs
+								offset={60}
+								client:load
+							/>
+						)
+					}
 					<div class='flex gap-2 text-lightGrey'>
 						<img
 							src={'/icons/book-grey.svg'}

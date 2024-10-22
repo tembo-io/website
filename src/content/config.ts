@@ -75,6 +75,13 @@ const university = defineCollection({
 		uppercase: z.boolean().default(false),
 		uppercaseParent: z.boolean().default(false),
 		tags: z.array(z.string()).max(4).optional(),
+		nextDoc: z
+			.object({
+				title: z.string(),
+				slug: z.string(),
+				subTitle: z.string().optional(),
+			})
+			.optional(),
 	}),
 });
 

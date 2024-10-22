@@ -15,12 +15,12 @@ interface Props {
 
 // Note: `pl-${depth * 2}` didn't work on deployment preview but worked on localhost, hence this solution for toc indentation
 const paddingLeftVariants: { [key: number]: string } = {
-	1: "pl-2",
-    2: "pl-4",
-    3: "pl-6",
-    4: "pl-8",
-    5: "pl-10",
-    6: "pl-12"
+	1: 'pl-2',
+	2: 'pl-4',
+	3: 'pl-6',
+	4: 'pl-8',
+	5: 'pl-10',
+	6: 'pl-12',
 };
 
 const Toc: React.FC<Props> = ({

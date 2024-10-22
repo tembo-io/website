@@ -2,6 +2,7 @@
 sideBarPosition: 0
 title: The Goal of this Module
 sideBarTitle: The Goal of this Module
+tableOfContents: false
 ---
 
 Have you ever used [Pastebin](https://pastebin.com/)? It's a great utility for publishing a bunch of text content--usually code--online to share with others.

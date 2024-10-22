@@ -5,6 +5,12 @@ tableOfContents: true
 sideBarPosition: 99
 sideBarTitle: Connecting to Postgres
 tags: [postgres, university]
+nextDoc:
+    {
+        title: 'Creating a Database',
+        slug: '/university/courses',
+        subTitle: 'Sample subtitle',
+    }
 ---
 
 # Connecting to Postgres

@@ -4,6 +4,7 @@ import Header from '../components/docs/Header';
 import Rainbow from '../components/Rainbow.astro';
 import type { SideBarSection } from '../types';
 import UniversitySideBar from '@components/docs/university/UniversitySideBar.astro';
+import Breadcrumb from '@components/docs/Breadcrumb.astro';
 interface Props {
 	title?: string;
 	description?: string;
@@ -64,8 +65,9 @@ const currentPath = Astro.url.pathname;
 							class='container px-[20px] mobile:px-8 max-w-container mx-auto'
 						>
 							<div
-								class='pt-[60px] grow pb-[20px] mobile:pb-8 mt-14 mobile:mt-20 min-[1000px]:mt-0'
+								class='pt-[35px] grow pb-[20px] mobile:pb-8 mt-14 mobile:mt-20 min-[1000px]:mt-0 flex flex-col gap-y-4'
 							>
+								<Breadcrumb />
 								<slot />
 							</div>
 						</div>
