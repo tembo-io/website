@@ -2,7 +2,7 @@
 title: Connecting to Postgres
 description: How to connect to Postgres
 tableOfContents: true
-sideBarPosition: 99
+sideBarPosition: 1
 sideBarTitle: Connecting to Postgres
 tags: [postgres, university]
 nextDoc:

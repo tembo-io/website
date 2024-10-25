@@ -1,5 +1,5 @@
 ---
-sideBarPosition: 2
+sideBarPosition: 3
 title: What Will We Teach You?
 SideBarTitle: What Will We Teach You?
 ---
@@ -16,15 +16,15 @@ We've made a concerted effort to leverage as many of these capabilities as possi
 
 Learning is a journey, and along the path of building each demo app, we'll need to introduce various concepts in and out of the database field. Which ones? Here are a few based on our existing course outline:
 
-* Data modeling
-* SQL
-* Application design
-* Cluster design
-* Deployment
-* Scalability
-* High Availability
-* AI
-* Geospatial
+-   Data modeling
+-   SQL
+-   Application design
+-   Cluster design
+-   Deployment
+-   Scalability
+-   High Availability
+-   AI
+-   Geospatial
 
 We have an entire series of interdisciplinary practices to cover development within an application stack. We mean it when we say we are building real-world applications to demonstrate the adaptability of Postgres.
 

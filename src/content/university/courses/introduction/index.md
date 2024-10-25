@@ -2,7 +2,7 @@
 title: Introduction
 description: A comprehensive series of courses focused on building real things with Postgres
 tableOfContents: true
-sideBarPosition: 0
+sideBarPosition: 1
 sideBarTitle: Introduction
 tags: [postgres, university]
 ---

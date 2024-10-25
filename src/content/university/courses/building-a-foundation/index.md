@@ -1,5 +1,5 @@
 ---
-sideBarPosition: 0
+sideBarPosition: 2
 title: Building a Foundation
 sideBarTitle: Building a Foundation
 tableOfContents: false

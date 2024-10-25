@@ -1,5 +1,5 @@
 ---
-sideBarPosition: 3
+sideBarPosition: 4
 title: Why Take These Courses?
 SideBarTitle: Why Take These Courses?
 ---
@@ -27,4 +27,3 @@ Tembo is here for all developers who want to use Postgres. Our mission is to del
 Part of that dedication is the Tembo University initiative. We've spent decades working with Postgres and know it inside and out. We're _convinced_ that it's a database ecosystem that can empower developers to do great things, and we've designed these lessons to make that vision a reality.
 
 If that describes you, then you've come to the right place.
-

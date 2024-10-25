@@ -1,5 +1,5 @@
 ---
-sideBarPosition: 0
+sideBarPosition: 1
 title: The Goal of this Module
 sideBarTitle: The Goal of this Module
 tableOfContents: false

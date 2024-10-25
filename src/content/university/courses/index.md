@@ -2,7 +2,7 @@
 title: Welcome to Tembo University Courses
 description: A comprehensive series of courses focused on building real things with Postgres
 tableOfContents: true
-sideBarPosition: 0
+sideBarPosition: 2
 sideBarTitle: Courses
 tags: [postgres, university]
 ---

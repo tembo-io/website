@@ -28,13 +28,10 @@ function buildSidebarStructure(
 	entries.forEach((entry) => {
 		const parts = entry.slug.split('/');
 		let current: SidebarItem = structure;
-		// console.log('current', entry);
-		console.log(parts);
 
 		parts.forEach((part, index) => {
 			if (index === parts.length - 1 && part === 'index') {
 				// This is an index.md file
-				console.log('hello', entry.data.title, current.title, part);
 				Object.assign(current, {
 					indexEntry: entry,
 					title: entry.data.title || current.title || part,
@@ -60,7 +57,58 @@ function buildSidebarStructure(
 	return structure;
 }
 
+function isFolder(item: SidebarItem): boolean {
+	return Object.keys(item).some((key) => key !== 'title' && key !== 'entry');
+}
+
+function getSideBarPosition(item: SidebarItem): number {
+	return item.entry?.data.sideBarPosition ?? Infinity;
+}
+
+function sortSidebarStructure(structure: SidebarItem): SidebarItem {
+	const sortEntries = (entries: [string, SidebarItem][]) => {
+		return entries.sort((a, b) => {
+			const [, itemA] = a;
+			const [, itemB] = b;
+			const posA = getSideBarPosition(itemA);
+			const posB = getSideBarPosition(itemB);
+
+			if (posA === posB) {
+				return a[0].localeCompare(b[0]);
+			}
+
+			return posA - posB;
+		});
+	};
+
+	const sortRecursive = (item: SidebarItem): SidebarItem => {
+		if (!isFolder(item)) {
+			return item;
+		}
+
+		const entries = Object.entries(item);
+		const sortedEntries = sortEntries(entries as [string, SidebarItem][]);
+
+		const sortedItem: SidebarItem = {
+			title: item.title,
+			entry: item.entry,
+		};
+		sortedEntries.forEach(([key, value]) => {
+			if (key !== 'title' && key !== 'entry') {
+				sortedItem[key] = sortRecursive(value);
+			}
+		});
+
+		return sortedItem;
+	};
+
+	return sortRecursive(structure);
+}
+
 const sidebarStructure = buildSidebarStructure(allUniversityContent);
+const sortedSidebarStructure = sortSidebarStructure(sidebarStructure);
+delete (sortedSidebarStructure as any).title;
+delete (sortedSidebarStructure as any).entry;
 
 const currentPath = Astro.url.pathname;
 const pathParts = currentPath.split('/').filter(Boolean);
@@ -68,31 +116,37 @@ const pathParts = currentPath.split('/').filter(Boolean);
 let displayStructure: SidebarItem;
 if (pathParts.length > 2 && pathParts[1] === 'courses') {
 	displayStructure = {
-		courses: sidebarStructure['courses'] as SidebarItem,
+		courses: sortedSidebarStructure['courses'] as SidebarItem,
 	} as unknown as SidebarItem;
 } else {
-	displayStructure = {
-		...Object.fromEntries(
-			Object.entries(sidebarStructure).filter(
-				([key]) => key !== 'courses',
-			),
-		),
-		courses: {
-			title: 'Courses',
-			entry: (sidebarStructure.courses as SidebarItem)?.['entry'],
-			...Object.fromEntries(
-				Object.entries(sidebarStructure.courses || {})
-					.filter(([key]) => key !== 'entry' && key !== 'title')
-					.map(([key, value]) => [
-						key,
-						{
-							title: (value as SidebarItem).title,
-							entry: (value as SidebarItem).entry,
-						},
-					]),
-			),
+	displayStructure = Object.entries(sortedSidebarStructure).reduce(
+		(acc, [key, value]) => {
+			if (key === 'courses') {
+				acc[key] = {
+					title: 'Courses',
+					entry: (value as SidebarItem)?.['entry'],
+					...Object.fromEntries(
+						Object.entries(value as SidebarItem)
+							.filter(
+								([subKey]) =>
+									subKey !== 'entry' && subKey !== 'title',
+							)
+							.map(([subKey, subValue]) => [
+								subKey,
+								{
+									title: (subValue as SidebarItem).title,
+									entry: (subValue as SidebarItem).entry,
+								},
+							]),
+					),
+				};
+			} else {
+				acc[key] = value;
+			}
+			return acc;
 		},
-	} as unknown as SidebarItem;
+		{} as SidebarItem,
+	);
 }
 ---
 
