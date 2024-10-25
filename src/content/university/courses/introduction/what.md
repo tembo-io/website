@@ -1,7 +1,7 @@
 ---
 sideBarPosition: 3
 title: What Will We Teach You?
-SideBarTitle: What Will We Teach You?
+sideBarTitle: What Will We Teach You?
 ---
 
 We know what you're thinking: what's in it for me? We're glad you asked!

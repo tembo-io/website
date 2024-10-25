@@ -1,7 +1,7 @@
 ---
 sideBarPosition: 4
 title: Why Take These Courses?
-SideBarTitle: Why Take These Courses?
+sideBarTitle: Why Take These Courses?
 ---
 
 We hope that by now, the question of "why" answers itself. But if you still need a bit of help, here's why you might want to attend Tembo University.
