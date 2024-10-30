@@ -2,10 +2,10 @@
 slug: vector-search-ecommerce-app
 title: 'Build a Vector Search-Powered E-commerce Platform with Tembo and Zero API Endpoints (and Next.js)'
 authors: [nishil]
-description: Build a Vector Search-Powered E-commerce Platform with Tembo and Zero API Endpoints (and Next.js)
+description: Leveraging Tembo's VectorDB Stack in order to create a full-featured product listing application with semantic search capabilities, allowing users to find products using natural language queries.
 tags: [postgres, ai, vector-search, vector, nextjs]
 image: ./ImageSearch.png
-date: 2024-10-31T09:00
+date: 2024-11-05T09:00
 planetPostgres: true
 ---
 
@@ -119,7 +119,7 @@ Our project follows a standard Next.js structure with the App Router. The ma
 3. Add/Edit product forms
 4. Client-side components for search functionality
 
-## **Implementing Database Operations**
+## Implementing Database Operations
 
 Let's start by creating our database operations. Create a new file for our [server actions](https://github.com/tembo-io/tembo-labs/blob/main/vector-search-app/app/actions/vectordb.ts):
 
@@ -287,7 +287,7 @@ The [Add Listing page](https://github.com/tembo-io/tembo-labs/blob/main/vector-s
 
 ![adding-new-product.png](./adding-new-product.png)
 
-## **Editing Products**
+## Editing Products
 
 The [Edit Listing page](https://github.com/tembo-io/tembo-labs/blob/main/vector-search-app/app/edit-listing/[id]/page.tsx) allows users to modify existing products:
 
@@ -437,7 +437,7 @@ export default function ClientProductList({
 
 ![vector-search-demo.png](./vector-search-demo.png)
 
-## **Testing the Application**
+## Testing the Application
 
 1. Start the development server:
 
@@ -449,7 +449,7 @@ npm run dev
 2. Try adding some products
 3. Test the vector search functionality with natural language
 
-## **Key Features**
+## Key Features
 
 -   Semantic search using vector embeddings
 -   Real-time search results
