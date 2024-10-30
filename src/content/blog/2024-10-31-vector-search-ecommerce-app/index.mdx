@@ -11,7 +11,7 @@ planetPostgres: true
 
 In this tutorial, we'll build a modern e-commerce platform that leverages vector search capabilities using [Tembo's VectorDB Stack](https://tembo.io/docs/product/stacks/ai/vectordb/getting-started#). We'll create a full-featured product listing application with semantic search capabilities, allowing users to find products using natural language queries.
 
-💡 **_Pro tip_:** _The fastest way to follow along is to clone the [repository](https://github.com/tembo-io/tembo-labs/tree/main). However, we'll walk through each vector search related step in detail if you prefer to build from scratch!_
+💡 **_Pro tip_:** _The fastest way to follow along is to clone the [repository](https://github.com/tembo-io/tembo-labs/tree/main) and `cd` into the `vector-search-app` directory. However, we'll walk through each vector search related step in detail if you prefer to build from scratch!_
 
 ## Prerequisites
 
@@ -37,7 +37,7 @@ In this tutorial, we'll build a modern e-commerce platform that leverages vector
     psql 'postgresql://postgres:<your-password>@<your-host>:5432/postgres'
     ```
 
-4. Configure the OpenAI integration:
+4. Configure the OpenAI integration to be able to generate embeddings:
 
     ```sql
     ALTER SYSTEM SET vectorize.openai_key TO '<your OpenAI API key>';
@@ -456,4 +456,4 @@ npm run dev
 -   CRUD operations via server actions for products
 -   Type safety with TypeScript
 
-This project demonstrates how to build a modern e-commerce platform with vector search capabilities using Tembo's VectorDB stack. This stack provides a powerful foundation for building sophisticated search experiences. We’d love to hear what you think. Give us a shoutout on [X](https://x.com/tembo_io), or connect with us in our [community Slack](https://join.slack.com/t/tembocommunity/shared_invite/zt-277pu7chi-NHtvHWvLhHwyK0Y5Y6vTPw).
+This project demonstrates how to build a modern e-commerce platform with vector search capabilities using [Tembo's VectorDB Stack](https://tembo.io/docs/product/stacks/ai/vectordb/getting-started#). This stack provides a powerful foundation for building sophisticated search experiences. We’d love to hear what you think. Give us a shoutout on [X](https://x.com/tembo_io), or connect with us in our [community Slack](https://join.slack.com/t/tembocommunity/shared_invite/zt-277pu7chi-NHtvHWvLhHwyK0Y5Y6vTPw).
