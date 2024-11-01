@@ -32,3 +32,22 @@ Follow these steps to enable Dedicated Networking for your instance:
 </Callout>
 
 ![dedicated-networking](./dedicated-networking.png)
+
+## How to use Custom domains with Dedicated Networking
+
+Follow steps from [here](https://tembo.io/docs/product/cloud/configuration-and-management/custom-domains) but with following values & in this order:
+
+1. Create TXT record with name `_tembo.dedicated.steven.tembo-development.com` & value as organization ID
+2. Configure CNAME record with name `dedicated.steven.tembo-development.com` & value you see in Dedicated connection string tab like `dedicated.aimlessly-prospering-goldfinch.data-1.use1.tembo.io`
+3. Enter `dedicated.steven.tembo-development.com` in Custom Domain field in Tembo UI
+
+This should now allow you to connect like below:
+
+```bash
+psql 'postgresql://postgres:****@dedicated.steven.tembo-development.com:5432'
+psql (16.4)
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
+Type "help" for help.
+
+postgres=#
+```
