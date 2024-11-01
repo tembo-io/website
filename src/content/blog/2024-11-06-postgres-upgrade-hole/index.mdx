@@ -1,0 +1,92 @@
+---
+slug: plug-postgres-upgrade-hole
+title: 'Plugging the Postgres Upgrade Hole'
+authors: [shaun]
+description: |
+  We at Tembo truly [love Postgres](https://tembo.io/blog/tembo-manifesto). It's the core of what we do, and we're devoted to making Postgres the *first* database any developer thinks of for storing and interacting with data. If not for a single… erm, elephant in the room, we're convinced everyone would love Postgres just as much as we do. That one thing is the relative difficulty upgrading Postgres between major versions.
+tags: [postgres, upgrade, pg_basebackup, pg_dump, pg_restore, pg_upgrade]
+date: 2024-11-06T09:00
+planetPostgres: true
+---
+
+import Callout from '@components/Callout.astro';
+
+We at Tembo truly [love Postgres](https://tembo.io/blog/tembo-manifesto). It's the core of what we do, and we're devoted to making Postgres the *first* database any developer thinks of for storing and interacting with data. If not for a single… erm, elephant in the room, we're convinced everyone would love Postgres just as much as we do. That one thing is the relative difficulty upgrading Postgres between major versions.
+
+Recently the [Neon](https://neon.tech) team asked the collective Postgres community about this topic in "[Why Does Everyone Run Ancient Postgres Versions?](https://neon.tech/blog/why-does-everyone-run-ancient-postgres-versions)" Their treatment of the question was fair and focused on the quality of older Postgres versions&mdash;and the fact that upgrades suck in general. Indeed, why upgrade to version 16 if Postgres 12 works just fine? Especially when it's so much work.
+
+Their innocuous question regarding upgrades [gained traction on Hacker News](https://news.ycombinator.com/item?id=41873957), and the rest is history. The unanimous opinion is that Postgres is not only hard to upgrade, but *so hard to upgrade* that many would rather use some other database engine. Is this a fair assessment? Let's consider the state of Postgres upgrades, and where we could go from here.
+
+## Postgres Upgrade Methods
+
+First let's consider the [three standard upgrade methods](https://www.postgresql.org/docs/current/upgrading.html) currently recommended by the Postgres documentation:
+
+1. Using a dump / restore approach. This can be some combination of `pg_dumpall`, `pg_dump`, `pg_restore`, and psql command-line tools. It's straightforward but not really viable for large databases common in many enterprises. Nobody wants to wait several hours to extract and restore multiple terabytes of raw data, not to mention the associated downtime.  
+2. The [pg_upgrade](https://www.postgresql.org/docs/current/pgupgrade.html) tool has been around since Postgres 9.0 (released in 2010!), and remains the fastest and most recommended approach. Incompatible changes between Postgres major versions arise almost exclusively within the system catalog, and this tool bridges the gap by converting an old catalog to a new installation and copying or hard-linking the existing data. The primary drawback is that it requires running multiple versions of Postgres, which may complicate existing installations.  
+3. Setting up a new server running the desired version of Postgres and copying the data with [logical replication](https://www.postgresql.org/docs/current/logical-replication.html). This option provides the lowest amount of downtime, but is *fantastically intricate* and fragile. There's also a fundamental limitation that logical replicas exist at the database level, so must be repeated for any database being migrated to the new version. Doing this safely *demands* a staging environment and several dry runs before attempting in production. Further, sequences are not synchronized in logical replication, so must be copied manually. It's easy to miss this step and accidentally activate a newly upgraded server where all of the sequences have been reset to 1.
+
+Of these three, there's a reason `pg_upgrade` is the most recommended approach. While annoying, maintaining multiple versions of Postgres is a small price to pay for a smooth upgrade. But is it that smooth? The `pg_upgrade` approach quickly falls apart when multiple replicas are involved, and while there's an rsync pattern to remedy that snag, it relies on carefully orchestrating storage mounts between servers and is *incredibly easy* to screw up. It's certainly not for the faint of heart.
+
+For clusters consisting of multiple nodes, the usual recommendation is to create a similarly provisioned cluster using the target Postgres version. For example, for a primary and two replicas using version 13, create a primary and two replicas with version 17. Set up logical replication between the primary nodes and let the built-in replication sort itself out. Assuming there's a defined playbook that includes a step to copy sequences between the systems at the end of the process, it should be fairly safe. This pattern requires a non-trivial amount of work, and infrastructure departments or devs will quickly balk at the extent of the procedure and hire a Postgres consultant instead.
+
+## Learning from pg\_upgrade
+
+Put simply, the `pg_upgrade` utility doesn't go far enough. The requirement to install multiple versions of Postgres introduces a subtle complication that escapes the attention of many users. Unlike most other software where a new version *replaces* the old one, Postgres versions are usually installed separately. In fact, the official Postgres [Yum](https://yum.postgresql.org) and [Apt](https://wiki.postgresql.org/wiki/Apt) repositories provide versioned packages and install software within versioned directories.
+
+<Callout variant='Info'>
+Avoid using package repositories provided by the operating-system itself for Postgres. These are often several years out of date and may not even include new versions of Postgres at all. Obtain packages from the [Official Postgres Repositories](https://www.postgresql.org/download/) whenever possible.
+</Callout>
+
+A naive user may not be familiar with this approach, especially if they're using a custom compiled set of binaries and libraries. They may simply install everything into /opt/postgres and call it a day, totally unaware that new major versions are simply incompatible with old versions. Upgrading a source install this way will result in a database that won't start, and a quick trip to the Postgres manual.
+
+Meanwhile MySQL&mdash;Postgres' erstwhile competitor&mdash;does not suffer this indignity. Upon starting an upgraded version, the service will *automatically* upgrade the system catalog from previous versions, which it can, of course, read. Would it be possible for Postgres to do something like this? If so, how?
+
+The `pg_upgrade` tool works by starting the two different Postgres versions, leveraging the old version to supply the catalog in sufficient detail to the new version. But *what if* the catalog subsystem itself were a versioned library? Rather than installing everything, including server binaries for *both versions* of Postgres, what if we only cared about the stuff that changes between versions?
+
+Imagine if some future version of Postgres (maybe 20) starts and detects a version 17 catalog. Afterwards, it could try to load the version 17 catalog compatibility library to read it, upgrade it to the new native format, and never need that library again. This would prevent the need to hard-code various catalog migration paths into the most recent version, and deciding how far back that compatibility must extend. It would mean upgrading from nearly any previous version, similar to how `pg_upgrade` currently functions.
+
+This kind of procedure wouldn't require multiple document roots and deciding between full copies or hard links. There would be no need for rsync to fix physical streaming replicas because the catalog changes would be sent through the replication stream. It wouldn't be necessary to rebuild table statistics following the upgrade. Nobody would have to build an entire duplicate cluster anymore.
+
+Regarding major version upgrades, the documentation says:
+
+> For *major* releases of PostgreSQL, the internal data storage format is subject to change, thus complicating upgrades.
+
+In practice, such a change would make even `pg_upgrade` incompatible with older versions. Aside from the catalog, it simply copies the existing data files *as is*. So why must the charade&mdash;that the underlying storage system could change&mdash;persist? A storage change would render the existing multi-terabyte and petabyte-tier systems effectively impossible to upgrade, and cause wholesale abandonment of Postgres.
+
+Of course, *actually making* such sweeping changes to the Postgres code to enable system catalog versioning is not exactly trivial. Yet Postgres introduced [Table Access Methods](https://www.postgresql.org/docs/current/tableam.html) way back in version 12, and they make it possible to completely supplant the storage system. Could some experienced dev perform a similar amount of magic for the system catalog? It would certainly be worth the effort.
+
+## A broken chain
+
+> We *implore* the core devs to allow future releases to preserve incoming and outgoing slots with a command-line option for advanced use-cases like cluster upgrades.
+
+We don't think anyone should wait for some pie-in-the-sky overhaul to how Postgres handles upgrades. With that thought in mind, we started searching for a better approach. Postgres 17 introduced a new [pg\_createsubscriber](https://www.postgresql.org/docs/current/app-pgcreatesubscriber.html) tool, which converts physical replicas to logical replicas. At first, that *seemed* like the perfect solution. If it worked simply as advertised, a procedure like this could be a massive improvement to the Postgres upgrade path:
+
+* Use [pg\_basebackup](https://www.postgresql.org/docs/current/app-pgbasebackup.html) or some other tool such as [repmgr](https://www.repmgr.org), [Patroni](https://patroni.readthedocs.io/en/latest/), or [CloudNativePG](https://cloudnative-pg.io) to produce a replica.  
+* Make sure the following version 17 [configuration options](https://www.postgresql.org/docs/current/runtime-config-replication.html) are configured appropriately on both systems:  
+  * `wal_level = logical`
+  * `hot_standby_feedback = on`
+  * `sync_replication_slots = on`
+  * `synchronized_standby_slots = 'slot_to_sync'`
+* Use `pg_createsubscriber` to convert the physical replica to a logical one.  
+* Upgrade the logical replica to a new version using `pg_upgrade`.
+
+The idea here would be to leverage the fact Postgres 17 introduces [logical replication failover](https://www.postgresql.org/docs/current/logical-replication-failover.html), and the fact that logical replication slots now survive the `pg_upgrade` procedure. Taken at face value, a physical replica with all the necessary slots could be upgraded and substituted for the old primary.
+
+Unfortunately, the new `pg_createsubscriber` utility executes several steps and the last two are deal-breakers. Here's what the documentation says about it:
+
+1. If the standby server contains failover replication slots, they cannot be synchronized anymore, so drop them.  
+2. Update the system identifier on the target server. The [pg\_resetwal](https://www.postgresql.org/docs/current/app-pgresetwal.html) is run to modify the system identifier. The target server is stopped as a `pg_resetwal` requirement.
+
+That means the tool can only be used to create logical replica endpoints. All pre-existing subscriptions and outbound publications are sheared right off. A [thread in the Postgres mailing list](https://www.postgresql.org/message-id/flat/CAA4eK1LrbODevk%3Dw9%3DwZgSNYF8sJ2idxGmXx7wVDtfg4O%2Bw1UA%40mail.gmail.com#69e2df81f7a95fdd44dcac7126fa0065) suggests this was done intentionally to avoid double-subscription and unintentional slot advancement side-effects, but it *also* hobbles the full potential of replica conversions. We *implore* the core devs to allow future releases to preserve incoming and outgoing slots with a command-line option for advanced use-cases like cluster upgrades.
+
+## Everything is a migration
+
+In addition to what we've discussed thus far, there's still the thorny issue of extension compatibility between Postgres versions. Our own David Wheeler is working valiantly on [PGXN v2](https://wiki.postgresql.org/wiki/PGXN_v2) which may help address this particular issue. If nothing else, this is an important reason to test any Postgres upgrade playbook, lest a rogue extension present an unexpected roadblock.
+
+It's frustrating to admit, but the current state-of-the-art for Postgres upgrades is ultimately limited to the three previously listed options: dump and restore, `pg_upgrade` + `rsync`, or build a new cluster and migrate all data using a logical subscription. There is *no such thing* as an in-place Postgres upgrade. The `pg_upgrade` tool is close, but only if hard links are used, and downtime depends on the size of the system catalog, which can be substantial in enterprise applications.
+
+This limitation affects all Postgres end users of every description, from single devs to full enterprises and even&mdash;or perhaps especially thanks to container images&mdash;cloud vendors. Everyone has to figure out their own workaround or procedure to upgrade Postgres safely. Postgres tooling has long been a [BYO](https://www.allacronyms.com/BYO) affair, which is why there are so many competing replication and backup solutions. Thus it's not really surprising that upgrades suffer the same fate.
+
+We at Tembo are in the process of producing a definitive cut-and-paste friendly how-to guide for each of the three major Postgres upgrade methods. We're also exploring the best way to integrate major version upgrades into our cloud GUI. Postgres users shouldn't *also* need to be fully-fledged DBAs to stay current, *especially* while the Postgres community laments the wide proliferation of "ancient" versions.
+
+Postgres users, and the community at large, deserves better. We're here to make sure that happens.
