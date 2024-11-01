@@ -5,7 +5,7 @@ authors: [chuck]
 description: |
     We've upgraded Tembo Cloud to support Llama 3.1-8B-Instruct
 tags: [tembo, ai]
-date: 2024-10-21T09:00
+date: 2024-11-04T09:00
 planetPostgres: false
 ---
 
@@ -21,7 +21,7 @@ Meta released a [collection](https://huggingface.co/collections/meta-llama/llama
  The 3.2 11B is roughly equivalent to the 3.1 8B model in terms of its text-text capabilities, but also includes image capabilities.
 
 In summary - the Llama 3.2 series introduced new capabilities, but not necessarily and improvement to text-text performance. It introduced vision capabilities on top of the text capabilities of the 3.1 series.
- It also introduced smaller models for resource constrained environments.
+ It also introduced smaller models for resource constrained environments. Llama 3.1-8B-Instruct is available on Tembo Cloud, but we are not hosting the 3.2 series at this time.
 
 ## Model Performance
 
@@ -44,10 +44,60 @@ The 70B parameter models are the highest performing overall, but they are also s
 
 ## Run this on Tembo
 
+The specific models we host will change over time, and we will maintain backwards compatibility. For example, if you request Llama 3-8B-Instruct, you will get Llama 3.1-8B-Instruct.
+ We will also continue to add new models as they are released.
+
+For development purposes we recommend using our alias, `tembo-small-instruct` which will always route to the latest small instruct model.
+
 ```bash
-curl example
+curl -X POST https://${YOUR_TEMBO_HOST}.data-1.use1.tembo.io/ai/v1/chat/completions \
+    -H "Authorization: Bearer ${YOUR_TEMBO_JWT}" \
+    -H "Content-Type: application/json" \
+    -d '{"messages": [{"role": "user", "content": "Say 'hello-world'"}], "model": "tembo-small-instruct"}'
 ```
 
+Notice the `model` attribute returned in the response. This will always reflect the specific model used within the inference engine.
+
+```plaintext
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "Hello, World!",
+        "role": "assistant",
+        "tool_calls": []
+      },
+      "stop_reason": null
+    }
+  ],
+  "created": 1730469471,
+  "id": "chat-6aaab9b5fc684d8c93ee87a1b78a1191",
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "object": "chat.completion",
+  "prompt_logprobs": null,
+  "usage": {
+    "completion_tokens": 5,
+    "prompt_tokens": 38,
+    "total_tokens": 43
+  }
+}
+```
+
+You can also run this directly in SQL using the `vectorize.generate` function.
+
 ```sql
-select * from vectorize.generate()
+select vectorize.generate(
+    input => $$say 'hello-world'$$,
+    model => 'tembo/tembo-small-instruct'
+);
+```
+
+```plaintext
+   generate    
+---------------
+ Hello, World!
+(1 row)
 ```
