@@ -1,9 +1,9 @@
 ---
 slug: llama-3.1
-title: 'Llama 3.1 and 3.2'
+title: 'Llama 3.1-8B-Instruct now available on Tembo Cloud'
 authors: [chuck]
 description: |
-    We've upgraded Tembo Cloud to support Llama 3.1-8B-Instruct
+    We've upgraded Tembo Cloud to support Llama 3.1-8B-Instruct so that you can now run the latest models from Meta.
 tags: [tembo, ai]
 date: 2024-11-04T09:00
 planetPostgres: false
@@ -20,22 +20,23 @@ Meta released a [collection](https://huggingface.co/collections/meta-llama/llama
  The 3.2 series also includes multi-model models, of 11B and 90B variants.
  The 3.2 11B is roughly equivalent to the 3.1 8B model in terms of its text-text capabilities, but also includes image capabilities.
 
-In summary - the Llama 3.2 series introduced new capabilities, but not necessarily and improvement to text-text performance. It introduced vision capabilities on top of the text capabilities of the 3.1 series.
+In summary - the Llama 3.2 series introduced new capabilities, but not necessarily improvement to text-text performance. It did introduce vision capabilities on top of the text capabilities of the 3.1 series.
  It also introduced smaller models for resource constrained environments. Llama 3.1-8B-Instruct is available on Tembo Cloud, but we are not hosting the 3.2 series at this time.
 
 ## Model Performance
 
-While Tembo Cloud hosts the Llama 3.1 8B-Instruct model for all users, self-hosted users can run any of these models.
+While Tembo Cloud hosts the Llama 3.1 8B-Instruct model for all users, self-hosted users can run any model supported by [vLLM](https://github.com/vllm-project/vllm/blob/main/docs/source/models/supported_models.rst).
  There is a [formula](https://training.continuumlabs.ai/infrastructure/data-and-memory/calculating-gpu-memory-for-serving-llms) for estimating how much GPU memory is required to host a model, and its been heavily written about before.
- So roughly, to host a 70B parameter model you will need 168GB of GPU memory, while an 8B parameter model will need 19GB of GPU memory.
+ Main thing to note, to host a 70B parameter model you will need 168GB of GPU memory, while an 8B parameter model will need 19GB of GPU memory.
+ You can lower the memory requirements by using [quantization](https://huggingface.co/docs/transformers/en/main_classes/quantization) but it does come at the cost of performance.
 
 It is a large jump in memory requirements to go from the 8B to the 70B models, but is it worth it?
  We can look at some [benchmarks](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) to get a sense for how these models perform.
- The leader board evaluates models across a number tasks involving mathematical reasoning, language understanding, world knowledge, and ability to follow instructions.
+ The leaderboard evaluates models across a number tasks involving mathematical reasoning, language understanding, world knowledge, and ability to follow instructions.
  Depending on your use case, you might care more about one of the evaluations than the other.
  The average is a good indicator overall though.
 
-We've extracted all the `meta-llama` from the [Open LLM Leader Board](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) and visualized below.
+We've extracted all the `meta-llama` from the [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) and visualized below.
 
 ![bench](./image.png)
 
@@ -44,16 +45,23 @@ The 70B parameter models are the highest performing overall, but they are also s
 
 ## Run this on Tembo
 
-The specific models we host will change over time, and we will maintain backwards compatibility. For example, if you request Llama 3-8B-Instruct, you will get Llama 3.1-8B-Instruct.
- We will also continue to add new models as they are released.
 
-For development purposes we recommend using our alias, `tembo-small-instruct` which will always route to the latest small instruct model.
+You can call the Llama 3.1-8B-Instruct model on Tembo Cloud using the following curl command.
 
 ```bash
 curl -X POST https://${YOUR_TEMBO_HOST}.data-1.use1.tembo.io/ai/v1/chat/completions \
     -H "Authorization: Bearer ${YOUR_TEMBO_JWT}" \
     -H "Content-Type: application/json" \
-    -d '{"messages": [{"role": "user", "content": "Say 'hello-world'"}], "model": "tembo-small-instruct"}'
+    -d '{"messages": [{"role": "user", "content": "Say --hello-world--"}], "model": "meta-llama/Llama-3.1-8B-Instruct"}'
+```
+
+For development purposes we recommend using our alias, `tembo-small-instruct` which will always route to the latest small instruct model (which is Llama 3.1-8B-Instruct at this time).
+
+```bash
+curl -X POST https://${YOUR_TEMBO_HOST}.data-1.use1.tembo.io/ai/v1/chat/completions \
+    -H "Authorization: Bearer ${YOUR_TEMBO_JWT}" \
+    -H "Content-Type: application/json" \
+    -d '{"messages": [{"role": "user", "content": "Say --hello-world--"}], "model": "tembo-small-instruct"}'
 ```
 
 Notice the `model` attribute returned in the response. This will always reflect the specific model used within the inference engine.
@@ -101,3 +109,9 @@ select vectorize.generate(
  Hello, World!
 (1 row)
 ```
+
+
+## Going forward
+
+The specific models we host will change over time, and we will maintain backwards compatibility. For example, if you request Llama 3-8B-Instruct, you will get Llama 3.1-8B-Instruct.
+ We will also continue to add new models as they are released. 
