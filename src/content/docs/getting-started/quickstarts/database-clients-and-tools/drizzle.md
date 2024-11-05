@@ -40,6 +40,36 @@ async function testQuery() {
 testQuery();
 ```
 
+If your database instance has the extension `pg_stat_statements` loaded you may encounter an error when connecting. 
+
+```bash
+Using 'pg' driver for database querying
+[✓] Pulling schema from database...
+error: cannot drop view pg_stat_statements_info because extension pg_stat_statements requires it
+
+...
+```
+
+When you see this error you will need to add a `tablesFilter` to your `drizzle.config.ts` file.  Here is an example of what that might look like.
+
+```typescript title="drizzle.config.ts"
+import { defineConfig } from 'drizzle-kit';
+
+export default defineConfig({
+  schema: './src/lib/db/schema.ts',
+  dialect: 'postgresql',
+  dbCredentials: {
+    url: process.env.DATABASE_URL,
+  },
+  verbose: true,
+  strict: true,
+  out: './drizzle',
+  tablesFilter: ['!pg_stat_statements', '!pg_stat_statements_info'],
+});
+```
+
+This error and fix is disussed in this Drizzle ORM [issue](https://github.com/drizzle-team/drizzle-orm/discussions/2410).
+
 ## Support and Community
 
 If you encounter any issues, please check out our [troubleshooting guide](/docs/product/cloud/troubleshooting/connectivity) or contact [support@tembo.io](mailto:support@tembo.io).
