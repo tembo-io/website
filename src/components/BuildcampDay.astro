@@ -1,0 +1,26 @@
+---
+interface Props {
+	day: string | number;
+	title: string;
+	description: string;
+}
+
+const { day, title, description } = Astro.props;
+---
+
+<div class='flex flex-row gap-8 items-center w-full'>
+	<div class='flex-shrink-0'>
+		<div
+			class='border-2 border-white rounded-full w-[100px] h-[100px] flex items-center justify-center'
+		>
+			<div class='text-white text-center'>
+				<div class='text-xl font-bold'>DAY</div>
+				<div class='text-2xl font-bold'>{day}</div>
+			</div>
+		</div>
+	</div>
+	<div class='flex flex-col gap-2'>
+		<h3 class='text-white text-2xl font-bold'>{title}</h3>
+		<p class='text-white text-lg'>{description}</p>
+	</div>
+</div>
