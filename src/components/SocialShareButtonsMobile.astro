@@ -15,9 +15,7 @@ interface Props {
 const { slug, title } = Astro.props;
 ---
 
-<h2 class='text-lightGrey font-bold mt-10 mb-6 text-white'>
-	Share this article
-</h2>
+<h2 class='text-lightGrey font-bold mt-10 mb-6'>Share this article</h2>
 <div class='flex flex-row items-center w-max gap-3'>
 	<a
 		href={`https://news.ycombinator.com/submitlink?u=https://tembo.io/blog/${slug}&t=${encodeURIComponent(title)}`}
