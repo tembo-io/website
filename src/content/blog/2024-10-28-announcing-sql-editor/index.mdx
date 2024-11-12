@@ -1,0 +1,40 @@
+---
+slug: announcing-sql-editor
+title: 'SQL Editor in the Tembo Cloud Dashboard UI'
+authors: [darren]
+description: Check out the new SQL Editor tab for editing and running your SQL queries, directly from the Tembo Cloud Dashboard UI!
+tags: [ui, changelog]
+date: 2024-10-30T09:00
+image: './cli.png'
+---
+
+import Callout from '@components/Callout.astro';
+
+We've introduced a new "SQL Editor" tab in the Tembo Cloud Dashboard UI, which lets you explore tables and edit + run queries directly from your browser! No need to open multiple tools when you want to make changes on the fly, or check that stuff's behaving the way you expect it to.
+
+There are some great features including:
+
+1. Table editor (edit, add, remove, filter)
+2. SQL runner (run any query you want from the browser)
+3. Switch between different schemas
+4. Advanced filtering, JSON support and formatting
+
+**You can find the SQL Editor tab in the sidebar after clicking on an instance:**
+
+![sql_editor](./sql-editor-ui.png)
+
+Clicking on the "SQL Runner" button will allow you to write any arbitrary query and execute it against your database. Queries written in this view are automaticially persisted so you can leave and come back to the page without losing your work.
+
+![sql_runner](./sql-runner.png)
+
+## Powered by Drizzle Studio
+
+Our SQL Editor is powered by [Drizzle Studio](https://www.npmjs.com/package/@drizzle-team/studio) and Tembo is proud to be sponsoring their amazing [open-source Typescript ORM project](https://orm.drizzle.team/):
+
+![drizzle_sponsor](./sponsor.png)
+
+<Callout title='Upvote and request new Tembo Cloud features' variant='tip'>
+	We love to hear from you about functionality that will make your life
+	easier. Please feel free to suggest and upvote features via our public
+	[roadmap](https://roadmap.tembo.io/roadmap).
+</Callout>

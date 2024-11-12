@@ -33,7 +33,8 @@ import Quotes from '../components/Quotes';
 import StackHero from '../components/StackHero';
 import WaddlingLogo from '../images/waddling_logo.svg';
 import AutomizedLogo from '../images/automized.png';
-import JoinTemboCTA from '@components/JoinTemboCTA.astro';
+import ArrowButton from '@components/ArrowButton.astro';
+import Animation from '@components/Animation';
 
 const currentPath = Astro.url.pathname;
 ---
@@ -545,13 +546,45 @@ const currentPath = Astro.url.pathname;
 					</div>
 				</div>
 			</div>
-			<div class='mt-20'>
-				<JoinTemboCTA />
-			</div>
 		</Container>
 	</section>
-	<section class='tembo-footer-section relative bg-offBlack'>
-		<div class='container max-w-stackSlider mx-auto relative'></div>
+	<section class='tembo-footer-section mobile:pt-28 relative bg-offBlack'>
+		<div class='container max-w-stackSlider mx-auto relative'>
+			<Animation
+				client:only='react'
+				isFooter={true}
+				styles='z-10 top-[300px] xs:top-[100px] sm:top-[50px] md:-top-[200px] xl:-top-[600px] fade-x-md-both-sides-animation'
+			/>
+			<div
+				class='flex flex-col justify-center pb-[100px] min-[400px]:pb-[200px] z-10'
+			>
+				<Container styles='z-10 pb-24'>
+					<h2
+						class='text-white font-bold text-[25.5px] customXxs:text-[32px] customXs:text-[40px] customSm:text-[50px] text-center leading-normal w-full z-50 mt-28'
+					>
+						Join The Herd
+					</h2>
+					<div
+						class='flex-col min-[500px]:flex-row flex items-center justify-center mt-10 gap-4 z-50'
+					>
+						<Button
+							variant='gradient'
+							size='lg'
+							client:load
+							isLinkTag={true}
+							link='https://cloud.tembo.io/sign-up'
+							styles='h-[60px] w-full min-[500px]:w-[182px] font-semibold font-primary z-10 flex items-center justify-center'
+						>
+							Try Free
+						</Button>
+						<ArrowButton
+							title='Join the team'
+							link='mailto:careers@tembo.io'
+						/>
+					</div>
+				</Container>
+			</div>
+		</div>
 		<div class='relative bg-offBlack z-10'>
 			<div
 				class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
