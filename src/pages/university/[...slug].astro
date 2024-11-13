@@ -6,7 +6,7 @@ import {
 	getSideBarLinks,
 	getNestedSideBarLinks,
 	isNested,
-	nextDoc,
+	// nextDoc,
 	githubEditLink,
 	cleanSideBarTitle,
 } from '../../util/docsUtils';
@@ -14,6 +14,8 @@ import NextButton from '../../components/NextButton.astro';
 import Tag from '../../components/Tag.astro';
 import CallToAction from '../../components/CallToAction.astro';
 import UniversityDocsLayout from '@layouts/UniversityDocsLayout.astro';
+import { getDocumentNavigation } from 'src/util/universityDocsUtils';
+import PrevButton from '@components/PrevButton.astro';
 
 export async function getStaticPaths() {
 	const docs = await getCollection('university');
@@ -32,6 +34,7 @@ export async function getStaticPaths() {
 
 const { doc } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await doc.render();
+const { prevDoc, nextDoc } = await getDocumentNavigation(doc.slug);
 ---
 
 <UniversityDocsLayout
@@ -55,18 +58,32 @@ const { Content, headings, remarkPluginFrontmatter } = await doc.render();
 				<Markdown classNames='max-w-none'>
 					<Content />
 				</Markdown>
-				{
-					doc.data.nextDoc && (
-						<NextButton
-							title={doc.data.nextDoc.title}
-							label='Next'
-							subTitle={doc.data.nextDoc.subTitle}
-							slug={doc.data.nextDoc.slug}
-							classNames='max-w-[450px] w-full self-end'
-							subTitleStyles='text-neon'
-						/>
-					)
-				}
+				<div class='flex justify-between'>
+					{
+						prevDoc && (
+							<PrevButton
+								title={prevDoc.title!}
+								label='Previous'
+								subTitle={prevDoc.subTitle}
+								slug={prevDoc.slug}
+								classNames='min-w-[300px]'
+								subTitleStyles='text-neon'
+							/>
+						)
+					}
+					{
+						nextDoc && (
+							<NextButton
+								title={nextDoc.title!}
+								label='Next'
+								subTitle={nextDoc.subTitle}
+								slug={nextDoc.slug}
+								classNames='min-w-[300px] ml-auto'
+								subTitleStyles='text-neon'
+							/>
+						)
+					}
+				</div>
 			</div>
 			<div>
 				<div
@@ -113,78 +130,3 @@ const { Content, headings, remarkPluginFrontmatter } = await doc.render();
 	<div class='h-[1px] w-full bg-[#242424]'></div>
 	<CallToAction isDoc={true} editLink={githubEditLink(doc.id)} />
 </UniversityDocsLayout>
-
-<!-- <UniversityDocsLayout
-	isNestedDoc={isNestedSideBar}
-	sideBarMenuSections={links}
-	title={`${docTitle} | Tembo Docs`}
-	description={doc?.data?.description}
-	keywords={doc?.data?.tags}
-	logoTitle='University'
-	showSearch={false}
->
-	<div class='flex flex-col relative w-full'>
-		<div id='tembo-document' class='flex justify-between w-full mb-12'>
-			<div
-				class='flex flex-col gap-12 w-full mobile:mr-16 xl:mr-28 overflow-x-hidden max-w-[900px]'
-			>
-				<h1
-					class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl flex items-center gap-x-2'
-				>
-					{docTitle}
-				</h1>
-				<Markdown classNames='max-w-none'>
-					<Content />
-				</Markdown>
-				<NextButton
-					title={nextDocument.title}
-					label='Next'
-					subTitle={nextDocument.parentLabel}
-					slug={nextDocument.slug}
-					classNames='max-w-[450px] w-full self-end'
-					subTitleStyles='text-neon'
-				/>
-			</div>
-			<div>
-				<div
-					class='hidden min-[1150px]:flex flex-col items-start w-max min-[1150px]:sticky min-[1150px]:top-[133px]'
-				>
-					<Toc
-						headings={headings.filter(
-							(heading) => heading.depth !== 1,
-						)}
-						titleStyles='bg-gradient-to-r from-salmon via-purple to-lightPurple text-transparent bg-clip-text text-sm'
-						title='ON THIS PAGE'
-						isDocs
-						offset={60}
-						client:load
-					/>
-					<div class='flex gap-2 text-lightGrey'>
-						<img
-							src={'/icons/book-grey.svg'}
-							alt='book'
-							width={16}
-							height={16}
-						/>
-						<p class='text-lightGrey text-sm'>
-							{remarkPluginFrontmatter.minutesRead}
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class='flex items-start gap-2 max-h-full mb-4'>
-		{
-			doc.data.tags?.map((tag: any) => (
-				<Tag
-					title={tag}
-					classNames='px-2.5 py-[0.4rem] text-center text-[12px] h-max border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10'
-					isLink={false}
-				/>
-			))
-		}
-	</div>
-	<div class='h-[1px] w-full bg-[#242424]'></div>
-	<CallToAction isDoc={true} editLink={githubEditLink(doc.id)} />
-</UniversityDocsLayout> -->

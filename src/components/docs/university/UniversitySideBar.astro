@@ -6,148 +6,21 @@ import { Image } from 'astro:assets';
 import Home from '../../../images/home.svg';
 import SidebarItems from './SidebarItems';
 import Line from '../Line.astro';
-import sidebarConfig from './sidebarConfig.json';
+import {
+	buildSidebarStructure,
+	sortSidebarStructure,
+	getDisplayStructure,
+} from '../../../util/universityDocsUtils';
 
 const allUniversityContent = await getCollection('university');
 
-interface SidebarItem {
-	title: string;
-	entry?: CollectionEntry<'university'>;
-	[key: string]:
-		| SidebarItem
-		| string
-		| CollectionEntry<'university'>
-		| undefined;
-}
-
-function buildSidebarStructure(
-	entries: CollectionEntry<'university'>[],
-): SidebarItem {
-	const structure = {} as SidebarItem;
-
-	entries.forEach((entry) => {
-		const parts = entry.slug.split('/');
-		let current: SidebarItem = structure;
-
-		parts.forEach((part, index) => {
-			if (index === parts.length - 1 && part === 'index') {
-				// This is an index.md file
-				Object.assign(current, {
-					indexEntry: entry,
-					title: entry.data.title || current.title || part,
-				});
-			} else {
-				if (!current[part]) {
-					const customTitle =
-						sidebarConfig.folderTitles[
-							part as keyof typeof sidebarConfig.folderTitles
-						] || part;
-					current[part] = { title: customTitle };
-					// current[part] = { title: part };
-				}
-				if (index === parts.length - 1) {
-					Object.assign(current[part] as SidebarItem, { entry });
-				} else {
-					current = current[part] as SidebarItem;
-				}
-			}
-		});
-	});
-
-	return structure;
-}
-
-function isFolder(item: SidebarItem): boolean {
-	return Object.keys(item).some((key) => key !== 'title' && key !== 'entry');
-}
-
-function getSideBarPosition(item: SidebarItem): number {
-	return item.entry?.data.sideBarPosition ?? Infinity;
-}
-
-function sortSidebarStructure(structure: SidebarItem): SidebarItem {
-	const sortEntries = (entries: [string, SidebarItem][]) => {
-		return entries.sort((a, b) => {
-			const [, itemA] = a;
-			const [, itemB] = b;
-			const posA = getSideBarPosition(itemA);
-			const posB = getSideBarPosition(itemB);
-
-			if (posA === posB) {
-				return a[0].localeCompare(b[0]);
-			}
-
-			return posA - posB;
-		});
-	};
-
-	const sortRecursive = (item: SidebarItem): SidebarItem => {
-		if (!isFolder(item)) {
-			return item;
-		}
-
-		const entries = Object.entries(item);
-		const sortedEntries = sortEntries(entries as [string, SidebarItem][]);
-
-		const sortedItem: SidebarItem = {
-			title: item.title,
-			entry: item.entry,
-		};
-		sortedEntries.forEach(([key, value]) => {
-			if (key !== 'title' && key !== 'entry') {
-				sortedItem[key] = sortRecursive(value);
-			}
-		});
-
-		return sortedItem;
-	};
-
-	return sortRecursive(structure);
-}
-
-const sidebarStructure = buildSidebarStructure(allUniversityContent);
+const sidebarStructure = await buildSidebarStructure(allUniversityContent);
 const sortedSidebarStructure = sortSidebarStructure(sidebarStructure);
-delete (sortedSidebarStructure as any).title;
-delete (sortedSidebarStructure as any).entry;
 
 const currentPath = Astro.url.pathname;
 const pathParts = currentPath.split('/').filter(Boolean);
 
-let displayStructure: SidebarItem;
-if (pathParts.length > 2 && pathParts[1] === 'courses') {
-	displayStructure = {
-		courses: sortedSidebarStructure['courses'] as SidebarItem,
-	} as unknown as SidebarItem;
-} else {
-	displayStructure = Object.entries(sortedSidebarStructure).reduce(
-		(acc, [key, value]) => {
-			if (key === 'courses') {
-				acc[key] = {
-					title: 'Courses',
-					entry: (value as SidebarItem)?.['entry'],
-					...Object.fromEntries(
-						Object.entries(value as SidebarItem)
-							.filter(
-								([subKey]) =>
-									subKey !== 'entry' && subKey !== 'title',
-							)
-							.map(([subKey, subValue]) => [
-								subKey,
-								{
-									title: (subValue as SidebarItem).title,
-									entry: (subValue as SidebarItem).entry,
-								},
-							]),
-					),
-				};
-			} else {
-				acc[key] = value;
-			}
-			return acc;
-		},
-		{} as SidebarItem,
-	);
-}
+const displayStructure = getDisplayStructure(sortedSidebarStructure, pathParts);
 ---
 
 <nav

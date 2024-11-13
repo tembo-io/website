@@ -5,6 +5,7 @@ import Rainbow from '../components/Rainbow.astro';
 import type { SideBarSection } from '../types';
 import UniversitySideBar from '@components/docs/university/UniversitySideBar.astro';
 import Breadcrumb from '@components/docs/Breadcrumb.astro';
+
 interface Props {
 	title?: string;
 	description?: string;
@@ -25,6 +26,7 @@ const {
 	logoTitle = 'Docs',
 	showSearch = true,
 }: Props = Astro.props;
+
 const currentPath = Astro.url.pathname;
 ---
 
