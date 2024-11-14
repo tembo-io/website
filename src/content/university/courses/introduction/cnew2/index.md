@@ -1,3 +1,0 @@
----
-sideBarPosition: 5
----
