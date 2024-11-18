@@ -10,7 +10,7 @@ image: './search-benchmark.png'
 planetPostgres: false
 ---
 
-We've previously written about the analytics capabilities of Tembo's ParadeDB integration, but did you know about ParadeDB's lightning-fast search capabilities as well? ParadeDB provides `pg_search`, a complete full-text search solution for PostgreSQL built atop [BM25](https://en.wikipedia.org/wiki/Okapi_BM25) and [Tantivy](https://github.com/quickwit-oss/tantivy).
+We've previously written about the analytics capabilities of Tembo's ParadeDB integration, but did you know about ParadeDB's lightning-fast search capabilities as well? [ParadeDB](https://tembo.io/docs/product/stacks/analytical/paradedb) provides `pg_search`, a complete full-text search solution for PostgreSQL built atop [BM25](https://en.wikipedia.org/wiki/Okapi_BM25) and [Tantivy](https://github.com/quickwit-oss/tantivy).
 
 ## Full-Text Search in PostgreSQL
 
@@ -44,7 +44,7 @@ A query to find the top ten documents matching a search string took an average (
 
 #### ParadeDB's `pg_search`
 
-The ParadeDB implementation answered a comparable query within **6.28ms**, _nearly 265 times faster_. Note that the probability distribution function reflects that these results are much more consistent than the full text ones, as well…
+The ParadeDB implementation answered a comparable query within **6.28ms**, _nearly 265 times faster_. Additionally, note that the probability distribution function reflects that these results have much more consistent latency than the full text ones.
 
 ![pg_search Results, 10MM Rows](./search-10MM-PDF.svg)
 
@@ -66,4 +66,4 @@ Full text search now takes **nearly 14 seconds**.
 
 ## Conclusion
 
-Though PostgreSQL includes a full-featured text search capability, the BM25 index type used by ParadeDB's `pg_search` vastly improves performance in applications which need to list search results by rank or relevance. Tembo's [ParadeDB stack](https://tembo.io/docs/product/stacks/analytical/paradedb) provides an easy way for users to deploy and use this advanced search functionality in their own applications today.
+Though PostgreSQL includes a full-featured text search capability, the BM25 index type used by ParadeDB's `pg_search` vastly improves performance in applications which need to list search results by rank or relevance. [Tembo's ParadeDB stack](https://tembo.io/docs/product/stacks/analytical/paradedb) provides an easy way for users to deploy and use this advanced search functionality in their own applications today.
