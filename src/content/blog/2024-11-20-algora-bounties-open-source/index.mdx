@@ -1,0 +1,35 @@
+---
+slug: algora-bounties-open-source
+title: 'Rewarding bounties, worth it?'
+authors: [floor]
+description: |
+  We're partnering with Algora to award bounties for some of our open source Postgres extensions written in Rust.
+tags: [postgresql, open-source, bounties, github, hacktoberfest, rust]
+date: 2024-11-20T09:00
+image: './tembonauts.png'
+planetPostgres: true
+---
+
+Early October we posted a couple of code (and non-code!) bounties using the [Algora platform](https://console.algora.io/org/tembo). Our projects received a lot of attention and for any company considering whether they should run a similar program, we wanted to post an honest experience report.
+
+## Preparing the bounty program
+
+We [selected 2 projects](https://tembo.io/blog/algora-code-bounties) fit for external contributions. [**pgmq**](https://github.com/tembo-io/pgmq), which is a lightweight message queue, written in pl/pgSQL. And [**pg_vectorize**](https://github.com/tembo-io/pg_vectorize) automates the transformation and orchestration of text to embeddings and provides hooks into the most popular LLMs. This extension is written in Rust.
+
+In preparation of the program, [Adam](https://github.com/ChuckHend) created and triaged issues appropriate for new contributors to pick up and run with. In hindsight, Adam says he wishes he had further scoped out the issues. The more precise you can get in describing the body of work needed, the easier it is for someone new to a project to pick it up and run with it without assistance. 
+
+We also needed to assign monetary values to the different work items. It’s hard to estimate how much time any one contribution will take (”it depends”), but Algora’s trained model provided a pretty good starting point! 
+
+## Highlighting contributions
+
+We had some really great features contributed via the bounty program. Out of the 14 Issues posted, we were able to close 7 through Algora, 4 remain open (the rest were solved by fellow Tembonauts). We awarded $1430 USD, and received 19 PRs labelled as `bounty-claim`. 
+
+Solutions included performance enhancements (like [this one](https://github.com/tembo-io/pgmq/issues/298)), and [support for embeddings from VoyageAI for pg_vectorize](https://github.com/tembo-io/pg_vectorize/pull/174). We really enjoyed the community engagement on the [PR](https://github.com/tembo-io/pgmq/pull/320), since it added a new feature that client libraries will need to adopt. There are many client libraries for PGMQ that are not maintained by Tembo.
+
+## Some noise, but 10/10 would do it again
+
+At Tembo we’re very invested in open source. Encouraging external contributions to projects we’ve developed in this way has been an interesting experience.
+
+We've seen some plagiarism where Person1 opened PR1, and Person2 then posted a solution identical to PR1. Hoping we’d overlook the PR by the original author, and award the bounty to them instead. Person 2 was doing this for other (company’s) bounties as well, and verifiably so. We also suspected some bot activity. The Algora team is aware of these issues and actively working on mitigation.
+
+Overall, we received quality submissions, and we’re keen on relying on the community for specific tasks again in the future.
