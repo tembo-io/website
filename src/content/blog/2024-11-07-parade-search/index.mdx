@@ -40,13 +40,13 @@ So simply maintaining the index appears to happen about **six times faster**. Wh
 
 A query to find the top ten documents matching a search string took an average (mean) of **1.66 seconds** to complete.
 
-![Full Text Search Results, 10MM Rows](./GIN-10MM-PDF.svg)
+![Full Text Search Results, 10MM Rows](./GIN-10MM-PDF.png)
 
 #### ParadeDB's `pg_search`
 
 The ParadeDB implementation answered a comparable query within **6.28ms**, _nearly 265 times faster_. Additionally, note that the probability distribution function reflects that these results have much more consistent latency than the full text ones.
 
-![pg_search Results, 10MM Rows](./search-10MM-PDF.svg)
+![pg_search Results, 10MM Rows](./search-10MM-PDF.png)
 
 ### 100MM Rows
 
@@ -56,13 +56,13 @@ To understand how a growing data set would affect maintenance and query times, I
 
 Full text search now takes **nearly 14 seconds**.
 
-![Full Text Search Results, 100MM Rows](./GIN-100MM-PDF.svg)
+![Full Text Search Results, 100MM Rows](./GIN-100MM-PDF.png)
 
 #### ParadeDB's `pg_search`
 
 `pg_search` retains a commendable lead, increasing to around **28ms**, nearly **500x** the performance of PostgreSQL's full text search.
 
-![pg_search Results, 10MM Rows](./search-100MM-PDF.svg)
+![pg_search Results, 10MM Rows](./search-100MM-PDF.png)
 
 ## Conclusion
 
