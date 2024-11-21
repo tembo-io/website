@@ -12,7 +12,7 @@ planetPostgres: true
 
 import Callout from '@components/Callout.astro';
 
-[Postgres Conference Seattle 2024](https://postgresconf.org/conferences/SEA2024) partnered up with [PASS](https://passdatacommunitysummit.com) this year to present a united database front. I gave my "[Kubernetes Killed the High Availability Star](https://postgresconf.org/conferences/SEA2024/program/proposals/kubernetes-killed-the-high-availability-star-how-to-stop-worrying-and-embrace-postgres-in-the-cloud)" at 2:30pm on November 7th. The next talk in that room wasn't until 4pm, so I had plenty of time to talk shop with attendees, about the future of Postgres, high availability, and Kubernetes in general.
+[Postgres Conference Seattle 2024](https://postgresconf.org/conferences/SEA2024) partnered up with [PASS](https://passdatacommunitysummit.com) this year to present a united database front. They accepted my "[Kubernetes Killed the High Availability Star](https://postgresconf.org/conferences/SEA2024/program/proposals/kubernetes-killed-the-high-availability-star-how-to-stop-worrying-and-embrace-postgres-in-the-cloud)" talk, which I graciously gave on the last day of the conference. The next talk in that room wasn't for another hour, so I had plenty of time to talk shop with attendees, about the future of Postgres, high availability, and Kubernetes in general.
 
 If you weren't there and missed out on the fun, this is your chance to catch up and enjoy a few of my notorious bad puns along the way. Let me tell you why the concept of Postgres HA is dead.
 
@@ -22,11 +22,11 @@ For those of you who want to watch instead of read, here's the video of the talk
 
 ## High Availability in peril
 
-I've been working specifically with Postgres High Availability since 2011. I gave my first High Availability talk at [Postgres Open 2012](https://wiki.postgresql.org/wiki/Postgres_Open_2012), titled "High Availability with PostgreSQL and Pacemaker". That same stack played a significant role in the first edition of my PostgreSQL High Availability Cookbook and survived until the third edition. Were I to continue that series, I'd remove both chapters dedicated to that stack and replace them with nothing.
+I've been working specifically with Postgres High Availability since 2011. I gave my first High Availability talk at [Postgres Open 2012](https://wiki.postgresql.org/wiki/Postgres_Open_2012), titled "High Availability with PostgreSQL and Pacemaker". That same stack played a significant role in the first edition of my PostgreSQL High Availability Cookbook and survived until the [third edition](https://www.packtpub.com/en-us/product/postgresql-high-availability-cookbook-9781787125537). Were I to continue that series, I'd remove both chapters dedicated to that stack and replace them with nothing.
 
 But I won't continue that series because Postgres HA is dead, and Kubernetes killed it.
 
-It's a bold claim, but not one without evidence. The goal of this talk is to explain how and why that happened, and perhaps more to the point, why it _should_ happen.
+It's a bold claim, but not one without evidence. Allow me to explain how and why that happened, and perhaps more to the point, why it _should_ happen.
 
 ## Postgres HA is hard
 
@@ -158,11 +158,11 @@ There's a lot, but it really boils down to four things:
 3. **Compute** are GPU, CPU, RAM, and other hardware resources available to containers running in the cluster. These are meant to be ephemeral and can be supplied by any node in the cluster. When services mention "autoscaling", it's because they can spin up as many containers with compute resources as necessary to react to request load.
 4. **Storage** is the one semi-stable resource assigned to containers. There are numerous cluster-aware distributed storage systems that run natively within Kubernetes, but sometimes the storage is purely a persistent reference to some external API such as [S3](https://aws.amazon.com/s3/).
 
-Kubernetes uses all of those things to give users what they ask for. A bit like Yoda, it's either do, or do not; there is no "try". Kubernetes is a medium much like The Force, if you're brave enough to wield it.
+Kubernetes uses all of those elements to give users what they ask for. A bit like Yoda, it's either do, or do not; there is no "try". Kubernetes is a medium much like The Force, if you're brave enough to wield it.
 
 ![Trust this guy](./yoda.png)
 
-Due to all of this, it's possible to have a _one node cluster_. How is that possible? Because container restarts are frequently faster than failover detection. Was the contanier corrupted? Who cares? Kubernetes will make another to replace it, possibly on another worker node entirely. So long as the data is still available, that's all it needs.
+Due to all of this, it's possible to have a _one node cluster_. How is that possible? Because container restarts are frequently faster than failover detection. Was the contanier corrupted? Who cares! Kubernetes will make another to replace it, possibly on another worker node entirely. So long as the data is still available, that's all it needs.
 
 Quorum? That's built into the Kubernetes control plane, so you don't need to maintain your own quorum layer. Connection routing? There's only one node, so that's easy to do by routing all connection requests to that container, wherever it is. It's very convenient and "easy" to do with pure Kubernetes and a Postgres image.
 
