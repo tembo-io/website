@@ -12,7 +12,7 @@ planetPostgres: true
 
 import Callout from '@components/Callout.astro';
 
-[Postgres Conference Seattle 2024](https://postgresconf.org/conferences/SEA2024) partnered up with [PASS](https://passdatacommunitysummit.com) this year to present a united database front. I gave my "[What's our Vector, Victor?](https://postgresconf.org/conferences/SEA2024/program/proposals/what-s-our-vector-victor)" at 5pm on November 6th.
+[Postgres Conference Seattle 2024](https://postgresconf.org/conferences/SEA2024) partnered up with [PASS](https://passdatacommunitysummit.com) this year to present a united database front. They accepted my "[What's our Vector, Victor?](https://postgresconf.org/conferences/SEA2024/program/proposals/what-s-our-vector-victor)" talk, which I graciously gave on the first day of the conference.
 
 If you weren't there and missed out on the fun, this is your chance to catch up and maybe get a bit more information that was cut for length. Let me tell you why RAG is the future, and how Postgres and [pg_vectorize](https://github.com/tembo-io/pg_vectorize) make it a reality.
 
@@ -267,6 +267,8 @@ SELECT vectorize.rag(
   chat_model => 'ollama/llama3.1'
 ) -> 'chat_response';
 ```
+
+## Seeking answers
 
 The corpus loaded as part of this demonstration included all 503 of my own personal blog articles dating back to 2001. And the answer in this case?
 
