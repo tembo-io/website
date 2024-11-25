@@ -1,7 +1,7 @@
 ---
 slug: extension-ecosystem-summit
 title: 'Excitement about the PostgreSQL landscape at the Extensions Ecosystem Summit at PGConf EU'
-authors: [david, floor]
+authors: [floor, theory]
 description: |
   We organized an event for Postgres extension developers and folks interested in contributing to the larger ecosystem. Here's what happened.
 tags: [postgres, tde, pgvector, pgmq, pgrx]
