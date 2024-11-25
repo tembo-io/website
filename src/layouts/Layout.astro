@@ -655,26 +655,6 @@ const {
 	.circle-container:hover {
 		animation-play-state: paused;
 	}
-	h1[id],
-	h2[id],
-	h3[id],
-	h4[id],
-	h5[id],
-	h6[id] {
-		cursor: pointer;
-	}
-
-	h1[id]:hover::after,
-	h2[id]:hover::after,
-	h3[id]:hover::after,
-	h4[id]:hover::after,
-	h5[id]:hover::after,
-	h6[id]:hover::after {
-		content: ' #';
-		font-size: 0.8em;
-		opacity: 0.7;
-		font-style: italic;
-	}
 </style>
 
 <script>
@@ -712,26 +692,4 @@ const {
 	if (document.getElementsByClassName('mermaid').length > 0) {
 		renderDiagrams(graphs);
 	}
-</script>
-
-<script>
-	document.addEventListener('DOMContentLoaded', () => {
-		// Only run on blog and docs pages
-		const path = window.location.pathname;
-		console.log(path);
-		if (!path.includes('/blog') && !path.includes('/docs')) return;
-
-		const headers = document.querySelectorAll(
-			'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]',
-		);
-
-		headers.forEach((header) => {
-			if (header.id) {
-				(header as HTMLElement).style.cursor = 'pointer';
-				header.addEventListener('click', () => {
-					window.location.hash = header.id;
-				});
-			}
-		});
-	});
 </script>
