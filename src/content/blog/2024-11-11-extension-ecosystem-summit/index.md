@@ -6,7 +6,7 @@ description: |
   We organized an event for Postgres extension developers and folks interested in contributing to the larger ecosystem. Here's what happened.
 tags: [postgres, tde, pgvector, pgmq, pgrx]
 date: 2024-11-11T09:00
-image: './tembonauts.png'
+# image: './tembonauts.png'
 planetPostgres: true
 ---
 
