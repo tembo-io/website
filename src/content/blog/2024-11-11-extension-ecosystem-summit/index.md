@@ -82,4 +82,4 @@ Alastair encourages new contributors to join the project: “Get the current Bet
 
 We’ve collected the slides from all of the presentations in the [extensions-ecosystem-summit repo](https://github.com/tembo-io/tembo-labs/tree/main/extensions-ecosystem-summit). 
 
-We aim to create similar spaces at every PostgreSQL event, where extension developers can meet and invite new contributors. If your company would like to collaborate on future events and initiatives, please reach out: community@tembo.io.
+We aim to create similar spaces at every PostgreSQL event, where extension developers can meet and invite new contributors.
