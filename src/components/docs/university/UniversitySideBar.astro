@@ -1,0 +1,72 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import Logo from '../../../images/logoWithText.svg';
+import { Image } from 'astro:assets';
+import Home from '../../../images/home.svg';
+import SidebarItems from './SidebarItems';
+import Line from '../Line.astro';
+import {
+	buildSidebarStructure,
+	sortSidebarStructure,
+	getDisplayStructure,
+} from '../../../util/universityDocsUtils';
+
+const allUniversityContent = await getCollection('university');
+
+const sidebarStructure = await buildSidebarStructure(allUniversityContent);
+const sortedSidebarStructure = sortSidebarStructure(sidebarStructure);
+
+const currentPath = Astro.url.pathname;
+const pathParts = currentPath.split('/').filter(Boolean);
+
+const displayStructure = getDisplayStructure(sortedSidebarStructure, pathParts);
+---
+
+<nav
+	class='border-r border-r-[#EAEAEA33] max-w-[280px] w-full hidden min-[1000px]:flex transition-all duration-150 ease-in'
+>
+	<div class='h-screen relative w-full overflow-y-scroll'>
+		<div class='sticky top-0 px-8 z-10 mb-2'>
+			<a
+				href={'/university'}
+				class='flex items-center gap-2 bg-offBlack pt-8 pb-6'
+			>
+				<Image
+					src={Logo}
+					alt='tembo elephant logo and name'
+					width={120}
+				/>
+				<span
+					class='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text text-xs uppercase'
+					>University</span
+				>
+			</a>
+			<div
+				class='bg-gradient-to-b from-offBlack to-transparent h-4 w-full'
+			>
+			</div>
+		</div>
+		<div
+			class='flex flex-col px-8 pb-8 transition-all duration-200 ease-out z-1'
+		>
+			<a
+				href={`/university`}
+				class='font-secondary font-extrabold flex items-center gap-4'
+			>
+				<Image src={Home} alt='home' width={20} />
+				University
+			</a>
+
+			<div class='my-6'>
+				<Line />
+			</div>
+			<SidebarItems
+				structure={displayStructure}
+				currentPath={currentPath}
+				isTopLevel={pathParts.length <= 2}
+				client:load
+			/>
+		</div>
+	</div>
+</nav>

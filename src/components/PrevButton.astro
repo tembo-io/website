@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import ChevronLeft from '../images/arrow-left.svg';
+import { styles } from '../util';
+
+interface Props {
+	slug: string;
+	title: string;
+	label?: string;
+	subTitle?: string;
+	classNames?: string;
+	subTitleStyles?: string;
+}
+const { slug, title, classNames, subTitle, label, subTitleStyles } =
+	Astro.props;
+---
+
+<a
+	href={slug}
+	class={styles('p-4 rounded-lg gradient-next-button', classNames)}
+>
+	<div class='flex flex-col items-start gap-2'>
+		<div class='flex items-center gap-[5px]'>
+			<Image
+				src={ChevronLeft}
+				height={14}
+				width={14}
+				alt='chevron left arrow'
+			/>
+			<p class='text-lightGrey font-semibold text-sm'>{label}</p>
+		</div>
+		<h4 class='text-white text-start'>{title}</h4>
+		{
+			subTitle && (
+				<p
+					class={styles(
+						'text-lightGrey font-semibold text-xs',
+						subTitleStyles,
+					)}
+				>
+					{subTitle}
+				</p>
+			)
+		}
+	</div>
+</a>

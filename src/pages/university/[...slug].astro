@@ -1,25 +1,21 @@
 ---
 import Markdown from '../../components/Markdown.astro';
-import DocsLayout from '../../layouts/DocsLayout.astro';
 import { getCollection } from 'astro:content';
 import Toc from '../../components/Toc';
 import {
 	getSideBarLinks,
 	getNestedSideBarLinks,
 	isNested,
-	nextDoc,
+	// nextDoc,
 	githubEditLink,
 	cleanSideBarTitle,
-	getIsPostgresGuide,
-	getIsGettingStartedPage,
-	getIsPostgresGuideLinksPage,
-	removeItemByTitleAndSlug,
 } from '../../util/docsUtils';
 import NextButton from '../../components/NextButton.astro';
 import Tag from '../../components/Tag.astro';
 import CallToAction from '../../components/CallToAction.astro';
-import { Image } from 'astro:assets';
-import MoveArrowLeftIcon from '../../images/move-left.svg';
+import UniversityDocsLayout from '@layouts/UniversityDocsLayout.astro';
+import { getDocumentNavigation } from 'src/util/universityDocsUtils';
+import PrevButton from '@components/PrevButton.astro';
 
 export async function getStaticPaths() {
 	const docs = await getCollection('university');
@@ -38,29 +34,12 @@ export async function getStaticPaths() {
 
 const { doc } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await doc.render();
-const slug = doc.slug;
-const normalLinks = await getSideBarLinks('university');
-const nestedLinks = await getNestedSideBarLinks(slug, 'university');
-const isPostgresGuide = getIsPostgresGuide(slug);
-const isGettingStartedPage = getIsGettingStartedPage(slug);
-const isPostgresGuideHomePage = getIsPostgresGuideLinksPage(slug);
-// If a document is nested, we need to check if it has more than one nested document
-// Directories that have only one doc (e.g /docs/cloud/cloud.md) should not have a nested sidebar
-const hasEnoughNestedDocs =
-	nestedLinks.length > 1 || nestedLinks[0].items.length > 1;
-const isNestedSideBar = isPostgresGuide
-	? false
-	: isNested(slug) && hasEnoughNestedDocs;
-const links = isNestedSideBar ? nestedLinks : normalLinks;
-const nextDocument = await nextDoc(`/docs/${slug}`, links);
-const docTitle =
-	doc?.data?.title || cleanSideBarTitle(slug.split('/').at(-1) as string);
+const { prevDoc, nextDoc } = await getDocumentNavigation(doc.slug);
 ---
 
-<DocsLayout
-	isNestedDoc={isNestedSideBar}
-	sideBarMenuSections={links}
-	title={`${docTitle} | Tembo Docs`}
+<UniversityDocsLayout
+	sideBarMenuSections={[]}
+	title={`${doc.data.title} | Tembo Docs`}
 	description={doc?.data?.description}
 	keywords={doc?.data?.tags}
 	logoTitle='University'
@@ -71,95 +50,83 @@ const docTitle =
 			<div
 				class='flex flex-col gap-12 w-full mobile:mr-16 xl:mr-28 overflow-x-hidden max-w-[900px]'
 			>
-				{
-					isPostgresGuide && !isPostgresGuideHomePage && (
-						<a
-							href='/docs/getting-started/postgres_guides'
-							class='flex gap-x-1 text-lightGrey hover:text-white -mb-4'
-						>
-							<Image
-								src={MoveArrowLeftIcon}
-								alt='arrow left'
-								width={18}
-								height={18}
-								class='move-left-icon'
-							/>{' '}
-							Go Back
-						</a>
-					)
-				}
 				<h1
 					class='text-neon font-extrabold text-3xl lg:text-4xl xl:text-5xl flex items-center gap-x-2'
 				>
-					{docTitle}
+					{doc.data.title}
 				</h1>
 				<Markdown classNames='max-w-none'>
 					<Content />
 				</Markdown>
-				{
-					isPostgresGuide ? null : (
-						<NextButton
-							title={nextDocument.title}
-							label='Next'
-							subTitle={nextDocument.parentLabel}
-							slug={
-								isGettingStartedPage
-									? '/docs/getting-started/postgres_guides'
-									: nextDocument.slug
-							}
-							classNames='max-w-[450px] w-full self-end'
-							subTitleStyles='text-neon'
-						/>
-					)
-				}
-			</div>
-			<div>
-				<div
-					class='hidden min-[1150px]:flex flex-col items-start w-max min-[1150px]:sticky min-[1150px]:top-[133px]'
-				>
+				<div class='flex justify-between'>
 					{
-						headings.filter((heading) => heading.depth > 1).length >
-							0 && (
-							<>
-								<Toc
-									headings={headings.filter(
-										(heading) => heading.depth !== 1,
-									)}
-									titleStyles='bg-gradient-to-r from-salmon via-purple to-lightPurple text-transparent bg-clip-text text-sm'
-									title='ON THIS PAGE'
-									isDocs
-									offset={60}
-									client:load
-								/>
-								<div class='flex gap-2 text-lightGrey'>
-									<img
-										src={'/icons/book-grey.svg'}
-										alt='book'
-										width={16}
-										height={16}
-									/>
-									<p class='text-lightGrey text-sm'>
-										{remarkPluginFrontmatter.minutesRead}
-									</p>
-								</div>
-							</>
+						prevDoc && (
+							<PrevButton
+								title={prevDoc.title!}
+								label='Previous'
+								subTitle={prevDoc.subTitle}
+								slug={prevDoc.slug}
+								classNames='min-w-[300px]'
+								subTitleStyles='text-neon'
+							/>
+						)
+					}
+					{
+						nextDoc && (
+							<NextButton
+								title={nextDoc.title!}
+								label='Next'
+								subTitle={nextDoc.subTitle}
+								slug={nextDoc.slug}
+								classNames='min-w-[300px] ml-auto'
+								subTitleStyles='text-neon'
+							/>
 						)
 					}
 				</div>
 			</div>
+			<div>
+				<div
+					class={`hidden min-[1150px]:flex flex-col items-start w-max min-[1150px]:sticky min-[1150px]:top-[133px] ${doc.data.tableOfContents ? 'gap-y-6' : ''}`}
+				>
+					{
+						doc.data.tableOfContents && (
+							<Toc
+								headings={headings}
+								titleStyles='bg-gradient-to-r from-salmon via-purple to-lightPurple text-transparent bg-clip-text text-sm'
+								title='ON THIS PAGE'
+								isDocs
+								offset={60}
+								client:load
+							/>
+						)
+					}
+					<div class='flex gap-2 text-lightGrey'>
+						<img
+							src={'/icons/book-grey.svg'}
+							alt='book'
+							width={16}
+							height={16}
+						/>
+						<p class='text-lightGrey text-sm'>
+							{remarkPluginFrontmatter.minutesRead}
+						</p>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class='flex items-start gap-2 max-h-full mb-4'>
-			{
-				doc.data.tags?.map((tag: any) => (
-					<Tag
-						title={tag}
-						classNames='px-2.5 py-[0.4rem] text-center text-[12px] h-max border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10'
-						isLink={false}
-					/>
-				))
-			}
-		</div>
-		<div class='h-[1px] w-full bg-[#242424]'></div>
-		<CallToAction isDoc={true} editLink={githubEditLink(doc.id)} />
 	</div>
-</DocsLayout>
+	<div class='flex items-start gap-2 max-h-full mb-4'>
+		{
+			doc.data.tags?.map((tag: any) => (
+				<Tag
+					title={tag}
+					classNames='px-2.5 py-[0.4rem] text-center text-[12px] h-max border-salmon text-lightSalmon font-semibold bg-salmon bg-opacity-10'
+					isLink={false}
+				/>
+			))
+		}
+	</div>
+	<div class='h-[1px] w-full bg-[#242424]'></div>
+	<CallToAction isDoc={true} editLink={githubEditLink(doc.id)} />
+</UniversityDocsLayout>

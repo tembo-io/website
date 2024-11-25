@@ -1,0 +1,173 @@
+---
+sideBarPosition: 2
+title: Conceptually Speaking
+sideBarTitle: Conceptually Speaking!
+---
+
+import Callout from '../../../../../components/Callout.astro';
+
+In order to build our URL shortener, we need to define at least one thing: the algorithm to generate the slugs. There are essentially three ways to do this: 
+
+1. Produce a string randomly and check the database to see if it's already in use.
+2. Build a string based on the URL itself.
+3. Generate a short string based on a number.
+
+## Choosing an Algorithm
+
+Whichever approach we choose, we want a _short_ string, nothing over six or seven characters. Six case-sensitive alpha-numeric characters allows us to represent over 50-billion URLs, while seven brings us to over three trillion. Will we masquerade more than 50-billion URLs? Probably not, but it's nice to have options.
+
+<Callout variant='info'>
+If we only consider uppercase and lowercase letters, and the numbers 0-9, we have 62 possible characters for building the slug. The exact amount of possible values then becomes:
+
+* 6 characters: 56,800,235,584 combinations
+* 7 characters: 3,521,614,606,208 combinations
+
+Wow!
+</Callout>
+
+Which of the the three possible algorithms is the best for our use case? We can probably ignore the option where we create random strings and check to see if they're already in use in the database. Chances of collision are pretty low, but if there is one, we have to generate a new value and try again. This could happen multiple times before we successfully find an unused string.
+
+Building a string from the URL itself is much more promising. The usual technique for this is to apply a hashing algorithm like md5 or sha256, then extract a substring of the first few characters. One major benefit to this technique is that every URL will produce the same short string every time, so it also prevents duplicate URLs with no extra work.
+
+Unfortunately, the fact we need such a short substring greatly increases the chance of a "collision" where two different URLs produce the same hash value. Hashing algorithms only guarantee no collisions when used at their _full_ length. This means such a substring is effectively the same as randomly generating a short 6-7 character string. Chances of a collision are _low_, but not _zero_.
+
+Option three is to generate strings based on a number. Like most databases, Postgres has a system for generating numbers in a way that's guaranteed to be unique across sessions: [sequences](https://www.postgresql.org/docs/current/sql-createsequence.html). If we build our string based on this, we can generate strings essentially forever with no chance of a duplicate.
+
+<Callout variant='info'>
+We're not exaggerating. A Postgres sequence has a maximum value of 9,223,372,036,854,775,807 which is over _nine quintillion_. That's one billion shortened URLs per second for about 300 years!
+</Callout>
+
+## Generating the Slug
+
+Encoding a number as a string has a few methods. The easiest is to simply cast the number directly into a character-set, similarly to [how hexadecimal works](https://en.wikipedia.org/wiki/Hexadecimal).
+
+Consider this TypeScript example:
+
+```ts
+function intToSlug(n: number): string {
+  const chars='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  let s = '';
+  while (n > 0) {
+    s = chars[n % 62] + s;
+    n = parseInt(n / 62);
+  }
+  return s || '0';
+}
+```
+
+Where hexadecimal is a number represented as base-16, we're essentially converting the number to base-62. Neat, eh? We've included a simplified converter below you can experiment with:
+
+import './styles.css';
+import GenerateSlug from './GenerateSlug.tsx';
+
+<GenerateSlug client:visible />
+
+You may have noticed that the slug gets longer with larger numbers. This means early adopters using our shortener will get _extra_ short slugs consisting of only one or two letters. Lucky them!
+
+The only thing remaining is the sequence itself. Thankfully, that's easy to create while connected to our Postgres database:
+
+```sql
+CREATE SEQUENCE short_url_seq;
+```
+
+Any time we invoke `SELECT nextval('short_url_seq')`, Postgres will provide a new number that's unique across all user sessions. If we feed that into the slug generator, we can then insert a new row into `short_url` for the slug and URL combination.
+
+## Inserting Shortened URLs
+
+When shortening URLs, we need to perform a few actions:
+
+1. Obtain a value from the sequence.
+2. Generate a new slug based on the number.
+3. Insert the slug + URL combination into our table.
+
+But what happens if the URL has _already_ been shortened? We don't want to needlessly advance the sequence in that case, and we also want the slug for the existing URL. We could check to see if the URL already exists, but imagine this scenario:
+
+1. User 1 checks for "happy.com" and it has no record.
+2. User 2 checks for "happy.com" and it has no record.
+3. User 1 inserts a row for "happy.com".
+4. User 2 tries to insert a new row and gets a duplicate conflict for the URL.
+
+This is called a **Race Condition**. Both users saw that the URL was not yet shortened, yet only one can successfully insert the new record. The Postgres `INSERT ... ON CONFLICT` [syntax](https://www.postgresql.org/docs/current/sql-insert.html) can handle this specific situation.
+
+Our `INSERT` statement would look something like this:
+
+```sql
+INSERT INTO short_url (slug, url) VALUES ('asdf', 'http://happy.com/')
+  ON CONFLICT (url) DO NOTHING;
+```
+
+In this case, User 1 would insert "happy.com" successfully, and User 2 would insert _nothing_. But what about the slug itself? User 1 and 2 both retrieved a value from the sequence before attempting to insert the new record, meaning the value fetched by user 2 was wasted. Is there some way we can fix that?
+
+What if we define a function in SQL to perform the insert instead? Something like this:
+
+```sql
+CREATE OR REPLACE FUNCTION f_insert_url(p_url TEXT)
+RETURNS TEXT AS $$
+DECLARE
+  v_seq BIGINT;
+  v_slug TEXT;
+  v_chars CHAR(1)[] := string_to_array(
+      '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      NULL
+  );
+BEGIN
+  -- Return the slug immediately if this URL already exists.
+
+  SELECT slug INTO v_slug FROM short_url WHERE url = p_url;
+
+  IF FOUND THEN
+    RETURN v_slug;
+  END IF;
+
+  -- Otherwise, generate a new slug and insert the URL.
+
+  v_seq := nextval('short_url_seq');
+  v_slug := '';
+
+  WHILE v_seq > 0 LOOP
+    v_slug := v_chars[v_seq % 62 + 1] || v_slug;
+    v_seq := v_seq / 62;
+  END LOOP;
+
+  -- Insert while ignoring any conflicts from concurrent sessions.
+  -- The worst that will happen is that we waste a sequence value.
+
+  INSERT INTO short_url (slug, url) VALUES (v_slug, p_url)
+  ON CONFLICT DO NOTHING;
+
+  SELECT slug INTO v_slug FROM short_url WHERE url = p_url;
+  
+  RETURN v_slug;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+While it may seem strange to use an SQL function to insert a record rather than doing it ourselves, there are _several_ benefits to this approach:
+
+1. The whole operation is a single function call.
+2. All actions take place right in Postgres.
+3. There is _much_ less chance of a race condition due to the reduced gap between checking for the URL and inserting a new row.
+4. Far fewer sequence values are "wasted".
+
+<Callout variant="Info">
+Wait, only _fewer_ sequence values are wasted? Why not none?
+
+Even though we shrank the window for a race condition town to a few milliseconds, two simultaneous calls to the function with the same URL can still result in a conflict. That's also why there's one final `SELECT` statement to retrieve _whatever_ slug was inserted, even if it wasn't generated in the same function call.
+</Callout>
+
+Now we can be _incredibly_ lazy and insert "happy.com" as a new URL and also retrieve the slug with a single command:
+
+```sql
+SELECT * FROM f_insert_url('http://happy.com/');
+```
+
+As a last bit of accounting, this function should have all privileges revoked so only roles associated with the application can use it. By default, functions created in Postgres are available to all users via the `PUBLIC` role, so we want to do this:
+
+```sql
+REVOKE EXECUTE ON FUNCTION shorten.f_insert_url(TEXT) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION shorten.f_insert_url(TEXT) TO short_rw;
+```
+
+Aferwards, only the `short_rw` role (and users with that role) will be able to use the insertion function.
+
