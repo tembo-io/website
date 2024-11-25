@@ -6,6 +6,7 @@ import HackerNews from '../images/hacker-news.svg';
 import Twitter from '../images/twitter.svg';
 import LinkedIn from '../images/linkedin.svg';
 import Reddit from '../images/reddit.svg';
+import BlueSky from '../images/bluesky.svg';
 
 interface Props {
 	slug: string;
@@ -61,5 +62,12 @@ const { slug, title } = Astro.props;
 		rel='noopener noreferrer'
 	>
 		<Image src={Mastodon} height={16} width={17} alt='mastodon icon' />
+	</a>
+	<a
+		href={`https://bsky.app/intent/compose?text=${encodeURIComponent(title)}%0Ahttps://tembo.io/blog/${slug}`}
+		target='_blank'
+		rel='noopener noreferrer'
+	>
+		<Image src={BlueSky} height={16} width={17} alt='bluesky icon' />
 	</a>
 </div>

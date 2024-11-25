@@ -1,0 +1,52 @@
+---
+slug: hacking-postgres-francesco-tisiot
+title: 'Hacking Postgres: Francesco Tisiot'
+authors: [floor]
+description: Francesco Tisiot, Field CTO at Aiven, joined our Hacking Postgres podcast to talk about AI-powered performance recommendations, Oracle Cloud, and inclusive communities. 
+tags: [postgresql, AI, Oracle, hacking-postgres]
+date: 2024-10-22T09:00
+image: './hacking-postgres-francesco-tisiot.png'
+planetPostgres: true
+---
+
+We started our podcast [Hacking Postgres](https://www.youtube.com/watch?v=9oKJrtqtu1M&list=PL11N188AYb_Z04oQJgllNEY5m7gCcY8tH) again. One of my first conversations was with former colleague [Francesco Tisiot](https://www.linkedin.com/in/francescotisiot/). Francesco is the Field CTO at Aiven, a Data and AI platform.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lGncGn8VStk?si=zsxNvZpwAYFwoPI1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+First I was curious what a day in the life of a Field CTO looks like. Francesco tells me it’s a mix of Developer Relations and what he was doing in his previous career: consulting. Like a CTO that a company "lends" to their customers, a technical advisor understanding their pain points and where potentially Aiven's services make sense. Internally, Francesco translates the problems he sees in the field into solutions.
+
+## On new stuff
+
+Recently they announced Aiven for AlloyDB Omni. Francesco explains that for a Postgres user that is interesting since it is Postgres-compatible but it opens the door to features the Google team created. He worked closely with Google to bring AlloyDB Omni to Aiven and to deliver it on all major Clouds.
+
+"I'm customer 0 for our products. I don't want to know the secrets, I don't want to become the backend expert, because then I can no longer look at a product from the end user's perspective."
+
+## On Postgres as the origin story
+
+Postgres is a big part of what Aiven is. The 4 founders started Aiven when they found themselves implementing the same Postgres solutions for customers over and over again. The platform they developed was named PGaaS. That’s "Postgres as a Service", which... didn't exactly roll off the tongue, hence the name change.
+
+Aiven tries to give back to the Postgres project. Like any managed service, they see a lot of real life use cases and ways in which people try to (ab)use Postgres. They've tested Postgres 17 already, and once they switch to offering Postgres 17 they will spot problems early in the adoption and can make suggestions upstream. One of their better known extensions is [pghoard](https://github.com/Aiven-Open/pghoard), a backup daemon and restore tooling that stores backup data in cloud object stores.
+
+Lastly they're invested in Postgres because Aiven runs on Aiven (which runs on Postgres).
+
+## On performance tuning
+
+Using a huge LLM to find a solution for your SQL performance problem might not be very useful. "It will scan the entire Internet's worth of content around SQL tuning, including perhaps my terrible blog posts." When you can't control the input, the output can potentially be rubbish. A dedicated solution (like EverSQL, acquired by Aiven one year ago) augments in a way that's more reliable. Even just to get you started looking in the right place (where the performance issue appears) is a huge benefit DBAs have nowadays.
+
+Francesco also suggests that AI-assisted tooling helps people new to the industry to improve their work and accelerate their learning.
+
+Knowing what part of your work you're comfortable with receiving automated updates, and what parts just need to run uninterrupted (even if they're slow in comparison), that is the key to using AI.
+
+## On the opportunities of Oracle
+
+Since joining Aiven, Francesco advocated for Aiven to try and be available in the Oracle Cloud Marketplace, to add another deployment option for customers. Now, anyone who's in the Postgres community knows that when someone utters the word "Oracle" it's usually as the clue to a joke. Readers of Aiven's press release may have quite possibly checked the date to see if it wasn't April's fools by any chance. But Francesco says choice is freedom. "Oracle Cloud is not Oracle database anymore. It's an established player, and there was customer demand to go to OCI."
+
+## On the Postgres community
+
+Ry Walker (Tembo's CEO), when he was doing the Hacking Postgres podcast, would always ask his guests about their controversial opinion about Postgres. Francesco went straight for the heart saying that he's not bought into "the whole using Postgres for everything, even painting your kitchen". Of course he would say that! Aiven offers several, more specialized data tools. But: "I am a fan of keeping it simple. If you are able to have decent performance for your workloads with the tool you already know and use, why change?". Indeed.
+
+Building on that last question, I asked Francesco what he wishes would get talked more/less about in the Postgres community. To which Francesco answered that he dislikes it when people introduce themselves with the version number of Postgres they started with. The conflating tenure with seniority he thinks is not welcoming to newcomers. Not very controversial to me, as he knows. I believe that new eyes, whether it's a junior, or someone who's from a different field entirely, can offer great insight.
+
+We have more Hacking Postgres episodes scheduled and you can find all previous recordings on our [YouTube](https://www.youtube.com/watch?v=9oKJrtqtu1M&list=PL11N188AYb_Z04oQJgllNEY5m7gCcY8tH), or listen on [Apple](https://podcasts.apple.com/us/podcast/hacking-postgres/id1710401793), or [Spotify](https://open.spotify.com/show/0YrYG1WCCw27Jtwt4dikLp).
+
+Did you enjoy the episode? Have ideas for someone else we should invite? Let us know your thoughts on X at [@tembo_io](https://twitter.com/tembo_io) or share them with the team in our [Slack Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-23o25qt91-AnZoC1jhLMLubwia4GeNGw).

@@ -9,12 +9,9 @@ import rainbowArrow from '../images/rainbowArrow.svg';
 import NavBar from '../components/NavBar';
 import Layout from '../layouts/Layout.astro';
 import Container from '../components/Container';
-import Button from '../components/Button';
 import Quotes from '../components/Quotes';
 import Faqs from '../components/Faqs';
-import ArrowButton from '../components/ArrowButton.astro';
 import Footer from '../components/Footer.astro';
-import Animation from '../components/Animation';
 import FeatureCard from '../components/FeatureCard.astro';
 import BasicTable from '../components/BasicTable.astro';
 import TabbedTable from '../components/TabbedTable';
@@ -197,14 +194,14 @@ const supportRows = [
 			client:load
 		/>
 		<Container
-			styles='mt-[150px] customSm:mt-[150px] customMd:mt-[130px] customLg:mt-[125px] pb-[50px] md:pb-[170px] z-100'
+			styles='mt-[150px] customSm:mt-[150px] customMd:mt-[130px] customLg:mt-[125px] z-100'
 		>
 			<Faqs client:load />
-			<div class='my-[100px]'>
+			<div class='mt-[100px]'>
 				<JoinTemboCTA />
 			</div>
 		</Container>
-		<div class='relative'>
+		<div class='relative bg-offBlack'>
 			<div
 				class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
 			>

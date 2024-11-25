@@ -6,7 +6,7 @@ import HackerNews from '../images/hacker-news.svg';
 import Twitter from '../images/twitter.svg';
 import LinkedIn from '../images/linkedin.svg';
 import Reddit from '../images/reddit.svg';
-
+import BlueSky from '../images/bluesky.svg';
 interface Props {
 	slug: string;
 	title: string;
@@ -15,9 +15,7 @@ interface Props {
 const { slug, title } = Astro.props;
 ---
 
-<h2 class='text-lightGrey font-bold mt-10 mb-6 text-white'>
-	Share this article
-</h2>
+<h2 class='text-lightGrey font-bold mt-10 mb-6'>Share this article</h2>
 <div class='flex flex-row items-center w-max gap-3'>
 	<a
 		href={`https://news.ycombinator.com/submitlink?u=https://tembo.io/blog/${slug}&t=${encodeURIComponent(title)}`}
@@ -60,5 +58,12 @@ const { slug, title } = Astro.props;
 		rel='noopener noreferrer'
 	>
 		<Image src={Mastodon} height={16} width={17} alt='mastodon icon' />
+	</a>
+	<a
+		href={`https://bsky.app/intent/compose?text=${encodeURIComponent(title)}%0Ahttps://tembo.io/blog/${slug}`}
+		target='_blank'
+		rel='noopener noreferrer'
+	>
+		<Image src={BlueSky} height={16} width={17} alt='bluesky icon' />
 	</a>
 </div>
