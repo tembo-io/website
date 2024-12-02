@@ -1,0 +1,57 @@
+---
+slug: hacking-postgres-heikki-linnakangas
+title: 'Hacking Postgres: Heikki Linnakangas'
+authors: [floor]
+description: Heikki Linnakangas, Neon Co-Founder, Postgres Hacker, and pgvector contributor, talks about backups, branching, AI, and security. 
+tags: [postgresql, open-source, security, ai]
+date: 2024-11-12T09:00
+image: './heikki-linnakangas.png'
+planetPostgres: true
+---
+
+[Heikki Linnakangas](https://www.linkedin.com/in/heikki-linnakangas-6b58bb203/), Neon Co-Founder, Postgres Hacker, and pgvector contributor, recently joined our [Hacking Postgres](https://www.youtube.com/watch?v=9oKJrtqtu1M&list=PL11N188AYb_Z04oQJgllNEY5m7gCcY8tH) podcast.
+
+Heikki got started with Neon when [Nikita Shamgunov](https://www.linkedin.com/in/nikitashamgunov/) was looking for a Co-Founder to build an Amazon Aurora-competitor. They started in 2021, and at this point they’re 100 people. [Neon](https://neon.tech/) has around 600.000 instances under management. That’s people kicking the tires to real, production usage.
+
+## On working remotely
+
+Starting a company in the pandemic poses a unique set of challenges. Only after 6 months since starting did the founding team get to meet. But of course working on open source, Heikki was already very used to remote culture. And, he says "being a remote-first company also attracts the kind of people that prefer working remotely". There are no chats by the watercooler like you'd have in an office, "everyone has the same information". Once a year however Neon will get the band together, to spend some time getting to know each other.
+
+## On time traveling
+
+Heikki, at PGConf EU, will talk about "Time travel with Neon", which, I found out sadly doesn't mean we get to travel physically back or forth in time, but rather it’s a metaphor for painless point in time recovery.
+
+“A traditional system starts from a backup and then you replay all the logs. That can take hours if its a large database. In Neon you can do that on-demand for a page.
+
+When you're doing point in time recovery that means something has gone wrong - it's probably 3am in the morning and you've accidentally dropped a table. Just finding the right point to restore to can be quite painful. With Neon you can do that time travel query and go 5 minutes backwards or forward from there.”
+
+Heikki half-jokingly tells us that he only gets paged when something goes wrong and he has heard from customers who were very much helped by this feature.
+
+## On Postgres 18 (so still time traveling)
+
+Looking forward to Postgres 18, Heikki is very interested in the asynchronous IO work that [Andreas Freund](https://x.com/andresfreundtec) and others at Microsoft are all over. He plans to spend some time reviewing that feature as it matters for Neon's storage system as well. Larger latency than with local disks, can make a big difference to query performance when you can do prefetching efficiently.
+
+Personally he's been very involved with the multithreading work. And: “it's a project that a lot of people have opinions about since it changes how an existing feature works”. Not all of his work is as controversial though, and Heikki finds himself going on the yak shaving path often as well: "I want to do x, but it would make sense if I first refactor these 5 elements". But of course making little changes like that keep the project clean and healthy, and ready for more involved changes.
+
+Heikki hopes to see in 18 the adding of extensions to the protocol - everyone is afraid of changing the protocol, but Heikki thinks it could open the door to new and exciting functionality.
+
+## On AI
+
+At the virtual Postgres conference [POSETTE](https://www.citusdata.com/posette/2024/) Heikki talked about [pgvector](https://github.com/pgvector/pgvector). He started working on pgvector bringing Postgres knowledge only, he didn't know anything about vectors. So he started with “micro-optimizations”. Then he started looking into the algorithms, HNSW (Hierarchical Navigable Small World, a graph-based algorithm that performs approximate nearest neighbor searches) in particular, mainly focusing on how it works, since he didn't have an AI application yet.
+
+“The data types are quite different with vector databases, you have to let go of assumptions you had in the past. For instance: you'll need to accept that you're not getting accurate results. You need to let go of the concept that a SQL query is deterministic and that you'll always get the same result. And because these data types are much larger too, your systems will be much slower than what you're used to.” But: larger or weirder, it's still just a data type and so something PostgreSQL is build to handle with extensions!
+
+Heikki has looked into [pgvectorscale](https://github.com/timescale/pgvectorscale), pgvector as reimagined by Timescale in Rust. There are other projects of course, to get the vectors in the first place (hello, [pg_vectorize](https://github.com/tembo-io/pg_vectorize/)), and for storing them, but Heikki is mostly focused on the algorithms.
+
+He knows Neon-customers are looking at pgvector, but how many applications have made it to production he's unaware of. “Neon is very suitable to use as the database behind the applications you build with AI because of the branching (/time travel) is something AI builders can utilize in using their apps in steps as they do. To evolve your database while you're building. Creating branches while you're trying different things and making decisions.”
+
+## On the Postgres community
+
+I asked Heikki what he wished gets talked more about in the community, or less perhaps. Heikki: “Vacuum still gets talked about a lot and I wished we wouldn't need to talk about it so much still. I hoped it was a solved problem in 2024.”
+
+Another thing: “If you look at Postgres’ minor releases there's all these CVEs that get patched. Postgres is very reliable, but if you poke hard enough and try to make it crash, you'll find ways to make it crash. Some of those holes are security vulnerabilities. We tried to fix these issues as they pop up but I wonder if people care. I wouldn't use these mechanisms for my application's security anyway. When would you expose your database to the internet and let people run arbitrary queries - maybe in the analytics world that's a use case - so security can happen at another level. Why do we keep patching Postgres to keep up with all the CVEs?” A controversial opinion perhaps. Internet, discuss!
+
+We have more Hacking Postgres episodes scheduled, you can find all recordings on our [YouTube](https://www.youtube.com/watch?v=9oKJrtqtu1M&list=PL11N188AYb_Z04oQJgllNEY5m7gCcY8tH), or listen on [Apple](https://podcasts.apple.com/us/podcast/hacking-postgres/id1710401793)/[Spotify](https://open.spotify.com/show/0YrYG1WCCw27Jtwt4dikLp) (or your podcast platform of choice).
+
+Did you enjoy the episode? Have ideas for someone else we should invite? Let us know your thoughts on X at [@tembo_io](https://twitter.com/tembo_io) or share them with the team in our [Slack Community](https://join.slack.com/t/tembocommunity/shared_invite/zt-23o25qt91-AnZoC1jhLMLubwia4GeNGw).
+

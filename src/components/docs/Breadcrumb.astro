@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets';
+import ArrowRightWhiteIcon from '../../images/arrow-right-white.svg';
+import { getCollection } from 'astro:content';
+
+const currentPath = Astro.url.pathname;
+const pathSegments = currentPath.split('/').filter((segment) => segment !== '');
+const docsType = pathSegments[0] === 'docs' ? 'docs' : 'university';
+const allPages = await getCollection(docsType);
+const validPaths = new Set(
+	allPages.map((page) => '/' + docsType + '/' + page.slug),
+);
+
+pathSegments.shift();
+
+interface BreadcrumbItem {
+	label: string;
+	href: string;
+	isValidPage: boolean;
+}
+
+const breadcrumbs: BreadcrumbItem[] = pathSegments.map((segment, index) => {
+	const path = '/' + pathSegments.slice(0, index + 1).join('/');
+
+	return {
+		label: segment
+			.split(/[-_]/)
+			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+			.join(' '),
+		href: path,
+		isValidPage: validPaths.has(path),
+	};
+});
+---
+
+<div class='flex items-center gap-x-2 overflow-x-auto'>
+	{
+		breadcrumbs.map((item, index) => (
+			<>
+				{index > 0 && (
+					<Image
+						src={ArrowRightWhiteIcon}
+						alt='arrow right'
+						width='16'
+						height='16'
+						class='flex-shrink-0'
+					/>
+				)}
+				{index === breadcrumbs.length - 1 ? (
+					<span class='bg-charcoal text-white font-medium leading-6 text-sm rounded-full py-1 px-3 whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] md:max-w-none md:overflow-visible md:text-clip'>
+						{item.label}
+					</span>
+				) : item.isValidPage ? (
+					<a
+						href={item.href}
+						class='text-white font-semibold text-sm leading-6 whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] md:max-w-none md:overflow-visible md:text-clip'
+					>
+						{item.label}
+					</a>
+				) : (
+					<span class='text-white font-semibold text-sm leading-6 whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] md:max-w-none md:overflow-visible md:text-clip'>
+						{item.label}
+					</span>
+				)}
+			</>
+		))
+	}
+</div>

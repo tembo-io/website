@@ -4,6 +4,7 @@ import SideBar from '../components/docs/SideBar.astro';
 import Header from '../components/docs/Header';
 import Rainbow from '../components/Rainbow.astro';
 import type { SideBarSection } from '../types';
+import Breadcrumb from '@components/docs/Breadcrumb.astro';
 interface Props {
 	title?: string;
 	description?: string;
@@ -50,7 +51,7 @@ const currentPath = Astro.url.pathname;
 					logoTitle={logoTitle}
 				/>
 				<div
-					class='w-full overflow-auto scroll-pt-[120px]'
+					class='w-full overflow-auto overflow-x-hidden scroll-pt-[120px]'
 					id='docs-content'
 				>
 					<div class='flex flex-col relative'>
@@ -67,8 +68,9 @@ const currentPath = Astro.url.pathname;
 							class='container px-[20px] mobile:px-8 max-w-container mx-auto'
 						>
 							<div
-								class='pt-[60px] grow pb-[20px] mobile:pb-8 mt-14 mobile:mt-20 min-[1000px]:mt-0'
+								class='pt-[35px] grow pb-[20px] mobile:pb-8 mt-14 mobile:mt-20 min-[1000px]:mt-0 flex flex-col gap-4'
 							>
+								<Breadcrumb />
 								<slot />
 							</div>
 						</div>
@@ -130,4 +132,44 @@ const currentPath = Astro.url.pathname;
 			transform: translate(-50%, -50%) scale(1);
 		}
 	}
+
+	h1[id],
+	h2[id],
+	h3[id],
+	h4[id],
+	h5[id],
+	h6[id] {
+		cursor: pointer;
+	}
+
+	h1[id]:hover::after,
+	h2[id]:hover::after,
+	h3[id]:hover::after,
+	h4[id]:hover::after,
+	h5[id]:hover::after,
+	h6[id]:hover::after {
+		content: ' #';
+		font-size: 0.8em;
+	}
 </style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		// Only run on blog and docs pages
+		const path = window.location.pathname;
+		if (!path.includes('/blog') && !path.includes('/docs')) return;
+
+		const headers = document.querySelectorAll(
+			'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]',
+		);
+
+		headers.forEach((header) => {
+			if (header.id) {
+				(header as HTMLElement).style.cursor = 'pointer';
+				header.addEventListener('click', () => {
+					window.location.hash = header.id;
+				});
+			}
+		});
+	});
+</script>
