@@ -12,43 +12,6 @@ const MobileMenu = () => {
 			<Container styles='h-[100%] pb-12'>
 				<nav className='flex flex-col gap-[20px] h-full justify-between w-full'>
 					<div className='flex flex-col gap-[20px] mt-28 w-full'>
-						<img src={'/line.svg'} alt='line' />
-						<ul className='flex flex-col'>
-							<button
-								className='flex flex-start gap-2 font-secondary font-normal text-white text-[16px]'
-								onClick={() => {
-									setIsPlatformMenuOpen(
-										(prevState) => !prevState,
-									);
-								}}
-							>
-								Platform
-								{isPlatformMenuOpen ? (
-									<img
-										src='/arrow-up.svg'
-										alt='arrow up symbol'
-									/>
-								) : (
-									<img
-										src='/arrow-down.svg'
-										alt='arrow down symbol'
-									/>
-								)}
-							</button>
-							{isPlatformMenuOpen ? (
-								<div>
-									<li className='pl-3 m-4'>
-										<a href='/platform/online-transactional-processing'>
-											Tembo Transactional
-										</a>
-									</li>
-									<li className='pl-3 m-4'>
-										<a href='/platform/ai'>Tembo AI</a>
-									</li>
-								</div>
-							) : null}
-						</ul>
-						<img src={'/line.svg'} alt='line' />
 						<ul className='flex flex-col'>
 							<button
 								className='flex flex-start gap-2 font-secondary font-normal text-white text-[16px]'
