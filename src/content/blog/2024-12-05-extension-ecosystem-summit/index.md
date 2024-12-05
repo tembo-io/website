@@ -5,8 +5,8 @@ authors: [floor, theory]
 description: |
   We organized an event for Postgres extension developers and folks interested in contributing to the larger ecosystem. Here's what happened.
 tags: [postgres, tde, pgvector, pgmq, pgrx]
-date: 2024-11-11T09:00
-# image: './tembonauts.png'
+date: 2024-12-05T18:30
+image: './ecosystem-summit-eu-2024.png'
 planetPostgres: true
 ---
 
