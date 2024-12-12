@@ -28,12 +28,6 @@ const STACK_HERO_CARDS_DETAILS = [
 		url: 'https://tembo.io/docs/product/stacks/analytical/timeseries',
 	},
 	{
-		title: 'Retrieval Augmented Generation',
-		description: 'LLM function calling directly from Postgres.',
-		image: '/rag-stack-elephant.svg',
-		url: 'https://tembo.io/docs/product/stacks/ai/rag',
-	},
-	{
 		title: 'OLTP',
 		description:
 			'A low latency transactional processing stack with high I/O performance, concurrency, and real-time metrics.',
@@ -96,12 +90,6 @@ const STACK_HERO_CARDS_DETAILS = [
 		url: 'https://tembo.io/docs/product/stacks/analytical/timeseries',
 	},
 	{
-		title: 'Retrieval Augmented Generation',
-		description: 'LLM function calling directly from Postgres.',
-		image: '/rag-stack-elephant.svg',
-		url: 'https://tembo.io/docs/product/stacks/ai/rag',
-	},
-	{
 		title: 'OLTP',
 		description:
 			'Tuned for handling high volumes of short, atomic transactions that ensure data integrity and concurrency in real-time operational systems.',
@@ -162,12 +150,6 @@ const STACK_HERO_CARDS_DETAILS = [
 			'Efficiently store and query data indexed by time, optimizing performance for chronological data analysis in real-time monitoring and trend forecasting.',
 		image: '/timeseries-stack-elephant.svg',
 		url: 'https://tembo.io/docs/product/stacks/analytical/timeseries',
-	},
-	{
-		title: 'Retrieval Augmented Generation',
-		description: 'LLM function calling directly from Postgres.',
-		image: '/rag-stack-elephant.svg',
-		url: 'https://tembo.io/docs/product/stacks/ai/rag',
 	},
 ];
 
