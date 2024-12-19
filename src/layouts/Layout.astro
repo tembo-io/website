@@ -24,7 +24,10 @@ const {
 ---
 
 <!doctype html>
-<html class={htmlClasses} lang='en'>
+<html
+	class={htmlClasses}
+	lang='en'
+>
 	<head>
 		<!-- Google Tag Manager -->
 		<script>
@@ -33,7 +36,7 @@ const {
 				w[l] = w[l] || [];
 				w[l].push({
 					'gtm.start': new Date().getTime(),
-					event: 'gtm.js',
+					'event': 'gtm.js',
 				});
 				var f = d.getElementsByTagName(s)[0],
 					j = d.createElement(s),
@@ -60,19 +63,64 @@ const {
 			gtag('config', 'G-7242E5JKJE');
 		</script>
 		<meta charset='UTF-8' />
-		<link rel='sitemap' href='/sitemap-index.xml' />
-		<meta name='description' content={description} />
-		<meta name='viewport' content='width=device-width' />
-		<link rel='icon' type='image/svg+xml' href='/favicon.ico' />
-		<meta name='generator' content={Astro.generator} />
+		<link
+			rel='sitemap'
+			href='/sitemap-index.xml'
+		/>
+		<meta
+			name='description'
+			content={description}
+		/>
+		<meta
+			name='viewport'
+			content='width=device-width'
+		/>
+		<link
+			rel='icon'
+			type='image/svg+xml'
+			href='/favicon.ico'
+		/>
+		<meta
+			name='generator'
+			content={Astro.generator}
+		/>
 		<title>{title}</title>
-		{author && <meta name='author' content={author} />}
-		{keywords && <meta name='keywords' content={keywords.join(',')} />}
-		<link rel='canonical' href={canonicalURL} />
-		<meta name='twitter:card' content='summary_large_image' />
-		<meta name='twitter:description' content={description} />
-		<meta name='twitter:site' content='@tembo_io' />
-		<meta name='twitter:title' content={title} />
+		{
+			author && (
+				<meta
+					name='author'
+					content={author}
+				/>
+			)
+		}
+		{
+			keywords && (
+				<meta
+					name='keywords'
+					content={keywords.join(',')}
+				/>
+			)
+		}
+		<link
+			rel='canonical'
+			href={canonicalURL}
+		/>
+		<meta
+			name='twitter:card'
+			content='summary_large_image'
+		/>
+		<meta
+			name='twitter:description'
+			content={description}
+		/>
+		<meta
+			name='twitter:site'
+			content='@tembo_io'
+		/>
+		<meta
+			name='twitter:title'
+			content={title}
+		/>
 		<meta
 			name='twitter:image'
 			content={`https://tembo.io/${image.replace('./', '')}`}
@@ -81,9 +129,18 @@ const {
 			property='og:image'
 			content={`https://tembo.io/${image.replace('./', '')}`}
 		/>
-		<meta property='og:title' content={title} />
-		<meta property='og:description' content={description} />
-		<meta property='og:type' content='website' />
+		<meta
+			property='og:title'
+			content={title}
+		/>
+		<meta
+			property='og:description'
+			content={description}
+		/>
+		<meta
+			property='og:type'
+			content='website'
+		/>
 		<link
 			rel='preload'
 			as='font'
@@ -186,10 +243,12 @@ const {
 		<script
 			defer
 			data-domain='tembo.io'
-			src='https://plausible.io/js/script.js'></script>
+			src='https://plausible.io/js/script.js'
+		></script>
 		<script
 			src='https://tag.clearbitscripts.com/v1/pk_46db31c05ac5fad3ee1f5c9122b8da26/tags.js'
-			referrerpolicy='strict-origin-when-cross-origin'></script>
+			referrerpolicy='strict-origin-when-cross-origin'
+		></script>
 		<script>
 			// @ts-nocheck
 			!(function (t, e) {
@@ -261,23 +320,27 @@ const {
 				src='https://www.googletagmanager.com/ns.html?id=GTM-5HSQFVL2'
 				height='0'
 				width='0'
-				style='display:none;visibility:hidden'></iframe></noscript
+				style='display:none;visibility:hidden'
+			></iframe></noscript
 		>
 		<!-- End Google Tag Manager (noscript) -->
 		<main class='overflow-clip'>
 			<slot />
 		</main>
 
-		<Toaster
-			position='bottom-right'
-			theme='dark'
-			toastOptions={{
-				classNames: {
-					toast: 'bg-mwasi',
-				},
-			}}
-			client:idle
-		/>
+		<div id='toaster'>
+			<Toaster
+				client:idle
+				position='bottom-right'
+				theme='dark'
+				toastOptions={{
+					classNames: {
+						toast: 'bg-mwasi',
+					},
+				}}
+			/>
+		</div>
+
 		<img
 			referrerpolicy='no-referrer-when-downgrade'
 			src='https://static.scarf.sh/a.png?x-pxid=d6c295f6-0041-48c6-b2e5-c282df7f73df'

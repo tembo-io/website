@@ -3,85 +3,84 @@ import Animation from './Animation';
 import ConfettiAnimationJson from '../animations/Confetti.json';
 import DetailSequence from './DetailSequence';
 import Button from './Button';
+import { ArrowRightIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const features = [
+	{
+		header: '100% Open Source & Cloud Native',
+		text: 'Get unmodified open source Postgres with cloud-native benefits: high availability, rolling updates, and intelligent resource management—all working seamlessly together.',
+		iconPath: '/cloud-add-icon.svg',
+	},
+	{
+		header: 'Fully Managed Service',
+		text: 'Focus on building while we handle the complex stuff: deployment, configuration, management, and performance optimization of your Postgres infrastructure.',
+		iconPath: '/candle-icon.svg',
+	},
+	{
+		header: 'Enterprise-Grade Security',
+		text: 'Secure your data with flexible controls: user tiers, IP allowlisting, encryption at rest, and the option to deploy in your own environment.',
+		iconPath: '/shield-icon.svg',
+	},
+	{
+		header: 'Developer Experience First',
+		text: 'Access powerful Postgres features through our intuitive UI and CLI-first approach. Built by developers, for developers.',
+		iconPath: '/monitor-icon.svg',
+	},
+	{
+		header: 'Optimized Performance',
+		text: 'Get the best performance automatically. We tune everything—from hardware and Postgres configs to extensions—based on your specific workload.',
+		iconPath: '/cpu-charge-icon.svg',
+	},
+	{
+		header: 'Simple, Usage-Based Pricing',
+		text: 'Pay only for what you use with our transparent pricing. No hidden fees, no surprises—just straightforward costs for storage and queries.',
+		iconPath: '/coin-icon.svg',
+	},
+];
 
 const PlatformSection = () => {
 	return (
-		<section className='tembo-stacks-section bg-offBlack relative'>
+		<section className='tembo-stacks-section bg-offBlack relative pt-10 pb-1 md:pt-20 md:pb-20'>
 			<Container styles='relative h-full'>
-				<Animation
-					animation={ConfettiAnimationJson}
-					loop={false}
-					animateOnInView={true}
-					isFullWidth={true}
-				/>
-				<div className='pt-28 z-10 relative'>
-					<h2 className='text-3xl customXxs:text-4xl customXs:text-6xl customMd:text-7xl text-white font-semibold tracking-[0.24px]'>
-						ALL IN ONE PLATFORM
-					</h2>
-				</div>
-				<div className='flex flex-col-reverse mobile:flex-row justify-between items-start mt-20 gap-[50px] lg:gap-[300px] relative w-full'>
-					<div className='flex flex-col z-10 gap-10 w-full mobile:w-1/2 items-center mobile:items-start'>
-						<DetailSequence
-							header='100% Open Source & Cloud Native'
-							text='The best of both worlds. Enjoy unmodified open source community Postgres and all the benefits of cloud native architecture, such as high availability, rolling updates, resource management, and more.'
-							iconPath='/cloud-add-icon.svg'
-							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start md:min-w-[350px] lg:min-w-[530px]'
-							headerStyles='font-secondary text-center mobile:text-start'
-							textStyles='text-center mobile:text-start'
-						/>
-						<DetailSequence
-							header='Fully Managed'
-							text='Deployment, configuration, management, and optimization are complicated. We handle them so you can focus on your application.'
-							iconPath='/candle-icon.svg'
-							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start md:min-w-[350px] lg:min-w-[530px]'
-							headerStyles='font-secondary text-center mobile:text-start'
-							textStyles='text-center mobile:text-start'
-						/>
-						<DetailSequence
-							header='Customizable Security'
-							text='No two organizations are alike. Run securely in the cloud with with tools like user tiers, ip allow lists, and encrypted at-rest, or deploy in your own environment.'
-							iconPath='/shield-icon.svg'
-							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start md:min-w-[350px] lg:min-w-[530px]'
-							headerStyles='font-secondary text-center mobile:text-start'
-							textStyles='font-secondary text-center mobile:text-start'
-						/>
-						<DetailSequence
-							header='Intuitive Interface'
-							text='Clear, elegant, delightful UI, because developers deserve nice things too. What’s more, our CLI-first system puts the power of Postgres in your hands. '
-							iconPath='/monitor-icon.svg'
-							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start md:min-w-[350px] lg:min-w-[530px]'
-							headerStyles='font-secondary text-center mobile:text-start'
-							textStyles='text-center mobile:text-start'
-						/>
-						<DetailSequence
-							header='Performance Powered by Stacks'
-							text='Focus on your product, not your database. We optimize your whole environment—hardware, Postgres configs, and relevant extensions—to give you the best performance for your workload.'
-							iconPath='/cpu-charge-icon.svg'
-							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start md:min-w-[350px] lg:min-w-[530px]'
-							headerStyles='font-secondary text-center mobile:text-start'
-							textStyles='text-center mobile:text-start'
-						/>
-						<DetailSequence
-							header='Transparent Pricing'
-							text='No hidden costs or surprise up-charges. You only pay for what you actually use. Store as much as you need, query as much as you want.'
-							iconPath='/coin-icon.svg'
-							styles='w-full max-w-none mobile:max-w-[530px] items-center mobile:items-start md:min-w-[350px] lg:min-w-[530px]'
-							headerStyles='font-secondary text-center mobile:text-start'
-							textStyles='text-center mobile:text-start'
-						/>
-						<Button
-							variant='gradient'
-							size='lg'
-							styles='w-max mt-10'
-						>
-							Try Free
-						</Button>
+				<motion.div
+					className='z-10 relative max-w-3xl'
+					initial={{ opacity: 0, y: 10 }}
+					animate={{ opacity: 1, y: 0 }}
+					viewport={{ once: true }}
+					transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+				>
+					<p className='text-white/80 text-xl font-light leading-relaxed'>
+						Everything you need to run Postgres at scale, in one
+						place.
+					</p>
+				</motion.div>
+
+				<div className='mt-20 mb-20'>
+					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 z-10'>
+						{features.map((feature, index) => (
+							<motion.div
+								key={feature.header}
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{
+									delay: 0.2 + index * 0.1,
+									duration: 0.8,
+									ease: [0.23, 1, 0.32, 1],
+								}}
+							>
+								<DetailSequence
+									header={feature.header}
+									text={feature.text}
+									iconPath={feature.iconPath}
+									delay={0.2 + index * 0.1}
+									styles='max-w-[400px]'
+									headerStyles='font-secondary text-xl mb-3'
+									textStyles='text-white/80'
+								/>
+							</motion.div>
+						))}
 					</div>
-					<img
-						src={'/updatedAppScreenshot.svg'}
-						alt='Tembo Cloud Dashboard'
-						className='mobile:h-[700px] relative mobile:sticky mobile:top-[150px] -right-[50px] mobile:-right-[480px] min-[1300px]:-right-[500px] 2xl:-right-[300px] fade-x-md-always -z-1'
-					/>
 				</div>
 			</Container>
 		</section>

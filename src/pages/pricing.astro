@@ -66,7 +66,10 @@ const supportRows = [
 	<div
 		class='w-full h-full bg-black customXs:bg-[url("/triangularPixelBg.svg")] customXs:bg-no-repeat customXs:bg-[length:1280px_1075px] customXs:bg-[77%_0%] customSm:bg-left-top customMd:bg-[length:1440px_1075px] customLg:bg-[length:100vw_1075px]'
 	>
-		<NavBar client:load currentPage={currentPath} />
+		<NavBar
+			client:load
+			currentPage={currentPath}
+		/>
 		<Container
 			styles='pt-[155px] customXs:pt-[128px] customSm:flex customSm:justify-between customSm:pt-[175px] customLg:pt-[147px]'
 		>

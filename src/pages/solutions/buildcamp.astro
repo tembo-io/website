@@ -5,9 +5,9 @@ import BuildcampDay from '@components/BuildcampDay.astro';
 import TeamMember from '@components/TeamMember.astro';
 import Markdown from '@components/Markdown.astro';
 import { Image } from 'astro:assets';
+import { ArrowRight } from 'lucide-react';
 
 import BuildcampHeroImage from 'src/images/buildcamp-hero.svg';
-import ArrowRight from 'src/images/arrow-right.svg';
 import SamaySharma from 'src/images/team/samay_sharma.jpg';
 import AdamHendel from 'src/images/team/adam_hendel.jpg';
 import DavidWheeler from 'src/images/team/david_wheeler.jpg';
@@ -20,61 +20,80 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Buildcamp | Tembo'>
-	<NavBar client:load currentPage={currentPath} />
-	<Container>
-		<div class='max-w-[1000px] mx-auto px-4'>
-			{/* Hero Section */}
-			<section
-				class='flex flex-col lg:flex-row w-full items-center justify-center mt-[120px] mobile:mt-[180px] gap-6 md:gap-4 lg:gap-0'
-			>
-				<div class='flex flex-col w-full md:w-full lg:w-1/2'>
-					<h1
-						class='text-neon font-bold tracking-[0.47px] text-[44px] lg:text-[60px] leading-tight mb-10 w-full text-center lg:text-left'
-					>
-						Tembo Buildcamp
-					</h1>
-					<p
-						class='text-white font-normal font-secondary text-md lg:text-xl mb-10 text-center lg:text-left w-full lg:w-3/4 leading-6'
-					>
-						From zero to use case in 5 days.
-					</p>
+	<div
+		class='main-content relative overflow-hidden border-b border-b-white/10'
+	>
+		<NavBar
+			client:load
+			currentPage={currentPath}
+		/>
+		<div class='w-full h-[150px] overflow-hidden'></div>
+
+		<Container>
+			<section class='md:mt-[100px]'>
+				<div
+					class='flex flex-col lg:flex-row w-full items-center justify-center gap-6 md:gap-4 lg:gap-0'
+				>
 					<div
-						class='flex flex-row justify-center align-center lg:justify-start gap-4'
+						class='flex flex-col w-full md:w-full lg:w-1/2 slide-enter-content text-center lg:text-left'
 					>
-						<Button
-							variant='gradient'
-							size='lg'
-							client:load
-							scrollTo={true}
-							scrollToElement='buildcampForm'
+						<h1
+							class='text-white font-bold tracking-[0.47px] text-[28px] sm:text-[48px] md:text-[56px] lg:text-[64px] leading-tight mb-10 mx-auto'
 						>
-							<div class='flex flex-row gap-2 my-auto'>
-								Schedule a Buildcamp
-								<Image
-									src={ArrowRight}
-									width={16}
-									height={16}
-									alt='chevron arrow right'
-								/>
-							</div>
-						</Button>
+							Tembo Buildcamp
+						</h1>
+						<p
+							class='text-white/60 text-base md:text-2xl font-light leading-relaxed tracking-wide mb-10 lg:w-3/4 mx-auto text-center'
+						>
+							From zero to use case in <span class='text-neon'
+								>5 days</span
+							>
+						</p>
+						<div
+							class='flex flex-col md:flex-row gap-4 justify-center lg:justify-start'
+						>
+							<Button
+								variant='neon'
+								size='lg'
+								client:load
+								scrollTo={true}
+								scrollToElement='buildcampForm'
+								styles='text-base mx-auto'
+							>
+								<div
+									class='flex items-center text-center gap-2'
+								>
+									Schedule a Buildcamp
+									<ArrowRight size='18' />
+								</div>
+							</Button>
+						</div>
 					</div>
+					<Image
+						src={BuildcampHeroImage}
+						width={600}
+						height={600}
+						alt='hero image'
+						class='rounded-xl'
+					/>
 				</div>
-				<Image
-					src={BuildcampHeroImage}
-					width={600}
-					height={600}
-					alt='hero image'
-					class='rounded-xl'
-				/>
 			</section>
 
-			{/* What is Buildcamp Section */}
-			<section class='my-20'>
-				<Markdown>
-					<h2>What is Buildcamp?</h2>
-					<h5>Unlocking the power of Postgres… together.</h5>
-					<p>
+			<section class='py-[40px] md:py-[150px]'>
+				<div
+					class='flex flex-col items-center justify-center gap-4 md:gap-6 mb-16'
+				>
+					<h3 class='text-neon font-secondary text-sm z-10'>
+						WHAT IS BUILDCAMP?
+					</h3>
+					<h2
+						class='text-[24px] sm:text-[36px] md:text-[42px] lg:text-[48px] text-center leading-normal font-semibold z-10'
+					>
+						Unlocking the power of Postgres… together
+					</h2>
+				</div>
+				<div class='text-white/60 space-y-8'>
+					<p class='text-base md:text-xl font-light leading-relaxed'>
 						A developer's boot camp dream: Tembo Buildcamp provides
 						personalized, hands-on training to master Tembo's
 						advanced features and capabilities. From zero to use
@@ -84,11 +103,11 @@ const currentPath = Astro.url.pathname;
 						Together, we can unlock the full potential of Postgres
 						for your business.
 					</p>
-					<h5>
+					<h5 class='text-white text-xl font-semibold'>
 						A week-long intensive working session and immediate
 						problem-solving.
 					</h5>
-					<p>
+					<p class='text-base md:text-xl font-light leading-relaxed'>
 						Sick of being talked at and demo-ed to? Get ready to
 						roll up your sleeves and dive into the use case you've
 						been dreaming of building. We will save you from the
@@ -101,59 +120,89 @@ const currentPath = Astro.url.pathname;
 						business problems with dramatic acceleration from our
 						experts?
 					</p>
-					<h5>The support doesn't stop after the week is over.</h5>
-					<p>
+					<h5 class='text-white text-xl font-semibold'>
+						The support doesn't stop after the week is over.
+					</h5>
+					<p class='text-base md:text-xl font-light leading-relaxed'>
 						Join our community of like-minded professionals and get
 						support even after your Buildcamp experience ends. We
 						care about your use case as much as you do, and we're
 						with you for the long haul with world-class customer
 						support and a thriving community of Tembo users.
 					</p>
-				</Markdown>
+				</div>
 			</section>
 
-			{/* Who is Buildcamp for Section */}
-			<section class='my-20'>
-				<Markdown>
-					<h2>Who is Buildcamp for?</h2>
-					<p>
-						Our accelerated working sessions are designed for all
-						sizes. Whether you're a big corporation, midsize
-						business, or startup, we are here to build with you. We
-						want to collaborate with engineers and technical leaders
-						from your company who appreciate the power and endless
-						possibilities in the world of Postgres.
-					</p>
-				</Markdown>
+			<section class='py-[40px] md:py-[100px]'>
+				<div
+					class='flex flex-col items-center justify-center gap-4 md:gap-6 mb-16'
+				>
+					<h3 class='text-neon font-secondary text-sm z-10'>
+						WHO IS IT FOR
+					</h3>
+					<h2
+						class='text-[24px] sm:text-[36px] md:text-[42px] lg:text-[48px] text-center leading-normal font-semibold z-10'
+					>
+						Built for teams of all sizes
+					</h2>
+				</div>
+				<p
+					class='text-white/60 text-base md:text-xl font-light leading-relaxed text-center max-w-3xl mx-auto'
+				>
+					Our accelerated working sessions are designed for all sizes.
+					Whether you're a big corporation, midsize business, or
+					startup, we are here to build with you. We want to
+					collaborate with engineers and technical leaders from your
+					company who appreciate the power and endless possibilities
+					in the world of Postgres.
+				</p>
 			</section>
 
-			{/* Why Choose Tembo Section */}
-			<section class='my-20'>
-				<Markdown>
-					<h2>Why Choose Tembo?</h2>
-					<ul>
-						<li>
-							<b class='text-white'>Expert Collaborators:</b>
-							Learn from industry experts with many years of experience
-							in Postgres.
-						</li>
-						<li>
-							<b class='text-white'>Customized Agenda:</b>
-							We tailor the buildcamp to meet your specific needs and
-							goals.
-						</li>
-						<li>
-							<b class='text-white'>Ongoing Support:</b>
-							Join our community of like-minded professionals and get
-							support even after the buildcamp ends.
-						</li>
-					</ul>
-				</Markdown>
+			<section class='py-[40px] md:py-[100px]'>
+				<div
+					class='flex flex-col items-center justify-center gap-4 md:gap-6 mb-16'
+				>
+					<h3 class='text-neon font-secondary text-sm z-10'>
+						WHY CHOOSE TEMBO
+					</h3>
+					<h2
+						class='text-[24px] sm:text-[36px] md:text-[42px] lg:text-[48px] text-center leading-normal font-semibold z-10'
+					>
+						Expert-led collaboration
+					</h2>
+				</div>
+				<ul
+					class='text-white/60 space-y-4 text-base md:text-xl font-light leading-relaxed max-w-3xl mx-auto'
+				>
+					<li>
+						<b class='text-white'>Expert Collaborators:</b> Learn from
+						industry experts with many years of experience in Postgres.
+					</li>
+					<li>
+						<b class='text-white'>Customized Agenda:</b> We tailor the
+						buildcamp to meet your specific needs and goals.
+					</li>
+					<li>
+						<b class='text-white'>Ongoing Support:</b> Join our community
+						of like-minded professionals and get support even after the
+						buildcamp ends.
+					</li>
+				</ul>
 			</section>
 
-			{/* Sample Schedule Section */}
-			<section class='my-20'>
-				<h2 class='text-5xl font-bold mb-12'>Sample Schedule</h2>
+			<section class='py-[40px] md:py-[100px]'>
+				<div
+					class='flex flex-col items-center justify-center gap-4 md:gap-6 mb-16'
+				>
+					<h3 class='text-neon font-secondary text-sm z-10'>
+						SCHEDULE
+					</h3>
+					<h2
+						class='text-[24px] sm:text-[36px] md:text-[42px] lg:text-[48px] text-center leading-normal font-semibold z-10'
+					>
+						Sample Schedule
+					</h2>
+				</div>
 				<div class='space-y-8'>
 					<BuildcampDay
 						day='1'
@@ -178,14 +227,19 @@ const currentPath = Astro.url.pathname;
 				</div>
 			</section>
 
-			{/* Meet Our Team Section */}
-			<section class='my-20'>
-				<h2 class='text-5xl font-bold mb-4 text-center'>
-					MEET OUR TEAM
-				</h2>
-				<h3 class='text-3xl font-bold mb-12 text-center'>
-					OUR POSTGRES EXPERTS
-				</h3>
+			<section class='py-[40px] md:py-[100px]'>
+				<div
+					class='flex flex-col items-center justify-center gap-4 md:gap-6 mb-16'
+				>
+					<h3 class='text-neon font-secondary text-sm z-10'>
+						THE TEAM
+					</h3>
+					<h2
+						class='text-[24px] sm:text-[36px] md:text-[42px] lg:text-[48px] text-center leading-normal font-semibold z-10'
+					>
+						Meet Our Postgres Experts
+					</h2>
+				</div>
 				<div
 					class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12'
 				>
@@ -207,15 +261,25 @@ const currentPath = Astro.url.pathname;
 				</div>
 			</section>
 
-			{/* Buildcamp Costs Section */}
-			<section class='my-20'>
-				<h2 class='text-5xl font-bold mb-12'>Buildcamp Costs</h2>
+			<section class='py-[40px] md:py-[100px]'>
+				<div
+					class='flex flex-col items-center justify-center gap-4 md:gap-6 mb-16'
+				>
+					<h3 class='text-neon font-secondary text-sm z-10'>
+						PRICING
+					</h3>
+					<h2
+						class='text-[24px] sm:text-[36px] md:text-[42px] lg:text-[48px] text-center leading-normal font-semibold z-10'
+					>
+						Buildcamp Costs
+					</h2>
+				</div>
 				<div class='grid md:grid-cols-2 gap-8'>
 					<div class='bg-zinc-900 rounded-xl p-8'>
 						<h3 class='text-2xl font-bold mb-4 text-emerald-400'>
 							Priority
 						</h3>
-						<ul class='space-y-4'>
+						<ul class='space-y-4 text-white/60'>
 							<li>
 								Skip the line: get your first choice of dates
 								and location
@@ -230,7 +294,7 @@ const currentPath = Astro.url.pathname;
 						<h3 class='text-2xl font-bold mb-4 text-emerald-400'>
 							Standard
 						</h3>
-						<ul class='space-y-4'>
+						<ul class='space-y-4 text-white/60'>
 							<li>Subject to availability</li>
 							<li>
 								No fee (other than your team's travel expenses,
@@ -242,29 +306,46 @@ const currentPath = Astro.url.pathname;
 				</div>
 			</section>
 
-			{/* Contact Form Section */}
-			<section
-				class='flex flex-col w-full items-center justify-center my-20'
-			>
+			<section class='py-[40px] md:py-[100px] flex justify-center'>
 				<BuildcampForm client:load />
 			</section>
-		</div>
-	</Container>
-	<div class='relative'>
-		<div
-			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
-		>
-		</div>
-		<Container>
-			<div class='mt-16 mobile:mt-24'>
-				<Footer />
-			</div>
+		</Container>
+	</div>
 
-			<style>
-				section {
-					position: relative;
-				}
-			</style>
+	<div class='relative bg-offBlack'>
+		<Container>
+			<Footer />
 		</Container>
 	</div>
 </Layout>
+
+<style>
+	.main-content {
+		background: rgb(0, 0, 0);
+		background-image: url('/pixelBg.svg');
+		width: 100%;
+		height: 100%;
+	}
+
+	.light-gradient {
+		width: 45%;
+		height: 1200px;
+		background: radial-gradient(#ffffff 0px, transparent 35%);
+		-ms-filter: blur(300px) saturate(150%);
+		-webkit-filter: blur(300px) saturate(150%);
+		filter: blur(300px) saturate(150%);
+		transform: translate3d(0, 0, 0);
+	}
+
+	@-moz-document url-prefix() {
+		.light-gradient {
+			width: 45%;
+			height: 1200px;
+			background: radial-gradient(#ffffff 0px, transparent 55%);
+			-ms-filter: blur(300px) saturate(150%);
+			-webkit-filter: blur(300px) saturate(150%);
+			filter: blur(300px) saturate(150%);
+			opacity: 0.1;
+		}
+	}
+</style>

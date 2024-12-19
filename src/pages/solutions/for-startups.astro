@@ -3,329 +3,443 @@ import NavBar from '@components/NavBar';
 import Layout from 'src/layouts/Layout.astro';
 import Container from '@components/Container';
 import Footer from '@components/Footer.astro';
-import Callout from '@components/Callout.astro';
-import Markdown from '@components/Markdown.astro';
+
 const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Tembo for Startups'>
-	<NavBar client:load currentPage={currentPath} />
-	<Container>
-		<section
-			class='tembo-for-startups-section flex w-full items-center justify-center mt-[120px] mobile:mt-[180px]'
-		>
-			<Markdown>
-				<h1
-					class='neon-text font-extrabold text-5xl lg:text-6xl z-10 mb-6'
+	<div
+		class='main-content relative overflow-hidden border-b border-b-white/10 pb-20'
+	>
+		<NavBar
+			client:load
+			currentPage={currentPath}
+		/>
+		<div class='w-full h-[150px] overflow-hidden'></div>
+
+		<Container>
+			<section class='md:mt-[100px]'>
+				<div
+					class='flex flex-col items-center justify-center gap-4 md:gap-6 mb-16'
 				>
-					Tembo for Startups
-				</h1>
-				<blockquote>
-					<p>
-						Growing my startup with the Postgres doesn't get any
-						better, or more affordable, than this.
-                    </p>
-                    <footer>
-                        - Startup CEO
-                    </footer>
-        </blockquote>
-
-				<h2>Program Overview</h2>
-
-				<p>
-					<b>Tembo for Startups</b> provides Tembo Cloud as a rich Postgres-based
-					data services foundation for high-potential early-stage startups.
-					Through an extensive catalog of Tembo Stacks and open source
-					extensions, Tembo aims to unlock the full power of Postgres to
-					your developers.
-				</p>
-
-				<p>
-					The program features heavy discounts for the first year, and
-					ongoing discounts as you scale.
-				</p>
-
-				<h2>About Tembo</h2>
-
-				<p>
-					As startups grow, they can find themselves spending
-					thousands per month on a fast-growing sprawl of data
-					vendors. Our aim is to help you fight back against this.
-				</p>
-
-				<p>
-					<b>Postgres</b> (and its assimilation of 25+ years of database
-					innovation) is the perfect tool to battle this; It is open-source,
-					extensible, flexible, and available from many vendors (therefore,
-					somewhat lock-in resistant).
-				</p>
-
-				<p>
-					However, most managed Postgres vendors provide a
-					stripped-down version of Postgres that restricts developer
-					creativity. Or a few specialized vendors provide a managed
-					offering around a specific use case, but not a full spectrum
-					of use cases.
-				</p>
-
-				<p>
-					Tembo is “multi-workload” Postgres and aims to integrate the <b
-						>entire</b
+					<h3 class='text-neon font-secondary text-sm z-10'>
+						FOR STARTUPS
+					</h3>
+					<h1
+						class='text-[28px] sm:text-[48px] md:text-[56px] lg:text-[64px] text-center leading-tight font-semibold z-10'
 					>
-					Postgres OSS ecosystem, providing developers confidence to use
-					Postgres however they like. It also packages and tunes Postgres
-					for common use cases, as an open-source library of
-					<a href='Thttps://tembo.io/docs/category/tembo-stacks'
-						>Tembo Stacks</a
-					>.
-				</p>
+						Tembo for Startups
+					</h1>
+				</div>
 
-				<h2>Available Tembo Stacks</h2>
-
-				<table>
-					<thead>
-						<th>Type</th>
-						<th>Name</th>
-						<th>Replacement for</th>
-					</thead>
-					<tr>
-						<td>Transactional</td>
-						<td>
-							<a href="/docs/product/stacks/transactional/oltp">OLTP</a> / 
-							<a href="/docs/product/stacks/transactional/standard">Standard</a>
-						</td>
-						<td>
-							Amazon RDS, Google Cloud SQL
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<a href="/docs/product/stacks/transactional/message-queue">Message Queue</a>
-						</td>
-						<td>
-							Amazon SQS, RabbitMQ, Redis
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<a href="/docs/product/stacks/transactional/mongo-alternative">Mongo Alternative on Postgres</a>
-						</td>
-						<td>
-							MongoDB
-						</td>
-					</tr>
-					<tr>
-						<td>AI</td>
-						<td>
-							<a href="/docs/product/stacks/ai/vectordb/getting-started">Vector DB</a>
-						</td>
-						<td>
-							Pinecone, Weaviate
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<a href="/docs/product/stacks/ai/machine-learning">Machine Learning</a>
-						</td>
-						<td>
-							MindsDB
-						</td>
-					</tr>
-					<tr>
-						<td>Analytical</td>
-						<td>
-							<a href="/docs/product/stacks/analytical/data-warehouse">Data Warehouse</a> / 
-							<a href="/docs/product/stacks/analytical/olap">OLAP</a>
-						</td>
-						<td>
-							Snowflake, Bigquery, Redshift
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<a href="/docs/product/stacks/analytical/geospatial">Geospatial</a>
-						</td>
-						<td>
-							ESRI, Oracle
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<a href="/docs/product/stacks/analytical/timeseries">Timeseries</a>
-						</td>
-						<td>
-							InfluxDB, TimescaleDB
-						</td>
-					</tr>
-				</table>
-				
-
-				<Callout title='Want to know more?' variant='info'>
-					<p>
-						If you'd like to dig deeper into why we started the
-						company and our vision, read the <a
-							href='https://tembo.io/blog/tembo-manifesto'
-							>Tembo Manifesto</a
-						>.
-					</p>
-				</Callout>
-
-				<h2>Qualifications</h2>
-
-				<h3>Startups eligible for up to 50% off year one</h3>
-				<ul>
-					<li>Raised funding up to $2 million</li>
-					<li>
-						Associated with one of our approved VC, Incubator, or
-						Accelerator partners
-					</li>
-					<li>Get 25% off in the second year, and 15% off ongoing</li>
-				</ul>
-
-				<h3>Startups eligible for up to 25% off year one</h3>
-				<ul>
-					<li>Raised funding over $2 million</li>
-					<li>Have not raised Series B or beyond</li>
-					<li>
-						Associated with one of our approved partner
-						organizations
-					</li>
-					<li>Get 15% off ongoing</li>
-				</ul>
-
-				<h3>Startups eligible for up to 15% off ongoing</h3>
-				<ul>
-					<li>
-						Associated with one of our approved entrepreneurial
-						organizations
-					</li>
-				</ul>
-
-				<h2>Why join?</h2>
-
-				<ul>
-					<li>
-						<b>Premium-level software —</b>
-						Tembo is a Postgres platform with all the tools you need
-						for OLTP, Data Warehousing, OLAP, AI, ML, time series, message
-						queue, and other database use cases.
-					</li>
-					<li>
-						<b>24/7 customer support —</b>
-						Between in-app support, community Slack, an extensive knowledge
-						base, you’ll have everything you need to get up and running
-						quickly. Tembo’s customer support team is always ready to
-						help with all your technical questions.
-					</li>
-					<li>
-						<b>Hundreds of extensions, apps, and stacks —</b>
-						Tembo Cloud integrates the very best from the Postgres ecosystem,
-						and provides a Tembo Stack for common Postgres use cases.
-						Best of all, the Tembo Stack ecosystem is entirely open-source,
-						so if we don’t have what you need, you can help get it added
-						to the platform.
-					</li>
-				</ul>
-
-				<h2>Apply</h2>
-
-				<ol>
-					<li>
-						Signup for an account at <a
-							href='https://cloud.tembo.io'>Tembo Cloud</a
-						>.
-					</li>
-					<li>
-						Complete the <a
-							href='https://forms.gle/bvuCa9Yws7UMLfRy6'
-							>startup application</a
+				<div class='text-white/60 space-y-8'>
+					<blockquote class='bg-zinc-900 p-8 rounded-xl'>
+						<p
+							class='text-base md:text-xl font-light leading-relaxed'
 						>
-						(if your partner is not listed, please direct them to the
-						section below).
-					</li>
-				</ol>
+							Growing my startup with Postgres doesn't get any
+							better, or more affordable, than this.
+							<footer class='text-white mt-4'>
+								- Startup CEO
+							</footer>
+						</p>
+					</blockquote>
 
-				<hr class='mt-20' />
+					<div class='space-y-8'>
+						<h2
+							class='text-white text-2xl md:text-3xl font-semibold'
+						>
+							Program Overview
+						</h2>
+						<p
+							class='text-base md:text-xl font-light leading-relaxed'
+						>
+							<span class='text-white font-medium'
+								>Tembo for Startups</span
+							> provides Tembo Cloud as a rich Postgres-based data
+							services foundation for high-potential early-stage startups.
+							Through an extensive catalog of Tembo Stacks and open
+							source extensions, Tembo aims to unlock the full power
+							of Postgres to your developers.
+						</p>
+						<p
+							class='text-base md:text-xl font-light leading-relaxed'
+						>
+							The program features heavy discounts for the first
+							year, and ongoing discounts as you scale.
+						</p>
+					</div>
 
-				<h2>Become a Tembo Partner</h2>
-
-				<p>
-					Become a Tembo Partner to unlock a substantial discount on
-					our products for your member companies.
-				</p>
-
-				<p>Joining is a very quick process:</p>
-				<ol>
-					<li>
-						Complete the <a
-							href='https://forms.gle/gLWRRnnfwdaKoqm98'
-							>partner application</a
-						>. We'll process your application right away.
-					</li>
-					<li>
-						(optional) Share this page to your members/portfolio
-						with a message similar to the following:
-
-						<div class="email-template">
-								<p>
-									Tembo has graciously offered our companies heavy
-									discounts for the first year, and ongoing discounts as
-									you scale.
-								</p>
-								
-								<p>
-									Tembo for Startups provides Tembo Cloud as a rich Postgres-based
-									data services foundation for high-potential early-stage startups.
-									Through an extensive catalog of Tembo Stacks and open source
-									extensions, Tembo aims to unlock the full power of Postgres
-									to your developers.
-								</p>
-								
-								<p>
-									You can apply at
-									<a href='https://tembo.io/for-startups'
-										>https://tembo.io/for-startups</a
-									>
-									and choose our organization in the drop down.	
-								</p>
+					<div class='space-y-8'>
+						<h2
+							class='text-white text-2xl md:text-3xl font-semibold'
+						>
+							Available Tembo Stacks
+						</h2>
+						<div class='overflow-x-auto'>
+							<table class='w-full text-left'>
+								<thead class='border-b border-white/10'>
+									<tr>
+										<th class='text-white p-4'>Type</th>
+										<th class='text-white p-4'>Name</th>
+										<th class='text-white p-4'
+											>Replacement for</th
+										>
+									</tr>
+								</thead>
+								<tbody class='divide-y divide-white/10'>
+									<tr>
+										<td class='p-4'>Transactional</td>
+										<td class='p-4'>
+											<a
+												href='/docs/product/stacks/transactional/oltp'
+												class='text-neon hover:text-neon/80'
+												>OLTP</a
+											> /
+											<a
+												href='/docs/product/stacks/transactional/standard'
+												class='text-neon hover:text-neon/80'
+												>Standard</a
+											>
+										</td>
+										<td class='p-4'
+											>Amazon RDS, Google Cloud SQL</td
+										>
+									</tr>
+									<tr>
+										<td class='p-4'></td>
+										<td class='p-4'>
+											<a
+												href='/docs/product/stacks/transactional/message-queue'
+												class='text-neon hover:text-neon/80'
+												>Message Queue</a
+											>
+										</td>
+										<td class='p-4'
+											>Amazon SQS, RabbitMQ, Redis</td
+										>
+									</tr>
+									<tr>
+										<td class='p-4'></td>
+										<td class='p-4'>
+											<a
+												href='/docs/product/stacks/transactional/mongo-alternative'
+												class='text-neon hover:text-neon/80'
+												>Mongo Alternative on Postgres</a
+											>
+										</td>
+										<td class='p-4'>MongoDB</td>
+									</tr>
+									<tr>
+										<td class='p-4'>AI</td>
+										<td class='p-4'>
+											<a
+												href='/docs/product/stacks/ai/vectordb/getting-started'
+												class='text-neon hover:text-neon/80'
+												>Vector DB</a
+											>
+										</td>
+										<td class='p-4'>Pinecone, Weaviate</td>
+									</tr>
+									<tr>
+										<td class='p-4'></td>
+										<td class='p-4'>
+											<a
+												href='/docs/product/stacks/ai/machine-learning'
+												class='text-neon hover:text-neon/80'
+												>Machine Learning</a
+											>
+										</td>
+										<td class='p-4'>MindsDB</td>
+									</tr>
+									<tr>
+										<td class='p-4'>Analytical</td>
+										<td class='p-4'>
+											<a
+												href='/docs/product/stacks/analytical/data-warehouse'
+												class='text-neon hover:text-neon/80'
+												>Data Warehouse</a
+											> /
+											<a
+												href='/docs/product/stacks/analytical/olap'
+												class='text-neon hover:text-neon/80'
+												>OLAP</a
+											>
+										</td>
+										<td class='p-4'
+											>Snowflake, Bigquery, Redshift</td
+										>
+									</tr>
+									<tr>
+										<td class='p-4'></td>
+										<td class='p-4'>
+											<a
+												href='/docs/product/stacks/analytical/geospatial'
+												class='text-neon hover:text-neon/80'
+												>Geospatial</a
+											>
+										</td>
+										<td class='p-4'>ESRI, Oracle</td>
+									</tr>
+									<tr>
+										<td class='p-4'></td>
+										<td class='p-4'>
+											<a
+												href='/docs/product/stacks/analytical/timeseries'
+												class='text-neon hover:text-neon/80'
+												>Timeseries</a
+											>
+										</td>
+										<td class='p-4'
+											>InfluxDB, TimescaleDB</td
+										>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-					</li>
-				</ol>
+					</div>
 
-			</Markdown>
-		</section>
-	</Container>
-	<div class='relative'>
+					<div class='space-y-8'>
+						<h2
+							class='text-white text-2xl md:text-3xl font-semibold'
+						>
+							Qualifications
+						</h2>
+
+						<div class='space-y-6'>
+							<div class='bg-zinc-900 rounded-xl p-8'>
+								<h3
+									class='text-white text-xl font-semibold mb-4'
+								>
+									Startups eligible for up to 50% off year one
+								</h3>
+								<ul class='space-y-2 list-disc pl-6'>
+									<li>Raised funding up to $2 million</li>
+									<li>
+										Associated with one of our approved VC,
+										Incubator, or Accelerator partners
+									</li>
+									<li>
+										Get 25% off in the second year, and 15%
+										off ongoing
+									</li>
+								</ul>
+							</div>
+
+							<div class='bg-zinc-900 rounded-xl p-8'>
+								<h3
+									class='text-white text-xl font-semibold mb-4'
+								>
+									Startups eligible for up to 25% off year one
+								</h3>
+								<ul class='space-y-2 list-disc pl-6'>
+									<li>Raised funding over $2 million</li>
+									<li>Have not raised Series B or beyond</li>
+									<li>
+										Associated with one of our approved
+										partner organizations
+									</li>
+									<li>Get 15% off ongoing</li>
+								</ul>
+							</div>
+
+							<div class='bg-zinc-900 rounded-xl p-8'>
+								<h3
+									class='text-white text-xl font-semibold mb-4'
+								>
+									Startups eligible for up to 15% off ongoing
+								</h3>
+								<ul class='space-y-2 list-disc pl-6'>
+									<li>
+										Associated with one of our approved
+										entrepreneurial organizations
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class='space-y-8'>
+						<h2
+							class='text-white text-2xl md:text-3xl font-semibold'
+						>
+							Why join?
+						</h2>
+						<ul class='space-y-4 list-disc pl-6'>
+							<li>
+								<span class='text-white font-medium'
+									>Premium-level software —</span
+								>
+								Tembo is a Postgres platform with all the tools you
+								need for OLTP, Data Warehousing, OLAP, AI, ML, time
+								series, message queue, and other database use cases.
+							</li>
+							<li>
+								<span class='text-white font-medium'
+									>24/7 customer support —</span
+								>
+								Between in-app support, community Slack, an extensive
+								knowledge base, you’ll have everything you need to
+								get up and running quickly. Tembo’s customer support
+								team is always ready to help with all your technical
+								questions.
+							</li>
+							<li>
+								<span class='text-white font-medium'
+									>Hundreds of extensions, apps, and stacks —</span
+								>
+								Tembo Cloud integrates the very best from the Postgres
+								ecosystem, and provides a Tembo Stack for common
+								Postgres use cases. Best of all, the Tembo Stack
+								ecosystem is entirely open-source, so if we don’t
+								have what you need, you can help get it added to
+								the platform.
+							</li>
+						</ul>
+					</div>
+
+					<div class='space-y-8'>
+						<h2
+							class='text-white text-2xl md:text-3xl font-semibold'
+						>
+							Apply
+						</h2>
+						<ol class='space-y-4 list-decimal pl-6'>
+							<li>
+								Signup for an account at <a
+									href='https://cloud.tembo.io'
+									class='text-neon hover:text-neon/80'
+									>Tembo Cloud</a
+								>.
+							</li>
+							<li>
+								Complete the <a
+									href='https://forms.gle/bvuCa9Yws7UMLfRy6'
+									class='text-neon hover:text-neon/80'
+									>startup application</a
+								>
+								(if your partner is not listed, please direct them
+								to the section below).
+							</li>
+						</ol>
+					</div>
+
+					<hr class='border-white/10 my-16' />
+
+					<div class='space-y-8'>
+						<h2
+							class='text-white text-2xl md:text-4xl font-semibold'
+						>
+							Become a Tembo Partner
+						</h2>
+						<p
+							class='text-base md:text-xl font-light leading-relaxed'
+						>
+							Become a Tembo Partner to unlock a substantial
+							discount on our products for your member companies.
+						</p>
+
+						<div class='space-y-6'>
+							<div class='bg-zinc-900 rounded-xl p-8'>
+								<h3
+									class='text-white text-xl md:text-2xl font-semibold mb-4'
+								>
+									Joining is a very quick process:
+								</h3>
+								<ol
+									class='space-y-4 list-decimal pl-6 text-base md:text-xl'
+								>
+									<li>
+										Complete the partner application. We'll
+										process your application right away.
+									</li>
+									<li>
+										(optional) Share this page to your
+										members/portfolio with a message similar
+										to the following:
+									</li>
+								</ol>
+							</div>
+
+							<div class='bg-indigo-900/50 rounded-xl p-8'>
+								<div class='space-y-4'>
+									<p
+										class='text-base md:text-xl font-light leading-relaxed'
+									>
+										Tembo has graciously offered our
+										companies heavy discounts for the first
+										year, and ongoing discounts as you
+										scale.
+									</p>
+									<p
+										class='text-base md:text-xl font-light leading-relaxed'
+									>
+										Tembo for Startups provides Tembo Cloud
+										as a rich Postgres-based data services
+										foundation for high-potential
+										early-stage startups. Through an
+										extensive catalog of Tembo Stacks and
+										open source extensions, Tembo aims to
+										unlock the full power of Postgres to
+										your developers.
+									</p>
+									<p
+										class='text-base md:text-xl font-light leading-relaxed'
+									>
+										You can apply at <a
+											href='https://tembo.io/for-startups'
+											class='text-neon hover:text-neon/80'
+											>https://tembo.io/for-startups</a
+										> and choose our organization in the drop
+										down.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</Container>
+	</div>
+
+	<div class='relative bg-offBlack'>
 		<div
 			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
 		>
 		</div>
 		<Container>
-			<div class='mt-16 mobile:mt-24'>
-				<Footer />
-			</div>
+			<Footer />
 		</Container>
 	</div>
 </Layout>
 
 <style>
-	blockquote {
-		background-color: #1c1c1c;
-		padding: 1em;
+	.main-content {
+		background: rgb(0, 0, 0);
+		background-image: url('/pixelBg.svg');
+		width: 100%;
+		height: 100%;
 	}
-    blockquote footer {
-            color: #EAEAEA;
-    }
-	.neon-text {
-		color: #e9fc87 !important;
+
+	.light-gradient {
+		width: 45%;
+		height: 1200px;
+		background: radial-gradient(#ffffff 0px, transparent 35%);
+		-ms-filter: blur(300px) saturate(150%);
+		-webkit-filter: blur(300px) saturate(150%);
+		filter: blur(300px) saturate(150%);
+		transform: translate3d(0, 0, 0);
 	}
-	.email-template {
-		background: #432F94;
-		padding: 1em 2em;
+
+	@-moz-document url-prefix() {
+		.light-gradient {
+			width: 45%;
+			height: 1200px;
+			background: radial-gradient(#ffffff 0px, transparent 55%);
+			-ms-filter: blur(300px) saturate(150%);
+			-webkit-filter: blur(300px) saturate(150%);
+			filter: blur(300px) saturate(150%);
+			opacity: 0.1;
+		}
 	}
 </style>

@@ -1,11 +1,7 @@
-import 'swiper/css';
-import '../styles/swiper.css';
-
-import { useRef, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import type { Swiper as SwiperCore } from 'swiper/types';
-import Container from './Container';
+import Masonry from 'react-masonry-css';
 import { styles } from '../util';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export interface QuoteData {
 	name?: string;
@@ -75,109 +71,155 @@ interface Props {
 	className?: string;
 }
 
-const Quotes: React.FC<Props> = ({ className }) => {
-	const swiperRef = useRef<SwiperCore>();
-	const [activeIndex, setActiveIndex] = useState(0);
+interface QuoteCardProps {
+	children: React.ReactNode;
+	index: number;
+}
+
+function QuoteCard({ children, index }: QuoteCardProps) {
+	return (
+		<motion.div
+			initial='hidden'
+			whileInView='visible'
+			viewport={{ once: true }}
+			transition={{
+				duration: 0.5,
+				delay: index * 0.1,
+				ease: [0.23, 1, 0.32, 1],
+			}}
+			variants={{
+				visible: { opacity: 1, y: 0 },
+				hidden: { opacity: 0, y: 20 },
+			}}
+		>
+			{children}
+		</motion.div>
+	);
+}
+
+function Quotes({ className }: Props) {
+	const [showAll, setShowAll] = useState(false);
+	const initialQuotesToShow = 3;
 
 	return (
-		<section className={styles('relative overflow-hidden', className)}>
-			<Swiper
-				onBeforeInit={(swiper) => {
-					swiperRef.current = swiper;
-				}}
-				onRealIndexChange={(element) =>
-					setActiveIndex(element.activeIndex)
-				}
-				effect='coverflow'
-				grabCursor
-				centeredSlides
-				loop={true}
-				slidesPerView={'auto'}
-				speed={350}
-				coverflowEffect={{
-					rotate: 0,
-					depth: 0,
-				}}
-			>
-				{quotes.map((it, i) => (
-					<SwiperSlide key={`${it.name}-${i}`} className='!w-[350px]'>
-						<div className='flex flex-col justify-between h-full'>
-							<div>
-								<img
-									src={'/quotes.svg'}
-									alt={'quotation mark'}
-									height={11}
-									width={15}
-								/>
-								<p className='mt-4 font-secondary font-normal text-white text-[19px] leading-[31px] tracking-[0.54px]'>
-									{it.quote}
-								</p>
-							</div>
-							<div className='flex gap-4 items-center'>
-								<div
-									className={
-										'h-12 w-12 shrink-0 overflow-hidden rounded-full'
-									}
-								>
-									<img
-										src={it.logoUrl}
-										alt={`${it.company} logo`}
-										className='h-full object-cover'
-									/>
-								</div>
-								<div>
-									<span className='block font-secondary font-bold text-white text-[15px] leading-[18px] tracking-[0.54px]'>
-										{it?.name ? it.name : 'Anonymous'}
-									</span>
-									<span className='mt-2 block font-secondary font-normal text-white text-[13px] leading-[18px] tracking-[0.54px] opacity-60'>
-										{it.role}
-										{`${it?.company ? `, ${it.company}` : ''}`}
-									</span>
-								</div>
-							</div>
-						</div>
-					</SwiperSlide>
-				))}
-			</Swiper>
-			{quotes.length > 1 && (
-				<div
-					className={
-						'absolute bottom-[35px] z-10 left-1/2 -translate-x-1/2'
-					}
-				>
-					<Container styles='flex justify-between w-screen'>
-						<button
-							type='button'
-							className='h-[42px] w-[42px] disabled:invisible'
-							onClick={() => {
-								swiperRef.current?.slidePrev();
-							}}
-							disabled={activeIndex === 0}
-						>
-							<img
-								src={'/forwardArrow.svg'}
-								alt={'back arrow'}
-								className='rotate-180'
-							/>
-						</button>
-						<button
-							type='button'
-							className='h-[42px] w-[42px] disabled:invisible'
-							onClick={() => {
-								swiperRef.current?.slideNext();
-							}}
-							disabled={activeIndex === quotes.length - 1}
-						>
-							<img
-								src={'/forwardArrow.svg'}
-								alt={'forward arrow'}
-							/>
-						</button>
-					</Container>
-				</div>
+		<section
+			className={styles(
+				'relative p-4 flex items-center justify-center',
+				className,
 			)}
+		>
+			<div className='w-full flex flex-col md:hidden gap-2 relative'>
+				{/* Show either all quotes or just initial ones */}
+				{(showAll ? quotes : quotes.slice(0, initialQuotesToShow)).map(
+					(quote, i) => (
+						<QuoteCard key={`${quote.name}-${i}`} index={i}>
+							<div className='bg-semiGrey2/80 rounded-lg p-8 flex flex-col justify-between'>
+								<div>
+									<img
+										src={'/quotes.svg'}
+										alt={'quotation mark'}
+										height={11}
+										width={15}
+										className='opacity-60'
+									/>
+									<p className='mt-6 font-secondary text-white text-sm leading-relaxed tracking-wide'>
+										{quote.quote}
+									</p>
+								</div>
+								<div className='flex gap-4 items-center mt-8'>
+									<div className='h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white/10 p-2'>
+										<img
+											src={quote.logoUrl}
+											alt={`${quote.company} logo`}
+											className='h-full w-full object-cover ml-[1px]'
+										/>
+									</div>
+									<div className='space-y-1'>
+										<span className='block font-secondary font-medium text-white text-sm'>
+											{quote?.name
+												? quote.name
+												: 'Anonymous'}
+										</span>
+										<span className='block font-secondary text-white/60 text-xs'>
+											{quote.role}
+											{`${quote?.company ? `, ${quote.company}` : ''}`}
+										</span>
+									</div>
+								</div>
+							</div>
+						</QuoteCard>
+					),
+				)}
+
+				{/* Gradient overlay and button container */}
+				{!showAll && (
+					<div className='relative'>
+						<div className='absolute -top-40 left-0 right-0 h-40 bg-gradient-to-t from-[#0A0A0A] to-transparent'></div>
+						<div className='flex justify-center mt-4'>
+							<button
+								onClick={() => setShowAll(true)}
+								className='bg-semiGrey2/80 text-white px-6 py-3 rounded-lg font-secondary text-sm'
+							>
+								See More
+							</button>
+						</div>
+					</div>
+				)}
+			</div>
+
+			{/* Original Masonry layout for tablet and desktop */}
+			<div className='hidden md:flex w-full justify-center'>
+				{' '}
+				<Masonry
+					breakpointCols={{
+						default: 3,
+						1100: 2,
+					}}
+					className='flex -ml-2 w-auto'
+					columnClassName='pl-2 max-w-[40ch]'
+				>
+					{quotes.map((quote, i) => (
+						<QuoteCard key={`${quote.name}-${i}`} index={i}>
+							<div className='bg-semiGrey2/80 rounded-lg p-8 flex flex-col justify-between mb-2'>
+								<div>
+									<img
+										src={'/quotes.svg'}
+										alt={'quotation mark'}
+										height={11}
+										width={15}
+										className='opacity-60'
+									/>
+									<p className='mt-6 font-secondary text-white text-sm leading-relaxed tracking-wide'>
+										{quote.quote}
+									</p>
+								</div>
+								<div className='flex gap-4 items-center mt-8'>
+									<div className='h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white/10 p-2'>
+										<img
+											src={quote.logoUrl}
+											alt={`${quote.company} logo`}
+											className='h-full w-full object-cover ml-[1px]'
+										/>
+									</div>
+									<div className='space-y-1'>
+										<span className='block font-secondary font-medium text-white text-sm'>
+											{quote?.name
+												? quote.name
+												: 'Anonymous'}
+										</span>
+										<span className='block font-secondary text-white/60 text-xs'>
+											{quote.role}
+											{`${quote?.company ? `, ${quote.company}` : ''}`}
+										</span>
+									</div>
+								</div>
+							</div>
+						</QuoteCard>
+					))}
+				</Masonry>
+			</div>
 		</section>
 	);
-};
+}
 
 export default Quotes;

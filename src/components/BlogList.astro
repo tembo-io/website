@@ -36,11 +36,21 @@ const resolvedPosts = await Promise.all(
 <Container styles='pb-4'>
 	<div class='mt-[120px] mobile:mt-[180px]'>
 		<header>
-			<h1 class='text-neon font-extrabold text-5xl lg:text-6xl z-10 mb-6'>
-				Tembo’s Blog
+			<h1
+				class='text-pricingGreen font-bold text-[32px] leading-[40px] tracking-[0.472px] customXs:text-5xl customXs:leading-[64px] customMd:text-[64px] customMd:leading-[80px] mb-6'
+			>
+				Latest insights and updates
 			</h1>
+			<p
+				class='opacity-80 font-secondary font-medium text-white text-base leading-[25px] mb-10'
+			>
+				Discover articles about Postgres, engineering, and data
+			</p>
 		</header>
-		<BlogPosts posts={resolvedPosts} client:load>
+		<BlogPosts
+			posts={resolvedPosts}
+			client:load
+		>
 			<Tag title='All' />
 			<Tag title='Postgres' />
 			<Tag title='Engineering' />

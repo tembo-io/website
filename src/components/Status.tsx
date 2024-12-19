@@ -12,21 +12,21 @@ const getVariant = (status: StatusVariant) => {
 	switch (status) {
 		case 'Operational':
 			return {
-				status: 'All Systems Normal.',
+				status: 'All Systems Normal',
 				image: 'elephantHoldingFlag.svg',
 				pillStyles: 'bg-[#1BBF7A1A]',
 				textStyles: 'text-good',
 			};
 		case 'Degraded Performance':
 			return {
-				status: `${status}.`,
+				status,
 				image: 'elephantHoldingOrangeFlag.svg',
 				pillStyles: 'bg-[#F394051A]',
 				textStyles: 'text-warning',
 			};
 		case 'Partial Service Disruption':
 			return {
-				status: `${status}.`,
+				status,
 				image: 'elephantHoldingOrangeFlag.svg',
 				pillStyles: 'bg-[#F394051A]',
 				textStyles: 'text-warning',
@@ -49,7 +49,7 @@ const getVariant = (status: StatusVariant) => {
 			};
 		default:
 			return {
-				status: `${status}.`,
+				status,
 				image: 'elephantHoldingFlag.svg',
 				pillStyles: 'bg-[#1BBF7A1A]',
 				textStyles: 'text-good',
@@ -85,19 +85,11 @@ const Status = () => {
 			target='_blank'
 			rel='noreferror'
 			className={cx(
-				'flex items-center w-max gap-4 py-2 px-4 rounded-full',
+				'flex items-center w-max gap-4 py-2 px-4 rounded-full font-mono text-xs',
 				status.pillStyles,
 			)}
 		>
-			<img
-				src={`/${status.image}`}
-				width={45}
-				height={45}
-				alt='elephant holding flag'
-			/>
-			<p className={cx('font-bold', status.textStyles)}>
-				{status.status}
-			</p>
+			<p className={cx(status.textStyles)}>{status.status}</p>
 		</a>
 	);
 };

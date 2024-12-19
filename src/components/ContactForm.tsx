@@ -135,7 +135,7 @@ const ContactForm: React.FC = () => {
 			font-primary
 			font-semibold
 			md:text-5xl
-			text-[32px]
+			text-[32px] mb-10 text-center
 			'
 			>
 				Contact us
@@ -177,7 +177,7 @@ const ContactForm: React.FC = () => {
 				></textarea>
 				<input
 					type='submit'
-					className='flex h-14 min-[840px]:w-[412px] justify-center items-center w-full bg-gradient-button text-white transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base cursor-pointer text-white'
+					className='flex h-14 min-[840px]:w-[412px] justify-center items-center w-full bg-white hover:bg-white/80 !text-black transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base cursor-pointer mb-10'
 					onClick={(e) => onSubmit(e)}
 				/>
 			</form>
