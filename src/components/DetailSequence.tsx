@@ -24,19 +24,10 @@ function DetailSequence({
 	return (
 		<div className={cx('flex flex-col gap-4 max-w-[530px]', styles)}>
 			{iconPath && (
-				<motion.img
+				<img
 					src={iconPath}
 					alt='Colored Icon'
-					className='w-8 h-8 brightness-125 filter drop-shadow-[0_0_8px_rgba(68,255,147,0.8)]'
-					animate={{
-						y: [0, -5, 0],
-					}}
-					transition={{
-						delay,
-						duration: 8,
-						ease: 'easeInOut',
-						repeat: Infinity,
-					}}
+					className='w-8 h-8 brightness-125'
 				/>
 			)}
 			<h1

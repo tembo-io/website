@@ -81,9 +81,9 @@ function StackGrid() {
 				<StackCard>
 					<Card styles='bg-semiGrey2 flex flex-col justify-start min-w-[260px] h-[260px] rounded-[20px] relative overflow-hidden p-[26px]'>
 						<span className='z-10 text-white'>
-							<p className='font-semibold'>Search Stack</p>
+							<p className='font-semibold'>Analytics Stack</p>
 							<h2 className='font-medium text-2xl mt-2 leading-8'>
-								Product Search & Filtering
+								Efficient Analytics on S3 data
 							</h2>
 						</span>
 						<Animation
