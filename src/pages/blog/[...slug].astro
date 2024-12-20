@@ -428,7 +428,8 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 							<div
 								class='flex flex-col gap-6 border-t border-[#383838] pt-8'
 							>
-								<button
+								<a
+									href='/blog'
 									class='no-underline group flex items-center p-4 rounded-xl bg-[#1C1C1C] hover:bg-[#242424] border border-[#383838] hover:border-[#4B4B4B] transition-all duration-200'
 								>
 									<div class='flex items-center gap-4'>
@@ -456,7 +457,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 											>Go back</span
 										>
 									</div>
-								</button>
+								</a>
 
 								<a
 									href={`/blog/${nextPost.slug}`}
