@@ -28,16 +28,16 @@ const NavBar: React.FC<Props> = ({
 
 	const solutionsOptions = [
 		{
-			displayName: 'Tembo Buildcamp',
-			link: '/solutions/buildcamp',
+			displayName: 'For Startups',
+			link: '/solutions/for-startups',
 		},
 		{
 			displayName: 'For Enterprises',
 			link: '/solutions/for-enterprises',
 		},
 		{
-			displayName: 'For Startups',
-			link: '/solutions/for-startups',
+			displayName: 'Tembo Buildcamp',
+			link: '/solutions/buildcamp',
 		},
 	];
 
@@ -114,12 +114,28 @@ const NavBar: React.FC<Props> = ({
 		>
 			{isBanner && !isMenuOpen && (
 				<a href='/blog/tembo-ai'>
-					<div
-						className={`flex items-center text-[12px] min-[400px]:text-sm justify-center gap-2 news-banner-container top-0 w-full text-center bg-[#131313] shadow-[0_-20px_36px_0_rgba(240,102,141,0.13)_inset] text-white px-[20px] mobile:px-[95px] py-3.5 sm:py-2.5 z-50`}
-					>
-						<span className='truncate'>Introducing Tembo AI</span>
-						<span className='bg-gradient-to-r from-salmon via-purple to-lightPurple inline-block text-transparent bg-clip-text font-semibold text-sm whitespace-nowrap'>
-							Read more
+					<div className='flex items-center justify-center w-full bg-[#0A0A0A] py-2.5 text-xs font-medium tracking-wide z-50 transition-all duration-75'>
+						<span className='flex items-center gap-2'>
+							<span className='text-white/90'>
+								Introducing Tembo AI
+							</span>
+							<span className='text-neon flex items-center gap-1'>
+								Learn more
+								<svg
+									width='12'
+									height='12'
+									viewBox='0 0 12 12'
+									fill='none'
+									className='translate-y-[0.5px]'
+								>
+									<path
+										d='M3.5 2L7.5 6L3.5 10'
+										stroke='currentColor'
+										strokeWidth='1.5'
+										strokeLinecap='round'
+									/>
+								</svg>
+							</span>
 						</span>
 					</div>
 				</a>
@@ -128,16 +144,16 @@ const NavBar: React.FC<Props> = ({
 			<Container styles='relative'>
 				<nav
 					className={cx(
-						'flex w-full items-center justify-between transition-all duration-100 relative',
+						'flex w-full items-center justify-between transition-all relative',
 						scrollY > 20 &&
 							(!isMenuOpen || isScreenGreaterThanOrEqualTo900px)
-							? 'py-3 mid:py-4'
-							: 'py-8',
+							? 'py-2'
+							: 'py-4',
 					)}
 				>
 					<Logo />
 					<div className='mid:flex hidden items-center gap-12 m-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10'>
-						<div className='flex font-secondary font-medium z-10 hover:cursor-pointer relative'>
+						<div className='flex font-secondary font-medium text-sm z-10 hover:cursor-pointer relative'>
 							<NavMenu
 								id={2}
 								currentPage={currentPage}
@@ -149,11 +165,11 @@ const NavBar: React.FC<Props> = ({
 						<a
 							href='/customers'
 							className={cx(
-								'font-secondary font-medium z-10',
+								'font-secondary font-medium text-sm z-10 transition-opacity duration-200',
 								currentPage == '/customers' ||
 									currentPage == '/customers/'
 									? 'text-neon'
-									: 'text-white opacity-70',
+									: 'text-white opacity-70 hover:opacity-100',
 							)}
 							target='_blank'
 							rel='noreferrer'
@@ -163,11 +179,11 @@ const NavBar: React.FC<Props> = ({
 						<a
 							href='/pricing'
 							className={cx(
-								'font-secondary font-medium z-10',
+								'font-secondary font-medium text-sm z-10 transition-opacity duration-200',
 								currentPage == '/pricing' ||
 									currentPage == '/pricing/'
 									? 'text-neon'
-									: 'text-white opacity-70',
+									: 'text-white opacity-70 hover:opacity-100',
 							)}
 							target='_blank'
 							rel='noreferrer'
@@ -177,11 +193,11 @@ const NavBar: React.FC<Props> = ({
 						<a
 							href='/docs'
 							className={cx(
-								'font-secondary font-medium z-10',
+								'font-secondary font-medium text-sm z-10 transition-opacity duration-200',
 								currentPage == '/docs' ||
 									currentPage == '/docs/'
 									? 'text-neon'
-									: 'text-white opacity-70',
+									: 'text-white opacity-70 hover:opacity-100',
 							)}
 						>
 							Docs
@@ -189,11 +205,11 @@ const NavBar: React.FC<Props> = ({
 						<a
 							href='/blog'
 							className={cx(
-								'font-secondary font-medium z-10',
+								'font-secondary font-medium text-sm z-10 transition-opacity duration-200',
 								currentPage == '/blog' ||
 									currentPage == '/blog/'
 									? 'text-neon'
-									: 'text-white opacity-70',
+									: 'text-white opacity-70 hover:opacity-100',
 							)}
 						>
 							Blog
@@ -248,7 +264,7 @@ const NavBar: React.FC<Props> = ({
 			)}
 			<div
 				className={cx(
-					'absolute bottom-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine',
+					'absolute bottom-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 bg-white/10',
 					scrollY > 20 ? 'flex' : 'hidden',
 				)}
 			/>

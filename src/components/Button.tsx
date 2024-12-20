@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type AnchorHTMLAttributes } from 'react';
 import cx from 'classnames';
 import { navigate } from 'astro:transitions/client';
 
@@ -10,12 +10,14 @@ export type Variant =
 	| 'blue'
 	| 'sqlBlue'
 	| 'green'
-	| 'sqlPink';
+	| 'sqlPink'
+	| 'ghost';
 type Size = 'sm' | 'md' | 'lg' | 'xl';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	variant: Variant;
 	children: React.ReactNode;
+	target?: AnchorHTMLAttributes<HTMLAnchorElement>['target'];
 	styles?: string;
 	size?: Size;
 	link?: string;
@@ -29,6 +31,7 @@ const Button: React.FC<Props> = ({
 	variant,
 	styles,
 	size,
+	target = '',
 	link,
 	isLinkTag = false,
 	scrollTo,
@@ -38,15 +41,15 @@ const Button: React.FC<Props> = ({
 	const getSizeStyles = () => {
 		switch (size) {
 			case 'sm':
-				return 'py-2 px-6';
+				return 'py-2 px-6 text-sm';
 			case 'md':
-				return 'py-2 px-8';
+				return 'py-2 px-8 text-base';
 			case 'lg':
-				return 'py-3 px-10';
+				return 'py-3 px-10 text-base';
 			case 'xl':
-				return 'py-6 px-8';
+				return 'py-6 px-8 text-base';
 			default:
-				return 'py-2 px-6';
+				return 'py-2 px-6 text-sm';
 		}
 	};
 	const getVariantStyles = () => {
@@ -54,26 +57,29 @@ const Button: React.FC<Props> = ({
 			case 'neon':
 				return 'bg-neon hover:bg-[#D1E278] text-black';
 			case 'gradient':
-				return 'bg-gradient-button text-white';
+				return 'bg-gradient-button hover:opacity-80 text-white';
 			case 'primary':
-				return 'bg-semiGrey2 hover:opacity-[80%] text-white';
+				return 'bg-semiGrey2 hover:opacity-80 text-white';
 			case 'outline':
-				return 'bg-transparent text-white border border-white';
+				return 'bg-transparent hover:bg-white hover:text-black text-white border border-white';
 			case 'blue':
-				return 'bg-lightBlue text-mwasi';
+				return 'bg-lightBlue hover:opacity-80 text-mwasi';
 			case 'sqlBlue':
-				return 'bg-sqlBlue text-mwasi';
+				return 'bg-sqlBlue hover:opacity-80 text-mwasi';
 			case 'sqlPink':
-				return 'bg-sqlPink text-mwasi';
+				return 'bg-sqlPink hover:opacity-80 text-mwasi';
 			case 'green':
-				return 'bg-pricingGreen text-mwasi';
+				return 'bg-pricingGreen hover:opacity-80 text-mwasi';
+			case 'ghost':
+				return 'bg-transparent hover:bg-white/10 text-white transition-all duration-75';
 		}
 	};
 	return isLinkTag ? (
 		<a
 			href={link}
+			target={target}
 			className={cx(
-				'transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base text-center',
+				'transition-all duration-75 ease-in font-medium rounded font-secondary text-base text-center',
 				getVariantStyles(),
 				getSizeStyles(),
 				styles,
@@ -84,7 +90,7 @@ const Button: React.FC<Props> = ({
 	) : (
 		<button
 			className={cx(
-				'transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base',
+				'transition-all duration-75 ease-in font-medium rounded font-secondary text-base',
 				getVariantStyles(),
 				getSizeStyles(),
 				styles,

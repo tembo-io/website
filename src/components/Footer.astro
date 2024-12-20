@@ -3,6 +3,7 @@ import Checkmark from '../images/checkmark.svg';
 import Logo from '../images/logo.svg';
 import { Image } from 'astro:assets';
 import Status from './Status';
+import { motion } from 'framer-motion';
 ---
 
 <footer class='bg-offBlack py-12 mobile:py-24 z-40'>
@@ -12,7 +13,11 @@ import Status from './Status';
 				href='/'
 				class='focus:outline-none transition hover:scale-[102%] duration-300 ease-in-out delay-70 z-40'
 			>
-				<Image src={Logo} alt='colorful elephant logo' width={40} />
+				<Image
+					src={Logo}
+					alt='colorful elephant logo'
+					width={40}
+				/>
 			</a>
 			<Status client:load />
 		</div>
@@ -23,27 +28,47 @@ import Status from './Status';
 					<div
 						class='flex flex-col gap-2 font-medium text-grey font-secondary'
 					>
-						<a href='/docs' target='_blank' rel='noreferrer'>Docs</a
+						<a
+							href='/docs'
+							target='_blank'
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Docs</a
 						>
-						<a href='/blog' target='_blank' rel='noreferrer'>Blog</a
+						<a
+							href='/blog'
+							target='_blank'
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Blog</a
 						>
-						<a href='/pricing' target='_blank' rel='noreferrer'
+						<a
+							href='/pricing'
+							target='_blank'
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
 							>Pricing</a
 						>
 						<a
 							href='https://cloud.tembo.io'
 							target='_blank'
-							rel='noreferrer'>Tembo Cloud</a
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Tembo Cloud</a
 						>
 						<a
 							href='https://roadmap.tembo.io/roadmap'
 							target='_blank'
-							rel='noreferrer'>Roadmap</a
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Roadmap</a
 						>
 						<a
 							href='https://roadmap.tembo.io/changelog'
 							target='_blank'
-							rel='noreferrer'>Changelog</a
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Changelog</a
 						>
 					</div>
 				</div>
@@ -55,39 +80,58 @@ import Status from './Status';
 						<a
 							href='https://github.com/tembo-io/tembo'
 							target='_blank'
-							rel='noreferrer'>Github</a
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Github</a
 						>
 						<a
 							href='https://twitter.com/tembo_io'
 							target='_blank'
-							rel='noreferrer'>Twitter</a
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Twitter</a
 						>
 						<a
 							href='https://mastodon.social/@tembo_io'
 							target='_blank'
-							rel='noreferrer'>Mastodon</a
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Mastodon</a
 						>
 						<a
 							href='https://bsky.app/profile/tembo.io'
 							target='_blank'
-							rel='noreferrer'>Bluesky</a
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Bluesky</a
 						>
 						<a
 							href='https://www.linkedin.com/company/tembo-inc'
 							target='_blank'
-							rel='noreferrer'>LinkedIn</a
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>LinkedIn</a
 						>
 						<a
 							href='https://www.youtube.com/@tembo_io'
 							target='_blank'
-							rel='noreferrer'>Youtube</a
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Youtube</a
 						>
 						<a
 							href='https://join.slack.com/t/tembocommunity/shared_invite/zt-277pu7chi-NHtvHWvLhHwyK0Y5Y6vTPw'
 							target='_blank'
-							rel='noreferrer'>Community Slack</a
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Community Slack</a
 						>
-						<a href='/contact' rel='noreferrer'>Contact us</a>
+						<a
+							href='/contact'
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Contact us</a
+						>
 					</div>
 				</div>
 				<div class='flex flex-col gap-6'>
@@ -98,19 +142,40 @@ import Status from './Status';
 						<a
 							href='mailto:careers@tembo.io'
 							target='_blank'
-							rel='noreferrer'>Careers</a
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
 						>
+							Careers
+							<motion.span
+								client:load
+								className='bg-neon text-[10px] px-1.5 py-0.5 rounded-full text-black font-medium'
+								animate={{
+									scale: [1, 1.15, 1],
+									rotate: [0, -3, 3, 0],
+								}}
+								transition={{
+									duration: 1.5,
+									repeat: Infinity,
+									repeatType: 'loop' as const,
+									ease: [0.23, 1, 0.32, 1],
+								}}
+							>
+								hiring
+							</motion.span>
+						</a>
 						<a
 							href='https://status.tembo.io'
 							target='_blank'
-							rel='noreferrer'>Status</a
+							rel='noreferrer'
+							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+							>Status</a
 						>
 						<!-- <a href='/university' target='_blank' rel='noreferrer'
 							>Tembo University</a
-						> -->
+							> -->
 						<button
 							id='intercom_launcher'
-							class='p-0 m-0 w-min'
+							class='p-0 m-0 w-min text-grey transition-colors duration-200 hover:text-white'
 							aria-roledescription='Open chat support'
 						>
 							Support
@@ -129,12 +194,16 @@ import Status from './Status';
 			<a
 				href='https://cloud.tembo.io/privacy-policy'
 				target='_blank'
-				rel='noreferrer'>Privacy Policy</a
+				rel='noreferrer'
+				class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+				>Privacy Policy</a
 			>
 			<a
 				href='https://cloud.tembo.io/terms-of-service'
 				target='_blank'
-				rel='noreferrer'>Terms of Service</a
+				rel='noreferrer'
+				class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
+				>Terms of Service</a
 			>
 			<p>© 2024 Tembo Data Systems, Inc. All Rights Reserved.</p>
 		</div>
@@ -144,7 +213,12 @@ import Status from './Status';
 			rel='noreferrer'
 			class='inline-flex gap-2 font-secondary mb-2 min-[470px]:mb-0 bg-gradient-rainbow text-transparent bg-clip-text'
 		>
-			<Image src={Checkmark} alt='checkmark' width={14} height={16} />
+			<Image
+				src={Checkmark}
+				alt='checkmark'
+				width={14}
+				height={16}
+			/>
 			SOC2 Type 1 compliant
 		</a>
 	</div>

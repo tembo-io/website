@@ -82,12 +82,12 @@ const NavMenu: FC<Props> = ({
 						)}
 					</NavigationMenu.Trigger>
 					{openMenu === id && (
-						<NavigationMenu.Content className='flex flex-column py-4 px-2 rounded-3xl bg-mwasi border border-otherGrey2 absolute top-8 left-0 w-[214px]'>
+						<NavigationMenu.Content className='flex flex-column px-2 py-2 rounded bg-mwasi border border-otherGrey2 absolute top-8 left-0 w-[214px]'>
 							<ul className='w-full'>
 								{options.map((option) => {
 									return (
 										<li
-											className='py-2 pl-4 hover:rounded-3xl hover:bg-grayScaleMwasi w-full'
+											className='py-2 pl-4 rounded-sm hover:bg-grayScaleMwasi w-full'
 											onClick={() =>
 												navigate(option.link)
 											}

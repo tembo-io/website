@@ -178,7 +178,7 @@ const BuildcampForm: React.FC = () => {
 
 	return (
 		<div className='flex flex-col w-full lg:w-2/3 justify-center items-center'>
-			<h2 className='text-neon font-primary font-semibold md:text-5xl text-[32px] pb-12'>
+			<h2 className='text-neon font-primary font-semibold md:text-5xl text-[32px] pb-12 text-center'>
 				Schedule a Buildcamp
 			</h2>
 			<form id='buildcampForm' className='w-full'>
@@ -257,7 +257,7 @@ const BuildcampForm: React.FC = () => {
 			</form>
 			<input
 				type='submit'
-				className='flex h-14 justify-center items-center w-full lg:w-[412px] bg-gradient-button text-white transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base cursor-pointer text-white mt-4'
+				className='flex h-14 justify-center items-center w-full lg:w-[412px] bg-white hover:bg-white/80 !text-black transition-all duration-150 ease-in font-medium rounded-full font-secondary text-base cursor-pointer mt-4'
 				onClick={(e) => onSubmit(e)}
 			/>
 		</div>

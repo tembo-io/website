@@ -16,8 +16,14 @@ import JoinTemboCTA from '@components/JoinTemboCTA.astro';
 const currentPath = Astro.url.pathname;
 ---
 
-<Layout title='Arch | Tembo' htmlClasses='scroll-pt-[120px]'>
-	<NavBar client:load currentPage={currentPath} />
+<Layout
+	title='Arch | Tembo'
+	htmlClasses='scroll-pt-[120px]'
+>
+	<NavBar
+		client:load
+		currentPage={currentPath}
+	/>
 	<Container styles='pb-10 w-full'>
 		<div class='mt-[120px] mobile:mt-[180px] w-full relative'>
 			<div class='flex flex-col w-full'>
