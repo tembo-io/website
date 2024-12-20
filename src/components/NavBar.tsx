@@ -28,16 +28,16 @@ const NavBar: React.FC<Props> = ({
 
 	const solutionsOptions = [
 		{
-			displayName: 'Tembo Buildcamp',
-			link: '/solutions/buildcamp',
+			displayName: 'For Startups',
+			link: '/solutions/for-startups',
 		},
 		{
 			displayName: 'For Enterprises',
 			link: '/solutions/for-enterprises',
 		},
 		{
-			displayName: 'For Startups',
-			link: '/solutions/for-startups',
+			displayName: 'Tembo Buildcamp',
+			link: '/solutions/buildcamp',
 		},
 	];
 

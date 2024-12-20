@@ -5,6 +5,7 @@ import ArchLogo from '../images/arch.svg';
 import MightyBot from '../images/mightybotlogo.svg';
 import ProspectStreamLogo from '../images/prospect_logo.svg';
 import AutomizedLogo from '../images/automized.png';
+import OSSRankLogo from '../images/ossrank.svg';
 
 const LOGOS = [
 	{
@@ -32,6 +33,12 @@ const LOGOS = [
 		src: AutomizedLogo,
 		width: '120',
 		alt: 'automized logo',
+	},
+	{
+		src: OSSRankLogo,
+		width: '120',
+		alt: 'ossrank logo',
+		invert: true,
 	},
 ];
 
