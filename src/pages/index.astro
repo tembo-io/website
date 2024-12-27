@@ -22,11 +22,7 @@ const currentPath = Astro.url.pathname;
 	<div
 		class='main-content relative overflow-hidden border-b border-b-white/10'
 	>
-		<NavBar
-			client:load
-			currentPage={currentPath}
-			isBanner={false}
-		/>
+		<NavBar client:load currentPage={currentPath} isBanner={false} />
 		<div class='w-full h-[150px] overflow-hidden'></div>
 		<Animation
 			client:only='react'
@@ -126,10 +122,7 @@ const currentPath = Astro.url.pathname;
 		<div
 			class='container max-w-stackSlider mx-auto mt-[40px] md:mt-[100px]'
 		>
-			<Quotes
-				className='mt-0'
-				client:load
-			/>
+			<Quotes className='mt-0' client:load />
 		</div>
 	</section>
 
@@ -146,7 +139,7 @@ const currentPath = Astro.url.pathname;
 						class='text-white/80 text-xl md:text-2xl font-light leading-relaxed mb-8'
 					>
 						The most beloved database on earth, now with
-						enterprise-grade features and support
+						enterprise-grade features and support.
 					</p>
 					<div class='flex flex-col md:flex-row gap-4'>
 						<Button
