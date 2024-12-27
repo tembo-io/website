@@ -52,11 +52,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 	keywords={post.data.tags}
 	image={post.data.image}
 >
-	<NavBar
-		client:load
-		currentPage={currentPath}
-		isProgressBar={true}
-	/>
+	<NavBar client:load currentPage={currentPath} isProgressBar={true} />
 	<Container styles='pb-10 w-full'>
 		<div
 			class='mt-[120px] mobile:mt-[180px] w-full relative max-w-[1200px] mx-auto'
@@ -94,14 +90,14 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 											class='w-10 h-10 rounded-full border-2 border-[#1C1C1C] object-cover relative z-10'
 										/>
 										<div
-											class='absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 
+											class='absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5
 										bg-[#1C1C1C] text-white text-sm rounded-lg border border-[#383838]
 										opacity-0 invisible group-hover:opacity-100 group-hover:visible
 										transition-all duration-200 whitespace-nowrap z-20'
 										>
 											{author?.name}
 											<div
-												class='absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 
+												class='absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2
 											bg-[#1C1C1C] border-r border-b border-[#383838] rotate-45'
 											/>
 										</div>
@@ -234,8 +230,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 											>
 												<path
 													d='M12 2C6.475 2 2 6.475 2 12C2 16.425 4.8625 20.1625 8.8375 21.4875C9.3375 21.575 9.525 21.275 9.525 21.0125C9.525 20.775 9.5125 19.9875 9.5125 19.15C7 19.6125 6.35 18.5375 6.15 17.975C6.0375 17.6875 5.55 16.8 5.125 16.5625C4.775 16.375 4.275 15.9125 5.1125 15.9C5.9 15.8875 6.4625 16.625 6.65 16.925C7.55 18.4375 8.9875 18.0125 9.5625 17.75C9.65 17.1 9.9125 16.6625 10.2 16.4125C7.975 16.1625 5.65 15.3 5.65 11.475C5.65 10.3875 6.0375 9.4875 6.675 8.7875C6.575 8.5375 6.225 7.5125 6.775 6.1375C6.775 6.1375 7.6125 5.875 9.525 7.1625C10.325 6.9375 11.175 6.825 12.025 6.825C12.875 6.825 13.725 6.9375 14.525 7.1625C16.4375 5.8625 17.275 6.1375 17.275 6.1375C17.825 7.5125 17.475 8.5375 17.375 8.7875C18.0125 9.4875 18.4 10.375 18.4 11.475C18.4 15.3125 16.0625 16.1625 13.8375 16.4125C14.2 16.725 14.5125 17.325 14.5125 18.2625C14.5125 19.6 14.5 20.675 14.5 21.0125C14.5 21.275 14.6875 21.5875 15.1875 21.4875C19.1375 20.1625 22 16.4125 22 12C22 6.475 17.525 2 12 2Z'
-													fill='currentColor'
-												></path>
+													fill='currentColor'></path>
 											</svg>
 										</div>
 										<div class='flex flex-col'>
@@ -267,8 +262,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 											>
 												<path
 													d='M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z'
-													fill='currentColor'
-												></path>
+													fill='currentColor'></path>
 											</svg>
 										</div>
 										<div class='flex flex-col'>
@@ -301,13 +295,11 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 												<path
 													d='M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z'
 													stroke='currentColor'
-													stroke-width='1.5'
-												></path>
+													stroke-width='1.5'></path>
 												<path
 													d='m9.75 15.02 5.75-3.27-5.75-3.27v6.54z'
 													stroke='currentColor'
-													stroke-width='1.5'
-												></path>
+													stroke-width='1.5'></path>
 											</svg>
 										</div>
 										<div class='flex flex-col'>
@@ -359,7 +351,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 								</a>
 
 								<a
-									href='https://twitter.com/tembo_io'
+									href='https://x.com/tembo_io'
 									class='no-underline group flex h-[72px] items-center p-4 rounded-xl bg-[#1C1C1C] hover:bg-[#242424] border border-[#383838] hover:border-[#4B4B4B] transition-all duration-200'
 								>
 									<div class='flex items-center gap-4'>
@@ -375,8 +367,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 											>
 												<path
 													d='M14.355 3h2.121l-4.623 5.287 5.434 7.213h-4.261l-3.334-4.362-3.813 4.362H3.758l4.943-5.652-5.207-6.848h4.369l3.016 3.982L14.355 3zm-1.669 11.114h1.178L6.687 4.423H5.41l7.276 9.691z'
-													fill='currentColor'
-												></path>
+													fill='currentColor'></path>
 											</svg>
 										</div>
 										<div class='flex flex-col'>
@@ -408,8 +399,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 											>
 												<path
 													d='M21.258 13.99c-.274 1.41-2.456 2.955-4.962 3.254-1.306.156-2.593.3-3.965.236-2.243-.103-4.014-.535-4.014-.535 0 .218.014.426.04.62.292 2.215 2.196 2.347 4 2.403 1.82.057 3.44-.45 3.44-.45l.074 1.644s-1.273.684-3.537.81c-1.25.068-2.803-.032-4.612-.51-3.923-1.039-4.598-5.22-4.701-9.464-.031-1.26-.012-2.447-.012-3.44 0-4.34 2.843-5.611 2.843-5.611 1.433-.658 3.892-.935 6.45-.956h.062c2.557.02 5.018.298 6.451.956 0 0 2.843 1.272 2.843 5.61 0 0 .036 3.201-.4 5.433'
-													fill='currentColor'
-												></path>
+													fill='currentColor'></path>
 											</svg>
 										</div>
 										<div class='flex flex-col'>
@@ -515,10 +505,7 @@ const { Content, remarkPluginFrontmatter, headings } = await post.render();
 						<div class='sticky top-[100px] flex flex-col gap-8'>
 							{
 								headings.length > 0 && (
-									<Toc
-										headings={headings}
-										client:load
-									/>
+									<Toc headings={headings} client:load />
 								)
 							}
 							<div class='pt-8 border-t border-[#383838]'>

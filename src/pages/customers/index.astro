@@ -12,13 +12,8 @@ const currentPath = Astro.url.pathname;
 ---
 
 <Layout title='Customers | Tembo'>
-	<div
-		class='main-content relative overflow-hidden border-b border-b-white/10'
-	>
-		<NavBar
-			client:load
-			currentPage={currentPath}
-		/>
+	<div class='main-content relative overflow-hidden'>
+		<NavBar client:load currentPage={currentPath} />
 		<div class='w-full h-[150px] overflow-hidden'></div>
 
 		<Container>
