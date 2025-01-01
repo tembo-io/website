@@ -1,20 +1,20 @@
 * @DarrenBaldwin07 @sarahedkins @nishilfaldu
 
-src/content/blog/ @samay-sharma @FloorD
-src/content/blog/** @samay-sharma @FloorD
-src/content/docs/ @samay-sharma @FloorD
-src/content/docs/** @samay-sharma @FloorD
-src/content/docs/getting-started/quickstarts/ @shahadarsh
-src/content/docs/getting-started/quickstarts/** @shahadarsh
-src/content/docs/getting-started/quickstarts/postgres_guides/** @samay-sharma @FloorD @bonesmoses
-src/content/docs/development/cli/command-reference.md @shahadarsh @joshuajerin @shahadarsh
-src/content/docs/product/cloud/ @shahadarsh
-src/content/docs/product/cloud/** @shahadarsh
-src/content/docs/development/ @shahadarsh
-src/content/docs/development/** @shahadarsh
-src/content/docs/product/cloud/apps/ @ChuckHend
-src/content/docs/product/cloud/apps/** @ChuckHend
-src/content/docs/product/stacks/ @ChuckHend
-src/content/docs/product/stacks/** @ChuckHend
-src/content/docs/product/software/ @ianstanton @shahadarsh
-src/content/docs/product/software/** @ianstanton @shahadarsh
+src/content/blog/ @rywalker @samay-sharma
+src/content/blog/** @rywalker @samay-sharma
+src/content/docs/ @rywalker @samay-sharma
+src/content/docs/** @rywalker @samay-sharma
+src/content/docs/getting-started/quickstarts/ @rywalker @samay-sharma
+src/content/docs/getting-started/quickstarts/** @rywalker @samay-sharma
+src/content/docs/getting-started/quickstarts/postgres_guides/** @rywalker @samay-sharma
+src/content/docs/development/cli/command-reference.md @rywalker @samay-sharma @ChuckHend
+src/content/docs/product/cloud/ @rywalker @samay-sharma
+src/content/docs/product/cloud/** @rywalker @samay-sharma
+src/content/docs/development/ @rywalker @samay-sharma @DarrenBaldwin07
+src/content/docs/development/** @rywalker @samay-sharma @DarrenBaldwin07
+src/content/docs/product/cloud/apps/ @rywalker @samay-sharma @ChuckHend
+src/content/docs/product/cloud/apps/** @rywalker @samay-sharma @ChuckHend
+src/content/docs/product/stacks/ @rywalker @samay-sharma @ChuckHend
+src/content/docs/product/stacks/** @rywalker @samay-sharma @ChuckHend
+src/content/docs/product/software/ @rywalker @samay-sharma @ChuckHend @nhudson
+src/content/docs/product/software/** @rywalker @samay-sharma @ChuckHend @nhudson
