@@ -26,21 +26,6 @@ const NavBar: React.FC<Props> = ({
 		setIsScreenGreaterThanOrEqualTo900px,
 	] = useState(false);
 
-	const solutionsOptions = [
-		{
-			displayName: 'For Startups',
-			link: '/solutions/for-startups',
-		},
-		{
-			displayName: 'For Enterprises',
-			link: '/solutions/for-enterprises',
-		},
-		{
-			displayName: 'Tembo Buildcamp',
-			link: '/solutions/buildcamp',
-		},
-	];
-
 	const variants = {
 		open: {
 			opacity: 1,
@@ -153,17 +138,8 @@ const NavBar: React.FC<Props> = ({
 				>
 					<Logo />
 					<div className='mid:flex hidden items-center gap-12 m-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10'>
-						<div className='flex font-secondary font-medium text-sm z-10 hover:cursor-pointer relative'>
-							<NavMenu
-								id={2}
-								currentPage={currentPage}
-								selectedPage='/solutions'
-								selectedPageDisplayName='Solutions'
-								options={solutionsOptions}
-							/>
-						</div>
 						<a
-							href='/customers'
+							href='/platform'
 							className={cx(
 								'font-secondary font-medium text-sm z-10 transition-opacity duration-200',
 								currentPage == '/customers' ||
@@ -174,7 +150,7 @@ const NavBar: React.FC<Props> = ({
 							target='_blank'
 							rel='noreferrer'
 						>
-							Customers
+							Platform
 						</a>
 						<a
 							href='/pricing'
