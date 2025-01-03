@@ -4,6 +4,7 @@ import Logo from '../images/logo.svg';
 import { Image } from 'astro:assets';
 import Status from './Status';
 import { motion } from 'framer-motion';
+import Copyright from './Copyright';
 ---
 
 <footer class='bg-offBlack py-12 mobile:py-24 z-40'>
@@ -86,20 +87,6 @@ import { motion } from 'framer-motion';
 							rel='noreferrer'
 							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
 							>Twitter</a
-						>
-						<a
-							href='https://mastodon.social/@tembo_io'
-							target='_blank'
-							rel='noreferrer'
-							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
-							>Mastodon</a
-						>
-						<a
-							href='https://bsky.app/profile/tembo.io'
-							target='_blank'
-							rel='noreferrer'
-							class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
-							>Bluesky</a
 						>
 						<a
 							href='https://www.linkedin.com/company/tembo-inc'
@@ -201,7 +188,7 @@ import { motion } from 'framer-motion';
 				class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
 				>Terms of Service</a
 			>
-			<p>© 2024 Tembo Data Systems, Inc. All Rights Reserved.</p>
+			<Copyright />
 		</div>
 		<a
 			href='/soc2.pdf'

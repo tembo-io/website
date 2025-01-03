@@ -1,0 +1,94 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar';
+import Container from '../../components/Container';
+import Footer from '../../components/Footer.astro';
+import JoinTemboCTA from '../../components/JoinTemboCTA.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title='Customers | Tembo'>
+	<div class='main-content relative overflow-hidden'>
+		<NavBar client:load currentPage={currentPath} />
+		<div class='w-full h-[150px] overflow-hidden'></div>
+		<Container>
+			<section>
+				<div
+					class='flex flex-col items-center justify-center gap-4 md:gap-6 mb-16'
+				>
+					<h1
+						class='text-[28px] sm:text-[48px] md:text-[56px] lg:text-[64px] text-center leading-tight font-semibold z-10'
+					>
+						Tembo Cloud Platform
+					</h1>
+				</div>
+
+				<div class='space-y-8 mb-20'>
+					<div class='grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8'>
+						<div
+							class='overflow-hidden prose prose-invert prose-lg'
+						>
+							Our mission is to help you use Postgres for
+							everything. The power of self-hosted Postgres, but
+							with the convenience of managed SaaS. Tembo provides
+							the full power of self-hosted Postgres, as much of
+							the open-source Postgres ecosystem as possible, as a
+							managed service.
+						</div>
+						<div
+							class='overflow-hidden rounded-xl prose prose-invert prose-lg'
+						>
+							Tembo Cloud is the best managed service to access
+							Postgres extensions. You can use more than 200
+							different Postgres extensions indexed on
+							<a href='https://pgt.dev/'>Trunk</a>, and we are
+							committed to helping our users successfully use any
+							Postgres extension possible on Tembo Cloud.
+						</div>
+						<div
+							class='overflow-hidden rounded-xl prose prose-invert prose-lg'
+						>
+							We have created a set of pre-built,
+							use-case-specific Postgres configurations, known as <a
+								href='/docs/product/stacks/intro-to-stacks'
+								>Tembo Stacks</a
+							>, which includes the <a
+								href='/docs/product/stacks/ai/vectordb/getting-started'
+								>VectorDB Stack</a
+							>, the <a
+								href='/docs/product/stacks/analytical/timeseries'
+								>Time Series Stack</a
+							>, and a <a
+								href='/docs/product/stacks/analytical/data-warehouse'
+								>DataWarehouse Stack</a
+							>, for example.
+						</div>
+						<div
+							class='overflow-hidden rounded-xl prose prose-invert prose-lg'
+						>
+							Tembo Cloud is a fast and stable Postgres as a
+							service offering. We aim to keep managing Postgres
+							as simple as possible for our users while offering
+							world-class customer support.
+						</div>
+					</div>
+				</div>
+
+				<JoinTemboCTA />
+			</section>
+		</Container>
+	</div>
+
+	<div class='relative bg-offBlack'>
+		<div
+			class='absolute top-0 flex h-[1px] w-full flex-row items-center justify-center opacity-100 shine'
+		>
+		</div>
+		<Container>
+			<div class='mt-16 mobile:mt-24'>
+				<Footer />
+			</div>
+		</Container>
+	</div>
+</Layout>

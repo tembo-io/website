@@ -5,7 +5,6 @@ import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import ClerkProviderWithButton from './ClerkButton';
-import NavMenu from './NavMenu';
 
 interface Props {
 	currentPage: string;
@@ -25,21 +24,6 @@ const NavBar: React.FC<Props> = ({
 		isScreenGreaterThanOrEqualTo900px,
 		setIsScreenGreaterThanOrEqualTo900px,
 	] = useState(false);
-
-	const solutionsOptions = [
-		{
-			displayName: 'For Startups',
-			link: '/solutions/for-startups',
-		},
-		{
-			displayName: 'For Enterprises',
-			link: '/solutions/for-enterprises',
-		},
-		{
-			displayName: 'Tembo Buildcamp',
-			link: '/solutions/buildcamp',
-		},
-	];
 
 	const variants = {
 		open: {
@@ -153,28 +137,19 @@ const NavBar: React.FC<Props> = ({
 				>
 					<Logo />
 					<div className='mid:flex hidden items-center gap-12 m-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10'>
-						<div className='flex font-secondary font-medium text-sm z-10 hover:cursor-pointer relative'>
-							<NavMenu
-								id={2}
-								currentPage={currentPage}
-								selectedPage='/solutions'
-								selectedPageDisplayName='Solutions'
-								options={solutionsOptions}
-							/>
-						</div>
 						<a
-							href='/customers'
+							href='/product'
 							className={cx(
 								'font-secondary font-medium text-sm z-10 transition-opacity duration-200',
-								currentPage == '/customers' ||
-									currentPage == '/customers/'
+								currentPage == '/product' ||
+									currentPage == '/product/'
 									? 'text-neon'
 									: 'text-white opacity-70 hover:opacity-100',
 							)}
 							target='_blank'
 							rel='noreferrer'
 						>
-							Customers
+							Product
 						</a>
 						<a
 							href='/pricing'

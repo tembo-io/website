@@ -11,57 +11,14 @@ const MobileMenu = () => {
 			<Container styles='h-[100%] pb-8'>
 				<nav className='flex flex-col gap-[30px] h-full justify-between w-full'>
 					<div className='flex flex-col gap-[30px] mt-[100px] w-full'>
-						<ul className='flex flex-col'>
-							<button
-								className='flex flex-start items-center gap-2 font-secondary text-white/90 hover:text-white text-[16px] transition-colors'
-								onClick={() => setIsOpen(!isOpen)}
-							>
-								Solutions
-								<img
-									src={
-										isOpen
-											? '/arrow-up.svg'
-											: '/arrow-down.svg'
-									}
-									alt={`arrow ${isOpen ? 'up' : 'down'} symbol`}
-									className='opacity-70'
-								/>
-							</button>
-							{isOpen && (
-								<div className='flex flex-col gap-6 mt-6 pl-4 border-l border-white/10'>
-									<a
-										href='/solutions/buildcamp'
-										className='font-secondary text-white/70 hover:text-white transition-colors'
-									>
-										Tembo Buildcamp
-									</a>
-									<a
-										href='/solutions/for-enterprises'
-										className='font-secondary text-white/70 hover:text-white transition-colors'
-									>
-										For Enterprises
-									</a>
-									<a
-										href='/solutions/for-startups'
-										className='font-secondary text-white/70 hover:text-white transition-colors'
-									>
-										For Startups
-									</a>
-								</div>
-							)}
-						</ul>
-						<div className='h-[1px] w-full bg-white/10' />
-
 						{/* Navigation Links */}
 						<div className='flex flex-col gap-[30px]'>
 							<a
-								href='/customers'
+								href='/product'
 								className='font-secondary text-white/90 hover:text-white text-[16px] transition-colors'
 							>
-								Customers
+								Product
 							</a>
-							<div className='h-[1px] w-full bg-white/10' />
-
 							<a
 								href='/pricing'
 								className='font-secondary text-white/90 hover:text-white text-[16px] transition-colors'

@@ -26,83 +26,27 @@ const { slug, title } = Astro.props;
 		target='_blank'
 		rel='noopener noreferrer'
 	>
-		<Image
-			src={HackerNews}
-			height={20}
-			width={20}
-			alt='hacker news icon'
-		/>
+		<Image src={HackerNews} height={20} width={20} alt='hacker news icon' />
 	</a>
 	<a
 		href={`https://twitter.com/intent/tweet?url=https://tembo.io/blog/${slug}&text=${encodeURIComponent(title)}`}
 		target='_blank'
 		rel='noopener noreferrer'
 	>
-		<Image
-			src={Twitter}
-			height={16}
-			width={16}
-			alt='twitter icon'
-		/>
+		<Image src={Twitter} height={16} width={16} alt='twitter icon' />
 	</a>
 	<a
 		href={`https://www.reddit.com/r/postgresql/submit?url=https://tembo.io/blog/${slug}&title=${encodeURIComponent(title)}`}
 		target='_blank'
 		rel='noopener noreferrer'
 	>
-		<Image
-			src={Reddit}
-			height={17}
-			width={19}
-			alt='reddit icon'
-		/>
+		<Image src={Reddit} height={17} width={19} alt='reddit icon' />
 	</a>
 	<a
 		href={`https://www.linkedin.com/sharing/share-offsite/?url=https://tembo.io/blog/${slug}`}
 		target='_blank'
 		rel='noopener noreferrer'
 	>
-		<Image
-			src={LinkedIn}
-			height={17}
-			width={16}
-			alt='linkedin icon'
-		/>
-	</a>
-	<a
-		href={`https://www.facebook.com/sharer.php?u=https://tembo.io/blog/${slug}`}
-		target='_blank'
-		rel='noopener noreferrer'
-	>
-		<Image
-			src={Facebook}
-			height={16}
-			width={17}
-			alt='linkedin icon'
-		/>
-	</a>
-	<a
-		href={`https://mastodonshare.com/?text=${encodeURIComponent(title)}t&url=https://tembo.io/blog/${slug}`}
-		target='_blank'
-		rel='noopener noreferrer'
-	>
-		<Image
-			src={Mastodon}
-			height={16}
-			width={17}
-			alt='mastodon icon'
-		/>
-	</a>
-	<a
-		href={`https://bsky.app/intent/compose?text=${encodeURIComponent(title)}%0Ahttps://tembo.io/blog/${slug}`}
-		target='_blank'
-		rel='noopener noreferrer'
-	>
-		<Image
-			src={BlueSky}
-			height={16}
-			width={17}
-			alt='bluesky icon'
-		/>
+		<Image src={LinkedIn} height={17} width={16} alt='linkedin icon' />
 	</a>
 </div>
