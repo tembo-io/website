@@ -11,9 +11,14 @@ const MobileMenu = () => {
 			<Container styles='h-[100%] pb-8'>
 				<nav className='flex flex-col gap-[30px] h-full justify-between w-full'>
 					<div className='flex flex-col gap-[30px] mt-[100px] w-full'>
-
 						{/* Navigation Links */}
 						<div className='flex flex-col gap-[30px]'>
+							<a
+								href='/product'
+								className='font-secondary text-white/90 hover:text-white text-[16px] transition-colors'
+							>
+								Product
+							</a>
 							<a
 								href='/pricing'
 								className='font-secondary text-white/90 hover:text-white text-[16px] transition-colors'

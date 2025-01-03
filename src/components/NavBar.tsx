@@ -5,7 +5,6 @@ import MobileMenu from './MobileMenu';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import ClerkProviderWithButton from './ClerkButton';
-import NavMenu from './NavMenu';
 
 interface Props {
 	currentPage: string;
@@ -139,18 +138,18 @@ const NavBar: React.FC<Props> = ({
 					<Logo />
 					<div className='mid:flex hidden items-center gap-12 m-auto absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10'>
 						<a
-							href='/platform'
+							href='/product'
 							className={cx(
 								'font-secondary font-medium text-sm z-10 transition-opacity duration-200',
-								currentPage == '/customers' ||
-									currentPage == '/customers/'
+								currentPage == '/product' ||
+									currentPage == '/product/'
 									? 'text-neon'
 									: 'text-white opacity-70 hover:opacity-100',
 							)}
 							target='_blank'
 							rel='noreferrer'
 						>
-							Platform
+							Product
 						</a>
 						<a
 							href='/pricing'
