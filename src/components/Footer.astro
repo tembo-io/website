@@ -4,6 +4,7 @@ import Logo from '../images/logo.svg';
 import { Image } from 'astro:assets';
 import Status from './Status';
 import { motion } from 'framer-motion';
+import Copyright from './Copyright';
 ---
 
 <footer class='bg-offBlack py-12 mobile:py-24 z-40'>
@@ -187,7 +188,7 @@ import { motion } from 'framer-motion';
 				class='inline-flex items-center gap-2 text-grey transition-colors duration-200 hover:text-white'
 				>Terms of Service</a
 			>
-			<p>©2025 Tembo Data Systems, Inc. All Rights Reserved.</p>
+			<Copyright />
 		</div>
 		<a
 			href='/soc2.pdf'
