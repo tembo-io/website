@@ -5,18 +5,24 @@ sideBarPosition: 305
 tags: [postgresql, paradedb, analytics]
 ---
 
-Tembo's Analytics Stack enables you to efficiently query large amounts of "off-site" data (such as S3 parquet files) easily.
- The Stack is powered by [ParadeDB's](https://github.com/paradedb/paradedb) [pg_analytics](https://github.com/paradedb/paradedb/tree/dev/pg_analytics) extension and is tuned for analytics workloads.
+Tembo's Analytics Stack provides a Postgres database which is tuned for efficient querying of large amounts of data stored locally in Postgres or on remote storage such as S3. The S3 querying functionality is powered by [pg_analytics](https://github.com/paradedb/paradedb/tree/dev/pg_analytics).
 
 ## Extensions
 
+-   `pg_stat_statements` provides statistics on SQL statements executed by the database. It helps users analyze query performance and identify areas for optimization.
 - [pg_analytics](https://github.com/paradedb/paradedb/tree/dev/pg_analytics) - provides implementations of various foreign data wrappers for querying diverse table formats (Iceberg, Delta lake, etc.) in S3 and other backing stores. DuckDB ensures efficient query plans
 - [pg_partman](https://pgt.dev/extensions/pg_partman) - simplifies and automates partitioning of large database tables
 - [pg_cron](https://pgt.dev/extensions/pg_cron) - for scheduling maintenance operations
+- [hydra_columnar](https://pgt.dev/extensions/hydra_columnar) - `hydra_columnar` is open source, column-oriented Postgres, designed for high-speed aggregate operations.
+- [postgres_fdw](https://pgt.dev/extensions/postgres_fdw) - `postgres_fdw` provides the foreign data wrapper necessary to access data stored in external Postgres servers.
+- [wrappers](https://pgt.dev/extensions/wrappers) - `wrappers` is a development framework for Postgres Foreign Data Wrappers (FDW), written in Rust. It also comes with collection of FDWs built by Supabase.
+- [pg_parquet](https://pgt.dev/extensions/pg_parquet) - `pg_parquet` is a PostgreSQL extension that allows you to read and write Parquet files, which are located in S3 or file system, from PostgreSQL via COPY TO/FROM commands.
+- [pg_later](https://pgt.dev/extensions/pg_later) - `pg_later` is a PostgreSQL extension to execute queries asynchronously.
+-   Extensions from [Trunk](https://pgt.dev) can be installed on-demand.
 
 ## Getting started
 
-This guide will demonstrate how to query a parquet table stored in an S3 bucket.
+This guide will demonstrate how to query a parquet table stored in an S3 bucket. All actions in the [OLAP](/docs/product/stacks/analytical/olap) and [Data Warehouse](/docs/product/stacks/analytical/data-warehouse) guides can also be achieved with this stack.
 
 ## Preparing your database
 
