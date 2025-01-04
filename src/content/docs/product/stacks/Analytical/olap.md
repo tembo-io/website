@@ -5,6 +5,13 @@ sideBarPosition: 301
 tags: [postgres, olap, analytical]
 ---
 
+--
+**NOTE**
+
+The OLAP stack has been deprecated. Please use the [Analytics](https://tembo.io/docs/product/stacks/analytical/analytics) stack for new instances. It provides a superset of the features the OLAP stack provides.
+
+--
+
 ## Configuration
 
 The following configurations automatically scale based on the size of CPU, memory, and storage for the cluster:
